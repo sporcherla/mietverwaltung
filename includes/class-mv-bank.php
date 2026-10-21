@@ -40,19 +40,25 @@ class MV_Bank {
 				$betrag = -$betrag;
 			}
 			$datum = (string) ( $n->BookgDt->Dt ?: $n->ValDt->Dt );
-			$name = '';
-			$iban = '';
+			$name  = '';
+			$iban  = '';
 			$zweck = [];
 			foreach ( $n->xpath( './/c:TxDtls' ) as $tx ) {
 				$tx->registerXPathNamespace( 'c', $doc->getNamespaces()[''] ?? '' );
-				$p = $betrag >= 0 ? 'Dbtr' : 'Cdtr';
+				$p    = $betrag >= 0 ? 'Dbtr' : 'Cdtr';
 				$name = $name ?: (string) ( $tx->xpath( ".//c:RltdPties/c:$p/c:Nm" )[0] ?? '' );
 				$iban = $iban ?: (string) ( $tx->xpath( ".//c:RltdPties/c:{$p}Acct/c:Id/c:IBAN" )[0] ?? '' );
 				foreach ( $tx->xpath( './/c:RmtInf/c:Ustrd' ) as $u ) {
 					$zweck[] = (string) $u;
 				}
 			}
-			$rows[] = [ 'datum' => substr( $datum, 0, 10 ), 'betrag' => $betrag, 'name' => trim( $name ), 'iban' => trim( $iban ), 'zweck' => trim( implode( ' ', $zweck ) ) ];
+			$rows[] = [
+				'datum'  => substr( $datum, 0, 10 ),
+				'betrag' => $betrag,
+				'name'   => trim( $name ),
+				'iban'   => trim( $iban ),
+				'zweck'  => trim( implode( ' ', $zweck ) ),
+			];
 		}
 		return $rows;
 	}
@@ -68,16 +74,16 @@ class MV_Bank {
 			return [];
 		}
 		// Kopfzeile finden: erste Zeile, die ein Datums- und ein Betragsfeld benennt
-		$sep = ';';
-		$kopf = null;
+		$sep   = ';';
+		$kopf  = null;
 		$start = 0;
 		foreach ( array_slice( $zeilen, 0, 15 ) as $i => $z ) {
 			foreach ( [ ';', ',', "\t" ] as $s ) {
 				$f = str_getcsv( $z, $s );
 				$l = array_map( fn( $x ) => mb_strtolower( trim( $x, "\" \t" ) ), $f );
 				if ( count( $f ) >= 3 && self::spalte( $l, [ 'buchungstag', 'buchungsdatum', 'datum', 'valuta', 'wertstellung', 'buchung' ] ) !== null && self::spalte( $l, [ 'betrag', 'umsatz', 'amount' ] ) !== null ) {
-					$sep = $s;
-					$kopf = $l;
+					$sep   = $s;
+					$kopf  = $l;
 					$start = $i + 1;
 					break 2;
 				}
@@ -86,12 +92,12 @@ class MV_Bank {
 		if ( $kopf === null ) {
 			return [];
 		}
-		$c_datum = self::spalte( $kopf, [ 'buchungstag', 'buchungsdatum', 'buchung', 'datum', 'valuta', 'wertstellung' ] );
+		$c_datum  = self::spalte( $kopf, [ 'buchungstag', 'buchungsdatum', 'buchung', 'datum', 'valuta', 'wertstellung' ] );
 		$c_betrag = self::spalte( $kopf, [ 'betrag', 'umsatz', 'amount' ] );
-		$c_name = self::spalte( $kopf, [ 'beguenstigter/zahlungspflichtiger', 'begünstigter/zahlungspflichtiger', 'name zahlungsbeteiligter', 'auftraggeber/empfänger', 'auftraggeber / begünstigter', 'zahlungspflichtige*r', 'zahlungsempfänger*in', 'empfänger', 'auftraggeber', 'name', 'beguenstigter', 'begünstigter' ] );
-		$c_iban = self::spalte( $kopf, [ 'iban zahlungsbeteiligter', 'kontonummer/iban', 'iban', 'kontonummer' ] );
-		$c_zweck = self::spalte( $kopf, [ 'verwendungszweck', 'buchungstext', 'vorgang/verwendungszweck', 'beschreibung', 'text' ] );
-		$c_soll = self::spalte( $kopf, [ 'soll/haben', 'soll' ] );
+		$c_name   = self::spalte( $kopf, [ 'beguenstigter/zahlungspflichtiger', 'begünstigter/zahlungspflichtiger', 'name zahlungsbeteiligter', 'auftraggeber/empfänger', 'auftraggeber / begünstigter', 'zahlungspflichtige*r', 'zahlungsempfänger*in', 'empfänger', 'auftraggeber', 'name', 'beguenstigter', 'begünstigter' ] );
+		$c_iban   = self::spalte( $kopf, [ 'iban zahlungsbeteiligter', 'kontonummer/iban', 'iban', 'kontonummer' ] );
+		$c_zweck  = self::spalte( $kopf, [ 'verwendungszweck', 'buchungstext', 'vorgang/verwendungszweck', 'beschreibung', 'text' ] );
+		$c_soll   = self::spalte( $kopf, [ 'soll/haben', 'soll' ] );
 
 		$rows = [];
 		for ( $i = $start; $i < count( $zeilen ); $i++ ) {
@@ -137,7 +143,7 @@ class MV_Bank {
 	}
 
 	private static function datum( string $s ): ?string {
-		$s = trim( $s, "\" " );
+		$s = trim( $s, '" ' );
 		if ( preg_match( '/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/', $s, $m ) ) {
 			$y = strlen( $m[3] ) === 2 ? '20' . $m[3] : $m[3];
 			return sprintf( '%04d-%02d-%02d', $y, $m[2], $m[1] );
@@ -158,7 +164,32 @@ class MV_Bank {
 
 	/** Monat aus Verwendungszweck („Miete 03/2026“, „März 2026“, „2026-03“), sonst Buchungsmonat. */
 	private static function monat_aus_zweck( string $zweck, string $datum ): string {
-		$monate = [ 'januar' => 1, 'jan' => 1, 'februar' => 2, 'feb' => 2, 'märz' => 3, 'maerz' => 3, 'mrz' => 3, 'april' => 4, 'apr' => 4, 'mai' => 5, 'juni' => 6, 'jun' => 6, 'juli' => 7, 'jul' => 7, 'august' => 8, 'aug' => 8, 'september' => 9, 'sep' => 9, 'oktober' => 10, 'okt' => 10, 'november' => 11, 'nov' => 11, 'dezember' => 12, 'dez' => 12 ];
+		$monate = [
+			'januar'    => 1,
+			'jan'       => 1,
+			'februar'   => 2,
+			'feb'       => 2,
+			'märz'      => 3,
+			'maerz'     => 3,
+			'mrz'       => 3,
+			'april'     => 4,
+			'apr'       => 4,
+			'mai'       => 5,
+			'juni'      => 6,
+			'jun'       => 6,
+			'juli'      => 7,
+			'jul'       => 7,
+			'august'    => 8,
+			'aug'       => 8,
+			'september' => 9,
+			'sep'       => 9,
+			'oktober'   => 10,
+			'okt'       => 10,
+			'november'  => 11,
+			'nov'       => 11,
+			'dezember'  => 12,
+			'dez'       => 12,
+		];
 		if ( preg_match( '/\b(\d{1,2})[\/\.\-](\d{4})\b/', $zweck, $m ) && $m[1] >= 1 && $m[1] <= 12 ) {
 			return sprintf( '%04d-%02d-01', $m[2], $m[1] );
 		}
@@ -174,30 +205,30 @@ class MV_Bank {
 
 	public static function vorschlaege( array $rows ): array {
 		global $wpdb;
-		$regeln = $wpdb->get_results( "SELECT * FROM " . mv_table( 'bank_regeln' ) );
+		$regeln = $wpdb->get_results( 'SELECT * FROM ' . mv_table( 'bank_regeln' ) );
 		$mvs    = MV_Soll::alle_mv( true );
-		$mieter = $wpdb->get_results( "SELECT id, nachname, iban FROM " . mv_table( 'mieter' ), OBJECT_K );
-		$hashes = $wpdb->get_col( "SELECT hash FROM " . mv_table( 'bank_import' ) );
+		$mieter = $wpdb->get_results( 'SELECT id, nachname, iban FROM ' . mv_table( 'mieter' ), OBJECT_K );
+		$hashes = $wpdb->get_col( 'SELECT hash FROM ' . mv_table( 'bank_import' ) );
 		$hashes = array_flip( $hashes );
 
 		foreach ( $rows as &$r ) {
-			$r['hash'] = self::hash( $r );
-			$r['bereits'] = isset( $hashes[ $r['hash'] ] );
-			$r['typ'] = 'ignorieren';
-			$r['mv_id'] = 0;
+			$r['hash']         = self::hash( $r );
+			$r['bereits']      = isset( $hashes[ $r['hash'] ] );
+			$r['typ']          = 'ignorieren';
+			$r['mv_id']        = 0;
 			$r['kostenart_id'] = 0;
-			$r['objekt_id'] = 0;
-			$r['monat'] = self::monat_aus_zweck( $r['zweck'], $r['datum'] );
-			$text = mb_strtolower( $r['name'] . ' ' . $r['zweck'] );
+			$r['objekt_id']    = 0;
+			$r['monat']        = self::monat_aus_zweck( $r['zweck'], $r['datum'] );
+			$text              = mb_strtolower( $r['name'] . ' ' . $r['zweck'] );
 
 			// Regeln zuerst
 			foreach ( $regeln as $g ) {
 				if ( $g->muster !== '' && mb_strpos( $text, mb_strtolower( $g->muster ) ) !== false ) {
-					$r['typ'] = $g->typ;
-					$r['mv_id'] = (int) $g->mv_id;
+					$r['typ']          = $g->typ;
+					$r['mv_id']        = (int) $g->mv_id;
 					$r['kostenart_id'] = (int) $g->kostenart_id;
-					$r['objekt_id'] = (int) $g->objekt_id;
-					$r['grund'] = 'Regel „' . $g->muster . '“';
+					$r['objekt_id']    = (int) $g->objekt_id;
+					$r['grund']        = 'Regel „' . $g->muster . '“';
 					continue 2;
 				}
 			}
@@ -211,14 +242,14 @@ class MV_Bank {
 					$iban_ok = $m->iban && $r['iban'] && strcasecmp( preg_replace( '/\s+/', '', $m->iban ), $r['iban'] ) === 0;
 					$name_ok = mb_strlen( $m->nachname ) > 2 && mb_strpos( $text, mb_strtolower( $m->nachname ) ) !== false;
 					if ( $iban_ok || $name_ok ) {
-						$r['typ'] = 'zahlung';
+						$r['typ']   = 'zahlung';
 						$r['mv_id'] = (int) $mv->id;
 						$r['grund'] = $iban_ok ? __( 'IBAN des Mieters', 'mietverwaltung' ) : __( 'Name des Mieters', 'mietverwaltung' );
 						break;
 					}
 				}
 			} else {
-				$r['typ'] = 'beleg';
+				$r['typ']   = 'beleg';
 				$r['grund'] = 'Ausgabe – Kostenart wählen oder überspringen';
 			}
 		}
@@ -252,46 +283,72 @@ class MV_Bank {
 
 		if ( isset( $_POST['mv_bank_uebernehmen'] ) ) {
 			$rows = get_transient( $key ) ?: [];
-			$n = 0;
+			$n    = 0;
 			foreach ( (array) ( $_POST['zeile'] ?? [] ) as $i => $z ) {
 				if ( empty( $z['ok'] ) || ! isset( $rows[ $i ] ) ) {
 					continue;
 				}
-				$r = $rows[ $i ];
+				$r   = $rows[ $i ];
 				$typ = sanitize_key( $z['typ'] );
 				if ( $typ === 'zahlung' && ! empty( $z['mv_id'] ) ) {
-					$wpdb->insert( mv_table( 'zahlungen' ), [
-						'mv_id'            => (int) $z['mv_id'],
-						'datum'            => $r['datum'],
-						'betrag'           => $r['betrag'],
-						'monat'            => preg_match( '/^\d{4}-\d{2}$/', $z['monat'] ) ? $z['monat'] . '-01' : $r['monat'],
-						'verwendungszweck' => mb_substr( $r['zweck'], 0, 190 ),
-						'quelle'           => 'bank',
-					] );
+					$wpdb->insert(
+						mv_table( 'zahlungen' ),
+						[
+							'mv_id'            => (int) $z['mv_id'],
+							'datum'            => $r['datum'],
+							'betrag'           => $r['betrag'],
+							'monat'            => preg_match( '/^\d{4}-\d{2}$/', $z['monat'] ) ? $z['monat'] . '-01' : $r['monat'],
+							'verwendungszweck' => mb_substr( $r['zweck'], 0, 190 ),
+							'quelle'           => 'bank',
+						]
+					);
 					$ziel = [ 'zahlung', $wpdb->insert_id ];
 				} elseif ( $typ === 'beleg' && ! empty( $z['kostenart_id'] ) && ! empty( $z['objekt_id'] ) ) {
-					$wpdb->insert( mv_table( 'belege' ), [
-						'owner_id'         => MV_OWNER_ID,
-						'objekt_id'        => (int) $z['objekt_id'],
-						'kostenart_id'     => (int) $z['kostenart_id'],
-						'datum'            => $r['datum'],
-						'steuerjahr'       => (int) substr( $r['datum'], 0, 4 ),
-						'betrag'           => abs( $r['betrag'] ),
-						'zeitraum_von'     => $r['datum'],
-						'zeitraum_bis'     => $r['datum'],
-						'lieferant'        => mb_substr( $r['name'], 0, 190 ),
-						'beschreibung'     => $r['zweck'],
-						'verteilung_jahre' => 1,
-					] );
+					$wpdb->insert(
+						mv_table( 'belege' ),
+						[
+							'owner_id'         => MV_OWNER_ID,
+							'objekt_id'        => (int) $z['objekt_id'],
+							'kostenart_id'     => (int) $z['kostenart_id'],
+							'datum'            => $r['datum'],
+							'steuerjahr'       => (int) substr( $r['datum'], 0, 4 ),
+							'betrag'           => abs( $r['betrag'] ),
+							'zeitraum_von'     => $r['datum'],
+							'zeitraum_bis'     => $r['datum'],
+							'lieferant'        => mb_substr( $r['name'], 0, 190 ),
+							'beschreibung'     => $r['zweck'],
+							'verteilung_jahre' => 1,
+						]
+					);
 					$ziel = [ 'beleg', $wpdb->insert_id ];
 				} else {
 					continue;
 				}
-				$wpdb->replace( mv_table( 'bank_import' ), [ 'hash' => $r['hash'], 'datum' => $r['datum'], 'betrag' => $r['betrag'], 'ziel' => $ziel[0], 'ziel_id' => $ziel[1], 'importiert' => current_time( 'mysql' ) ] );
-				$n++;
+				$wpdb->replace(
+					mv_table( 'bank_import' ),
+					[
+						'hash'       => $r['hash'],
+						'datum'      => $r['datum'],
+						'betrag'     => $r['betrag'],
+						'ziel'       => $ziel[0],
+						'ziel_id'    => $ziel[1],
+						'importiert' => current_time( 'mysql' ),
+					]
+				);
+				++$n;
 				// Lernen: Regel anlegen, wenn gewünscht
 				if ( ! empty( $z['regel'] ) && $r['name'] !== '' ) {
-					$wpdb->insert( mv_table( 'bank_regeln' ), [ 'owner_id' => MV_OWNER_ID, 'muster' => mb_substr( $r['name'], 0, 60 ), 'typ' => $typ, 'objekt_id' => (int) ( $z['objekt_id'] ?? 0 ) ?: null, 'kostenart_id' => (int) ( $z['kostenart_id'] ?? 0 ) ?: null, 'mv_id' => (int) ( $z['mv_id'] ?? 0 ) ?: null ] );
+					$wpdb->insert(
+						mv_table( 'bank_regeln' ),
+						[
+							'owner_id'     => MV_OWNER_ID,
+							'muster'       => mb_substr( $r['name'], 0, 60 ),
+							'typ'          => $typ,
+							'objekt_id'    => (int) ( $z['objekt_id'] ?? 0 ) ?: null,
+							'kostenart_id' => (int) ( $z['kostenart_id'] ?? 0 ) ?: null,
+							'mv_id'        => (int) ( $z['mv_id'] ?? 0 ) ?: null,
+						]
+					);
 				}
 			}
 			delete_transient( $key );
@@ -323,9 +380,9 @@ class MV_Bank {
 			return;
 		}
 
-		$opt_mv = MV_Admin::opt_mv();
-		$opt_ka = MV_Admin::opt_kostenarten();
-		$opt_ob = MV_Admin::opt_objekte();
+		$opt_mv        = MV_Admin::opt_mv();
+		$opt_ka        = MV_Admin::opt_kostenarten();
+		$opt_ob        = MV_Admin::opt_objekte();
 		$erstes_objekt = array_key_first( $opt_ob );
 
 		echo '<form method="post">';
@@ -333,7 +390,7 @@ class MV_Bank {
 		echo '<p><button name="mv_bank_uebernehmen" class="button button-primary">' . esc_html__( 'Markierte Buchungen übernehmen', 'mietverwaltung' ) . '</button> <a href="' . esc_url( admin_url( 'admin.php?page=mv_bank' ) ) . '" class="button">Abbrechen</a></p>';
 		echo '<table class="wp-list-table widefat striped mv-bank"><thead><tr><th class="check-column"><input type="checkbox" onclick="document.querySelectorAll(\'.mv-bank input[name$=\\\'[ok]\\\']\').forEach(c=>{if(!c.disabled)c.checked=this.checked})"></th><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Name / Verwendungszweck', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Anlegen als', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Zuordnung', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Regel merken', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 		foreach ( $rows as $i => $r ) {
-			$dis = $r['bereits'] ? ' disabled' : '';
+			$dis     = $r['bereits'] ? ' disabled' : '';
 			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] ) ? ' checked' : '';
 			echo '<tr' . ( $r['bereits'] ? ' style="opacity:.5"' : '' ) . '>';
 			printf( '<td><input type="checkbox" name="zeile[%d][ok]" value="1"%s%s></td>', $i, $checked, $dis );

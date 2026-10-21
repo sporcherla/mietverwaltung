@@ -28,9 +28,9 @@ class MV_Mietvertrag {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'k' => $k ] = $d;
-		$E = MV_Einstellungen::class;
-		$gl = $E::get( 'glaeubiger_id' ) ?: '[Gläubiger-ID in den Einstellungen eintragen]';
-		$ref = 'MIETE-' . str_pad( (string) $mv_id, 6, '0', STR_PAD_LEFT );
+		$E      = MV_Einstellungen::class;
+		$gl     = $E::get( 'glaeubiger_id' ) ?: '[Gläubiger-ID in den Einstellungen eintragen]';
+		$ref    = 'MIETE-' . str_pad( (string) $mv_id, 6, '0', STR_PAD_LEFT );
 		$gesamt = $k ? (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz : 0;
 		self::kopf( 'SEPA-Mandat ' . $m->nachname, [ $ob->id, $mv->id, 'sonstiges', 'SEPA-Lastschriftmandat', false ] );
 		echo '<h1>' . esc_html__( 'SEPA-Basislastschriftmandat', 'mietverwaltung' ) . '</h1>';
@@ -38,54 +38,62 @@ class MV_Mietvertrag {
 		printf( '<p>' . esc_html__( 'Ich ermächtige %1$s, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von %2$s auf mein Konto gezogenen Lastschriften einzulösen.', 'mietverwaltung' ) . '</p>', esc_html( $E::get( 'vermieter_name' ) ), esc_html( $E::get( 'vermieter_name' ) ) );
 		echo '<p class="klein">' . esc_html__( 'Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.', 'mietverwaltung' ) . '</p>';
 		printf( '<p>' . __( '<strong>Verwendungszweck:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt.', 'mietverwaltung' ) . '</p>', esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( mv_eur( $gesamt ) ), max( 1, min( 3, (int) $mv->zahltag ) ) );
-		printf( '<table><tr><td style="width:35%%">' . esc_html__( 'Kontoinhaber', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'Straße, Hausnummer', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'PLZ, Ort', 'mietverwaltung' ) . '</td><td>%s %s</td></tr><tr><td>' . esc_html__( 'Kreditinstitut', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'IBAN', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'BIC', 'mietverwaltung' ) . '</td><td>%s</td></tr></table>',
-			esc_html( implode( ' / ', array_map( fn( $z ) => preg_replace( '/^(Frau|Herr) /', '', $z ), mv_mieter_personen( $m ) ) ) ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), '<span class="feld" style="min-width:80mm"></span>', esc_html( $m->iban ?: '' ) . ( $m->iban ? '' : '<span class="feld" style="min-width:80mm"></span>' ), '<span class="feld" style="min-width:60mm"></span>' );
+		printf(
+			'<table><tr><td style="width:35%%">' . esc_html__( 'Kontoinhaber', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'Straße, Hausnummer', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'PLZ, Ort', 'mietverwaltung' ) . '</td><td>%s %s</td></tr><tr><td>' . esc_html__( 'Kreditinstitut', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'IBAN', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'BIC', 'mietverwaltung' ) . '</td><td>%s</td></tr></table>',
+			esc_html( implode( ' / ', array_map( fn( $z ) => preg_replace( '/^(Frau|Herr) /', '', $z ), mv_mieter_personen( $m ) ) ) ),
+			esc_html( $ob->strasse ),
+			esc_html( $ob->plz ),
+			esc_html( $ob->ort ),
+			'<span class="feld" style="min-width:80mm"></span>',
+			esc_html( $m->iban ?: '' ) . ( $m->iban ? '' : '<span class="feld" style="min-width:80mm"></span>' ),
+			'<span class="feld" style="min-width:60mm"></span>'
+		);
 		echo self::unterschriften( $ob->ort, $m );
 		self::fuss();
 	}
 
 	public static function optionen_default(): array {
 		return [
-			'mitmieter'          => '',
-			'raeume'             => '',
-			'nebenraeume'        => __( 'Kellerabteil', 'mietverwaltung' ),
-			'ausstattung'        => '',
-			'schluessel'         => __( '2 Haustürschlüssel, 2 Wohnungsschlüssel, 1 Briefkastenschlüssel', 'mietverwaltung' ),
-			'befristung_grund'   => '',
-			'mietart'            => 'standard',   // standard | staffel | index
-			'staffeln'           => '',           // Zeilen: 2027-01-01;650
-			'kaution_raten'      => '3',
-			'kleinrep_einzel'    => '120',
-			'kleinrep_jahr'      => '8',
-			'schoenheitsrep'     => 'renoviert',  // renoviert | unrenoviert
-			'tiere'              => 'erlaubnis',
-			'untervermietung'    => 'erlaubnis',
-			'kuendigungsverzicht' => '0',
-			'rauchen'            => 'nein',
-			'hausordnung'        => '1',
-			'energieausweis'     => '',
-			'vormiete'           => '',
-			'mpb_ausnahme'       => '',
-			'mitbenutzung'       => 'Waschküche, Trockenraum, Fahrradabstellraum, Gartenanteil nach Hausordnung',
-			'mietereigentum'     => '',
-			'moeblierung'        => '0',
-			'bk_art'             => 'vorauszahlung',
-			'zahlungsweise'      => 'dauerauftrag',
-			'zustand_maengel'    => '',
-			'arbeiten_vermieter' => '',
+			'mitmieter'              => '',
+			'raeume'                 => '',
+			'nebenraeume'            => __( 'Kellerabteil', 'mietverwaltung' ),
+			'ausstattung'            => '',
+			'schluessel'             => __( '2 Haustürschlüssel, 2 Wohnungsschlüssel, 1 Briefkastenschlüssel', 'mietverwaltung' ),
+			'befristung_grund'       => '',
+			'mietart'                => 'standard',   // standard | staffel | index
+			'staffeln'               => '',           // Zeilen: 2027-01-01;650
+			'kaution_raten'          => '3',
+			'kleinrep_einzel'        => '120',
+			'kleinrep_jahr'          => '8',
+			'schoenheitsrep'         => 'renoviert',  // renoviert | unrenoviert
+			'tiere'                  => 'erlaubnis',
+			'untervermietung'        => 'erlaubnis',
+			'kuendigungsverzicht'    => '0',
+			'rauchen'                => 'nein',
+			'hausordnung'            => '1',
+			'energieausweis'         => '',
+			'vormiete'               => '',
+			'mpb_ausnahme'           => '',
+			'mitbenutzung'           => 'Waschküche, Trockenraum, Fahrradabstellraum, Gartenanteil nach Hausordnung',
+			'mietereigentum'         => '',
+			'moeblierung'            => '0',
+			'bk_art'                 => 'vorauszahlung',
+			'zahlungsweise'          => 'dauerauftrag',
+			'zustand_maengel'        => '',
+			'arbeiten_vermieter'     => '',
 			'arbeiten_vermieter_bis' => '',
-			'arbeiten_mieter'    => '',
-			'arbeiten_mieter_bis' => '',
-			'gartenpflege'       => '0',
-			'merkblatt'          => '1',
-			'sonstiges'          => '',
+			'arbeiten_mieter'        => '',
+			'arbeiten_mieter_bis'    => '',
+			'gartenpflege'           => '0',
+			'merkblatt'              => '1',
+			'sonstiges'              => '',
 		];
 	}
 
 	private static function laden( int $mv_id ): array {
 		global $wpdb;
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'vertraege' ) . " WHERE mv_id = %d", $mv_id ) );
-		$o = $row ? (array) json_decode( $row->optionen, true ) : [];
+		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'vertraege' ) . ' WHERE mv_id = %d', $mv_id ) );
+		$o   = $row ? (array) json_decode( $row->optionen, true ) : [];
 		return array_merge( self::optionen_default(), $o );
 	}
 
@@ -98,13 +106,20 @@ class MV_Mietvertrag {
 		}
 		global $wpdb;
 		$mv_id = (int) $_POST['mv_id'];
-		$o = [];
+		$o     = [];
 		foreach ( self::optionen_default() as $k => $d ) {
-			$raw = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : $d;
+			$raw     = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : $d;
 			$o[ $k ] = in_array( $k, [ 'raeume', 'ausstattung', 'staffeln', 'sonstiges', 'befristung_grund', 'schluessel', 'zustand_maengel', 'arbeiten_vermieter', 'arbeiten_mieter' ], true ) ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
 		}
 		$wpdb->delete( mv_table( 'vertraege' ), [ 'mv_id' => $mv_id ] );
-		$wpdb->insert( mv_table( 'vertraege' ), [ 'mv_id' => $mv_id, 'erstellt' => current_time( 'mysql' ), 'optionen' => wp_json_encode( $o, JSON_UNESCAPED_UNICODE ) ] );
+		$wpdb->insert(
+			mv_table( 'vertraege' ),
+			[
+				'mv_id'    => $mv_id,
+				'erstellt' => current_time( 'mysql' ),
+				'optionen' => wp_json_encode( $o, JSON_UNESCAPED_UNICODE ),
+			]
+		);
 		wp_safe_redirect( admin_url( 'admin.php?page=mv_mietvertrag&mv_id=' . $mv_id . '&msg=saved' ) );
 		exit;
 	}
@@ -115,9 +130,9 @@ class MV_Mietvertrag {
 
 	public static function page(): void {
 		global $wpdb;
-		$mvs = MV_Soll::alle_mv();
+		$mvs   = MV_Soll::alle_mv();
 		$mv_id = (int) ( $_GET['mv_id'] ?? ( $mvs[0]->id ?? 0 ) );
-		$o = self::laden( $mv_id );
+		$o     = self::laden( $mv_id );
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mietvertrag', 'mietverwaltung' ) . '</h1>';
 		if ( ( $_GET['msg'] ?? '' ) === 'saved' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Vertragsoptionen gespeichert.', 'mietverwaltung' ) . '</p></div>';
@@ -164,32 +179,135 @@ class MV_Mietvertrag {
 		$t( 'ausstattung', __( 'Mitvermietete Ausstattung', 'mietverwaltung' ), __( 'z. B. Einbauküche (Hersteller, Baujahr), Waschmaschinenanschluss', 'mietverwaltung' ), 'area' );
 		$t( 'schluessel', __( 'Übergebene Schlüssel', 'mietverwaltung' ), '', 'area' );
 		$t( 'befristung_grund', __( 'Befristungsgrund (nur bei Mietende)', 'mietverwaltung' ), __( 'Zeitmietvertrag nur mit Grund nach § 575 BGB: Eigenbedarf, Abriss/Umbau, Werkswohnung. Ohne Grund gilt der Vertrag als unbefristet.', 'mietverwaltung' ), 'area' );
-		$s( 'mietart', __( 'Mietart', 'mietverwaltung' ), [ 'standard' => __( 'Vergleichsmiete (Erhöhung nach § 558)', 'mietverwaltung' ), 'staffel' => __( 'Staffelmiete (§ 557a)', 'mietverwaltung' ), 'index' => __( 'Indexmiete (§ 557b)', 'mietverwaltung' ) ] );
+		$s(
+			'mietart',
+			__( 'Mietart', 'mietverwaltung' ),
+			[
+				'standard' => __( 'Vergleichsmiete (Erhöhung nach § 558)', 'mietverwaltung' ),
+				'staffel'  => __( 'Staffelmiete (§ 557a)', 'mietverwaltung' ),
+				'index'    => __( 'Indexmiete (§ 557b)', 'mietverwaltung' ),
+			]
+		);
 		$t( 'staffeln', __( 'Staffeln (bei Staffelmiete)', 'mietverwaltung' ), __( 'Je Zeile: Datum;Kaltmiete – z. B. 2027-01-01;650,00. Zwischen den Staffeln mindestens ein Jahr.', 'mietverwaltung' ), 'area' );
-		$s( 'kaution_raten', __( 'Kaution zahlbar in', 'mietverwaltung' ), [ '1' => __( 'einer Summe', 'mietverwaltung' ), '3' => __( 'drei Monatsraten (§ 551 Abs. 2)', 'mietverwaltung' ) ], __( 'Höchstens drei Nettokaltmieten; Betrag aus dem Mietverhältnis.', 'mietverwaltung' ) );
+		$s(
+			'kaution_raten',
+			__( 'Kaution zahlbar in', 'mietverwaltung' ),
+			[
+				'1' => __( 'einer Summe', 'mietverwaltung' ),
+				'3' => __( 'drei Monatsraten (§ 551 Abs. 2)', 'mietverwaltung' ),
+			],
+			__( 'Höchstens drei Nettokaltmieten; Betrag aus dem Mietverhältnis.', 'mietverwaltung' )
+		);
 		$t( 'kleinrep_einzel', __( 'Kleinreparaturen: Höchstbetrag je Fall (€)', 'mietverwaltung' ), __( 'Rechtsprechung: ca. 100–150 €. Nur Teile mit häufigem direktem Zugriff des Mieters.', 'mietverwaltung' ) );
 		$t( 'kleinrep_jahr', __( 'Kleinreparaturen: Höchstbetrag je Jahr (% der Jahreskaltmiete)', 'mietverwaltung' ), __( 'Üblich 6–8 %, oft zusätzlich gedeckelt (hier: und maximal 8 Fälle × Einzelbetrag).', 'mietverwaltung' ) );
-		$s( 'schoenheitsrep', __( 'Zustand bei Übergabe', 'mietverwaltung' ), [ 'renoviert' => __( 'renoviert – Schönheitsreparaturen trägt der Mieter nach Bedarf', 'mietverwaltung' ), __( 'unrenoviert', 'mietverwaltung' ) => __( 'unrenoviert – keine Schönheitsreparaturklausel (BGH VIII ZR 185/14)', 'mietverwaltung' ) ] );
-		$s( 'tiere', __( 'Tierhaltung', 'mietverwaltung' ), [ 'erlaubnis' => __( 'Kleintiere frei, sonst Zustimmung (Standard)', 'mietverwaltung' ), 'frei' => __( 'Haustiere gestattet', 'mietverwaltung' ) ], __( 'Ein generelles Verbot ist unwirksam (BGH VIII ZR 168/12).', 'mietverwaltung' ) );
+		$s(
+			'schoenheitsrep',
+			__( 'Zustand bei Übergabe', 'mietverwaltung' ),
+			[
+				'renoviert'                           => __( 'renoviert – Schönheitsreparaturen trägt der Mieter nach Bedarf', 'mietverwaltung' ),
+				__( 'unrenoviert', 'mietverwaltung' ) => __( 'unrenoviert – keine Schönheitsreparaturklausel (BGH VIII ZR 185/14)', 'mietverwaltung' ),
+			]
+		);
+		$s(
+			'tiere',
+			__( 'Tierhaltung', 'mietverwaltung' ),
+			[
+				'erlaubnis' => __( 'Kleintiere frei, sonst Zustimmung (Standard)', 'mietverwaltung' ),
+				'frei'      => __( 'Haustiere gestattet', 'mietverwaltung' ),
+			],
+			__( 'Ein generelles Verbot ist unwirksam (BGH VIII ZR 168/12).', 'mietverwaltung' )
+		);
 		$s( 'untervermietung', __( 'Untervermietung', 'mietverwaltung' ), [ 'erlaubnis' => __( 'nur mit Zustimmung (§ 540), berechtigtes Interesse § 553 bleibt', 'mietverwaltung' ) ] );
-		$s( 'kuendigungsverzicht', __( 'Beiderseitiger Kündigungsverzicht', 'mietverwaltung' ), [ '0' => __( 'keiner', 'mietverwaltung' ), '1' => __( '1 Jahr', 'mietverwaltung' ), '2' => __( '2 Jahre', 'mietverwaltung' ), '3' => __( '3 Jahre', 'mietverwaltung' ), '4' => __( '4 Jahre (Maximum)', 'mietverwaltung' ) ], __( 'Formularvertraglich höchstens 4 Jahre ab Vertragsschluss (BGH VIII ZR 86/10).', 'mietverwaltung' ) );
-		$s( 'rauchen', __( 'Rauchen in der Wohnung', 'mietverwaltung' ), [ 'nein' => __( 'Bitte unterlassen (nicht verbindlich untersagbar)', 'mietverwaltung' ), 'ja' => __( 'keine Regelung', 'mietverwaltung' ) ] );
-		$s( 'hausordnung', __( 'Hausordnung als Anlage', 'mietverwaltung' ), [ '1' => __( 'ja', 'mietverwaltung' ), '0' => __( 'nein', 'mietverwaltung' ) ] );
+		$s(
+			'kuendigungsverzicht',
+			__( 'Beiderseitiger Kündigungsverzicht', 'mietverwaltung' ),
+			[
+				'0' => __( 'keiner', 'mietverwaltung' ),
+				'1' => __( '1 Jahr', 'mietverwaltung' ),
+				'2' => __( '2 Jahre', 'mietverwaltung' ),
+				'3' => __( '3 Jahre', 'mietverwaltung' ),
+				'4' => __( '4 Jahre (Maximum)', 'mietverwaltung' ),
+			],
+			__( 'Formularvertraglich höchstens 4 Jahre ab Vertragsschluss (BGH VIII ZR 86/10).', 'mietverwaltung' )
+		);
+		$s(
+			'rauchen',
+			__( 'Rauchen in der Wohnung', 'mietverwaltung' ),
+			[
+				'nein' => __( 'Bitte unterlassen (nicht verbindlich untersagbar)', 'mietverwaltung' ),
+				'ja'   => __( 'keine Regelung', 'mietverwaltung' ),
+			]
+		);
+		$s(
+			'hausordnung',
+			__( 'Hausordnung als Anlage', 'mietverwaltung' ),
+			[
+				'1' => __( 'ja', 'mietverwaltung' ),
+				'0' => __( 'nein', 'mietverwaltung' ),
+			]
+		);
 		$t( 'energieausweis', __( 'Energieausweis', 'mietverwaltung' ), __( 'Art (Bedarf/Verbrauch), Kennwert kWh/(m²·a), Effizienzklasse, Ausstellungsdatum – Vorlagepflicht § 80 GEG.', 'mietverwaltung' ) );
 		$t( 'vormiete', __( 'Vormiete (nur bei Mietpreisbremse, § 556g Abs. 1a)', 'mietverwaltung' ), __( 'Nur in Gebieten der bayerischen Mieterschutzverordnung: Auskunft über die Vormiete, wenn die Miete über Vergleichsmiete + 10 % liegt.', 'mietverwaltung' ) );
 		$t( 'mitbenutzung', __( 'Mitbenutzungsrechte (Gemeinschaftsräume)', 'mietverwaltung' ), __( 'Waschküche, Trockenraum, Fahrradkeller, Garten – nach Hausordnung.', 'mietverwaltung' ) );
 		$t( 'mietereigentum', __( 'Mietereigentum / nicht mitvermietet', 'mietverwaltung' ), __( 'Gegenstände, die der Mieter vom Vormieter übernommen hat oder die ihm gehören.', 'mietverwaltung' ) );
-		$s( 'moeblierung', __( 'Möblierungszuschlag', 'mietverwaltung' ), [ '0' => __( 'nein', 'mietverwaltung' ), '1' => __( 'ja – in der Kaltmiete enthalten, Betrag in „Sonstige Vereinbarungen“ nennen', 'mietverwaltung' ) ] );
-		$s( 'bk_art', __( 'Betriebskosten', 'mietverwaltung' ), [ 'vorauszahlung' => __( 'Vorauszahlung mit jährlicher Abrechnung (Standard)', 'mietverwaltung' ), 'pauschale' => __( 'Pauschale ohne Abrechnung (§ 556 Abs. 2 BGB)', 'mietverwaltung' ) ], __( 'Bei Pauschale keine Abrechnung und keine Nachforderung; Erhöhung nur bei gestiegenen Kosten durch Erklärung in Textform (§ 560 Abs. 1).', 'mietverwaltung' ) );
-		$s( 'mpb_ausnahme', __( 'Mietpreisbremse – Ausnahme (nur angespannter Markt)', 'mietverwaltung' ), [ '' => __( 'keine / nicht betroffen', 'mietverwaltung' ), 'vormiete' => __( 'Vormiete war bereits höher (§ 556e Abs. 1)', 'mietverwaltung' ), 'modernisierung' => __( 'Modernisierung in den letzten 3 Jahren (§ 556e Abs. 2)', 'mietverwaltung' ), 'umfassend' => __( 'Erste Vermietung nach umfassender Modernisierung (§ 556f S. 2)', 'mietverwaltung' ), 'neubau' => __( 'Neubau, erstmals nach 1.10.2014 vermietet (§ 556f S. 1)', 'mietverwaltung' ) ], __( 'Die Auskunft muss vor Vertragsschluss unaufgefordert in Textform erfolgen (§ 556g Abs. 1a BGB), sonst kann sich der Vermieter nicht auf die Ausnahme berufen.', 'mietverwaltung' ) );
-		$s( 'zahlungsweise', __( 'Zahlungsweise', 'mietverwaltung' ), [ 'dauerauftrag' => __( 'Dauerauftrag', 'mietverwaltung' ), 'sepa' => __( 'SEPA-Lastschriftmandat (Anlage)', 'mietverwaltung' ) ] );
+		$s(
+			'moeblierung',
+			__( 'Möblierungszuschlag', 'mietverwaltung' ),
+			[
+				'0' => __( 'nein', 'mietverwaltung' ),
+				'1' => __( 'ja – in der Kaltmiete enthalten, Betrag in „Sonstige Vereinbarungen“ nennen', 'mietverwaltung' ),
+			]
+		);
+		$s(
+			'bk_art',
+			__( 'Betriebskosten', 'mietverwaltung' ),
+			[
+				'vorauszahlung' => __( 'Vorauszahlung mit jährlicher Abrechnung (Standard)', 'mietverwaltung' ),
+				'pauschale'     => __( 'Pauschale ohne Abrechnung (§ 556 Abs. 2 BGB)', 'mietverwaltung' ),
+			],
+			__( 'Bei Pauschale keine Abrechnung und keine Nachforderung; Erhöhung nur bei gestiegenen Kosten durch Erklärung in Textform (§ 560 Abs. 1).', 'mietverwaltung' )
+		);
+		$s(
+			'mpb_ausnahme',
+			__( 'Mietpreisbremse – Ausnahme (nur angespannter Markt)', 'mietverwaltung' ),
+			[
+				''               => __( 'keine / nicht betroffen', 'mietverwaltung' ),
+				'vormiete'       => __( 'Vormiete war bereits höher (§ 556e Abs. 1)', 'mietverwaltung' ),
+				'modernisierung' => __( 'Modernisierung in den letzten 3 Jahren (§ 556e Abs. 2)', 'mietverwaltung' ),
+				'umfassend'      => __( 'Erste Vermietung nach umfassender Modernisierung (§ 556f S. 2)', 'mietverwaltung' ),
+				'neubau'         => __( 'Neubau, erstmals nach 1.10.2014 vermietet (§ 556f S. 1)', 'mietverwaltung' ),
+			],
+			__( 'Die Auskunft muss vor Vertragsschluss unaufgefordert in Textform erfolgen (§ 556g Abs. 1a BGB), sonst kann sich der Vermieter nicht auf die Ausnahme berufen.', 'mietverwaltung' )
+		);
+		$s(
+			'zahlungsweise',
+			__( 'Zahlungsweise', 'mietverwaltung' ),
+			[
+				'dauerauftrag' => __( 'Dauerauftrag', 'mietverwaltung' ),
+				'sepa'         => __( 'SEPA-Lastschriftmandat (Anlage)', 'mietverwaltung' ),
+			]
+		);
 		$t( 'zustand_maengel', __( 'Zustand bei Übergabe / bekannte Mängel', 'mietverwaltung' ), __( 'Kurz; Details ins Übergabeprotokoll.', 'mietverwaltung' ), 'area' );
 		$t( 'arbeiten_vermieter', __( 'Vom Vermieter noch auszuführende Arbeiten', 'mietverwaltung' ), '', 'area' );
 		$t( 'arbeiten_vermieter_bis', __( '… bis spätestens (Datum)', 'mietverwaltung' ) );
 		$t( 'arbeiten_mieter', __( 'Vom Mieter auf eigene Kosten auszuführende Arbeiten', 'mietverwaltung' ), __( 'Gegenleistung ggf. in „Sonstige Vereinbarungen“ (z. B. Mietfreiheit).', 'mietverwaltung' ), 'area' );
 		$t( 'arbeiten_mieter_bis', __( '… bis spätestens (Datum)', 'mietverwaltung' ) );
-		$s( 'gartenpflege', __( 'Gartenpflege durch den Mieter', 'mietverwaltung' ), [ '0' => __( 'nein / durch Vermieter bzw. Dienstleister (Betriebskosten)', 'mietverwaltung' ), '1' => __( 'ja – Mieter pflegt den ihm zugewiesenen Gartenteil', 'mietverwaltung' ) ] );
-		$s( 'merkblatt', __( 'Merkblatt Heizen und Lüften als Anlage', 'mietverwaltung' ), [ '1' => __( 'ja', 'mietverwaltung' ), '0' => __( 'nein', 'mietverwaltung' ) ] );
+		$s(
+			'gartenpflege',
+			__( 'Gartenpflege durch den Mieter', 'mietverwaltung' ),
+			[
+				'0' => __( 'nein / durch Vermieter bzw. Dienstleister (Betriebskosten)', 'mietverwaltung' ),
+				'1' => __( 'ja – Mieter pflegt den ihm zugewiesenen Gartenteil', 'mietverwaltung' ),
+			]
+		);
+		$s(
+			'merkblatt',
+			__( 'Merkblatt Heizen und Lüften als Anlage', 'mietverwaltung' ),
+			[
+				'1' => __( 'ja', 'mietverwaltung' ),
+				'0' => __( 'nein', 'mietverwaltung' ),
+			]
+		);
 		$t( 'sonstiges', __( 'Sonstige Vereinbarungen', 'mietverwaltung' ), '', 'area' );
 		echo '</tbody></table>';
 		submit_button( 'Optionen speichern' );
@@ -202,25 +320,33 @@ class MV_Mietvertrag {
 
 	private static function daten( int $mv_id ): ?array {
 		global $wpdb;
-		$mv = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'mietverhaeltnisse' ) . " WHERE id = %d", $mv_id ) );
+		$mv = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE id = %d', $mv_id ) );
 		if ( ! $mv ) {
 			return null;
 		}
-		$m = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'mieter' ) . " WHERE id = %d", $mv->mieter_id ) );
-		$e = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'einheiten' ) . " WHERE id = %d", $mv->einheit_id ) );
-		$o = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'objekte' ) . " WHERE id = %d", $e->objekt_id ) );
+		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $mv->mieter_id ) );
+		$e = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $mv->einheit_id ) );
+		$o = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $e->objekt_id ) );
 		$k = MV_Soll::konditionen( $mv_id, substr( $mv->beginn, 0, 7 ) . '-01' ) ?: MV_Soll::konditionen( $mv_id, current_time( 'Y-m-01' ) );
-		return [ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $o, 'k' => $k, 'opt' => self::laden( $mv_id ), 'zusatz' => MV_Soll::zusatzeinheiten( $mv_id ) ];
+		return [
+			'mv'      => $mv,
+			'mieter'  => $m,
+			'einheit' => $e,
+			'objekt'  => $o,
+			'k'       => $k,
+			'opt'     => self::laden( $mv_id ),
+			'zusatz'  => MV_Soll::zusatzeinheiten( $mv_id ),
+		];
 	}
 
 	private static ?string $pdf_titel = null;
-	private static array $pdf_ablage = [];
+	private static array $pdf_ablage  = [];
 
 	/** Startet die Ausgabe: PDF (gepuffert) oder HTML-Druckseite (?format=html). */
 	private static function kopf( string $titel, array $ablage = [] ): void {
 		$E = MV_Einstellungen::class;
 		if ( ( $_GET['format'] ?? 'pdf' ) !== 'html' ) {
-			self::$pdf_titel = $titel;
+			self::$pdf_titel  = $titel;
 			self::$pdf_ablage = $ablage;
 			ob_start();
 			return;
@@ -252,7 +378,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 
 	private static function fuss(): void {
 		if ( self::$pdf_titel !== null ) {
-			$html = ob_get_clean();
+			$html  = ob_get_clean();
 			$bytes = MV_PDF::dokument( $html, MV_Brief::absender_zeile() );
 			if ( self::$pdf_ablage && ! empty( $_GET['ablegen'] ) ) {
 				[ $objekt_id, $mv_id, $typ, $bez, $sichtbar ] = self::$pdf_ablage;
@@ -283,14 +409,33 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 	/** Betriebskostenkatalog § 2 BetrKV (amtlicher Text ist gemeinfrei, § 5 UrhG) mit Umlageschlüssel aus den Kostenarten. */
 	private static function betrkv_tabelle( bool $zentral, bool $etw ): string {
 		global $wpdb;
-		$posten = [
-			1 => 'Laufende öffentliche Lasten des Grundstücks (Grundsteuer)', 2 => 'Wasserversorgung', 3 => 'Entwässerung', 4 => 'Heizung', 5 => 'Warmwasser', 6 => 'Verbundene Heizungs- und Warmwasserversorgungsanlagen',
-			7 => 'Personen- oder Lastenaufzug', 8 => 'Straßenreinigung und Müllbeseitigung', 9 => 'Gebäudereinigung und Ungezieferbekämpfung', 10 => 'Gartenpflege', 11 => 'Beleuchtung', 12 => 'Schornsteinreinigung',
-			13 => 'Sach- und Haftpflichtversicherung', 14 => 'Hauswart', 15 => 'Gemeinschafts-Antennenanlage / Breitbandnetz / Glasfaser-Verteilanlage', 16 => 'Einrichtungen für die Wäschepflege', 17 => 'Sonstige Betriebskosten (z. B. Wartung Rauchwarnmelder, Feuerlöscher, Dachrinnenreinigung, Wartung Elektro-/Blitzschutzanlage)',
+		$posten           = [
+			1  => 'Laufende öffentliche Lasten des Grundstücks (Grundsteuer)',
+			2  => 'Wasserversorgung',
+			3  => 'Entwässerung',
+			4  => 'Heizung',
+			5  => 'Warmwasser',
+			6  => 'Verbundene Heizungs- und Warmwasserversorgungsanlagen',
+			7  => 'Personen- oder Lastenaufzug',
+			8  => 'Straßenreinigung und Müllbeseitigung',
+			9  => 'Gebäudereinigung und Ungezieferbekämpfung',
+			10 => 'Gartenpflege',
+			11 => 'Beleuchtung',
+			12 => 'Schornsteinreinigung',
+			13 => 'Sach- und Haftpflichtversicherung',
+			14 => 'Hauswart',
+			15 => 'Gemeinschafts-Antennenanlage / Breitbandnetz / Glasfaser-Verteilanlage',
+			16 => 'Einrichtungen für die Wäschepflege',
+			17 => 'Sonstige Betriebskosten (z. B. Wartung Rauchwarnmelder, Feuerlöscher, Dachrinnenreinigung, Wartung Elektro-/Blitzschutzanlage)',
 		];
-		$schluessel_label = [ 'flaeche' => 'Wohnfläche', 'personen' => 'Personenzahl', 'verbrauch' => 'Verbrauch (Zähler)', 'einheit' => 'je Wohneinheit' ];
-		$arten = $wpdb->get_results( "SELECT name, schluessel FROM " . mv_table( 'kostenarten' ) . " WHERE umlagefaehig = 1" );
-		$find = function ( array $worte ) use ( $arten, $schluessel_label ) {
+		$schluessel_label = [
+			'flaeche'   => 'Wohnfläche',
+			'personen'  => 'Personenzahl',
+			'verbrauch' => 'Verbrauch (Zähler)',
+			'einheit'   => 'je Wohneinheit',
+		];
+		$arten            = $wpdb->get_results( 'SELECT name, schluessel FROM ' . mv_table( 'kostenarten' ) . ' WHERE umlagefaehig = 1' );
+		$find             = function ( array $worte ) use ( $arten, $schluessel_label ) {
 			foreach ( $arten as $a ) {
 				foreach ( $worte as $w ) {
 					if ( mb_stripos( $a->name, $w ) !== false && ! empty( $schluessel_label[ $a->schluessel ] ) ) {
@@ -300,8 +445,20 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 			}
 			return null;
 		};
-		$map = [ 1 => [ 'Grundsteuer' ], 2 => [ 'Wasser' ], 3 => [ 'Abwasser', 'Entwässerung', 'Wasser' ], 8 => [ 'Müll', 'Straßen' ], 9 => [ 'Reinigung', 'Hausmeister' ], 10 => [ 'Garten', 'Hausmeister' ], 11 => [ 'Strom', 'Beleuchtung' ], 12 => [ 'Schornstein' ], 13 => [ 'Versicherung' ], 14 => [ 'Hauswart', 'Hausmeister' ], 17 => [ 'Sonstige' ] ];
-		$html = '<table class="liste"><thead><tr><th>Nr.</th><th>Betriebskosten (§ 2 BetrKV)</th><th>Umlageschlüssel</th></tr></thead><tbody>';
+		$map              = [
+			1  => [ 'Grundsteuer' ],
+			2  => [ 'Wasser' ],
+			3  => [ 'Abwasser', 'Entwässerung', 'Wasser' ],
+			8  => [ 'Müll', 'Straßen' ],
+			9  => [ 'Reinigung', 'Hausmeister' ],
+			10 => [ 'Garten', 'Hausmeister' ],
+			11 => [ 'Strom', 'Beleuchtung' ],
+			12 => [ 'Schornstein' ],
+			13 => [ 'Versicherung' ],
+			14 => [ 'Hauswart', 'Hausmeister' ],
+			17 => [ 'Sonstige' ],
+		];
+		$html             = '<table class="liste"><thead><tr><th>Nr.</th><th>Betriebskosten (§ 2 BetrKV)</th><th>Umlageschlüssel</th></tr></thead><tbody>';
 		foreach ( $posten as $nr => $name ) {
 			if ( in_array( $nr, [ 4, 5, 6 ], true ) ) {
 				$sch = $zentral ? 'nach HeizkostenV (verbrauchsabhängig)' : 'entfällt (dezentrale Heizung)';
@@ -324,31 +481,37 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 			wp_die( esc_html__( 'Mietverhältnis nicht gefunden.', 'mietverwaltung' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'k' => $k, 'opt' => $o, 'zusatz' => $zusatz ] = $d;
-		$E = MV_Einstellungen::class;
-		$vermieter = $E::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', $E::get( 'vermieter_adresse' ) );
-		$typen_label = [ 'garage' => __( 'Garage', 'mietverwaltung' ), 'stellplatz' => __( 'Stellplatz', 'mietverwaltung' ), 'keller' => __( 'Keller/Lager', 'mietverwaltung' ), 'gewerbe' => __( 'Gewerbefläche', 'mietverwaltung' ), 'wohnung' => __( 'Wohnung', 'mietverwaltung' ) ];
+		$E           = MV_Einstellungen::class;
+		$vermieter   = $E::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', $E::get( 'vermieter_adresse' ) );
+		$typen_label = [
+			'garage'     => __( 'Garage', 'mietverwaltung' ),
+			'stellplatz' => __( 'Stellplatz', 'mietverwaltung' ),
+			'keller'     => __( 'Keller/Lager', 'mietverwaltung' ),
+			'gewerbe'    => __( 'Gewerbefläche', 'mietverwaltung' ),
+			'wohnung'    => __( 'Wohnung', 'mietverwaltung' ),
+		];
 		$zusatz_text = implode( ', ', array_map( fn( $z ) => ( $typen_label[ $z->typ ] ?? $z->typ ) . ' ' . $z->bezeichnung, $zusatz ) );
 		$nebenraeume = trim( implode( ', ', array_filter( [ $zusatz_text, $o['nebenraeume'] ] ) ), ', ' );
-		$anteile = array_filter( $zusatz, fn( $z ) => (float) $z->mietanteil > 0 );
-		$personen = mv_mieter_personen( $m, true );
+		$anteile     = array_filter( $zusatz, fn( $z ) => (float) $z->mietanteil > 0 );
+		$personen    = mv_mieter_personen( $m, true );
 		if ( ! empty( $m->anschrift_alt ) ) {
 			$personen = array_map( fn( $z ) => $z . ', ' . $m->anschrift_alt, $personen );
 		}
 		if ( $o['mitmieter'] ) {
 			$personen[] = $o['mitmieter'];
 		}
-		$mieter = implode( ' und ', $personen );
+		$mieter    = implode( ' und ', $personen );
 		$adresse   = $ob->strasse . ', ' . $ob->plz . ' ' . $ob->ort;
-		$kalt = $k ? (float) $k->kaltmiete : 0;
-		$bk   = $k ? (float) $k->bk_vz : 0;
-		$hk   = $k ? (float) $k->hk_vz : 0;
-		$gesamt = $kalt + $bk + $hk;
-		$zentral = $ob->heizung !== 'dezentral';
-		$etw = (bool) preg_match( '/eigentumswohnung|etw|weg\b/i', $ob->bezeichnung . ' ' . $ob->notiz );
+		$kalt      = $k ? (float) $k->kaltmiete : 0;
+		$bk        = $k ? (float) $k->bk_vz : 0;
+		$hk        = $k ? (float) $k->hk_vz : 0;
+		$gesamt    = $kalt + $bk + $hk;
+		$zentral   = $ob->heizung !== 'dezentral';
+		$etw       = (bool) preg_match( '/eigentumswohnung|etw|weg\b/i', $ob->bezeichnung . ' ' . $ob->notiz );
 		$befristet = $mv->ende && $mv->ende !== '0000-00-00';
-		$ort = MV_Brief::ort() ?: $ob->ort;
-		$P = fn( string $t ) => '<p>' . $t . '</p>';
-		$H = fn( string $t ) => '<h2>' . esc_html( $t ) . '</h2>';
+		$ort       = MV_Brief::ort() ?: $ob->ort;
+		$P         = fn( string $t ) => '<p>' . $t . '</p>';
+		$H         = fn( string $t ) => '<h2>' . esc_html( $t ) . '</h2>';
 
 		if ( ( $_GET['nur'] ?? '' ) === 'datenschutz' ) {
 			self::kopf( 'Datenschutzinformation ' . $m->nachname, [ $ob->id, $mv->id, 'sonstiges', 'Datenschutzinformation Art. 13', true ] );
@@ -364,8 +527,19 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		echo $P( 'Mehrere Mieter haften für alle Verpflichtungen aus diesem Vertrag als Gesamtschuldner. Sie bevollmächtigen sich gegenseitig zur Abgabe und Entgegennahme von Erklärungen, die das Mietverhältnis betreffen; die Vollmacht ist jederzeit widerruflich und gilt nicht für Kündigungen und Aufhebungsverträge. Tatsachen in der Person eines Mieters, die sich auf das Mietverhältnis auswirken, müssen alle Mieter für und gegen sich gelten lassen.' );
 
 		echo $H( '§ 2 Mietsache' );
-		echo $P( sprintf( 'Vermietet wird zu Wohnzwecken die Wohnung <strong>%s</strong> im Anwesen <strong>%s</strong>%s, bestehend aus %s, Wohnfläche ca. %s m², zur Nutzung durch %d Person(en). Mitvermietet: %s%s.',
-			esc_html( $e->bezeichnung ), esc_html( $adresse ), $e->lage ? ', ' . esc_html( $e->lage ) : '', esc_html( $o['raeume'] ?: ( $e->zimmer ? $e->zimmer . ' Zimmer, Küche, Bad' : '[Räume]' ) ), esc_html( number_format( (float) $e->flaeche, 2, ',', '.' ) ), (int) $mv->personen, esc_html( $nebenraeume ?: '–' ), $o['ausstattung'] ? '. Ausstattung: ' . esc_html( $o['ausstattung'] ) : '' ) );
+		echo $P(
+			sprintf(
+				'Vermietet wird zu Wohnzwecken die Wohnung <strong>%s</strong> im Anwesen <strong>%s</strong>%s, bestehend aus %s, Wohnfläche ca. %s m², zur Nutzung durch %d Person(en). Mitvermietet: %s%s.',
+				esc_html( $e->bezeichnung ),
+				esc_html( $adresse ),
+				$e->lage ? ', ' . esc_html( $e->lage ) : '',
+				esc_html( $o['raeume'] ?: ( $e->zimmer ? $e->zimmer . ' Zimmer, Küche, Bad' : '[Räume]' ) ),
+				esc_html( number_format( (float) $e->flaeche, 2, ',', '.' ) ),
+				(int) $mv->personen,
+				esc_html( $nebenraeume ?: '–' ),
+				$o['ausstattung'] ? '. Ausstattung: ' . esc_html( $o['ausstattung'] ) : ''
+			)
+		);
 		echo $P( 'Die Wohnflächenangabe dient der Beschreibung des Mietgegenstands und ist keine Zusicherung; eine Abweichung von bis zu 10 % begründet keine Rechte. Maßgeblich ist die Wohnflächenverordnung.' );
 		if ( $o['mitbenutzung'] ) {
 			echo $P( 'Der Mieter darf nach Maßgabe der Hausordnung mitbenutzen: ' . esc_html( $o['mitbenutzung'] ) . '.' );
@@ -392,7 +566,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		echo $H( '§ 4 Miete, Betriebskosten' );
 		$pauschale = $o['bk_art'] === 'pauschale';
 		if ( $anteile ) {
-			$teile = implode( ', ', array_map( fn( $z ) => mv_eur( $z->mietanteil ) . ' ' . ( $typen_label[ $z->typ ] ?? $z->typ ) . ' ' . $z->bezeichnung, $anteile ) );
+			$teile          = implode( ', ', array_map( fn( $z ) => mv_eur( $z->mietanteil ) . ' ' . ( $typen_label[ $z->typ ] ?? $z->typ ) . ' ' . $z->bezeichnung, $anteile ) );
 			$wohnung_anteil = $kalt - array_sum( array_map( fn( $z ) => (float) $z->mietanteil, $anteile ) );
 			echo $P( sprintf( 'Die monatliche Grundmiete (Nettokaltmiete) beträgt insgesamt <strong>%s</strong>; davon entfallen %s auf die Wohnung und %s. Wohnung und mitvermietete Einheiten bilden ein einheitliches Mietverhältnis und können nur gemeinsam gekündigt werden.', esc_html( mv_eur( $kalt ) ), esc_html( mv_eur( $wohnung_anteil ) ), esc_html( $teile ) ) );
 		} elseif ( $zusatz ) {
@@ -432,7 +606,12 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		} else {
 			echo $P( 'Mieterhöhungen richten sich nach den gesetzlichen Vorschriften (§§ 558 bis 560 BGB).' );
 		}
-		$mpb = [ 'vormiete' => 'die vom Vormieter zuletzt geschuldete Miete bereits ' . esc_html( $o['vormiete'] ?: '[Betrag]' ) . ' betrug (§ 556e Abs. 1 BGB)', 'modernisierung' => 'in den letzten drei Jahren vor Beginn des Mietverhältnisses Modernisierungsmaßnahmen durchgeführt wurden (§ 556e Abs. 2 BGB)', 'umfassend' => 'es sich um die erste Vermietung nach einer umfassenden Modernisierung handelt (§ 556f Satz 2 BGB)', 'neubau' => 'die Wohnung nach dem 1. Oktober 2014 erstmals genutzt und vermietet wurde (§ 556f Satz 1 BGB)' ];
+		$mpb = [
+			'vormiete'       => 'die vom Vormieter zuletzt geschuldete Miete bereits ' . esc_html( $o['vormiete'] ?: '[Betrag]' ) . ' betrug (§ 556e Abs. 1 BGB)',
+			'modernisierung' => 'in den letzten drei Jahren vor Beginn des Mietverhältnisses Modernisierungsmaßnahmen durchgeführt wurden (§ 556e Abs. 2 BGB)',
+			'umfassend'      => 'es sich um die erste Vermietung nach einer umfassenden Modernisierung handelt (§ 556f Satz 2 BGB)',
+			'neubau'         => 'die Wohnung nach dem 1. Oktober 2014 erstmals genutzt und vermietet wurde (§ 556f Satz 1 BGB)',
+		];
 		if ( ! empty( $mpb[ $o['mpb_ausnahme'] ] ) ) {
 			echo $P( '<strong>Auskunft nach § 556g Abs. 1a BGB:</strong> Die Wohnung liegt in einem Gebiet mit angespanntem Wohnungsmarkt. Soweit die vereinbarte Grundmiete die ortsübliche Vergleichsmiete um mehr als 10 % übersteigt, ist dies zulässig, weil ' . $mpb[ $o['mpb_ausnahme'] ] . '. Diese Auskunft wurde dem Mieter vor Vertragsschluss in Textform erteilt.' );
 		} elseif ( $o['vormiete'] ) {
@@ -596,22 +775,35 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		$mv_id = (int) $_GET['mv_id'];
 		check_admin_referer( 'mv_uebergabe_' . $mv_id );
 		$art = ( $_GET['art'] ?? 'einzug' ) === 'auszug' ? __( 'Auszug', 'mietverwaltung' ) : __( 'Einzug', 'mietverwaltung' );
-		$d = self::daten( $mv_id );
+		$d   = self::daten( $mv_id );
 		if ( ! $d ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'opt' => $o, 'zusatz' => $zusatz ] = $d;
 		$zusatz_ids = array_map( fn( $z ) => (int) $z->einheit_id, $zusatz );
-		$E = MV_Einstellungen::class;
-		$ort = $ob->ort;
+		$E          = MV_Einstellungen::class;
+		$ort        = $ob->ort;
 
 		self::kopf( 'Uebergabeprotokoll ' . $art . ' ' . $m->nachname, [ $ob->id, $mv->id, 'uebergabeprotokoll', 'Übergabeprotokoll ' . $art, true ] );
-		printf( '<h1>' . esc_html__( 'Übergabeprotokoll – %s', 'mietverwaltung' ) . '</h1><p>' . esc_html__( 'Wohnung', 'mietverwaltung' ) . ' <strong>%s</strong>, %s, %s %s<br>' . esc_html__( 'Vermieter: %s', 'mietverwaltung' ) . '<br>' . esc_html__( 'Mieter: %s', 'mietverwaltung' ) . '<br>' . esc_html__( 'Datum der Übergabe:', 'mietverwaltung' ) . ' <span class="feld">' . __( '</span> &nbsp; Uhrzeit:', 'mietverwaltung' ) . ' <span class="feld"></span></p>',
-			esc_html( $art ), esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( $E::get( 'vermieter_name' ) ), esc_html( implode( ', ', array_merge( mv_mieter_personen( $m ), $o['mitmieter'] ? [ $o['mitmieter'] ] : [] ) ) ) );
+		printf(
+			'<h1>' . esc_html__( 'Übergabeprotokoll – %s', 'mietverwaltung' ) . '</h1><p>' . esc_html__( 'Wohnung', 'mietverwaltung' ) . ' <strong>%s</strong>, %s, %s %s<br>' . esc_html__( 'Vermieter: %s', 'mietverwaltung' ) . '<br>' . esc_html__( 'Mieter: %s', 'mietverwaltung' ) . '<br>' . esc_html__( 'Datum der Übergabe:', 'mietverwaltung' ) . ' <span class="feld">' . __( '</span> &nbsp; Uhrzeit:', 'mietverwaltung' ) . ' <span class="feld"></span></p>',
+			esc_html( $art ),
+			esc_html( $e->bezeichnung ),
+			esc_html( $ob->strasse ),
+			esc_html( $ob->plz ),
+			esc_html( $ob->ort ),
+			esc_html( $E::get( 'vermieter_name' ) ),
+			esc_html( implode( ', ', array_merge( mv_mieter_personen( $m ), $o['mitmieter'] ? [ $o['mitmieter'] ] : [] ) ) )
+		);
 
 		echo '<h2>' . esc_html__( '1. Zählerstände', 'mietverwaltung' ) . '</h2><table><tr><th>' . esc_html__( 'Zähler', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Nummer', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Stand', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Stand laut System', 'mietverwaltung' ) . '</th></tr>';
-		$zaehler = $wpdb->get_results( $wpdb->prepare( "SELECT z.*, (SELECT stand FROM " . mv_table( 'zaehlerstaende' ) . " s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter, (SELECT datum FROM " . mv_table( 'zaehlerstaende' ) . " s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter_datum FROM " . mv_table( 'zaehler' ) . " z WHERE z.einheit_id IN (" . implode( ',', array_map( 'intval', array_merge( [ $e->id ], $zusatz_ids ) ) ) . ") OR (z.einheit_id IS NULL AND z.objekt_id = %d) ORDER BY z.einheit_id, z.typ", $ob->id ) );
-		$typen = [ 'kaltwasser' => __( 'Kaltwasser (m³)', 'mietverwaltung' ), 'warmwasser' => __( 'Warmwasser (m³)', 'mietverwaltung' ), 'heizung' => __( 'Heizung (kWh/Einh.)', 'mietverwaltung' ), 'strom' => __( 'Strom (kWh)', 'mietverwaltung' ) ];
+		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT z.*, (SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter, (SELECT datum FROM ' . mv_table( 'zaehlerstaende' ) . ' s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter_datum FROM ' . mv_table( 'zaehler' ) . ' z WHERE z.einheit_id IN (' . implode( ',', array_map( 'intval', array_merge( [ $e->id ], $zusatz_ids ) ) ) . ') OR (z.einheit_id IS NULL AND z.objekt_id = %d) ORDER BY z.einheit_id, z.typ', $ob->id ) );
+		$typen   = [
+			'kaltwasser' => __( 'Kaltwasser (m³)', 'mietverwaltung' ),
+			'warmwasser' => __( 'Warmwasser (m³)', 'mietverwaltung' ),
+			'heizung'    => __( 'Heizung (kWh/Einh.)', 'mietverwaltung' ),
+			'strom'      => __( 'Strom (kWh)', 'mietverwaltung' ),
+		];
 		foreach ( $zaehler as $z ) {
 			printf( '<tr><td>%s%s</td><td>%s</td><td><span class="feld" style="min-width:40mm"></span></td><td class="klein">%s</td></tr>', esc_html( $typen[ $z->typ ] ?? $z->typ ), $z->einheit_id ? '' : ' (Haus)', esc_html( $z->nummer ), $z->letzter !== null ? esc_html( number_format( (float) $z->letzter, 2, ',', '.' ) . ' am ' . mv_date( $z->letzter_datum ) ) : '–' );
 		}

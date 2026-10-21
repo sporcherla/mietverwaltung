@@ -12,6 +12,9 @@ class MV_DB {
 		self::seed_kostenarten();
 		self::rollen();
 		update_option( 'mv_db_version', self::DB_VERSION );
+		if ( class_exists( 'MV_Assistent' ) ) {
+			MV_Assistent::aktiviert();
+		}
 	}
 
 	public static function maybe_upgrade(): void {
@@ -30,7 +33,15 @@ class MV_DB {
 			$admin->add_cap( 'mv_verwalten' );
 		}
 		if ( ! get_role( 'mv_vermieter' ) ) {
-			add_role( 'mv_vermieter', __( 'Vermieter', 'mietverwaltung' ), [ 'read' => true, 'upload_files' => true, 'mv_verwalten' => true ] );
+			add_role(
+				'mv_vermieter',
+				__( 'Vermieter', 'mietverwaltung' ),
+				[
+					'read'         => true,
+					'upload_files' => true,
+					'mv_verwalten' => true,
+				]
+			);
 		} else {
 			get_role( 'mv_vermieter' )->add_cap( 'mv_verwalten' );
 		}
@@ -39,16 +50,16 @@ class MV_DB {
 	/** Anlage-V-Gruppen (Zeilennummern ändern sich jährlich, daher nur Bezeichnungen). */
 	public static function anlage_v_gruppen(): array {
 		return [
-			'einnahmen'      => __( 'Einnahmen (nur zur Info, nicht als Beleg buchen)', 'mietverwaltung' ),
-			'afa'            => __( 'Absetzung für Abnutzung (AfA)', 'mietverwaltung' ),
-			'schuldzinsen'   => __( 'Schuldzinsen und Geldbeschaffungskosten', 'mietverwaltung' ),
-			'erhaltung'      => __( 'Erhaltungsaufwendungen', 'mietverwaltung' ),
-			'grundsteuer'    => __( 'Grundsteuer, Straßenreinigung, Müllabfuhr', 'mietverwaltung' ),
-			'wasser'         => __( 'Wasserversorgung, Entwässerung, Hausbeleuchtung', 'mietverwaltung' ),
-			'heizung'        => __( 'Heizung, Warmwasser', 'mietverwaltung' ),
-			'versicherung'   => __( 'Schornsteinreinigung, Hausversicherungen, Hauswart, Treppenreinigung, Fahrstuhl', 'mietverwaltung' ),
-			'verwaltung'     => __( 'Verwaltungskosten', 'mietverwaltung' ),
-			'sonstiges'      => __( 'Sonstige Werbungskosten', 'mietverwaltung' ),
+			'einnahmen'    => __( 'Einnahmen (nur zur Info, nicht als Beleg buchen)', 'mietverwaltung' ),
+			'afa'          => __( 'Absetzung für Abnutzung (AfA)', 'mietverwaltung' ),
+			'schuldzinsen' => __( 'Schuldzinsen und Geldbeschaffungskosten', 'mietverwaltung' ),
+			'erhaltung'    => __( 'Erhaltungsaufwendungen', 'mietverwaltung' ),
+			'grundsteuer'  => __( 'Grundsteuer, Straßenreinigung, Müllabfuhr', 'mietverwaltung' ),
+			'wasser'       => __( 'Wasserversorgung, Entwässerung, Hausbeleuchtung', 'mietverwaltung' ),
+			'heizung'      => __( 'Heizung, Warmwasser', 'mietverwaltung' ),
+			'versicherung' => __( 'Schornsteinreinigung, Hausversicherungen, Hauswart, Treppenreinigung, Fahrstuhl', 'mietverwaltung' ),
+			'verwaltung'   => __( 'Verwaltungskosten', 'mietverwaltung' ),
+			'sonstiges'    => __( 'Sonstige Werbungskosten', 'mietverwaltung' ),
 		];
 	}
 
@@ -78,15 +89,18 @@ class MV_DB {
 			[ 'Sonstige Werbungskosten (Fahrten, Porto, Software, Steuerberater)', 'sonstiges', 0, '', '' ],
 		];
 		foreach ( $seed as $i => $s ) {
-			$wpdb->insert( $table, [
-				'owner_id'     => MV_OWNER_ID,
-				'name'         => $s[0],
-				'anlage_v'     => $s[1],
-				'umlagefaehig' => $s[2],
-				'schluessel'   => $s[3],
-				'betrkv'       => $s[4],
-				'sortierung'   => ( $i + 1 ) * 10,
-			] );
+			$wpdb->insert(
+				$table,
+				[
+					'owner_id'     => MV_OWNER_ID,
+					'name'         => $s[0],
+					'anlage_v'     => $s[1],
+					'umlagefaehig' => $s[2],
+					'schluessel'   => $s[3],
+					'betrkv'       => $s[4],
+					'sortierung'   => ( $i + 1 ) * 10,
+				]
+			);
 		}
 	}
 
@@ -97,7 +111,7 @@ class MV_DB {
 
 		$sql = [];
 
-		$sql[] = "CREATE TABLE " . mv_table( 'objekte' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'objekte' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   bezeichnung varchar(190) NOT NULL DEFAULT '',
@@ -113,7 +127,7 @@ class MV_DB {
   KEY owner_id (owner_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'einheiten' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'einheiten' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   objekt_id bigint(20) unsigned NOT NULL,
   bezeichnung varchar(190) NOT NULL DEFAULT '',
@@ -125,7 +139,7 @@ class MV_DB {
   KEY objekt_id (objekt_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'mieter' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'mieter' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   anrede varchar(20) NOT NULL DEFAULT '',
@@ -148,7 +162,7 @@ class MV_DB {
   KEY wp_user_id (wp_user_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'mietverhaeltnisse' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'mietverhaeltnisse' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   einheit_id bigint(20) unsigned NOT NULL,
   mieter_id bigint(20) unsigned NOT NULL,
@@ -164,7 +178,7 @@ class MV_DB {
 ) $charset;";
 
 		// Mietkonditionen mit Gültigkeitsbeginn (Staffel, Erhöhung, VZ-Anpassung)
-		$sql[] = "CREATE TABLE " . mv_table( 'konditionen' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'konditionen' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   gueltig_ab date NOT NULL,
@@ -175,7 +189,7 @@ class MV_DB {
   KEY mv_id (mv_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'zahlungen' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'zahlungen' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   datum date NOT NULL,
@@ -188,7 +202,7 @@ class MV_DB {
   KEY monat (monat)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'meldungen' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'meldungen' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   datum datetime NOT NULL,
@@ -199,7 +213,7 @@ class MV_DB {
   KEY mv_id (mv_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'kostenarten' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'kostenarten' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   name varchar(190) NOT NULL DEFAULT '',
@@ -213,7 +227,7 @@ class MV_DB {
 ) $charset;";
 
 		// Belege: Zahlungsdatum = Abflusszeitpunkt (§ 11 EStG), Zeitraum = Leistungszeitraum für die BK-Abrechnung
-		$sql[] = "CREATE TABLE " . mv_table( 'belege' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'belege' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   objekt_id bigint(20) unsigned NOT NULL,
@@ -237,7 +251,7 @@ class MV_DB {
 ) $charset;";
 
 		// Anlagegüter: Gebäude (mit Grund-und-Boden-Anteil) und bewegliche Wirtschaftsgüter
-		$sql[] = "CREATE TABLE " . mv_table( 'anlagegueter' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'anlagegueter' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   objekt_id bigint(20) unsigned NOT NULL,
@@ -263,7 +277,7 @@ class MV_DB {
   KEY objekt_id (objekt_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'darlehen' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'darlehen' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   objekt_id bigint(20) unsigned NOT NULL,
@@ -283,7 +297,7 @@ class MV_DB {
 ) $charset;";
 
 		// Dokumentablage: Kaufvertrag, Mietvertrag, Übergabeprotokoll, Grundbuch …
-		$sql[] = "CREATE TABLE " . mv_table( 'dokumente' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'dokumente' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   objekt_id bigint(20) unsigned NOT NULL,
@@ -300,7 +314,7 @@ class MV_DB {
 ) $charset;";
 
 		// Jahreswerte aus der Zinsbescheinigung der Bank
-		$sql[] = "CREATE TABLE " . mv_table( 'darlehen_jahre' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'darlehen_jahre' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   darlehen_id bigint(20) unsigned NOT NULL,
   jahr smallint(5) unsigned NOT NULL,
@@ -313,7 +327,7 @@ class MV_DB {
   KEY jahr (jahr)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'zaehler' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'zaehler' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   objekt_id bigint(20) unsigned NOT NULL,
   einheit_id bigint(20) unsigned DEFAULT NULL,
@@ -325,7 +339,7 @@ class MV_DB {
   KEY einheit_id (einheit_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'zaehlerstaende' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'zaehlerstaende' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   zaehler_id bigint(20) unsigned NOT NULL,
   datum date NOT NULL,
@@ -337,7 +351,7 @@ class MV_DB {
   KEY datum (datum)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'abrechnungen' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'abrechnungen' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   objekt_id bigint(20) unsigned NOT NULL,
@@ -350,7 +364,7 @@ class MV_DB {
   KEY objekt_id (objekt_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'abrechnung_ergebnis' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'abrechnung_ergebnis' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   abrechnung_id bigint(20) unsigned NOT NULL,
   mv_id bigint(20) unsigned NOT NULL,
@@ -369,7 +383,7 @@ class MV_DB {
   KEY mv_id (mv_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'bank_regeln' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'bank_regeln' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
   muster varchar(190) NOT NULL DEFAULT '',
@@ -380,7 +394,7 @@ class MV_DB {
   PRIMARY KEY  (id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'bank_import' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'bank_import' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   hash char(32) NOT NULL,
   datum date NOT NULL,
@@ -392,7 +406,7 @@ class MV_DB {
   UNIQUE KEY hash (hash)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'mahnungen' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'mahnungen' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   stufe tinyint(3) unsigned NOT NULL DEFAULT 1,
@@ -404,7 +418,7 @@ class MV_DB {
   KEY mv_id (mv_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'erhoehungen' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'erhoehungen' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   art varchar(20) NOT NULL DEFAULT 'vergleich',
@@ -417,7 +431,7 @@ class MV_DB {
   KEY mv_id (mv_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'vertraege' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'vertraege' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   erstellt datetime DEFAULT NULL,
@@ -426,7 +440,7 @@ class MV_DB {
   KEY mv_id (mv_id)
 ) $charset;";
 
-		$sql[] = "CREATE TABLE " . mv_table( 'kaution' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'kaution' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   datum date NOT NULL,
@@ -438,7 +452,7 @@ class MV_DB {
 ) $charset;";
 
 		// Weitere Einheiten eines Mietverhältnisses (Garage, Stellplatz, Keller) – gleicher Vertrag, eine Gesamtmiete
-		$sql[] = "CREATE TABLE " . mv_table( 'mv_einheiten' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'mv_einheiten' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   mv_id bigint(20) unsigned NOT NULL,
   einheit_id bigint(20) unsigned NOT NULL,
@@ -449,7 +463,7 @@ class MV_DB {
 ) $charset;";
 
 		// Gebuchte Darlehensraten (Tilgungsplan) und Sondertilgungen
-		$sql[] = "CREATE TABLE " . mv_table( 'darlehen_raten' ) . " (
+		$sql[] = 'CREATE TABLE ' . mv_table( 'darlehen_raten' ) . " (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   darlehen_id bigint(20) unsigned NOT NULL,
   datum date NOT NULL,

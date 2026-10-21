@@ -11,21 +11,25 @@ class MV_Soll {
 	/** Gültige Konditionen für einen Monat (YYYY-MM-01). */
 	public static function konditionen( int $mv_id, string $monat ) {
 		global $wpdb;
-		return $wpdb->get_row( $wpdb->prepare(
-			"SELECT * FROM " . mv_table( 'konditionen' ) . " WHERE mv_id = %d AND gueltig_ab <= %s ORDER BY gueltig_ab DESC, id DESC LIMIT 1",
-			$mv_id,
-			$monat
-		) );
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				'SELECT * FROM ' . mv_table( 'konditionen' ) . ' WHERE mv_id = %d AND gueltig_ab <= %s ORDER BY gueltig_ab DESC, id DESC LIMIT 1',
+				$mv_id,
+				$monat
+			)
+		);
 	}
 
 	/** Ist-Zahlungen eines Monats. */
 	public static function ist( int $mv_id, string $monat ): float {
 		global $wpdb;
-		return (float) $wpdb->get_var( $wpdb->prepare(
-			"SELECT COALESCE(SUM(betrag),0) FROM " . mv_table( 'zahlungen' ) . " WHERE mv_id = %d AND monat = %s",
-			$mv_id,
-			$monat
-		) );
+		return (float) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COALESCE(SUM(betrag),0) FROM ' . mv_table( 'zahlungen' ) . ' WHERE mv_id = %d AND monat = %s',
+				$mv_id,
+				$monat
+			)
+		);
 	}
 
 	/**
@@ -33,7 +37,7 @@ class MV_Soll {
 	 * Liefert ['rows' => [...], 'soll' => x, 'ist' => y, 'saldo' => z].
 	 */
 	public static function op_liste( object $mv ): array {
-		$rows  = [];
+		$rows     = [];
 		$soll_sum = 0.0;
 		$ist_sum  = 0.0;
 		$kum      = 0.0;
@@ -56,15 +60,15 @@ class MV_Soll {
 			$ist   = self::ist( (int) $mv->id, $monat );
 			$kum  += $ist - $soll;
 
-			$rows[] = [
-				'monat' => $monat,
-				'kalt'  => $k ? (float) $k->kaltmiete : 0.0,
-				'bk'    => $k ? (float) $k->bk_vz : 0.0,
-				'hk'    => $k ? (float) $k->hk_vz : 0.0,
-				'soll'  => $soll,
-				'ist'   => $ist,
-				'diff'  => $ist - $soll,
-				'kum'   => $kum,
+			$rows[]    = [
+				'monat'            => $monat,
+				'kalt'             => $k ? (float) $k->kaltmiete : 0.0,
+				'bk'               => $k ? (float) $k->bk_vz : 0.0,
+				'hk'               => $k ? (float) $k->hk_vz : 0.0,
+				'soll'             => $soll,
+				'ist'              => $ist,
+				'diff'             => $ist - $soll,
+				'kum'              => $kum,
 				'ohne_konditionen' => ! $k,
 			];
 			$soll_sum += $soll;
@@ -85,12 +89,12 @@ class MV_Soll {
 		global $wpdb;
 		$where = $nur_aktiv ? "WHERE (mv.ende IS NULL OR mv.ende = '0000-00-00' OR mv.ende >= CURDATE())" : '';
 		return $wpdb->get_results(
-			"SELECT mv.*, m.vorname, m.nachname, m.p_vorname, m.p_nachname, m.wp_user_id, e.bezeichnung AS einheit, o.bezeichnung AS objekt, o.heizung,
-			        (SELECT GROUP_CONCAT(ze.bezeichnung) FROM " . mv_table( 'mv_einheiten' ) . " z JOIN " . mv_table( 'einheiten' ) . " ze ON ze.id = z.einheit_id WHERE z.mv_id = mv.id) AS zusatz
-			 FROM " . mv_table( 'mietverhaeltnisse' ) . " mv
-			 JOIN " . mv_table( 'mieter' ) . " m ON m.id = mv.mieter_id
-			 JOIN " . mv_table( 'einheiten' ) . " e ON e.id = mv.einheit_id
-			 JOIN " . mv_table( 'objekte' ) . " o ON o.id = e.objekt_id
+			'SELECT mv.*, m.vorname, m.nachname, m.p_vorname, m.p_nachname, m.wp_user_id, e.bezeichnung AS einheit, o.bezeichnung AS objekt, o.heizung,
+			        (SELECT GROUP_CONCAT(ze.bezeichnung) FROM ' . mv_table( 'mv_einheiten' ) . ' z JOIN ' . mv_table( 'einheiten' ) . ' ze ON ze.id = z.einheit_id WHERE z.mv_id = mv.id) AS zusatz
+			 FROM ' . mv_table( 'mietverhaeltnisse' ) . ' mv
+			 JOIN ' . mv_table( 'mieter' ) . ' m ON m.id = mv.mieter_id
+			 JOIN ' . mv_table( 'einheiten' ) . ' e ON e.id = mv.einheit_id
+			 JOIN ' . mv_table( 'objekte' ) . " o ON o.id = e.objekt_id
 			 $where
 			 ORDER BY mv.beginn DESC"
 		);
@@ -105,6 +109,6 @@ class MV_Soll {
 	/** Zusatzeinheiten eines Mietverhältnisses mit Mietanteil. */
 	public static function zusatzeinheiten( int $mv_id ): array {
 		global $wpdb;
-		return $wpdb->get_results( $wpdb->prepare( "SELECT z.*, e.bezeichnung, e.typ, e.flaeche FROM " . mv_table( 'mv_einheiten' ) . " z JOIN " . mv_table( 'einheiten' ) . " e ON e.id = z.einheit_id WHERE z.mv_id = %d ORDER BY e.typ, e.bezeichnung", $mv_id ) );
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT z.*, e.bezeichnung, e.typ, e.flaeche FROM ' . mv_table( 'mv_einheiten' ) . ' z JOIN ' . mv_table( 'einheiten' ) . ' e ON e.id = z.einheit_id WHERE z.mv_id = %d ORDER BY e.typ, e.bezeichnung', $mv_id ) );
 	}
 }

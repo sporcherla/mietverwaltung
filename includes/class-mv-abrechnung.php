@@ -60,23 +60,23 @@ class MV_Abrechnung {
 		if ( ! $typen ) {
 			return null;
 		}
-		$ph = implode( ',', array_fill( 0, count( $typen ), '%s' ) );
-		$zaehler = $wpdb->get_results( $wpdb->prepare( "SELECT id FROM " . mv_table( 'zaehler' ) . " WHERE einheit_id = %d AND typ IN ($ph)", array_merge( [ $einheit_id ], $typen ) ) );
+		$ph      = implode( ',', array_fill( 0, count( $typen ), '%s' ) );
+		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT id FROM ' . mv_table( 'zaehler' ) . " WHERE einheit_id = %d AND typ IN ($ph)", array_merge( [ $einheit_id ], $typen ) ) );
 		if ( ! $zaehler ) {
 			return null;
 		}
-		$sum = 0.0;
+		$sum      = 0.0;
 		$gefunden = false;
 		foreach ( $zaehler as $z ) {
-			$start = $wpdb->get_var( $wpdb->prepare( "SELECT stand FROM " . mv_table( 'zaehlerstaende' ) . " WHERE zaehler_id = %d AND datum <= %s ORDER BY datum DESC LIMIT 1", $z->id, $von ) );
-			$ende  = $wpdb->get_var( $wpdb->prepare( "SELECT stand FROM " . mv_table( 'zaehlerstaende' ) . " WHERE zaehler_id = %d AND datum >= %s ORDER BY datum ASC LIMIT 1", $z->id, $bis ) );
+			$start = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum <= %s ORDER BY datum DESC LIMIT 1', $z->id, $von ) );
+			$ende  = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum >= %s ORDER BY datum ASC LIMIT 1', $z->id, $bis ) );
 			if ( $start === null || $ende === null ) {
 				// Toleranz: Ablesung bis 14 Tage um den Stichtag
-				$start = $start ?? $wpdb->get_var( $wpdb->prepare( "SELECT stand FROM " . mv_table( 'zaehlerstaende' ) . " WHERE zaehler_id = %d AND datum <= DATE_ADD(%s, INTERVAL 14 DAY) ORDER BY datum ASC LIMIT 1", $z->id, $von ) );
-				$ende  = $ende ?? $wpdb->get_var( $wpdb->prepare( "SELECT stand FROM " . mv_table( 'zaehlerstaende' ) . " WHERE zaehler_id = %d AND datum >= DATE_SUB(%s, INTERVAL 14 DAY) ORDER BY datum DESC LIMIT 1", $z->id, $bis ) );
+				$start = $start ?? $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum <= DATE_ADD(%s, INTERVAL 14 DAY) ORDER BY datum ASC LIMIT 1', $z->id, $von ) );
+				$ende  = $ende ?? $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum >= DATE_SUB(%s, INTERVAL 14 DAY) ORDER BY datum DESC LIMIT 1', $z->id, $bis ) );
 			}
 			if ( $start !== null && $ende !== null ) {
-				$sum += max( 0, (float) $ende - (float) $start );
+				$sum     += max( 0, (float) $ende - (float) $start );
 				$gefunden = true;
 			}
 		}
@@ -93,22 +93,26 @@ class MV_Abrechnung {
 	 */
 	public static function berechnen( int $abrechnung_id ): array {
 		global $wpdb;
-		$abr = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'abrechnungen' ) . " WHERE id = %d", $abrechnung_id ) );
+		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'abrechnungen' ) . ' WHERE id = %d', $abrechnung_id ) );
 		if ( ! $abr ) {
-			return [ 'ergebnisse' => [], 'hinweise' => [ 'Abrechnung nicht gefunden.' ], 'positionen' => [] ];
+			return [
+				'ergebnisse' => [],
+				'hinweise'   => [ 'Abrechnung nicht gefunden.' ],
+				'positionen' => [],
+			];
 		}
-		$objekt   = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'objekte' ) . " WHERE id = %d", $abr->objekt_id ) );
-		$von      = $abr->von;
-		$bis      = $abr->bis;
-		$D        = self::tage( $von, $bis );
-		$hinweise = [];
-		$zentral  = $objekt->heizung !== 'dezentral';
+		$objekt               = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $abr->objekt_id ) );
+		$von                  = $abr->von;
+		$bis                  = $abr->bis;
+		$D                    = self::tage( $von, $bis );
+		$hinweise             = [];
+		$zentral              = $objekt->heizung !== 'dezentral';
 		$hk_verbrauch_prozent = max( 50, min( 70, (int) $objekt->hk_verbrauchsanteil ?: 70 ) );
 
 		// Einheiten des Objekts
-		$einheiten = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM " . mv_table( 'einheiten' ) . " WHERE objekt_id = %d", $abr->objekt_id ), OBJECT_K );
-		$wohn = array_filter( $einheiten, fn( $e ) => in_array( $e->typ, [ 'wohnung', 'gewerbe' ], true ) );
-		$flaeche_gesamt = array_sum( array_map( fn( $e ) => (float) $e->flaeche, $wohn ) );
+		$einheiten        = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'einheiten' ) . ' WHERE objekt_id = %d', $abr->objekt_id ), OBJECT_K );
+		$wohn             = array_filter( $einheiten, fn( $e ) => in_array( $e->typ, [ 'wohnung', 'gewerbe' ], true ) );
+		$flaeche_gesamt   = array_sum( array_map( fn( $e ) => (float) $e->flaeche, $wohn ) );
 		$anzahl_einheiten = count( $wohn ) ?: count( $einheiten );
 		if ( $flaeche_gesamt <= 0 ) {
 			$hinweise[] = __( 'Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich.', 'mietverwaltung' );
@@ -121,11 +125,11 @@ class MV_Abrechnung {
 				continue;
 			}
 			$mv_bis = ( $mv->ende && $mv->ende !== '0000-00-00' ) ? $mv->ende : '9999-12-31';
-			$t = self::overlap( $von, $bis, $mv->beginn, $mv_bis );
+			$t      = self::overlap( $von, $bis, $mv->beginn, $mv_bis );
 			if ( $t > 0 ) {
-				$mv->tage = $t;
-				$mv->mv_von = max( $von, $mv->beginn );
-				$mv->mv_bis = min( $bis, $mv_bis );
+				$mv->tage       = $t;
+				$mv->mv_von     = max( $von, $mv->beginn );
+				$mv->mv_bis     = min( $bis, $mv_bis );
 				$mvs[ $mv->id ] = $mv;
 			}
 		}
@@ -135,39 +139,67 @@ class MV_Abrechnung {
 		$personentage_gesamt = array_sum( array_map( fn( $m ) => max( 1, (int) $m->personen ) * $m->tage, $mvs ) );
 
 		// Umlagefähige Belege mit Leistungszeitraum im Abrechnungszeitraum
-		$belege = $wpdb->get_results( $wpdb->prepare(
-			"SELECT b.*, k.name AS kostenart, k.schluessel, k.anlage_v, k.betrkv
-			 FROM " . mv_table( 'belege' ) . " b JOIN " . mv_table( 'kostenarten' ) . " k ON k.id = b.kostenart_id
+		$belege = $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT b.*, k.name AS kostenart, k.schluessel, k.anlage_v, k.betrkv
+			 FROM ' . mv_table( 'belege' ) . ' b JOIN ' . mv_table( 'kostenarten' ) . ' k ON k.id = b.kostenart_id
 			 WHERE b.objekt_id = %d AND k.umlagefaehig = 1
 			   AND COALESCE(b.zeitraum_von, b.datum) <= %s AND COALESCE(b.zeitraum_bis, b.zeitraum_von, b.datum) >= %s
-			 ORDER BY k.sortierung, b.datum",
-			$abr->objekt_id, $bis, $von
-		) );
+			 ORDER BY k.sortierung, b.datum',
+				$abr->objekt_id,
+				$bis,
+				$von
+			)
+		);
 
 		// Kosten je Kostenart (zeitanteilig)
 		$arten = [];
 		foreach ( $belege as $b ) {
-			$lz_von = $b->zeitraum_von ?: $b->datum;
-			$lz_bis = $b->zeitraum_bis ?: $lz_von;
+			$lz_von  = $b->zeitraum_von ?: $b->datum;
+			$lz_bis  = $b->zeitraum_bis ?: $lz_von;
 			$lz_tage = max( 1, self::tage( $lz_von, $lz_bis ) );
 			$faktor  = self::overlap( $von, $bis, $lz_von, $lz_bis ) / $lz_tage;
-			$k = $b->kostenart_id;
+			$k       = $b->kostenart_id;
 			if ( ! isset( $arten[ $k ] ) ) {
-				$arten[ $k ] = [ 'name' => $b->kostenart, 'schluessel' => $b->schluessel ?: 'flaeche', 'heizung' => $b->anlage_v === 'heizung', 'betrkv' => $b->betrkv, 'gesamt' => 0.0, 'lohn' => 0.0, 'par35a' => $b->par35a, 'belege' => [] ];
+				$arten[ $k ] = [
+					'name'       => $b->kostenart,
+					'schluessel' => $b->schluessel ?: 'flaeche',
+					'heizung'    => $b->anlage_v === 'heizung',
+					'betrkv'     => $b->betrkv,
+					'gesamt'     => 0.0,
+					'lohn'       => 0.0,
+					'par35a'     => $b->par35a,
+					'belege'     => [],
+				];
 			}
-			$anteil = round( (float) $b->betrag * $faktor, 2 );
+			$anteil                 = round( (float) $b->betrag * $faktor, 2 );
 			$arten[ $k ]['gesamt'] += $anteil;
 			$arten[ $k ]['lohn']   += round( (float) $b->lohnanteil * $faktor, 2 );
 			if ( $b->par35a && ! $arten[ $k ]['par35a'] ) {
 				$arten[ $k ]['par35a'] = $b->par35a;
 			}
-			$arten[ $k ]['belege'][] = [ 'datum' => $b->datum, 'lieferant' => $b->lieferant, 'betrag' => (float) $b->betrag, 'anteil' => $anteil, 'faktor' => $faktor ];
+			$arten[ $k ]['belege'][] = [
+				'datum'     => $b->datum,
+				'lieferant' => $b->lieferant,
+				'betrag'    => (float) $b->betrag,
+				'anteil'    => $anteil,
+				'faktor'    => $faktor,
+			];
 		}
 
 		// Ergebnis je Mietverhältnis
 		$ergebnisse = [];
 		foreach ( $mvs as $mv ) {
-			$ergebnisse[ $mv->id ] = [ 'mv' => $mv, 'positionen' => [], 'kosten_bk' => 0.0, 'kosten_hk' => 0.0, 'vz_bk' => 0.0, 'vz_hk' => 0.0, 'par35a_handwerker' => 0.0, 'par35a_haushalt' => 0.0 ];
+			$ergebnisse[ $mv->id ] = [
+				'mv'                => $mv,
+				'positionen'        => [],
+				'kosten_bk'         => 0.0,
+				'kosten_hk'         => 0.0,
+				'vz_bk'             => 0.0,
+				'vz_hk'             => 0.0,
+				'par35a_handwerker' => 0.0,
+				'par35a_haushalt'   => 0.0,
+			];
 		}
 
 		$positionen = [];
@@ -189,13 +221,13 @@ class MV_Abrechnung {
 			}
 
 			foreach ( $teile as [ $schluessel, $betrag, $label_zusatz ] ) {
-				$basis_label = '';
+				$basis_label  = '';
 				$basis_gesamt = 0.0;
-				$anteile = [];
+				$anteile      = [];
 
 				if ( $schluessel === 'verbrauch' ) {
 					$typen = self::zaehler_typen( $art['name'] );
-					$vb = [];
+					$vb    = [];
 					foreach ( $mvs as $mv ) {
 						$v = self::verbrauch( (int) $mv->einheit_id, $typen, $mv->mv_von, $mv->mv_bis );
 						if ( $v !== null ) {
@@ -222,14 +254,14 @@ class MV_Abrechnung {
 					$basis_label  = 'Wohnfläche × Tage';
 					$basis_gesamt = $flaeche_gesamt * $D;
 					foreach ( $mvs as $mv ) {
-						$f = (float) $einheiten[ $mv->einheit_id ]->flaeche;
+						$f                  = (float) $einheiten[ $mv->einheit_id ]->flaeche;
 						$anteile[ $mv->id ] = [ $f * $mv->tage, $betrag * ( $f * $mv->tage ) / $basis_gesamt ];
 					}
 				} elseif ( $schluessel === 'personen' ) {
 					$basis_label  = 'Personen × Tage';
 					$basis_gesamt = $personentage_gesamt;
 					foreach ( $mvs as $mv ) {
-						$pt = max( 1, (int) $mv->personen ) * $mv->tage;
+						$pt                 = max( 1, (int) $mv->personen ) * $mv->tage;
 						$anteile[ $mv->id ] = [ $pt, $personentage_gesamt > 0 ? $betrag * $pt / $personentage_gesamt : 0 ];
 					}
 				} elseif ( $schluessel === 'einheit' ) {
@@ -240,11 +272,25 @@ class MV_Abrechnung {
 					}
 				}
 
-				$label = $art['name'] . ( $label_zusatz ? ' – ' . $label_zusatz : '' );
-				$positionen[] = [ 'name' => $label, 'gesamt' => round( $betrag, 2 ), 'schluessel' => $basis_label, 'basis' => $basis_gesamt, 'betrkv' => $art['betrkv'] ];
+				$label        = $art['name'] . ( $label_zusatz ? ' – ' . $label_zusatz : '' );
+				$positionen[] = [
+					'name'       => $label,
+					'gesamt'     => round( $betrag, 2 ),
+					'schluessel' => $basis_label,
+					'basis'      => $basis_gesamt,
+					'betrkv'     => $art['betrkv'],
+				];
 				foreach ( $anteile as $mv_id => [ $basis_mv, $anteil ] ) {
-					$anteil = round( $anteil, 2 );
-					$ergebnisse[ $mv_id ]['positionen'][] = [ 'name' => $label, 'gesamt' => round( $betrag, 2 ), 'schluessel' => $basis_label, 'basis_gesamt' => $basis_gesamt, 'basis_mv' => $basis_mv, 'anteil' => $anteil, 'betrkv' => $art['betrkv'] ];
+					$anteil                               = round( $anteil, 2 );
+					$ergebnisse[ $mv_id ]['positionen'][] = [
+						'name'         => $label,
+						'gesamt'       => round( $betrag, 2 ),
+						'schluessel'   => $basis_label,
+						'basis_gesamt' => $basis_gesamt,
+						'basis_mv'     => $basis_mv,
+						'anteil'       => $anteil,
+						'betrkv'       => $art['betrkv'],
+					];
 					if ( $art['heizung'] ) {
 						$ergebnisse[ $mv_id ]['kosten_hk'] += $anteil;
 					} else {
@@ -284,23 +330,42 @@ class MV_Abrechnung {
 		// Speichern
 		$wpdb->delete( mv_table( 'abrechnung_ergebnis' ), [ 'abrechnung_id' => $abrechnung_id ] );
 		foreach ( $ergebnisse as $mv_id => $e ) {
-			$wpdb->insert( mv_table( 'abrechnung_ergebnis' ), [
-				'abrechnung_id'     => $abrechnung_id,
-				'mv_id'             => $mv_id,
-				'tage'              => $e['mv']->tage,
-				'kosten_bk'         => round( $e['kosten_bk'], 2 ),
-				'kosten_hk'         => round( $e['kosten_hk'], 2 ),
-				'vz_bk'             => round( $e['vz_bk'], 2 ),
-				'vz_hk'             => round( $e['vz_hk'], 2 ),
-				'saldo'             => $e['saldo'],
-				'par35a_handwerker' => round( $e['par35a_handwerker'], 2 ),
-				'par35a_haushalt'   => round( $e['par35a_haushalt'], 2 ),
-				'details'           => wp_json_encode( [ 'positionen' => $e['positionen'], 'von' => $e['mv']->mv_von, 'bis' => $e['mv']->mv_bis, 'hinweise' => $hinweise, 'flaeche' => (float) $einheiten[ $e['mv']->einheit_id ]->flaeche, 'personen' => (int) $e['mv']->personen ], JSON_UNESCAPED_UNICODE ),
-			] );
+			$wpdb->insert(
+				mv_table( 'abrechnung_ergebnis' ),
+				[
+					'abrechnung_id'     => $abrechnung_id,
+					'mv_id'             => $mv_id,
+					'tage'              => $e['mv']->tage,
+					'kosten_bk'         => round( $e['kosten_bk'], 2 ),
+					'kosten_hk'         => round( $e['kosten_hk'], 2 ),
+					'vz_bk'             => round( $e['vz_bk'], 2 ),
+					'vz_hk'             => round( $e['vz_hk'], 2 ),
+					'saldo'             => $e['saldo'],
+					'par35a_handwerker' => round( $e['par35a_handwerker'], 2 ),
+					'par35a_haushalt'   => round( $e['par35a_haushalt'], 2 ),
+					'details'           => wp_json_encode(
+						[
+							'positionen' => $e['positionen'],
+							'von'        => $e['mv']->mv_von,
+							'bis'        => $e['mv']->mv_bis,
+							'hinweise'   => $hinweise,
+							'flaeche'    => (float) $einheiten[ $e['mv']->einheit_id ]->flaeche,
+							'personen'   => (int) $e['mv']->personen,
+						],
+						JSON_UNESCAPED_UNICODE
+					),
+				]
+			);
 		}
 		$wpdb->update( mv_table( 'abrechnungen' ), [ 'erstellt' => current_time( 'mysql' ) ], [ 'id' => $abrechnung_id ] );
 
-		return [ 'ergebnisse' => $ergebnisse, 'hinweise' => $hinweise, 'positionen' => $positionen, 'abrechnung' => $abr, 'objekt' => $objekt ];
+		return [
+			'ergebnisse' => $ergebnisse,
+			'hinweise'   => $hinweise,
+			'positionen' => $positionen,
+			'abrechnung' => $abr,
+			'objekt'     => $objekt,
+		];
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -318,13 +383,16 @@ class MV_Abrechnung {
 
 		if ( $a === 'neu' ) {
 			$jahr = (int) ( $_POST['jahr'] ?? current_time( 'Y' ) - 1 );
-			$id = $wpdb->insert( mv_table( 'abrechnungen' ), [
-				'owner_id'  => MV_OWNER_ID,
-				'objekt_id' => (int) $_POST['objekt_id'],
-				'von'       => sanitize_text_field( $_POST['von'] ?: $jahr . '-01-01' ),
-				'bis'       => sanitize_text_field( $_POST['bis'] ?: $jahr . '-12-31' ),
-				'status'    => 'entwurf',
-			] ) ? $wpdb->insert_id : 0;
+			$id   = $wpdb->insert(
+				mv_table( 'abrechnungen' ),
+				[
+					'owner_id'  => MV_OWNER_ID,
+					'objekt_id' => (int) $_POST['objekt_id'],
+					'von'       => sanitize_text_field( $_POST['von'] ?: $jahr . '-01-01' ),
+					'bis'       => sanitize_text_field( $_POST['bis'] ?: $jahr . '-12-31' ),
+					'status'    => 'entwurf',
+				]
+			) ? $wpdb->insert_id : 0;
 			if ( $id ) {
 				self::berechnen( $id );
 			}
@@ -350,18 +418,21 @@ class MV_Abrechnung {
 			exit;
 		}
 		if ( $a === 'vz_anpassen' ) {
-			$erg = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'abrechnung_ergebnis' ) . " WHERE id = %d", (int) $_GET['erg'] ) );
+			$erg = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' WHERE id = %d', (int) $_GET['erg'] ) );
 			if ( $erg ) {
 				$monate = max( 1, round( $erg->tage / 30.4 ) );
-				$k = MV_Soll::konditionen( (int) $erg->mv_id, current_time( 'Y-m-01' ) );
-				$ab = date( 'Y-m-01', strtotime( '+1 month', strtotime( current_time( 'Y-m-01' ) ) ) );
-				$wpdb->insert( mv_table( 'konditionen' ), [
-					'mv_id'      => $erg->mv_id,
-					'gueltig_ab' => $ab,
-					'kaltmiete'  => $k ? $k->kaltmiete : 0,
-					'bk_vz'      => ceil( $erg->kosten_bk / $monate ),
-					'hk_vz'      => ceil( $erg->kosten_hk / $monate ),
-				] );
+				$k      = MV_Soll::konditionen( (int) $erg->mv_id, current_time( 'Y-m-01' ) );
+				$ab     = date( 'Y-m-01', strtotime( '+1 month', strtotime( current_time( 'Y-m-01' ) ) ) );
+				$wpdb->insert(
+					mv_table( 'konditionen' ),
+					[
+						'mv_id'      => $erg->mv_id,
+						'gueltig_ab' => $ab,
+						'kaltmiete'  => $k ? $k->kaltmiete : 0,
+						'bk_vz'      => ceil( $erg->kosten_bk / $monate ),
+						'hk_vz'      => ceil( $erg->kosten_hk / $monate ),
+					]
+				);
 			}
 			wp_safe_redirect( $base . '&id=' . $id . '&msg=vz' );
 			exit;
@@ -387,7 +458,7 @@ class MV_Abrechnung {
 	private static function liste(): void {
 		global $wpdb;
 		echo '<h1>' . esc_html__( 'Betriebskostenabrechnung', 'mietverwaltung' ) . '</h1>';
-		$rows = $wpdb->get_results( "SELECT a.*, o.bezeichnung AS objekt, (SELECT COUNT(*) FROM " . mv_table( 'abrechnung_ergebnis' ) . " e WHERE e.abrechnung_id = a.id) AS anzahl FROM " . mv_table( 'abrechnungen' ) . " a JOIN " . mv_table( 'objekte' ) . " o ON o.id = a.objekt_id ORDER BY a.bis DESC" );
+		$rows = $wpdb->get_results( 'SELECT a.*, o.bezeichnung AS objekt, (SELECT COUNT(*) FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e WHERE e.abrechnung_id = a.id) AS anzahl FROM ' . mv_table( 'abrechnungen' ) . ' a JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = a.objekt_id ORDER BY a.bis DESC' );
 
 		echo '<h2>' . esc_html__( 'Neue Abrechnung', 'mietverwaltung' ) . '</h2><form method="post" class="mv-filter">';
 		wp_nonce_field( 'mv_abr_neu' );
@@ -402,9 +473,17 @@ class MV_Abrechnung {
 		echo '<h2>' . esc_html__( 'Vorhandene Abrechnungen', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Objekt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Zeitraum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Status', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Mieter', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Erstellt', 'mietverwaltung' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( $rows as $r ) {
 			$del = wp_nonce_url( admin_url( 'admin.php?page=mv_abrechnung&mv_abr_action=loeschen&id=' . $r->id ), 'mv_abr_loeschen' );
-			printf( '<tr><td>%s</td><td>%s – %s</td><td>%s</td><td>%d</td><td>%s</td><td><a href="%s">' . esc_html__( 'Öffnen', 'mietverwaltung' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Abrechnung löschen?\')">' . esc_html__( 'Löschen', 'mietverwaltung' ) . '</a></td></tr>',
-				esc_html( $r->objekt ), esc_html( mv_date( $r->von ) ), esc_html( mv_date( $r->bis ) ), $r->status === 'fertig' ? '<strong>' . esc_html__( 'Fertig / freigegeben', 'mietverwaltung' ) . '</strong>' : 'Entwurf', (int) $r->anzahl, esc_html( $r->erstellt ? date_i18n( 'd.m.Y', strtotime( $r->erstellt ) ) : '–' ),
-				esc_url( admin_url( 'admin.php?page=mv_abrechnung&id=' . $r->id ) ), esc_url( $del ) );
+			printf(
+				'<tr><td>%s</td><td>%s – %s</td><td>%s</td><td>%d</td><td>%s</td><td><a href="%s">' . esc_html__( 'Öffnen', 'mietverwaltung' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Abrechnung löschen?\')">' . esc_html__( 'Löschen', 'mietverwaltung' ) . '</a></td></tr>',
+				esc_html( $r->objekt ),
+				esc_html( mv_date( $r->von ) ),
+				esc_html( mv_date( $r->bis ) ),
+				$r->status === 'fertig' ? '<strong>' . esc_html__( 'Fertig / freigegeben', 'mietverwaltung' ) . '</strong>' : 'Entwurf',
+				(int) $r->anzahl,
+				esc_html( $r->erstellt ? date_i18n( 'd.m.Y', strtotime( $r->erstellt ) ) : '–' ),
+				esc_url( admin_url( 'admin.php?page=mv_abrechnung&id=' . $r->id ) ),
+				esc_url( $del )
+			);
 		}
 		if ( ! $rows ) {
 			echo '<tr><td colspan="6">' . esc_html__( 'Noch keine Abrechnung.', 'mietverwaltung' ) . '</td></tr>';
@@ -414,12 +493,12 @@ class MV_Abrechnung {
 
 	private static function detail( int $id ): void {
 		global $wpdb;
-		$abr = $wpdb->get_row( $wpdb->prepare( "SELECT a.*, o.bezeichnung AS objekt, o.heizung, o.hk_verbrauchsanteil FROM " . mv_table( 'abrechnungen' ) . " a JOIN " . mv_table( 'objekte' ) . " o ON o.id = a.objekt_id WHERE a.id = %d", $id ) );
+		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT a.*, o.bezeichnung AS objekt, o.heizung, o.hk_verbrauchsanteil FROM ' . mv_table( 'abrechnungen' ) . ' a JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = a.objekt_id WHERE a.id = %d', $id ) );
 		if ( ! $abr ) {
 			echo '<p>' . esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) . '</p>';
 			return;
 		}
-		$ergs = $wpdb->get_results( $wpdb->prepare( "SELECT e.*, m.vorname, m.nachname, ei.bezeichnung AS einheit FROM " . mv_table( 'abrechnung_ergebnis' ) . " e JOIN " . mv_table( 'mietverhaeltnisse' ) . " mv ON mv.id = e.mv_id JOIN " . mv_table( 'mieter' ) . " m ON m.id = mv.mieter_id JOIN " . mv_table( 'einheiten' ) . " ei ON ei.id = mv.einheit_id WHERE e.abrechnung_id = %d ORDER BY m.nachname", $id ) );
+		$ergs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, m.vorname, m.nachname, ei.bezeichnung AS einheit FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e JOIN ' . mv_table( 'mietverhaeltnisse' ) . ' mv ON mv.id = e.mv_id JOIN ' . mv_table( 'mieter' ) . ' m ON m.id = mv.mieter_id JOIN ' . mv_table( 'einheiten' ) . ' ei ON ei.id = mv.einheit_id WHERE e.abrechnung_id = %d ORDER BY m.nachname', $id ) );
 
 		$msg = sanitize_key( $_GET['msg'] ?? '' );
 		if ( $msg === 'berechnet' ) {
@@ -441,7 +520,7 @@ class MV_Abrechnung {
 
 		$hinweise = [];
 		if ( $ergs ) {
-			$d = json_decode( $ergs[0]->details, true );
+			$d        = json_decode( $ergs[0]->details, true );
 			$hinweise = $d['hinweise'] ?? [];
 		}
 		foreach ( $hinweise as $h ) {
@@ -452,11 +531,22 @@ class MV_Abrechnung {
 		foreach ( $ergs as $e ) {
 			$brief = wp_nonce_url( admin_url( 'admin-post.php?action=mv_abrechnung_brief&erg=' . $e->id ), 'mv_abr_brief_' . $e->id );
 			$vz    = wp_nonce_url( admin_url( 'admin.php?page=mv_abrechnung&mv_abr_action=vz_anpassen&id=' . $id . '&erg=' . $e->id ), 'mv_abr_vz_anpassen' );
-			printf( '<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietverwaltung' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'PDF ablegen', 'mietverwaltung' ) . '</a> <a href="%s" class="button button-small" onclick="return confirm(\'Neue Vorauszahlung ab nächstem Monat anlegen?\')">' . esc_html__( 'VZ anpassen', 'mietverwaltung' ) . '</a></td></tr>',
-				esc_html( $e->nachname . ', ' . $e->vorname ), esc_html( $e->einheit ), (int) $e->tage, esc_html( mv_eur( $e->kosten_bk ) ), esc_html( mv_eur( $e->kosten_hk ) ), esc_html( mv_eur( $e->vz_bk + $e->vz_hk ) ),
-				$e->saldo < 0 ? 'mv-neg' : 'mv-pos', esc_html( mv_eur( abs( $e->saldo ) ) ), $e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben', 'mietverwaltung' ),
+			printf(
+				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietverwaltung' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'PDF ablegen', 'mietverwaltung' ) . '</a> <a href="%s" class="button button-small" onclick="return confirm(\'Neue Vorauszahlung ab nächstem Monat anlegen?\')">' . esc_html__( 'VZ anpassen', 'mietverwaltung' ) . '</a></td></tr>',
+				esc_html( $e->nachname . ', ' . $e->vorname ),
+				esc_html( $e->einheit ),
+				(int) $e->tage,
+				esc_html( mv_eur( $e->kosten_bk ) ),
+				esc_html( mv_eur( $e->kosten_hk ) ),
+				esc_html( mv_eur( $e->vz_bk + $e->vz_hk ) ),
+				$e->saldo < 0 ? 'mv-neg' : 'mv-pos',
+				esc_html( mv_eur( abs( $e->saldo ) ) ),
+				$e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben', 'mietverwaltung' ),
 				esc_html( ( $e->par35a_handwerker + $e->par35a_haushalt ) > 0 ? mv_eur( $e->par35a_handwerker + $e->par35a_haushalt ) : '–' ),
-				esc_url( $brief ), esc_url( $brief ), esc_url( $vz ) );
+				esc_url( $brief ),
+				esc_url( $brief ),
+				esc_url( $vz )
+			);
 		}
 		echo '</tbody></table>';
 
@@ -484,18 +574,28 @@ class MV_Abrechnung {
 			}
 			check_admin_referer( 'mv_abr_brief_' . $erg_id );
 		}
-		$e = $wpdb->get_row( $wpdb->prepare( "SELECT e.*, a.von, a.bis, a.objekt_id FROM " . mv_table( 'abrechnung_ergebnis' ) . " e JOIN " . mv_table( 'abrechnungen' ) . " a ON a.id = e.abrechnung_id WHERE e.id = %d", $erg_id ) );
+		$e = $wpdb->get_row( $wpdb->prepare( 'SELECT e.*, a.von, a.bis, a.objekt_id FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e JOIN ' . mv_table( 'abrechnungen' ) . ' a ON a.id = e.abrechnung_id WHERE e.id = %d', $erg_id ) );
 		if ( ! $e ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
 		}
-		$mv = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'mietverhaeltnisse' ) . " WHERE id = %d", $e->mv_id ) );
-		$objekt = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'objekte' ) . " WHERE id = %d", $e->objekt_id ) );
-		$einheit = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'einheiten' ) . " WHERE id = %d", $mv->einheit_id ) );
-		$d = json_decode( $e->details, true );
+		$mv      = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE id = %d', $e->mv_id ) );
+		$objekt  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $e->objekt_id ) );
+		$einheit = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $mv->einheit_id ) );
+		$d       = json_decode( $e->details, true );
 
 		$b  = '<p>' . esc_html( MV_Brief::anrede( $mv ) ) . '</p>';
-		$b .= sprintf( '<p>' . esc_html__( 'für die Wohnung', 'mietverwaltung' ) . ' <strong>%s, %s</strong> ' . esc_html__( 'erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum', 'mietverwaltung' ) . ' <strong>' . esc_html__( '%s bis %s', 'mietverwaltung' ) . '</strong>' . esc_html__( '. Ihr Nutzungszeitraum: %s bis %s (%d Tage). Wohnfläche %s m², Personen im Haushalt: %d.', 'mietverwaltung' ) . '</p>',
-			esc_html( $objekt->strasse . ', ' . $objekt->plz . ' ' . $objekt->ort ), esc_html( $einheit->bezeichnung ), esc_html( mv_date( $e->von ) ), esc_html( mv_date( $e->bis ) ), esc_html( mv_date( $d['von'] ) ), esc_html( mv_date( $d['bis'] ) ), (int) $e->tage, esc_html( number_format( $d['flaeche'], 2, ',', '.' ) ), (int) $d['personen'] );
+		$b .= sprintf(
+			'<p>' . esc_html__( 'für die Wohnung', 'mietverwaltung' ) . ' <strong>%s, %s</strong> ' . esc_html__( 'erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum', 'mietverwaltung' ) . ' <strong>' . esc_html__( '%1$s bis %2$s', 'mietverwaltung' ) . '</strong>' . esc_html__( '. Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d.', 'mietverwaltung' ) . '</p>',
+			esc_html( $objekt->strasse . ', ' . $objekt->plz . ' ' . $objekt->ort ),
+			esc_html( $einheit->bezeichnung ),
+			esc_html( mv_date( $e->von ) ),
+			esc_html( mv_date( $e->bis ) ),
+			esc_html( mv_date( $d['von'] ) ),
+			esc_html( mv_date( $d['bis'] ) ),
+			(int) $e->tage,
+			esc_html( number_format( $d['flaeche'], 2, ',', '.' ) ),
+			(int) $d['personen']
+		);
 
 		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Kostenart', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamtkosten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Verteilerschlüssel', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ihr Anteil', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 		foreach ( $d['positionen'] as $p ) {
@@ -503,13 +603,13 @@ class MV_Abrechnung {
 		}
 		$kosten = $e->kosten_bk + $e->kosten_hk;
 		$vz     = $e->vz_bk + $e->vz_hk;
-		$b .= sprintf( '<tr class="summe"><td colspan="5">' . esc_html__( 'Summe Ihrer Kosten', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mv_eur( $kosten ) ) );
-		$b .= sprintf( '<tr><td colspan="5">' . esc_html__( 'abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)', 'mietverwaltung' ) . '</td><td>– %s</td></tr>', esc_html( mv_eur( $e->vz_bk ) ), esc_html( mv_eur( $e->vz_hk ) ), esc_html( mv_eur( $vz ) ) );
-		$b .= sprintf( '<tr class="summe"><td colspan="5">%s</td><td>%s</td></tr></tbody></table>', $e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben zu Ihren Gunsten', 'mietverwaltung' ), esc_html( mv_eur( abs( $e->saldo ) ) ) );
+		$b     .= sprintf( '<tr class="summe"><td colspan="5">' . esc_html__( 'Summe Ihrer Kosten', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mv_eur( $kosten ) ) );
+		$b     .= sprintf( '<tr><td colspan="5">' . esc_html__( 'abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)', 'mietverwaltung' ) . '</td><td>– %s</td></tr>', esc_html( mv_eur( $e->vz_bk ) ), esc_html( mv_eur( $e->vz_hk ) ), esc_html( mv_eur( $vz ) ) );
+		$b     .= sprintf( '<tr class="summe"><td colspan="5">%s</td><td>%s</td></tr></tbody></table>', $e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben zu Ihren Gunsten', 'mietverwaltung' ), esc_html( mv_eur( abs( $e->saldo ) ) ) );
 
 		if ( $e->saldo < -0.005 ) {
 			$frist = date_i18n( 'd.m.Y', strtotime( '+30 days' ) );
-			$b .= sprintf( '<p>' . esc_html__( 'Bitte überweisen Sie den Nachzahlungsbetrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'bis zum', 'mietverwaltung' ) . ' <strong>%s</strong>.</p>', esc_html( mv_eur( abs( $e->saldo ) ) ), esc_html( $frist ) ) . MV_Brief::bankverbindung();
+			$b    .= sprintf( '<p>' . esc_html__( 'Bitte überweisen Sie den Nachzahlungsbetrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'bis zum', 'mietverwaltung' ) . ' <strong>%s</strong>.</p>', esc_html( mv_eur( abs( $e->saldo ) ) ), esc_html( $frist ) ) . MV_Brief::bankverbindung();
 		} elseif ( $e->saldo > 0.005 ) {
 			$b .= sprintf( '<p>' . esc_html__( 'Das Guthaben von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'wird Ihnen innerhalb von 30 Tagen überwiesen bzw. mit der nächsten Mietzahlung verrechnet.', 'mietverwaltung' ) . '</p>', esc_html( mv_eur( $e->saldo ) ) );
 		}

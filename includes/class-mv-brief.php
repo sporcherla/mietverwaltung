@@ -12,8 +12,8 @@ class MV_Brief {
 	/** Empfängerblock aus Mietverhältnis (Mieter + Objektadresse). */
 	public static function empfaenger( object $mv ): string {
 		global $wpdb;
-		$m = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM " . mv_table( 'mieter' ) . " WHERE id = %d", $mv->mieter_id ) );
-		$o = $wpdb->get_row( $wpdb->prepare( "SELECT o.* FROM " . mv_table( 'objekte' ) . " o JOIN " . mv_table( 'einheiten' ) . " e ON e.objekt_id = o.id WHERE e.id = %d", $mv->einheit_id ) );
+		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $mv->mieter_id ) );
+		$o = $wpdb->get_row( $wpdb->prepare( 'SELECT o.* FROM ' . mv_table( 'objekte' ) . ' o JOIN ' . mv_table( 'einheiten' ) . ' e ON e.objekt_id = o.id WHERE e.id = %d', $mv->einheit_id ) );
 		$z = mv_mieter_personen( $m );
 		if ( $o ) {
 			$z[] = $o->strasse;
@@ -24,11 +24,11 @@ class MV_Brief {
 
 	public static function anrede( object $mv ): string {
 		global $wpdb;
-		$m = $wpdb->get_row( $wpdb->prepare( "SELECT anrede, nachname, p_anrede, p_nachname FROM " . mv_table( 'mieter' ) . " WHERE id = %d", $mv->mieter_id ) );
+		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT anrede, nachname, p_anrede, p_nachname FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $mv->mieter_id ) );
 		if ( ! $m ) {
 			return __( 'Sehr geehrte Damen und Herren,', 'mietverwaltung' );
 		}
-		$teil = function ( $anrede, $nachname ) {
+		$teil  = function ( $anrede, $nachname ) {
 			if ( $anrede === 'Frau' ) {
 				return sprintf( __( 'sehr geehrte Frau %s', 'mietverwaltung' ), $nachname );
 			}
@@ -52,7 +52,7 @@ class MV_Brief {
 	/** Ort aus der Vermieteradresse (zweite Zeile „PLZ Ort“). */
 	public static function ort(): string {
 		$zeilen = array_values( array_filter( array_map( 'trim', explode( "\n", MV_Einstellungen::get( 'vermieter_adresse' ) ) ) ) );
-		$z = $zeilen[1] ?? ( $zeilen[0] ?? '' );
+		$z      = $zeilen[1] ?? ( $zeilen[0] ?? '' );
 		return trim( preg_replace( '/^\d{5}\s*/', '', $z ) );
 	}
 
@@ -71,9 +71,9 @@ class MV_Brief {
 	 * $ablage = [objekt_id, mv_id, typ, bezeichnung, mieter_sichtbar] → zusätzlich in Dokumente ablegen, wenn ?ablegen=1.
 	 */
 	public static function ausgeben( string $titel, string $empfaenger, string $betreff, string $body, ?string $datum = null, bool $auto_print = true, ?array $ablage = null ): void {
-		$E = MV_Einstellungen::class;
+		$E              = MV_Einstellungen::class;
 		$absender_zeile = self::absender_zeile();
-		$datum = $datum ?: current_time( 'd.m.Y' );
+		$datum          = $datum ?: current_time( 'd.m.Y' );
 
 		if ( ( $_GET['format'] ?? 'pdf' ) !== 'html' ) {
 			$bytes = self::pdf( $empfaenger, $betreff, $body, $datum );
@@ -110,11 +110,14 @@ h2 { font-size: 12pt; margin: 8mm 0 2mm; }
 <div class="empf"><?php echo esc_html( $empfaenger ); ?></div>
 <div class="datum"><?php echo esc_html( self::ort() . ', ' . $datum ); ?></div>
 <div class="betreff"><?php echo esc_html( $betreff ); ?></div>
-<?php echo $body; ?>
+		<?php echo $body; ?>
 <p>Mit freundlichen Grüßen</p>
 <p style="margin-top:14mm"><?php echo esc_html( $E::get( 'vermieter_name' ) ); ?></p>
 </div>
-<?php if ( $auto_print ) : ?><script>window.addEventListener('load',function(){setTimeout(function(){window.print();},300);});</script><?php endif; ?>
+		<?php
+		if ( $auto_print ) :
+			?>
+			<script>window.addEventListener('load',function(){setTimeout(function(){window.print();},300);});</script><?php endif; ?>
 </body></html>
 		<?php
 		exit;

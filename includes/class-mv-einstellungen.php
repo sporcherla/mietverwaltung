@@ -22,22 +22,22 @@ class MV_Einstellungen {
 
 	public static function defaults(): array {
 		return [
-			'vermieter_name'      => '',
-			'vermieter_adresse'   => '',
-			'vermieter_telefon'   => '',
-			'vermieter_email'     => get_option( 'admin_email' ),
-			'vermieter_iban'      => '',
-			'vermieter_bank'      => '',
-			'vermieter_steuernr'  => '',
-			'vermieter_vertreter' => '',
-			'erinnerung_aktiv'    => '1',
-			'erinnerung_email'    => get_option( 'admin_email' ),
-			'aufbewahrung_jahre'  => '10',
-			'angespannter_markt'  => '0',
-			'mahn_tage_1'         => '7',
-			'mahn_tage_2'         => '10',
-			'mahn_tage_3'         => '7',
-			'glaeubiger_id'       => '',
+			'vermieter_name'              => '',
+			'vermieter_adresse'           => '',
+			'vermieter_telefon'           => '',
+			'vermieter_email'             => get_option( 'admin_email' ),
+			'vermieter_iban'              => '',
+			'vermieter_bank'              => '',
+			'vermieter_steuernr'          => '',
+			'vermieter_vertreter'         => '',
+			'erinnerung_aktiv'            => '1',
+			'erinnerung_email'            => get_option( 'admin_email' ),
+			'aufbewahrung_jahre'          => '10',
+			'angespannter_markt'          => '0',
+			'mahn_tage_1'                 => '7',
+			'mahn_tage_2'                 => '10',
+			'mahn_tage_3'                 => '7',
+			'glaeubiger_id'               => '',
 			'loeschen_bei_deinstallation' => '0',
 		];
 	}
@@ -63,7 +63,7 @@ class MV_Einstellungen {
 
 		$data = [];
 		foreach ( self::defaults() as $k => $d ) {
-			$raw = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : '';
+			$raw        = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : '';
 			$data[ $k ] = $k === 'vermieter_adresse' ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
 		}
 		update_option( self::OPTION, $data );
@@ -72,7 +72,7 @@ class MV_Einstellungen {
 	}
 
 	public static function page(): void {
-		$o = array_merge( self::defaults(), get_option( self::OPTION, [] ) );
+		$o   = array_merge( self::defaults(), get_option( self::OPTION, [] ) );
 		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '';
 		$map = [
 			'saved'       => [ 'success', __( 'Einstellungen gespeichert.', 'mietverwaltung' ) ],
@@ -101,12 +101,30 @@ class MV_Einstellungen {
 		echo '</tbody></table>';
 
 		echo '<h2>' . esc_html__( 'Erinnerungen', 'mietverwaltung' ) . '</h2><table class="form-table"><tbody>';
-		self::select( 'erinnerung_aktiv', __( 'Tägliche E-Mail bei Hinweisen', 'mietverwaltung' ), $o, [ '1' => __( 'Ein', 'mietverwaltung' ), '0' => __( 'Aus', 'mietverwaltung' ) ], __( 'Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-%-Grenze. Nur wenn es etwas zu melden gibt.', 'mietverwaltung' ) );
+		self::select(
+			'erinnerung_aktiv',
+			__( 'Tägliche E-Mail bei Hinweisen', 'mietverwaltung' ),
+			$o,
+			[
+				'1' => __( 'Ein', 'mietverwaltung' ),
+				'0' => __( 'Aus', 'mietverwaltung' ),
+			],
+			__( 'Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-%-Grenze. Nur wenn es etwas zu melden gibt.', 'mietverwaltung' )
+		);
 		self::text( 'erinnerung_email', __( 'Empfänger', 'mietverwaltung' ), $o );
 		echo '</tbody></table>';
 
 		echo '<h2>' . esc_html__( 'Mietrecht', 'mietverwaltung' ) . '</h2><table class="form-table"><tbody>';
-		self::select( 'angespannter_markt', __( 'Gebiet mit angespanntem Wohnungsmarkt', 'mietverwaltung' ), $o, [ '0' => __( 'Nein (Kappungsgrenze 20 %)', 'mietverwaltung' ), '1' => __( 'Ja (Kappungsgrenze 15 %)', 'mietverwaltung' ) ], __( 'Bayern: Mieterschutzverordnung – gilt u. a. für Fürth, Nürnberg, Erlangen und einige Umlandgemeinden; Zirndorf/Oberasbach/Stein prüfen.', 'mietverwaltung' ) );
+		self::select(
+			'angespannter_markt',
+			__( 'Gebiet mit angespanntem Wohnungsmarkt', 'mietverwaltung' ),
+			$o,
+			[
+				'0' => __( 'Nein (Kappungsgrenze 20 %)', 'mietverwaltung' ),
+				'1' => __( 'Ja (Kappungsgrenze 15 %)', 'mietverwaltung' ),
+			],
+			__( 'Bayern: Mieterschutzverordnung – gilt u. a. für Fürth, Nürnberg, Erlangen und einige Umlandgemeinden; Zirndorf/Oberasbach/Stein prüfen.', 'mietverwaltung' )
+		);
 		self::text( 'mahn_tage_1', __( 'Zahlungsfrist Zahlungserinnerung (Tage)', 'mietverwaltung' ), $o );
 		self::text( 'mahn_tage_2', __( 'Zahlungsfrist 1. Mahnung (Tage)', 'mietverwaltung' ), $o );
 		self::text( 'mahn_tage_3', __( 'Zahlungsfrist letzte Mahnung (Tage)', 'mietverwaltung' ), $o );
@@ -117,7 +135,16 @@ class MV_Einstellungen {
 		echo '</tbody></table>';
 
 		echo '<h2>' . esc_html__( 'Deinstallation', 'mietverwaltung' ) . '</h2><table class="form-table"><tbody>';
-		self::select( 'loeschen_bei_deinstallation', __( 'Beim Löschen des Plugins', 'mietverwaltung' ), $o, [ '0' => __( 'Alle Daten behalten (Standard)', 'mietverwaltung' ), '1' => __( 'Alle Tabellen und Einstellungen löschen', 'mietverwaltung' ) ], __( 'Gilt nur für „Löschen“ auf der Plugin-Seite, nicht für „Deaktivieren“. Mediathek-Dateien bleiben in jedem Fall.', 'mietverwaltung' ) );
+		self::select(
+			'loeschen_bei_deinstallation',
+			__( 'Beim Löschen des Plugins', 'mietverwaltung' ),
+			$o,
+			[
+				'0' => __( 'Alle Daten behalten (Standard)', 'mietverwaltung' ),
+				'1' => __( 'Alle Tabellen und Einstellungen löschen', 'mietverwaltung' ),
+			],
+			__( 'Gilt nur für „Löschen“ auf der Plugin-Seite, nicht für „Deaktivieren“. Mediathek-Dateien bleiben in jedem Fall.', 'mietverwaltung' )
+		);
 		echo '</tbody></table>';
 
 		submit_button( 'Speichern' );
@@ -158,9 +185,16 @@ class MV_Einstellungen {
 		}
 		check_admin_referer( 'mv_backup' );
 		global $wpdb;
-		$dump = [ 'plugin' => 'mietverwaltung', 'version' => MV_VERSION, 'db_version' => MV_DB::DB_VERSION, 'erstellt' => current_time( 'mysql' ), 'einstellungen' => get_option( self::OPTION, [] ), 'tabellen' => [] ];
+		$dump = [
+			'plugin'        => 'mietverwaltung',
+			'version'       => MV_VERSION,
+			'db_version'    => MV_DB::DB_VERSION,
+			'erstellt'      => current_time( 'mysql' ),
+			'einstellungen' => get_option( self::OPTION, [] ),
+			'tabellen'      => [],
+		];
 		foreach ( self::tabellen() as $t ) {
-			$dump['tabellen'][ $t ] = $wpdb->get_results( "SELECT * FROM " . mv_table( $t ), ARRAY_A );
+			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mv_table( $t ), ARRAY_A );
 		}
 		header( 'Content-Type: application/json; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="mietverwaltung-backup-' . current_time( 'Y-m-d' ) . '.json"' );
@@ -175,7 +209,7 @@ class MV_Einstellungen {
 			return false;
 		}
 		foreach ( self::tabellen() as $t ) {
-			$wpdb->query( "DELETE FROM " . mv_table( $t ) );
+			$wpdb->query( 'DELETE FROM ' . mv_table( $t ) );
 			foreach ( (array) ( $d['tabellen'][ $t ] ?? [] ) as $row ) {
 				$wpdb->insert( mv_table( $t ), $row );
 			}

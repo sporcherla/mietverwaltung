@@ -68,7 +68,7 @@ function mv_mieter_personen( $mieter, bool $mit_geburtsdatum = false ): array {
 	if ( ! $mieter ) {
 		return $out;
 	}
-	$f = function ( $anrede, $vorname, $nachname, $geb ) use ( $mit_geburtsdatum ) {
+	$f     = function ( $anrede, $vorname, $nachname, $geb ) use ( $mit_geburtsdatum ) {
 		$z = trim( ( $anrede ? $anrede . ' ' : '' ) . $vorname . ' ' . $nachname );
 		if ( $mit_geburtsdatum && $geb && $geb !== '0000-00-00' ) {
 			$z .= ', geb. ' . mv_date( $geb );

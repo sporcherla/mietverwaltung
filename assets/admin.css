@@ -46,3 +46,13 @@
 .mv-hilfe-karte { background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; padding: 10px 14px; }
 .mv-hilfe-karte h3 { margin: 4px 0 8px; font-size: 14px; }
 .mv-hilfe-karte p { margin: 0 0 6px; color: #3c434a; }
+
+/* Einrichtungsassistent */
+.mv-schritte { display: flex; gap: 6px; list-style: none; margin: 10px 0 18px; padding: 0; flex-wrap: wrap; }
+.mv-schritte li a { display: inline-block; padding: 6px 12px; border: 1px solid #c3c4c7; border-radius: 16px; background: #fff; text-decoration: none; color: #50575e; }
+.mv-schritte li span { display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; background: #dcdcde; text-align: center; font-size: 11px; margin-right: 4px; }
+.mv-schritte li.aktiv a { border-color: #2271b1; color: #1d2327; font-weight: 600; }
+.mv-schritte li.aktiv span { background: #2271b1; color: #fff; }
+.mv-schritte li.erledigt span { background: #00a32a; color: #fff; }
+.mv-assistent-form .form-table th { width: 240px; }
+.mv-req { color: #d63638; }

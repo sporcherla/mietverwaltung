@@ -942,6 +942,9 @@ msgstr "Year end"
 msgid "System"
 msgstr "System"
 
+msgid "Assistent"
+msgstr "Wizard"
+
 msgid "BK-Abrechnung"
 msgstr "Service charges"
 
@@ -980,6 +983,9 @@ msgstr "Settings & backup"
 
 msgid "Hilfe"
 msgstr "Help"
+
+msgid "Einrichtungsassistent"
+msgstr "Setup wizard"
 
 msgid "%s ist ein Pflichtfeld."
 msgstr "%s is required."
@@ -1110,6 +1116,9 @@ msgstr "No active tenancy yet. Order to get started:"
 msgid "Objekt → Einheit → Mieter → Mietverhältnis → Konditionen"
 msgstr "Property → Unit → Tenant → Tenancy → Rent conditions"
 
+msgid "oder den Einrichtungsassistenten nutzen"
+msgstr "or use the setup wizard"
+
 msgid "%d offene Meldung(en) –"
 msgstr "%d open report(s) –"
 
@@ -1170,8 +1179,179 @@ msgstr "statutory by year built (§ 7 (4) EStG)"
 msgid "kein Satz – bitte eintragen"
 msgstr "no rate – please enter"
 
+msgid "Willkommen in der Mietverwaltung."
+msgstr "Welcome to Rental Management."
+
+msgid "Der Einrichtungsassistent legt in fünf Schritten Vermieter, Objekt, Einheit, Mieter und Mietverhältnis an."
+msgstr "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps."
+
+msgid "Assistent starten"
+msgstr "Start wizard"
+
+msgid "Vermieter"
+msgstr "Landlord"
+
+msgid "Name des Vermieters fehlt."
+msgstr "Landlord name is missing."
+
+msgid "Bezeichnung und Straße sind Pflicht."
+msgstr "Name and street are required."
+
+msgid "Bitte zuerst das Objekt anlegen."
+msgstr "Please create the property first."
+
+msgid "Bezeichnung und Wohnfläche der Wohnung sind Pflicht."
+msgstr "Name and living area of the flat are required."
+
+msgid "Nachname des Mieters fehlt."
+msgstr "Tenant's last name is missing."
+
+msgid "Einheit und Mieter müssen vorher angelegt sein."
+msgstr "Unit and tenant must be created first."
+
+msgid "Mietbeginn und Kaltmiete (größer 0) sind Pflicht."
+msgstr "Start of tenancy and base rent (greater than 0) are required."
+
+msgid "Diese Angaben erscheinen als Absender auf Mietvertrag, Abrechnungen und Schreiben."
+msgstr "These details appear as sender on the tenancy agreement, statements and letters."
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Anschrift"
+msgstr "Address"
+
+msgid "Straße und Ort in zwei Zeilen."
+msgstr "Street and town on two lines."
+
+msgid "IBAN (Mietkonto)"
+msgstr "IBAN (rent account)"
+
+msgid "Für Zahlungsaufforderungen und SEPA-Mandat."
+msgstr "For payment requests and SEPA mandate."
+
+msgid "Steuernummer (optional)"
+msgstr "Tax number (optional)"
+
+msgid "Ein Objekt ist das Haus oder die Eigentumswohnung. Das Baujahr bestimmt den AfA-Satz, die Heizungsart die Heizkostenverteilung."
+msgstr "A property is the house or condominium. The year built determines the depreciation rate, the heating type the heating cost allocation."
+
+msgid "z. B. „ETW Musterstraße 1“"
+msgstr "e.g. “Condo, 1 Sample Street”"
+
+msgid "Vor 1925: 2,5 % AfA, ab 2023: 3 %, sonst 2 %."
+msgstr "Before 1925: 2.5 % depreciation, from 2023: 3 %, otherwise 2 %."
+
+msgid "Die Wohnung ist die Haupteinheit. Garage oder Stellplatz können gleich mit angelegt und im nächsten Schritt demselben Vertrag zugeordnet werden."
+msgstr "The flat is the main unit. A garage or parking space can be created at the same time and assigned to the same agreement in the next step."
+
+msgid "Wohnung – Bezeichnung"
+msgstr "Flat – name"
+
+msgid "Wird für die Betriebskostenabrechnung benötigt."
+msgstr "Needed for the service charge statement."
+
+msgid "Garage / Stellplatz (optional)"
+msgstr "Garage / parking space (optional)"
+
+msgid "Leer lassen, wenn keine Garage mitvermietet wird."
+msgstr "Leave empty if no garage is let with the flat."
+
+msgid "Mietanteil Garage (€)"
+msgstr "Garage rent share (€)"
+
+msgid "Nur zur Ausweisung im Vertrag; die Gesamtmiete wird im nächsten Schritt erfasst."
+msgstr "Shown in the agreement only; the total rent is entered in the next step."
+
+msgid "Für den Mietvertrag."
+msgstr "For the tenancy agreement."
+
+msgid "Anschrift vor Einzug – erscheint im Vertrag."
+msgstr "Address before moving in – appears in the agreement."
+
 msgid "IBAN des Mieters"
 msgstr "Tenant's IBAN"
+
+msgid "Für die automatische Zuordnung beim Bankimport."
+msgstr "For automatic matching in the bank import."
+
+msgid "Ehe-/Lebenspartner als Mitmieter (optional)"
+msgstr "Spouse/partner as co-tenant (optional)"
+
+msgid "Erscheint automatisch als zweite Vertragspartei in Vertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll."
+msgstr "Appears automatically as second contracting party in the agreement, letters, SEPA mandate and handover protocol."
+
+msgid "Mietverhältnis:"
+msgstr "Tenancy:"
+
+msgid "Kaltmiete gesamt (€)"
+msgstr "Total base rent (€)"
+
+msgid "Inklusive Garage/Stellplatz, falls mitvermietet."
+msgstr "Including garage/parking space, if let together."
+
+msgid "Betriebskosten-Vorauszahlung (€)"
+msgstr "Service charge advance (€)"
+
+msgid "Heizkosten-Vorauszahlung (€)"
+msgstr "Heating advance (€)"
+
+msgid "Bei dezentraler Heizung 0."
+msgstr "0 for decentralised heating."
+
+msgid "Höchstens drei Kaltmieten (§ 551 BGB)."
+msgstr "At most three months' base rent (§ 551 BGB)."
+
+msgid "Zusatzeinheit"
+msgstr "Additional unit"
+
+msgid "„%s“ gehört zu diesem Vertrag (eine Gesamtmiete, eine Buchung)"
+msgstr "“%s” belongs to this agreement (one total rent, one booking)"
+
+msgid "Zurück"
+msgstr "Back"
+
+msgid "Abschließen"
+msgstr "Finish"
+
+msgid "Speichern und weiter"
+msgstr "Save and continue"
+
+msgid "Assistent beenden, ich lege die Daten selbst an"
+msgstr "Close the wizard, I'll enter the data myself"
+
+msgid "Einrichtung abgeschlossen"
+msgstr "Setup complete"
+
+msgid "Angelegt wurde das Mietverhältnis"
+msgstr "The following tenancy was created:"
+
+msgid "Sinnvolle nächste Schritte:"
+msgstr "Useful next steps:"
+
+msgid "Gebäude als Anlagegut mit Kaufpreis, Nebenkosten und Grundanteil erfassen (AfA) – Kaufvertrag-PDF auslesen lassen"
+msgstr "Enter the building as an asset with purchase price, incidental costs and land share (depreciation) – let the purchase contract PDF be parsed"
+
+msgid "Finanzierungsdarlehen anlegen (Zins, Tilgung, Rate)"
+msgstr "Create financing loan (interest, repayment, instalment)"
+
+msgid "Zähler der Wohnung anlegen und Anfangsstände erfassen"
+msgstr "Create the flat's meters and record initial readings"
+
+msgid "Mietvertrag, SEPA-Mandat und Übergabeprotokoll erzeugen"
+msgstr "Generate tenancy agreement, SEPA mandate and handover protocol"
+
+msgid "Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen"
+msgstr "Tick rent receipts in the overview or import them from the bank"
+
+msgid "Hilfe mit Kurzbeschreibung aller Module"
+msgstr "Help with a short description of all modules"
+
+msgid "Zur Übersicht"
+msgstr "Go to overview"
+
+msgid "Angaben noch einmal durchgehen"
+msgstr "Review the entries again"
 
 msgid "Name des Mieters"
 msgstr "Tenant's name"
@@ -1401,9 +1581,6 @@ msgstr "<strong>Processors:"
 msgid "Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich)."
 msgstr "Hosting provider of the WordPress installation (data processing agreement required)."
 
-msgid "Vermieter"
-msgstr "Landlord"
-
 msgid "Einnahmen (nur zur Info, nicht als Beleg buchen)"
 msgstr "Income (info only, do not book as receipt)"
 
@@ -1451,12 +1628,6 @@ msgstr "Settings &amp; backup"
 
 msgid "Vermieter (für Schreiben und Abrechnungen)"
 msgstr "Landlord (for letters and statements)"
-
-msgid "Name"
-msgstr "Name"
-
-msgid "Anschrift"
-msgstr "Address"
 
 msgid "IBAN (für Nachzahlungen)"
 msgstr "IBAN (for amounts due)"
@@ -1842,6 +2013,9 @@ msgstr "Matching rules for the bank import: search term or IBAN → tenancy or c
 msgid "Beendete Mietverhältnisse nach Ablauf der Aufbewahrungsfristen anonymisieren, Auskunft nach Art. 15 DSGVO exportieren. Löschkonzept und Fristen im Überblick."
 msgstr "Anonymise ended tenancies after the retention periods expire, export access reports under Art. 15 GDPR. Overview of deletion concept and deadlines."
 
+msgid "Legt in fünf Schritten Vermieter, Objekt, Einheiten (Wohnung + Garage), Mieter und Mietverhältnis mit Konditionen an. Jeder Schritt speichert sofort; der Assistent kann jederzeit erneut aufgerufen werden, um die Angaben zu ergänzen."
+msgstr "Creates landlord, property, units (flat + garage), tenant and tenancy with rent conditions in five steps. Each step saves immediately; the wizard can be reopened at any time to complete the entries."
+
 msgid "Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer, Mahn- und Portaloptionen. Backup aller Plugin-Tabellen als JSON, Wiederherstellung, Option „Daten bei Deinstallation löschen“."
 msgstr "Landlord details, bank account, creditor ID, tax number, dunning and portal options. Backup of all plugin tables as JSON, restore, option “delete data on uninstall”."
 
@@ -1856,6 +2030,12 @@ msgstr "Rental management for private landlords: master data, payments, receipts
 
 msgid "Schnellstart"
 msgstr "Quick start"
+
+msgid "Einrichtungsassistent starten"
+msgstr "Start setup wizard"
+
+msgid "– führt durch die Schritte 1 bis 4 und legt das erste Mietverhältnis an."
+msgstr "– guides through steps 1 to 4 and creates the first tenancy."
 
 msgid "Module"
 msgstr "Modules"

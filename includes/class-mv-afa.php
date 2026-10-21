@@ -13,8 +13,8 @@ class MV_Afa {
 	public static function alle(): array {
 		global $wpdb;
 		return $wpdb->get_results(
-			"SELECT a.*, o.bezeichnung AS objekt FROM " . mv_table( 'anlagegueter' ) . " a
-			 JOIN " . mv_table( 'objekte' ) . " o ON o.id = a.objekt_id ORDER BY a.objekt_id, a.anschaffung"
+			'SELECT a.*, o.bezeichnung AS objekt FROM ' . mv_table( 'anlagegueter' ) . ' a
+			 JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = a.objekt_id ORDER BY a.objekt_id, a.anschaffung'
 		);
 	}
 
@@ -44,7 +44,7 @@ class MV_Afa {
 
 	public static function gesetzlicher_satz( object $a ): float {
 		global $wpdb;
-		$baujahr = isset( $a->baujahr ) ? (int) $a->baujahr : (int) $wpdb->get_var( $wpdb->prepare( "SELECT baujahr FROM " . mv_table( 'objekte' ) . " WHERE id = %d", $a->objekt_id ?? 0 ) );
+		$baujahr = isset( $a->baujahr ) ? (int) $a->baujahr : (int) $wpdb->get_var( $wpdb->prepare( 'SELECT baujahr FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $a->objekt_id ?? 0 ) );
 		if ( $baujahr > 0 && $baujahr < 1925 ) {
 			return 2.5;
 		}
@@ -73,15 +73,19 @@ class MV_Afa {
 	 * ['afa' => x, 'restwert' => y, 'monate' => n]
 	 */
 	public static function jahr( object $a, int $jahr ): array {
-		$basis = self::basis( $a );
-		$satz  = self::satz( $a );
-		$start = (int) substr( $a->anschaffung, 0, 4 );
+		$basis       = self::basis( $a );
+		$satz        = self::satz( $a );
+		$start       = (int) substr( $a->anschaffung, 0, 4 );
 		$start_monat = (int) substr( $a->anschaffung, 5, 2 );
 		$ende_jahr   = ( ! empty( $a->ende ) && $a->ende !== '0000-00-00' ) ? (int) substr( $a->ende, 0, 4 ) : null;
 		$ende_monat  = $ende_jahr ? (int) substr( $a->ende, 5, 2 ) : 12;
 
 		if ( $basis <= 0 || $satz <= 0 || $jahr < $start || ( $ende_jahr && $jahr > $ende_jahr ) ) {
-			return [ 'afa' => 0.0, 'restwert' => $jahr < $start ? $basis : 0.0, 'monate' => 0 ];
+			return [
+				'afa'      => 0.0,
+				'restwert' => $jahr < $start ? $basis : 0.0,
+				'monate'   => 0,
+			];
 		}
 
 		$restwert = $basis;
@@ -96,20 +100,24 @@ class MV_Afa {
 				$monate = min( $monate, $ende_monat - ( $j === $start ? $start_monat - 1 : 0 ) );
 			}
 			$grundlage = $a->methode === 'degressiv' ? $restwert : $basis;
-			$afa = round( $grundlage * $satz / 100 * $monate / 12, 2 );
+			$afa       = round( $grundlage * $satz / 100 * $monate / 12, 2 );
 			if ( $afa > $restwert ) {
 				$afa = $restwert; // letztes Jahr: nur Restwert
 			}
 			$restwert = round( $restwert - $afa, 2 );
 		}
-		return [ 'afa' => $afa, 'restwert' => $restwert, 'monate' => $monate ];
+		return [
+			'afa'      => $afa,
+			'restwert' => $restwert,
+			'monate'   => $monate,
+		];
 	}
 
 	/** Alle Anlagegüter mit AfA des Jahres. */
 	public static function uebersicht( int $jahr ): array {
 		$out = [];
 		foreach ( self::alle() as $a ) {
-			$r = self::jahr( $a, $jahr );
+			$r         = self::jahr( $a, $jahr );
 			$ende_jahr = ( ! empty( $a->ende ) && $a->ende !== '0000-00-00' ) ? (int) substr( $a->ende, 0, 4 ) : null;
 			if ( (int) substr( $a->anschaffung, 0, 4 ) > $jahr || ( $ende_jahr && $ende_jahr < $jahr ) ) {
 				continue; // noch nicht angeschafft bzw. bereits ausgeschieden
@@ -139,14 +147,18 @@ class MV_Afa {
 			if ( $a->typ !== 'gebaeude' ) {
 				continue;
 			}
-			$von = $a->anschaffung;
-			$bis = date( 'Y-m-d', strtotime( $von . ' +3 years -1 day' ) );
-			$brutto = (float) $wpdb->get_var( $wpdb->prepare(
-				"SELECT COALESCE(SUM(b.betrag),0) FROM " . mv_table( 'belege' ) . " b
-				 JOIN " . mv_table( 'kostenarten' ) . " k ON k.id = b.kostenart_id
+			$von    = $a->anschaffung;
+			$bis    = date( 'Y-m-d', strtotime( $von . ' +3 years -1 day' ) );
+			$brutto = (float) $wpdb->get_var(
+				$wpdb->prepare(
+					'SELECT COALESCE(SUM(b.betrag),0) FROM ' . mv_table( 'belege' ) . ' b
+				 JOIN ' . mv_table( 'kostenarten' ) . " k ON k.id = b.kostenart_id
 				 WHERE b.objekt_id = %d AND k.anlage_v = 'erhaltung' AND b.datum BETWEEN %s AND %s",
-				$a->objekt_id, $von, $bis
-			) );
+					$a->objekt_id,
+					$von,
+					$bis
+				)
+			);
 			$netto  = round( $brutto / 1.19, 2 );
 			$grenze = round( self::basis( $a ) * 0.15, 2 );
 			$out[]  = [

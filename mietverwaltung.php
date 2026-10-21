@@ -43,28 +43,37 @@ require_once MV_PATH . 'includes/class-mv-hinweise.php';
 require_once MV_PATH . 'includes/class-mv-datenschutz.php';
 require_once MV_PATH . 'includes/class-mv-mietvertrag.php';
 require_once MV_PATH . 'includes/class-mv-hilfe.php';
+require_once MV_PATH . 'includes/class-mv-assistent.php';
 
 register_activation_hook( __FILE__, [ 'MV_DB', 'install' ] );
 register_deactivation_hook( __FILE__, [ 'MV_Hinweise', 'deaktivieren' ] );
 
-add_action( 'init', function () {
-	load_plugin_textdomain( 'mietverwaltung', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-}, 5 );
+add_action(
+	'init',
+	function () {
+		load_plugin_textdomain( 'mietverwaltung', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	},
+	5
+);
 
-add_action( 'plugins_loaded', function () {
-	MV_DB::maybe_upgrade();
-	MV_Admin::init();
-	MV_Steuer::init();
-	MV_Portal::init();
-	MV_Einstellungen::init();
-	MV_Abrechnung::init();
-	MV_Bank::init();
-	MV_Mahnung::init();
-	MV_Erhoehung::init();
-	MV_Hinweise::init();
-	MV_Datenschutz::init();
-	MV_Mietvertrag::init();
-	MV_Kaution::init();
-	MV_Darlehen::init();
-	MV_Hilfe::init();
-} );
+add_action(
+	'plugins_loaded',
+	function () {
+		MV_DB::maybe_upgrade();
+		MV_Admin::init();
+		MV_Steuer::init();
+		MV_Portal::init();
+		MV_Einstellungen::init();
+		MV_Abrechnung::init();
+		MV_Bank::init();
+		MV_Mahnung::init();
+		MV_Erhoehung::init();
+		MV_Hinweise::init();
+		MV_Datenschutz::init();
+		MV_Mietvertrag::init();
+		MV_Kaution::init();
+		MV_Darlehen::init();
+		MV_Hilfe::init();
+		MV_Assistent::init();
+	}
+);
