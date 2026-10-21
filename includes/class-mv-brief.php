@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Druckfertige Briefe (DIN-5008-nah) als eigenständige HTML-Seite.
  * Der Browser erzeugt daraus per „Drucken → Als PDF sichern“ die Datei.

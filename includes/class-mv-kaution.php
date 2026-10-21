@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Kautionskonto (§ 551 BGB): Einzahlungen, Zinsgutschriften, Verrechnung, Rückzahlung mit Abrechnung.
  */

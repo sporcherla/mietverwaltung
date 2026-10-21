@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 class Mietv_DB {
 
 	const DB_VERSION = '13';
@@ -115,7 +117,7 @@ class Mietv_DB {
 	private static function seed_kostenarten(): void {
 		global $wpdb;
 		$table = mietv_table( 'kostenarten' );
-		if ( (int) $wpdb->get_var( "SELECT COUNT(*) FROM $table" ) > 0 ) {  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname intern.
+		if ( (int) $wpdb->get_var( "SELECT COUNT(*) FROM $table" ) > 0 ) {  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellenname intern.
 			return;
 		}
 		// name, anlage_v, umlagefaehig, schluessel, betrkv

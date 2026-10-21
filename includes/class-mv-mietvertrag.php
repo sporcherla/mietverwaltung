@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Mietvertrag (Wohnraum), Übergabeprotokoll und Datenschutzinformation als druckfertige Dokumente.
  * Eigene Formulierungen nach BGB (Stand 2026); keine Übernahme geschützter Verbandsmuster.
@@ -806,7 +808,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		);
 
 		echo '<h2>' . esc_html__( '1. Zählerstände', 'mietverwaltung' ) . '</h2><table><tr><th>' . esc_html__( 'Zähler', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Nummer', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Stand', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Stand laut System', 'mietverwaltung' ) . '</th></tr>';
-		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT z.*, (SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter, (SELECT datum FROM ' . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter_datum FROM ' . $wpdb->prefix . 'mv_zaehler z WHERE z.einheit_id IN (' . implode( ',', array_map( 'intval', array_merge( [ $e->id ], $zusatz_ids ) ) ) . ') OR (z.einheit_id IS NULL AND z.objekt_id = %d) ORDER BY z.einheit_id, z.typ', $ob->id ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- IN-Platzhalter aus count() erzeugt, IDs sind int.
+		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT z.*, (SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter, (SELECT datum FROM ' . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter_datum FROM ' . $wpdb->prefix . 'mv_zaehler z WHERE z.einheit_id IN (' . implode( ',', array_map( 'intval', array_merge( [ $e->id ], $zusatz_ids ) ) ) . ') OR (z.einheit_id IS NULL AND z.objekt_id = %d) ORDER BY z.einheit_id, z.typ', $ob->id ) );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- IN-Platzhalter aus count() erzeugt, IDs sind int.
 		$typen   = [
 			'kaltwasser' => esc_html__( 'Kaltwasser (m³)', 'mietverwaltung' ),
 			'warmwasser' => esc_html__( 'Warmwasser (m³)', 'mietverwaltung' ),

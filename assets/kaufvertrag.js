@@ -125,7 +125,7 @@
 			panel.hidden = false;
 			return;
 		}
-		pdfjsLib.GlobalWorkerOptions.workerSrc = window.mvPdfWorker;
+		pdfjsLib.GlobalWorkerOptions.workerSrc = window.mietvPdfWorker;
 		panel.innerHTML = '<p>' + t( 'lese', 'Lese …' ) + '</p>';
 		panel.hidden = false;
 		var reader = new FileReader();

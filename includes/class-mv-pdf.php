@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Schlanker PDF-Writer (PDF 1.4, Helvetica-Kernfonts, WinAnsi) ohne Fremdbibliothek,
  * plus Konverter für die HTML-Teilmenge der Schreiben (p, h1–h3, strong, br, table, ul/li, small, .unterschrift, .umbruch).

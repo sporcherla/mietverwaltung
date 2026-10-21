@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Einstellungen (Vermieterdaten, Erinnerungen, Aufbewahrung) und Backup/Restore.
  */
@@ -195,7 +197,7 @@ class Mietv_Einstellungen {
 			'tabellen'      => [],
 		];
 		foreach ( self::tabellen() as $t ) {
-			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $t ), ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
+			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $t ), ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellenname aus fester Liste.
 		}
 		header( 'Content-Type: application/json; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="mietverwaltung-backup-' . current_time( 'Y-m-d' ) . '.json"' );
@@ -210,7 +212,7 @@ class Mietv_Einstellungen {
 			return false;
 		}
 		foreach ( self::tabellen() as $t ) {
-			$wpdb->query( 'DELETE FROM ' . mietv_table( $t ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
+			$wpdb->query( 'DELETE FROM ' . mietv_table( $t ) );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellenname aus fester Liste.
 			foreach ( (array) ( $d['tabellen'][ $t ] ?? [] ) as $row ) {
 				$wpdb->insert( mietv_table( $t ), $row );
 			}

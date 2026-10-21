@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Soll/Ist-Berechnung je Mietverhältnis und Monat.
  */
@@ -88,14 +90,14 @@ class Mietv_Soll {
 	public static function alle_mv( bool $nur_aktiv = false ): array {
 		global $wpdb;
 		$where = $nur_aktiv ? "WHERE (mv.ende IS NULL OR mv.ende = '0000-00-00' OR mv.ende >= CURDATE())" : '';
-		return $wpdb->get_results(
+		return $wpdb->get_results( // phpcs:ignore PluginCheck.Security.DirectDB -- Konstante Bedingung ohne Nutzereingabe.
 			'SELECT mv.*, m.vorname, m.nachname, m.p_vorname, m.p_nachname, m.wp_user_id, e.bezeichnung AS einheit, o.bezeichnung AS objekt, o.heizung,
 			        (SELECT GROUP_CONCAT(ze.bezeichnung) FROM ' . $wpdb->prefix . 'mv_mv_einheiten z JOIN ' . $wpdb->prefix . 'mv_einheiten ze ON ze.id = z.einheit_id WHERE z.mv_id = mv.id) AS zusatz
 			 FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv
 			 JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id
 			 JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.id = mv.einheit_id
 			 JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = e.objekt_id '
-			. $where // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Konstante Bedingung ohne Nutzereingabe.
+			. $where // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB -- Konstante Bedingung ohne Nutzereingabe.
 			. ' ORDER BY mv.beginn DESC'
 		);
 	}

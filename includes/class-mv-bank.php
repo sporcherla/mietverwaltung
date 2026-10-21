@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Bankimport: CSV (Sparkasse, VR-Bank, ING, DKB, comdirect …) oder CAMT.053 XML.
  * Zwei Schritte: Datei einlesen → Vorschläge prüfen → übernehmen.

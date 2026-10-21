@@ -67,7 +67,7 @@ git clone https://github.com/sporcherla/mietverwaltung.git
 
 Then activate in the admin area. Updates: `git pull` – database changes are applied automatically on the next request (`MV_DB::maybe_upgrade`).
 
-**Requirements:** WordPress ≥ 6.0, PHP ≥ 8.0, MySQL/MariaDB. The purchase contract parser loads pdf.js from the cdnjs CDN in the browser; without network access, values can be entered manually.
+**Requirements:** WordPress ≥ 6.0, PHP ≥ 8.0, MySQL/MariaDB. The purchase contract parser (pdf.js, Apache-2.0) is bundled with the plugin and runs entirely in the browser.
 
 To use the English interface, set the site or user language to **English (United States)** in WordPress.
 

@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Backend: Menü, generisches CRUD für alle Entitäten, Offene-Posten-Übersicht.
  */
@@ -157,15 +159,15 @@ class Mietv_Admin {
 		}
 		wp_enqueue_style( 'mietv-admin', MIETV_URL . 'assets/admin.css', [], MIETV_VERSION );
 		if ( strpos( $hook, 'mietv_anlagegueter' ) !== false && ! empty( $_GET['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-			wp_enqueue_script( 'mietv-pdfjs', 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', [], '3.11.174', true );
+			wp_enqueue_script( 'mietv-pdfjs', MIETV_URL . 'assets/pdfjs/pdf.min.js', [], '3.11.174', true );
 			wp_enqueue_script( 'mietv-kaufvertrag', MIETV_URL . 'assets/kaufvertrag.js', [ 'mietv-pdfjs' ], MIETV_VERSION, true );
-			wp_add_inline_script( 'mietv-kaufvertrag', 'window.mvPdfWorker="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";', 'before' );
+			wp_add_inline_script( 'mietv-kaufvertrag', 'window.mietvPdfWorker=' . wp_json_encode( MIETV_URL . 'assets/pdfjs/pdf.worker.min.js' ) . ';', 'before' );
 			wp_localize_script(
 				'mietv-kaufvertrag',
 				'mietvI18n',
 				[
 					'kein_text'    => esc_html__( 'Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen).', 'mietverwaltung' ),
-					'kein_pdfjs'   => esc_html__( 'pdf.js konnte nicht geladen werden (Netzwerk/Adblocker?). Werte bitte manuell eintragen.', 'mietverwaltung' ),
+					'kein_pdfjs'   => esc_html__( 'pdf.js konnte nicht geladen werden. Werte bitte manuell eintragen.', 'mietverwaltung' ),
 					'lese'         => esc_html__( 'Lese Kaufvertrag …', 'mietverwaltung' ),
 					'fehler'       => esc_html__( 'PDF konnte nicht gelesen werden:', 'mietverwaltung' ),
 					'nur_pdf'      => esc_html__( 'Auslesen nur bei PDF möglich.', 'mietverwaltung' ),
@@ -1535,7 +1537,7 @@ class Mietv_Admin {
 
 			if ( ! empty( $ent['children'] ) ) {
 				[ $ctable, $fk ] = $ent['children'];
-				$cnt             = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mietv_table( $ctable ) . " WHERE $fk = %d", $id ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+				$cnt             = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mietv_table( $ctable ) . " WHERE $fk = %d", $id ) );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 				if ( $cnt > 0 ) {
 					wp_safe_redirect( self::url( $key, [ 'msg' => 'haschildren' ] ) );
 					exit;
@@ -1561,7 +1563,7 @@ class Mietv_Admin {
 		static $cache = [];
 		if ( ! isset( $cache[ $table ] ) ) {
 			$cache[ $table ] = [];
-			$cols            = $wpdb->get_results( 'SHOW COLUMNS FROM `' . $table . '`', ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+			$cols            = $wpdb->get_results( 'SHOW COLUMNS FROM `' . $table . '`', ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			foreach ( (array) $cols as $c ) {
 				$cache[ $table ][ $c['Field'] ] = [
 					'null'    => strtoupper( (string) $c['Null'] ) === 'YES',
@@ -1835,10 +1837,10 @@ class Mietv_Admin {
 		$where = '';
 		if ( ! empty( $ent['filter_year'] ) ) {
 			$col   = $ent['filter_year'];
-			$jahre = $wpdb->get_col( "SELECT DISTINCT $col FROM " . mietv_table( $key ) . " ORDER BY $col DESC" );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+			$jahre = $wpdb->get_col( "SELECT DISTINCT $col FROM " . mietv_table( $key ) . " ORDER BY $col DESC" );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			$jahr  = isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : ( $jahre ? (int) $jahre[0] : (int) current_time( 'Y' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			if ( $jahr > 0 ) {
-				$where = $wpdb->prepare( " WHERE $col = %d", $jahr );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+				$where = $wpdb->prepare( " WHERE $col = %d", $jahr );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			}
 			echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_' . esc_attr( $key ) . '"><label>Jahr: <select name="jahr" onchange="this.form.submit()">';
 			printf( '<option value="0"%s>' . esc_html__( 'alle', 'mietverwaltung' ) . '</option>', selected( $jahr, 0, false ) );
@@ -1848,7 +1850,7 @@ class Mietv_Admin {
 			echo '</select></label></form>';
 		}
 
-		$rows = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $key ) . $where . ' ORDER BY ' . $ent['order'] );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+		$rows = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $key ) . $where . ' ORDER BY ' . $ent['order'] );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 		$cols = array_filter( $ent['fields'], fn( $f ) => ! empty( $f['list'] ) );
 
 		// Options einmalig auflösen
@@ -1926,7 +1928,7 @@ class Mietv_Admin {
 	private static function render_form( string $key, array $ent ): void {
 		global $wpdb;
 		$id       = isset( $_GET['id'] ) ? (int) $_GET['id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		$row      = $id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mietv_table( $key ) . ' WHERE id = %d', $id ) ) : null;  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+		$row      = $id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mietv_table( $key ) . ' WHERE id = %d', $id ) ) : null;  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 		$formdata = get_transient( 'mietv_formdata_' . get_current_user_id() );
 		if ( is_array( $formdata ) ) {
 			delete_transient( 'mietv_formdata_' . get_current_user_id() );

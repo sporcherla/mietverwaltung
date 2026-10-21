@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Betriebskostenabrechnung (§ 556 BGB, BetrKV, HeizkostenV).
  *
@@ -61,7 +63,7 @@ class Mietv_Abrechnung {
 			return null;
 		}
 		$ph      = implode( ',', array_fill( 0, count( $typen ), '%s' ) );
-		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT id FROM ' . $wpdb->prefix . "mv_zaehler WHERE einheit_id = %d AND typ IN ($ph)", array_merge( [ $einheit_id ], $typen ) ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Platzhalterliste wird aus count() erzeugt.
+		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT id FROM ' . $wpdb->prefix . "mv_zaehler WHERE einheit_id = %d AND typ IN ($ph)", array_merge( [ $einheit_id ], $typen ) ) );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Platzhalterliste wird aus count() erzeugt.
 		if ( ! $zaehler ) {
 			return null;
 		}

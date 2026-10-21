@@ -65,7 +65,7 @@ git clone https://github.com/sporcherla/mietverwaltung.git
 
 Danach im Backend aktivieren. Updates: `git pull` – Datenbankänderungen werden beim nächsten Aufruf automatisch eingespielt (`MV_DB::maybe_upgrade`).
 
-**Anforderungen:** WordPress ≥ 6.0, PHP ≥ 8.0, MySQL/MariaDB. Für den Kaufvertrags-Parser lädt der Browser pdf.js vom cdnjs-CDN; ohne Netz bleibt die manuelle Eingabe.
+**Anforderungen:** WordPress ≥ 6.0, PHP ≥ 8.0, MySQL/MariaDB. Der Kaufvertrags-Parser (pdf.js, Apache-2.0) ist im Plugin enthalten und läuft vollständig im Browser.
 
 ---
 
@@ -132,7 +132,7 @@ Shortcode `[mietverwaltung_portal]` auf einer Seite einfügen. Beim Mieter den W
 
 - Zugriff nur mit Capability `mv_verwalten` (Administratoren und Rolle „Vermieter“); alle Formulare mit Nonces; Eingaben werden bereinigt, Ausgaben escaped.
 - Mieterportal nur für den verknüpften Benutzer, Dokumente nur bei expliziter Freigabe.
-- Keine externen Dienste; Dateien liegen in der WordPress-Mediathek.
+- Keine externen Dienste, keine CDN-Skripte; Dateien liegen in der WordPress-Mediathek.
 - Löschkonzept: Aufbewahrungsfrist (Standard 10 Jahre, § 147 AO), Anonymisierung beendeter Mietverhältnisse, Auskunft Art. 15 / Art. 20 als JSON.
 - Deinstallation: Daten bleiben standardmäßig erhalten; Option „Alle Tabellen und Einstellungen löschen“ in den Einstellungen.
 

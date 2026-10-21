@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Mieterportal: Shortcode [mietverwaltung_portal]
  * Zeigt dem eingeloggten Mieter sein Mietverhältnis, Konditionen, Zahlungen, Saldo

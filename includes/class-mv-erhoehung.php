@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery -- Das Plugin verwaltet eigene Tabellen (wp_mv_*); Caching über die WordPress-API ist dafür nicht anwendbar.
+
 /**
  * Mieterhöhung: Vergleichsmiete (§ 558 BGB), Indexmiete (§ 557b BGB), Staffel/Vereinbarung.
  * Prüft Sperrfrist, Kappungsgrenze und Wirksamkeitszeitpunkt, erzeugt Schreiben und neue Kondition.
@@ -172,7 +174,7 @@ class Mietv_Erhoehung {
 			'wirksam_ab'   => ( sanitize_text_field( wp_unslash( $_POST['wirksam_ab'] ?? '' ) ) ?: '' ),
 			'begruendung'  => sanitize_textarea_field( wp_unslash( $_POST['begruendung'] ?? '' ) ),
 		];
-		// phpcs:enable
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 	public static function page(): void {
