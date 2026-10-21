@@ -6,7 +6,7 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-$einst = get_option( 'mv_einstellungen', [] );
+$einst = get_option( 'mietv_einstellungen', [] );
 if ( empty( $einst['loeschen_bei_deinstallation'] ) || $einst['loeschen_bei_deinstallation'] !== '1' ) {
 	return; // Daten bewusst behalten
 }
@@ -15,13 +15,13 @@ $tabellen = [ 'objekte', 'einheiten', 'mieter', 'mietverhaeltnisse', 'konditione
 foreach ( $tabellen as $t ) {
 	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'mv_' . $t );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
 }
-foreach ( [ 'mv_db_version', 'mv_einstellungen', 'mv_hinweis_hash', 'mv_hinweis_datum', 'mv_anlagev_zeilen' ] as $o ) {
+foreach ( [ 'mietv_db_version', 'mietv_einstellungen', 'mietv_hinweis_hash', 'mietv_hinweis_datum', 'mietv_anlagev_zeilen' ] as $o ) {
 	delete_option( $o );
 }
-delete_metadata( 'user', 0, 'mv_fokus', '', true );
-remove_role( 'mv_vermieter' );
+delete_metadata( 'user', 0, 'mietv_fokus', '', true );
+remove_role( 'mietv_vermieter' );
 $admin = get_role( 'administrator' );
 if ( $admin ) {
-	$admin->remove_cap( 'mv_verwalten' );
+	$admin->remove_cap( 'mietv_verwalten' );
 }
-wp_clear_scheduled_hook( 'mv_taeglich' );
+wp_clear_scheduled_hook( 'mietv_taeglich' );

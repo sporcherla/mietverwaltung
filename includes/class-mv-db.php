@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class MV_DB {
+class Mietv_DB {
 
 	const DB_VERSION = '13';
 
@@ -11,39 +11,76 @@ class MV_DB {
 		self::create_tables();
 		self::seed_kostenarten();
 		self::rollen();
-		update_option( 'mv_db_version', self::DB_VERSION );
-		if ( class_exists( 'MV_Assistent' ) ) {
-			MV_Assistent::aktiviert();
+		update_option( 'mietv_db_version', self::DB_VERSION );
+		if ( class_exists( 'Mietv_Assistent' ) ) {
+			Mietv_Assistent::aktiviert();
 		}
 	}
 
 	public static function maybe_upgrade(): void {
-		if ( get_option( 'mv_db_version' ) !== self::DB_VERSION ) {
+		self::migrate_prefix();
+		if ( get_option( 'mietv_db_version' ) !== self::DB_VERSION ) {
 			self::create_tables();
 			self::seed_kostenarten();
 			self::rollen();
-			update_option( 'mv_db_version', self::DB_VERSION );
+			update_option( 'mietv_db_version', self::DB_VERSION );
 		}
 	}
 
 	/** Rolle „Vermieter“ mit eigener Capability; Administratoren erhalten sie ebenfalls. */
+	/**
+	 * Versionen < 0.9.9 nutzten den Präfix „mv_“ für Optionen, Rolle, Capability und Benutzer-Meta.
+	 * Einmalige Übernahme; die Tabellen behalten ihren Namen wp_mv_*.
+	 */
+	public static function migrate_prefix(): void {
+		if ( get_option( 'mietv_db_version' ) !== false || get_option( 'mv_db_version' ) === false ) {
+			return;
+		}
+		foreach ( [ 'mv_einstellungen' => 'mietv_einstellungen', 'mv_db_version' => 'mietv_db_version', 'mv_assistent' => 'mietv_assistent', 'mv_anlagev_zeilen' => 'mietv_anlagev_zeilen', 'mv_hinweis_datum' => 'mietv_hinweis_datum', 'mv_hinweis_hash' => 'mietv_hinweis_hash' ] as $alt => $neu ) {
+			$wert = get_option( $alt, null );
+			if ( null !== $wert ) {
+				update_option( $neu, $wert, 'mietv_einstellungen' === $neu );
+				delete_option( $alt );
+			}
+		}
+		global $wpdb;
+		$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->usermeta} SET meta_key = %s WHERE meta_key = %s", 'mietv_fokus', 'mv_fokus' ) );
+		$admin = get_role( 'administrator' );
+		if ( $admin ) {
+			$admin->remove_cap( 'mv_verwalten' );
+		}
+		$alt_rolle = get_role( 'mv_vermieter' );
+		if ( $alt_rolle ) {
+			$nutzer = get_users( [ 'role' => 'mv_vermieter', 'fields' => 'ID' ] );
+			remove_role( 'mv_vermieter' );
+			self::rollen();
+			foreach ( $nutzer as $uid ) {
+				$u = get_user_by( 'id', $uid );
+				if ( $u ) {
+					$u->add_role( 'mietv_vermieter' );
+				}
+			}
+		}
+		wp_clear_scheduled_hook( 'mv_taeglich' );
+	}
+
 	public static function rollen(): void {
 		$admin = get_role( 'administrator' );
 		if ( $admin ) {
-			$admin->add_cap( 'mv_verwalten' );
+			$admin->add_cap( 'mietv_verwalten' );
 		}
-		if ( ! get_role( 'mv_vermieter' ) ) {
+		if ( ! get_role( 'mietv_vermieter' ) ) {
 			add_role(
-				'mv_vermieter',
+				'mietv_vermieter',
 				__( 'Vermieter', 'mietverwaltung' ),
 				[
 					'read'         => true,
 					'upload_files' => true,
-					'mv_verwalten' => true,
+					'mietv_verwalten' => true,
 				]
 			);
 		} else {
-			get_role( 'mv_vermieter' )->add_cap( 'mv_verwalten' );
+			get_role( 'mietv_vermieter' )->add_cap( 'mietv_verwalten' );
 		}
 	}
 
@@ -65,7 +102,7 @@ class MV_DB {
 
 	private static function seed_kostenarten(): void {
 		global $wpdb;
-		$table = mv_table( 'kostenarten' );
+		$table = mietv_table( 'kostenarten' );
 		if ( (int) $wpdb->get_var( "SELECT COUNT(*) FROM $table" ) > 0 ) {  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname intern.
 			return;
 		}
@@ -92,7 +129,7 @@ class MV_DB {
 			$wpdb->insert(
 				$table,
 				[
-					'owner_id'     => MV_OWNER_ID,
+					'owner_id'     => MIETV_OWNER_ID,
 					'name'         => $s[0],
 					'anlage_v'     => $s[1],
 					'umlagefaehig' => $s[2],

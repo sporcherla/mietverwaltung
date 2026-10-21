@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Backend: Menü, generisches CRUD für alle Entitäten, Offene-Posten-Übersicht.
  */
-class MV_Admin {
+class Mietv_Admin {
 
-	const CAP = 'mv_verwalten';
+	const CAP = 'mietv_verwalten';
 
 	private static array $entities = [];
 
@@ -31,16 +31,16 @@ class MV_Admin {
 	/* ------------------------------------------------------------------ */
 
 	public static function handle_op_buchen(): void {
-		if ( empty( $_POST['mv_op_nonce'] ) || ! current_user_can( self::CAP ) ) {
+		if ( empty( $_POST['mietv_op_nonce'] ) || ! current_user_can( self::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mv_op_nonce'], 'mv_op_buchen' ) ) {
+		if ( ! wp_verify_nonce( $_POST['mietv_op_nonce'], 'mietv_op_buchen' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
 		$n   = 0;
 		$mvs = [];
-		foreach ( MV_Soll::alle_mv() as $mv ) {
+		foreach ( Mietv_Soll::alle_mv() as $mv ) {
 			$mvs[ $mv->id ] = $mv;
 		}
 		foreach ( (array) ( $_POST['op'] ?? [] ) as $key ) {
@@ -49,23 +49,23 @@ class MV_Admin {
 			if ( ! isset( $mvs[ $mv_id ] ) || ! preg_match( '/^\d{4}-\d{2}-01$/', $monat ) ) {
 				continue;
 			}
-			$k = MV_Soll::konditionen( $mv_id, $monat );
+			$k = Mietv_Soll::konditionen( $mv_id, $monat );
 			if ( ! $k ) {
 				continue;
 			}
 			$soll  = (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz;
-			$offen = round( $soll - MV_Soll::ist( $mv_id, $monat ), 2 );
+			$offen = round( $soll - Mietv_Soll::ist( $mv_id, $monat ), 2 );
 			if ( $offen <= 0.005 ) {
 				continue; // schon bezahlt
 			}
 			$wpdb->insert(
-				mv_table( 'zahlungen' ),
+				mietv_table( 'zahlungen' ),
 				[
 					'mv_id'            => $mv_id,
 					'datum'            => $monat,
 					'betrag'           => $offen,
 					'monat'            => $monat,
-					'verwendungszweck' => sprintf( /* translators: %s: Monat */ __( 'Miete %s', 'mietverwaltung' ), mv_monat( $monat ) ),
+					'verwendungszweck' => sprintf( /* translators: %s: Monat */ __( 'Miete %s', 'mietverwaltung' ), mietv_monat( $monat ) ),
 					'quelle'           => 'abgehakt',
 				]
 			);
@@ -74,7 +74,7 @@ class MV_Admin {
 		wp_safe_redirect(
 			add_query_arg(
 				[
-					'page' => 'mv_uebersicht',
+					'page' => 'mietv_uebersicht',
 					'msg'  => 'gebucht',
 					'n'    => $n,
 				],
@@ -89,21 +89,21 @@ class MV_Admin {
 	/* ------------------------------------------------------------------ */
 
 	public static function fokus_aktiv(): bool {
-		return (bool) get_user_meta( get_current_user_id(), 'mv_fokus', true );
+		return (bool) get_user_meta( get_current_user_id(), 'mietv_fokus', true );
 	}
 
 	public static function fokus_url(): string {
 		$ziel = self::fokus_aktiv() ? 'aus' : 'an';
-		return wp_nonce_url( admin_url( 'admin.php?page=mv_uebersicht&mv_fokus=' . $ziel ), 'mv_fokus' );
+		return wp_nonce_url( admin_url( 'admin.php?page=mietv_uebersicht&mietv_fokus=' . $ziel ), 'mietv_fokus' );
 	}
 
 	public static function handle_fokus(): void {
-		if ( empty( $_GET['mv_fokus'] ) || ! current_user_can( self::CAP ) ) {
+		if ( empty( $_GET['mietv_fokus'] ) || ! current_user_can( self::CAP ) ) {
 			return;
 		}
-		check_admin_referer( 'mv_fokus' );
-		update_user_meta( get_current_user_id(), 'mv_fokus', $_GET['mv_fokus'] === 'an' ? 1 : 0 );
-		wp_safe_redirect( admin_url( 'admin.php?page=mv_uebersicht' ) );
+		check_admin_referer( 'mietv_fokus' );
+		update_user_meta( get_current_user_id(), 'mietv_fokus', $_GET['mietv_fokus'] === 'an' ? 1 : 0 );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_uebersicht' ) );
 		exit;
 	}
 
@@ -113,7 +113,7 @@ class MV_Admin {
 			return;
 		}
 		global $menu;
-		$behalten = [ 'mv_uebersicht', 'users.php', 'upload.php', 'profile.php' ];
+		$behalten = [ 'mietv_uebersicht', 'users.php', 'upload.php', 'profile.php' ];
 		foreach ( (array) $menu as $pos => $item ) {
 			if ( ! in_array( $item[2], $behalten, true ) ) {
 				remove_menu_page( $item[2] );
@@ -123,7 +123,7 @@ class MV_Admin {
 		add_action(
 			'load-index.php',
 			function () {
-				wp_safe_redirect( admin_url( 'admin.php?page=mv_uebersicht' ) );
+				wp_safe_redirect( admin_url( 'admin.php?page=mietv_uebersicht' ) );
 				exit;
 			}
 		);
@@ -151,18 +151,18 @@ class MV_Admin {
 	}
 
 	public static function assets( string $hook ): void {
-		wp_enqueue_style( 'mv-menu', MV_URL . 'assets/menu.css', [ 'dashicons' ], MV_VERSION );
-		if ( strpos( $hook, 'mv_' ) === false ) {
+		wp_enqueue_style( 'mietv-menu', MIETV_URL . 'assets/menu.css', [ 'dashicons' ], MIETV_VERSION );
+		if ( strpos( $hook, 'mietv_' ) === false ) {
 			return;
 		}
-		wp_enqueue_style( 'mv-admin', MV_URL . 'assets/admin.css', [], MV_VERSION );
-		if ( strpos( $hook, 'mv_anlagegueter' ) !== false && ! empty( $_GET['action'] ) ) {
-			wp_enqueue_script( 'mv-pdfjs', 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', [], '3.11.174', true );
-			wp_enqueue_script( 'mv-kaufvertrag', MV_URL . 'assets/kaufvertrag.js', [ 'mv-pdfjs' ], MV_VERSION, true );
-			wp_add_inline_script( 'mv-kaufvertrag', 'window.mvPdfWorker="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";', 'before' );
+		wp_enqueue_style( 'mietv-admin', MIETV_URL . 'assets/admin.css', [], MIETV_VERSION );
+		if ( strpos( $hook, 'mietv_anlagegueter' ) !== false && ! empty( $_GET['action'] ) ) {
+			wp_enqueue_script( 'mietv-pdfjs', 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', [], '3.11.174', true );
+			wp_enqueue_script( 'mietv-kaufvertrag', MIETV_URL . 'assets/kaufvertrag.js', [ 'mietv-pdfjs' ], MIETV_VERSION, true );
+			wp_add_inline_script( 'mietv-kaufvertrag', 'window.mvPdfWorker="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";', 'before' );
 			wp_localize_script(
-				'mv-kaufvertrag',
-				'mvI18n',
+				'mietv-kaufvertrag',
+				'mietvI18n',
 				[
 					'kein_text'    => esc_html__( 'Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen).', 'mietverwaltung' ),
 					'kein_pdfjs'   => esc_html__( 'pdf.js konnte nicht geladen werden (Netzwerk/Adblocker?). Werte bitte manuell eintragen.', 'mietverwaltung' ),
@@ -1088,7 +1088,7 @@ class MV_Admin {
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
-						'options'  => [ 'MV_DB', 'anlage_v_gruppen' ],
+						'options'  => [ 'Mietv_DB', 'anlage_v_gruppen' ],
 					],
 					'umlagefaehig' => [
 						'label'   => esc_html__( 'Umlagefähig (BetrKV)', 'mietverwaltung' ),
@@ -1192,15 +1192,15 @@ class MV_Admin {
 		global $wpdb;
 		$out = [];
 		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . $wpdb->prefix . 'mv_mieter ORDER BY nachname, vorname' ) as $r ) {
-			$out[ $r->id ] = mv_mieter_name( $r );
+			$out[ $r->id ] = mietv_mieter_name( $r );
 		}
 		return $out;
 	}
 
 	public static function opt_mv(): array {
 		$out = [];
-		foreach ( MV_Soll::alle_mv() as $mv ) {
-			$out[ $mv->id ] = MV_Soll::mv_label( $mv );
+		foreach ( Mietv_Soll::alle_mv() as $mv ) {
+			$out[ $mv->id ] = Mietv_Soll::mietv_label( $mv );
 		}
 		return $out;
 	}
@@ -1240,7 +1240,7 @@ class MV_Admin {
 		global $wpdb;
 		$out = [];
 		foreach ( $wpdb->get_results( 'SELECT id, bank, bezeichnung, betrag FROM ' . $wpdb->prefix . 'mv_darlehen ORDER BY bank' ) as $r ) {
-			$out[ $r->id ] = $r->bank . ( $r->bezeichnung ? ' – ' . $r->bezeichnung : '' ) . ' (' . mv_eur( $r->betrag ) . ')';
+			$out[ $r->id ] = $r->bank . ( $r->bezeichnung ? ' – ' . $r->bezeichnung : '' ) . ' (' . mietv_eur( $r->betrag ) . ')';
 		}
 		return $out;
 	}
@@ -1258,8 +1258,8 @@ class MV_Admin {
 	/* ------------------------------------------------------------------ */
 
 	public static function menu(): void {
-		add_menu_page( __( 'Mietverwaltung', 'mietverwaltung' ), __( 'Mietverwaltung', 'mietverwaltung' ), self::CAP, 'mv_uebersicht', [ __CLASS__, 'page_uebersicht' ], 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PHBhdGggZmlsbD0iYmxhY2siIGQ9Ik0xMCAyIDEuNSA5LjJsMS4xIDEuMkw0IDkuM1YxN2g1di00aDJ2NGg1VjkuM2wxLjQgMS4xIDEuMS0xLjJMMTAgMnptMCAyLjQgNC41IDMuOVYxNS41aC0yVjExSDcuNXY0LjVoLTJWOC4zTDEwIDQuNHoiLz48Y2lyY2xlIGZpbGw9ImJsYWNrIiBjeD0iMTQuNiIgY3k9IjUuMiIgcj0iMS4zIi8+PC9zdmc+', 58 );
-		add_submenu_page( 'mv_uebersicht', __( 'Übersicht', 'mietverwaltung' ), '<span class="dashicons dashicons-dashboard"></span> ' . __( 'Übersicht', 'mietverwaltung' ), self::CAP, 'mv_uebersicht', [ __CLASS__, 'page_uebersicht' ] );
+		add_menu_page( __( 'Mietverwaltung', 'mietverwaltung' ), __( 'Mietverwaltung', 'mietverwaltung' ), self::CAP, 'mietv_uebersicht', [ __CLASS__, 'page_uebersicht' ], 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PHBhdGggZmlsbD0iYmxhY2siIGQ9Ik0xMCAyIDEuNSA5LjJsMS4xIDEuMkw0IDkuM1YxN2g1di00aDJ2NGg1VjkuM2wxLjQgMS4xIDEuMS0xLjJMMTAgMnptMCAyLjQgNC41IDMuOVYxNS41aC0yVjExSDcuNXY0LjVoLTJWOC4zTDEwIDQuNHoiLz48Y2lyY2xlIGZpbGw9ImJsYWNrIiBjeD0iMTQuNiIgY3k9IjUuMiIgcj0iMS4zIi8+PC9zdmc+', 58 );
+		add_submenu_page( 'mietv_uebersicht', __( 'Übersicht', 'mietverwaltung' ), '<span class="dashicons dashicons-dashboard"></span> ' . __( 'Übersicht', 'mietverwaltung' ), self::CAP, 'mietv_uebersicht', [ __CLASS__, 'page_uebersicht' ] );
 		// Gruppen (## = Überschrift) und Dashicons
 		$reihenfolge = [
 			'##' . esc_html__( 'Alltag', 'mietverwaltung' ),
@@ -1336,29 +1336,29 @@ class MV_Admin {
 		];
 		$ico         = fn( string $key, string $label ) => '<span class="dashicons dashicons-' . esc_attr( $icons[ $key ] ?? 'marker' ) . '"></span> ' . ( $kurz[ $key ] ?? $label );
 		$seiten      = [
-			'__mietvertrag'    => [ __( 'Mietvertrag & Übergabe', 'mietverwaltung' ), [ 'MV_Mietvertrag', 'page' ] ],
-			'__bank'           => [ esc_html__( 'Bankimport', 'mietverwaltung' ), [ 'MV_Bank', 'page' ] ],
-			'__mahnung'        => [ esc_html__( 'Mahnwesen', 'mietverwaltung' ), [ 'MV_Mahnung', 'page' ] ],
-			'__erhoehung'      => [ esc_html__( 'Mieterhöhung', 'mietverwaltung' ), [ 'MV_Erhoehung', 'page' ] ],
-			'__kaution'        => [ esc_html__( 'Kaution', 'mietverwaltung' ), [ 'MV_Kaution', 'page' ] ],
-			'__darlehenskonto' => [ esc_html__( 'Darlehenskonto', 'mietverwaltung' ), [ 'MV_Darlehen', 'page' ] ],
-			'__abrechnung'     => [ esc_html__( 'Betriebskostenabrechnung', 'mietverwaltung' ), [ 'MV_Abrechnung', 'page' ] ],
-			'__steuer'         => [ esc_html__( 'Steuer (Anlage V)', 'mietverwaltung' ), [ 'MV_Steuer', 'page' ] ],
-			'__datenschutz'    => [ esc_html__( 'Datenschutz', 'mietverwaltung' ), [ 'MV_Datenschutz', 'page' ] ],
-			'__einstellungen'  => [ __( 'Einstellungen & Backup', 'mietverwaltung' ), [ 'MV_Einstellungen', 'page' ] ],
-			'__hilfe'          => [ esc_html__( 'Hilfe', 'mietverwaltung' ), [ 'MV_Hilfe', 'page' ] ],
-			'__assistent'      => [ esc_html__( 'Einrichtungsassistent', 'mietverwaltung' ), [ 'MV_Assistent', 'page' ] ],
+			'__mietvertrag'    => [ __( 'Mietvertrag & Übergabe', 'mietverwaltung' ), [ 'Mietv_Mietvertrag', 'page' ] ],
+			'__bank'           => [ esc_html__( 'Bankimport', 'mietverwaltung' ), [ 'Mietv_Bank', 'page' ] ],
+			'__mahnung'        => [ esc_html__( 'Mahnwesen', 'mietverwaltung' ), [ 'Mietv_Mahnung', 'page' ] ],
+			'__erhoehung'      => [ esc_html__( 'Mieterhöhung', 'mietverwaltung' ), [ 'Mietv_Erhoehung', 'page' ] ],
+			'__kaution'        => [ esc_html__( 'Kaution', 'mietverwaltung' ), [ 'Mietv_Kaution', 'page' ] ],
+			'__darlehenskonto' => [ esc_html__( 'Darlehenskonto', 'mietverwaltung' ), [ 'Mietv_Darlehen', 'page' ] ],
+			'__abrechnung'     => [ esc_html__( 'Betriebskostenabrechnung', 'mietverwaltung' ), [ 'Mietv_Abrechnung', 'page' ] ],
+			'__steuer'         => [ esc_html__( 'Steuer (Anlage V)', 'mietverwaltung' ), [ 'Mietv_Steuer', 'page' ] ],
+			'__datenschutz'    => [ esc_html__( 'Datenschutz', 'mietverwaltung' ), [ 'Mietv_Datenschutz', 'page' ] ],
+			'__einstellungen'  => [ __( 'Einstellungen & Backup', 'mietverwaltung' ), [ 'Mietv_Einstellungen', 'page' ] ],
+			'__hilfe'          => [ esc_html__( 'Hilfe', 'mietverwaltung' ), [ 'Mietv_Hilfe', 'page' ] ],
+			'__assistent'      => [ esc_html__( 'Einrichtungsassistent', 'mietverwaltung' ), [ 'Mietv_Assistent', 'page' ] ],
 		];
 		$ents        = self::entities();
 		$g           = 0;
 		foreach ( $reihenfolge as $key ) {
 			if ( strpos( $key, '##' ) === 0 ) {
 				++$g;
-				add_submenu_page( 'mv_uebersicht', '', '<span class="mv-menu-group">' . esc_html( substr( $key, 2 ) ) . '</span>', self::CAP, 'mv_grp_' . $g, [ __CLASS__, 'page_uebersicht' ] );
+				add_submenu_page( 'mietv_uebersicht', '', '<span class="mv-menu-group">' . esc_html( substr( $key, 2 ) ) . '</span>', self::CAP, 'mietv_grp_' . $g, [ __CLASS__, 'page_uebersicht' ] );
 			} elseif ( isset( $seiten[ $key ] ) ) {
-				add_submenu_page( 'mv_uebersicht', $seiten[ $key ][0], $ico( $key, $seiten[ $key ][0] ), self::CAP, 'mv_' . substr( $key, 2 ), $seiten[ $key ][1] );
+				add_submenu_page( 'mietv_uebersicht', $seiten[ $key ][0], $ico( $key, $seiten[ $key ][0] ), self::CAP, 'mietv_' . substr( $key, 2 ), $seiten[ $key ][1] );
 			} elseif ( isset( $ents[ $key ] ) ) {
-				add_submenu_page( 'mv_uebersicht', $ents[ $key ]['label'], $ico( $key, $ents[ $key ]['label'] ), self::CAP, 'mv_' . $key, [ __CLASS__, 'page_entity' ] );
+				add_submenu_page( 'mietv_uebersicht', $ents[ $key ]['label'], $ico( $key, $ents[ $key ]['label'] ), self::CAP, 'mietv_' . $key, [ __CLASS__, 'page_entity' ] );
 			}
 		}
 	}
@@ -1370,7 +1370,7 @@ class MV_Admin {
 	}
 
 	private static function url( string $key, array $args = [] ): string {
-		return add_query_arg( array_merge( [ 'page' => 'mv_' . $key ], $args ), admin_url( 'admin.php' ) );
+		return add_query_arg( array_merge( [ 'page' => 'mietv_' . $key ], $args ), admin_url( 'admin.php' ) );
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -1381,15 +1381,15 @@ class MV_Admin {
 		global $wpdb;
 
 		// Speichern
-		if ( isset( $_POST['mv_entity'] ) ) {
-			$key = sanitize_key( $_POST['mv_entity'] );
+		if ( isset( $_POST['mietv_entity'] ) ) {
+			$key = sanitize_key( $_POST['mietv_entity'] );
 			$ent = self::entities()[ $key ] ?? null;
 			if ( ! $ent || ! current_user_can( self::CAP ) ) {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 			}
-			check_admin_referer( 'mv_save_' . $key );
+			check_admin_referer( 'mietv_save_' . $key );
 
-			$id     = isset( $_POST['mv_record_id'] ) ? (int) $_POST['mv_record_id'] : 0;
+			$id     = isset( $_POST['mietv_record_id'] ) ? (int) $_POST['mietv_record_id'] : 0;
 			$data   = [];
 			$errors = [];
 
@@ -1399,7 +1399,7 @@ class MV_Admin {
 					$zusatz = [];
 					foreach ( (array) ( $_POST[ $name ] ?? [] ) as $eid => $anteil ) {
 						if ( (int) $eid > 0 && ! empty( $_POST[ $name . '_on' ][ $eid ] ) ) {
-							$zusatz[ (int) $eid ] = mv_to_float( wp_unslash( $anteil ) );
+							$zusatz[ (int) $eid ] = mietv_to_float( wp_unslash( $anteil ) );
 						}
 					}
 					continue;
@@ -1460,8 +1460,8 @@ class MV_Admin {
 			unset( $data['__zusatz'] );
 
 			if ( $errors ) {
-				set_transient( 'mv_errors_' . get_current_user_id(), $errors, 120 );
-				set_transient( 'mv_formdata_' . get_current_user_id(), $data, 120 );
+				set_transient( 'mietv_errors_' . get_current_user_id(), $errors, 120 );
+				set_transient( 'mietv_formdata_' . get_current_user_id(), $data, 120 );
 				wp_safe_redirect(
 					self::url(
 						$key,
@@ -1474,13 +1474,13 @@ class MV_Admin {
 				exit;
 			}
 
-			$table = mv_table( $key );
+			$table = mietv_table( $key );
 			$data  = self::null_bereinigen( $table, $data, (bool) $id );
 			if ( $id ) {
 				$ok = $wpdb->update( $table, $data, [ 'id' => $id ] );
 			} else {
 				if ( ! empty( $ent['owner'] ) ) {
-					$data['owner_id'] = MV_OWNER_ID;
+					$data['owner_id'] = MIETV_OWNER_ID;
 				}
 				if ( $key === 'objekte' ) {
 					$data['created_at'] = current_time( 'mysql' );
@@ -1492,10 +1492,10 @@ class MV_Admin {
 			}
 			if ( $ok !== false && $zusatz !== null ) {
 				$mv_id = $id ?: (int) $wpdb->insert_id;
-				$wpdb->delete( mv_table( 'mv_einheiten' ), [ 'mv_id' => $mv_id ] );
+				$wpdb->delete( mietv_table( 'mv_einheiten' ), [ 'mv_id' => $mv_id ] );
 				foreach ( $zusatz as $eid => $anteil ) {
 					$wpdb->insert(
-						mv_table( 'mv_einheiten' ),
+						mietv_table( 'mv_einheiten' ),
 						[
 							'mv_id'      => $mv_id,
 							'einheit_id' => $eid,
@@ -1506,8 +1506,8 @@ class MV_Admin {
 			}
 			if ( $ok === false ) {
 				$errors[] = sprintf( /* translators: %s: Datenbankfehler */ __( 'Speichern fehlgeschlagen: %s', 'mietverwaltung' ), $wpdb->last_error ?: __( 'unbekannter Datenbankfehler', 'mietverwaltung' ) );
-				set_transient( 'mv_errors_' . get_current_user_id(), $errors, 120 );
-				set_transient( 'mv_formdata_' . get_current_user_id(), $data, 120 );
+				set_transient( 'mietv_errors_' . get_current_user_id(), $errors, 120 );
+				set_transient( 'mietv_formdata_' . get_current_user_id(), $data, 120 );
 				wp_safe_redirect(
 					self::url(
 						$key,
@@ -1530,23 +1530,23 @@ class MV_Admin {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 			}
 			$id = (int) $_GET['id'];
-			check_admin_referer( 'mv_delete_' . $key . '_' . $id );
+			check_admin_referer( 'mietv_delete_' . $key . '_' . $id );
 			$ent = self::entities()[ $key ];
 
 			if ( ! empty( $ent['children'] ) ) {
 				[ $ctable, $fk ] = $ent['children'];
-				$cnt             = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( $ctable ) . " WHERE $fk = %d", $id ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+				$cnt             = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mietv_table( $ctable ) . " WHERE $fk = %d", $id ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 				if ( $cnt > 0 ) {
 					wp_safe_redirect( self::url( $key, [ 'msg' => 'haschildren' ] ) );
 					exit;
 				}
 			}
 			if ( $key === 'mietverhaeltnisse' ) {
-				$wpdb->delete( mv_table( 'mv_einheiten' ), [ 'mv_id' => $id ] );
-				$wpdb->delete( mv_table( 'konditionen' ), [ 'mv_id' => $id ] );
-				$wpdb->delete( mv_table( 'meldungen' ), [ 'mv_id' => $id ] );
+				$wpdb->delete( mietv_table( 'mv_einheiten' ), [ 'mv_id' => $id ] );
+				$wpdb->delete( mietv_table( 'konditionen' ), [ 'mv_id' => $id ] );
+				$wpdb->delete( mietv_table( 'meldungen' ), [ 'mv_id' => $id ] );
 			}
-			$wpdb->delete( mv_table( $key ), [ 'id' => $id ] );
+			$wpdb->delete( mietv_table( $key ), [ 'id' => $id ] );
 			wp_safe_redirect( self::url( $key, [ 'msg' => 'deleted' ] ) );
 			exit;
 		}
@@ -1591,9 +1591,9 @@ class MV_Admin {
 		$ka = $wpdb->get_var( 'SELECT id FROM ' . $wpdb->prefix . "mv_kostenarten WHERE name LIKE '%Geldbeschaffung%' ORDER BY id LIMIT 1" );
 		if ( ! $ka ) {
 			$wpdb->insert(
-				mv_table( 'kostenarten' ),
+				mietv_table( 'kostenarten' ),
 				[
-					'owner_id'     => MV_OWNER_ID,
+					'owner_id'     => MIETV_OWNER_ID,
 					'name'         => 'Geldbeschaffungskosten / Disagio',
 					'anlage_v'     => 'schuldzinsen',
 					'umlagefaehig' => 0,
@@ -1609,9 +1609,9 @@ class MV_Admin {
 			return;
 		}
 		$wpdb->insert(
-			mv_table( 'belege' ),
+			mietv_table( 'belege' ),
 			[
-				'owner_id'         => MV_OWNER_ID,
+				'owner_id'         => MIETV_OWNER_ID,
 				'objekt_id'        => $objekt_id,
 				'kostenart_id'     => (int) $ka,
 				'datum'            => $datum,
@@ -1666,10 +1666,10 @@ class MV_Admin {
 				if ( ! empty( $d['mv_id'] ) && ! empty( $d['gueltig_ab'] ) ) {
 					$mv = $wpdb->get_row( $wpdb->prepare( 'SELECT beginn, kaution FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $d['mv_id'] ) );
 					if ( $mv && $d['gueltig_ab'] < $mv->beginn ) {
-						$e[] = 'Gültig ab (' . mv_date( $d['gueltig_ab'] ) . ') liegt vor dem Mietbeginn (' . mv_date( $mv->beginn ) . ').';
+						$e[] = 'Gültig ab (' . mietv_date( $d['gueltig_ab'] ) . ') liegt vor dem Mietbeginn (' . mietv_date( $mv->beginn ) . ').';
 					}
 					if ( $mv && (float) $mv->kaution > 3 * (float) $d['kaltmiete'] + 0.005 && (float) $d['kaltmiete'] > 0 ) {
-						$e[] = 'Hinweis: Die Kaution (' . mv_eur( $mv->kaution ) . ') übersteigt drei Kaltmieten (§ 551 BGB) – bitte Mietverhältnis prüfen.';
+						$e[] = 'Hinweis: Die Kaution (' . mietv_eur( $mv->kaution ) . ') übersteigt drei Kaltmieten (§ 551 BGB) – bitte Mietverhältnis prüfen.';
 					}
 				}
 				if ( isset( $d['kaltmiete'] ) && $d['kaltmiete'] <= 0 ) {
@@ -1761,7 +1761,7 @@ class MV_Admin {
 			case 'int':
 				return $raw === '' ? null : (int) $raw;
 			case 'decimal':
-				return $raw === '' ? 0 : mv_to_float( $raw );
+				return $raw === '' ? 0 : mietv_to_float( $raw );
 			case 'date':
 				$raw = sanitize_text_field( $raw );
 				return preg_match( '/^\d{4}-\d{2}-\d{2}$/', $raw ) ? $raw : null;
@@ -1798,9 +1798,9 @@ class MV_Admin {
 		if ( isset( $map[ $msg ] ) ) {
 			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		}
-		$errors = get_transient( 'mv_errors_' . get_current_user_id() );
+		$errors = get_transient( 'mietv_errors_' . get_current_user_id() );
 		if ( $errors ) {
-			delete_transient( 'mv_errors_' . get_current_user_id() );
+			delete_transient( 'mietv_errors_' . get_current_user_id() );
 			echo '<div class="notice notice-error"><p>' . implode( '<br>', array_map( 'esc_html', $errors ) ) . '</p></div>';
 		}
 	}
@@ -1835,12 +1835,12 @@ class MV_Admin {
 		$where = '';
 		if ( ! empty( $ent['filter_year'] ) ) {
 			$col   = $ent['filter_year'];
-			$jahre = $wpdb->get_col( "SELECT DISTINCT $col FROM " . mv_table( $key ) . " ORDER BY $col DESC" );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+			$jahre = $wpdb->get_col( "SELECT DISTINCT $col FROM " . mietv_table( $key ) . " ORDER BY $col DESC" );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			$jahr  = isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : ( $jahre ? (int) $jahre[0] : (int) current_time( 'Y' ) );
 			if ( $jahr > 0 ) {
 				$where = $wpdb->prepare( " WHERE $col = %d", $jahr );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			}
-			echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mv_' . esc_attr( $key ) . '"><label>Jahr: <select name="jahr" onchange="this.form.submit()">';
+			echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_' . esc_attr( $key ) . '"><label>Jahr: <select name="jahr" onchange="this.form.submit()">';
 			printf( '<option value="0"%s>' . esc_html__( 'alle', 'mietverwaltung' ) . '</option>', selected( $jahr, 0, false ) );
 			foreach ( array_unique( array_merge( $jahre, [ (string) current_time( 'Y' ) ] ) ) as $j ) {
 				printf( '<option value="%1$d"%2$s>%1$d</option>', (int) $j, selected( $jahr, (int) $j, false ) );
@@ -1848,7 +1848,7 @@ class MV_Admin {
 			echo '</select></label></form>';
 		}
 
-		$rows = $wpdb->get_results( 'SELECT * FROM ' . mv_table( $key ) . $where . ' ORDER BY ' . $ent['order'] );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+		$rows = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $key ) . $where . ' ORDER BY ' . $ent['order'] );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 		$cols = array_filter( $ent['fields'], fn( $f ) => ! empty( $f['list'] ) );
 
 		// Options einmalig auflösen
@@ -1872,8 +1872,8 @@ class MV_Admin {
 			echo '<tr>';
 			foreach ( $cols as $name => $f ) {
 				if ( $f['type'] === 'zusatz' ) {
-					$z = MV_Soll::zusatzeinheiten( (int) $r->id );
-					echo '<td>' . esc_html( $z ? implode( ', ', array_map( fn( $x ) => $x->bezeichnung . ( (float) $x->mietanteil > 0 ? ' (' . mv_eur( $x->mietanteil ) . ')' : '' ), $z ) ) : '–' ) . '</td>';
+					$z = Mietv_Soll::zusatzeinheiten( (int) $r->id );
+					echo '<td>' . esc_html( $z ? implode( ', ', array_map( fn( $x ) => $x->bezeichnung . ( (float) $x->mietanteil > 0 ? ' (' . mietv_eur( $x->mietanteil ) . ')' : '' ), $z ) ) : '–' ) . '</td>';
 					continue;
 				}
 				if ( $f['type'] === 'file' ) {
@@ -1898,7 +1898,7 @@ class MV_Admin {
 						'id'     => $r->id,
 					]
 				),
-				'mv_delete_' . $key . '_' . $r->id
+				'mietv_delete_' . $key . '_' . $r->id
 			);
 			printf( '<td class="mv-actions"><a href="%s">' . esc_html__( 'Bearbeiten', 'mietverwaltung' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Wirklich löschen?\')">' . esc_html__( 'Löschen', 'mietverwaltung' ) . '</a></td>', esc_url( $edit ), esc_url( $del ) );
 			echo '</tr>';
@@ -1909,11 +1909,11 @@ class MV_Admin {
 	private static function display( array $f, $value, array $options ): string {
 		switch ( $f['type'] ) {
 			case 'decimal':
-				return mv_eur( $value );
+				return mietv_eur( $value );
 			case 'date':
-				return mv_date( $value );
+				return mietv_date( $value );
 			case 'month':
-				return mv_monat( $value );
+				return mietv_monat( $value );
 			case 'datetime':
 				return $value ? date_i18n( 'd.m.Y H:i', strtotime( $value ) ) : '–';
 			case 'select':
@@ -1926,10 +1926,10 @@ class MV_Admin {
 	private static function render_form( string $key, array $ent ): void {
 		global $wpdb;
 		$id       = isset( $_GET['id'] ) ? (int) $_GET['id'] : 0;
-		$row      = $id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( $key ) . ' WHERE id = %d', $id ) ) : null;  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
-		$formdata = get_transient( 'mv_formdata_' . get_current_user_id() );
+		$row      = $id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mietv_table( $key ) . ' WHERE id = %d', $id ) ) : null;  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
+		$formdata = get_transient( 'mietv_formdata_' . get_current_user_id() );
 		if ( is_array( $formdata ) ) {
-			delete_transient( 'mv_formdata_' . get_current_user_id() );
+			delete_transient( 'mietv_formdata_' . get_current_user_id() );
 			$row = (object) array_merge( $row ? (array) $row : [], $formdata );
 		}
 
@@ -1937,20 +1937,20 @@ class MV_Admin {
 		self::notices();
 
 		echo '<form method="post" class="mv-form"' . ( ! empty( $ent['upload'] ) ? ' enctype="multipart/form-data"' : '' ) . '>';
-		wp_nonce_field( 'mv_save_' . $key );
-		printf( '<input type="hidden" name="mv_entity" value="%s"><input type="hidden" name="mv_record_id" value="%d">', esc_attr( $key ), (int) $id );
+		wp_nonce_field( 'mietv_save_' . $key );
+		printf( '<input type="hidden" name="mietv_entity" value="%s"><input type="hidden" name="mietv_record_id" value="%d">', esc_attr( $key ), (int) $id );
 		echo '<table class="form-table"><tbody>';
 
 		foreach ( $ent['fields'] as $name => $f ) {
 			$val = $row && property_exists( $row, $name ) ? $row->$name : '';
 			$req = ! empty( $f['required'] ) ? ' required' : '';
 			$lbl = esc_html( $f['label'] ) . ( ! empty( $f['required'] ) ? ' <span class="mv-req">*</span>' : '' );
-			printf( '<tr><th scope="row"><label for="mv_%s">%s</label></th><td>', esc_attr( $name ), $lbl ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			printf( '<tr><th scope="row"><label for="mietv_%s">%s</label></th><td>', esc_attr( $name ), $lbl ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 
 			switch ( $f['type'] ) {
 				case 'zusatz':
 					$vorhanden = [];
-					foreach ( $id ? MV_Soll::zusatzeinheiten( $id ) : [] as $z ) {
+					foreach ( $id ? Mietv_Soll::zusatzeinheiten( $id ) : [] as $z ) {
 						$vorhanden[ $z->einheit_id ] = (float) $z->mietanteil;
 					}
 					$alle = $wpdb->get_results( 'SELECT e.id, e.bezeichnung, e.typ, o.bezeichnung AS objekt FROM ' . $wpdb->prefix . 'mv_einheiten e JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = e.objekt_id ORDER BY o.bezeichnung, e.typ, e.bezeichnung' );
@@ -1981,20 +1981,20 @@ class MV_Admin {
 							printf( '<p><a href="%s" target="_blank">' . esc_html__( 'Aktuelle Datei öffnen', 'mietverwaltung' ) . '</a> ' . esc_html__( '– neue Datei wählen, um sie zu ersetzen.', 'mietverwaltung' ) . '</p>', esc_url( $url ) );
 						}
 					}
-					printf( '<input type="file" id="mv_%1$s" name="%1$s" accept=".pdf,image/*"%2$s>', esc_attr( $name ), ! empty( $f['extract'] ) ? ' data-mv-extract="' . esc_attr( $f['extract'] ) . '"' : '' );
+					printf( '<input type="file" id="mietv_%1$s" name="%1$s" accept=".pdf,image/*"%2$s>', esc_attr( $name ), ! empty( $f['extract'] ) ? ' data-mv-extract="' . esc_attr( $f['extract'] ) . '"' : '' );
 					if ( wp_is_mobile() ) {
-						printf( ' <label class="button"><input type="file" name="%1$s" accept="image/*" capture="environment" style="display:none" onchange="document.getElementById(\'mv_%1$s\').disabled=!!this.files.length">' . esc_html__( '📷 Foto aufnehmen', 'mietverwaltung' ) . '</label>', esc_attr( $name ) );
+						printf( ' <label class="button"><input type="file" name="%1$s" accept="image/*" capture="environment" style="display:none" onchange="document.getElementById(\'mietv_%1$s\').disabled=!!this.files.length">' . esc_html__( '📷 Foto aufnehmen', 'mietverwaltung' ) . '</label>', esc_attr( $name ) );
 					}
 					if ( ! empty( $f['extract'] ) ) {
 						echo '<div id="mv-extract-panel" class="mv-extract" hidden></div>';
 					}
 					break;
 				case 'textarea':
-					printf( '<textarea id="mv_%1$s" name="%1$s" rows="4" class="large-text">%2$s</textarea>', esc_attr( $name ), esc_textarea( (string) $val ) );
+					printf( '<textarea id="mietv_%1$s" name="%1$s" rows="4" class="large-text">%2$s</textarea>', esc_attr( $name ), esc_textarea( (string) $val ) );
 					break;
 				case 'select':
 					$options = is_callable( $f['options'] ) ? call_user_func( $f['options'] ) : $f['options'];
-					printf( '<select id="mv_%1$s" name="%1$s"%2$s>', esc_attr( $name ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<select id="mietv_%1$s" name="%1$s"%2$s>', esc_attr( $name ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					if ( ! empty( $f['required'] ) ) {
 						echo '<option value="">' . esc_html__( '– bitte wählen –', 'mietverwaltung' ) . '</option>';
 					}
@@ -2004,22 +2004,22 @@ class MV_Admin {
 					echo '</select>';
 					break;
 				case 'decimal':
-					printf( '<input type="text" id="mv_%1$s" name="%1$s" value="%2$s" class="regular-text mv-num" inputmode="decimal"%3$s>', esc_attr( $name ), esc_attr( $val !== '' && $val !== null ? number_format( (float) $val, 2, ',', '' ) : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="text" id="mietv_%1$s" name="%1$s" value="%2$s" class="regular-text mv-num" inputmode="decimal"%3$s>', esc_attr( $name ), esc_attr( $val !== '' && $val !== null ? number_format( (float) $val, 2, ',', '' ) : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'int':
-					printf( '<input type="number" id="mv_%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="number" id="mietv_%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'date':
-					printf( '<input type="date" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val && $val !== '0000-00-00' ? $val : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="date" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val && $val !== '0000-00-00' ? $val : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'month':
-					printf( '<input type="month" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? substr( $val, 0, 7 ) : current_time( 'Y-m' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="month" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? substr( $val, 0, 7 ) : current_time( 'Y-m' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'datetime':
-					printf( '<input type="datetime-local" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? date( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="datetime-local" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? date( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				default:
-					printf( '<input type="%4$s" id="mv_%1$s" name="%1$s" value="%2$s" class="regular-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req, $f['type'] === 'email' ? 'email' : 'text' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="%4$s" id="mietv_%1$s" name="%1$s" value="%2$s" class="regular-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req, $f['type'] === 'email' ? 'email' : 'text' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			}
 			if ( ! empty( $f['hint'] ) ) {
 				echo '<p class="description">' . esc_html( $f['hint'] ) . '</p>';
@@ -2045,9 +2045,9 @@ class MV_Admin {
 		printf( '<a href="%s" class="page-title-action">%s</a><hr class="wp-header-end">', esc_url( self::fokus_url() ), self::fokus_aktiv() ? esc_html__( 'WordPress-Menü einblenden', 'mietverwaltung' ) : esc_html__( 'WordPress-Menü ausblenden', 'mietverwaltung' ) );
 		self::notices();
 
-		$mvs = MV_Soll::alle_mv( true );
+		$mvs = Mietv_Soll::alle_mv( true );
 		if ( ! $mvs ) {
-			echo '<p>' . esc_html__( 'Noch kein aktives Mietverhältnis. Reihenfolge zum Start:', 'mietverwaltung' ) . ' <strong>' . esc_html__( 'Objekt → Einheit → Mieter → Mietverhältnis → Konditionen', 'mietverwaltung' ) . '</strong> – ' . sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=mv_assistent' ) ), esc_html__( 'oder den Einrichtungsassistenten nutzen', 'mietverwaltung' ) ) . '.</p></div>';
+			echo '<p>' . esc_html__( 'Noch kein aktives Mietverhältnis. Reihenfolge zum Start:', 'mietverwaltung' ) . ' <strong>' . esc_html__( 'Objekt → Einheit → Mieter → Mietverhältnis → Konditionen', 'mietverwaltung' ) . '</strong> – ' . sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=mietv_assistent' ) ), esc_html__( 'oder den Einrichtungsassistenten nutzen', 'mietverwaltung' ) ) . '.</p></div>';
 			return;
 		}
 
@@ -2057,20 +2057,20 @@ class MV_Admin {
 		}
 
 		echo '<form method="post" id="mv-op-form">';
-		wp_nonce_field( 'mv_op_buchen', 'mv_op_nonce' );
+		wp_nonce_field( 'mietv_op_buchen', 'mietv_op_nonce' );
 		echo '<p class="description">' . esc_html__( 'Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar).', 'mietverwaltung' ) . ' <button class="button button-primary" onclick="return document.querySelectorAll(\'#mv-op-form input[name=\\\'op[]\\\']:checked\').length>0||(alert(\'' . esc_js( esc_html__( 'Bitte mindestens einen Monat anhaken.', 'mietverwaltung' ) ) . '\'),false)">' . esc_html__( 'Markierte als bezahlt buchen', 'mietverwaltung' ) . '</button></p>';
 		$offen_gesamt = 0;
 		foreach ( $mvs as $mv ) {
-			$op          = MV_Soll::op_liste( $mv );
+			$op          = Mietv_Soll::op_liste( $mv );
 			$saldo_class = $op['saldo'] < -0.005 ? 'mv-neg' : ( $op['saldo'] > 0.005 ? 'mv-pos' : '' );
 
-			printf( '<h2>%s</h2>', esc_html( MV_Soll::mv_label( $mv ) ) );
+			printf( '<h2>%s</h2>', esc_html( Mietv_Soll::mietv_label( $mv ) ) );
 			printf(
 				'<p>' . esc_html__( 'Mietbeginn %1$s · Kaution %2$s · Saldo gesamt:', 'mietverwaltung' ) . ' <strong class="%s">%s</strong> <a href="%s" class="button button-small">' . esc_html__( 'Zahlung erfassen', 'mietverwaltung' ) . '</a></p>',
-				esc_html( mv_date( $mv->beginn ) ),
-				esc_html( mv_eur( $mv->kaution ) ),
+				esc_html( mietv_date( $mv->beginn ) ),
+				esc_html( mietv_eur( $mv->kaution ) ),
 				esc_attr( $saldo_class ),
-				esc_html( mv_eur( $op['saldo'] ) ),
+				esc_html( mietv_eur( $op['saldo'] ) ),
 				esc_url( self::url( 'zahlungen', [ 'action' => 'new' ] ) )
 			);
 
@@ -2083,26 +2083,26 @@ class MV_Admin {
 				}
 				printf(
 					'<tr><td class="mv-op-check">%s</td><td>%s%s</td><td>%s</td><td>%s</td><td>%s</td><td><strong>%s</strong></td><td>%s</td><td class="%s">%s</td><td class="%s">%s</td></tr>',
-					$offen ? '<input type="checkbox" name="op[]" value="' . esc_attr( $mv->id . '|' . $r['monat'] ) . '" title="' . esc_attr( sprintf( __( '%s als bezahlt buchen', 'mietverwaltung' ), mv_eur( -$r['diff'] ) ) ) . '">' : ( $r['diff'] < -0.005 ? '' : '✓' ),
-					esc_html( mv_monat( $r['monat'] ) ),
+					$offen ? '<input type="checkbox" name="op[]" value="' . esc_attr( $mv->id . '|' . $r['monat'] ) . '" title="' . esc_attr( sprintf( __( '%s als bezahlt buchen', 'mietverwaltung' ), mietv_eur( -$r['diff'] ) ) ) . '">' : ( $r['diff'] < -0.005 ? '' : '✓' ),
+					esc_html( mietv_monat( $r['monat'] ) ),
 					$r['ohne_konditionen'] ? ' <span class="mv-warn" title="Keine Konditionen hinterlegt">⚠</span>' : '',
-					esc_html( mv_eur( $r['kalt'] ) ),
-					esc_html( mv_eur( $r['bk'] ) ),
-					esc_html( mv_eur( $r['hk'] ) ),
-					esc_html( mv_eur( $r['soll'] ) ),
-					esc_html( mv_eur( $r['ist'] ) ),
+					esc_html( mietv_eur( $r['kalt'] ) ),
+					esc_html( mietv_eur( $r['bk'] ) ),
+					esc_html( mietv_eur( $r['hk'] ) ),
+					esc_html( mietv_eur( $r['soll'] ) ),
+					esc_html( mietv_eur( $r['ist'] ) ),
 					esc_attr( $cls ),
-					esc_html( mv_eur( $r['diff'] ) ),
+					esc_html( mietv_eur( $r['diff'] ) ),
 					esc_attr( $r['kum'] < -0.005 ? 'mv-neg' : '' ),
-					esc_html( mv_eur( $r['kum'] ) )
+					esc_html( mietv_eur( $r['kum'] ) )
 				);
 			}
 			printf(
 				'</tbody><tfoot><tr><th></th><th>' . esc_html__( 'Gesamt', 'mietverwaltung' ) . '</th><th></th><th></th><th></th><th>%s</th><th>%s</th><th class="%s">%s</th><th></th></tr></tfoot></table>',
-				esc_html( mv_eur( $op['soll'] ) ),
-				esc_html( mv_eur( $op['ist'] ) ),
+				esc_html( mietv_eur( $op['soll'] ) ),
+				esc_html( mietv_eur( $op['ist'] ) ),
 				esc_attr( $saldo_class ),
-				esc_html( mv_eur( $op['saldo'] ) )
+				esc_html( mietv_eur( $op['saldo'] ) )
 			);
 		}
 		if ( $offen_gesamt ) {

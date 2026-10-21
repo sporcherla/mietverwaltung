@@ -24,16 +24,16 @@ $GLOBALS["dbg"]=1; $cases = [
 ];
 global $wpdb; $ok=0;
 foreach($cases as $ent=>$post){
-  $_POST=array_merge(['mv_entity'=>$ent,'mv_record_id'=>'0'],$post); $_FILES=[];
-  try{ MV_Admin::handle_actions(); }catch(Exception $e){ $r=$e->getMessage(); }
+  $_POST=array_merge(['mietv_entity'=>$ent,'mietv_record_id'=>'0'],$post); $_FILES=[];
+  try{ Mietv_Admin::handle_actions(); }catch(Exception $e){ $r=$e->getMessage(); }
   $n=(int)$wpdb->get_var("SELECT COUNT(*) FROM wp_mv_$ent");
-  $err=$GLOBALS['tr']['mv_errors_1']??null; unset($GLOBALS['tr']['mv_errors_1']);
+  $err=$GLOBALS['tr']['mietv_errors_1']??null; unset($GLOBALS['tr']['mietv_errors_1']);
   printf("%-18s %s  Zeilen=%d %s\n",$ent,strpos($r,'saved')!==false?'OK ':'ERR',$n,$err?implode(' | ',$err):'');
   if($n>0 && !$err) $ok++;
 }
 // Update-Pfad: Konditionen Datensatz 1 ändern
-$_POST=['mv_entity'=>'konditionen','mv_record_id'=>'1','mv_id'=>'1','gueltig_ab'=>'2026-01-01','kaltmiete'=>'700','bk_vz'=>'120','hk_vz'=>'90'];
-try{ MV_Admin::handle_actions(); }catch(Exception $e){}
+$_POST=['mietv_entity'=>'konditionen','mietv_record_id'=>'1','mv_id'=>'1','gueltig_ab'=>'2026-01-01','kaltmiete'=>'700','bk_vz'=>'120','hk_vz'=>'90'];
+try{ Mietv_Admin::handle_actions(); }catch(Exception $e){}
 echo "Update Kondition: kaltmiete=".$wpdb->get_var("SELECT kaltmiete FROM wp_mv_konditionen WHERE id=1")." (erwartet 700), Zeilen=".$wpdb->get_var("SELECT COUNT(*) FROM wp_mv_konditionen")." (erwartet 1)\n";
 echo "$ok/".count($cases)." Entitäten OK\n";
 printf("Anlagegut: Nebenkosten-Summe %.2f (erwartet 25410.00), Finanzierungsbeleg %d (erwartet 1, Betrag %.2f)\n",$wpdb->get_var("SELECT nebenkosten FROM wp_mv_anlagegueter WHERE id=1"),$wpdb->get_var("SELECT COUNT(*) FROM wp_mv_belege b JOIN wp_mv_kostenarten k ON k.id=b.kostenart_id WHERE k.name LIKE '%Geldbeschaffung%'"),(float)$wpdb->get_var("SELECT betrag FROM wp_mv_belege b JOIN wp_mv_kostenarten k ON k.id=b.kostenart_id WHERE k.name LIKE '%Geldbeschaffung%'"));
@@ -42,9 +42,9 @@ printf("Anlagegut: Nebenkosten-Summe %.2f (erwartet 25410.00), Finanzierungsbele
 echo "\n--- Update-Pfad ---\n"; $okU=0;
 foreach($cases as $ent=>$post){
   if($ent==='dokumente') continue;
-  $_POST=array_merge(['mv_entity'=>$ent,'mv_record_id'=>'1'],$post); $_FILES=[]; $r='';
-  try{ MV_Admin::handle_actions(); }catch(Exception $e){ $r=$e->getMessage(); }
-  $err=$GLOBALS['tr']['mv_errors_1']??null; unset($GLOBALS['tr']['mv_errors_1']);
+  $_POST=array_merge(['mietv_entity'=>$ent,'mietv_record_id'=>'1'],$post); $_FILES=[]; $r='';
+  try{ Mietv_Admin::handle_actions(); }catch(Exception $e){ $r=$e->getMessage(); }
+  $err=$GLOBALS['tr']['mietv_errors_1']??null; unset($GLOBALS['tr']['mietv_errors_1']);
   $n=(int)$wpdb->get_var("SELECT COUNT(*) FROM wp_mv_$ent");
   $erw=in_array($ent,["kostenarten","belege"])?2:1; $ok=strpos($r,"saved")!==false && !$err && $n===$erw; if($ok)$okU++;
   printf("%-18s %s Zeilen=%d %s\n",$ent,$ok?'OK ':'ERR',$n,$err?implode(' | ',$err):'');

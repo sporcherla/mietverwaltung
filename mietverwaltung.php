@@ -17,36 +17,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MV_VERSION', '0.9.8' );
-define( 'MV_PATH', plugin_dir_path( __FILE__ ) );
-define( 'MV_URL', plugin_dir_url( __FILE__ ) );
+define( 'MIETV_VERSION', '0.9.8' );
+define( 'MIETV_PATH', plugin_dir_path( __FILE__ ) );
+define( 'MIETV_URL', plugin_dir_url( __FILE__ ) );
 // Vorbereitung Mandantenfähigkeit: vorerst immer 1.
-define( 'MV_OWNER_ID', 1 );
+define( 'MIETV_OWNER_ID', 1 );
 
-require_once MV_PATH . 'includes/helpers.php';
-require_once MV_PATH . 'includes/class-mv-db.php';
-require_once MV_PATH . 'includes/class-mv-soll.php';
-require_once MV_PATH . 'includes/class-mv-admin.php';
-require_once MV_PATH . 'includes/class-mv-afa.php';
-require_once MV_PATH . 'includes/class-mv-steuer.php';
-require_once MV_PATH . 'includes/class-mv-portal.php';
-require_once MV_PATH . 'includes/class-mv-einstellungen.php';
-require_once MV_PATH . 'includes/class-mv-pdf.php';
-require_once MV_PATH . 'includes/class-mv-brief.php';
-require_once MV_PATH . 'includes/class-mv-kaution.php';
-require_once MV_PATH . 'includes/class-mv-darlehen.php';
-require_once MV_PATH . 'includes/class-mv-abrechnung.php';
-require_once MV_PATH . 'includes/class-mv-bank.php';
-require_once MV_PATH . 'includes/class-mv-mahnung.php';
-require_once MV_PATH . 'includes/class-mv-erhoehung.php';
-require_once MV_PATH . 'includes/class-mv-hinweise.php';
-require_once MV_PATH . 'includes/class-mv-datenschutz.php';
-require_once MV_PATH . 'includes/class-mv-mietvertrag.php';
-require_once MV_PATH . 'includes/class-mv-hilfe.php';
-require_once MV_PATH . 'includes/class-mv-assistent.php';
+require_once MIETV_PATH . 'includes/helpers.php';
+require_once MIETV_PATH . 'includes/class-mv-db.php';
+require_once MIETV_PATH . 'includes/class-mv-soll.php';
+require_once MIETV_PATH . 'includes/class-mv-admin.php';
+require_once MIETV_PATH . 'includes/class-mv-afa.php';
+require_once MIETV_PATH . 'includes/class-mv-steuer.php';
+require_once MIETV_PATH . 'includes/class-mv-portal.php';
+require_once MIETV_PATH . 'includes/class-mv-einstellungen.php';
+require_once MIETV_PATH . 'includes/class-mv-pdf.php';
+require_once MIETV_PATH . 'includes/class-mv-brief.php';
+require_once MIETV_PATH . 'includes/class-mv-kaution.php';
+require_once MIETV_PATH . 'includes/class-mv-darlehen.php';
+require_once MIETV_PATH . 'includes/class-mv-abrechnung.php';
+require_once MIETV_PATH . 'includes/class-mv-bank.php';
+require_once MIETV_PATH . 'includes/class-mv-mahnung.php';
+require_once MIETV_PATH . 'includes/class-mv-erhoehung.php';
+require_once MIETV_PATH . 'includes/class-mv-hinweise.php';
+require_once MIETV_PATH . 'includes/class-mv-datenschutz.php';
+require_once MIETV_PATH . 'includes/class-mv-mietvertrag.php';
+require_once MIETV_PATH . 'includes/class-mv-hilfe.php';
+require_once MIETV_PATH . 'includes/class-mv-assistent.php';
 
-register_activation_hook( __FILE__, [ 'MV_DB', 'install' ] );
-register_deactivation_hook( __FILE__, [ 'MV_Hinweise', 'deaktivieren' ] );
+register_activation_hook( __FILE__, [ 'Mietv_DB', 'install' ] );
+register_deactivation_hook( __FILE__, [ 'Mietv_Hinweise', 'deaktivieren' ] );
 
 add_action(
 	'init',
@@ -59,21 +59,21 @@ add_action(
 add_action(
 	'plugins_loaded',
 	function () {
-		MV_DB::maybe_upgrade();
-		MV_Admin::init();
-		MV_Steuer::init();
-		MV_Portal::init();
-		MV_Einstellungen::init();
-		MV_Abrechnung::init();
-		MV_Bank::init();
-		MV_Mahnung::init();
-		MV_Erhoehung::init();
-		MV_Hinweise::init();
-		MV_Datenschutz::init();
-		MV_Mietvertrag::init();
-		MV_Kaution::init();
-		MV_Darlehen::init();
-		MV_Hilfe::init();
-		MV_Assistent::init();
+		Mietv_DB::maybe_upgrade();
+		Mietv_Admin::init();
+		Mietv_Steuer::init();
+		Mietv_Portal::init();
+		Mietv_Einstellungen::init();
+		Mietv_Abrechnung::init();
+		Mietv_Bank::init();
+		Mietv_Mahnung::init();
+		Mietv_Erhoehung::init();
+		Mietv_Hinweise::init();
+		Mietv_Datenschutz::init();
+		Mietv_Mietvertrag::init();
+		Mietv_Kaution::init();
+		Mietv_Darlehen::init();
+		Mietv_Hilfe::init();
+		Mietv_Assistent::init();
 	}
 );

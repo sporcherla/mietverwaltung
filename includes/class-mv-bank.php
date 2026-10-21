@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Bankimport: CSV (Sparkasse, VR-Bank, ING, DKB, comdirect …) oder CAMT.053 XML.
  * Zwei Schritte: Datei einlesen → Vorschläge prüfen → übernehmen.
  */
-class MV_Bank {
+class Mietv_Bank {
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
@@ -109,7 +109,7 @@ class MV_Bank {
 			if ( ! $datum ) {
 				continue;
 			}
-			$betrag = mv_to_float( preg_replace( '/[^\d,.\-]/', '', $f[ $c_betrag ] ?? '0' ) );
+			$betrag = mietv_to_float( preg_replace( '/[^\d,.\-]/', '', $f[ $c_betrag ] ?? '0' ) );
 			if ( $c_soll !== null && stripos( $f[ $c_soll ] ?? '', 's' ) === 0 && $betrag > 0 ) {
 				$betrag = -$betrag;
 			}
@@ -206,7 +206,7 @@ class MV_Bank {
 	public static function vorschlaege( array $rows ): array {
 		global $wpdb;
 		$regeln = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'mv_bank_regeln' );
-		$mvs    = MV_Soll::alle_mv( true );
+		$mvs    = Mietv_Soll::alle_mv( true );
 		$mieter = $wpdb->get_results( 'SELECT id, nachname, iban FROM ' . $wpdb->prefix . 'mv_mieter', OBJECT_K );
 		$hashes = $wpdb->get_col( 'SELECT hash FROM ' . $wpdb->prefix . 'mv_bank_import' );
 		$hashes = array_flip( $hashes );
@@ -261,27 +261,27 @@ class MV_Bank {
 	/* ------------------------------------------------------------------ */
 
 	public static function handle(): void {
-		if ( empty( $_POST['mv_bank_nonce'] ) || ! current_user_can( MV_Admin::CAP ) ) {
+		if ( empty( $_POST['mietv_bank_nonce'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mv_bank_nonce'], 'mv_bank' ) ) {
+		if ( ! wp_verify_nonce( $_POST['mietv_bank_nonce'], 'mietv_bank' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$key = 'mv_bank_' . get_current_user_id();
+		$key = 'mietv_bank_' . get_current_user_id();
 
-		if ( ! empty( $_FILES['mv_bank_datei']['tmp_name'] ) ) {
-			$rows = self::parse( file_get_contents( $_FILES['mv_bank_datei']['tmp_name'] ), $_FILES['mv_bank_datei']['name'] );
+		if ( ! empty( $_FILES['mietv_bank_datei']['tmp_name'] ) ) {
+			$rows = self::parse( file_get_contents( $_FILES['mietv_bank_datei']['tmp_name'] ), $_FILES['mietv_bank_datei']['name'] );
 			if ( ! $rows ) {
-				wp_safe_redirect( admin_url( 'admin.php?page=mv_bank&msg=leer' ) );
+				wp_safe_redirect( admin_url( 'admin.php?page=mietv_bank&msg=leer' ) );
 				exit;
 			}
 			set_transient( $key, self::vorschlaege( $rows ), HOUR_IN_SECONDS );
-			wp_safe_redirect( admin_url( 'admin.php?page=mv_bank&schritt=pruefen' ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=mietv_bank&schritt=pruefen' ) );
 			exit;
 		}
 
-		if ( isset( $_POST['mv_bank_uebernehmen'] ) ) {
+		if ( isset( $_POST['mietv_bank_uebernehmen'] ) ) {
 			$rows = get_transient( $key ) ?: [];
 			$n    = 0;
 			foreach ( (array) ( $_POST['zeile'] ?? [] ) as $i => $z ) {
@@ -292,7 +292,7 @@ class MV_Bank {
 				$typ = sanitize_key( $z['typ'] );
 				if ( $typ === 'zahlung' && ! empty( $z['mv_id'] ) ) {
 					$wpdb->insert(
-						mv_table( 'zahlungen' ),
+						mietv_table( 'zahlungen' ),
 						[
 							'mv_id'            => (int) $z['mv_id'],
 							'datum'            => $r['datum'],
@@ -305,9 +305,9 @@ class MV_Bank {
 					$ziel = [ 'zahlung', $wpdb->insert_id ];
 				} elseif ( $typ === 'beleg' && ! empty( $z['kostenart_id'] ) && ! empty( $z['objekt_id'] ) ) {
 					$wpdb->insert(
-						mv_table( 'belege' ),
+						mietv_table( 'belege' ),
 						[
-							'owner_id'         => MV_OWNER_ID,
+							'owner_id'         => MIETV_OWNER_ID,
 							'objekt_id'        => (int) $z['objekt_id'],
 							'kostenart_id'     => (int) $z['kostenart_id'],
 							'datum'            => $r['datum'],
@@ -325,7 +325,7 @@ class MV_Bank {
 					continue;
 				}
 				$wpdb->replace(
-					mv_table( 'bank_import' ),
+					mietv_table( 'bank_import' ),
 					[
 						'hash'       => $r['hash'],
 						'datum'      => $r['datum'],
@@ -339,9 +339,9 @@ class MV_Bank {
 				// Lernen: Regel anlegen, wenn gewünscht
 				if ( ! empty( $z['regel'] ) && $r['name'] !== '' ) {
 					$wpdb->insert(
-						mv_table( 'bank_regeln' ),
+						mietv_table( 'bank_regeln' ),
 						[
-							'owner_id'     => MV_OWNER_ID,
+							'owner_id'     => MIETV_OWNER_ID,
 							'muster'       => mb_substr( $r['name'], 0, 60 ),
 							'typ'          => $typ,
 							'objekt_id'    => (int) ( $z['objekt_id'] ?? 0 ) ?: null,
@@ -352,7 +352,7 @@ class MV_Bank {
 				}
 			}
 			delete_transient( $key );
-			wp_safe_redirect( admin_url( 'admin.php?page=mv_bank&msg=ok&n=' . $n ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=mietv_bank&msg=ok&n=' . $n ) );
 			exit;
 		}
 	}
@@ -370,31 +370,31 @@ class MV_Bank {
 			echo '<div class="notice notice-error"><p>' . esc_html__( 'Keine Buchungen erkannt. Unterstützt: CSV mit Kopfzeile (Buchungstag, Betrag, Verwendungszweck …) oder CAMT.053-XML.', 'mietverwaltung' ) . '</p></div>';
 		}
 
-		$rows = ( sanitize_key( $_GET['schritt'] ?? '' ) === 'pruefen' ) ? get_transient( 'mv_bank_' . get_current_user_id() ) : null;
+		$rows = ( sanitize_key( $_GET['schritt'] ?? '' ) === 'pruefen' ) ? get_transient( 'mietv_bank_' . get_current_user_id() ) : null;
 
 		if ( ! $rows ) {
 			echo '<form method="post" enctype="multipart/form-data" class="mv-form">';
-			wp_nonce_field( 'mv_bank', 'mv_bank_nonce' );
-			echo '<p><input type="file" name="mv_bank_datei" accept=".csv,.txt,.xml" required> <button class="button button-primary">' . esc_html__( 'Einlesen', 'mietverwaltung' ) . '</button></p>';
-			echo '<p class="description">' . esc_html__( 'Kontoauszug als CSV (Online-Banking-Export) oder CAMT.053-XML. Bereits importierte Buchungen werden erkannt und nicht doppelt angelegt. Mieteingänge werden über IBAN oder Nachname des Mieters zugeordnet, Ausgaben über', 'mietverwaltung' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=mv_bank_regeln' ) ) . '">Regeln</a>.</p></form></div>';
+			wp_nonce_field( 'mietv_bank', 'mietv_bank_nonce' );
+			echo '<p><input type="file" name="mietv_bank_datei" accept=".csv,.txt,.xml" required> <button class="button button-primary">' . esc_html__( 'Einlesen', 'mietverwaltung' ) . '</button></p>';
+			echo '<p class="description">' . esc_html__( 'Kontoauszug als CSV (Online-Banking-Export) oder CAMT.053-XML. Bereits importierte Buchungen werden erkannt und nicht doppelt angelegt. Mieteingänge werden über IBAN oder Nachname des Mieters zugeordnet, Ausgaben über', 'mietverwaltung' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=mietv_bank_regeln' ) ) . '">Regeln</a>.</p></form></div>';
 			return;
 		}
 
-		$opt_mv        = MV_Admin::opt_mv();
-		$opt_ka        = MV_Admin::opt_kostenarten();
-		$opt_ob        = MV_Admin::opt_objekte();
+		$opt_mv        = Mietv_Admin::opt_mv();
+		$opt_ka        = Mietv_Admin::opt_kostenarten();
+		$opt_ob        = Mietv_Admin::opt_objekte();
 		$erstes_objekt = array_key_first( $opt_ob );
 
 		echo '<form method="post">';
-		wp_nonce_field( 'mv_bank', 'mv_bank_nonce' );
-		echo '<p><button name="mv_bank_uebernehmen" class="button button-primary">' . esc_html__( 'Markierte Buchungen übernehmen', 'mietverwaltung' ) . '</button> <a href="' . esc_url( admin_url( 'admin.php?page=mv_bank' ) ) . '" class="button">Abbrechen</a></p>';
+		wp_nonce_field( 'mietv_bank', 'mietv_bank_nonce' );
+		echo '<p><button name="mietv_bank_uebernehmen" class="button button-primary">' . esc_html__( 'Markierte Buchungen übernehmen', 'mietverwaltung' ) . '</button> <a href="' . esc_url( admin_url( 'admin.php?page=mietv_bank' ) ) . '" class="button">Abbrechen</a></p>';
 		echo '<table class="wp-list-table widefat striped mv-bank"><thead><tr><th class="check-column"><input type="checkbox" onclick="document.querySelectorAll(\'.mv-bank input[name$=\\\'[ok]\\\']\').forEach(c=>{if(!c.disabled)c.checked=this.checked})"></th><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Name / Verwendungszweck', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Anlegen als', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Zuordnung', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Regel merken', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 		foreach ( $rows as $i => $r ) {
 			$dis     = $r['bereits'] ? ' disabled' : '';
 			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] ) ? ' checked' : '';
 			echo '<tr' . ( $r['bereits'] ? ' style="opacity:.5"' : '' ) . '>';
 			printf( '<td><input type="checkbox" name="zeile[%d][ok]" value="1"%s%s></td>', (int) $i, $checked, $dis ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
-			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br>' . '<em>' . esc_html__( 'bereits importiert', 'mietverwaltung' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
+			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mietv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mietv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br>' . '<em>' . esc_html__( 'bereits importiert', 'mietverwaltung' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
 			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Mietzahlung', 'mietverwaltung' ) . '</option><option value="beleg"%s>' . esc_html__( 'Beleg', 'mietverwaltung' ) . '</option><option value="ignorieren"%s>–</option></select></td>', (int) $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'ignorieren', false ) );
 			echo '<td>';
 			// Zahlung
@@ -416,6 +416,6 @@ class MV_Bank {
 			printf( '<td><label><input type="checkbox" name="zeile[%d][regel]" value="1"> „%s“</label></td>', (int) $i, esc_html( mb_substr( $r['name'], 0, 25 ) ) );
 			echo '</tr>';
 		}
-		echo '</tbody></table><p><button name="mv_bank_uebernehmen" class="button button-primary">' . esc_html__( 'Markierte Buchungen übernehmen', 'mietverwaltung' ) . '</button></p></form></div>';
+		echo '</tbody></table><p><button name="mietv_bank_uebernehmen" class="button button-primary">' . esc_html__( 'Markierte Buchungen übernehmen', 'mietverwaltung' ) . '</button></p></form></div>';
 	}
 }

@@ -7,14 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Druckfertige Briefe (DIN-5008-nah) als eigenständige HTML-Seite.
  * Der Browser erzeugt daraus per „Drucken → Als PDF sichern“ die Datei.
  */
-class MV_Brief {
+class Mietv_Brief {
 
 	/** Empfängerblock aus Mietverhältnis (Mieter + Objektadresse). */
 	public static function empfaenger( object $mv ): string {
 		global $wpdb;
 		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $mv->mieter_id ) );
 		$o = $wpdb->get_row( $wpdb->prepare( 'SELECT o.* FROM ' . $wpdb->prefix . 'mv_objekte o JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.objekt_id = o.id WHERE e.id = %d', $mv->einheit_id ) );
-		$z = mv_mieter_personen( $m );
+		$z = mietv_mieter_personen( $m );
 		if ( $o ) {
 			$z[] = $o->strasse;
 			$z[] = trim( $o->plz . ' ' . $o->ort );
@@ -37,7 +37,7 @@ class MV_Brief {
 			}
 			return null;
 		};
-		$teile = array_filter( [ $teil( $m->anrede, $m->nachname ), mv_hat_partner( $m ) ? $teil( $m->p_anrede, $m->p_nachname ) : null ] );
+		$teile = array_filter( [ $teil( $m->anrede, $m->nachname ), mietv_hat_partner( $m ) ? $teil( $m->p_anrede, $m->p_nachname ) : null ] );
 		if ( ! $teile ) {
 			return __( 'Sehr geehrte Damen und Herren,', 'mietverwaltung' );
 		}
@@ -51,19 +51,19 @@ class MV_Brief {
 	 */
 	/** Ort aus der Vermieteradresse (zweite Zeile „PLZ Ort“). */
 	public static function ort(): string {
-		$zeilen = array_values( array_filter( array_map( 'trim', explode( "\n", MV_Einstellungen::get( 'vermieter_adresse' ) ) ) ) );
+		$zeilen = array_values( array_filter( array_map( 'trim', explode( "\n", Mietv_Einstellungen::get( 'vermieter_adresse' ) ) ) ) );
 		$z      = $zeilen[1] ?? ( $zeilen[0] ?? '' );
 		return trim( preg_replace( '/^\d{5}\s*/', '', $z ) );
 	}
 
 	public static function absender_zeile(): string {
-		return trim( MV_Einstellungen::get( 'vermieter_name' ) . ' · ' . str_replace( "\n", ' · ', MV_Einstellungen::get( 'vermieter_adresse' ) ), ' ·' );
+		return trim( Mietv_Einstellungen::get( 'vermieter_name' ) . ' · ' . str_replace( "\n", ' · ', Mietv_Einstellungen::get( 'vermieter_adresse' ) ), ' ·' );
 	}
 
 	/** PDF-Bytes eines Briefs. */
 	public static function pdf( string $empfaenger, string $betreff, string $body, ?string $datum = null ): string {
 		$datum = $datum ?: current_time( 'd.m.Y' );
-		return MV_PDF::brief( self::absender_zeile(), $empfaenger, self::ort() . ', ' . $datum, $betreff, $body, MV_Einstellungen::get( 'vermieter_name' ) );
+		return Mietv_PDF::brief( self::absender_zeile(), $empfaenger, self::ort() . ', ' . $datum, $betreff, $body, Mietv_Einstellungen::get( 'vermieter_name' ) );
 	}
 
 	/**
@@ -71,16 +71,16 @@ class MV_Brief {
 	 * $ablage = [objekt_id, mv_id, typ, bezeichnung, mieter_sichtbar] → zusätzlich in Dokumente ablegen, wenn ?ablegen=1.
 	 */
 	public static function ausgeben( string $titel, string $empfaenger, string $betreff, string $body, ?string $datum = null, bool $auto_print = true, ?array $ablage = null ): void {
-		$E              = MV_Einstellungen::class;
+		$E              = Mietv_Einstellungen::class;
 		$absender_zeile = self::absender_zeile();
 		$datum          = $datum ?: current_time( 'd.m.Y' );
 
 		if ( ( $_GET['format'] ?? 'pdf' ) !== 'html' ) {
 			$bytes = self::pdf( $empfaenger, $betreff, $body, $datum );
 			if ( $ablage && ! empty( $_GET['ablegen'] ) ) {
-				MV_PDF::ablegen( $bytes, $titel . '.pdf', (int) $ablage[0], $ablage[1] ? (int) $ablage[1] : null, $ablage[2], $ablage[3], ! empty( $ablage[4] ) );
+				Mietv_PDF::ablegen( $bytes, $titel . '.pdf', (int) $ablage[0], $ablage[1] ? (int) $ablage[1] : null, $ablage[2], $ablage[3], ! empty( $ablage[4] ) );
 			}
-			MV_PDF::senden( $bytes, $titel . '.pdf' );
+			Mietv_PDF::senden( $bytes, $titel . '.pdf' );
 		}
 		?>
 <!DOCTYPE html>
@@ -125,10 +125,10 @@ h2 { font-size: 12pt; margin: 8mm 0 2mm; }
 
 	/** Zahlungsaufforderungs-Absatz mit Bankverbindung. */
 	public static function bankverbindung(): string {
-		$iban = MV_Einstellungen::get( 'vermieter_iban' );
+		$iban = Mietv_Einstellungen::get( 'vermieter_iban' );
 		if ( ! $iban ) {
 			return '';
 		}
-		return '<p>Bankverbindung: ' . esc_html( MV_Einstellungen::get( 'vermieter_bank' ) ) . ', IBAN ' . esc_html( $iban ) . '</p>';
+		return '<p>Bankverbindung: ' . esc_html( Mietv_Einstellungen::get( 'vermieter_bank' ) ) . ', IBAN ' . esc_html( $iban ) . '</p>';
 	}
 }

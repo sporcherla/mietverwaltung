@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Schlanker PDF-Writer (PDF 1.4, Helvetica-Kernfonts, WinAnsi) ohne Fremdbibliothek,
  * plus Konverter für die HTML-Teilmenge der Schreiben (p, h1–h3, strong, br, table, ul/li, small, .unterschrift, .umbruch).
  */
-class MV_PDF {
+class Mietv_PDF {
 
 	private array $pages = [];
 	private string $buf  = '';
@@ -756,9 +756,9 @@ class MV_PDF {
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 		wp_update_attachment_metadata( $att, wp_generate_attachment_metadata( $att, $pfad ) );
 		$wpdb->insert(
-			mv_table( 'dokumente' ),
+			mietv_table( 'dokumente' ),
 			[
-				'owner_id'        => MV_OWNER_ID,
+				'owner_id'        => MIETV_OWNER_ID,
 				'objekt_id'       => $objekt_id,
 				'mv_id'           => $mv_id,
 				'typ'             => $typ,

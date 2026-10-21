@@ -1,16 +1,16 @@
 <?php
 /**
  * Einrichtungsassistent: fünf Schritte vom leeren Plugin zum ersten Mietverhältnis mit Konditionen.
- * Jeder Schritt speichert sofort; Fortschritt und angelegte IDs liegen in der Option mv_assistent.
+ * Jeder Schritt speichert sofort; Fortschritt und angelegte IDs liegen in der Option mietv_assistent.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class MV_Assistent {
+class Mietv_Assistent {
 
-	const OPTION = 'mv_assistent';
-	const SLUG   = 'mv_assistent';
+	const OPTION = 'mietv_assistent';
+	const SLUG   = 'mietv_assistent';
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'redirect_nach_aktivierung' ] );
@@ -18,16 +18,16 @@ class MV_Assistent {
 		add_action( 'admin_notices', [ __CLASS__, 'hinweis' ] );
 	}
 
-	/** Beim Aktivieren gesetzt (MV_DB::install). */
+	/** Beim Aktivieren gesetzt (Mietv_DB::install). */
 	public static function aktiviert(): void {
-		set_transient( 'mv_aktiviert', 1, 60 );
+		set_transient( 'mietv_aktiviert', 1, 60 );
 	}
 
 	public static function redirect_nach_aktivierung(): void {
-		if ( ! get_transient( 'mv_aktiviert' ) || wp_doing_ajax() || ! current_user_can( MV_Admin::CAP ) ) {
+		if ( ! get_transient( 'mietv_aktiviert' ) || wp_doing_ajax() || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		delete_transient( 'mv_aktiviert' );
+		delete_transient( 'mietv_aktiviert' );
 		if ( isset( $_GET['activate-multi'] ) || self::fertig() || self::hat_daten() ) {
 			return;
 		}
@@ -56,7 +56,7 @@ class MV_Assistent {
 	/** Hinweis auf der Übersicht, solange nichts angelegt und der Assistent nicht übersprungen wurde. */
 	public static function hinweis(): void {
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-		if ( ! $screen || strpos( $screen->id, 'mv_uebersicht' ) === false || self::fertig() || self::hat_daten() ) {
+		if ( ! $screen || strpos( $screen->id, 'mietv_uebersicht' ) === false || self::fertig() || self::hat_daten() ) {
 			return;
 		}
 		printf(
@@ -81,17 +81,17 @@ class MV_Assistent {
 	/* ---------------------------------------------------------------- Verarbeitung */
 
 	public static function handle(): void {
-		if ( empty( $_POST['mv_assistent_schritt'] ) || ! current_user_can( MV_Admin::CAP ) ) {
+		if ( empty( $_POST['mietv_assistent_schritt'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		check_admin_referer( 'mv_assistent' );
-		$schritt = (int) $_POST['mv_assistent_schritt'];
+		check_admin_referer( 'mietv_assistent' );
+		$schritt = (int) $_POST['mietv_assistent_schritt'];
 		$p       = wp_unslash( $_POST );
 		$t       = fn( string $k ) => sanitize_text_field( $p[ $k ] ?? '' );
 
-		if ( isset( $p['mv_ueberspringen'] ) ) {
+		if ( isset( $p['mietv_ueberspringen'] ) ) {
 			self::merken( [ 'fertig' => 1 ] );
-			wp_safe_redirect( admin_url( 'admin.php?page=mv_uebersicht' ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=mietv_uebersicht' ) );
 			exit;
 		}
 
@@ -105,11 +105,11 @@ class MV_Assistent {
 					$fehler[] = __( 'Name des Vermieters fehlt.', 'mietverwaltung' );
 					break;
 				}
-				$o = array_merge( MV_Einstellungen::defaults(), get_option( MV_Einstellungen::OPTION, [] ) );
+				$o = array_merge( Mietv_Einstellungen::defaults(), get_option( Mietv_Einstellungen::OPTION, [] ) );
 				foreach ( [ 'vermieter_name', 'vermieter_adresse', 'vermieter_telefon', 'vermieter_email', 'vermieter_iban', 'vermieter_bank', 'vermieter_steuernr' ] as $k ) {
 					$o[ $k ] = $k === 'vermieter_adresse' ? sanitize_textarea_field( $p[ $k ] ?? '' ) : $t( $k );
 				}
-				update_option( MV_Einstellungen::OPTION, $o );
+				update_option( Mietv_Einstellungen::OPTION, $o );
 				break;
 
 			case 2:
@@ -118,7 +118,7 @@ class MV_Assistent {
 					break;
 				}
 				$daten = [
-					'owner_id'    => MV_OWNER_ID,
+					'owner_id'    => MIETV_OWNER_ID,
 					'bezeichnung' => $t( 'bezeichnung' ),
 					'strasse'     => $t( 'strasse' ),
 					'plz'         => $t( 'plz' ),
@@ -129,9 +129,9 @@ class MV_Assistent {
 				];
 				if ( ! empty( $stand['objekt_id'] ) ) {
 					unset( $daten['created_at'] );
-					$wpdb->update( mv_table( 'objekte' ), $daten, [ 'id' => (int) $stand['objekt_id'] ] );
+					$wpdb->update( mietv_table( 'objekte' ), $daten, [ 'id' => (int) $stand['objekt_id'] ] );
 				} else {
-					$wpdb->insert( mv_table( 'objekte' ), $daten );
+					$wpdb->insert( mietv_table( 'objekte' ), $daten );
 					self::merken( [ 'objekt_id' => (int) $wpdb->insert_id ] );
 				}
 				break;
@@ -141,7 +141,7 @@ class MV_Assistent {
 					$fehler[] = __( 'Bitte zuerst das Objekt anlegen.', 'mietverwaltung' );
 					break;
 				}
-				if ( $t( 'einheit' ) === '' || mv_to_float( $t( 'flaeche' ) ) <= 0 ) {
+				if ( $t( 'einheit' ) === '' || mietv_to_float( $t( 'flaeche' ) ) <= 0 ) {
 					$fehler[] = __( 'Bezeichnung und Wohnfläche der Wohnung sind Pflicht.', 'mietverwaltung' );
 					break;
 				}
@@ -149,14 +149,14 @@ class MV_Assistent {
 					'objekt_id'   => (int) $stand['objekt_id'],
 					'bezeichnung' => $t( 'einheit' ),
 					'lage'        => $t( 'lage' ),
-					'flaeche'     => mv_to_float( $t( 'flaeche' ) ),
-					'zimmer'      => mv_to_float( $t( 'zimmer' ) ),
+					'flaeche'     => mietv_to_float( $t( 'flaeche' ) ),
+					'zimmer'      => mietv_to_float( $t( 'zimmer' ) ),
 					'typ'         => 'wohnung',
 				];
 				if ( ! empty( $stand['einheit_id'] ) ) {
-					$wpdb->update( mv_table( 'einheiten' ), $wohnung, [ 'id' => (int) $stand['einheit_id'] ] );
+					$wpdb->update( mietv_table( 'einheiten' ), $wohnung, [ 'id' => (int) $stand['einheit_id'] ] );
 				} else {
-					$wpdb->insert( mv_table( 'einheiten' ), $wohnung );
+					$wpdb->insert( mietv_table( 'einheiten' ), $wohnung );
 					self::merken( [ 'einheit_id' => (int) $wpdb->insert_id ] );
 				}
 				if ( $t( 'garage' ) !== '' ) {
@@ -169,12 +169,12 @@ class MV_Assistent {
 					];
 					$stand  = self::stand();
 					if ( ! empty( $stand['garage_id'] ) ) {
-						$wpdb->update( mv_table( 'einheiten' ), $garage, [ 'id' => (int) $stand['garage_id'] ] );
+						$wpdb->update( mietv_table( 'einheiten' ), $garage, [ 'id' => (int) $stand['garage_id'] ] );
 					} else {
-						$wpdb->insert( mv_table( 'einheiten' ), $garage );
+						$wpdb->insert( mietv_table( 'einheiten' ), $garage );
 						self::merken( [ 'garage_id' => (int) $wpdb->insert_id ] );
 					}
-					self::merken( [ 'garage_anteil' => mv_to_float( $t( 'garage_anteil' ) ) ] );
+					self::merken( [ 'garage_anteil' => mietv_to_float( $t( 'garage_anteil' ) ) ] );
 				}
 				break;
 
@@ -184,7 +184,7 @@ class MV_Assistent {
 					break;
 				}
 				$m = [
-					'owner_id'       => MV_OWNER_ID,
+					'owner_id'       => MIETV_OWNER_ID,
 					'anrede'         => $t( 'anrede' ),
 					'vorname'        => $t( 'vorname' ),
 					'nachname'       => $t( 'nachname' ),
@@ -200,9 +200,9 @@ class MV_Assistent {
 					'iban'           => strtoupper( str_replace( ' ', '', $t( 'iban' ) ) ),
 				];
 				if ( ! empty( $stand['mieter_id'] ) ) {
-					$wpdb->update( mv_table( 'mieter' ), $m, [ 'id' => (int) $stand['mieter_id'] ] );
+					$wpdb->update( mietv_table( 'mieter' ), $m, [ 'id' => (int) $stand['mieter_id'] ] );
 				} else {
-					$wpdb->insert( mv_table( 'mieter' ), $m );
+					$wpdb->insert( mietv_table( 'mieter' ), $m );
 					self::merken( [ 'mieter_id' => (int) $wpdb->insert_id ] );
 				}
 				break;
@@ -213,7 +213,7 @@ class MV_Assistent {
 					break;
 				}
 				$beginn = $t( 'beginn' );
-				$kalt   = mv_to_float( $t( 'kaltmiete' ) );
+				$kalt   = mietv_to_float( $t( 'kaltmiete' ) );
 				if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $beginn ) || $kalt <= 0 ) {
 					$fehler[] = __( 'Mietbeginn und Kaltmiete (größer 0) sind Pflicht.', 'mietverwaltung' );
 					break;
@@ -224,33 +224,33 @@ class MV_Assistent {
 					'mieter_id'  => (int) $stand['mieter_id'],
 					'beginn'     => $beginn,
 					'ende'       => null,
-					'kaution'    => mv_to_float( $t( 'kaution' ) ),
+					'kaution'    => mietv_to_float( $t( 'kaution' ) ),
 					'personen'   => max( 1, (int) $t( 'personen' ) ?: 1 ),
 					'zahltag'    => $zahltag,
 				];
 				if ( ! empty( $stand['mv_id'] ) ) {
-					$wpdb->update( mv_table( 'mietverhaeltnisse' ), $mv, [ 'id' => (int) $stand['mv_id'] ] );
+					$wpdb->update( mietv_table( 'mietverhaeltnisse' ), $mv, [ 'id' => (int) $stand['mv_id'] ] );
 					$mv_id = (int) $stand['mv_id'];
-					$wpdb->delete( mv_table( 'konditionen' ), [ 'mv_id' => $mv_id ] );
-					$wpdb->delete( mv_table( 'mv_einheiten' ), [ 'mv_id' => $mv_id ] );
+					$wpdb->delete( mietv_table( 'konditionen' ), [ 'mv_id' => $mv_id ] );
+					$wpdb->delete( mietv_table( 'mv_einheiten' ), [ 'mv_id' => $mv_id ] );
 				} else {
-					$wpdb->insert( mv_table( 'mietverhaeltnisse' ), $mv );
+					$wpdb->insert( mietv_table( 'mietverhaeltnisse' ), $mv );
 					$mv_id = (int) $wpdb->insert_id;
 					self::merken( [ 'mv_id' => $mv_id ] );
 				}
 				$wpdb->insert(
-					mv_table( 'konditionen' ),
+					mietv_table( 'konditionen' ),
 					[
 						'mv_id'      => $mv_id,
 						'gueltig_ab' => $beginn,
 						'kaltmiete'  => $kalt,
-						'bk_vz'      => mv_to_float( $t( 'bk_vz' ) ),
-						'hk_vz'      => mv_to_float( $t( 'hk_vz' ) ),
+						'bk_vz'      => mietv_to_float( $t( 'bk_vz' ) ),
+						'hk_vz'      => mietv_to_float( $t( 'hk_vz' ) ),
 					]
 				);
 				if ( ! empty( $stand['garage_id'] ) && ! empty( $p['mit_garage'] ) ) {
 					$wpdb->insert(
-						mv_table( 'mv_einheiten' ),
+						mietv_table( 'mv_einheiten' ),
 						[
 							'mv_id'      => $mv_id,
 							'einheit_id' => (int) $stand['garage_id'],
@@ -263,7 +263,7 @@ class MV_Assistent {
 		}
 
 		if ( $fehler ) {
-			set_transient( 'mv_assistent_fehler_' . get_current_user_id(), $fehler, 60 );
+			set_transient( 'mietv_assistent_fehler_' . get_current_user_id(), $fehler, 60 );
 			wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=' . $schritt ) );
 		} else {
 			wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=' . ( $schritt + 1 ) ) );
@@ -277,8 +277,8 @@ class MV_Assistent {
 		global $wpdb;
 		$stand   = self::stand();
 		$schritt = isset( $_GET['schritt'] ) ? max( 1, min( 6, (int) $_GET['schritt'] ) ) : self::naechster_schritt( $stand );
-		$fehler  = get_transient( 'mv_assistent_fehler_' . get_current_user_id() );
-		delete_transient( 'mv_assistent_fehler_' . get_current_user_id() );
+		$fehler  = get_transient( 'mietv_assistent_fehler_' . get_current_user_id() );
+		delete_transient( 'mietv_assistent_fehler_' . get_current_user_id() );
 
 		echo '<div class="wrap mv-wrap mv-assistent"><h1>' . esc_html__( 'Einrichtungsassistent', 'mietverwaltung' ) . '</h1>';
 		echo '<ol class="mv-schritte">';
@@ -298,10 +298,10 @@ class MV_Assistent {
 		}
 
 		echo '<form method="post" class="mv-assistent-form">';
-		wp_nonce_field( 'mv_assistent' );
-		printf( '<input type="hidden" name="mv_assistent_schritt" value="%d">', (int) $schritt );
+		wp_nonce_field( 'mietv_assistent' );
+		printf( '<input type="hidden" name="mietv_assistent_schritt" value="%d">', (int) $schritt );
 		$f   = fn( string $name, string $label, string $wert = '', string $typ = 'text', string $hint = '', bool $req = false ) => printf(
-			'<tr><th><label for="mv_%1$s">%2$s%6$s</label></th><td><input type="%4$s" id="mv_%1$s" name="%1$s" value="%3$s" class="regular-text"%7$s>%5$s</td></tr>',
+			'<tr><th><label for="mietv_%1$s">%2$s%6$s</label></th><td><input type="%4$s" id="mietv_%1$s" name="%1$s" value="%3$s" class="regular-text"%7$s>%5$s</td></tr>',
 			esc_attr( $name ),
 			esc_html( $label ),
 			esc_attr( $wert ),
@@ -311,7 +311,7 @@ class MV_Assistent {
 			$req ? ' required' : ''
 		);
 		$sel = function ( string $name, string $label, array $opts, string $wert = '', string $hint = '' ) {
-			printf( '<tr><th><label for="mv_%1$s">%2$s</label></th><td><select id="mv_%1$s" name="%1$s">', esc_attr( $name ), esc_html( $label ) );
+			printf( '<tr><th><label for="mietv_%1$s">%2$s</label></th><td><select id="mietv_%1$s" name="%1$s">', esc_attr( $name ), esc_html( $label ) );
 			foreach ( $opts as $k => $v ) {
 				printf( '<option value="%s"%s>%s</option>', esc_attr( $k ), selected( $wert, $k, false ), esc_html( $v ) );
 			}
@@ -321,10 +321,10 @@ class MV_Assistent {
 		echo '<table class="form-table">';
 		switch ( $schritt ) {
 			case 1:
-				$o = array_merge( MV_Einstellungen::defaults(), get_option( MV_Einstellungen::OPTION, [] ) );
+				$o = array_merge( Mietv_Einstellungen::defaults(), get_option( Mietv_Einstellungen::OPTION, [] ) );
 				echo '<tr><td colspan="2"><p>' . esc_html__( 'Diese Angaben erscheinen als Absender auf Mietvertrag, Abrechnungen und Schreiben.', 'mietverwaltung' ) . '</p></td></tr>';
 				$f( 'vermieter_name', __( 'Name', 'mietverwaltung' ), $o['vermieter_name'], 'text', '', true );
-				printf( '<tr><th><label for="mv_vermieter_adresse">%s</label></th><td><textarea id="mv_vermieter_adresse" name="vermieter_adresse" rows="3" class="regular-text">%s</textarea><p class="description">%s</p></td></tr>', esc_html__( 'Anschrift', 'mietverwaltung' ), esc_textarea( $o['vermieter_adresse'] ), esc_html__( 'Straße und Ort in zwei Zeilen.', 'mietverwaltung' ) );
+				printf( '<tr><th><label for="mietv_vermieter_adresse">%s</label></th><td><textarea id="mietv_vermieter_adresse" name="vermieter_adresse" rows="3" class="regular-text">%s</textarea><p class="description">%s</p></td></tr>', esc_html__( 'Anschrift', 'mietverwaltung' ), esc_textarea( $o['vermieter_adresse'] ), esc_html__( 'Straße und Ort in zwei Zeilen.', 'mietverwaltung' ) );
 				$f( 'vermieter_email', __( 'E-Mail', 'mietverwaltung' ), $o['vermieter_email'], 'email' );
 				$f( 'vermieter_telefon', __( 'Telefon', 'mietverwaltung' ), $o['vermieter_telefon'] );
 				$f( 'vermieter_iban', __( 'IBAN (Mietkonto)', 'mietverwaltung' ), $o['vermieter_iban'], 'text', __( 'Für Zahlungsaufforderungen und SEPA-Mandat.', 'mietverwaltung' ) );
@@ -402,13 +402,13 @@ class MV_Assistent {
 				$k       = $mv ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_konditionen WHERE mv_id = %d ORDER BY gueltig_ab DESC LIMIT 1', $mv->id ) ) : null;
 				$mieter  = ! empty( $stand['mieter_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $stand['mieter_id'] ) ) : null;
 				$einheit = ! empty( $stand['einheit_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT bezeichnung FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['einheit_id'] ) ) : null;
-				printf( '<tr><td colspan="2"><p>%s <strong>%s</strong> → <strong>%s</strong></p></td></tr>', esc_html__( 'Mietverhältnis:', 'mietverwaltung' ), esc_html( mv_mieter_name( $mieter ) ), esc_html( $einheit->bezeichnung ?? '–' ) );
+				printf( '<tr><td colspan="2"><p>%s <strong>%s</strong> → <strong>%s</strong></p></td></tr>', esc_html__( 'Mietverhältnis:', 'mietverwaltung' ), esc_html( mietv_mieter_name( $mieter ) ), esc_html( $einheit->bezeichnung ?? '–' ) );
 				$f( 'beginn', __( 'Mietbeginn', 'mietverwaltung' ), $mv->beginn ?? '', 'date', '', true );
 				$f( 'kaltmiete', __( 'Kaltmiete gesamt (€)', 'mietverwaltung' ), isset( $k->kaltmiete ) ? number_format( (float) $k->kaltmiete, 2, ',', '' ) : '', 'text', __( 'Inklusive Garage/Stellplatz, falls mitvermietet.', 'mietverwaltung' ), true );
 				$f( 'bk_vz', __( 'Betriebskosten-Vorauszahlung (€)', 'mietverwaltung' ), isset( $k->bk_vz ) ? number_format( (float) $k->bk_vz, 2, ',', '' ) : '' );
 				$f( 'hk_vz', __( 'Heizkosten-Vorauszahlung (€)', 'mietverwaltung' ), isset( $k->hk_vz ) ? number_format( (float) $k->hk_vz, 2, ',', '' ) : '', 'text', __( 'Bei dezentraler Heizung 0.', 'mietverwaltung' ) );
 				$f( 'kaution', __( 'Kaution (€)', 'mietverwaltung' ), isset( $mv->kaution ) ? number_format( (float) $mv->kaution, 2, ',', '' ) : '', 'text', __( 'Höchstens drei Kaltmieten (§ 551 BGB).', 'mietverwaltung' ) );
-				$f( 'personen', __( 'Personen im Haushalt', 'mietverwaltung' ), (string) ( $mv->personen ?? ( mv_hat_partner( $mieter ) ? 2 : 1 ) ), 'number' );
+				$f( 'personen', __( 'Personen im Haushalt', 'mietverwaltung' ), (string) ( $mv->personen ?? ( mietv_hat_partner( $mieter ) ? 2 : 1 ) ), 'number' );
 				$f( 'zahltag', __( 'Zahltag (Tag im Monat)', 'mietverwaltung' ), (string) ( $mv->zahltag ?? 3 ), 'number' );
 				if ( ! empty( $stand['garage_id'] ) ) {
 					$g = $wpdb->get_var( $wpdb->prepare( 'SELECT bezeichnung FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['garage_id'] ) );
@@ -423,7 +423,7 @@ class MV_Assistent {
 			printf( '<a class="button" href="%s">← %s</a> ', esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=' . ( $schritt - 1 ) ) ), esc_html__( 'Zurück', 'mietverwaltung' ) );
 		}
 		printf( '<button type="submit" class="button button-primary">%s →</button> ', $schritt === 5 ? esc_html__( 'Abschließen', 'mietverwaltung' ) : esc_html__( 'Speichern und weiter', 'mietverwaltung' ) );
-		printf( '<button type="submit" name="mv_ueberspringen" value="1" class="button-link" formnovalidate>%s</button>', esc_html__( 'Assistent beenden, ich lege die Daten selbst an', 'mietverwaltung' ) );
+		printf( '<button type="submit" name="mietv_ueberspringen" value="1" class="button-link" formnovalidate>%s</button>', esc_html__( 'Assistent beenden, ich lege die Daten selbst an', 'mietverwaltung' ) );
 		echo '</p></form></div>';
 	}
 
@@ -440,12 +440,12 @@ class MV_Assistent {
 		if ( ! empty( $stand['objekt_id'] ) ) {
 			return 3;
 		}
-		return MV_Einstellungen::get( 'vermieter_name' ) ? 2 : 1;
+		return Mietv_Einstellungen::get( 'vermieter_name' ) ? 2 : 1;
 	}
 
 	private static function zusammenfassung( array $stand ): void {
 		global $wpdb;
-		$mv = ! empty( $stand['mv_id'] ) ? MV_Soll::alle_mv()[0] ?? null : null;
+		$mv = ! empty( $stand['mv_id'] ) ? Mietv_Soll::alle_mv()[0] ?? null : null;
 		echo '<div class="mv-hilfe-karte" style="max-width:720px">';
 		echo '<h2>✅ ' . esc_html__( 'Einrichtung abgeschlossen', 'mietverwaltung' ) . '</h2>';
 		if ( ! empty( $stand['mv_id'] ) ) {
@@ -454,18 +454,18 @@ class MV_Assistent {
 		}
 		echo '<p>' . esc_html__( 'Sinnvolle nächste Schritte:', 'mietverwaltung' ) . '</p><ul style="list-style:disc;margin-left:20px">';
 		$links = [
-			[ 'mv_anlagegueter', __( 'Gebäude als Anlagegut mit Kaufpreis, Nebenkosten und Grundanteil erfassen (AfA) – Kaufvertrag-PDF auslesen lassen', 'mietverwaltung' ) ],
-			[ 'mv_darlehen', __( 'Finanzierungsdarlehen anlegen (Zins, Tilgung, Rate)', 'mietverwaltung' ) ],
-			[ 'mv_zaehler', __( 'Zähler der Wohnung anlegen und Anfangsstände erfassen', 'mietverwaltung' ) ],
-			[ 'mv_mietvertrag', __( 'Mietvertrag, SEPA-Mandat und Übergabeprotokoll erzeugen', 'mietverwaltung' ) ],
-			[ 'mv_uebersicht', __( 'Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen', 'mietverwaltung' ) ],
-			[ 'mv_hilfe', __( 'Hilfe mit Kurzbeschreibung aller Module', 'mietverwaltung' ) ],
+			[ 'mietv_anlagegueter', __( 'Gebäude als Anlagegut mit Kaufpreis, Nebenkosten und Grundanteil erfassen (AfA) – Kaufvertrag-PDF auslesen lassen', 'mietverwaltung' ) ],
+			[ 'mietv_darlehen', __( 'Finanzierungsdarlehen anlegen (Zins, Tilgung, Rate)', 'mietverwaltung' ) ],
+			[ 'mietv_zaehler', __( 'Zähler der Wohnung anlegen und Anfangsstände erfassen', 'mietverwaltung' ) ],
+			[ 'mietv_mietvertrag', __( 'Mietvertrag, SEPA-Mandat und Übergabeprotokoll erzeugen', 'mietverwaltung' ) ],
+			[ 'mietv_uebersicht', __( 'Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen', 'mietverwaltung' ) ],
+			[ 'mietv_hilfe', __( 'Hilfe mit Kurzbeschreibung aller Module', 'mietverwaltung' ) ],
 		];
 		foreach ( $links as [ $slug, $text ] ) {
 			printf( '<li><a href="%s">%s</a></li>', esc_url( admin_url( 'admin.php?page=' . $slug ) ), esc_html( $text ) );
 		}
 		echo '</ul>';
-		printf( '<p><a class="button button-primary" href="%s">%s</a> <a class="button" href="%s">%s</a></p>', esc_url( admin_url( 'admin.php?page=mv_uebersicht' ) ), esc_html__( 'Zur Übersicht', 'mietverwaltung' ), esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=1' ) ), esc_html__( 'Angaben noch einmal durchgehen', 'mietverwaltung' ) );
+		printf( '<p><a class="button button-primary" href="%s">%s</a> <a class="button" href="%s">%s</a></p>', esc_url( admin_url( 'admin.php?page=mietv_uebersicht' ) ), esc_html__( 'Zur Übersicht', 'mietverwaltung' ), esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=1' ) ), esc_html__( 'Angaben noch einmal durchgehen', 'mietverwaltung' ) );
 		echo '</div>';
 	}
 }

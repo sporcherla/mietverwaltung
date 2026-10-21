@@ -3,16 +3,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function mv_table( string $name ): string {
+function mietv_table( string $name ): string {
 	global $wpdb;
 	return $wpdb->prefix . 'mv_' . $name;
 }
 
-function mv_eur( $value ): string {
+function mietv_eur( $value ): string {
 	return number_format( (float) $value, 2, ',', '.' ) . ' €';
 }
 
-function mv_date( ?string $date ): string {
+function mietv_date( ?string $date ): string {
 	if ( empty( $date ) || $date === '0000-00-00' ) {
 		return '–';
 	}
@@ -20,7 +20,7 @@ function mv_date( ?string $date ): string {
 	return $ts ? date_i18n( 'd.m.Y', $ts ) : '–';
 }
 
-function mv_monat( ?string $date ): string {
+function mietv_monat( ?string $date ): string {
 	if ( empty( $date ) ) {
 		return '–';
 	}
@@ -29,7 +29,7 @@ function mv_monat( ?string $date ): string {
 }
 
 /** "1.234,56" oder "1234.56" -> float */
-function mv_to_float( $value ): float {
+function mietv_to_float( $value ): float {
 	$value = trim( (string) $value );
 	if ( $value === '' ) {
 		return 0.0;
@@ -46,7 +46,7 @@ function mv_to_float( $value ): float {
 	return (float) $value;
 }
 
-function mv_mieter_name( $mieter ): string {
+function mietv_mieter_name( $mieter ): string {
 	if ( ! $mieter ) {
 		return '–';
 	}
@@ -58,12 +58,12 @@ function mv_mieter_name( $mieter ): string {
 }
 
 /** Hat der Mieter eine zweite Vertragspartei? */
-function mv_hat_partner( $mieter ): bool {
+function mietv_hat_partner( $mieter ): bool {
 	return $mieter && ! empty( $mieter->p_nachname );
 }
 
 /** Alle Vertragsparteien als Zeilen „Anrede Vorname Nachname“ (für Empfängerblock, Vertrag). */
-function mv_mieter_personen( $mieter, bool $mit_geburtsdatum = false ): array {
+function mietv_mieter_personen( $mieter, bool $mit_geburtsdatum = false ): array {
 	$out = [];
 	if ( ! $mieter ) {
 		return $out;
@@ -71,12 +71,12 @@ function mv_mieter_personen( $mieter, bool $mit_geburtsdatum = false ): array {
 	$f     = function ( $anrede, $vorname, $nachname, $geb ) use ( $mit_geburtsdatum ) {
 		$z = trim( ( $anrede ? $anrede . ' ' : '' ) . $vorname . ' ' . $nachname );
 		if ( $mit_geburtsdatum && $geb && $geb !== '0000-00-00' ) {
-			$z .= ', geb. ' . mv_date( $geb );
+			$z .= ', geb. ' . mietv_date( $geb );
 		}
 		return $z;
 	};
 	$out[] = $f( $mieter->anrede ?? '', $mieter->vorname, $mieter->nachname, $mieter->geburtsdatum ?? null );
-	if ( mv_hat_partner( $mieter ) ) {
+	if ( mietv_hat_partner( $mieter ) ) {
 		$out[] = $f( $mieter->p_anrede ?? '', $mieter->p_vorname, $mieter->p_nachname, $mieter->p_geburtsdatum ?? null );
 	}
 	return $out;

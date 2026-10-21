@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Linear: Bemessungsgrundlage × Satz, im Anschaffungsjahr zeitanteilig nach Monaten (§ 7 Abs. 1 S. 4 EStG).
  * Degressiv: Satz vom jeweiligen Restbuchwert (§ 7 Abs. 5a EStG), ebenfalls zeitanteilig im ersten Jahr.
  */
-class MV_Afa {
+class Mietv_Afa {
 
 	public static function alle(): array {
 		global $wpdb;

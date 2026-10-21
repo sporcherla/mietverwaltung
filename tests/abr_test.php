@@ -30,7 +30,7 @@ $wpdb->insert('wp_mv_zaehler',['objekt_id'=>1,'einheit_id'=>1,'typ'=>'heizung','
 $wpdb->insert('wp_mv_zaehler',['objekt_id'=>1,'einheit_id'=>2,'typ'=>'heizung','nummer'=>'H2']);
 foreach([[1,'2025-01-01',1000],[1,'2025-12-31',4000],[2,'2025-07-01',500],[2,'2025-12-31',1500]] as [$z,$d,$s]) $wpdb->insert('wp_mv_zaehlerstaende',['zaehler_id'=>$z,'datum'=>$d,'stand'=>$s]);
 $wpdb->insert('wp_mv_abrechnungen',['owner_id'=>1,'objekt_id'=>1,'von'=>'2025-01-01','bis'=>'2025-12-31','status'=>'entwurf']);
-$r=MV_Abrechnung::berechnen(1);
+$r=Mietv_Abrechnung::berechnen(1);
 foreach($r['hinweise'] as $h) echo "HINWEIS: $h\n";
 foreach($r['ergebnisse'] as $id=>$e){
   printf("\nMV %d (%d Tage): BK %.2f HK %.2f VZ %.2f Saldo %.2f  §35a haushalt %.2f\n",$id,$e['mv']->tage,$e['kosten_bk'],$e['kosten_hk'],$e['vz_bk']+$e['vz_hk'],$e['saldo'],$e['par35a_haushalt']);
@@ -45,6 +45,6 @@ echo "VZ MV1 180*12=2160; MV2 110*6=660\n";
 // Bankparser
 echo "\n--- Bank CSV ---\n";
 $csv="\"Auftragskonto\";\"Buchungstag\";\"Valutadatum\";\"Buchungstext\";\"Verwendungszweck\";\"Beguenstigter/Zahlungspflichtiger\";\"Kontonummer/IBAN\";\"BIC\";\"Betrag\";\"Waehrung\";\"Info\"\n\"DE1\";\"03.03.2026\";\"03.03.2026\";\"GUTSCHRIFT\";\"Miete Maerz 2026 EG\";\"Anna Meier\";\"DE02120300000000202051\";\"BYLADEM1001\";\"780,00\";\"EUR\";\"\"\n\"DE1\";\"15.03.2026\";\"15.03.2026\";\"LASTSCHRIFT\";\"Abschlag Gas 03/2026\";\"Stadtwerke Zirndorf\";\"DE99\";\"\";\"-150,50\";\"EUR\";\"\"\n";
-$rows=MV_Bank::parse($csv,'umsaetze.csv');
+$rows=Mietv_Bank::parse($csv,'umsaetze.csv');
 $wpdb->insert('wp_mv_bank_regeln',['owner_id'=>1,'muster'=>'Stadtwerke','typ'=>'beleg','objekt_id'=>1,'kostenart_id'=>3]);
-foreach(MV_Bank::vorschlaege($rows) as $r) printf("%s %8.2f %-22s -> typ=%s mv=%d ka=%d monat=%s (%s)\n",$r['datum'],$r['betrag'],$r['name'],$r['typ'],$r['mv_id'],$r['kostenart_id'],$r['monat'],$r['grund']??'');
+foreach(Mietv_Bank::vorschlaege($rows) as $r) printf("%s %8.2f %-22s -> typ=%s mv=%d ka=%d monat=%s (%s)\n",$r['datum'],$r['betrag'],$r['name'],$r['typ'],$r['mv_id'],$r['kostenart_id'],$r['monat'],$r['grund']??'');

@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Einstellungen (Vermieterdaten, Erinnerungen, Aufbewahrung) und Backup/Restore.
  */
-class MV_Einstellungen {
+class Mietv_Einstellungen {
 
-	const OPTION = 'mv_einstellungen';
+	const OPTION = 'mietv_einstellungen';
 
 	public static function init(): void {
 		add_action( 'admin_post_mv_backup', [ __CLASS__, 'backup' ] );
@@ -43,21 +43,21 @@ class MV_Einstellungen {
 	}
 
 	public static function handle(): void {
-		if ( empty( $_POST['mv_einstellungen_nonce'] ) ) {
+		if ( empty( $_POST['mietv_einstellungen_nonce'] ) ) {
 			return;
 		}
-		if ( ! current_user_can( MV_Admin::CAP ) || ! wp_verify_nonce( $_POST['mv_einstellungen_nonce'], 'mv_einstellungen' ) ) {
+		if ( ! current_user_can( Mietv_Admin::CAP ) || ! wp_verify_nonce( $_POST['mietv_einstellungen_nonce'], 'mietv_einstellungen' ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
 
 		// Restore
-		if ( ! empty( $_FILES['mv_restore']['tmp_name'] ) ) {
-			if ( empty( $_POST['mv_restore_confirm'] ) ) {
-				wp_safe_redirect( admin_url( 'admin.php?page=mv_einstellungen&msg=noconfirm' ) );
+		if ( ! empty( $_FILES['mietv_restore']['tmp_name'] ) ) {
+			if ( empty( $_POST['mietv_restore_confirm'] ) ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=noconfirm' ) );
 				exit;
 			}
-			$msg = self::restore( file_get_contents( $_FILES['mv_restore']['tmp_name'] ) ) ? 'restored' : 'restorefail';
-			wp_safe_redirect( admin_url( 'admin.php?page=mv_einstellungen&msg=' . $msg ) );
+			$msg = self::restore( file_get_contents( $_FILES['mietv_restore']['tmp_name'] ) ) ? 'restored' : 'restorefail';
+			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=' . $msg ) );
 			exit;
 		}
 
@@ -67,7 +67,7 @@ class MV_Einstellungen {
 			$data[ $k ] = $k === 'vermieter_adresse' ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
 		}
 		update_option( self::OPTION, $data );
-		wp_safe_redirect( admin_url( 'admin.php?page=mv_einstellungen&msg=saved' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=saved' ) );
 		exit;
 	}
 
@@ -86,7 +86,7 @@ class MV_Einstellungen {
 		}
 
 		echo '<form method="post" enctype="multipart/form-data" class="mv-form">';
-		wp_nonce_field( 'mv_einstellungen', 'mv_einstellungen_nonce' );
+		wp_nonce_field( 'mietv_einstellungen', 'mietv_einstellungen_nonce' );
 
 		echo '<h2>' . esc_html__( 'Vermieter (für Schreiben und Abrechnungen)', 'mietverwaltung' ) . '</h2><table class="form-table"><tbody>';
 		self::text( 'vermieter_name', __( 'Name', 'mietverwaltung' ), $o );
@@ -150,9 +150,9 @@ class MV_Einstellungen {
 		submit_button( 'Speichern' );
 
 		echo '<hr><h2>' . esc_html__( 'Backup', 'mietverwaltung' ) . '</h2>';
-		printf( '<p><a href="%s" class="button button-secondary">' . esc_html__( 'Alle Daten als JSON exportieren', 'mietverwaltung' ) . '</a></p>', esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mv_backup' ), 'mv_backup' ) ) );
+		printf( '<p><a href="%s" class="button button-secondary">' . esc_html__( 'Alle Daten als JSON exportieren', 'mietverwaltung' ) . '</a></p>', esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_backup' ), 'mietv_backup' ) ) );
 		echo '<p class="description">' . esc_html__( 'Enthält alle Tabellen der Mietverwaltung und die Einstellungen – nicht die Dateien der Mediathek (diese über das normale WordPress-Backup sichern).', 'mietverwaltung' ) . '</p>';
-		echo '<h3>' . esc_html__( 'Wiederherstellen', 'mietverwaltung' ) . '</h3><p><input type="file" name="mv_restore" accept=".json"> <label><input type="checkbox" name="mv_restore_confirm" value="1"> ' . esc_html__( 'Ich weiß, dass', 'mietverwaltung' ) . ' <strong>' . esc_html__( 'alle vorhandenen Daten ersetzt', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'werden.', 'mietverwaltung' ) . '</label></p>';
+		echo '<h3>' . esc_html__( 'Wiederherstellen', 'mietverwaltung' ) . '</h3><p><input type="file" name="mietv_restore" accept=".json"> <label><input type="checkbox" name="mietv_restore_confirm" value="1"> ' . esc_html__( 'Ich weiß, dass', 'mietverwaltung' ) . ' <strong>' . esc_html__( 'alle vorhandenen Daten ersetzt', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'werden.', 'mietverwaltung' ) . '</label></p>';
 		submit_button( 'Backup einspielen', 'delete' );
 		echo '</form></div>';
 	}
@@ -180,21 +180,21 @@ class MV_Einstellungen {
 	}
 
 	public static function backup(): void {
-		if ( ! current_user_can( MV_Admin::CAP ) ) {
+		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
-		check_admin_referer( 'mv_backup' );
+		check_admin_referer( 'mietv_backup' );
 		global $wpdb;
 		$dump = [
 			'plugin'        => 'mietverwaltung',
-			'version'       => MV_VERSION,
-			'db_version'    => MV_DB::DB_VERSION,
+			'version'       => MIETV_VERSION,
+			'db_version'    => Mietv_DB::DB_VERSION,
 			'erstellt'      => current_time( 'mysql' ),
 			'einstellungen' => get_option( self::OPTION, [] ),
 			'tabellen'      => [],
 		];
 		foreach ( self::tabellen() as $t ) {
-			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mv_table( $t ), ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
+			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $t ), ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
 		}
 		header( 'Content-Type: application/json; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="mietverwaltung-backup-' . current_time( 'Y-m-d' ) . '.json"' );
@@ -209,9 +209,9 @@ class MV_Einstellungen {
 			return false;
 		}
 		foreach ( self::tabellen() as $t ) {
-			$wpdb->query( 'DELETE FROM ' . mv_table( $t ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
+			$wpdb->query( 'DELETE FROM ' . mietv_table( $t ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
 			foreach ( (array) ( $d['tabellen'][ $t ] ?? [] ) as $row ) {
-				$wpdb->insert( mv_table( $t ), $row );
+				$wpdb->insert( mietv_table( $t ), $row );
 			}
 		}
 		if ( isset( $d['einstellungen'] ) ) {

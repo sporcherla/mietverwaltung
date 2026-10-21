@@ -13,10 +13,10 @@ $wpdb->insert('wp_mv_mietverhaeltnisse',['einheit_id'=>1,'mieter_id'=>1,'beginn'
 $wpdb->insert('wp_mv_konditionen',['mv_id'=>1,'gueltig_ab'=>date('Y-m-01',strtotime('-2 months')),'kaltmiete'=>650,'bk_vz'=>120,'hk_vz'=>90]);
 $m0=date('Y-m-01',strtotime('-2 months')); $m1=date('Y-m-01',strtotime('-1 month')); $m2=date('Y-m-01');
 $wpdb->insert('wp_mv_zahlungen',['mv_id'=>1,'datum'=>$m1,'betrag'=>500,'monat'=>$m1,'quelle'=>'manuell']); // Teilzahlung
-$_POST=['mv_op_nonce'=>'x','op'=>["1|$m0","1|$m1","1|$m2","1|2020-01-01","9|$m0"]];
-try{ MV_Admin::handle_op_buchen(); }catch(Exception $e){ echo $e->getMessage()."\n"; }
+$_POST=['mietv_op_nonce'=>'x','op'=>["1|$m0","1|$m1","1|$m2","1|2020-01-01","9|$m0"]];
+try{ Mietv_Admin::handle_op_buchen(); }catch(Exception $e){ echo $e->getMessage()."\n"; }
 foreach($wpdb->get_results("SELECT datum,betrag,monat,quelle,verwendungszweck FROM wp_mv_zahlungen ORDER BY monat") as $z) printf("%s %7.2f %s %-9s %s\n",$z->datum,$z->betrag,$z->monat,$z->quelle,$z->verwendungszweck);
-$op=MV_Soll::op_liste(MV_Soll::alle_mv()[0]); printf("Saldo danach: %.2f (0 erwartet)\n",$op['saldo']);
+$op=Mietv_Soll::op_liste(Mietv_Soll::alle_mv()[0]); printf("Saldo danach: %.2f (0 erwartet)\n",$op['saldo']);
 // Doppelt abhaken darf nichts buchen
-$_POST=['mv_op_nonce'=>'x','op'=>["1|$m0"]]; try{ MV_Admin::handle_op_buchen(); }catch(Exception $e){ echo $e->getMessage()."\n"; }
+$_POST=['mietv_op_nonce'=>'x','op'=>["1|$m0"]]; try{ Mietv_Admin::handle_op_buchen(); }catch(Exception $e){ echo $e->getMessage()."\n"; }
 echo "Zahlungen gesamt: ".$wpdb->get_var("SELECT COUNT(*) FROM wp_mv_zahlungen")." (4 erwartet)\n";

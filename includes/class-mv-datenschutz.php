@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Datenschutz: Löschkonzept (Anonymisierung nach Aufbewahrungsfrist) und Auskunft/Export (Art. 15, 20 DSGVO).
  */
-class MV_Datenschutz {
+class Mietv_Datenschutz {
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
@@ -16,7 +16,7 @@ class MV_Datenschutz {
 	/** Beendete Mietverhältnisse mit Löschfrist. */
 	public static function beendete(): array {
 		global $wpdb;
-		$jahre = (int) MV_Einstellungen::get( 'aufbewahrung_jahre', 10 );
+		$jahre = (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 );
 		$out   = [];
 		$rows  = $wpdb->get_results( 'SELECT mv.*, m.vorname, m.nachname, m.email, e.bezeichnung AS einheit, o.bezeichnung AS objekt FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.id = mv.einheit_id JOIN ' . $wpdb->prefix . "mv_objekte o ON o.id = e.objekt_id WHERE mv.ende IS NOT NULL AND mv.ende <> '0000-00-00' AND mv.ende < CURDATE() ORDER BY mv.ende" );
 		foreach ( $rows as $r ) {
@@ -42,7 +42,7 @@ class MV_Datenschutz {
 	public static function anonymisieren( int $mieter_id ): void {
 		global $wpdb;
 		$wpdb->update(
-			mv_table( 'mieter' ),
+			mietv_table( 'mieter' ),
 			[
 				'anrede'         => '',
 				'vorname'        => '',
@@ -62,44 +62,44 @@ class MV_Datenschutz {
 			],
 			[ 'id' => $mieter_id ]
 		);
-		$mv_ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE mieter_id = %d', $mieter_id ) );
-		foreach ( $mv_ids as $mv_id ) {
-			$wpdb->update( mv_table( 'mietverhaeltnisse' ), [ 'notiz' => '' ], [ 'id' => $mv_id ] );
+		$mietv_ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE mieter_id = %d', $mieter_id ) );
+		foreach ( $mietv_ids as $mv_id ) {
+			$wpdb->update( mietv_table( 'mietverhaeltnisse' ), [ 'notiz' => '' ], [ 'id' => $mv_id ] );
 			$wpdb->update(
-				mv_table( 'meldungen' ),
+				mietv_table( 'meldungen' ),
 				[
 					'betreff' => 'gelöscht',
 					'text'    => '',
 				],
 				[ 'mv_id' => $mv_id ]
 			);
-			$wpdb->update( mv_table( 'zahlungen' ), [ 'verwendungszweck' => '' ], [ 'mv_id' => $mv_id ] );
+			$wpdb->update( mietv_table( 'zahlungen' ), [ 'verwendungszweck' => '' ], [ 'mv_id' => $mv_id ] );
 			foreach ( $wpdb->get_col( $wpdb->prepare( 'SELECT attachment_id FROM ' . $wpdb->prefix . 'mv_dokumente WHERE mv_id = %d AND attachment_id IS NOT NULL', $mv_id ) ) as $att ) {
 				wp_delete_attachment( (int) $att, true );
 			}
-			$wpdb->delete( mv_table( 'dokumente' ), [ 'mv_id' => $mv_id ] );
+			$wpdb->delete( mietv_table( 'dokumente' ), [ 'mv_id' => $mv_id ] );
 		}
 	}
 
 	public static function handle(): void {
-		if ( empty( $_GET['mv_anonym'] ) || ! current_user_can( MV_Admin::CAP ) ) {
+		if ( empty( $_GET['mietv_anonym'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		$id = (int) $_GET['mv_anonym'];
-		check_admin_referer( 'mv_anonym_' . $id );
+		$id = (int) $_GET['mietv_anonym'];
+		check_admin_referer( 'mietv_anonym_' . $id );
 		self::anonymisieren( $id );
-		wp_safe_redirect( admin_url( 'admin.php?page=mv_datenschutz&msg=anonym' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_datenschutz&msg=anonym' ) );
 		exit;
 	}
 
 	/** Auskunft nach Art. 15 DSGVO / Datenübertragbarkeit Art. 20: alle Daten eines Mieters als JSON. */
 	public static function auskunft(): void {
-		if ( ! current_user_can( MV_Admin::CAP ) ) {
+		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
 		$id = (int) $_GET['mieter'];
-		check_admin_referer( 'mv_auskunft_' . $id );
+		check_admin_referer( 'mietv_auskunft_' . $id );
 		$mieter = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $id ), ARRAY_A );
 		if ( ! $mieter ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
@@ -108,9 +108,9 @@ class MV_Datenschutz {
 		$d = [
 			'auskunft_nach'     => esc_html__( 'Art. 15 DSGVO', 'mietverwaltung' ),
 			'erstellt'          => current_time( 'mysql' ),
-			'verantwortlicher'  => MV_Einstellungen::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', MV_Einstellungen::get( 'vermieter_adresse' ) ),
+			'verantwortlicher'  => Mietv_Einstellungen::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', Mietv_Einstellungen::get( 'vermieter_adresse' ) ),
 			'zwecke'            => esc_html__( 'Durchführung des Mietverhältnisses (Art. 6 Abs. 1 lit. b DSGVO), Erfüllung steuer- und handelsrechtlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO)', 'mietverwaltung' ),
-			'speicherdauer'     => sprintf( /* translators: %d: Jahre */ __( '%d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete', 'mietverwaltung' ), (int) MV_Einstellungen::get( 'aufbewahrung_jahre', 10 ) ),
+			'speicherdauer'     => sprintf( /* translators: %d: Jahre */ __( '%d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete', 'mietverwaltung' ), (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ) ),
 			'empfaenger'        => esc_html__( 'Finanzamt (Anlage V), Steuerberater (sofern beauftragt), Bank (Zahlungsverkehr)', 'mietverwaltung' ),
 			'stammdaten'        => $mieter,
 			'mietverhaeltnisse' => [],
@@ -137,7 +137,7 @@ class MV_Datenschutz {
 		if ( ( $_GET['msg'] ?? '' ) === 'anonym' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Mieterdaten anonymisiert. Zahlungs- und Abrechnungsdaten bleiben ohne Personenbezug erhalten.', 'mietverwaltung' ) . '</p></div>';
 		}
-		printf( '<p class="description">' . esc_html__( 'Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete (', 'mietverwaltung' ) . '<a href="%s">' . esc_html__( 'Einstellungen', 'mietverwaltung' ) . '</a>' . esc_html__( '). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten.', 'mietverwaltung' ) . '</p>', (int) MV_Einstellungen::get( 'aufbewahrung_jahre', 10 ), esc_url( admin_url( 'admin.php?page=mv_einstellungen' ) ) );
+		printf( '<p class="description">' . esc_html__( 'Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete (', 'mietverwaltung' ) . '<a href="%s">' . esc_html__( 'Einstellungen', 'mietverwaltung' ) . '</a>' . esc_html__( '). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten.', 'mietverwaltung' ) . '</p>', (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ), esc_url( admin_url( 'admin.php?page=mietv_einstellungen' ) ) );
 
 		echo '<h2>' . esc_html__( 'Löschkonzept – beendete Mietverhältnisse', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ende', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Löschfrist', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Status', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Aktion', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 		$b = self::beendete();
@@ -152,12 +152,12 @@ class MV_Datenschutz {
 			} else {
 				$status = 'in Aufbewahrung';
 			}
-			$url = wp_nonce_url( admin_url( 'admin.php?page=mv_datenschutz&mv_anonym=' . $mv->mieter_id ), 'mv_anonym_' . $mv->mieter_id );
+			$url = wp_nonce_url( admin_url( 'admin.php?page=mietv_datenschutz&mietv_anonym=' . $mv->mieter_id ), 'mietv_anonym_' . $mv->mieter_id );
 			printf(
 				'<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
 				esc_html( $x['label'] ),
-				esc_html( mv_date( $mv->ende ) ),
-				esc_html( mv_date( $x['frist'] ) ),
+				esc_html( mietv_date( $mv->ende ) ),
+				esc_html( mietv_date( $x['frist'] ) ),
 				$status, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 				( ! $x['anonym'] && ! $x['andere_aktiv'] ) ? sprintf( '<a href="%s" class="button button-small%s" onclick="return confirm(\'Personenbezug unwiderruflich entfernen?%s\')">' . esc_html__( 'Anonymisieren', 'mietverwaltung' ) . '</a>', esc_url( $url ), $x['faellig'] ? ' button-primary' : '', $x['faellig'] ? '' : ' Die Aufbewahrungsfrist ist noch nicht abgelaufen!' ) : '–'
 			);
@@ -169,7 +169,7 @@ class MV_Datenschutz {
 
 		echo '<h2>' . esc_html__( 'Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)', 'mietverwaltung' ) . '</h2><p>' . esc_html__( 'Erzeugt eine vollständige Datenübersicht des Mieters als JSON – Frist für die Beantwortung: ein Monat (Art. 12 Abs. 3 DSGVO).', 'mietverwaltung' ) . '</p><ul>';
 		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . $wpdb->prefix . "mv_mieter WHERE nachname NOT LIKE 'Anonymisiert%' ORDER BY nachname" ) as $m ) {
-			printf( '<li>%s – <a href="%s">' . esc_html__( 'Auskunft exportieren', 'mietverwaltung' ) . '</a></li>', esc_html( mv_mieter_name( $m ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mv_auskunft&mieter=' . $m->id ), 'mv_auskunft_' . $m->id ) ) );
+			printf( '<li>%s – <a href="%s">' . esc_html__( 'Auskunft exportieren', 'mietverwaltung' ) . '</a></li>', esc_html( mietv_mieter_name( $m ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_auskunft&mieter=' . $m->id ), 'mietv_auskunft_' . $m->id ) ) );
 		}
 		echo '</ul>';
 

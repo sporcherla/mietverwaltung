@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Soll/Ist-Berechnung je Mietverhältnis und Monat.
  */
-class MV_Soll {
+class Mietv_Soll {
 
 	/** Gültige Konditionen für einen Monat (YYYY-MM-01). */
 	public static function konditionen( int $mv_id, string $monat ) {
@@ -46,9 +46,9 @@ class MV_Soll {
 		$heute = new DateTime( current_time( 'Y-m' ) . '-01' );
 		$ende  = $heute;
 		if ( ! empty( $mv->ende ) && $mv->ende !== '0000-00-00' ) {
-			$mv_ende = new DateTime( substr( $mv->ende, 0, 7 ) . '-01' );
-			if ( $mv_ende < $heute ) {
-				$ende = $mv_ende;
+			$mietv_ende = new DateTime( substr( $mv->ende, 0, 7 ) . '-01' );
+			if ( $mietv_ende < $heute ) {
+				$ende = $mietv_ende;
 			}
 		}
 
@@ -100,7 +100,7 @@ class MV_Soll {
 		);
 	}
 
-	public static function mv_label( object $mv ): string {
+	public static function mietv_label( object $mv ): string {
 		$z = ! empty( $mv->zusatz ) ? ' + ' . str_replace( ',', ', ', $mv->zusatz ) : '';
 		$p = ! empty( $mv->p_nachname ) ? ' & ' . trim( $mv->p_vorname . ' ' . $mv->p_nachname ) : '';
 		return $mv->nachname . ', ' . $mv->vorname . $p . ' – ' . $mv->objekt . ' / ' . $mv->einheit . $z;

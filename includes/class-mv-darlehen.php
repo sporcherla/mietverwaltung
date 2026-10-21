@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Darlehenskonto: monatlicher Tilgungsplan (Annuität), Raten per Häkchen buchen,
  * Sondertilgungen, Zins-/Tilgungs-/Restschuldverlauf, Jahreswerte für die Steuer.
  */
-class MV_Darlehen {
+class Mietv_Darlehen {
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
@@ -117,10 +117,10 @@ class MV_Darlehen {
 	/* ------------------------------------------------------------------ */
 
 	public static function handle(): void {
-		if ( empty( $_POST['mv_darlehen_nonce'] ) || ! current_user_can( MV_Admin::CAP ) ) {
+		if ( empty( $_POST['mietv_darlehen_nonce'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mv_darlehen_nonce'], 'mv_darlehen' ) ) {
+		if ( ! wp_verify_nonce( $_POST['mietv_darlehen_nonce'], 'mietv_darlehen' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
@@ -132,18 +132,18 @@ class MV_Darlehen {
 		$n = 0;
 		if ( ! empty( $_POST['loeschen'] ) ) {
 			$wpdb->delete(
-				mv_table( 'darlehen_raten' ),
+				mietv_table( 'darlehen_raten' ),
 				[
 					'id'          => (int) $_POST['loeschen'],
 					'darlehen_id' => $did,
 				]
 			);
 		} elseif ( ! empty( $_POST['sondertilgung'] ) ) {
-			$betrag = mv_to_float( $_POST['st_betrag'] ?? '0' );
+			$betrag = mietv_to_float( $_POST['st_betrag'] ?? '0' );
 			$datum  = sanitize_text_field( $_POST['st_datum'] ?: current_time( 'Y-m-d' ) );
 			if ( $betrag > 0 && preg_match( '/^\d{4}-\d{2}-\d{2}$/', $datum ) ) {
 				$wpdb->insert(
-					mv_table( 'darlehen_raten' ),
+					mietv_table( 'darlehen_raten' ),
 					[
 						'darlehen_id' => $did,
 						'datum'       => $datum,
@@ -175,7 +175,7 @@ class MV_Darlehen {
 				$rate = (float) $d->rate;
 				$tilg = max( 0, min( $rest, round( $rate - $zins, 2 ) ) );
 				$wpdb->insert(
-					mv_table( 'darlehen_raten' ),
+					mietv_table( 'darlehen_raten' ),
 					[
 						'darlehen_id' => $did,
 						'datum'       => $monat,
@@ -188,7 +188,7 @@ class MV_Darlehen {
 				++$n;
 			}
 		}
-		wp_safe_redirect( admin_url( 'admin.php?page=mv_darlehenskonto&darlehen_id=' . $did . '&msg=ok&n=' . $n ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_darlehenskonto&darlehen_id=' . $did . '&msg=ok&n=' . $n ) );
 		exit;
 	}
 
@@ -211,12 +211,12 @@ class MV_Darlehen {
 			printf( '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '%d Buchung(en) angelegt.', 'mietverwaltung' ) . '</p></div>', (int) ( $_GET['n'] ?? 0 ) );
 		}
 		if ( ! $alle ) {
-			printf( '<p>' . esc_html__( 'Noch kein Darlehen angelegt –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'Darlehen anlegen', 'mietverwaltung' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mv_darlehen&action=new' ) ) );
+			printf( '<p>' . esc_html__( 'Noch kein Darlehen angelegt –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'Darlehen anlegen', 'mietverwaltung' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=new' ) ) );
 			return;
 		}
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mv_darlehenskonto"><label>' . esc_html__( 'Darlehen', 'mietverwaltung' ) . ' <select name="darlehen_id" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_darlehenskonto"><label>' . esc_html__( 'Darlehen', 'mietverwaltung' ) . ' <select name="darlehen_id" onchange="this.form.submit()">';
 		foreach ( $alle as $x ) {
-			printf( '<option value="%d"%s>%s</option>', (int) $x->id, selected( $did, (int) $x->id, false ), esc_html( $x->bank . ( $x->bezeichnung ? ' – ' . $x->bezeichnung : '' ) . ' (' . mv_eur( $x->betrag ) . ')' ) );
+			printf( '<option value="%d"%s>%s</option>', (int) $x->id, selected( $did, (int) $x->id, false ), esc_html( $x->bank . ( $x->bezeichnung ? ' – ' . $x->bezeichnung : '' ) . ' (' . mietv_eur( $x->betrag ) . ')' ) );
 		}
 		echo '</select></label></form>';
 		if ( ! $d ) {
@@ -224,7 +224,7 @@ class MV_Darlehen {
 			return;
 		}
 		if ( empty( $d->auszahlung ) || $d->auszahlung === '0000-00-00' || (float) $d->rate <= 0 ) {
-			printf( '<div class="notice notice-warning inline"><p>' . esc_html__( 'Für den Tilgungsplan müssen Auszahlungsdatum, Sollzins und Monatsrate beim Darlehen hinterlegt sein.', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'Darlehen bearbeiten', 'mietverwaltung' ) . '</a></p></div></div>', esc_url( admin_url( 'admin.php?page=mv_darlehen&action=edit&id=' . $d->id ) ) );
+			printf( '<div class="notice notice-warning inline"><p>' . esc_html__( 'Für den Tilgungsplan müssen Auszahlungsdatum, Sollzins und Monatsrate beim Darlehen hinterlegt sein.', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'Darlehen bearbeiten', 'mietverwaltung' ) . '</a></p></div></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=edit&id=' . $d->id ) ) );
 			return;
 		}
 
@@ -244,26 +244,26 @@ class MV_Darlehen {
 		printf(
 			'<div class="mv-kacheln"><div class="mv-kachel"><span>%s</span><strong>%s</strong><small>%s %s</small></div><div class="mv-kachel"><span>%s</span><strong>%s</strong></div><div class="mv-kachel"><span>%s</span><strong>%s</strong><small>%d %s</small></div><div class="mv-kachel"><span>%s</span><strong>%s</strong></div><div class="mv-kachel"><span>%s</span><strong>%s</strong><small>%s</small></div></div>',
 			esc_html__( 'Darlehensbetrag', 'mietverwaltung' ),
-			esc_html( mv_eur( $d->betrag ) ),
+			esc_html( mietv_eur( $d->betrag ) ),
 			esc_html__( 'ausgezahlt', 'mietverwaltung' ),
-			esc_html( mv_date( $d->auszahlung ) ),
+			esc_html( mietv_date( $d->auszahlung ) ),
 			esc_html__( 'Restschuld heute', 'mietverwaltung' ),
-			esc_html( mv_eur( $rest ) ),
+			esc_html( mietv_eur( $rest ) ),
 			esc_html__( 'Gezahlte Zinsen', 'mietverwaltung' ),
-			esc_html( mv_eur( $zins_gesamt ) ),
+			esc_html( mietv_eur( $zins_gesamt ) ),
 			count( $gebucht ),
 			esc_html__( 'Buchungen', 'mietverwaltung' ),
 			esc_html__( 'Getilgt', 'mietverwaltung' ),
-			esc_html( mv_eur( $tilg_gesamt ) ),
+			esc_html( mietv_eur( $tilg_gesamt ) ),
 			esc_html__( 'Rate / Sollzins', 'mietverwaltung' ),
-			esc_html( mv_eur( $d->rate ) . ' / ' . number_format( (float) $d->zinssatz, 2, ',', '.' ) . ' %' ),
+			esc_html( mietv_eur( $d->rate ) . ' / ' . number_format( (float) $d->zinssatz, 2, ',', '.' ) . ' %' ),
 			$monate_rest ? sprintf( esc_html__( 'Restlaufzeit ca. %d Monate', 'mietverwaltung' ), (int) $monate_rest ) : ''
 		);
 
 		echo '<p class="description">' . esc_html__( 'Offene Monate abhaken und buchen: Zins = Restschuld × Sollzins / 12, Tilgung = Rate − Zins. Die Jahressummen fließen als Schuldzinsen in die Anlage V, solange keine Zinsbescheinigung der Bank für das Jahr erfasst ist – diese hat Vorrang (taggenaue Bankrechnung).', 'mietverwaltung' ) . '</p>';
 
 		echo '<form method="post" id="mv-dl-form">';
-		wp_nonce_field( 'mv_darlehen', 'mv_darlehen_nonce' );
+		wp_nonce_field( 'mietv_darlehen', 'mietv_darlehen_nonce' );
 		printf( '<input type="hidden" name="darlehen_id" value="%d">', (int) $d->id );
 		if ( $offen ) {
 			echo '<p><button class="button button-primary">' . esc_html__( 'Markierte Raten buchen', 'mietverwaltung' ) . '</button></p>';
@@ -275,12 +275,12 @@ class MV_Darlehen {
 				'<tr%s><td class="mv-op-check">%s</td><td>%s</td><td style="text-align:left">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
 				$r['gebucht'] ? '' : ' style="opacity:.75"',
 				$r['gebucht'] ? '✓' : '<input type="checkbox" name="monat[]" value="' . esc_attr( $r['monat'] ) . '">',
-				esc_html( $r['art'] === 'sondertilgung' ? mv_date( $r['datum'] ) : mv_monat( $r['monat'] ) ),
+				esc_html( $r['art'] === 'sondertilgung' ? mietv_date( $r['datum'] ) : mietv_monat( $r['monat'] ) ),
 				esc_html( $art ),
-				esc_html( mv_eur( $r['rate'] ) ),
-				esc_html( mv_eur( $r['zins'] ) ),
-				esc_html( mv_eur( $r['tilgung'] ) ),
-				esc_html( mv_eur( $r['restschuld'] ) ),
+				esc_html( mietv_eur( $r['rate'] ) ),
+				esc_html( mietv_eur( $r['zins'] ) ),
+				esc_html( mietv_eur( $r['tilgung'] ) ),
+				esc_html( mietv_eur( $r['restschuld'] ) ),
 				$r['gebucht'] ? '<button name="loeschen" value="' . (int) $r['id'] . '" class="button-link mv-delete" onclick="return confirm(\'' . esc_js( __( 'Buchung löschen? Nachfolgende Restschulden werden neu berechnet.', 'mietverwaltung' ) ) . '\')">×</button>' : ''
 			);
 		}
@@ -294,7 +294,7 @@ class MV_Darlehen {
 		echo '</form>';
 
 		echo '<div class="mv-kacheln"><div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Sondertilgung buchen', 'mietverwaltung' ) . '</h3><form method="post">';
-		wp_nonce_field( 'mv_darlehen', 'mv_darlehen_nonce' );
+		wp_nonce_field( 'mietv_darlehen', 'mietv_darlehen_nonce' );
 		printf(
 			'<input type="hidden" name="darlehen_id" value="%d"><p><input type="date" name="st_datum" value="%s"> <input type="text" name="st_betrag" class="mv-num" placeholder="%s" inputmode="decimal"> <button name="sondertilgung" value="1" class="button">%s</button></p><p class="description">%s</p></form></div>',
 			(int) $d->id,
@@ -312,9 +312,9 @@ class MV_Darlehen {
 			$besch = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen_jahre WHERE darlehen_id = %d AND jahr = %d', $d->id, $j ) );
 			$jw    = self::jahreswerte( (int) $d->id, $j );
 			if ( $besch ) {
-				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s%s</td></tr>', (int) $j, esc_html( mv_eur( $besch->zinsen ) ), esc_html( mv_eur( $besch->tilgung ) ), esc_html( mv_eur( $besch->restschuld ) ), esc_html__( 'Zinsbescheinigung', 'mietverwaltung' ), $jw && abs( $jw['zinsen'] - (float) $besch->zinsen ) > 5 ? ' <span class="mv-warn" title="' . esc_attr( sprintf( esc_html__( 'Berechnet: %s', 'mietverwaltung' ), mv_eur( $jw['zinsen'] ) ) ) . '">⚠</span>' : '' );
+				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s%s</td></tr>', (int) $j, esc_html( mietv_eur( $besch->zinsen ) ), esc_html( mietv_eur( $besch->tilgung ) ), esc_html( mietv_eur( $besch->restschuld ) ), esc_html__( 'Zinsbescheinigung', 'mietverwaltung' ), $jw && abs( $jw['zinsen'] - (float) $besch->zinsen ) > 5 ? ' <span class="mv-warn" title="' . esc_attr( sprintf( esc_html__( 'Berechnet: %s', 'mietverwaltung' ), mietv_eur( $jw['zinsen'] ) ) ) . '">⚠</span>' : '' );
 			} elseif ( $jw ) {
-				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s</td></tr>', (int) $j, esc_html( mv_eur( $jw['zinsen'] ) ), esc_html( mv_eur( $jw['tilgung'] ) ), esc_html( mv_eur( $jw['restschuld'] ) ), esc_html__( 'berechnet aus Raten', 'mietverwaltung' ) );
+				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s</td></tr>', (int) $j, esc_html( mietv_eur( $jw['zinsen'] ) ), esc_html( mietv_eur( $jw['tilgung'] ) ), esc_html( mietv_eur( $jw['restschuld'] ) ), esc_html__( 'berechnet aus Raten', 'mietverwaltung' ) );
 			}
 		}
 		echo '</tbody></table><p class="description">' . esc_html__( 'Liegt die Zinsbescheinigung der Bank vor, unter „Zinsbescheinigungen“ erfassen – sie ersetzt die berechneten Werte in der Steuer-Auswertung.', 'mietverwaltung' ) . '</p></div></div></div>';

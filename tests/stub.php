@@ -1,6 +1,6 @@
 <?php
 // Minimaler WordPress-Stub mit SQLite für Rechentests
-define('ABSPATH','/'); define('MV_OWNER_ID',1); define('MV_VERSION','test'); define('HOUR_IN_SECONDS',3600);
+define('ABSPATH','/'); define('MIETV_OWNER_ID',1); define('MIETV_VERSION','test'); define('HOUR_IN_SECONDS',3600);
 class WPDB {
   public $prefix='wp_'; public $insert_id=0; private $pdo;
   function __construct(){ $this->pdo=new PDO('sqlite::memory:'); $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);}

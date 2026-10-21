@@ -1,7 +1,7 @@
 /* Mietverwaltung – Kaufvertrag im Browser auslesen (pdf.js). Nichts verlässt den Rechner. */
 (function () {
 	'use strict';
-	var T = window.mvI18n || {};
+	var T = window.mietvI18n || {};
 	function t( k, fb ) { return T[ k ] || fb; }
 
 	var MONATE = { januar: 1, februar: 2, 'märz': 3, maerz: 3, april: 4, mai: 5, juni: 6, juli: 7, august: 8, september: 9, oktober: 10, november: 11, dezember: 12 };
@@ -80,7 +80,7 @@
 	}
 
 	function setField( id, value ) {
-		var el = document.getElementById( 'mv_' + id );
+		var el = document.getElementById( 'mietv_' + id );
 		if ( ! el ) { return; }
 		el.value = value;
 		el.style.background = '#e6f4ea';

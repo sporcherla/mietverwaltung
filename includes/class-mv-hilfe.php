@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class MV_Hilfe {
+class Mietv_Hilfe {
 
 	public static function init(): void {
 		add_action( 'admin_head', [ __CLASS__, 'kontexthilfe' ] );
@@ -15,16 +15,16 @@ class MV_Hilfe {
 	/** Schnellstart in 6 Schritten. */
 	public static function schnellstart(): array {
 		return [
-			[ __( 'Einstellungen', 'mietverwaltung' ), __( 'Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer und Absender für Schreiben eintragen.', 'mietverwaltung' ), 'mv_einstellungen' ],
-			[ __( 'Objekt & Einheiten', 'mietverwaltung' ), __( 'Haus/Eigentumswohnung als Objekt anlegen (Baujahr, Heizungsart), darunter die Einheiten (Wohnung, Garage, Stellplatz) mit Fläche und Personen.', 'mietverwaltung' ), 'mv_objekte' ],
-			[ __( 'Mieter', 'mietverwaltung' ), __( 'Mieter erfassen – optional mit Ehe-/Lebenspartner als zweite Vertragspartei. Beide erscheinen automatisch in Vertrag, Schreiben und SEPA-Mandat.', 'mietverwaltung' ), 'mv_mieter' ],
-			[ __( 'Mietverhältnis & Konditionen', 'mietverwaltung' ), __( 'Mietverhältnis = Mieter + Einheit + Beginn. Garage/Stellplatz als Zusatzeinheit anhängen, dann gibt es eine Gesamtmiete. Konditionen (Kaltmiete, Vorauszahlungen) mit Gültig-ab-Datum anlegen.', 'mietverwaltung' ), 'mv_mietverhaeltnisse' ],
-			[ __( 'Anlagegut & Darlehen', 'mietverwaltung' ), __( 'Kaufpreis, Nebenkosten (Notar, Grundbuch, Grunderwerbsteuer, Makler) und Grundanteil erfassen – der Kaufvertrag als PDF kann direkt ausgelesen werden. Darlehen mit Zins, Tilgung und Rate anlegen.', 'mietverwaltung' ), 'mv_anlagegueter' ],
-			[ __( 'Laufender Betrieb', 'mietverwaltung' ), __( 'Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen, Belege fotografieren, Zählerstände erfassen. Am Jahresende: Betriebskostenabrechnung und Anlage V.', 'mietverwaltung' ), 'mv_uebersicht' ],
+			[ __( 'Einstellungen', 'mietverwaltung' ), __( 'Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer und Absender für Schreiben eintragen.', 'mietverwaltung' ), 'mietv_einstellungen' ],
+			[ __( 'Objekt & Einheiten', 'mietverwaltung' ), __( 'Haus/Eigentumswohnung als Objekt anlegen (Baujahr, Heizungsart), darunter die Einheiten (Wohnung, Garage, Stellplatz) mit Fläche und Personen.', 'mietverwaltung' ), 'mietv_objekte' ],
+			[ __( 'Mieter', 'mietverwaltung' ), __( 'Mieter erfassen – optional mit Ehe-/Lebenspartner als zweite Vertragspartei. Beide erscheinen automatisch in Vertrag, Schreiben und SEPA-Mandat.', 'mietverwaltung' ), 'mietv_mieter' ],
+			[ __( 'Mietverhältnis & Konditionen', 'mietverwaltung' ), __( 'Mietverhältnis = Mieter + Einheit + Beginn. Garage/Stellplatz als Zusatzeinheit anhängen, dann gibt es eine Gesamtmiete. Konditionen (Kaltmiete, Vorauszahlungen) mit Gültig-ab-Datum anlegen.', 'mietverwaltung' ), 'mietv_mietverhaeltnisse' ],
+			[ __( 'Anlagegut & Darlehen', 'mietverwaltung' ), __( 'Kaufpreis, Nebenkosten (Notar, Grundbuch, Grunderwerbsteuer, Makler) und Grundanteil erfassen – der Kaufvertrag als PDF kann direkt ausgelesen werden. Darlehen mit Zins, Tilgung und Rate anlegen.', 'mietverwaltung' ), 'mietv_anlagegueter' ],
+			[ __( 'Laufender Betrieb', 'mietverwaltung' ), __( 'Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen, Belege fotografieren, Zählerstände erfassen. Am Jahresende: Betriebskostenabrechnung und Anlage V.', 'mietverwaltung' ), 'mietv_uebersicht' ],
 		];
 	}
 
-	/** Kurzhilfe je Seite (Slug ohne „mv_“ => [Titel, Absätze]). */
+	/** Kurzhilfe je Seite (Slug ohne „mietv_“ => [Titel, Absätze]). */
 	public static function themen(): array {
 		return [
 			'uebersicht'        => [
@@ -214,7 +214,7 @@ class MV_Hilfe {
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Hilfe', 'mietverwaltung' ) . '</h1>';
 		echo '<p>' . esc_html__( 'Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag und Mieterportal in einem Plugin. Auf jeder Seite finden Sie oben rechts unter „Hilfe“ eine Kurzbeschreibung.', 'mietverwaltung' ) . '</p>';
 
-		printf( '<h2>%s</h2><p><a class="button button-primary" href="%s">%s</a> %s</p><ol class="mv-hilfe-schritte">', esc_html__( 'Schnellstart', 'mietverwaltung' ), esc_url( admin_url( 'admin.php?page=mv_assistent' ) ), esc_html__( 'Einrichtungsassistent starten', 'mietverwaltung' ), esc_html__( '– führt durch die Schritte 1 bis 4 und legt das erste Mietverhältnis an.', 'mietverwaltung' ) );
+		printf( '<h2>%s</h2><p><a class="button button-primary" href="%s">%s</a> %s</p><ol class="mv-hilfe-schritte">', esc_html__( 'Schnellstart', 'mietverwaltung' ), esc_url( admin_url( 'admin.php?page=mietv_assistent' ) ), esc_html__( 'Einrichtungsassistent starten', 'mietverwaltung' ), esc_html__( '– führt durch die Schritte 1 bis 4 und legt das erste Mietverhältnis an.', 'mietverwaltung' ) );
 		foreach ( self::schnellstart() as [ $titel, $text, $slug ] ) {
 			printf( '<li><strong><a href="%s">%s</a></strong><br>%s</li>', esc_url( admin_url( 'admin.php?page=' . $slug ) ), esc_html( $titel ), esc_html( $text ) );
 		}
@@ -222,7 +222,7 @@ class MV_Hilfe {
 
 		echo '<h2>' . esc_html__( 'Module', 'mietverwaltung' ) . '</h2><div class="mv-hilfe-grid">';
 		foreach ( self::themen() as $slug => [ $titel, $abs ] ) {
-			$link = $slug === 'portal' ? '' : admin_url( 'admin.php?page=mv_' . $slug );
+			$link = $slug === 'portal' ? '' : admin_url( 'admin.php?page=mietv_' . $slug );
 			echo '<div class="mv-hilfe-karte"><h3>' . ( $link ? '<a href="' . esc_url( $link ) . '">' . esc_html( $titel ) . '</a>' : esc_html( $titel ) ) . '</h3>';
 			foreach ( $abs as $a ) {
 				echo '<p>' . esc_html( $a ) . '</p>';
@@ -233,17 +233,17 @@ class MV_Hilfe {
 
 		echo '<h2>' . esc_html__( 'Rechtliche Hinweise', 'mietverwaltung' ) . '</h2>';
 		echo '<p>' . esc_html__( 'Das Plugin ersetzt keine Rechts- oder Steuerberatung. Vertragsmuster, Berechnungen und Fristen beruhen auf der Rechtslage in Deutschland (BGB, BetrKV, HeizkostenV, EStG) und sind vor Verwendung zu prüfen. Alle Daten bleiben in Ihrer WordPress-Datenbank; es werden keine Daten an Dritte übertragen.', 'mietverwaltung' ) . '</p>';
-		printf( '<p class="description">%s %s · <a href="https://github.com/sporcherla/mietverwaltung" target="_blank" rel="noopener">GitHub</a></p>', esc_html__( 'Version', 'mietverwaltung' ), esc_html( MV_VERSION ) );
+		printf( '<p class="description">%s %s · <a href="https://github.com/sporcherla/mietverwaltung" target="_blank" rel="noopener">GitHub</a></p>', esc_html__( 'Version', 'mietverwaltung' ), esc_html( MIETV_VERSION ) );
 		echo '</div>';
 	}
 
 	/** Kontexthilfe-Tab oben rechts auf allen Plugin-Seiten. */
 	public static function kontexthilfe(): void {
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-		if ( ! $screen || strpos( $screen->id, 'mv_' ) === false ) {
+		if ( ! $screen || strpos( $screen->id, 'mietv_' ) === false ) {
 			return;
 		}
-		if ( ! preg_match( '/mv_([a-z_]+)$/', $screen->id, $m ) ) {
+		if ( ! preg_match( '/mietv_([a-z_]+)$/', $screen->id, $m ) ) {
 			return;
 		}
 		$slug   = $m[1];
@@ -256,10 +256,10 @@ class MV_Hilfe {
 		foreach ( $abs as $a ) {
 			$html .= '<p>' . esc_html( $a ) . '</p>';
 		}
-		$html .= '<p><a href="' . esc_url( admin_url( 'admin.php?page=mv_hilfe' ) ) . '">' . esc_html__( 'Alle Hilfethemen', 'mietverwaltung' ) . ' →</a></p>';
+		$html .= '<p><a href="' . esc_url( admin_url( 'admin.php?page=mietv_hilfe' ) ) . '">' . esc_html__( 'Alle Hilfethemen', 'mietverwaltung' ) . ' →</a></p>';
 		$screen->add_help_tab(
 			[
-				'id'      => 'mv_hilfe_' . $slug,
+				'id'      => 'mietv_hilfe_' . $slug,
 				'title'   => $titel,
 				'content' => $html,
 			]

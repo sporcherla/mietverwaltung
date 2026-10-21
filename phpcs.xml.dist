@@ -33,7 +33,7 @@
 	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array"><element value="mv"/><element value="MV"/><element value="mietverwaltung"/></property>
+			<property name="prefixes" type="array"><element value="mietv"/><element value="Mietv"/><element value="MIETV"/><element value="mietverwaltung"/></property>
 		</properties>
 	</rule>
 </ruleset>
