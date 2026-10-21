@@ -57,10 +57,12 @@ add_action(
 	5
 );
 
+// Datenbank-Upgrade erst nach dem Laden der Übersetzungen (Rollenname, Kostenarten-Katalog).
+add_action( 'init', [ 'Mietv_DB', 'maybe_upgrade' ], 6 );
+
 add_action(
 	'plugins_loaded',
 	function () {
-		Mietv_DB::maybe_upgrade();
 		Mietv_Admin::init();
 		Mietv_Steuer::init();
 		Mietv_Portal::init();

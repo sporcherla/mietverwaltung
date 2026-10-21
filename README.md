@@ -4,7 +4,7 @@
 
 **Mietverwaltung** bündelt alles, was ein privater Vermieter für eine oder mehrere Wohnungen braucht, in einem WordPress-Plugin: Stammdaten, Mieteingänge, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag mit allen Anlagen, Kaution, Darlehen, Mahnwesen, Mieterhöhung und ein Mieterportal. Alle Daten bleiben in der eigenen WordPress-Datenbank – kein Cloud-Dienst, keine Datenübertragung an Dritte.
 
-- Version: **0.9.8** · Lizenz: GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
+- Version: **0.9.9** · Lizenz: GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
 - Sprachen: Deutsch (Quellsprache), Englisch
 - Zielgruppe: Dauervermietung von Wohnraum in Deutschland (keine Ferienwohnungen)
 
@@ -44,7 +44,7 @@
 | **Mieterportal** | Shortcode `[mietverwaltung_portal]`: Mietkonto, Abrechnungen, freigegebene Dokumente, Schadensmeldung, Zählerstand melden |
 | **Dokumente** | Ablage mit Typ, Datum, Portal-Freigabe; alle erzeugten PDFs landen auf Wunsch automatisch hier |
 | **Datenschutz** | Löschkonzept mit Fristen (§ 147 AO), Anonymisierung beendeter Mietverhältnisse, Auskunft Art. 15 als JSON, Hinweise für das Verarbeitungsverzeichnis |
-| **System** | Hilfe-Seite + Kontexthilfe, strukturiertes Menü mit Icons, Fokusmodus (WordPress-Menü ausblenden), Dashboard-Widget mit Hinweisen, tägliche E-Mail-Erinnerung, Backup/Restore als JSON, eigene Rolle „Vermieter“, saubere Deinstallation |
+| **System** | Einrichtungsassistent, Hilfe-Seite + Kontexthilfe, strukturiertes Menü mit Icons, Fokusmodus (WordPress-Menü ausblenden), Dashboard-Widget mit Hinweisen, tägliche E-Mail-Erinnerung, Backup/Restore als JSON, eigene Rolle „Vermieter“, saubere Deinstallation |
 
 ---
 
@@ -176,8 +176,8 @@ php tests/menu_test.php        # Menüstruktur
 ## Roadmap
 
 - Free/Pro-Aufteilung für WordPress.org (3 Einheiten frei)
-- Einrichtungsassistent, Schnellerfassung
-- WPCS-Prüfung (PHPCS)
+- Schnellerfassung (Beleg + Foto in drei Klicks)
+- Veröffentlichung im WordPress.org-Verzeichnis
 - Weitere Sprachen
 
 ---

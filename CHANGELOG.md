@@ -2,6 +2,16 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietverwaltung“.
 
+## 0.9.9 – Einrichtungsassistent, Coding Standards, WordPress.org-Reife
+
+- **Einrichtungsassistent**: fünf Schritte (Vermieter → Objekt → Einheiten mit Garage → Mieter mit Partner → Mietverhältnis mit Konditionen). Jeder Schritt speichert sofort, Wiederaufruf aktualisiert statt zu duplizieren; Start nach Aktivierung, Hinweis auf der Übersicht, Verlinkung aus der Hilfe.
+- **WordPress Coding Standards**: vollständiger PHPCS-Durchlauf (WordPress, PHPCompatibility) ohne Befunde; `phpcs.xml.dist` im Repo. Dabei behoben: Ausgabe-Escaping, Input-Sanitizing mit `wp_unslash`, Nonce-Prüfungen, `gmdate()`, Dateischreiben über `WP_Filesystem`, CSV-Escape-Parameter, Translators-Kommentare.
+- **Präfix** von `mv_`/`MV_` auf `mietv_`/`Mietv_`/`MIETV_` umgestellt (WordPress.org verlangt mindestens vier Zeichen). Bestehende Installationen werden beim ersten Aufruf automatisch migriert (Optionen, Rolle, Capability, Benutzer-Meta, Cron); die Datenbanktabellen `wp_mv_*` bleiben unverändert.
+- **pdf.js** (Apache-2.0) liegt jetzt im Plugin (`assets/pdfjs/`) statt vom CDN geladen zu werden – Voraussetzung für das Plugin-Verzeichnis.
+- **Plugin Check** (WordPress.org) ohne Fehler und Warnungen, auch mit experimentellen Prüfungen; `readme.txt` auf Englisch mit deutschem Abschnitt; Banner, Icon und sieben Screenshots unter `.wordpress-org/`.
+- Datenbank-Upgrade läuft jetzt bei `init` nach dem Laden der Übersetzungen (kein `_load_textdomain_just_in_time`-Hinweis mehr).
+- Bugfix: In der Indexmiet-Berechnung war die Platzhalterreihenfolge im Hinweistext falsch (Prozentwert zeigte den VPI-Wert).
+
 ## 0.9.8 – Hilfe, englische Übersetzung, GitHub
 
 - Neue Seite **Hilfe** im Menü (System) mit Schnellstart in sechs Schritten und Kurzbeschreibung jedes Moduls; zusätzlich WordPress-Kontexthilfe (Tab „Hilfe“ oben rechts) auf jeder Plugin-Seite.

@@ -4,7 +4,7 @@
 
 **Mietverwaltung** (“rental management”) puts everything a private landlord needs for one or more flats into a single WordPress plugin: master data, rent receipts, expense receipts, service charge statements, German tax reporting (Anlage V), a complete tenancy agreement with all annexes, deposit account, loans, dunning, rent increases and a tenant portal. All data stays in your own WordPress database – no cloud service, no data transfer to third parties.
 
-- Version **0.9.8** · License GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
+- Version **0.9.9** · License GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
 - Languages: German (source), English (complete UI translation)
 - Scope: long-term residential letting under **German law** (not holiday lets)
 
@@ -46,7 +46,7 @@
 | **Tenant portal** | Shortcode `[mietverwaltung_portal]`: rent account, statements, released documents, damage reports, meter readings |
 | **Documents** | Storage with type, date, portal release; all generated PDFs can be filed here automatically |
 | **Data protection** | Deletion concept with retention periods (§ 147 AO), anonymisation of ended tenancies, Art. 15 access report as JSON, notes for the record of processing activities |
-| **System** | Help page + contextual help, structured menu with icons, focus mode (hide WordPress menu), dashboard widget with notices, daily email reminder, backup/restore as JSON, dedicated “Landlord” role, clean uninstall |
+| **System** | Setup wizard, help page + contextual help, structured menu with icons, focus mode (hide WordPress menu), dashboard widget with notices, daily email reminder, backup/restore as JSON, dedicated “Landlord” role, clean uninstall |
 
 ---
 
@@ -180,8 +180,8 @@ Changes per version: [CHANGELOG.md](CHANGELOG.md) (German). Contributions are we
 ## Roadmap
 
 - Free/Pro split for WordPress.org (3 units free)
-- Setup wizard, quick entry
-- WPCS check (PHPCS)
+- Quick entry (receipt + photo in three clicks)
+- Publication in the WordPress.org directory
 - Further languages
 
 ---
