@@ -52,17 +52,17 @@ class Mietv_Steuer {
 		}
 		$werte = array_merge( ...array_values( $jahre ) );
 		$max   = max( 1, max( array_map( 'abs', $werte ) ) );
-		if ( array_sum( array_map( 'abs', $werte ) ) == 0 ) {
+		if ( array_sum( array_map( 'abs', $werte ) ) < 0.005 ) {
 			return '';
 		}
-		$W      = 720;
-		$H      = 220;
+		$breite = 720;
+		$hoehe  = 220;
 		$pad    = 40;
-		$base   = $H - 30;
+		$base   = $hoehe - 30;
 		$scale  = ( $base - 20 ) / $max;
-		$gw     = ( $W - 2 * $pad ) / count( $jahre );
-		$svg    = '<svg viewBox="0 0 ' . $W . ' ' . $H . '" width="100%" style="max-width:' . $W . 'px;font-family:sans-serif;font-size:11px">';
-		$svg   .= '<line x1="' . $pad . '" y1="' . $base . '" x2="' . ( $W - $pad ) . '" y2="' . $base . '" stroke="#999"/>';
+		$gw     = ( $breite - 2 * $pad ) / count( $jahre );
+		$svg    = '<svg viewBox="0 0 ' . $breite . ' ' . $hoehe . '" width="100%" style="max-width:' . $breite . 'px;font-family:sans-serif;font-size:11px">';
+		$svg   .= '<line x1="' . $pad . '" y1="' . $base . '" x2="' . ( $breite - $pad ) . '" y2="' . $base . '" stroke="#999"/>';
 		$farben = [ '#2271b1', '#b32d2e', '#1a7f37' ];
 		$labels = [ 'Einnahmen', 'Werbungskosten', 'Ergebnis' ];
 		$i      = 0;
@@ -74,7 +74,7 @@ class Mietv_Steuer {
 				$y    = $v >= 0 ? $base - $h : $base;
 				$svg .= sprintf( '<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="%s" opacity="%s"><title>%s %d: %s</title></rect>', $x0 + $k * $bw, $y, $bw - 2, $h, $farben[ $k ], $j === $jahr ? '1' : '0.55', $labels[ $k ], $j, mietv_eur( $v ) );
 			}
-			$svg .= sprintf( '<text x="%.1f" y="%d" text-anchor="middle">%d</text>', $x0 + 1.5 * $bw, $H - 10, $j );
+			$svg .= sprintf( '<text x="%.1f" y="%d" text-anchor="middle">%d</text>', $x0 + 1.5 * $bw, $hoehe - 10, $j );
 			$svg .= sprintf( '<text x="%.1f" y="%.1f" text-anchor="middle" font-size="10" fill="#333">%s</text>', $x0 + 2.5 * $bw, ( $erg >= 0 ? $base - abs( $erg ) * $scale - 4 : $base + abs( $erg ) * $scale + 12 ), number_format( $erg, 0, ',', '.' ) );
 			++$i;
 		}
@@ -323,7 +323,7 @@ class Mietv_Steuer {
 		echo '<p class="description">' . esc_html__( 'Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten.', 'mietverwaltung' ) . '</p>';
 
 		// Hinweise
-		self::hinweise( $jahr );
+		self::hinweise();
 
 		// Vorjahr
 		$vj         = $jahr - 1;
@@ -332,11 +332,11 @@ class Mietv_Steuer {
 		$ein_vj_sum = array_sum( array_column( $ein_vj, 'miete' ) ) + array_sum( array_column( $ein_vj, 'umlagen' ) );
 		$wk_vj_sum  = array_sum( array_column( $wk_vj, 'summe' ) );
 		$delta      = function ( $neu, $alt ) {
-			if ( $alt == 0 ) {
+			if ( abs( $alt ) < 0.005 ) {
 				return '';
 			}
 			$p = ( $neu / $alt - 1 ) * 100;
-			return sprintf( '<small>' . esc_html__( 'Vorjahr %1$s (%2$+.1f %%)', 'mietverwaltung' ) . '</small>', mietv_eur( $alt ), $p );
+			return sprintf( '<small>' . /* translators: %1$s: Wert, %2$+.1f: Wert */ esc_html__( 'Vorjahr %1$s (%2$+.1f %%)', 'mietverwaltung' ) . '</small>', mietv_eur( $alt ), $p );
 		};
 
 		// Ergebnis
@@ -378,7 +378,7 @@ class Mietv_Steuer {
 				printf( '<tr><td class="mv-indent">%s</td><td></td><td>%s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $a->name ), esc_html( $a->quelle ), (int) $a->anzahl, $a->umlagefaehig ? 'ja' : '–', esc_html( isset( $vj_arten[ $a->name ] ) ? mietv_eur( $vj_arten[ $a->name ] ) : '–' ), esc_html( mietv_eur( $a->summe ) ) );
 			}
 		}
-		if ( $wk_sum == 0 ) {
+		if ( abs( $wk_sum ) < 0.005 ) {
 			echo '<tr><td colspan="7">' . esc_html__( 'Keine Werbungskosten in diesem Jahr.', 'mietverwaltung' ) . '</td></tr>';
 		}
 		printf( '</tbody><tfoot><tr><th>' . esc_html__( 'Summe Werbungskosten', 'mietverwaltung' ) . '</th><th>%s</th><th></th><th></th><th></th><th>%s</th><th>%s</th></tr></tfoot></table>', esc_html( $zeilen['summe_wk'] ?? '' ), esc_html( mietv_eur( $wk_vj_sum ) ), esc_html( mietv_eur( $wk_sum ) ) );
@@ -422,7 +422,7 @@ class Mietv_Steuer {
 					printf( '<tr><td colspan="7" class="mv-indent"><small>%s: %s %s = %s %s %s</small></td></tr>', esc_html( $a->bezeichnung ), esc_html__( 'Kaufpreis', 'mietverwaltung' ), esc_html( mietv_eur( $a->ak ) ), esc_html( $teile ), esc_html__( '→ Anschaffungskosten', 'mietverwaltung' ), esc_html( mietv_eur( (float) $a->ak + (float) $a->nebenkosten ) ) );
 				}
 				if ( $a->typ === 'gebaeude' && (float) $a->grundanteil <= 0 ) {
-					echo '<tr><td colspan="7" class="mv-warn">⚠ ' . esc_html( sprintf( __( '%s: Anteil Grund und Boden ist 0 %% – das Finanzamt verlangt eine Aufteilung (Kaufvertrag oder BMF-Arbeitshilfe).', 'mietverwaltung' ), $a->bezeichnung ) ) . '</td></tr>';
+					echo '<tr><td colspan="7" class="mv-warn">⚠ ' . esc_html( sprintf( /* translators: %s: Wert */ __( '%s: Anteil Grund und Boden ist 0 %% – das Finanzamt verlangt eine Aufteilung (Kaufvertrag oder BMF-Arbeitshilfe).', 'mietverwaltung' ), $a->bezeichnung ) ) . '</td></tr>';
 				}
 				printf(
 					'<tr><td>%s</td><td>%s</td><td>%s</td><td>%s %s %%</td><td>%d</td><td><strong>%s</strong></td><td>%s</td></tr>',
@@ -487,14 +487,14 @@ class Mietv_Steuer {
 		echo '</tbody></table></div>';
 	}
 
-	private static function hinweise( int $jahr ): void {
+	private static function hinweise(): void {
 		foreach ( Mietv_Afa::pruefung_15_prozent() as $p ) {
 			if ( $p['netto'] <= 0 ) {
 				continue;
 			}
 			$a   = $p['anlagegut'];
 			$txt = sprintf(
-				__( 'Anschaffungsnahe Herstellungskosten (§ 6 Abs. 1 Nr. 1a EStG) – %1$s: Erhaltungsaufwand %2$s bis %3$s bisher %4$s netto, Grenze 15 %% = %5$s (%6$s %%).', 'mietverwaltung' ),
+				/* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert, %5$s: Wert, %6$s: Wert */                __( 'Anschaffungsnahe Herstellungskosten (§ 6 Abs. 1 Nr. 1a EStG) – %1$s: Erhaltungsaufwand %2$s bis %3$s bisher %4$s netto, Grenze 15 %% = %5$s (%6$s %%).', 'mietverwaltung' ),
 				$a->bezeichnung,
 				mietv_date( $p['von'] ),
 				mietv_date( $p['bis'] ),
@@ -503,9 +503,9 @@ class Mietv_Steuer {
 				number_format( $p['quote'], 1, ',', '.' )
 			);
 			if ( $p['netto'] > $p['grenze'] ) {
-				printf( '<div class="notice notice-error inline"><p><strong>' . esc_html__( 'Grenze überschritten!', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-error inline"><p><strong>' . esc_html__( 'Grenze überschritten!', 'mietverwaltung' ) . '</strong> ' . /* translators: %s: Wert */ esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
 			} elseif ( $p['aktiv'] && $p['quote'] >= 10 ) {
-				printf( '<div class="notice notice-warning inline"><p><strong>' . esc_html__( 'Achtung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-warning inline"><p><strong>' . esc_html__( 'Achtung:', 'mietverwaltung' ) . '</strong> ' . /* translators: %s: Wert */ esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
 			}
 		}
 	}
@@ -549,7 +549,7 @@ class Mietv_Steuer {
 		foreach ( self::belege( $jahr ) as $b ) {
 			fputcsv( $out, [ 'Beleg', Mietv_DB::anlage_v_gruppen()[ $b->anlage_v ] ?? $b->anlage_v, $zeilen[ $b->anlage_v ] ?? '', $b->kostenart . ( $b->verteilt ? ' (Anteil ' . $b->anteil_nr . '/' . $b->verteilung_jahre . ')' : '' ), 'Belege', mietv_date( $b->datum ), $b->lieferant, $b->belegnr, $b->umlagefaehig ? 'ja' : 'nein', $num( $b->anteil ) ], $sep, '\"', '\\' );
 		}
-		fclose( $out );
+		fclose( $out ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- php://output
 		exit;
 	}
 }

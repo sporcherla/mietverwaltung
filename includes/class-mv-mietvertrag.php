@@ -28,16 +28,16 @@ class Mietv_Mietvertrag {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'k' => $k ] = $d;
-		$E      = Mietv_Einstellungen::class;
-		$gl     = $E::get( 'glaeubiger_id' ) ?: '[Gläubiger-ID in den Einstellungen eintragen]';
+		$einst  = Mietv_Einstellungen::class;
+		$gl     = $einst::get( 'glaeubiger_id' ) ?: '[Gläubiger-ID in den Einstellungen eintragen]';
 		$ref    = 'MIETE-' . str_pad( (string) $mv_id, 6, '0', STR_PAD_LEFT );
 		$gesamt = $k ? (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz : 0;
 		self::kopf( 'SEPA-Mandat ' . $m->nachname, [ $ob->id, $mv->id, 'sonstiges', 'SEPA-Lastschriftmandat', false ] );
 		echo '<h1>' . esc_html__( 'SEPA-Basislastschriftmandat', 'mietverwaltung' ) . '</h1>';
-		printf( '<p><strong>' . esc_html__( 'Zahlungsempfänger (Gläubiger):', 'mietverwaltung' ) . '</strong> %s, %s<br><strong>' . esc_html__( 'Gläubiger-Identifikationsnummer:', 'mietverwaltung' ) . '</strong> %s<br><strong>' . esc_html__( 'Mandatsreferenz:', 'mietverwaltung' ) . '</strong> %s<br><strong>' . esc_html__( 'Art der Zahlung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'wiederkehrende Zahlung', 'mietverwaltung' ) . '</p>', esc_html( $E::get( 'vermieter_name' ) ), esc_html( str_replace( "\n", ', ', $E::get( 'vermieter_adresse' ) ) ), esc_html( $gl ), esc_html( $ref ) );
-		printf( '<p>' . esc_html__( 'Ich ermächtige %1$s, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von %2$s auf mein Konto gezogenen Lastschriften einzulösen.', 'mietverwaltung' ) . '</p>', esc_html( $E::get( 'vermieter_name' ) ), esc_html( $E::get( 'vermieter_name' ) ) );
+		printf( '<p><strong>' . esc_html__( 'Zahlungsempfänger (Gläubiger):', 'mietverwaltung' ) . '</strong> %s, %s<br><strong>' . esc_html__( 'Gläubiger-Identifikationsnummer:', 'mietverwaltung' ) . '</strong> %s<br><strong>' . esc_html__( 'Mandatsreferenz:', 'mietverwaltung' ) . '</strong> %s<br><strong>' . esc_html__( 'Art der Zahlung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'wiederkehrende Zahlung', 'mietverwaltung' ) . '</p>', esc_html( $einst::get( 'vermieter_name' ) ), esc_html( str_replace( "\n", ', ', $einst::get( 'vermieter_adresse' ) ) ), esc_html( $gl ), esc_html( $ref ) );
+		printf( '<p>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'Ich ermächtige %1$s, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von %2$s auf mein Konto gezogenen Lastschriften einzulösen.', 'mietverwaltung' ) . '</p>', esc_html( $einst::get( 'vermieter_name' ) ), esc_html( $einst::get( 'vermieter_name' ) ) );
 		echo '<p class="klein">' . esc_html__( 'Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.', 'mietverwaltung' ) . '</p>';
-		printf( '<p><strong>' . esc_html__( 'Verwendungszweck:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt.', 'mietverwaltung' ) . '</p>', esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( mietv_eur( $gesamt ) ), (int) max( 1, min( 3, (int) $mv->zahltag ) ) );
+		printf( '<p><strong>' . esc_html__( 'Verwendungszweck:', 'mietverwaltung' ) . '</strong> ' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert, %5$s: Wert, %6$d: Wert */ esc_html__( 'Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt.', 'mietverwaltung' ) . '</p>', esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( mietv_eur( $gesamt ) ), (int) max( 1, min( 3, (int) $mv->zahltag ) ) );
 		printf(
 			'<table><tr><td style="width:35%%">' . esc_html__( 'Kontoinhaber', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'Straße, Hausnummer', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'PLZ, Ort', 'mietverwaltung' ) . '</td><td>%s %s</td></tr><tr><td>' . esc_html__( 'Kreditinstitut', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'IBAN', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'BIC', 'mietverwaltung' ) . '</td><td>%s</td></tr></table>',
 			esc_html( implode( ' / ', array_map( fn( $z ) => preg_replace( '/^(Frau|Herr) /', '', $z ), mietv_mieter_personen( $m ) ) ) ),
@@ -344,7 +344,7 @@ class Mietv_Mietvertrag {
 
 	/** Startet die Ausgabe: PDF (gepuffert) oder HTML-Druckseite (?format=html). */
 	private static function kopf( string $titel, array $ablage = [] ): void {
-		$E = Mietv_Einstellungen::class;
+		$einst = Mietv_Einstellungen::class;
 		if ( ( isset( $_GET['format'] ) ? sanitize_key( $_GET['format'] ) : 'pdf' ) !== 'html' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			self::$pdf_titel  = $titel;
 			self::$pdf_ablage = $ablage;
@@ -481,8 +481,8 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 			wp_die( esc_html__( 'Mietverhältnis nicht gefunden.', 'mietverwaltung' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'k' => $k, 'opt' => $o, 'zusatz' => $zusatz ] = $d;
-		$E           = Mietv_Einstellungen::class;
-		$vermieter   = $E::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', $E::get( 'vermieter_adresse' ) );
+		$einst       = Mietv_Einstellungen::class;
+		$vermieter   = $einst::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', $einst::get( 'vermieter_adresse' ) );
 		$typen_label = [
 			'garage'     => esc_html__( 'Garage', 'mietverwaltung' ),
 			'stellplatz' => esc_html__( 'Stellplatz', 'mietverwaltung' ),
@@ -511,10 +511,10 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		$befristet = $mv->ende && $mv->ende !== '0000-00-00';
 		$ort       = Mietv_Brief::ort() ?: $ob->ort;
 		// Dokumentgenerator: Absätze bestehen aus festen Vertragstexten und bereits escapten Werten.
-		$P         = function ( string $t ): void {
+		$absatz       = function ( string $t ): void {
 			echo '<p>' . $t . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		};
-		$H         = function ( string $t ): void {
+		$ueberschrift = function ( string $t ): void {
 			echo '<h2>' . esc_html( $t ) . '</h2>';
 		};
 
@@ -527,12 +527,12 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		self::kopf( 'Mietvertrag ' . $m->nachname, [ $ob->id, $mv->id, 'mietvertrag', 'Mietvertrag ' . mietv_date( $mv->beginn ), true ] );
 		echo '<h1>' . esc_html__( 'Mietvertrag über Wohnraum', 'mietverwaltung' ) . '</h1>';
 
-		$H( '§ 1 Vertragsparteien' );
-		$P( 'zwischen<br><strong>' . esc_html( $vermieter ) . '</strong>' . ( $E::get( 'vermieter_steuernr' ) ? ', Steuer-Nr. ' . esc_html( $E::get( 'vermieter_steuernr' ) ) : '' ) . ( $E::get( 'vermieter_vertreter' ) ? ', vertreten durch ' . esc_html( $E::get( 'vermieter_vertreter' ) ) : '' ) . ' – nachfolgend „Vermieter“ –<br>und<br><strong>' . esc_html( $mieter ) . '</strong> – nachfolgend „Mieter“ –' );
-		$P( 'Mehrere Mieter haften für alle Verpflichtungen aus diesem Vertrag als Gesamtschuldner. Sie bevollmächtigen sich gegenseitig zur Abgabe und Entgegennahme von Erklärungen, die das Mietverhältnis betreffen; die Vollmacht ist jederzeit widerruflich und gilt nicht für Kündigungen und Aufhebungsverträge. Tatsachen in der Person eines Mieters, die sich auf das Mietverhältnis auswirken, müssen alle Mieter für und gegen sich gelten lassen.' );
+		$ueberschrift( '§ 1 Vertragsparteien' );
+		$absatz( 'zwischen<br><strong>' . esc_html( $vermieter ) . '</strong>' . ( $einst::get( 'vermieter_steuernr' ) ? ', Steuer-Nr. ' . esc_html( $einst::get( 'vermieter_steuernr' ) ) : '' ) . ( $einst::get( 'vermieter_vertreter' ) ? ', vertreten durch ' . esc_html( $einst::get( 'vermieter_vertreter' ) ) : '' ) . ' – nachfolgend „Vermieter“ –<br>und<br><strong>' . esc_html( $mieter ) . '</strong> – nachfolgend „Mieter“ –' );
+		$absatz( 'Mehrere Mieter haften für alle Verpflichtungen aus diesem Vertrag als Gesamtschuldner. Sie bevollmächtigen sich gegenseitig zur Abgabe und Entgegennahme von Erklärungen, die das Mietverhältnis betreffen; die Vollmacht ist jederzeit widerruflich und gilt nicht für Kündigungen und Aufhebungsverträge. Tatsachen in der Person eines Mieters, die sich auf das Mietverhältnis auswirken, müssen alle Mieter für und gegen sich gelten lassen.' );
 
-		$H( '§ 2 Mietsache' );
-		$P(
+		$ueberschrift( '§ 2 Mietsache' );
+		$absatz(
 			sprintf(
 				'Vermietet wird zu Wohnzwecken die Wohnung <strong>%s</strong> im Anwesen <strong>%s</strong>%s, bestehend aus %s, Wohnfläche ca. %s m², zur Nutzung durch %d Person(en). Mitvermietet: %s%s.',
 				esc_html( $e->bezeichnung ),
@@ -545,42 +545,42 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 				$o['ausstattung'] ? '. Ausstattung: ' . esc_html( $o['ausstattung'] ) : ''
 			)
 		);
-		$P( 'Die Wohnflächenangabe dient der Beschreibung des Mietgegenstands und ist keine Zusicherung; eine Abweichung von bis zu 10 % begründet keine Rechte. Maßgeblich ist die Wohnflächenverordnung.' );
+		$absatz( 'Die Wohnflächenangabe dient der Beschreibung des Mietgegenstands und ist keine Zusicherung; eine Abweichung von bis zu 10 % begründet keine Rechte. Maßgeblich ist die Wohnflächenverordnung.' );
 		if ( $o['mitbenutzung'] ) {
-			$P( 'Der Mieter darf nach Maßgabe der Hausordnung mitbenutzen: ' . esc_html( $o['mitbenutzung'] ) . '.' );
+			$absatz( 'Der Mieter darf nach Maßgabe der Hausordnung mitbenutzen: ' . esc_html( $o['mitbenutzung'] ) . '.' );
 		}
 		if ( $o['mietereigentum'] ) {
-			$P( 'Nicht mitvermietet, sondern Eigentum des Mieters sind: ' . esc_html( $o['mietereigentum'] ) . '.' );
+			$absatz( 'Nicht mitvermietet, sondern Eigentum des Mieters sind: ' . esc_html( $o['mietereigentum'] ) . '.' );
 		}
 		if ( $zusatz ) {
-			$P( 'Ist ein Stellplatz, Carport oder eine Garage Teil der Mietsache, darf der Vermieter dessen Lage aus sachlichem Grund ändern, wenn er einen gleichwertigen Ersatz in zumutbarer Entfernung bereitstellt.' );
+			$absatz( 'Ist ein Stellplatz, Carport oder eine Garage Teil der Mietsache, darf der Vermieter dessen Lage aus sachlichem Grund ändern, wenn er einen gleichwertigen Ersatz in zumutbarer Entfernung bereitstellt.' );
 		}
-		$P( sprintf( '<strong>Schlüssel:</strong> Übergeben werden %s. Weitere Schlüssel darf der Mieter nur mit Zustimmung des Vermieters anfertigen lassen; sie sind bei Auszug herauszugeben. Gehen Schlüssel durch Verschulden des Mieters verloren, trägt er die Kosten des Ersatzes – bei Schließanlagen auch die Kosten des Austauschs der Anlage, soweit eine missbräuchliche Verwendung nicht ausgeschlossen werden kann.', esc_html( $o['schluessel'] ) ) );
+		$absatz( sprintf( '<strong>Schlüssel:</strong> Übergeben werden %s. Weitere Schlüssel darf der Mieter nur mit Zustimmung des Vermieters anfertigen lassen; sie sind bei Auszug herauszugeben. Gehen Schlüssel durch Verschulden des Mieters verloren, trägt er die Kosten des Ersatzes – bei Schließanlagen auch die Kosten des Austauschs der Anlage, soweit eine missbräuchliche Verwendung nicht ausgeschlossen werden kann.', esc_html( $o['schluessel'] ) ) );
 
-		$H( '§ 3 Mietzeit, Kündigung' );
+		$ueberschrift( '§ 3 Mietzeit, Kündigung' );
 		if ( $befristet && $o['befristung_grund'] ) {
-			$P( sprintf( 'Das Mietverhältnis beginnt am <strong>%s</strong> und endet am <strong>%s</strong>, ohne dass es einer Kündigung bedarf (Zeitmietvertrag, § 575 BGB). Befristungsgrund: %s. Der Mieter kann frühestens vier Monate vor Ablauf Auskunft verlangen, ob der Grund noch besteht; entfällt er, kann der Mieter eine Verlängerung auf unbestimmte Zeit verlangen.', esc_html( mietv_date( $mv->beginn ) ), esc_html( mietv_date( $mv->ende ) ), esc_html( $o['befristung_grund'] ) ) );
+			$absatz( sprintf( 'Das Mietverhältnis beginnt am <strong>%s</strong> und endet am <strong>%s</strong>, ohne dass es einer Kündigung bedarf (Zeitmietvertrag, § 575 BGB). Befristungsgrund: %s. Der Mieter kann frühestens vier Monate vor Ablauf Auskunft verlangen, ob der Grund noch besteht; entfällt er, kann der Mieter eine Verlängerung auf unbestimmte Zeit verlangen.', esc_html( mietv_date( $mv->beginn ) ), esc_html( mietv_date( $mv->ende ) ), esc_html( $o['befristung_grund'] ) ) );
 		} else {
-			$P( sprintf( 'Das Mietverhältnis beginnt am <strong>%s</strong> und läuft auf unbestimmte Zeit. Es gelten die gesetzlichen Kündigungsfristen (§ 573c BGB): für den Mieter drei Monate; für den Vermieter drei Monate, nach fünf und acht Jahren seit Überlassung jeweils drei Monate länger. Die Kündigung bedarf der Schriftform.', esc_html( mietv_date( $mv->beginn ) ) ) );
+			$absatz( sprintf( 'Das Mietverhältnis beginnt am <strong>%s</strong> und läuft auf unbestimmte Zeit. Es gelten die gesetzlichen Kündigungsfristen (§ 573c BGB): für den Mieter drei Monate; für den Vermieter drei Monate, nach fünf und acht Jahren seit Überlassung jeweils drei Monate länger. Die Kündigung bedarf der Schriftform.', esc_html( mietv_date( $mv->beginn ) ) ) );
 			if ( (int) $o['kuendigungsverzicht'] > 0 ) {
-				$P( sprintf( 'Beide Parteien verzichten für <strong>%d Jahr(e) ab Vertragsschluss</strong> auf das Recht zur ordentlichen Kündigung; eine ordentliche Kündigung ist erstmals zum Ablauf dieses Zeitraums zulässig. Das Recht zur außerordentlichen Kündigung bleibt unberührt.', (int) $o['kuendigungsverzicht'] ) );
+				$absatz( sprintf( 'Beide Parteien verzichten für <strong>%d Jahr(e) ab Vertragsschluss</strong> auf das Recht zur ordentlichen Kündigung; eine ordentliche Kündigung ist erstmals zum Ablauf dieses Zeitraums zulässig. Das Recht zur außerordentlichen Kündigung bleibt unberührt.', (int) $o['kuendigungsverzicht'] ) );
 			}
 		}
-		$P( 'Setzt der Mieter den Gebrauch nach Ablauf der Mietzeit fort, verlängert sich das Mietverhältnis nicht stillschweigend; § 545 BGB wird ausgeschlossen. Gibt der Mieter die Mietsache nach Beendigung nicht zurück, schuldet er für die Dauer der Vorenthaltung als Entschädigung die vereinbarte Miete, mindestens die ortsübliche Vergleichsmiete (§ 546a BGB); weitergehende Ansprüche bleiben vorbehalten.' );
+		$absatz( 'Setzt der Mieter den Gebrauch nach Ablauf der Mietzeit fort, verlängert sich das Mietverhältnis nicht stillschweigend; § 545 BGB wird ausgeschlossen. Gibt der Mieter die Mietsache nach Beendigung nicht zurück, schuldet er für die Dauer der Vorenthaltung als Entschädigung die vereinbarte Miete, mindestens die ortsübliche Vergleichsmiete (§ 546a BGB); weitergehende Ansprüche bleiben vorbehalten.' );
 
-		$H( '§ 4 Miete, Betriebskosten' );
+		$ueberschrift( '§ 4 Miete, Betriebskosten' );
 		$pauschale = $o['bk_art'] === 'pauschale';
 		if ( $anteile ) {
 			$teile          = implode( ', ', array_map( fn( $z ) => mietv_eur( $z->mietanteil ) . ' ' . ( $typen_label[ $z->typ ] ?? $z->typ ) . ' ' . $z->bezeichnung, $anteile ) );
 			$wohnung_anteil = $kalt - array_sum( array_map( fn( $z ) => (float) $z->mietanteil, $anteile ) );
-			$P( sprintf( 'Die monatliche Grundmiete (Nettokaltmiete) beträgt insgesamt <strong>%s</strong>; davon entfallen %s auf die Wohnung und %s. Wohnung und mitvermietete Einheiten bilden ein einheitliches Mietverhältnis und können nur gemeinsam gekündigt werden.', esc_html( mietv_eur( $kalt ) ), esc_html( mietv_eur( $wohnung_anteil ) ), esc_html( $teile ) ) );
+			$absatz( sprintf( 'Die monatliche Grundmiete (Nettokaltmiete) beträgt insgesamt <strong>%s</strong>; davon entfallen %s auf die Wohnung und %s. Wohnung und mitvermietete Einheiten bilden ein einheitliches Mietverhältnis und können nur gemeinsam gekündigt werden.', esc_html( mietv_eur( $kalt ) ), esc_html( mietv_eur( $wohnung_anteil ) ), esc_html( $teile ) ) );
 		} elseif ( $zusatz ) {
-			$P( sprintf( 'Die monatliche Grundmiete (Nettokaltmiete) für Wohnung und mitvermietete Einheiten beträgt insgesamt <strong>%s</strong>. Sie bilden ein einheitliches Mietverhältnis und können nur gemeinsam gekündigt werden.', esc_html( mietv_eur( $kalt ) ) ) );
+			$absatz( sprintf( 'Die monatliche Grundmiete (Nettokaltmiete) für Wohnung und mitvermietete Einheiten beträgt insgesamt <strong>%s</strong>. Sie bilden ein einheitliches Mietverhältnis und können nur gemeinsam gekündigt werden.', esc_html( mietv_eur( $kalt ) ) ) );
 		} else {
-			$P( sprintf( 'Die monatliche Grundmiete (Nettokaltmiete) beträgt <strong>%s</strong>.', esc_html( mietv_eur( $kalt ) ) ) );
+			$absatz( sprintf( 'Die monatliche Grundmiete (Nettokaltmiete) beträgt <strong>%s</strong>.', esc_html( mietv_eur( $kalt ) ) ) );
 		}
 		if ( $o['moeblierung'] === '1' ) {
-			$P( 'In der Grundmiete ist ein Zuschlag für die mitvermietete Möblierung enthalten.' );
+			$absatz( 'In der Grundmiete ist ein Zuschlag für die mitvermietete Möblierung enthalten.' );
 		}
 		echo '<table class="liste"><tbody>';
 		printf( '<tr><td>%s</td><td>%s</td></tr>', esc_html__( 'Grundmiete', 'mietverwaltung' ), esc_html( mietv_eur( $kalt ) ) );
@@ -590,26 +590,26 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		}
 		printf( '<tr class="summe"><td>%s</td><td>%s</td></tr></tbody></table>', esc_html__( 'Gesamtmiete monatlich', 'mietverwaltung' ), esc_html( mietv_eur( $gesamt ) ) );
 		if ( $pauschale ) {
-			$P( 'Mit der Betriebskostenpauschale sind die Betriebskosten im Sinne des § 2 BetrKV – mit Ausnahme der Heiz- und Warmwasserkosten – abgegolten; eine Abrechnung findet insoweit nicht statt. Erhöhen sich die Betriebskosten, kann der Vermieter die Pauschale durch Erklärung in Textform anteilig anheben (§ 560 Abs. 1 BGB); Ermäßigungen sind weiterzugeben.' );
+			$absatz( 'Mit der Betriebskostenpauschale sind die Betriebskosten im Sinne des § 2 BetrKV – mit Ausnahme der Heiz- und Warmwasserkosten – abgegolten; eine Abrechnung findet insoweit nicht statt. Erhöhen sich die Betriebskosten, kann der Vermieter die Pauschale durch Erklärung in Textform anteilig anheben (§ 560 Abs. 1 BGB); Ermäßigungen sind weiterzugeben.' );
 		} else {
-			$P( 'Der Mieter trägt die Betriebskosten im Sinne des § 2 Betriebskostenverordnung (BetrKV) in der jeweils geltenden Fassung, soweit sie für das Objekt anfallen – auch neu entstehende Betriebskosten, soweit ihre Umlage zulässig ist. Hierauf leistet er die vereinbarten monatlichen Vorauszahlungen. Über die Vorauszahlungen rechnet der Vermieter jährlich ab; die Abrechnung ist dem Mieter spätestens zwölf Monate nach Ende des Abrechnungszeitraums mitzuteilen (§ 556 Abs. 3 BGB). Nach einer Abrechnung kann jede Partei die Vorauszahlungen durch Erklärung in Textform auf eine angemessene Höhe anpassen (§ 560 Abs. 4 BGB). Nachzahlungen und Guthaben sind innerhalb von 30 Tagen nach Zugang der Abrechnung auszugleichen. Der Mieter kann die Abrechnungsunterlagen beim Vermieter einsehen.' );
+			$absatz( 'Der Mieter trägt die Betriebskosten im Sinne des § 2 Betriebskostenverordnung (BetrKV) in der jeweils geltenden Fassung, soweit sie für das Objekt anfallen – auch neu entstehende Betriebskosten, soweit ihre Umlage zulässig ist. Hierauf leistet er die vereinbarten monatlichen Vorauszahlungen. Über die Vorauszahlungen rechnet der Vermieter jährlich ab; die Abrechnung ist dem Mieter spätestens zwölf Monate nach Ende des Abrechnungszeitraums mitzuteilen (§ 556 Abs. 3 BGB). Nach einer Abrechnung kann jede Partei die Vorauszahlungen durch Erklärung in Textform auf eine angemessene Höhe anpassen (§ 560 Abs. 4 BGB). Nachzahlungen und Guthaben sind innerhalb von 30 Tagen nach Zugang der Abrechnung auszugleichen. Der Mieter kann die Abrechnungsunterlagen beim Vermieter einsehen.' );
 		}
-		$P( 'Umgelegt werden insbesondere die nachfolgenden Betriebskosten mit dem jeweils genannten Umlageschlüssel. Soweit kein Schlüssel vereinbart ist, erfolgt die Verteilung nach dem Verhältnis der Wohnflächen; verbrauchsabhängig erfasste Kosten nach Verbrauch. Heiz- und Warmwasserkosten werden nach der Heizkostenverordnung abgerechnet' . ( $zentral ? ' (Verbrauchsanteil ' . (int) ( $ob->hk_verbrauchsanteil ?: 70 ) . ' %, Rest nach Wohnfläche)' : '' ) . '.' . ( $etw ? ' Bei Eigentumswohnungen gilt der von der Eigentümergemeinschaft angewandte Umlageschlüssel; die auf die Wohnung entfallende Grundsteuer wird in voller Höhe umgelegt.' : '' ) );
+		$absatz( 'Umgelegt werden insbesondere die nachfolgenden Betriebskosten mit dem jeweils genannten Umlageschlüssel. Soweit kein Schlüssel vereinbart ist, erfolgt die Verteilung nach dem Verhältnis der Wohnflächen; verbrauchsabhängig erfasste Kosten nach Verbrauch. Heiz- und Warmwasserkosten werden nach der Heizkostenverordnung abgerechnet' . ( $zentral ? ' (Verbrauchsanteil ' . (int) ( $ob->hk_verbrauchsanteil ?: 70 ) . ' %, Rest nach Wohnfläche)' : '' ) . '.' . ( $etw ? ' Bei Eigentumswohnungen gilt der von der Eigentümergemeinschaft angewandte Umlageschlüssel; die auf die Wohnung entfallende Grundsteuer wird in voller Höhe umgelegt.' : '' ) );
 		echo self::betrkv_tabelle( $zentral, $etw ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
-		$P( 'Sach- und Arbeitsleistungen des Vermieters dürfen mit dem Betrag angesetzt werden, der für eine gleichwertige Leistung eines Dritten angesetzt werden könnte, ohne Umsatzsteuer (§ 1 Abs. 1 Satz 2 BetrKV). Der Mieter schließt ab Übergabe einen eigenen Stromliefervertrag für die Wohnung ab und weist dies auf Verlangen nach; eine Abmeldung vor Ende des Mietverhältnisses ist unzulässig. Der Vermieter ist nicht verpflichtet, Telekommunikationsanschlüsse (Internet, Fernsehen) bereitzustellen oder eine bestehende Versorgung aufrechtzuerhalten.' );
+		$absatz( 'Sach- und Arbeitsleistungen des Vermieters dürfen mit dem Betrag angesetzt werden, der für eine gleichwertige Leistung eines Dritten angesetzt werden könnte, ohne Umsatzsteuer (§ 1 Abs. 1 Satz 2 BetrKV). Der Mieter schließt ab Übergabe einen eigenen Stromliefervertrag für die Wohnung ab und weist dies auf Verlangen nach; eine Abmeldung vor Ende des Mietverhältnisses ist unzulässig. Der Vermieter ist nicht verpflichtet, Telekommunikationsanschlüsse (Internet, Fernsehen) bereitzustellen oder eine bestehende Versorgung aufrechtzuerhalten.' );
 		if ( $o['mietart'] === 'staffel' ) {
-			$P( '<strong>Staffelmiete (§ 557a BGB):</strong> Die Grundmiete erhöht sich wie folgt; zwischen zwei Staffeln liegt jeweils mindestens ein Jahr:' );
+			$absatz( '<strong>Staffelmiete (§ 557a BGB):</strong> Die Grundmiete erhöht sich wie folgt; zwischen zwei Staffeln liegt jeweils mindestens ein Jahr:' );
 			echo '<table class="liste"><tbody>';
 			foreach ( array_filter( array_map( 'trim', explode( "\n", $o['staffeln'] ) ) ) as $z ) {
 				[ $dat, $betr ] = array_pad( explode( ';', $z ), 2, '' );
-				printf( '<tr><td>ab %s</td><td>%s</td></tr>', esc_html( mietv_date( trim( $dat ) ) ), esc_html( mietv_eur( mietv_to_float( $betr ) ) ) );
+				printf( '<tr><td>ab %s</td><td>%s</td></tr>', esc_html( mietv_date( trim( $dat, " \t\n\r\0\x0B" ) ) ), esc_html( mietv_eur( mietv_to_float( $betr ) ) ) );
 			}
 			echo '</tbody></table>';
-			$P( 'Während der Laufzeit der Staffelmiete sind Erhöhungen nach §§ 558 bis 559b BGB ausgeschlossen.' );
+			$absatz( 'Während der Laufzeit der Staffelmiete sind Erhöhungen nach §§ 558 bis 559b BGB ausgeschlossen.' );
 		} elseif ( $o['mietart'] === 'index' ) {
-			$P( '<strong>Indexmiete (§ 557b BGB):</strong> Die Grundmiete ist an den vom Statistischen Bundesamt ermittelten Verbraucherpreisindex für Deutschland gekoppelt. Ändert sich der Index, kann jede Partei eine entsprechende prozentuale Anpassung der Grundmiete verlangen, sofern die Miete seit Vertragsbeginn oder der letzten Änderung mindestens ein Jahr unverändert war. Die Änderung ist in Textform zu erklären; die eingetretene Indexänderung und die neue Miete sind in einem Geldbetrag anzugeben. Die geänderte Miete ist ab Beginn des übernächsten Monats nach Zugang zu zahlen. Erhöhungen nach § 558 BGB sind ausgeschlossen; Erhöhungen nach § 559 BGB nur für Maßnahmen, die der Vermieter nicht zu vertreten hat.' );
+			$absatz( '<strong>Indexmiete (§ 557b BGB):</strong> Die Grundmiete ist an den vom Statistischen Bundesamt ermittelten Verbraucherpreisindex für Deutschland gekoppelt. Ändert sich der Index, kann jede Partei eine entsprechende prozentuale Anpassung der Grundmiete verlangen, sofern die Miete seit Vertragsbeginn oder der letzten Änderung mindestens ein Jahr unverändert war. Die Änderung ist in Textform zu erklären; die eingetretene Indexänderung und die neue Miete sind in einem Geldbetrag anzugeben. Die geänderte Miete ist ab Beginn des übernächsten Monats nach Zugang zu zahlen. Erhöhungen nach § 558 BGB sind ausgeschlossen; Erhöhungen nach § 559 BGB nur für Maßnahmen, die der Vermieter nicht zu vertreten hat.' );
 		} else {
-			$P( 'Mieterhöhungen richten sich nach den gesetzlichen Vorschriften (§§ 558 bis 560 BGB).' );
+			$absatz( 'Mieterhöhungen richten sich nach den gesetzlichen Vorschriften (§§ 558 bis 560 BGB).' );
 		}
 		$mpb = [
 			'vormiete'       => 'die vom Vormieter zuletzt geschuldete Miete bereits ' . esc_html( $o['vormiete'] ?: '[Betrag]' ) . ' betrug (§ 556e Abs. 1 BGB)',
@@ -618,92 +618,92 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 			'neubau'         => 'die Wohnung nach dem 1. Oktober 2014 erstmals genutzt und vermietet wurde (§ 556f Satz 1 BGB)',
 		];
 		if ( ! empty( $mpb[ $o['mpb_ausnahme'] ] ) ) {
-			$P( '<strong>Auskunft nach § 556g Abs. 1a BGB:</strong> Die Wohnung liegt in einem Gebiet mit angespanntem Wohnungsmarkt. Soweit die vereinbarte Grundmiete die ortsübliche Vergleichsmiete um mehr als 10 % übersteigt, ist dies zulässig, weil ' . $mpb[ $o['mpb_ausnahme'] ] . '. Diese Auskunft wurde dem Mieter vor Vertragsschluss in Textform erteilt.' );
+			$absatz( '<strong>Auskunft nach § 556g Abs. 1a BGB:</strong> Die Wohnung liegt in einem Gebiet mit angespanntem Wohnungsmarkt. Soweit die vereinbarte Grundmiete die ortsübliche Vergleichsmiete um mehr als 10 % übersteigt, ist dies zulässig, weil ' . $mpb[ $o['mpb_ausnahme'] ] . '. Diese Auskunft wurde dem Mieter vor Vertragsschluss in Textform erteilt.' );
 		} elseif ( $o['vormiete'] ) {
-			$P( '<strong>Auskunft nach § 556g Abs. 1a BGB:</strong> Die vom Vormieter zuletzt geschuldete Miete betrug ' . esc_html( $o['vormiete'] ) . '.' );
+			$absatz( '<strong>Auskunft nach § 556g Abs. 1a BGB:</strong> Die vom Vormieter zuletzt geschuldete Miete betrug ' . esc_html( $o['vormiete'] ) . '.' );
 		}
 
-		$H( '§ 5 Zahlung, Verzug, Mietsicherheit' );
-		$P( sprintf( 'Die Gesamtmiete ist monatlich im Voraus, spätestens am <strong>%d. Werktag</strong> des Monats, kostenfrei zu zahlen%s. Für die Rechtzeitigkeit kommt es auf den Eingang beim Vermieter an, es sei denn, die Verzögerung ist vom Mieter nicht zu vertreten. Der Mieter zahlt per %s.', max( 1, min( 3, (int) $mv->zahltag ) ), $E::get( 'vermieter_iban' ) ? ' auf das Konto IBAN ' . esc_html( $E::get( 'vermieter_iban' ) ) . ' bei der ' . esc_html( $E::get( 'vermieter_bank' ) ) . ', Kontoinhaber ' . esc_html( $E::get( 'vermieter_name' ) ) : ' auf das vom Vermieter benannte Konto', $o['zahlungsweise'] === 'sepa' ? 'SEPA-Lastschriftmandat (Anlage)' : 'Dauerauftrag' ) );
-		$P( 'Gerät der Mieter in Verzug, sind rückständige Beträge mit fünf Prozentpunkten über dem Basiszinssatz zu verzinsen (§ 288 Abs. 1 BGB). Für jede berechtigte Mahnung nach Verzugseintritt kann der Vermieter die ihm entstandenen Kosten, pauschal 5,00 €, verlangen; dem Mieter bleibt der Nachweis gestattet, dass kein oder ein geringerer Schaden entstanden ist.' );
-		$P( sprintf( 'Der Mieter leistet eine Mietsicherheit in Höhe von <strong>%s</strong> (höchstens drei Grundmieten, § 551 BGB)%s. Der Vermieter legt sie getrennt von seinem Vermögen bei einem Kreditinstitut zum üblichen Zinssatz für Spareinlagen mit dreimonatiger Kündigungsfrist an; die Erträge stehen dem Mieter zu und erhöhen die Sicherheit. Der Mieter darf während des Mietverhältnisses nicht gegen die Mietsicherheit aufrechnen oder den Vermieter auf sie verweisen. Der Rückzahlungsanspruch wird nach Beendigung des Mietverhältnisses, Rückgabe der Mietsache und Ablauf einer angemessenen Prüffrist fällig, soweit dem Vermieter keine Gegenforderungen zustehen.', esc_html( mietv_eur( $mv->kaution ) ), $o['kaution_raten'] === '3' ? ', zahlbar in drei gleichen Monatsraten, die erste zu Beginn des Mietverhältnisses' : ', fällig zu Beginn des Mietverhältnisses' ) );
+		$ueberschrift( '§ 5 Zahlung, Verzug, Mietsicherheit' );
+		$absatz( sprintf( 'Die Gesamtmiete ist monatlich im Voraus, spätestens am <strong>%d. Werktag</strong> des Monats, kostenfrei zu zahlen%s. Für die Rechtzeitigkeit kommt es auf den Eingang beim Vermieter an, es sei denn, die Verzögerung ist vom Mieter nicht zu vertreten. Der Mieter zahlt per %s.', max( 1, min( 3, (int) $mv->zahltag ) ), $einst::get( 'vermieter_iban' ) ? ' auf das Konto IBAN ' . esc_html( $einst::get( 'vermieter_iban' ) ) . ' bei der ' . esc_html( $einst::get( 'vermieter_bank' ) ) . ', Kontoinhaber ' . esc_html( $einst::get( 'vermieter_name' ) ) : ' auf das vom Vermieter benannte Konto', $o['zahlungsweise'] === 'sepa' ? 'SEPA-Lastschriftmandat (Anlage)' : 'Dauerauftrag' ) );
+		$absatz( 'Gerät der Mieter in Verzug, sind rückständige Beträge mit fünf Prozentpunkten über dem Basiszinssatz zu verzinsen (§ 288 Abs. 1 BGB). Für jede berechtigte Mahnung nach Verzugseintritt kann der Vermieter die ihm entstandenen Kosten, pauschal 5,00 €, verlangen; dem Mieter bleibt der Nachweis gestattet, dass kein oder ein geringerer Schaden entstanden ist.' );
+		$absatz( sprintf( 'Der Mieter leistet eine Mietsicherheit in Höhe von <strong>%s</strong> (höchstens drei Grundmieten, § 551 BGB)%s. Der Vermieter legt sie getrennt von seinem Vermögen bei einem Kreditinstitut zum üblichen Zinssatz für Spareinlagen mit dreimonatiger Kündigungsfrist an; die Erträge stehen dem Mieter zu und erhöhen die Sicherheit. Der Mieter darf während des Mietverhältnisses nicht gegen die Mietsicherheit aufrechnen oder den Vermieter auf sie verweisen. Der Rückzahlungsanspruch wird nach Beendigung des Mietverhältnisses, Rückgabe der Mietsache und Ablauf einer angemessenen Prüffrist fällig, soweit dem Vermieter keine Gegenforderungen zustehen.', esc_html( mietv_eur( $mv->kaution ) ), $o['kaution_raten'] === '3' ? ', zahlbar in drei gleichen Monatsraten, die erste zu Beginn des Mietverhältnisses' : ', fällig zu Beginn des Mietverhältnisses' ) );
 
-		$H( '§ 6 Zustand der Mietsache, Arbeiten' );
-		$P( 'Der Zustand der Mietsache bei Übergabe wird im gemeinsamen Übergabeprotokoll festgehalten, das Bestandteil dieses Vertrags ist.' . ( $o['zustand_maengel'] ? ' Bekannte Mängel: ' . esc_html( $o['zustand_maengel'] ) . '.' : '' ) );
+		$ueberschrift( '§ 6 Zustand der Mietsache, Arbeiten' );
+		$absatz( 'Der Zustand der Mietsache bei Übergabe wird im gemeinsamen Übergabeprotokoll festgehalten, das Bestandteil dieses Vertrags ist.' . ( $o['zustand_maengel'] ? ' Bekannte Mängel: ' . esc_html( $o['zustand_maengel'] ) . '.' : '' ) );
 		if ( $o['arbeiten_vermieter'] ) {
-			$P( 'Der Vermieter führt auf seine Kosten fachgerecht' . ( $o['arbeiten_vermieter_bis'] ? ' bis spätestens ' . esc_html( $o['arbeiten_vermieter_bis'] ) : '' ) . ' folgende Arbeiten aus: ' . esc_html( $o['arbeiten_vermieter'] ) . '.' );
+			$absatz( 'Der Vermieter führt auf seine Kosten fachgerecht' . ( $o['arbeiten_vermieter_bis'] ? ' bis spätestens ' . esc_html( $o['arbeiten_vermieter_bis'] ) : '' ) . ' folgende Arbeiten aus: ' . esc_html( $o['arbeiten_vermieter'] ) . '.' );
 		}
 		if ( $o['arbeiten_mieter'] ) {
-			$P( 'Der Mieter führt auf seine Kosten fachgerecht' . ( $o['arbeiten_mieter_bis'] ? ' bis spätestens ' . esc_html( $o['arbeiten_mieter_bis'] ) : '' ) . ' folgende Arbeiten aus: ' . esc_html( $o['arbeiten_mieter'] ) . '.' );
+			$absatz( 'Der Mieter führt auf seine Kosten fachgerecht' . ( $o['arbeiten_mieter_bis'] ? ' bis spätestens ' . esc_html( $o['arbeiten_mieter_bis'] ) : '' ) . ' folgende Arbeiten aus: ' . esc_html( $o['arbeiten_mieter'] ) . '.' );
 		}
 
-		$H( '§ 7 Nutzung, Überlassung an Dritte, Meldepflicht' );
-		$P( 'Die Mietsache darf nur zu Wohnzwecken genutzt werden; eine andere Nutzung bedarf der Erlaubnis des Vermieters, die aus wichtigem Grund widerrufen werden kann. Der Mieter darf den Gebrauch ohne Erlaubnis des Vermieters weder ganz noch teilweise Dritten überlassen, insbesondere nicht untervermieten (§ 540 BGB). Hat der Mieter nach Vertragsschluss ein berechtigtes Interesse, einen Teil der Wohnung Dritten zu überlassen, kann er die Erlaubnis verlangen (§ 553 BGB); der Vermieter kann sie von einem angemessenen Untermietzuschlag abhängig machen.' );
-		$P( 'Der Mieter teilt dem Vermieter Änderungen der Zahl der im Haushalt lebenden Personen binnen eines Monats mit. Der Vermieter stellt die Wohnungsgeberbestätigung nach § 19 Bundesmeldegesetz aus; der Mieter meldet sich fristgerecht an und bei Auszug um und teilt seine neue Anschrift mit. Schäden aus der Verletzung dieser Pflichten (z. B. unzutreffende Betriebskostenabrechnung) trägt der Mieter.' );
+		$ueberschrift( '§ 7 Nutzung, Überlassung an Dritte, Meldepflicht' );
+		$absatz( 'Die Mietsache darf nur zu Wohnzwecken genutzt werden; eine andere Nutzung bedarf der Erlaubnis des Vermieters, die aus wichtigem Grund widerrufen werden kann. Der Mieter darf den Gebrauch ohne Erlaubnis des Vermieters weder ganz noch teilweise Dritten überlassen, insbesondere nicht untervermieten (§ 540 BGB). Hat der Mieter nach Vertragsschluss ein berechtigtes Interesse, einen Teil der Wohnung Dritten zu überlassen, kann er die Erlaubnis verlangen (§ 553 BGB); der Vermieter kann sie von einem angemessenen Untermietzuschlag abhängig machen.' );
+		$absatz( 'Der Mieter teilt dem Vermieter Änderungen der Zahl der im Haushalt lebenden Personen binnen eines Monats mit. Der Vermieter stellt die Wohnungsgeberbestätigung nach § 19 Bundesmeldegesetz aus; der Mieter meldet sich fristgerecht an und bei Auszug um und teilt seine neue Anschrift mit. Schäden aus der Verletzung dieser Pflichten (z. B. unzutreffende Betriebskostenabrechnung) trägt der Mieter.' );
 
-		$H( '§ 8 Tierhaltung' );
-		$P(
+		$ueberschrift( '§ 8 Tierhaltung' );
+		$absatz(
 			$o['tiere'] === 'frei'
 				? 'Die Haltung von Haustieren ist gestattet, soweit Mitbewohner und Nachbarn nicht unzumutbar beeinträchtigt werden. Der Mieter haftet für alle durch die Tierhaltung entstehenden Schäden.'
 				: 'Kleintiere, von denen keine Belästigung oder Gefährdung ausgeht (Zierfische, Ziervögel, Hamster u. ä.), dürfen ohne Zustimmung gehalten werden. Die Haltung sonstiger Tiere, insbesondere Hunde und Katzen, bedarf der Zustimmung des Vermieters, die nach Abwägung der beiderseitigen Interessen im Einzelfall erteilt wird und bei berechtigtem Interesse widerrufen werden kann. Das Füttern von Tauben und Wildtieren vom Grundstück aus ist untersagt. Der Mieter haftet für alle durch Tierhaltung entstehenden Schäden.'
 		);
 
-		$H( '§ 9 Betreten der Mietsache, Abwesenheit' );
-		$P( 'Der Vermieter oder von ihm Beauftragte dürfen die Mietsache nach rechtzeitiger Ankündigung zu angemessener Tageszeit aus konkretem Anlass betreten – insbesondere zur Ablesung, zur Prüfung des Zustands, zur Durchführung von Arbeiten sowie zur Besichtigung bei Verkauf oder Neuvermietung. Bei Gefahr im Verzug ist das Betreten jederzeit zulässig. Bei längerer Abwesenheit sorgt der Mieter dafür, dass die Wohnung in dringenden Fällen zugänglich ist, und hinterlegt einen Schlüssel bei einer Vertrauensperson, die er dem Vermieter benennt; andernfalls darf der Vermieter in dringenden Fällen auf Kosten des Mieters öffnen lassen.' );
+		$ueberschrift( '§ 9 Betreten der Mietsache, Abwesenheit' );
+		$absatz( 'Der Vermieter oder von ihm Beauftragte dürfen die Mietsache nach rechtzeitiger Ankündigung zu angemessener Tageszeit aus konkretem Anlass betreten – insbesondere zur Ablesung, zur Prüfung des Zustands, zur Durchführung von Arbeiten sowie zur Besichtigung bei Verkauf oder Neuvermietung. Bei Gefahr im Verzug ist das Betreten jederzeit zulässig. Bei längerer Abwesenheit sorgt der Mieter dafür, dass die Wohnung in dringenden Fällen zugänglich ist, und hinterlegt einen Schlüssel bei einer Vertrauensperson, die er dem Vermieter benennt; andernfalls darf der Vermieter in dringenden Fällen auf Kosten des Mieters öffnen lassen.' );
 
-		$H( '§ 10 Bauliche Veränderungen, barrierefreier Umbau, E-Mobilität, Steckersolargeräte' );
-		$P( 'Um- und Einbauten, Installationen und sonstige bauliche Veränderungen durch den Mieter bedürfen der vorherigen Zustimmung des Vermieters. Der Mieter stellt auf Verlangen bei Rückgabe den ursprünglichen Zustand fachgerecht wieder her, soweit nichts anderes vereinbart ist.' );
-		$P( 'Auf Maßnahmen, die dem Gebrauch durch Menschen mit Behinderungen, dem Laden elektrisch betriebener Fahrzeuge, dem Einbruchschutz oder dem Betrieb eines Steckersolargeräts dienen, hat der Mieter nach § 554 BGB Anspruch, soweit sie dem Vermieter unter Abwägung der beiderseitigen Interessen zumutbar sind. Der Vermieter kann die Zustimmung von einer angemessenen zusätzlichen Sicherheit abhängig machen. Bei Ladeeinrichtungen kann er verlangen, dass die Anschlussleistung des Gebäudes ausreicht, die Installation durch einen Fachbetrieb erfolgt und Genehmigungen Dritter vorliegen. Bei Steckersolargeräten kann er verlangen, dass das Gerät den gesetzlichen und technischen Normen sowie den Vorgaben des Netzbetreibers entspricht, ordnungsgemäß angemeldet und ausreichend versichert ist und keine unzumutbare Blendwirkung ausgeht. Die Zustimmung kann widerrufen werden, wenn sich die tatsächlichen oder rechtlichen Verhältnisse so ändern, dass eine Versagung gerechtfertigt wäre.' );
+		$ueberschrift( '§ 10 Bauliche Veränderungen, barrierefreier Umbau, E-Mobilität, Steckersolargeräte' );
+		$absatz( 'Um- und Einbauten, Installationen und sonstige bauliche Veränderungen durch den Mieter bedürfen der vorherigen Zustimmung des Vermieters. Der Mieter stellt auf Verlangen bei Rückgabe den ursprünglichen Zustand fachgerecht wieder her, soweit nichts anderes vereinbart ist.' );
+		$absatz( 'Auf Maßnahmen, die dem Gebrauch durch Menschen mit Behinderungen, dem Laden elektrisch betriebener Fahrzeuge, dem Einbruchschutz oder dem Betrieb eines Steckersolargeräts dienen, hat der Mieter nach § 554 BGB Anspruch, soweit sie dem Vermieter unter Abwägung der beiderseitigen Interessen zumutbar sind. Der Vermieter kann die Zustimmung von einer angemessenen zusätzlichen Sicherheit abhängig machen. Bei Ladeeinrichtungen kann er verlangen, dass die Anschlussleistung des Gebäudes ausreicht, die Installation durch einen Fachbetrieb erfolgt und Genehmigungen Dritter vorliegen. Bei Steckersolargeräten kann er verlangen, dass das Gerät den gesetzlichen und technischen Normen sowie den Vorgaben des Netzbetreibers entspricht, ordnungsgemäß angemeldet und ausreichend versichert ist und keine unzumutbare Blendwirkung ausgeht. Die Zustimmung kann widerrufen werden, wenn sich die tatsächlichen oder rechtlichen Verhältnisse so ändern, dass eine Versagung gerechtfertigt wäre.' );
 
-		$H( '§ 11 Sorgfaltspflichten, Heizen und Lüften, Haftung des Mieters' );
-		$P( 'Der Mieter behandelt die Mietsache und die gemeinschaftlichen Einrichtungen schonend und pfleglich. Er sorgt für ausreichende Beheizung und regelmäßiges Stoßlüften, auch bei Abwesenheit, und stellt Möbel mit Abstand zu Außenwänden auf, um Feuchtigkeits- und Schimmelschäden zu vermeiden' . ( $o['merkblatt'] === '1' ? ' (siehe Merkblatt in der Anlage)' : '' ) . '. Bodenbeläge sind mit den vom Hersteller empfohlenen Mitteln zu pflegen. Mängel und Schäden zeigt der Mieter unverzüglich an (§ 536c BGB); unterlässt er dies, haftet er für den dadurch entstehenden weiteren Schaden.' );
-		$P( 'Der Mieter haftet für Schäden, die er, seine Haushaltsangehörigen, Besucher, Untermieter oder von ihm beauftragte Personen schuldhaft verursachen. Entsteht ein Schaden im Bereich, der dem unmittelbaren Einfluss und der Obhut des Mieters unterliegt, und hat der Vermieter eine Ursache aus seinem Verantwortungsbereich ausgeschlossen, trifft den Mieter die Beweislast dafür, dass er den Schaden nicht zu vertreten hat.' );
+		$ueberschrift( '§ 11 Sorgfaltspflichten, Heizen und Lüften, Haftung des Mieters' );
+		$absatz( 'Der Mieter behandelt die Mietsache und die gemeinschaftlichen Einrichtungen schonend und pfleglich. Er sorgt für ausreichende Beheizung und regelmäßiges Stoßlüften, auch bei Abwesenheit, und stellt Möbel mit Abstand zu Außenwänden auf, um Feuchtigkeits- und Schimmelschäden zu vermeiden' . ( $o['merkblatt'] === '1' ? ' (siehe Merkblatt in der Anlage)' : '' ) . '. Bodenbeläge sind mit den vom Hersteller empfohlenen Mitteln zu pflegen. Mängel und Schäden zeigt der Mieter unverzüglich an (§ 536c BGB); unterlässt er dies, haftet er für den dadurch entstehenden weiteren Schaden.' );
+		$absatz( 'Der Mieter haftet für Schäden, die er, seine Haushaltsangehörigen, Besucher, Untermieter oder von ihm beauftragte Personen schuldhaft verursachen. Entsteht ein Schaden im Bereich, der dem unmittelbaren Einfluss und der Obhut des Mieters unterliegt, und hat der Vermieter eine Ursache aus seinem Verantwortungsbereich ausgeschlossen, trifft den Mieter die Beweislast dafür, dass er den Schaden nicht zu vertreten hat.' );
 
-		$H( '§ 12 Haftung des Vermieters' );
-		$P( 'Die verschuldensunabhängige Haftung des Vermieters für anfängliche Mängel (§ 536a Abs. 1 Alt. 1 BGB) ist ausgeschlossen. Im Übrigen haftet der Vermieter für Vorsatz und grobe Fahrlässigkeit; für leichte Fahrlässigkeit nur bei Verletzung wesentlicher Vertragspflichten (Kardinalpflichten), begrenzt auf den vertragstypischen, vorhersehbaren Schaden. Diese Beschränkungen gelten nicht für Schäden an Leben, Körper oder Gesundheit, bei arglistig verschwiegenen Mängeln, bei Übernahme einer Garantie und soweit der Schaden durch eine Gebäude- oder Haftpflichtversicherung des Vermieters gedeckt ist.' );
+		$ueberschrift( '§ 12 Haftung des Vermieters' );
+		$absatz( 'Die verschuldensunabhängige Haftung des Vermieters für anfängliche Mängel (§ 536a Abs. 1 Alt. 1 BGB) ist ausgeschlossen. Im Übrigen haftet der Vermieter für Vorsatz und grobe Fahrlässigkeit; für leichte Fahrlässigkeit nur bei Verletzung wesentlicher Vertragspflichten (Kardinalpflichten), begrenzt auf den vertragstypischen, vorhersehbaren Schaden. Diese Beschränkungen gelten nicht für Schäden an Leben, Körper oder Gesundheit, bei arglistig verschwiegenen Mängeln, bei Übernahme einer Garantie und soweit der Schaden durch eine Gebäude- oder Haftpflichtversicherung des Vermieters gedeckt ist.' );
 
-		$H( '§ 13 Kleinreparaturen' );
-		$P( sprintf( 'Der Mieter trägt ohne Rücksicht auf Verschulden die Kosten kleiner Instandhaltungen und Instandsetzungen an Teilen der Mietsache, die seinem häufigen und unmittelbaren Zugriff ausgesetzt sind – insbesondere Installationsgegenstände für Elektrizität, Wasser und Gas, Heiz- und Kocheinrichtungen, Fenster- und Türverschlüsse, Rollläden und Verschlussvorrichtungen von Fensterläden –, soweit die Kosten im Einzelfall <strong>%s</strong> nicht übersteigen. Je Kalenderjahr ist die Belastung auf <strong>%s %% der Jahresgrundmiete (%s)</strong> begrenzt. Übersteigt eine Reparatur den Einzelbetrag, trägt der Vermieter die gesamten Kosten; der Mieter beauftragt keine Handwerker selbst, sondern meldet den Schaden.', esc_html( mietv_eur( mietv_to_float( $o['kleinrep_einzel'] ) ) ), esc_html( $o['kleinrep_jahr'] ), esc_html( mietv_eur( $kalt * 12 * mietv_to_float( $o['kleinrep_jahr'] ) / 100 ) ) ) );
+		$ueberschrift( '§ 13 Kleinreparaturen' );
+		$absatz( sprintf( 'Der Mieter trägt ohne Rücksicht auf Verschulden die Kosten kleiner Instandhaltungen und Instandsetzungen an Teilen der Mietsache, die seinem häufigen und unmittelbaren Zugriff ausgesetzt sind – insbesondere Installationsgegenstände für Elektrizität, Wasser und Gas, Heiz- und Kocheinrichtungen, Fenster- und Türverschlüsse, Rollläden und Verschlussvorrichtungen von Fensterläden –, soweit die Kosten im Einzelfall <strong>%s</strong> nicht übersteigen. Je Kalenderjahr ist die Belastung auf <strong>%s %% der Jahresgrundmiete (%s)</strong> begrenzt. Übersteigt eine Reparatur den Einzelbetrag, trägt der Vermieter die gesamten Kosten; der Mieter beauftragt keine Handwerker selbst, sondern meldet den Schaden.', esc_html( mietv_eur( mietv_to_float( $o['kleinrep_einzel'] ) ) ), esc_html( $o['kleinrep_jahr'] ), esc_html( mietv_eur( $kalt * 12 * mietv_to_float( $o['kleinrep_jahr'] ) / 100 ) ) ) );
 
-		$H( '§ 14 Schönheitsreparaturen' );
-		$P(
+		$ueberschrift( '§ 14 Schönheitsreparaturen' );
+		$absatz(
 			$o['schoenheitsrep'] === 'renoviert'
 				? 'Die Wohnung wird renoviert übergeben; sie gilt auch dann als renoviert, wenn vorhandene Gebrauchsspuren so unerheblich sind, dass die Räume den Gesamteindruck einer renovierten Wohnung vermitteln. Der Mieter übernimmt die während der Mietzeit durch seinen Gebrauch erforderlich werdenden Schönheitsreparaturen: Tapezieren und Anstreichen der Wände und Decken, Streichen der Heizkörper einschließlich Heizrohre, der Innentüren sowie der Fenster und Außentüren von innen, fachgerechte Reinigung der Teppichböden. Starre Fristen bestehen nicht; maßgeblich ist der tatsächliche Zustand. Die Farbwahl ist während der Mietzeit frei; bei Rückgabe sind fällige Schönheitsreparaturen in neutralen, deckenden, hellen Farbtönen auszuführen.'
 				: 'Die Wohnung wird unrenoviert übergeben; ihr Zustand ist im Übergabeprotokoll festgehalten. Die Schönheitsreparaturen obliegen dem Vermieter.'
 		);
 
-		$H( '§ 15 Aufrechnung, Zurückbehaltung' );
-		$P( 'Gegen Mietforderungen kann der Mieter mit Forderungen aus §§ 536a, 539 BGB oder aus ungerechtfertigter Bereicherung wegen zu viel gezahlter Miete nur aufrechnen oder ein Zurückbehaltungsrecht ausüben, wenn er dies dem Vermieter mindestens einen Monat vor Fälligkeit der Miete in Textform angezeigt hat (§ 556b Abs. 2 BGB). Mit anderen Forderungen kann er nur aufrechnen oder zurückbehalten, soweit sie unbestritten oder rechtskräftig festgestellt sind.' );
+		$ueberschrift( '§ 15 Aufrechnung, Zurückbehaltung' );
+		$absatz( 'Gegen Mietforderungen kann der Mieter mit Forderungen aus §§ 536a, 539 BGB oder aus ungerechtfertigter Bereicherung wegen zu viel gezahlter Miete nur aufrechnen oder ein Zurückbehaltungsrecht ausüben, wenn er dies dem Vermieter mindestens einen Monat vor Fälligkeit der Miete in Textform angezeigt hat (§ 556b Abs. 2 BGB). Mit anderen Forderungen kann er nur aufrechnen oder zurückbehalten, soweit sie unbestritten oder rechtskräftig festgestellt sind.' );
 
 		if ( $zentral ) {
-			$H( '§ 16 Zentralheizung, Nutzerwechsel' );
-			$P( 'Der Vermieter betreibt die Heizungsanlage in der Heizperiode vom 1. Oktober bis 30. April sowie außerhalb, wenn die Witterung es erfordert, so, dass in den Wohnräumen zwischen 6 und 23 Uhr eine Temperatur von mindestens 20 °C erreicht werden kann; die Grundsätze sparsamen Energieeinsatzes sind zu beachten. Betriebsstörungen zeigt der Mieter unverzüglich an. Der Mieter ist zur Benutzung der Heizung verpflichtet; Nichtbenutzung befreit nicht von den Heizkosten. Der Vermieter darf die Wärmeversorgung auf eine andere Art, auch Wärmelieferung durch Dritte (§ 556c BGB), umstellen.' );
-			$P( 'Endet das Mietverhältnis durch Kündigung des Mieters oder aus von ihm zu vertretenden Gründen während eines Abrechnungszeitraums, trägt der Mieter die Kosten einer Zwischenablesung. Unterbleibt eine Zwischenablesung, werden die Heiz- und Warmwasserkosten zwischen Vor- und Nachmieter nach der Gradtagszahlentabelle bzw. zeitanteilig aufgeteilt.' );
+			$ueberschrift( '§ 16 Zentralheizung, Nutzerwechsel' );
+			$absatz( 'Der Vermieter betreibt die Heizungsanlage in der Heizperiode vom 1. Oktober bis 30. April sowie außerhalb, wenn die Witterung es erfordert, so, dass in den Wohnräumen zwischen 6 und 23 Uhr eine Temperatur von mindestens 20 °C erreicht werden kann; die Grundsätze sparsamen Energieeinsatzes sind zu beachten. Betriebsstörungen zeigt der Mieter unverzüglich an. Der Mieter ist zur Benutzung der Heizung verpflichtet; Nichtbenutzung befreit nicht von den Heizkosten. Der Vermieter darf die Wärmeversorgung auf eine andere Art, auch Wärmelieferung durch Dritte (§ 556c BGB), umstellen.' );
+			$absatz( 'Endet das Mietverhältnis durch Kündigung des Mieters oder aus von ihm zu vertretenden Gründen während eines Abrechnungszeitraums, trägt der Mieter die Kosten einer Zwischenablesung. Unterbleibt eine Zwischenablesung, werden die Heiz- und Warmwasserkosten zwischen Vor- und Nachmieter nach der Gradtagszahlentabelle bzw. zeitanteilig aufgeteilt.' );
 		} else {
-			$H( '§ 16 Heizung' );
-			$P( 'Die Wohnung verfügt über eine eigene Heizungsanlage. Der Mieter schließt die Verträge über Brennstoff- bzw. Energielieferung selbst, trägt die Verbrauchskosten unmittelbar und sorgt für ausreichende Beheizung zur Vermeidung von Frost- und Feuchtigkeitsschäden. Wartung und Instandhaltung der Anlage obliegen dem Vermieter; die Wartungskosten sind als Betriebskosten umlagefähig.' );
+			$ueberschrift( '§ 16 Heizung' );
+			$absatz( 'Die Wohnung verfügt über eine eigene Heizungsanlage. Der Mieter schließt die Verträge über Brennstoff- bzw. Energielieferung selbst, trägt die Verbrauchskosten unmittelbar und sorgt für ausreichende Beheizung zur Vermeidung von Frost- und Feuchtigkeitsschäden. Wartung und Instandhaltung der Anlage obliegen dem Vermieter; die Wartungskosten sind als Betriebskosten umlagefähig.' );
 		}
 
-		$H( '§ 17 Schilder, Antennen, Blumenkästen, Gartenpflege' );
-		$P( 'Schilder, Anschläge und Außenantennen dürfen nur mit Zustimmung des Vermieters angebracht werden, der den Ort bestimmt und die Zustimmung von einer angemessenen Sicherheitsleistung abhängig machen kann; bei Auszug sind sie fachgerecht zu entfernen. Blumenkästen sind nur an der Innenseite von Balkonbrüstungen und sicher befestigt zulässig.' );
+		$ueberschrift( '§ 17 Schilder, Antennen, Blumenkästen, Gartenpflege' );
+		$absatz( 'Schilder, Anschläge und Außenantennen dürfen nur mit Zustimmung des Vermieters angebracht werden, der den Ort bestimmt und die Zustimmung von einer angemessenen Sicherheitsleistung abhängig machen kann; bei Auszug sind sie fachgerecht zu entfernen. Blumenkästen sind nur an der Innenseite von Balkonbrüstungen und sicher befestigt zulässig.' );
 		if ( $o['gartenpflege'] === '1' ) {
-			$P( 'Der Mieter pflegt den ihm zugewiesenen Gartenteil ordnungsgemäß (Rasen mähen, wässern, Beete und Wege von Unkraut freihalten, Hecken mindestens einmal jährlich schneiden, Laub beseitigen). Der Vermieter stellt hierfür keine Geräte. Kommt der Mieter trotz Abmahnung seinen Pflichten nicht nach, kann der Vermieter die Arbeiten auf Kosten des Mieters ausführen lassen.' );
+			$absatz( 'Der Mieter pflegt den ihm zugewiesenen Gartenteil ordnungsgemäß (Rasen mähen, wässern, Beete und Wege von Unkraut freihalten, Hecken mindestens einmal jährlich schneiden, Laub beseitigen). Der Vermieter stellt hierfür keine Geräte. Kommt der Mieter trotz Abmahnung seinen Pflichten nicht nach, kann der Vermieter die Arbeiten auf Kosten des Mieters ausführen lassen.' );
 		}
 
-		$H( '§ 18 Hausordnung, Reinigung, Winterdienst' );
-		$P( 'Die beigefügte Hausordnung ist Bestandteil des Vertrags. Soweit Reinigung von Gemeinschaftsflächen und Winterdienst nicht durch den Vermieter oder beauftragte Dritte erbracht werden, obliegen sie den Mietparteien im wöchentlichen Wechsel nach dem im Haus ausgehängten Plan; der Vermieter stellt das Räumgerät, der Mieter das Streumaterial. Kommt der Mieter diesen Pflichten trotz Abmahnung nicht oder unzureichend nach, kann der Vermieter sie im Wege der Ersatzvornahme auf Kosten des Mieters ausführen lassen. Verhinderung durch Abwesenheit, Alter, Krankheit oder Urlaub entbindet nicht; der Mieter hat für Vertretung zu sorgen.' );
+		$ueberschrift( '§ 18 Hausordnung, Reinigung, Winterdienst' );
+		$absatz( 'Die beigefügte Hausordnung ist Bestandteil des Vertrags. Soweit Reinigung von Gemeinschaftsflächen und Winterdienst nicht durch den Vermieter oder beauftragte Dritte erbracht werden, obliegen sie den Mietparteien im wöchentlichen Wechsel nach dem im Haus ausgehängten Plan; der Vermieter stellt das Räumgerät, der Mieter das Streumaterial. Kommt der Mieter diesen Pflichten trotz Abmahnung nicht oder unzureichend nach, kann der Vermieter sie im Wege der Ersatzvornahme auf Kosten des Mieters ausführen lassen. Verhinderung durch Abwesenheit, Alter, Krankheit oder Urlaub entbindet nicht; der Mieter hat für Vertretung zu sorgen.' );
 
-		$H( '§ 19 Rückgabe' );
-		$P( 'Bei Beendigung gibt der Mieter die Mietsache vollständig geräumt, gereinigt (einschließlich Fenster und Böden) und mit sämtlichen Schlüsseln zurück. Vom Mieter eingebrachte Einrichtungen sind zu entfernen und der ursprüngliche Zustand ist fachgerecht wiederherzustellen, sofern der Vermieter sie nicht gegen angemessene Entschädigung übernimmt. Bis zur Rückgabe, mindestens bis zum Vertragsende, bestehen die Heiz- und Obhutspflichten fort. Über die Rückgabe wird ein gemeinsames Protokoll erstellt.' );
+		$ueberschrift( '§ 19 Rückgabe' );
+		$absatz( 'Bei Beendigung gibt der Mieter die Mietsache vollständig geräumt, gereinigt (einschließlich Fenster und Böden) und mit sämtlichen Schlüsseln zurück. Vom Mieter eingebrachte Einrichtungen sind zu entfernen und der ursprüngliche Zustand ist fachgerecht wiederherzustellen, sofern der Vermieter sie nicht gegen angemessene Entschädigung übernimmt. Bis zur Rückgabe, mindestens bis zum Vertragsende, bestehen die Heiz- und Obhutspflichten fort. Über die Rückgabe wird ein gemeinsames Protokoll erstellt.' );
 
-		$H( '§ 20 Schlussbestimmungen' );
-		$P( 'Mündliche Nebenabreden bestehen nicht. Änderungen und Ergänzungen des Vertrags bedürfen der Textform. Vorübergehende unentgeltliche Gestattungen des Vermieters sind jederzeit widerruflich. Sollte eine Bestimmung unwirksam sein, bleibt der Vertrag im Übrigen wirksam; an ihre Stelle tritt die gesetzliche Regelung. Ändern sich gesetzliche Bestimmungen, gelten die neuen Regelungen, soweit sie zwingend sind.' );
+		$ueberschrift( '§ 20 Schlussbestimmungen' );
+		$absatz( 'Mündliche Nebenabreden bestehen nicht. Änderungen und Ergänzungen des Vertrags bedürfen der Textform. Vorübergehende unentgeltliche Gestattungen des Vermieters sind jederzeit widerruflich. Sollte eine Bestimmung unwirksam sein, bleibt der Vertrag im Übrigen wirksam; an ihre Stelle tritt die gesetzliche Regelung. Ändern sich gesetzliche Bestimmungen, gelten die neuen Regelungen, soweit sie zwingend sind.' );
 		if ( $o['energieausweis'] ) {
-			$P( 'Energieausweis (§ 80 GEG): ' . esc_html( $o['energieausweis'] ) . '. Der Energieausweis wurde dem Mieter vor Vertragsschluss vorgelegt und wird in Kopie übergeben.' );
+			$absatz( 'Energieausweis (§ 80 GEG): ' . esc_html( $o['energieausweis'] ) . '. Der Energieausweis wurde dem Mieter vor Vertragsschluss vorgelegt und wird in Kopie übergeben.' );
 		}
-		$P( 'Die Wohnung ist nach Art. 46 Abs. 4 BayBO mit Rauchwarnmeldern ausgestattet. Die Sicherstellung der Betriebsbereitschaft (Funktionsprüfung, Batteriewechsel) obliegt dem Mieter, soweit nicht der Vermieter die Wartung übernommen und die Kosten als Betriebskosten umgelegt hat.' );
+		$absatz( 'Die Wohnung ist nach Art. 46 Abs. 4 BayBO mit Rauchwarnmeldern ausgestattet. Die Sicherstellung der Betriebsbereitschaft (Funktionsprüfung, Batteriewechsel) obliegt dem Mieter, soweit nicht der Vermieter die Wartung übernommen und die Kosten als Betriebskosten umgelegt hat.' );
 		if ( $o['sonstiges'] ) {
-			$P( '<strong>Sonstige Vereinbarungen:</strong> ' . nl2br( esc_html( $o['sonstiges'] ) ) );
+			$absatz( '<strong>Sonstige Vereinbarungen:</strong> ' . nl2br( esc_html( $o['sonstiges'] ) ) );
 		}
 		$anlagen = [ 'Übergabeprotokoll', 'Datenschutzinformation nach Art. 13 DSGVO' ];
 		if ( $o['hausordnung'] === '1' ) {
@@ -715,7 +715,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		if ( $o['zahlungsweise'] === 'sepa' ) {
 			$anlagen[] = 'SEPA-Lastschriftmandat';
 		}
-		$P( 'Anlagen: ' . esc_html( implode( ', ', $anlagen ) ) . '.' );
+		$absatz( 'Anlagen: ' . esc_html( implode( ', ', $anlagen ) ) . '.' );
 		echo self::unterschriften( $ort, $m ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 
 		echo '<div class="umbruch"></div>' . self::datenschutz_html( $vermieter ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
@@ -760,13 +760,13 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 	}
 
 	private static function datenschutz_html( string $vermieter ): string {
-		$E = Mietv_Einstellungen::class;
+		$einst = Mietv_Einstellungen::class;
 		return '<h1>' . esc_html__( 'Datenschutzinformation nach Art. 13 DSGVO', 'mietverwaltung' ) . '</h1>
-<p><strong>' . esc_html__( 'Verantwortlicher:', 'mietverwaltung' ) . '</strong> ' . esc_html( $vermieter ) . ( $E::get( 'vermieter_email' ) ? ', E-Mail ' . esc_html( $E::get( 'vermieter_email' ) ) : '' ) . ( $E::get( 'vermieter_telefon' ) ? ', Telefon ' . esc_html( $E::get( 'vermieter_telefon' ) ) : '' ) . '. Ein Datenschutzbeauftragter ist nicht bestellt (nicht erforderlich, Art. 37 DSGVO).</p>
+<p><strong>' . esc_html__( 'Verantwortlicher:', 'mietverwaltung' ) . '</strong> ' . esc_html( $vermieter ) . ( $einst::get( 'vermieter_email' ) ? ', E-Mail ' . esc_html( $einst::get( 'vermieter_email' ) ) : '' ) . ( $einst::get( 'vermieter_telefon' ) ? ', Telefon ' . esc_html( $einst::get( 'vermieter_telefon' ) ) : '' ) . '. Ein Datenschutzbeauftragter ist nicht bestellt (nicht erforderlich, Art. 37 DSGVO).</p>
 <p><strong>Zwecke und Rechtsgrundlagen:</strong> Anbahnung, Durchführung und Beendigung des Mietverhältnisses einschließlich Mietbuchhaltung, Betriebskostenabrechnung, Mängelbearbeitung und Schriftverkehr (Art. 6 Abs. 1 lit. b DSGVO); Erfüllung gesetzlicher Pflichten, insbesondere steuerliche Aufbewahrung und Abrechnungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO, § 556 BGB); Wahrung berechtigter Interessen wie Geltendmachung von Ansprüchen und Hausverwaltung (Art. 6 Abs. 1 lit. f DSGVO).</p>
 <p><strong>Datenkategorien:</strong> Name, Anschrift, Geburtsdatum, Kontaktdaten, Bankverbindung, Personenzahl im Haushalt, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zählerstände), Meldungen und Schriftverkehr, Zugangsdaten zum Mieterportal.</p>
 <p><strong>Empfänger:</strong> Soweit für die Durchführung des Mietverhältnisses erforderlich: Finanzamt und Steuerberater (Einkünfte aus Vermietung), Kreditinstitut (Zahlungsverkehr), Energieversorger, Messdienstleister und Abrechnungsunternehmen (Verbrauchsdaten für Heiz- und Betriebskostenabrechnung), bei Eigentumswohnungen die WEG-Verwaltung (Name, Verbrauchsdaten, Umlagerelevantes), Handwerker und Dienstleister (Name und Kontaktdaten zur Terminvereinbarung), Gebäude- und Haftpflichtversicherer bei Schadensfällen, Rechtsanwalt, Gericht oder Inkasso bei Streitigkeiten, Meldebehörde (Wohnungsgeberbestätigung), Hosting-Anbieter der Verwaltungssoftware als Auftragsverarbeiter (Art. 28 DSGVO). Anderen Mietern wird auf Verlangen Einsicht in die Abrechnungsbelege gewährt, soweit dies zur Prüfung ihrer Abrechnung erforderlich ist. Eine Übermittlung in Drittländer findet nicht statt.</p>
-<p><strong>Speicherdauer:</strong> Für die Dauer des Mietverhältnisses und anschließend ' . (int) $E::get( 'aufbewahrung_jahre', 10 ) . ' Jahre ab Ende des Kalenderjahres der Beendigung (steuerliche Aufbewahrungsfrist); danach werden die Daten anonymisiert bzw. gelöscht. Daten von Mietinteressenten, mit denen kein Vertrag zustande kommt, werden spätestens sechs Monate nach der Entscheidung gelöscht (Nachweiszwecke nach dem Allgemeinen Gleichbehandlungsgesetz).</p>
+<p><strong>Speicherdauer:</strong> Für die Dauer des Mietverhältnisses und anschließend ' . (int) $einst::get( 'aufbewahrung_jahre', 10 ) . ' Jahre ab Ende des Kalenderjahres der Beendigung (steuerliche Aufbewahrungsfrist); danach werden die Daten anonymisiert bzw. gelöscht. Daten von Mietinteressenten, mit denen kein Vertrag zustande kommt, werden spätestens sechs Monate nach der Entscheidung gelöscht (Nachweiszwecke nach dem Allgemeinen Gleichbehandlungsgesetz).</p>
 <p><strong>Ihre Rechte:</strong> Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21) sowie Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3). Auskünfte werden unverzüglich, spätestens innerhalb eines Monats erteilt (Art. 12 Abs. 3). Beschwerderecht bei einer Aufsichtsbehörde, in Bayern: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach, www.lda.bayern.de.</p>
 <p><strong>Bereitstellungspflicht:</strong> Die Angabe der für den Vertrag erforderlichen Daten ist Voraussetzung für den Abschluss und die Durchführung des Mietvertrags. Eine automatisierte Entscheidungsfindung findet nicht statt.</p>
 <p class="klein">Erhalten am ____________ &nbsp;&nbsp; Unterschrift Mieter: ______________________</p>';
@@ -790,18 +790,18 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'opt' => $o, 'zusatz' => $zusatz ] = $d;
 		$zusatz_ids = array_map( fn( $z ) => (int) $z->einheit_id, $zusatz );
-		$E          = Mietv_Einstellungen::class;
+		$einst      = Mietv_Einstellungen::class;
 		$ort        = $ob->ort;
 
 		self::kopf( 'Uebergabeprotokoll ' . $art . ' ' . $m->nachname, [ $ob->id, $mv->id, 'uebergabeprotokoll', 'Übergabeprotokoll ' . $art, true ] );
 		printf(
-			'<h1>' . esc_html__( 'Übergabeprotokoll – %s', 'mietverwaltung' ) . '</h1><p>' . esc_html__( 'Wohnung', 'mietverwaltung' ) . ' <strong>%s</strong>, %s, %s %s<br>' . esc_html__( 'Vermieter: %s', 'mietverwaltung' ) . '<br>' . esc_html__( 'Mieter: %s', 'mietverwaltung' ) . '<br>' . esc_html__( 'Datum der Übergabe:', 'mietverwaltung' ) . ' <span class="feld"></span> &nbsp; ' . esc_html__( 'Uhrzeit:', 'mietverwaltung' ) . ' <span class="feld"></span></p>',
+			'<h1>' . /* translators: %s: Wert */ esc_html__( 'Übergabeprotokoll – %s', 'mietverwaltung' ) . '</h1><p>' . esc_html__( 'Wohnung', 'mietverwaltung' ) . ' <strong>%s</strong>, %s, %s %s<br>' . /* translators: %s: Wert */ esc_html__( 'Vermieter: %s', 'mietverwaltung' ) . '<br>' . /* translators: %s: Wert */ esc_html__( 'Mieter: %s', 'mietverwaltung' ) . '<br>' . esc_html__( 'Datum der Übergabe:', 'mietverwaltung' ) . ' <span class="feld"></span> &nbsp; ' . esc_html__( 'Uhrzeit:', 'mietverwaltung' ) . ' <span class="feld"></span></p>',
 			esc_html( $art ),
 			esc_html( $e->bezeichnung ),
 			esc_html( $ob->strasse ),
 			esc_html( $ob->plz ),
 			esc_html( $ob->ort ),
-			esc_html( $E::get( 'vermieter_name' ) ),
+			esc_html( $einst::get( 'vermieter_name' ) ),
 			esc_html( implode( ', ', array_merge( mietv_mieter_personen( $m ), $o['mitmieter'] ? [ $o['mitmieter'] ] : [] ) ) )
 		);
 

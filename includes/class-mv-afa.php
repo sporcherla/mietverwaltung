@@ -60,7 +60,7 @@ class Mietv_Afa {
 			return '';
 		}
 		if ( ! empty( $a->nutzungsdauer ) ) {
-			return sprintf( __( 'aus Nutzungsdauer %d Jahre', 'mietverwaltung' ), (int) $a->nutzungsdauer );
+			return sprintf( /* translators: %d: Wert */ __( 'aus Nutzungsdauer %d Jahre', 'mietverwaltung' ), (int) $a->nutzungsdauer );
 		}
 		if ( ( $a->typ ?? '' ) === 'gebaeude' ) {
 			return __( 'gesetzlich nach Baujahr (§ 7 Abs. 4 EStG)', 'mietverwaltung' );

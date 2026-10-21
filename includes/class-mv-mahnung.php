@@ -120,7 +120,7 @@ class Mietv_Mahnung {
 					? '<p>' . esc_html__( 'Der Rückstand beträgt inzwischen mehr als zwei Monatsmieten. Ich weise Sie darauf hin, dass ich in diesem Fall berechtigt bin, das Mietverhältnis fristlos zu kündigen (§ 543 Abs. 2 Satz 1 Nr. 3 BGB).', 'mietverwaltung' ) . '</p>'
 					: '<p>' . esc_html__( 'Nach fruchtlosem Ablauf der Frist werde ich den Rückstand gerichtlich geltend machen (Mahnbescheid). Die dadurch entstehenden Kosten gehen zu Ihren Lasten.', 'mietverwaltung' ) . '</p>';
 				$text    = $anrede . '<p>trotz Zahlungserinnerung und Mahnung ist folgender Mietrückstand weiterhin offen:</p>' . $tabelle
-					. sprintf( '<p>' . esc_html__( 'Ich setze Ihnen eine', 'mietverwaltung' ) . ' <strong>' . esc_html__( 'letzte Frist bis zum %s', 'mietverwaltung' ) . '</strong>' . esc_html__( ', den Betrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'vollständig zu zahlen.', 'mietverwaltung' ) . '</p>', esc_html( mietv_date( $frist ) ), esc_html( mietv_eur( $rueckstand ) ) ) . $kuend
+					. sprintf( '<p>' . esc_html__( 'Ich setze Ihnen eine', 'mietverwaltung' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'letzte Frist bis zum %s', 'mietverwaltung' ) . '</strong>' . esc_html__( ', den Betrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'vollständig zu zahlen.', 'mietverwaltung' ) . '</p>', esc_html( mietv_date( $frist ) ), esc_html( mietv_eur( $rueckstand ) ) ) . $kuend
 					. '<p>Sollten Sie in Zahlungsschwierigkeiten sein, nehmen Sie bitte umgehend Kontakt mit mir auf, um eine Lösung zu finden.</p>';
 		}
 		$text .= Mietv_Brief::bankverbindung();

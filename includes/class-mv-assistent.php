@@ -412,7 +412,7 @@ class Mietv_Assistent {
 				$f( 'zahltag', __( 'Zahltag (Tag im Monat)', 'mietverwaltung' ), (string) ( $mv->zahltag ?? 3 ), 'number' );
 				if ( ! empty( $stand['garage_id'] ) ) {
 					$g = $wpdb->get_var( $wpdb->prepare( 'SELECT bezeichnung FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['garage_id'] ) );
-					printf( '<tr><th>%s</th><td><label><input type="checkbox" name="mit_garage" value="1" checked> %s</label></td></tr>', esc_html__( 'Zusatzeinheit', 'mietverwaltung' ), esc_html( sprintf( __( '„%s“ gehört zu diesem Vertrag (eine Gesamtmiete, eine Buchung)', 'mietverwaltung' ), $g ) ) );
+					printf( '<tr><th>%s</th><td><label><input type="checkbox" name="mit_garage" value="1" checked> %s</label></td></tr>', esc_html__( 'Zusatzeinheit', 'mietverwaltung' ), esc_html( sprintf( /* translators: %s: Wert */ __( '„%s“ gehört zu diesem Vertrag (eine Gesamtmiete, eine Buchung)', 'mietverwaltung' ), $g ) ) );
 				}
 				break;
 		}

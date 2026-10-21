@@ -102,7 +102,7 @@ class Mietv_Soll {
 
 	public static function mietv_label( object $mv ): string {
 		$z = ! empty( $mv->zusatz ) ? ' + ' . str_replace( ',', ', ', $mv->zusatz ) : '';
-		$p = ! empty( $mv->p_nachname ) ? ' & ' . trim( $mv->p_vorname . ' ' . $mv->p_nachname ) : '';
+		$p = ! empty( $mv->p_nachname ) ? ' & ' . trim( $mv->p_vorname . ' ' . $mv->p_nachname, " \t\n\r\0\x0B" ) : '';
 		return $mv->nachname . ', ' . $mv->vorname . $p . ' – ' . $mv->objekt . ' / ' . $mv->einheit . $z;
 	}
 

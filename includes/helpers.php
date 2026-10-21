@@ -30,7 +30,7 @@ function mietv_monat( ?string $date ): string {
 
 /** "1.234,56" oder "1234.56" -> float */
 function mietv_to_float( $value ): float {
-	$value = trim( (string) $value );
+	$value = trim( (string) $value, " \t\n\r\0\x0B" );
 	if ( $value === '' ) {
 		return 0.0;
 	}
@@ -52,7 +52,7 @@ function mietv_mieter_name( $mieter ): string {
 	}
 	$n = trim( $mieter->nachname . ', ' . $mieter->vorname, ', ' );
 	if ( ! empty( $mieter->p_nachname ) ) {
-		$n .= ' & ' . trim( $mieter->p_vorname . ' ' . $mieter->p_nachname );
+		$n .= ' & ' . trim( $mieter->p_vorname . ' ' . $mieter->p_nachname, " \t\n\r\0\x0B" );
 	}
 	return $n;
 }
@@ -69,7 +69,7 @@ function mietv_mieter_personen( $mieter, bool $mit_geburtsdatum = false ): array
 		return $out;
 	}
 	$f     = function ( $anrede, $vorname, $nachname, $geb ) use ( $mit_geburtsdatum ) {
-		$z = trim( ( $anrede ? $anrede . ' ' : '' ) . $vorname . ' ' . $nachname );
+		$z = trim( ( $anrede ? $anrede . ' ' : '' ) . $vorname . ' ' . $nachname, " \t\n\r\0\x0B" );
 		if ( $mit_geburtsdatum && $geb && $geb !== '0000-00-00' ) {
 			$z .= ', geb. ' . mietv_date( $geb );
 		}

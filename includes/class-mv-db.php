@@ -36,7 +36,14 @@ class Mietv_DB {
 		if ( get_option( 'mietv_db_version' ) !== false || get_option( 'mv_db_version' ) === false ) {
 			return;
 		}
-		foreach ( [ 'mv_einstellungen' => 'mietv_einstellungen', 'mv_db_version' => 'mietv_db_version', 'mv_assistent' => 'mietv_assistent', 'mv_anlagev_zeilen' => 'mietv_anlagev_zeilen', 'mv_hinweis_datum' => 'mietv_hinweis_datum', 'mv_hinweis_hash' => 'mietv_hinweis_hash' ] as $alt => $neu ) {
+		foreach ( [
+			'mv_einstellungen'  => 'mietv_einstellungen',
+			'mv_db_version'     => 'mietv_db_version',
+			'mv_assistent'      => 'mietv_assistent',
+			'mv_anlagev_zeilen' => 'mietv_anlagev_zeilen',
+			'mv_hinweis_datum'  => 'mietv_hinweis_datum',
+			'mv_hinweis_hash'   => 'mietv_hinweis_hash',
+		] as $alt => $neu ) {
 			$wert = get_option( $alt, null );
 			if ( null !== $wert ) {
 				update_option( $neu, $wert, 'mietv_einstellungen' === $neu );
@@ -51,7 +58,12 @@ class Mietv_DB {
 		}
 		$alt_rolle = get_role( 'mv_vermieter' );
 		if ( $alt_rolle ) {
-			$nutzer = get_users( [ 'role' => 'mv_vermieter', 'fields' => 'ID' ] );
+			$nutzer = get_users(
+				[
+					'role'   => 'mv_vermieter',
+					'fields' => 'ID',
+				]
+			);
 			remove_role( 'mv_vermieter' );
 			self::rollen();
 			foreach ( $nutzer as $uid ) {
@@ -74,8 +86,8 @@ class Mietv_DB {
 				'mietv_vermieter',
 				__( 'Vermieter', 'mietverwaltung' ),
 				[
-					'read'         => true,
-					'upload_files' => true,
+					'read'            => true,
+					'upload_files'    => true,
 					'mietv_verwalten' => true,
 				]
 			);

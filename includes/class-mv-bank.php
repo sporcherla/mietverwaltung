@@ -55,9 +55,9 @@ class Mietv_Bank {
 			$rows[] = [
 				'datum'  => substr( $datum, 0, 10 ),
 				'betrag' => $betrag,
-				'name'   => trim( $name ),
-				'iban'   => trim( $iban ),
-				'zweck'  => trim( implode( ' ', $zweck ) ),
+				'name'   => trim( $name, " \t\n\r\0\x0B" ),
+				'iban'   => trim( $iban, " \t\n\r\0\x0B" ),
+				'zweck'  => trim( implode( ' ', $zweck ), " \t\n\r\0\x0B" ),
 			];
 		}
 		return $rows;
@@ -69,7 +69,7 @@ class Mietv_Bank {
 		}
 		$inhalt = ltrim( $inhalt, "\xEF\xBB\xBF" );
 		$zeilen = preg_split( '/\r\n|\r|\n/', $inhalt );
-		$zeilen = array_values( array_filter( $zeilen, fn( $z ) => trim( $z ) !== '' ) );
+		$zeilen = array_values( array_filter( $zeilen, fn( $z ) => trim( $z, " \t\n\r\0\x0B" ) !== '' ) );
 		if ( ! $zeilen ) {
 			return [];
 		}
@@ -99,8 +99,9 @@ class Mietv_Bank {
 		$c_zweck  = self::spalte( $kopf, [ 'verwendungszweck', 'buchungstext', 'vorgang/verwendungszweck', 'beschreibung', 'text' ] );
 		$c_soll   = self::spalte( $kopf, [ 'soll/haben', 'soll' ] );
 
-		$rows = [];
-		for ( $i = $start; $i < count( $zeilen ); $i++ ) {
+		$rows   = [];
+		$anzahl = count( $zeilen );
+		for ( $i = $start; $i < $anzahl; $i++ ) {
 			$f = str_getcsv( $zeilen[ $i ], $sep, '\"', '\\' );
 			if ( count( $f ) < 3 ) {
 				continue;
@@ -116,9 +117,9 @@ class Mietv_Bank {
 			$rows[] = [
 				'datum'  => $datum,
 				'betrag' => $betrag,
-				'name'   => trim( $f[ $c_name ] ?? '' ),
+				'name'   => trim( $f[ $c_name ] ?? '', " \t\n\r\0\x0B" ),
 				'iban'   => preg_replace( '/\s+/', '', $f[ $c_iban ] ?? '' ),
-				'zweck'  => trim( $f[ $c_zweck ] ?? '' ),
+				'zweck'  => trim( $f[ $c_zweck ] ?? '', " \t\n\r\0\x0B" ),
 			];
 		}
 		return $rows;
@@ -365,7 +366,7 @@ class Mietv_Bank {
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Bankimport', 'mietverwaltung' ) . '</h1>';
 		$msg = sanitize_key( $_GET['msg'] ?? '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( $msg === 'ok' ) {
-			printf( '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '%d Buchungen übernommen.', 'mietverwaltung' ) . '</p></div>', ( isset( $_GET['n'] ) ? (int) $_GET['n'] : 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+			printf( '<div class="notice notice-success is-dismissible"><p>' . /* translators: %d: Wert */ esc_html__( '%d Buchungen übernommen.', 'mietverwaltung' ) . '</p></div>', ( isset( $_GET['n'] ) ? (int) $_GET['n'] : 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		} elseif ( $msg === 'leer' ) {
 			echo '<div class="notice notice-error"><p>' . esc_html__( 'Keine Buchungen erkannt. Unterstützt: CSV mit Kopfzeile (Buchungstag, Betrag, Verwendungszweck …) oder CAMT.053-XML.', 'mietverwaltung' ) . '</p></div>';
 		}
@@ -394,7 +395,7 @@ class Mietv_Bank {
 			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] ) ? ' checked' : '';
 			echo '<tr' . ( $r['bereits'] ? ' style="opacity:.5"' : '' ) . '>';
 			printf( '<td><input type="checkbox" name="zeile[%d][ok]" value="1"%s%s></td>', (int) $i, $checked, $dis ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
-			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mietv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mietv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br>' . '<em>' . esc_html__( 'bereits importiert', 'mietverwaltung' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
+			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mietv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mietv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br><em>' . esc_html__( 'bereits importiert', 'mietverwaltung' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
 			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Mietzahlung', 'mietverwaltung' ) . '</option><option value="beleg"%s>' . esc_html__( 'Beleg', 'mietverwaltung' ) . '</option><option value="ignorieren"%s>–</option></select></td>', (int) $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'ignorieren', false ) );
 			echo '<td>';
 			// Zahlung

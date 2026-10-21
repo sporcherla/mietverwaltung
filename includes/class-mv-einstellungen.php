@@ -15,9 +15,9 @@ class Mietv_Einstellungen {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
 	}
 
-	public static function get( string $key, $default = '' ) {
+	public static function get( string $key, $fallback = '' ) {
 		$o = get_option( self::OPTION, [] );
-		return isset( $o[ $key ] ) && $o[ $key ] !== '' ? $o[ $key ] : $default;
+		return isset( $o[ $key ] ) && $o[ $key ] !== '' ? $o[ $key ] : $fallback;
 	}
 
 	public static function defaults(): array {
@@ -57,7 +57,7 @@ class Mietv_Einstellungen {
 				exit;
 			}
 			$msg = self::restore( (string) file_get_contents( sanitize_text_field( $_FILES['mietv_restore']['tmp_name'] ) ) ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Hochgeladene Datei lokal lesen.
-			 ? 'restored' : 'restorefail';
+			? 'restored' : 'restorefail';
 			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=' . $msg ) );
 			exit;
 		}
@@ -110,7 +110,7 @@ class Mietv_Einstellungen {
 				'1' => esc_html__( 'Ein', 'mietverwaltung' ),
 				'0' => esc_html__( 'Aus', 'mietverwaltung' ),
 			],
-			__( 'Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-%-Grenze. Nur wenn es etwas zu melden gibt.', 'mietverwaltung' )
+			__( 'Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-Prozent-Grenze. Nur wenn es etwas zu melden gibt.', 'mietverwaltung' )
 		);
 		self::text( 'erinnerung_email', __( 'Empfänger', 'mietverwaltung' ), $o );
 		echo '</tbody></table>';

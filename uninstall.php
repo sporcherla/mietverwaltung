@@ -15,8 +15,8 @@ $mietv_tabellen = [ 'objekte', 'einheiten', 'mieter', 'mietverhaeltnisse', 'kond
 foreach ( $mietv_tabellen as $mietv_t ) {
 	$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'mv_' . $mietv_t );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
 }
-foreach ( [ 'mietv_db_version', 'mietv_einstellungen', 'mietv_hinweis_hash', 'mietv_hinweis_datum', 'mietv_anlagev_zeilen' ] as $o ) {
-	delete_option( $o );
+foreach ( [ 'mietv_db_version', 'mietv_einstellungen', 'mietv_hinweis_hash', 'mietv_hinweis_datum', 'mietv_anlagev_zeilen' ] as $mietv_o ) {
+	delete_option( $mietv_o );
 }
 delete_metadata( 'user', 0, 'mietv_fokus', '', true );
 remove_role( 'mietv_vermieter' );

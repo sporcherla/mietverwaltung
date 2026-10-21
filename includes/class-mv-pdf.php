@@ -23,7 +23,7 @@ class Mietv_PDF {
 	private string $kopf = '';
 	private string $fuss = '';
 
-	private static array $widths     = [];
+	private static array $widths      = [];
 	private static array $widths_bold = [];
 
 	public function __construct() {
@@ -322,7 +322,7 @@ class Mietv_PDF {
 					$zb       = 0;
 					continue;
 				}
-				if ( trim( $w ) === '' && $zb == 0 ) {
+				if ( trim( $w, " \t\n\r\0\x0B" ) === '' && 0 === (int) $zb ) {
 					continue;
 				}
 				$wb = $this->breite( $this->enc( $w ), $fs, $bold );
@@ -330,7 +330,7 @@ class Mietv_PDF {
 					$zeilen[] = $zeile;
 					$zeile    = [];
 					$zb       = 0;
-					if ( trim( $w ) === '' ) {
+					if ( trim( $w, " \t\n\r\0\x0B" ) === '' ) {
 						continue;
 					}
 				}
@@ -593,8 +593,8 @@ class Mietv_PDF {
 		}
 		// führende/abschließende Leerzeichen
 		if ( $out ) {
-			$out[0][0]                   = ltrim( $out[0][0] );
-			$out[ count( $out ) - 1 ][0] = rtrim( $out[ count( $out ) - 1 ][0] );
+			$out[0][0]                   = ltrim( $out[0][0], " \t\n\r\0\x0B" );
+			$out[ count( $out ) - 1 ][0] = rtrim( $out[ count( $out ) - 1 ][0], " \t\n\r\0\x0B" );
 		}
 		return array_values( array_filter( $out, fn( $s ) => $s[0] !== '' ) );
 	}
@@ -611,19 +611,19 @@ class Mietv_PDF {
 	private function walk( DOMNode $node ): void {
 		foreach ( $node->childNodes as $c ) {
 			if ( $c->nodeType !== XML_ELEMENT_NODE ) {
-				if ( $c->nodeType === XML_TEXT_NODE && trim( $c->nodeValue ) !== '' ) {
-					$this->absatz( [ [ trim( preg_replace( '/\s+/u', ' ', $c->nodeValue ) ), false ] ] );
+				if ( $c->nodeType === XML_TEXT_NODE && trim( $c->nodeValue, " \t\n\r\0\x0B" ) !== '' ) {
+					$this->absatz( [ [ trim( preg_replace( '/\s+/u', ' ', $c->nodeValue ), " \t\n\r\0\x0B" ), false ] ] );
 				}
 				continue;
 			}
 			$n   = strtolower( $c->nodeName );
 			$cls = $c->getAttribute( 'class' );
 			if ( $n === 'h1' ) {
-				$this->ueberschrift( trim( $c->textContent ), 1 );
+				$this->ueberschrift( trim( $c->textContent, " \t\n\r\0\x0B" ), 1 );
 			} elseif ( $n === 'h2' ) {
-				$this->ueberschrift( trim( $c->textContent ), 2 );
+				$this->ueberschrift( trim( $c->textContent, " \t\n\r\0\x0B" ), 2 );
 			} elseif ( $n === 'h3' ) {
-				$this->ueberschrift( trim( $c->textContent ), 3 );
+				$this->ueberschrift( trim( $c->textContent, " \t\n\r\0\x0B" ), 3 );
 			} elseif ( $n === 'p' ) {
 				$klein = in_array( $cls, [ 'hinweis', 'klein' ], true );
 				$segs  = self::segs( $c );
@@ -673,7 +673,7 @@ class Mietv_PDF {
 				$felder = [];
 				foreach ( $c->childNodes as $d ) {
 					if ( $d->nodeType === XML_ELEMENT_NODE ) {
-						$felder[] = trim( preg_replace( '/\s+/u', ' ', str_replace( '<br>', ' ', $d->textContent ) ) );
+						$felder[] = trim( preg_replace( '/\s+/u', ' ', str_replace( '<br>', ' ', $d->textContent ) ), " \t\n\r\0\x0B" );
 					}
 				}
 				$this->unterschriften( $felder ?: [ 'Vermieter', 'Mieter' ] );

@@ -193,7 +193,7 @@ class Mietv_Kaution {
 		$forderungen = max( 0, -$op['saldo'] );
 		$auszahlung  = $k['stand'] - $forderungen;
 		printf(
-			'<p>' . esc_html__( 'Kontostand %1$s − offener Mietrückstand %2$s =', 'mietverwaltung' ) . ' <strong class="%s">%s</strong>' . esc_html__( '%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen.', 'mietverwaltung' ) . '</p>',
+			'<p>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'Kontostand %1$s − offener Mietrückstand %2$s =', 'mietverwaltung' ) . ' <strong class="%s">%s</strong>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( '%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen.', 'mietverwaltung' ) . '</p>',
 			esc_html( mietv_eur( $k['stand'] ) ),
 			esc_html( mietv_eur( $forderungen ) ),
 			$auszahlung < 0 ? 'mv-neg' : 'mv-pos',
@@ -228,7 +228,7 @@ class Mietv_Kaution {
 		$auszahlung = $k['stand'] - $forderung;
 
 		$b  = '<p>' . esc_html( Mietv_Brief::anrede( $mv ) ) . '</p>';
-		$b .= sprintf( '<p>' . esc_html__( 'das Mietverhältnis über die Wohnung %1$s / %2$s %3$s. Hiermit rechne ich die von Ihnen geleistete Mietsicherheit ab:', 'mietverwaltung' ) . '</p>', esc_html( $mv->objekt ), esc_html( $mv->einheit ), $mv->ende && $mv->ende !== '0000-00-00' ? 'endete am ' . esc_html( mietv_date( $mv->ende ) ) : 'ist beendet' );
+		$b .= sprintf( '<p>' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'das Mietverhältnis über die Wohnung %1$s / %2$s %3$s. Hiermit rechne ich die von Ihnen geleistete Mietsicherheit ab:', 'mietverwaltung' ) . '</p>', esc_html( $mv->objekt ), esc_html( $mv->einheit ), $mv->ende && $mv->ende !== '0000-00-00' ? 'endete am ' . esc_html( mietv_date( $mv->ende ) ) : 'ist beendet' );
 		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Buchung', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 		foreach ( $k['buchungen'] as $x ) {
 			$b .= sprintf( '<tr><td>%s</td><td>%s%s</td><td>%s%s</td></tr>', esc_html( mietv_date( $x->datum ) ), esc_html( self::arten()[ $x->art ] ), $x->notiz ? ' – ' . esc_html( $x->notiz ) : '', in_array( $x->art, [ 'einzahlung', 'zins' ], true ) ? '' : '– ', esc_html( mietv_eur( $x->betrag ) ) );
@@ -241,7 +241,7 @@ class Mietv_Kaution {
 		if ( $auszahlung >= 0 ) {
 			$b .= '<p>' . esc_html__( 'Der Betrag wird innerhalb von 14 Tagen auf das mir mitgeteilte Konto überwiesen. Sollte mir noch keine Bankverbindung vorliegen, bitte ich um Mitteilung.', 'mietverwaltung' ) . '</p>';
 		} else {
-			$b .= sprintf( '<p>' . esc_html__( 'Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen.', 'mietverwaltung' ) . '</p>', esc_html( mietv_eur( abs( $auszahlung ) ) ) ) . Mietv_Brief::bankverbindung();
+			$b .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen.', 'mietverwaltung' ) . '</p>', esc_html( mietv_eur( abs( $auszahlung ) ) ) ) . Mietv_Brief::bankverbindung();
 		}
 		$b        .= '<p class="hinweis">' . esc_html__( 'Mit dieser Abrechnung sind alle Ansprüche aus der Mietsicherheit abgegolten. Eine ausstehende Betriebskostenabrechnung für das letzte Nutzungsjahr bleibt vorbehalten, soweit nicht bereits berücksichtigt.', 'mietverwaltung' ) . '</p>';
 		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );

@@ -24,6 +24,10 @@
 		<exclude name="Squiz.Commenting"/>
 		<exclude name="Generic.Commenting"/>
 		<exclude name="Universal.Operators.DisallowShortTernary"/>
+		<!-- Fehlalarm bei translators-Kommentaren innerhalb von Ausdrücken. -->
+		<exclude name="Squiz.PHP.CommentedOutCode"/>
+		<!-- Eigenschaften fremder Objekte (DOMDocument, SimpleXML/CAMT) sind camelCase. -->
+		<exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
 	</rule>
 	<rule ref="PHPCompatibility"/>
 	<rule ref="WordPress.WP.I18n">

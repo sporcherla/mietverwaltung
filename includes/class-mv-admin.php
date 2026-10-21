@@ -1825,7 +1825,7 @@ class Mietv_Admin {
 	private static function render_list( string $key, array $ent ): void {
 		global $wpdb;
 		printf(
-			'<h1 class="wp-heading-inline">%s</h1> <a href="%s" class="page-title-action">' . esc_html__( '%s hinzufügen', 'mietverwaltung' ) . '</a><hr class="wp-header-end">',
+			'<h1 class="wp-heading-inline">%s</h1> <a href="%s" class="page-title-action">' . /* translators: %s: Wert */ esc_html__( '%s hinzufügen', 'mietverwaltung' ) . '</a><hr class="wp-header-end">',
 			esc_html( $ent['label'] ),
 			esc_url( self::url( $key, [ 'action' => 'new' ] ) ),
 			esc_html( $ent['singular'] )
@@ -2053,7 +2053,7 @@ class Mietv_Admin {
 
 		$offene = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_meldungen WHERE status <> 'erledigt'" );
 		if ( $offene ) {
-			printf( '<div class="notice notice-warning inline"><p>' . esc_html__( '%d offene Meldung(en) –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'zur Bearbeitung', 'mietverwaltung' ) . '</a></p></div>', (int) $offene, esc_url( self::url( 'meldungen' ) ) );
+			printf( '<div class="notice notice-warning inline"><p>' . /* translators: %d: Wert */ esc_html__( '%d offene Meldung(en) –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'zur Bearbeitung', 'mietverwaltung' ) . '</a></p></div>', (int) $offene, esc_url( self::url( 'meldungen' ) ) );
 		}
 
 		echo '<form method="post" id="mv-op-form">';
@@ -2066,7 +2066,7 @@ class Mietv_Admin {
 
 			printf( '<h2>%s</h2>', esc_html( Mietv_Soll::mietv_label( $mv ) ) );
 			printf(
-				'<p>' . esc_html__( 'Mietbeginn %1$s · Kaution %2$s · Saldo gesamt:', 'mietverwaltung' ) . ' <strong class="%s">%s</strong> <a href="%s" class="button button-small">' . esc_html__( 'Zahlung erfassen', 'mietverwaltung' ) . '</a></p>',
+				'<p>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'Mietbeginn %1$s · Kaution %2$s · Saldo gesamt:', 'mietverwaltung' ) . ' <strong class="%s">%s</strong> <a href="%s" class="button button-small">' . esc_html__( 'Zahlung erfassen', 'mietverwaltung' ) . '</a></p>',
 				esc_html( mietv_date( $mv->beginn ) ),
 				esc_html( mietv_eur( $mv->kaution ) ),
 				esc_attr( $saldo_class ),
@@ -2083,7 +2083,7 @@ class Mietv_Admin {
 				}
 				printf(
 					'<tr><td class="mv-op-check">%s</td><td>%s%s</td><td>%s</td><td>%s</td><td>%s</td><td><strong>%s</strong></td><td>%s</td><td class="%s">%s</td><td class="%s">%s</td></tr>',
-					$offen ? '<input type="checkbox" name="op[]" value="' . esc_attr( $mv->id . '|' . $r['monat'] ) . '" title="' . esc_attr( sprintf( __( '%s als bezahlt buchen', 'mietverwaltung' ), mietv_eur( -$r['diff'] ) ) ) . '">' : ( $r['diff'] < -0.005 ? '' : '✓' ),
+					$offen ? '<input type="checkbox" name="op[]" value="' . esc_attr( $mv->id . '|' . $r['monat'] ) . '" title="' . esc_attr( sprintf( /* translators: %s: Wert */ __( '%s als bezahlt buchen', 'mietverwaltung' ), mietv_eur( -$r['diff'] ) ) ) . '">' : ( $r['diff'] < -0.005 ? '' : '✓' ),
 					esc_html( mietv_monat( $r['monat'] ) ),
 					$r['ohne_konditionen'] ? ' <span class="mv-warn" title="Keine Konditionen hinterlegt">⚠</span>' : '',
 					esc_html( mietv_eur( $r['kalt'] ) ),

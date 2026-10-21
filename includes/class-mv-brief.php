@@ -17,7 +17,7 @@ class Mietv_Brief {
 		$z = mietv_mieter_personen( $m );
 		if ( $o ) {
 			$z[] = $o->strasse;
-			$z[] = trim( $o->plz . ' ' . $o->ort );
+			$z[] = trim( $o->plz . ' ' . $o->ort, " \t\n\r\0\x0B" );
 		}
 		return implode( "\n", array_filter( $z ) );
 	}
@@ -30,10 +30,10 @@ class Mietv_Brief {
 		}
 		$teil  = function ( $anrede, $nachname ) {
 			if ( $anrede === 'Frau' ) {
-				return sprintf( __( 'sehr geehrte Frau %s', 'mietverwaltung' ), $nachname );
+				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrte Frau %s', 'mietverwaltung' ), $nachname );
 			}
 			if ( $anrede === 'Herr' ) {
-				return sprintf( __( 'sehr geehrter Herr %s', 'mietverwaltung' ), $nachname );
+				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrter Herr %s', 'mietverwaltung' ), $nachname );
 			}
 			return null;
 		};
@@ -53,7 +53,7 @@ class Mietv_Brief {
 	public static function ort(): string {
 		$zeilen = array_values( array_filter( array_map( 'trim', explode( "\n", Mietv_Einstellungen::get( 'vermieter_adresse' ) ) ) ) );
 		$z      = $zeilen[1] ?? ( $zeilen[0] ?? '' );
-		return trim( preg_replace( '/^\d{5}\s*/', '', $z ) );
+		return trim( preg_replace( '/^\d{5}\s*/', '', $z ), " \t\n\r\0\x0B" );
 	}
 
 	public static function absender_zeile(): string {
@@ -71,7 +71,7 @@ class Mietv_Brief {
 	 * $ablage = [objekt_id, mv_id, typ, bezeichnung, mieter_sichtbar] → zusätzlich in Dokumente ablegen, wenn ?ablegen=1.
 	 */
 	public static function ausgeben( string $titel, string $empfaenger, string $betreff, string $body, ?string $datum = null, bool $auto_print = true, ?array $ablage = null ): void {
-		$E              = Mietv_Einstellungen::class;
+		$einst          = Mietv_Einstellungen::class;
 		$absender_zeile = self::absender_zeile();
 		$datum          = $datum ?: current_time( 'd.m.Y' );
 
@@ -112,7 +112,7 @@ h2 { font-size: 12pt; margin: 8mm 0 2mm; }
 <div class="betreff"><?php echo esc_html( $betreff ); ?></div>
 		<?php echo $body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Brieftext wird intern aus escapten Werten erzeugt. ?>
 <p>Mit freundlichen Grüßen</p>
-<p style="margin-top:14mm"><?php echo esc_html( $E::get( 'vermieter_name' ) ); ?></p>
+<p style="margin-top:14mm"><?php echo esc_html( $einst::get( 'vermieter_name' ) ); ?></p>
 </div>
 		<?php
 		if ( $auto_print ) :
