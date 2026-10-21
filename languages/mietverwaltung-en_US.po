@@ -1,0 +1,2764 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mietverwaltung\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: mietverwaltung\n"
+"PO-Revision-Date: 2026-10-21\n"
+
+msgid "Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich."
+msgstr "No living areas entered for the units – allocation by area is not possible."
+
+msgid "Kein Mietverhältnis im Abrechnungszeitraum."
+msgstr "No tenancy in the billing period."
+
+msgid "„%1$s“ (%2$s) nicht umgelegt: Objekt hat dezentrale Heizung – Mieter rechnen direkt mit dem Versorger ab."
+msgstr "“%1$s” (%2$s) not allocated: property has decentralised heating – tenants settle directly with the supplier."
+
+msgid "„%1$s“: Keine (vollständigen) Zählerstände für den Zeitraum – ersatzweise nach Wohnfläche verteilt%2$s."
+msgstr "“%1$s”: no (complete) meter readings for the period – allocated by living area instead%2$s."
+
+msgid "Betriebskostenabrechnung"
+msgstr "Service charge statement"
+
+msgid "Neue Abrechnung"
+msgstr "New statement"
+
+msgid "Objekt"
+msgstr "Property"
+
+msgid "Zeitraum von"
+msgstr "Period from"
+
+msgid "bis"
+msgstr "to"
+
+msgid "Berechnen"
+msgstr "Calculate"
+
+msgid "Voraussetzungen: umlagefähige Belege mit Leistungszeitraum, Wohnflächen an den Einheiten, Personenzahl am Mietverhältnis, bei Verbrauchsschlüssel Zählerstände zu Beginn und Ende. Frist: 12 Monate nach Ende des Zeitraums (§ 556 Abs. 3 BGB)."
+msgstr "Requirements: recoverable receipts with service period, living areas on the units, number of persons on the tenancy, and for consumption-based allocation meter readings at the start and end. Deadline: 12 months after the end of the period (§ 556 (3) BGB)."
+
+msgid "Vorhandene Abrechnungen"
+msgstr "Existing statements"
+
+msgid "Zeitraum"
+msgstr "Period"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Mieter"
+msgstr "Tenants"
+
+msgid "Erstellt"
+msgstr "Created"
+
+msgid "Öffnen"
+msgstr "Open"
+
+msgid "Löschen"
+msgstr "Delete"
+
+msgid "Fertig / freigegeben"
+msgstr "Finalised / released"
+
+msgid "Noch keine Abrechnung."
+msgstr "No statement yet."
+
+msgid "Nicht gefunden."
+msgstr "Not found."
+
+msgid "Neu berechnet."
+msgstr "Recalculated."
+
+msgid "Neue Vorauszahlung als Kondition ab dem nächsten Monat angelegt – bitte unter „Konditionen“ prüfen und dem Mieter mitteilen (§ 560 Abs. 4 BGB)."
+msgstr "New advance payment created as a rent condition from next month – please check under “Rent conditions” and notify the tenant (§ 560 (4) BGB)."
+
+msgid "Betriebskostenabrechnung %1$s – %2$s bis %3$s"
+msgstr "Service charge statement %1$s – %2$s to %3$s"
+
+msgid "Heizung: %1$s%2$s · Status: %3$s"
+msgstr "Heating: %1$s%2$s · Status: %3$s"
+
+msgid "Mieter / Einheit"
+msgstr "Tenant / unit"
+
+msgid "Tage"
+msgstr "Days"
+
+msgid "Betriebskosten"
+msgstr "Service charges"
+
+msgid "Heizkosten"
+msgstr "Heating costs"
+
+msgid "Vorauszahlungen"
+msgstr "Advance payments"
+
+msgid "Ergebnis"
+msgstr "Result"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF ablegen"
+msgstr "File PDF"
+
+msgid "VZ anpassen"
+msgstr "Adjust advance"
+
+msgid "Nachzahlung"
+msgstr "Amount due"
+
+msgid "Guthaben"
+msgstr "Credit"
+
+msgid "Positionen %s"
+msgstr "Items %s"
+
+msgid "Kostenart"
+msgstr "Cost type"
+
+msgid "Gesamtkosten"
+msgstr "Total costs"
+
+msgid "Schlüssel"
+msgstr "Allocation key"
+
+msgid "Basis gesamt"
+msgstr "Base total"
+
+msgid "Basis Mieter"
+msgstr "Base tenant"
+
+msgid "Anteil"
+msgstr "Share"
+
+msgid "Keine Berechtigung."
+msgstr "Permission denied."
+
+msgid "für die Wohnung"
+msgstr "for the flat"
+
+msgid "erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum"
+msgstr "please find the statement of service and heating charges for the period"
+
+msgid "%s bis %s"
+msgstr "%s to %s"
+
+msgid ". Ihr Nutzungszeitraum: %s bis %s (%d Tage). Wohnfläche %s m², Personen im Haushalt: %d."
+msgstr ". Your period of use: %s to %s (%d days). Living area %s m², persons in household: %d."
+
+msgid "Verteilerschlüssel"
+msgstr "Allocation key"
+
+msgid "Gesamt"
+msgstr "Total"
+
+msgid "Ihr Anteil"
+msgstr "Your share"
+
+msgid "Betrag"
+msgstr "Amount"
+
+msgid "Summe Ihrer Kosten"
+msgstr "Total of your costs"
+
+msgid "abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)"
+msgstr "less advance payments made (service charges %1$s, heating %2$s)"
+
+msgid "Guthaben zu Ihren Gunsten"
+msgstr "Credit in your favour"
+
+msgid "Bitte überweisen Sie den Nachzahlungsbetrag von"
+msgstr "Please transfer the amount due of"
+
+msgid "bis zum"
+msgstr "by"
+
+msgid "Das Guthaben von"
+msgstr "The credit of"
+
+msgid "wird Ihnen innerhalb von 30 Tagen überwiesen bzw. mit der nächsten Mietzahlung verrechnet."
+msgstr "will be transferred to you within 30 days or offset against the next rent payment."
+
+msgid "Bescheinigung nach § 35a EStG"
+msgstr "Certificate under § 35a EStG"
+
+msgid "In den abgerechneten Kosten sind folgende Arbeitskostenanteile enthalten, die Sie in Ihrer Einkommensteuererklärung geltend machen können:"
+msgstr "The costs billed include the following labour cost shares that you may claim in your income tax return:"
+
+msgid "Handwerkerleistungen (§ 35a Abs. 3 EStG) – Ihr Anteil Lohnkosten"
+msgstr "Tradesmen's services (§ 35a (3) EStG) – your share of labour costs"
+
+msgid "Haushaltsnahe Dienstleistungen (§ 35a Abs. 2 EStG) – Ihr Anteil Lohnkosten"
+msgstr "Household-related services (§ 35a (2) EStG) – your share of labour costs"
+
+msgid "Die Belege können nach Terminvereinbarung eingesehen werden. Einwendungen gegen die Abrechnung sind innerhalb von 12 Monaten nach Zugang mitzuteilen (§ 556 Abs. 3 Satz 5 BGB)."
+msgstr "Receipts may be inspected by appointment. Objections to the statement must be raised within 12 months of receipt (§ 556 (3) sentence 5 BGB)."
+
+msgid "Ungültige Anfrage."
+msgstr "Invalid request."
+
+msgid "Miete %s"
+msgstr "Rent %s"
+
+msgid "⌂ WordPress-Menü einblenden"
+msgstr "⌂ Show WordPress menu"
+
+msgid "▣ Nur Mietverwaltung anzeigen"
+msgstr "▣ Show rental management only"
+
+msgid "Fokusmodus der Mietverwaltung umschalten"
+msgstr "Toggle rental management focus mode"
+
+msgid "Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen)."
+msgstr "No text layer found – the PDF is probably a scan. Please enter the values manually (or make the PDF searchable with OCR first)."
+
+msgid "pdf.js konnte nicht geladen werden (Netzwerk/Adblocker?). Werte bitte manuell eintragen."
+msgstr "pdf.js could not be loaded (network/ad blocker?). Please enter the values manually."
+
+msgid "Lese Kaufvertrag …"
+msgstr "Reading purchase contract …"
+
+msgid "PDF konnte nicht gelesen werden:"
+msgstr "PDF could not be read:"
+
+msgid "Auslesen nur bei PDF möglich."
+msgstr "Extraction is only possible for PDF files."
+
+msgid "Aus dem Kaufvertrag erkannt"
+msgstr "Detected from the purchase contract"
+
+msgid "Seiten"
+msgstr "pages"
+
+msgid "zum Übernehmen anklicken, danach prüfen:"
+msgstr "click to apply, then verify:"
+
+msgid "nicht gefunden"
+msgstr "not found"
+
+msgid "Kaufpreis"
+msgstr "Purchase price"
+
+msgid "Übergang Nutzen/Lasten"
+msgstr "Transfer of possession"
+
+msgid "Grund und Boden (Betrag)"
+msgstr "Land (amount)"
+
+msgid "Anteil Grund und Boden"
+msgstr "Land share"
+
+msgid "Vertragsdatum (Info)"
+msgstr "Contract date (info)"
+
+msgid "Wohnfläche (Info)"
+msgstr "Living area (info)"
+
+msgid "Erkennung ist heuristisch. Fehlt die Aufteilung Grund/Gebäude im Vertrag, hilft die BMF-Arbeitshilfe zur Kaufpreisaufteilung."
+msgstr "Detection is heuristic. If the contract lacks a land/building split, use the Federal Ministry of Finance (BMF) purchase price allocation tool."
+
+msgid "Objekte"
+msgstr "Properties"
+
+msgid "Bezeichnung"
+msgstr "Name"
+
+msgid "Straße / Nr."
+msgstr "Street / no."
+
+msgid "PLZ"
+msgstr "Postcode"
+
+msgid "Ort"
+msgstr "Town"
+
+msgid "Baujahr"
+msgstr "Year built"
+
+msgid "Heizung"
+msgstr "Heating"
+
+msgid "Zentralheizung (HeizkostenV, verbrauchsabhängig)"
+msgstr "Central heating (HeizkostenV, consumption-based)"
+
+msgid "Fernwärme (HeizkostenV)"
+msgstr "District heating (HeizkostenV)"
+
+msgid "Dezentral / Etagenheizung (Mieter rechnet selbst ab)"
+msgstr "Decentralised / per-flat heating (tenant settles directly)"
+
+msgid "Heizkosten: Verbrauchsanteil (%)"
+msgstr "Heating: consumption share (%)"
+
+msgid "50–70 % nach Verbrauch, Rest nach Wohnfläche (§ 7 HeizkostenV). Nur bei Zentralheizung/Fernwärme."
+msgstr "50–70 % by consumption, remainder by living area (§ 7 HeizkostenV). Central/district heating only."
+
+msgid "Notiz"
+msgstr "Note"
+
+msgid "Einheiten"
+msgstr "Units"
+
+msgid "Einheit"
+msgstr "Unit"
+
+msgid "z. B. „Wohnung EG links“"
+msgstr "e.g. “Ground floor flat, left”"
+
+msgid "Lage"
+msgstr "Location"
+
+msgid "z. B. „1. OG“"
+msgstr "e.g. “1st floor”"
+
+msgid "Wohnfläche (m²)"
+msgstr "Living area (m²)"
+
+msgid "Zimmer"
+msgstr "Rooms"
+
+msgid "Typ"
+msgstr "Type"
+
+msgid "Wohnung"
+msgstr "Flat"
+
+msgid "Gewerbe"
+msgstr "Commercial"
+
+msgid "Stellplatz"
+msgstr "Parking space"
+
+msgid "Garage"
+msgstr "Garage"
+
+msgid "Keller / Lager"
+msgstr "Cellar / storage"
+
+msgid "Anrede"
+msgstr "Salutation"
+
+msgid "Frau"
+msgstr "Ms"
+
+msgid "Herr"
+msgstr "Mr"
+
+msgid "Firma"
+msgstr "Company"
+
+msgid "Vorname"
+msgstr "First name"
+
+msgid "Nachname"
+msgstr "Last name"
+
+msgid "E-Mail"
+msgstr "Email"
+
+msgid "Telefon"
+msgstr "Phone"
+
+msgid "Geburtsdatum"
+msgstr "Date of birth"
+
+msgid "Für den Mietvertrag (Identifizierung der Vertragspartei)."
+msgstr "For the tenancy agreement (identification of the contracting party)."
+
+msgid "Bisherige Anschrift"
+msgstr "Previous address"
+
+msgid "Anschrift bei Vertragsschluss (vor Einzug) – erscheint im Vertrag."
+msgstr "Address at the time of signing (before moving in) – appears in the agreement."
+
+msgid "Mitmieter/in – Anrede"
+msgstr "Co-tenant – salutation"
+
+msgid "Ehe-/Lebenspartner als zweite Vertragspartei (optional). Erscheint automatisch in Mietvertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll; haftet gesamtschuldnerisch."
+msgstr "Spouse/partner as second contracting party (optional). Appears automatically in the tenancy agreement, letters, SEPA mandate and handover protocol; jointly and severally liable."
+
+msgid "Mitmieter/in – Vorname"
+msgstr "Co-tenant – first name"
+
+msgid "Mitmieter/in – Nachname"
+msgstr "Co-tenant – last name"
+
+msgid "Mitmieter/in – Geburtsdatum"
+msgstr "Co-tenant – date of birth"
+
+msgid "Mitmieter/in – E-Mail"
+msgstr "Co-tenant – email"
+
+msgid "Erhält Mahnungen und Schreiben in Kopie, wenn angegeben."
+msgstr "Receives reminders and letters in copy if provided."
+
+msgid "IBAN (für Bankimport-Zuordnung)"
+msgstr "IBAN (for bank import matching)"
+
+msgid "Portalzugang (WP-Benutzer)"
+msgstr "Portal access (WP user)"
+
+msgid "Benutzer anlegen unter „Benutzer“, Rolle „Abonnent“ genügt."
+msgstr "Create the user under “Users”; the “Subscriber” role is sufficient."
+
+msgid "Mietverhältnisse"
+msgstr "Tenancies"
+
+msgid "Mietverhältnis"
+msgstr "Tenancy"
+
+msgid "Mietbeginn"
+msgstr "Start of tenancy"
+
+msgid "Mietende"
+msgstr "End of tenancy"
+
+msgid "leer = unbefristet"
+msgstr "empty = open-ended"
+
+msgid "Kaution (€)"
+msgstr "Deposit (€)"
+
+msgid "Personen im Haushalt"
+msgstr "Persons in household"
+
+msgid "für Umlageschlüssel nach Personen"
+msgstr "for allocation by number of persons"
+
+msgid "Zahltag (Tag im Monat)"
+msgstr "Payment day (day of month)"
+
+msgid "Weitere Einheiten im selben Vertrag"
+msgstr "Additional units in the same agreement"
+
+msgid "Garage, Stellplatz, Keller, die zusammen mit der Wohnung vermietet sind. Der Mietanteil ist in der Kaltmiete der Konditionen bereits enthalten und dient nur der Ausweisung im Vertrag."
+msgstr "Garage, parking space or cellar let together with the flat. The rent share is already included in the base rent of the rent conditions and is only shown separately in the agreement."
+
+msgid "Konditionen (Kaltmiete, Vorauszahlungen) werden unter „Konditionen“ mit Gültigkeitsdatum erfasst – als Gesamtmiete inkl. Garage/Stellplatz. Jede Erhöhung = neuer Eintrag."
+msgstr "Rent conditions (base rent, advance payments) are entered under “Rent conditions” with a valid-from date – as the total rent incl. garage/parking. Each increase = new entry."
+
+msgid "Konditionen"
+msgstr "Rent conditions"
+
+msgid "Kondition"
+msgstr "Rent condition"
+
+msgid "Gültig ab"
+msgstr "Valid from"
+
+msgid "In der Regel der 1. eines Monats"
+msgstr "Usually the 1st of a month"
+
+msgid "Kaltmiete (€)"
+msgstr "Base rent (€)"
+
+msgid "Betriebskosten-VZ (€)"
+msgstr "Service charge advance (€)"
+
+msgid "Heizkosten-VZ (€)"
+msgstr "Heating advance (€)"
+
+msgid "Zahlungen"
+msgstr "Payments"
+
+msgid "Zahlung"
+msgstr "Payment"
+
+msgid "Zahlungsdatum"
+msgstr "Payment date"
+
+msgid "Betrag (€)"
+msgstr "Amount (€)"
+
+msgid "Zuordnung Monat"
+msgstr "Assigned month"
+
+msgid "Verwendungszweck"
+msgstr "Reference"
+
+msgid "Quelle"
+msgstr "Source"
+
+msgid "manuell"
+msgstr "manual"
+
+msgid "Bankimport"
+msgstr "Bank import"
+
+msgid "Übersicht (abgehakt)"
+msgstr "Overview (ticked)"
+
+msgid "Belege"
+msgstr "Receipts"
+
+msgid "Beleg"
+msgstr "Receipt"
+
+msgid "Abflussdatum – maßgeblich für das Steuerjahr (§ 11 EStG). Bei Lastschrift: Tag der Abbuchung."
+msgstr "Payment date – decisive for the tax year (§ 11 EStG). For direct debits: date of debit."
+
+msgid "Steuerjahr"
+msgstr "Tax year"
+
+msgid "leer = Jahr des Zahlungsdatums. Abweichend nur bei regelmäßig wiederkehrenden Zahlungen um den Jahreswechsel (10-Tage-Regel)."
+msgstr "empty = year of the payment date. Differs only for regularly recurring payments around the turn of the year (10-day rule)."
+
+msgid "Betrag brutto (€)"
+msgstr "Gross amount (€)"
+
+msgid "Rechnungssteller"
+msgstr "Issuer"
+
+msgid "Rechnungs-/Belegnummer"
+msgstr "Invoice / receipt number"
+
+msgid "Leistungszeitraum von"
+msgstr "Service period from"
+
+msgid "Für die Betriebskostenabrechnung (z. B. Versicherung 01.01.–31.12.). Leer = Zahlungsdatum."
+msgstr "For the service charge statement (e.g. insurance 01.01.–31.12.). Empty = payment date."
+
+msgid "Leistungszeitraum bis"
+msgstr "Service period to"
+
+msgid "Verteilung (§ 82b EStDV)"
+msgstr "Spreading (§ 82b EStDV)"
+
+msgid "nein – voll im Zahlungsjahr"
+msgstr "no – fully in the year of payment"
+
+msgid "auf 2 Jahre"
+msgstr "over 2 years"
+
+msgid "auf 3 Jahre"
+msgstr "over 3 years"
+
+msgid "auf 4 Jahre"
+msgstr "over 4 years"
+
+msgid "auf 5 Jahre"
+msgstr "over 5 years"
+
+msgid "Nur für größeren Erhaltungsaufwand an Wohngebäuden. Gleichmäßige Verteilung ab dem Steuerjahr."
+msgstr "Only for larger maintenance expenses on residential buildings. Spread evenly from the tax year."
+
+msgid "§ 35a EStG (für Mieter)"
+msgstr "§ 35a EStG (for tenants)"
+
+msgid "– nein –"
+msgstr "– no –"
+
+msgid "Handwerkerleistung (20 %, max. 1.200 €)"
+msgstr "Tradesmen's services (20 %, max. €1,200)"
+
+msgid "Haushaltsnahe Dienstleistung (20 %, max. 4.000 €)"
+msgstr "Household-related services (20 %, max. €4,000)"
+
+msgid "Hausmeister, Gartenpflege, Schornsteinfeger, Wartung Heizung … Der Lohnanteil wird in der Betriebskostenabrechnung für den Mieter ausgewiesen."
+msgstr "Caretaker, gardening, chimney sweep, heating maintenance … The labour share is shown for the tenant in the service charge statement."
+
+msgid "davon Lohn-/Arbeitskosten brutto (€)"
+msgstr "of which gross labour costs (€)"
+
+msgid "Laut Rechnung; ohne Material."
+msgstr "As per invoice; excluding materials."
+
+msgid "Beschreibung"
+msgstr "Description"
+
+msgid "Belegdatei (PDF/Foto)"
+msgstr "Receipt file (PDF/photo)"
+
+msgid "Zähler"
+msgstr "Meters"
+
+msgid "Leer = Hauptzähler des Hauses (nur zur Info, nicht für die Verteilung)."
+msgstr "Empty = main meter of the building (info only, not used for allocation)."
+
+msgid "Art"
+msgstr "Type"
+
+msgid "Kaltwasser (m³)"
+msgstr "Cold water (m³)"
+
+msgid "Warmwasser (m³)"
+msgstr "Hot water (m³)"
+
+msgid "Heizung (kWh / Einheiten)"
+msgstr "Heating (kWh / units)"
+
+msgid "Strom (kWh)"
+msgstr "Electricity (kWh)"
+
+msgid "Zählernummer"
+msgstr "Meter number"
+
+msgid "Zählerstände"
+msgstr "Meter readings"
+
+msgid "Zählerstand"
+msgstr "Meter reading"
+
+msgid "Ablesedatum"
+msgstr "Reading date"
+
+msgid "Für die Abrechnung: Stand zum Beginn und zum Ende des Zeitraums (z. B. 01.01. und 31.12.)."
+msgstr "For the statement: reading at the start and end of the period (e.g. 01.01. and 31.12.)."
+
+msgid "Vermieter/Ablesung"
+msgstr "Landlord / reading"
+
+msgid "Mieter (Portal)"
+msgstr "Tenant (portal)"
+
+msgid "Versorger/Ablesedienst"
+msgstr "Supplier / meter reading service"
+
+msgid "Foto"
+msgstr "Photo"
+
+msgid "Bankimport-Regeln"
+msgstr "Bank import rules"
+
+msgid "Regel"
+msgstr "Rule"
+
+msgid "Suchtext"
+msgstr "Search text"
+
+msgid "Wird in Name und Verwendungszweck gesucht (Groß-/Kleinschreibung egal), z. B. „Stadtwerke“ oder „N-ERGIE“."
+msgstr "Searched in name and reference (case-insensitive), e.g. “Stadtwerke” or “N-ERGIE”."
+
+msgid "Anlegen als"
+msgstr "Create as"
+
+msgid "Beleg (Ausgabe)"
+msgstr "Receipt (expense)"
+
+msgid "Mietzahlung (Eingang)"
+msgstr "Rent payment (income)"
+
+msgid "Ignorieren"
+msgstr "Ignore"
+
+msgid "Kostenart (bei Beleg)"
+msgstr "Cost type (for receipts)"
+
+msgid "Mietverhältnis (bei Zahlung)"
+msgstr "Tenancy (for payments)"
+
+msgid "Abschreibung (AfA)"
+msgstr "Depreciation"
+
+msgid "Anlagegut"
+msgstr "Asset"
+
+msgid "Kaufvertrag (PDF)"
+msgstr "Purchase contract (PDF)"
+
+msgid "Nach Auswahl wird der Vertrag im Browser ausgelesen; erkannte Werte erscheinen unten als Vorschläge. Nichts wird hochgeladen, bevor du speicherst."
+msgstr "After selection the contract is read in the browser; detected values appear below as suggestions. Nothing is uploaded until you save."
+
+msgid "z. B. „Gebäude Musterstraße 1“ oder „Einbauküche“"
+msgstr "e.g. “Building, 1 Sample Street” or “Fitted kitchen”"
+
+msgid "Gebäude"
+msgstr "Building"
+
+msgid "Bewegliches Wirtschaftsgut (Einbauküche, Möbel …)"
+msgstr "Movable asset (fitted kitchen, furniture …)"
+
+msgid "Anschaffung / Fertigstellung"
+msgstr "Acquisition / completion"
+
+msgid "Beim Kauf: Übergang von Nutzen und Lasten. AfA beginnt zeitanteilig ab diesem Monat."
+msgstr "On purchase: transfer of possession. Depreciation starts pro rata from this month."
+
+msgid "Kaufpreis / Herstellungskosten (€)"
+msgstr "Purchase price / construction costs (€)"
+
+msgid "Grunderwerbsteuer (€)"
+msgstr "Real estate transfer tax (€)"
+
+msgid "Bayern 3,5 % des Kaufpreises (Bescheid des Finanzamts)."
+msgstr "Bavaria: 3.5 % of the purchase price (tax office assessment)."
+
+msgid "Notar – Kaufvertrag (€)"
+msgstr "Notary – purchase contract (€)"
+
+msgid "Nur der Teil für Beurkundung des Kaufvertrags. Der Teil für die Grundschuld gehört unten zu „Finanzierung“."
+msgstr "Only the part for notarising the purchase contract. The part for the land charge belongs under “Financing” below."
+
+msgid "Grundbuch – Auflassung/Eigentumsumschreibung (€)"
+msgstr "Land registry – conveyance / transfer of title (€)"
+
+msgid "Kostenrechnung des Grundbuchamts für Vormerkung und Eigentumsumschreibung."
+msgstr "Land registry invoice for priority notice and transfer of title."
+
+msgid "Maklerprovision (€)"
+msgstr "Estate agent's commission (€)"
+
+msgid "Sonstige Anschaffungsnebenkosten (€)"
+msgstr "Other acquisition costs (€)"
+
+msgid "z. B. Gutachter vor Kauf, Fahrtkosten zur Besichtigung, Übersetzer."
+msgstr "e.g. surveyor before purchase, travel costs for viewings, translator."
+
+msgid "Summe Anschaffungsnebenkosten (€)"
+msgstr "Total acquisition costs (€)"
+
+msgid "Wird aus den Einzelpositionen berechnet, sobald dort etwas eingetragen ist; sonst manuell."
+msgstr "Calculated from the individual items as soon as any are entered; otherwise manual."
+
+msgid "Finanzierungskosten – Notar/Grundbuch Grundschuld (€)"
+msgstr "Financing costs – notary / land registry for land charge (€)"
+
+msgid "Keine Anschaffungskosten! Sofort abziehbare Werbungskosten (Geldbeschaffungskosten). Beim Speichern wird automatisch ein Beleg der Kostenart „Geldbeschaffungskosten“ angelegt, falls noch keiner mit diesem Betrag existiert."
+msgstr "Not acquisition costs! Immediately deductible expenses (financing costs). On saving, a receipt of cost type “Financing costs” is created automatically unless one with this amount already exists."
+
+msgid "Anteil Grund und Boden (%)"
+msgstr "Land share (%)"
+
+msgid "Nur Gebäude; der Bodenanteil ist nicht abschreibbar. Aufteilung laut Kaufvertrag oder BMF-Arbeitshilfe zur Kaufpreisaufteilung. Auch Eigentumswohnungen haben einen Miteigentumsanteil am Grund (häufig 15–30 %). 0 % akzeptiert das Finanzamt in der Regel nicht."
+msgstr "Building only; the land share is not depreciable. Split as per purchase contract or the BMF purchase price allocation tool. Condominiums also have a co-ownership share of the land (often 15–30 %). The tax office generally does not accept 0 %."
+
+msgid "Methode"
+msgstr "Method"
+
+msgid "Linear (§ 7 Abs. 4 EStG)"
+msgstr "Straight-line (§ 7 (4) EStG)"
+
+msgid "Degressiv vom Restwert (§ 7 Abs. 5a EStG, Neubau Baubeginn 10/2023–09/2029)"
+msgstr "Declining balance (§ 7 (5a) EStG, new build started 10/2023–09/2029)"
+
+msgid "AfA-Satz (% p. a.)"
+msgstr "Depreciation rate (% p.a.)"
+
+msgid "Leer = automatisch: Gebäude nach Baujahr des Objekts (vor 1925: 2,5 %, ab 2023: 3 %, sonst 2 %), bewegliche Güter 100 / Nutzungsdauer. Degressiv: 5 %. Nur eintragen, wenn abweichend (z. B. 4 % bei nachgewiesener kürzerer Restnutzungsdauer)."
+msgstr "Empty = automatic: buildings by year built of the property (before 1925: 2.5 %, from 2023: 3 %, otherwise 2 %), movable assets 100 / useful life. Declining balance: 5 %. Enter only if different (e.g. 4 % with proven shorter remaining useful life)."
+
+msgid "Nutzungsdauer (Jahre)"
+msgstr "Useful life (years)"
+
+msgid "Nur bewegliche Wirtschaftsgüter, z. B. Einbauküche 10 Jahre. GWG bis 800 € netto: Nutzungsdauer 1 = Sofortabzug."
+msgstr "Movable assets only, e.g. fitted kitchen 10 years. Low-value assets up to €800 net: useful life 1 = immediate deduction."
+
+msgid "Ausscheiden (Verkauf/Entnahme)"
+msgstr "Disposal (sale/withdrawal)"
+
+msgid "Darlehen"
+msgstr "Loans"
+
+msgid "Bank"
+msgstr "Bank"
+
+msgid "Bezeichnung / Konto-Nr."
+msgstr "Name / account no."
+
+msgid "Darlehensbetrag (€)"
+msgstr "Loan amount (€)"
+
+msgid "Auszahlung"
+msgstr "Disbursement"
+
+msgid "Sollzins (% p. a.)"
+msgstr "Interest rate (% p.a.)"
+
+msgid "Zinsbindung bis"
+msgstr "Fixed-rate period until"
+
+msgid "Monatsrate (€)"
+msgstr "Monthly instalment (€)"
+
+msgid "Anfängliche Tilgung (% p. a.)"
+msgstr "Initial repayment (% p.a.)"
+
+msgid "Aktiv"
+msgstr "Active"
+
+msgid "Abgelöst"
+msgstr "Repaid"
+
+msgid "Darlehensvertrag (PDF)"
+msgstr "Loan agreement (PDF)"
+
+msgid "Dokumente"
+msgstr "Documents"
+
+msgid "Dokument"
+msgstr "Document"
+
+msgid "Nur bei mieterbezogenen Dokumenten (Mietvertrag, Übergabeprotokoll, Abrechnung)."
+msgstr "Only for tenant-related documents (tenancy agreement, handover protocol, statement)."
+
+msgid "Kaufvertrag"
+msgstr "Purchase contract"
+
+msgid "Grundbuchauszug"
+msgstr "Land register extract"
+
+msgid "Teilungserklärung / WEG"
+msgstr "Declaration of division / HOA"
+
+msgid "Mietvertrag"
+msgstr "Tenancy agreement"
+
+msgid "Übergabeprotokoll"
+msgstr "Handover protocol"
+
+msgid "Versicherungsschein"
+msgstr "Insurance policy"
+
+msgid "Energieausweis"
+msgstr "Energy certificate"
+
+msgid "Sonstiges"
+msgstr "Other"
+
+msgid "Datum"
+msgstr "Date"
+
+msgid "Im Mieterportal sichtbar"
+msgstr "Visible in tenant portal"
+
+msgid "Nein"
+msgstr "No"
+
+msgid "Ja"
+msgstr "Yes"
+
+msgid "Nur wirksam mit zugeordnetem Mietverhältnis."
+msgstr "Only effective with an assigned tenancy."
+
+msgid "Datei (PDF)"
+msgstr "File (PDF)"
+
+msgid "Zinsbescheinigungen"
+msgstr "Interest certificates"
+
+msgid "Jahreswert Darlehen"
+msgstr "Annual loan figures"
+
+msgid "Jahr"
+msgstr "Year"
+
+msgid "Gezahlte Zinsen (€)"
+msgstr "Interest paid (€)"
+
+msgid "Laut Jahreszinsbescheinigung der Bank – das ist der Werbungskostenbetrag."
+msgstr "As per the bank's annual interest certificate – this is the deductible amount."
+
+msgid "Tilgung (€)"
+msgstr "Repayment (€)"
+
+msgid "Nicht abziehbar, nur zur Info."
+msgstr "Not deductible, info only."
+
+msgid "Restschuld 31.12. (€)"
+msgstr "Outstanding balance 31 Dec (€)"
+
+msgid "Zinsbescheinigung (PDF)"
+msgstr "Interest certificate (PDF)"
+
+msgid "Kostenarten"
+msgstr "Cost types"
+
+msgid "Anlage V – Gruppe"
+msgstr "Anlage V – group"
+
+msgid "Umlagefähig (BetrKV)"
+msgstr "Recoverable (BetrKV)"
+
+msgid "Nein – trägt der Vermieter"
+msgstr "No – borne by the landlord"
+
+msgid "Ja – geht in die Betriebskostenabrechnung"
+msgstr "Yes – included in the service charge statement"
+
+msgid "Umlageschlüssel"
+msgstr "Allocation key"
+
+msgid "Wohnfläche"
+msgstr "Living area"
+
+msgid "Personen"
+msgstr "Persons"
+
+msgid "Verbrauch (Zähler)"
+msgstr "Consumption (meter)"
+
+msgid "je Einheit"
+msgstr "per unit"
+
+msgid "Rechtsgrundlage"
+msgstr "Legal basis"
+
+msgid "z. B. § 2 Nr. 1 BetrKV"
+msgstr "e.g. § 2 no. 1 BetrKV"
+
+msgid "Sortierung"
+msgstr "Sort order"
+
+msgid "Meldungen"
+msgstr "Reports"
+
+msgid "Meldung"
+msgstr "Report"
+
+msgid "Betreff"
+msgstr "Subject"
+
+msgid "Offen"
+msgstr "Open"
+
+msgid "In Bearbeitung"
+msgstr "In progress"
+
+msgid "Erledigt"
+msgstr "Done"
+
+msgid "Mietverwaltung"
+msgstr "Rental Management"
+
+msgid "Übersicht"
+msgstr "Overview"
+
+msgid "Alltag"
+msgstr "Daily"
+
+msgid "Verwaltung"
+msgstr "Administration"
+
+msgid "Jahresabschluss"
+msgstr "Year end"
+
+msgid "System"
+msgstr "System"
+
+msgid "BK-Abrechnung"
+msgstr "Service charges"
+
+msgid "Einstellungen"
+msgstr "Settings"
+
+msgid "Zinsbescheinigung"
+msgstr "Interest certificate"
+
+msgid "Bankregeln"
+msgstr "Bank rules"
+
+msgid "Mietvertrag & Übergabe"
+msgstr "Agreement & handover"
+
+msgid "Mahnwesen"
+msgstr "Dunning"
+
+msgid "Mieterhöhung"
+msgstr "Rent increase"
+
+msgid "Kaution"
+msgstr "Deposit"
+
+msgid "Darlehenskonto"
+msgstr "Loan account"
+
+msgid "Steuer (Anlage V)"
+msgstr "Tax (Anlage V)"
+
+msgid "Datenschutz"
+msgstr "Data protection"
+
+msgid "Einstellungen & Backup"
+msgstr "Settings & backup"
+
+msgid "Hilfe"
+msgstr "Help"
+
+msgid "%s ist ein Pflichtfeld."
+msgstr "%s is required."
+
+msgid "Speichern fehlgeschlagen: %s"
+msgstr "Saving failed: %s"
+
+msgid "unbekannter Datenbankfehler"
+msgstr "unknown database error"
+
+msgid "Mietende liegt vor dem Mietbeginn."
+msgstr "End of tenancy is before the start."
+
+msgid "Für diese Einheit besteht im Zeitraum bereits ein anderes Mietverhältnis."
+msgstr "Another tenancy already exists for this unit in the period."
+
+msgid "Zahltag muss zwischen 1 und 28 liegen."
+msgstr "Payment day must be between 1 and 28."
+
+msgid "Die Haupteinheit kann nicht zugleich weitere Einheit sein."
+msgstr "The main unit cannot also be an additional unit."
+
+msgid "Weitere Einheit „%s“ ist im Zeitraum bereits anderweitig vermietet."
+msgstr "Additional unit “%s” is already let to someone else in the period."
+
+msgid "Kaltmiete muss größer als 0 sein."
+msgstr "Base rent must be greater than 0."
+
+msgid "Betrag darf nicht 0 sein."
+msgstr "Amount must not be 0."
+
+msgid "Zahlungsdatum liegt in der Zukunft."
+msgstr "Payment date is in the future."
+
+msgid "Zuordnungsmonat liegt vor dem Mietbeginn."
+msgstr "Assigned month is before the start of tenancy."
+
+msgid "Leistungszeitraum: „bis“ liegt vor „von“."
+msgstr "Service period: “to” is before “from”."
+
+msgid "Betrag muss größer als 0 sein (Gutschriften als negativen Beleg mit Beschreibung erfassen ist nicht vorgesehen – bitte mit dem Originalbeleg verrechnen)."
+msgstr "Amount must be greater than 0 (credit notes as negative receipts are not supported – please offset against the original receipt)."
+
+msgid "Lohnanteil kann nicht größer als der Rechnungsbetrag sein."
+msgstr "Labour share cannot exceed the invoice amount."
+
+msgid "Steuerjahr weicht um mehr als ein Jahr vom Zahlungsdatum ab."
+msgstr "Tax year differs from the payment date by more than one year."
+
+msgid "Wohnfläche muss größer als 0 sein (wird für die Betriebskostenabrechnung benötigt)."
+msgstr "Living area must be greater than 0 (needed for the service charge statement)."
+
+msgid "Anteil Grund und Boden muss unter 100 % liegen."
+msgstr "Land share must be below 100 %."
+
+msgid "Bewegliches Wirtschaftsgut: Nutzungsdauer oder AfA-Satz angeben."
+msgstr "Movable asset: enter useful life or depreciation rate."
+
+msgid "Jahr ungültig."
+msgstr "Invalid year."
+
+msgid "IBAN ungültig (Prüfziffer)."
+msgstr "Invalid IBAN (check digit)."
+
+msgid "Gespeichert."
+msgstr "Saved."
+
+msgid "Gelöscht."
+msgstr "Deleted."
+
+msgid "Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden."
+msgstr "Cannot delete: dependent records still exist."
+
+msgid "%d Mieteingang/-eingänge gebucht."
+msgstr "%d rent payment(s) booked."
+
+msgid "%s hinzufügen"
+msgstr "Add %s"
+
+msgid "alle"
+msgstr "all"
+
+msgid "Aktionen"
+msgstr "Actions"
+
+msgid "Bearbeiten"
+msgstr "Edit"
+
+msgid "Bearbeiten:"
+msgstr "Edit:"
+
+msgid "Neu:"
+msgstr "New:"
+
+msgid "Noch keine Einheiten angelegt."
+msgstr "No units created yet."
+
+msgid "Mietanteil"
+msgstr "Rent share"
+
+msgid "Aktuelle Datei öffnen"
+msgstr "Open current file"
+
+msgid "– neue Datei wählen, um sie zu ersetzen."
+msgstr "– choose a new file to replace it."
+
+msgid "📷 Foto aufnehmen"
+msgstr "📷 Take photo"
+
+msgid "– bitte wählen –"
+msgstr "– please select –"
+
+msgid "Abbrechen"
+msgstr "Cancel"
+
+msgid "Mietverwaltung – Übersicht"
+msgstr "Rental Management – Overview"
+
+msgid "WordPress-Menü einblenden"
+msgstr "Show WordPress menu"
+
+msgid "WordPress-Menü ausblenden"
+msgstr "Hide WordPress menu"
+
+msgid "Noch kein aktives Mietverhältnis. Reihenfolge zum Start:"
+msgstr "No active tenancy yet. Order to get started:"
+
+msgid "Objekt → Einheit → Mieter → Mietverhältnis → Konditionen"
+msgstr "Property → Unit → Tenant → Tenancy → Rent conditions"
+
+msgid "%d offene Meldung(en) –"
+msgstr "%d open report(s) –"
+
+msgid "zur Bearbeitung"
+msgstr "go to reports"
+
+msgid "Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar)."
+msgstr "Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments)."
+
+msgid "Bitte mindestens einen Monat anhaken."
+msgstr "Please tick at least one month."
+
+msgid "Markierte als bezahlt buchen"
+msgstr "Book selected as paid"
+
+msgid "Mietbeginn %s · Kaution %s · Saldo gesamt:"
+msgstr "Start %s · Deposit %s · Total balance:"
+
+msgid "Zahlung erfassen"
+msgstr "Record payment"
+
+msgid "alle offenen Monate dieses Mietverhältnisses"
+msgstr "all open months of this tenancy"
+
+msgid "Monat"
+msgstr "Month"
+
+msgid "Kaltmiete"
+msgstr "Base rent"
+
+msgid "BK-VZ"
+msgstr "SC advance"
+
+msgid "HK-VZ"
+msgstr "Heating advance"
+
+msgid "Soll"
+msgstr "Due"
+
+msgid "Ist"
+msgstr "Paid"
+
+msgid "Differenz"
+msgstr "Difference"
+
+msgid "Saldo kumuliert"
+msgstr "Cumulative balance"
+
+msgid "%s als bezahlt buchen"
+msgstr "Book %s as paid"
+
+msgid "aus Nutzungsdauer %d Jahre"
+msgstr "from useful life of %d years"
+
+msgid "gesetzlich nach Baujahr (§ 7 Abs. 4 EStG)"
+msgstr "statutory by year built (§ 7 (4) EStG)"
+
+msgid "kein Satz – bitte eintragen"
+msgstr "no rate – please enter"
+
+msgid "IBAN des Mieters"
+msgstr "Tenant's IBAN"
+
+msgid "Name des Mieters"
+msgstr "Tenant's name"
+
+msgid "%d Buchungen übernommen."
+msgstr "%d transactions imported."
+
+msgid "Keine Buchungen erkannt. Unterstützt: CSV mit Kopfzeile (Buchungstag, Betrag, Verwendungszweck …) oder CAMT.053-XML."
+msgstr "No transactions detected. Supported: CSV with header row (booking date, amount, reference …) or CAMT.053 XML."
+
+msgid "Einlesen"
+msgstr "Import"
+
+msgid "Kontoauszug als CSV (Online-Banking-Export) oder CAMT.053-XML. Bereits importierte Buchungen werden erkannt und nicht doppelt angelegt. Mieteingänge werden über IBAN oder Nachname des Mieters zugeordnet, Ausgaben über"
+msgstr "Bank statement as CSV (online banking export) or CAMT.053 XML. Previously imported transactions are detected and not duplicated. Rent payments are matched by the tenant's IBAN or last name, expenses via"
+
+msgid "Markierte Buchungen übernehmen"
+msgstr "Import selected transactions"
+
+msgid "Name / Verwendungszweck"
+msgstr "Name / reference"
+
+msgid "Zuordnung"
+msgstr "Assignment"
+
+msgid "Regel merken"
+msgstr "Remember rule"
+
+msgid "<em>bereits importiert"
+msgstr "<em>already imported"
+
+msgid "Mietzahlung"
+msgstr "Rent payment"
+
+msgid "– Mietverhältnis –"
+msgstr "– tenancy –"
+
+msgid "– Kostenart –"
+msgstr "– cost type –"
+
+msgid "Sehr geehrte Damen und Herren,"
+msgstr "Dear Sir or Madam,"
+
+msgid "sehr geehrte Frau %s"
+msgstr "dear Ms %s"
+
+msgid "sehr geehrter Herr %s"
+msgstr "dear Mr %s"
+
+msgid "%d Buchung(en) angelegt."
+msgstr "%d entry/entries created."
+
+msgid "Noch kein Darlehen angelegt –"
+msgstr "No loan created yet –"
+
+msgid "Darlehen anlegen"
+msgstr "Create loan"
+
+msgid "Für den Tilgungsplan müssen Auszahlungsdatum, Sollzins und Monatsrate beim Darlehen hinterlegt sein."
+msgstr "The repayment schedule requires disbursement date, interest rate and monthly instalment on the loan."
+
+msgid "Darlehen bearbeiten"
+msgstr "Edit loan"
+
+msgid "Darlehensbetrag"
+msgstr "Loan amount"
+
+msgid "ausgezahlt"
+msgstr "disbursed"
+
+msgid "Restschuld heute"
+msgstr "Outstanding balance today"
+
+msgid "Gezahlte Zinsen"
+msgstr "Interest paid"
+
+msgid "Buchungen"
+msgstr "Entries"
+
+msgid "Getilgt"
+msgstr "Repaid"
+
+msgid "Rate / Sollzins"
+msgstr "Instalment / interest rate"
+
+msgid "Restlaufzeit ca. %d Monate"
+msgstr "Remaining term approx. %d months"
+
+msgid "Offene Monate abhaken und buchen: Zins = Restschuld × Sollzins / 12, Tilgung = Rate − Zins. Die Jahressummen fließen als Schuldzinsen in die Anlage V, solange keine Zinsbescheinigung der Bank für das Jahr erfasst ist – diese hat Vorrang (taggenaue Bankrechnung)."
+msgstr "Tick and book open months: interest = balance × rate / 12, repayment = instalment − interest. The annual totals flow into Anlage V as loan interest unless a bank interest certificate is entered for the year – that takes precedence (exact bank calculation)."
+
+msgid "Markierte Raten buchen"
+msgstr "Book selected instalments"
+
+msgid "Rate"
+msgstr "Instalment"
+
+msgid "Zins"
+msgstr "Interest"
+
+msgid "Tilgung"
+msgstr "Repayment"
+
+msgid "Restschuld"
+msgstr "Outstanding balance"
+
+msgid "Sondertilgung"
+msgstr "Extra repayment"
+
+msgid "Rate (offen)"
+msgstr "Instalment (open)"
+
+msgid "Buchung löschen? Nachfolgende Restschulden werden neu berechnet."
+msgstr "Delete entry? Subsequent balances will be recalculated."
+
+msgid "Noch keine Raten im Zeitraum."
+msgstr "No instalments in the period yet."
+
+msgid "Sondertilgung buchen"
+msgstr "Book extra repayment"
+
+msgid "Buchen"
+msgstr "Book"
+
+msgid "Reduziert die Restschuld; die Folgeraten werden mit der niedrigeren Restschuld berechnet."
+msgstr "Reduces the outstanding balance; subsequent instalments are calculated on the lower balance."
+
+msgid "Jahreswerte"
+msgstr "Annual figures"
+
+msgid "Zinsen"
+msgstr "Interest"
+
+msgid "Restschuld 31.12."
+msgstr "Balance 31 Dec"
+
+msgid "Berechnet: %s"
+msgstr "Calculated: %s"
+
+msgid "berechnet aus Raten"
+msgstr "calculated from instalments"
+
+msgid "Liegt die Zinsbescheinigung der Bank vor, unter „Zinsbescheinigungen“ erfassen – sie ersetzt die berechneten Werte in der Steuer-Auswertung."
+msgstr "Once the bank's interest certificate is available, enter it under “Interest certificates” – it replaces the calculated values in the tax report."
+
+msgid "Art. 15 DSGVO"
+msgstr "Art. 15 GDPR"
+
+msgid "Durchführung des Mietverhältnisses (Art. 6 Abs. 1 lit. b DSGVO), Erfüllung steuer- und handelsrechtlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO)"
+msgstr "Performance of the tenancy agreement (Art. 6 (1) (b) GDPR), compliance with tax and commercial retention obligations (Art. 6 (1) (c) GDPR in conjunction with § 147 AO)"
+
+msgid "%d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete"
+msgstr "%d years after the end of the calendar year in which the tenancy ended"
+
+msgid "Finanzamt (Anlage V), Steuerberater (sofern beauftragt), Bank (Zahlungsverkehr)"
+msgstr "Tax office (Anlage V), tax adviser (if engaged), bank (payments)"
+
+msgid "Mieterdaten anonymisiert. Zahlungs- und Abrechnungsdaten bleiben ohne Personenbezug erhalten."
+msgstr "Tenant data anonymised. Payment and statement data are retained without personal reference."
+
+msgid "Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete ("
+msgstr "Legal basis for processing: Art. 6 (1) (b) GDPR (tenancy agreement) and (c) (retention obligations, § 147 AO). Retention period: %d years after the end of the calendar year in which the tenancy ended ("
+
+msgid "). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten."
+msgstr "). After expiry the personal reference is removed; amounts are retained for tax purposes."
+
+msgid "Löschkonzept – beendete Mietverhältnisse"
+msgstr "Deletion concept – ended tenancies"
+
+msgid "Ende"
+msgstr "End"
+
+msgid "Löschfrist"
+msgstr "Deletion deadline"
+
+msgid "Aktion"
+msgstr "Action"
+
+msgid "Frist abgelaufen"
+msgstr "Deadline expired"
+
+msgid "Anonymisieren"
+msgstr "Anonymise"
+
+msgid "Keine beendeten Mietverhältnisse."
+msgstr "No ended tenancies."
+
+msgid "Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)"
+msgstr "Access (Art. 15 GDPR) / data portability (Art. 20)"
+
+msgid "Erzeugt eine vollständige Datenübersicht des Mieters als JSON – Frist für die Beantwortung: ein Monat (Art. 12 Abs. 3 DSGVO)."
+msgstr "Generates a complete data overview of the tenant as JSON – response deadline: one month (Art. 12 (3) GDPR)."
+
+msgid "Auskunft exportieren"
+msgstr "Export access report"
+
+msgid "Hinweise für das Verarbeitungsverzeichnis"
+msgstr "Notes for the record of processing activities"
+
+msgid "<strong>Verarbeitungstätigkeit:"
+msgstr "<strong>Processing activity:"
+
+msgid "Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr)."
+msgstr "Management of tenancies (master data, payments, statements, defect reports, correspondence)."
+
+msgid "<strong>Betroffene:"
+msgstr "<strong>Data subjects:"
+
+msgid "Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller."
+msgstr "Tenants, household members (number only, no names), invoice issuers."
+
+msgid "<strong>Datenkategorien:"
+msgstr "<strong>Data categories:"
+
+msgid "Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen."
+msgstr "Name, address, contact details, bank details, contract and payment data, consumption data (meters), reports."
+
+msgid "<strong>Technisch-organisatorische Maßnahmen:"
+msgstr "<strong>Technical and organisational measures:"
+
+msgid "Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst."
+msgstr "Access for administrators only (WordPress role), tenant portal only with own login and assignment, HTTPS, regular backups, anonymisation after expiry, purchase contract parsing locally in the browser without third-party services."
+
+msgid "<strong>Auftragsverarbeiter:"
+msgstr "<strong>Processors:"
+
+msgid "Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich)."
+msgstr "Hosting provider of the WordPress installation (data processing agreement required)."
+
+msgid "Vermieter"
+msgstr "Landlord"
+
+msgid "Einnahmen (nur zur Info, nicht als Beleg buchen)"
+msgstr "Income (info only, do not book as receipt)"
+
+msgid "Absetzung für Abnutzung (AfA)"
+msgstr "Depreciation"
+
+msgid "Schuldzinsen und Geldbeschaffungskosten"
+msgstr "Loan interest and financing costs"
+
+msgid "Erhaltungsaufwendungen"
+msgstr "Maintenance expenses"
+
+msgid "Grundsteuer, Straßenreinigung, Müllabfuhr"
+msgstr "Property tax, street cleaning, refuse collection"
+
+msgid "Wasserversorgung, Entwässerung, Hausbeleuchtung"
+msgstr "Water supply, drainage, communal lighting"
+
+msgid "Heizung, Warmwasser"
+msgstr "Heating, hot water"
+
+msgid "Schornsteinreinigung, Hausversicherungen, Hauswart, Treppenreinigung, Fahrstuhl"
+msgstr "Chimney sweeping, building insurance, caretaker, stair cleaning, lift"
+
+msgid "Verwaltungskosten"
+msgstr "Administration costs"
+
+msgid "Sonstige Werbungskosten"
+msgstr "Other expenses"
+
+msgid "Einstellungen gespeichert."
+msgstr "Settings saved."
+
+msgid "Backup eingespielt. Alle Daten wurden ersetzt."
+msgstr "Backup restored. All data has been replaced."
+
+msgid "Backup konnte nicht gelesen werden (kein gültiges Mietverwaltung-JSON)."
+msgstr "Backup could not be read (not a valid Rental Management JSON file)."
+
+msgid "Wiederherstellung abgebrochen: Bestätigung fehlt."
+msgstr "Restore cancelled: confirmation missing."
+
+msgid "Einstellungen &amp; Backup"
+msgstr "Settings &amp; backup"
+
+msgid "Vermieter (für Schreiben und Abrechnungen)"
+msgstr "Landlord (for letters and statements)"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Anschrift"
+msgstr "Address"
+
+msgid "IBAN (für Nachzahlungen)"
+msgstr "IBAN (for amounts due)"
+
+msgid "Steuernummer (optional, für den Mietvertrag)"
+msgstr "Tax number (optional, for the tenancy agreement)"
+
+msgid "Vertreten durch (optional, z. B. Hausverwaltung)"
+msgstr "Represented by (optional, e.g. property manager)"
+
+msgid "SEPA-Gläubiger-Identifikationsnummer"
+msgstr "SEPA creditor identifier"
+
+msgid "Für Lastschriftmandate; bei der Bundesbank beantragen (kostenlos). Leer = kein SEPA-Mandat."
+msgstr "For direct debit mandates; apply at the Bundesbank (free of charge). Empty = no SEPA mandate."
+
+msgid "Erinnerungen"
+msgstr "Reminders"
+
+msgid "Tägliche E-Mail bei Hinweisen"
+msgstr "Daily email for notices"
+
+msgid "Ein"
+msgstr "On"
+
+msgid "Aus"
+msgstr "Off"
+
+msgid "Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-%-Grenze. Nur wenn es etwas zu melden gibt."
+msgstr "Missing rent, statement deadline, fixed-rate period, 15 % limit. Only when there is something to report."
+
+msgid "Empfänger"
+msgstr "Recipient"
+
+msgid "Mietrecht"
+msgstr "Tenancy law"
+
+msgid "Gebiet mit angespanntem Wohnungsmarkt"
+msgstr "Area with a tight housing market"
+
+msgid "Nein (Kappungsgrenze 20 %)"
+msgstr "No (cap 20 %)"
+
+msgid "Ja (Kappungsgrenze 15 %)"
+msgstr "Yes (cap 15 %)"
+
+msgid "Bayern: Mieterschutzverordnung – gilt u. a. für Fürth, Nürnberg, Erlangen und einige Umlandgemeinden; Zirndorf/Oberasbach/Stein prüfen."
+msgstr "Bavaria: Tenant Protection Ordinance – applies e.g. to Fürth, Nuremberg, Erlangen and some surrounding municipalities; check Zirndorf/Oberasbach/Stein."
+
+msgid "Zahlungsfrist Zahlungserinnerung (Tage)"
+msgstr "Payment deadline, payment reminder (days)"
+
+msgid "Zahlungsfrist 1. Mahnung (Tage)"
+msgstr "Payment deadline, 1st dunning letter (days)"
+
+msgid "Zahlungsfrist letzte Mahnung (Tage)"
+msgstr "Payment deadline, final dunning letter (days)"
+
+msgid "Aufbewahrungsfrist nach Mietende (Jahre)"
+msgstr "Retention period after end of tenancy (years)"
+
+msgid "10 Jahre für steuerrelevante Unterlagen (§ 147 AO), gerechnet ab Ende des Kalenderjahres."
+msgstr "10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year."
+
+msgid "Deinstallation"
+msgstr "Uninstall"
+
+msgid "Beim Löschen des Plugins"
+msgstr "When deleting the plugin"
+
+msgid "Alle Daten behalten (Standard)"
+msgstr "Keep all data (default)"
+
+msgid "Alle Tabellen und Einstellungen löschen"
+msgstr "Delete all tables and settings"
+
+msgid "Gilt nur für „Löschen“ auf der Plugin-Seite, nicht für „Deaktivieren“. Mediathek-Dateien bleiben in jedem Fall."
+msgstr "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
+
+msgid "Backup"
+msgstr "Backup"
+
+msgid "Alle Daten als JSON exportieren"
+msgstr "Export all data as JSON"
+
+msgid "Enthält alle Tabellen der Mietverwaltung und die Einstellungen – nicht die Dateien der Mediathek (diese über das normale WordPress-Backup sichern)."
+msgstr "Contains all Rental Management tables and settings – not the media library files (back those up with your regular WordPress backup)."
+
+msgid "Wiederherstellen"
+msgstr "Restore"
+
+msgid "Ich weiß, dass"
+msgstr "I understand that"
+
+msgid "alle vorhandenen Daten ersetzt"
+msgstr "all existing data will be replaced"
+
+msgid "werden."
+msgstr "."
+
+msgid "Keine Erhöhung möglich: Die ortsübliche Vergleichsmiete bzw. die Kappungsgrenze liegt nicht über der aktuellen Miete."
+msgstr "No increase possible: the local reference rent or the cap is not above the current rent."
+
+msgid "Ortsübliche Vergleichsmiete: %1$s €/m² × %2$s m² = %3$s. Kappungsgrenze (%4$d %% auf Miete vor 3 Jahren %5$s): %6$s. Zulässiges Maximum: %7$s."
+msgstr "Local reference rent: %1$s €/m² × %2$s m² = %3$s. Cap (%4$d %% on rent 3 years ago %5$s): %6$s. Permitted maximum: %7$s."
+
+msgid "Bitte beide Indexstände (VPI, Basis 2020 = 100) angeben."
+msgstr "Please enter both index values (CPI, base 2020 = 100)."
+
+msgid "Indexmiete: Die Miete muss mindestens ein Jahr unverändert gewesen sein (§ 557b Abs. 2 BGB)."
+msgstr "Index-linked rent: the rent must have been unchanged for at least one year (§ 557b (2) BGB)."
+
+msgid "VPI %1$s → %2$s = %+.2f %%. Neue Kaltmiete %3$s (bisher %4$s). Wirksam ab Beginn des übernächsten Monats nach Zugang: %5$s."
+msgstr "CPI %1$s → %2$s = %+.2f %%. New base rent %3$s (previously %4$s). Effective from the start of the second month after receipt: %5$s."
+
+msgid "Neue Kaltmiete angeben."
+msgstr "Enter new base rent."
+
+msgid "Einvernehmliche Änderung (§ 557 Abs. 1 BGB) bzw. vereinbarte Staffel (§ 557a BGB) – bedarf der Zustimmung des Mieters bzw. der Vereinbarung im Vertrag."
+msgstr "Mutual amendment (§ 557 (1) BGB) or agreed stepped rent (§ 557a BGB) – requires the tenant's consent or an agreement in the contract."
+
+msgid "Erhöhung gespeichert und neue Kondition angelegt."
+msgstr "Increase saved and new rent condition created."
+
+msgid "PDF öffnen"
+msgstr "Open PDF"
+
+msgid "Aktuelle Kaltmiete %1$s, Wohnfläche %2$s m², Mietbeginn %3$s%4$s"
+msgstr "Current base rent %1$s, living area %2$s m², start of tenancy %3$s%4$s"
+
+msgid "Ortsübliche Vergleichsmiete (§ 558 BGB)"
+msgstr "Local reference rent (§ 558 BGB)"
+
+msgid "Indexmiete (§ 557b BGB)"
+msgstr "Index-linked rent (§ 557b BGB)"
+
+msgid "Vereinbarung / Staffel"
+msgstr "Agreement / stepped rent"
+
+msgid "Zugang des Schreibens beim Mieter"
+msgstr "Receipt of the letter by the tenant"
+
+msgid "Ortsübliche Vergleichsmiete (€/m²)"
+msgstr "Local reference rent (€/m²)"
+
+msgid "Mietspiegel (Fürth/Nürnberg qualifiziert), drei Vergleichswohnungen oder Gutachten"
+msgstr "Rent index (qualified for Fürth/Nuremberg), three comparable flats or expert opinion"
+
+msgid "Gewünschte neue Kaltmiete (€)"
+msgstr "Desired new base rent (€)"
+
+msgid "leer = zulässiges Maximum"
+msgstr "empty = permitted maximum"
+
+msgid "Begründung"
+msgstr "Justification"
+
+msgid "z. B. „Mietspiegel der Stadt Fürth 2025, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“"
+msgstr "e.g. “Fürth rent index 2025, field C3: €8.90–10.40/m², mean €9.60/m²”"
+
+msgid "VPI bei letzter Mietfestsetzung"
+msgstr "CPI at last rent setting"
+
+msgid "Verbraucherpreisindex Deutschland, Basis 2020 = 100 (destatis)"
+msgstr "Consumer price index Germany, base 2020 = 100 (Destatis)"
+
+msgid "VPI aktuell"
+msgstr "Current CPI"
+
+msgid "Neue Kaltmiete (€)"
+msgstr "New base rent (€)"
+
+msgid "Prüfen"
+msgstr "Check"
+
+msgid "Bisher"
+msgstr "Previously"
+
+msgid "Neu ab %s"
+msgstr "New from %s"
+
+msgid "Erhöhung"
+msgstr "Increase"
+
+msgid "Erhöhung speichern, Kondition anlegen, Schreiben erzeugen"
+msgstr "Save increase, create rent condition, generate letter"
+
+msgid "Bisherige Erhöhungen"
+msgstr "Previous increases"
+
+msgid "Zugang"
+msgstr "Receipt"
+
+msgid "Alt"
+msgstr "Old"
+
+msgid "Neu"
+msgstr "New"
+
+msgid "Wirksam ab"
+msgstr "Effective from"
+
+msgid "Schreiben"
+msgstr "Letter"
+
+msgid "die Nettokaltmiete für die von Ihnen gemietete Wohnung beträgt derzeit"
+msgstr "the net base rent for the flat you rent is currently"
+
+msgid "monatlich. Hiermit verlange ich Ihre Zustimmung zur Erhöhung der Nettokaltmiete auf"
+msgstr "per month. I hereby request your consent to an increase of the net base rent to"
+
+msgid "monatlich mit Wirkung"
+msgstr "per month with effect"
+
+msgid "ab dem %s"
+msgstr "from %s"
+
+msgid "<strong>Begründung:"
+msgstr "<strong>Justification:"
+
+msgid "Die Miete ist seit mindestens 15 Monaten unverändert; die Kappungsgrenze (§ 558 Abs. 3 BGB) ist eingehalten. Die Vorauszahlungen bleiben unverändert, sodass die monatliche Gesamtmiete ab dem %s"
+msgstr "The rent has been unchanged for at least 15 months; the cap (§ 558 (3) BGB) is observed. The advance payments remain unchanged, so the total monthly rent from %s"
+
+msgid "beträgt."
+msgstr "will be."
+
+msgid "Bitte erteilen Sie Ihre Zustimmung bis zum Ablauf des zweiten Kalendermonats nach Zugang dieses Schreibens (§ 558b Abs. 2 BGB), indem Sie die beiliegende Kopie unterschrieben zurücksenden oder den erhöhten Betrag ab dem %s überweisen."
+msgstr "Please give your consent by the end of the second calendar month after receipt of this letter (§ 558b (2) BGB) by returning the enclosed copy signed or by transferring the increased amount from %s."
+
+msgid "<strong>Zustimmungserklärung"
+msgstr "<strong>Declaration of consent"
+
+msgid "gemäß der im Mietvertrag vereinbarten Indexmiete passe ich die Nettokaltmiete entsprechend der Entwicklung des Verbraucherpreisindex für Deutschland an. %s."
+msgstr "in accordance with the index-linked rent agreed in the tenancy agreement, I am adjusting the net base rent in line with the consumer price index for Germany. %s."
+
+msgid "Die Nettokaltmiete erhöht sich von"
+msgstr "The net base rent increases from"
+
+msgid "auf"
+msgstr "to"
+
+msgid "monatlich"
+msgstr "per month"
+
+msgid ". Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %s."
+msgstr ". The total rent including advance payments will then be %s."
+
+msgid "Einer Zustimmung bedarf es nicht; die Anpassung wird mit Beginn des übernächsten Monats nach Zugang dieses Schreibens wirksam (§ 557b Abs. 3 BGB). Bitte passen Sie Ihren Dauerauftrag entsprechend an."
+msgstr "No consent is required; the adjustment takes effect at the start of the second month after receipt of this letter (§ 557b (3) BGB). Please adjust your standing order accordingly."
+
+msgid "wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete"
+msgstr "as discussed or contractually agreed, the net base rent is"
+
+msgid "monatlich (bisher %s). Grund: %s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %s."
+msgstr "per month (previously %s). Reason: %s. The total rent including advance payments will then be %s."
+
+msgid "Bitte passen Sie Ihren Dauerauftrag entsprechend an."
+msgstr "Please adjust your standing order accordingly."
+
+msgid "Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer und Absender für Schreiben eintragen."
+msgstr "Enter landlord details, bank account, creditor ID, tax number and sender for letters."
+
+msgid "Objekt & Einheiten"
+msgstr "Property & units"
+
+msgid "Haus/Eigentumswohnung als Objekt anlegen (Baujahr, Heizungsart), darunter die Einheiten (Wohnung, Garage, Stellplatz) mit Fläche und Personen."
+msgstr "Create the house/condominium as a property (year built, heating type), then the units beneath it (flat, garage, parking space) with area and persons."
+
+msgid "Mieter erfassen – optional mit Ehe-/Lebenspartner als zweite Vertragspartei. Beide erscheinen automatisch in Vertrag, Schreiben und SEPA-Mandat."
+msgstr "Enter tenants – optionally with spouse/partner as second contracting party. Both appear automatically in the agreement, letters and SEPA mandate."
+
+msgid "Mietverhältnis & Konditionen"
+msgstr "Tenancy & rent conditions"
+
+msgid "Mietverhältnis = Mieter + Einheit + Beginn. Garage/Stellplatz als Zusatzeinheit anhängen, dann gibt es eine Gesamtmiete. Konditionen (Kaltmiete, Vorauszahlungen) mit Gültig-ab-Datum anlegen."
+msgstr "Tenancy = tenant + unit + start date. Attach garage/parking as an additional unit to get one total rent. Create rent conditions (base rent, advance payments) with a valid-from date."
+
+msgid "Anlagegut & Darlehen"
+msgstr "Asset & loan"
+
+msgid "Kaufpreis, Nebenkosten (Notar, Grundbuch, Grunderwerbsteuer, Makler) und Grundanteil erfassen – der Kaufvertrag als PDF kann direkt ausgelesen werden. Darlehen mit Zins, Tilgung und Rate anlegen."
+msgstr "Enter purchase price, incidental costs (notary, land registry, transfer tax, agent) and land share – the purchase contract PDF can be parsed directly. Create loans with interest, repayment and instalment."
+
+msgid "Laufender Betrieb"
+msgstr "Day-to-day"
+
+msgid "Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen, Belege fotografieren, Zählerstände erfassen. Am Jahresende: Betriebskostenabrechnung und Anlage V."
+msgstr "Tick rent payments in the overview or import them from the bank, photograph receipts, record meter readings. At year end: service charge statement and Anlage V."
+
+msgid "Zeigt offene Posten, fällige Aufgaben und Kennzahlen. Offene Mieten lassen sich per Häkchen als bezahlt buchen – die Zahlung wird zum 1. des Monats eingetragen."
+msgstr "Shows open items, due tasks and key figures. Open rents can be booked as paid by ticking – the payment is recorded on the 1st of the month."
+
+msgid "Mit „Fokusmodus“ wird das übrige WordPress-Menü ausgeblendet; die Einstellung gilt pro Benutzer."
+msgstr "“Focus mode” hides the rest of the WordPress menu; the setting is per user."
+
+msgid "Jede Zahlung gehört zu einem Mietverhältnis und einem Monat. Quelle: manuell, Bankimport oder abgehakt. Soll/Ist ergibt sich aus den Konditionen."
+msgstr "Each payment belongs to a tenancy and a month. Source: manual, bank import or ticked. Due/paid is derived from the rent conditions."
+
+msgid "Rechnungen mit Kostenart, Steuerjahr und Datei erfassen (am Handy direkt per Kamera). Die Kostenart entscheidet über Umlagefähigkeit (BetrKV) und die Zeile in Anlage V."
+msgstr "Record invoices with cost type, tax year and file (directly via camera on your phone). The cost type determines recoverability (BetrKV) and the line in Anlage V."
+
+msgid "Erhaltungsaufwand kann nach § 82b EStDV auf 2–5 Jahre verteilt werden; Handwerkerlohn (§ 35a) wird gesondert ausgewiesen."
+msgstr "Maintenance expenses can be spread over 2–5 years under § 82b EStDV; tradesmen's labour (§ 35a) is shown separately."
+
+msgid "CSV- oder CAMT.053-Export der Bank einlesen. Regeln ordnen Buchungen anhand von IBAN oder Verwendungszweck automatisch einem Mietverhältnis oder einer Kostenart zu; Duplikate werden erkannt."
+msgstr "Import the bank's CSV or CAMT.053 export. Rules automatically assign transactions to a tenancy or cost type by IBAN or reference; duplicates are detected."
+
+msgid "Schadens- und Mängelmeldungen der Mieter aus dem Mieterportal mit Status und Verlauf."
+msgstr "Damage and defect reports from tenants via the tenant portal, with status and history."
+
+msgid "Ablage für Verträge, Protokolle, Schreiben und Abrechnungen. Mit „für Mieter sichtbar“ erscheint das Dokument im Mieterportal."
+msgstr "Storage for agreements, protocols, letters and statements. With “visible to tenant” the document appears in the tenant portal."
+
+msgid "Ein Objekt ist ein Haus oder eine Eigentumswohnung. Baujahr bestimmt den gesetzlichen AfA-Satz; Heizungsart und Verbrauchsanteil steuern die Heizkostenverteilung (HeizkostenV 50–70 %)."
+msgstr "A property is a house or a condominium. Year built determines the statutory depreciation rate; heating type and consumption share control heating cost allocation (HeizkostenV 50–70 %)."
+
+msgid "Wohnung, Garage oder Stellplatz innerhalb eines Objekts. Fläche und Personen werden für Umlageschlüssel verwendet."
+msgstr "Flat, garage or parking space within a property. Area and persons are used for allocation keys."
+
+msgid "Stammdaten des Mieters. Ehe-/Lebenspartner optional als Mitmieter – dann haften beide gesamtschuldnerisch und werden überall automatisch genannt. Ein verknüpfter WordPress-Benutzer erhält Zugang zum Mieterportal."
+msgstr "Tenant master data. Spouse/partner optionally as co-tenant – both are then jointly and severally liable and named automatically everywhere. A linked WordPress user gets access to the tenant portal."
+
+msgid "Verbindet Mieter und Einheit mit Beginn, Ende und Kaution. Zusatzeinheiten (Garage, Stellplatz) mit eigenem Mietanteil ergeben eine Gesamtmiete und eine Buchung."
+msgstr "Links tenant and unit with start, end and deposit. Additional units (garage, parking) with their own rent share result in one total rent and one booking."
+
+msgid "Kaltmiete und Vorauszahlungen (Betriebs-/Heizkosten) mit Gültig-ab-Datum. Bei Änderung neue Kondition anlegen, nicht die alte überschreiben – so bleibt die Historie erhalten."
+msgstr "Base rent and advance payments (service/heating) with a valid-from date. For changes create a new condition rather than overwriting the old one – this preserves the history."
+
+msgid "Erzeugt einen vollständigen Wohnraummietvertrag (20 §§) aus den Stammdaten, dazu Hausordnung, Merkblatt, Datenschutzinformation, SEPA-Mandat und Übergabeprotokoll – als PDF oder Druckansicht, auf Wunsch direkt in den Dokumenten abgelegt."
+msgstr "Generates a complete residential tenancy agreement (20 sections) from the master data, plus house rules, information sheet, privacy notice, SEPA mandate and handover protocol – as PDF or print view, optionally filed directly under Documents."
+
+msgid "Die Optionen (Befristung, Staffel/Index, Kleinreparaturen, Tiere, Schönheitsreparaturen …) werden je Mietverhältnis gespeichert."
+msgstr "The options (fixed term, stepped/index rent, minor repairs, pets, decorative repairs …) are saved per tenancy."
+
+msgid "Kautionskonto nach § 551 BGB: Einzahlungen (bis 3 Raten), taggenaue Verzinsung, Abrechnung bei Auszug."
+msgstr "Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out."
+
+msgid "Erhöhung nach § 558 BGB (Vergleichsmiete, Kappungsgrenze 15/20 %, Sperrfrist) oder § 557b (Index). Erzeugt das Schreiben und legt nach Zustimmung die neue Kondition an."
+msgstr "Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent."
+
+msgid "Drei Mahnstufen mit Fristen und Texten. Schreiben als PDF, optional per E-Mail an Mieter und Mitmieter."
+msgstr "Three dunning levels with deadlines and texts. Letters as PDF, optionally by email to tenant and co-tenant."
+
+msgid "Strom-, Gas-, Wasser- und Wärmezähler je Einheit oder Objekt (Allgemeinstrom)."
+msgstr "Electricity, gas, water and heat meters per unit or property (communal electricity)."
+
+msgid "Ablesungen mit Datum. Mieter können Stände selbst im Portal melden (Quelle „Mieter“)."
+msgstr "Readings with date. Tenants can submit readings themselves in the portal (source “Tenant”)."
+
+msgid "Jahresabrechnung nach BetrKV: Belege des Jahres werden nach Schlüssel (Fläche, Personen, Einheiten, Verbrauch) verteilt, zeitanteilig bei Mieterwechsel; Leerstand trägt der Vermieter. Vorauszahlungen werden gegengerechnet, § 35a-Anteile ausgewiesen."
+msgstr "Annual statement under BetrKV: the year's receipts are allocated by key (area, persons, units, consumption), pro rata on tenant change; vacancy is borne by the landlord. Advance payments are offset, § 35a shares are shown."
+
+msgid "Fertige Abrechnung als Schreiben (PDF) erzeugen, in Dokumenten ablegen und im Portal freigeben. Vorauszahlung kann direkt angepasst werden."
+msgstr "Generate the finished statement as a letter (PDF), file it under Documents and release it in the portal. The advance payment can be adjusted directly."
+
+msgid "Katalog nach BetrKV § 2 (vorbelegt) plus eigene Arten. Je Kostenart: umlagefähig ja/nein, Umlageschlüssel, Zeile in Anlage V."
+msgstr "Catalogue per BetrKV § 2 (pre-filled) plus your own types. Per cost type: recoverable yes/no, allocation key, line in Anlage V."
+
+msgid "Anlagegüter (AfA)"
+msgstr "Assets (depreciation)"
+
+msgid "Gebäude mit Anschaffungskosten, einzelnen Nebenkosten (Grunderwerbsteuer, Notar, Grundbuch, Makler, Sonstiges) und Grundanteil. AfA linear nach § 7 Abs. 4 EStG (2 %, 2,5 % vor 1925, 3 % ab 2023) oder degressiv, zeitanteilig im ersten Jahr."
+msgstr "Building with acquisition costs, itemised incidental costs (transfer tax, notary, land registry, agent, other) and land share. Depreciation straight-line under § 7 (4) EStG (2 %, 2.5 % before 1925, 3 % from 2023) or declining balance, pro rata in the first year."
+
+msgid "Der Kaufvertrag kann als PDF hochgeladen werden; Kaufpreis, Datum und Nebenkosten werden daraus vorgeschlagen. Der 15-%-Wächter warnt vor anschaffungsnahem Herstellungsaufwand (§ 6 Abs. 1 Nr. 1a EStG)."
+msgstr "The purchase contract can be uploaded as PDF; purchase price, date and incidental costs are suggested from it. The 15 % guard warns of acquisition-related construction costs (§ 6 (1) no. 1a EStG)."
+
+msgid "Finanzierungsdarlehen mit Zinssatz, Tilgung, Rate und Zinsbindung. Daraus entsteht der Tilgungsplan."
+msgstr "Financing loans with interest rate, repayment, instalment and fixed-rate period. The repayment schedule is derived from these."
+
+msgid "Tilgungsplan mit Raten zum Abhaken, Sondertilgungen und Restschuld. Abgehakte Raten liefern die Jahreszinsen für Anlage V, sofern keine Zinsbescheinigung eingetragen ist."
+msgstr "Repayment schedule with instalments to tick off, extra repayments and outstanding balance. Ticked instalments provide the annual interest for Anlage V unless an interest certificate is entered."
+
+msgid "Jahreswerte laut Bankbescheinigung (Zinsen, Tilgung, Restschuld). Haben Vorrang vor den berechneten Werten."
+msgstr "Annual figures per bank certificate (interest, repayment, balance). Take precedence over calculated values."
+
+msgid "Jahresauswertung je Objekt: Einnahmen, Werbungskosten nach Zeilen der Anlage V, AfA, Schuldzinsen, Vorjahresvergleich. Export als CSV; Zeilenzuordnung anpassbar."
+msgstr "Annual report per property: income, expenses by Anlage V line, depreciation, loan interest, prior-year comparison. CSV export; line mapping adjustable."
+
+msgid "Zuordnungsregeln für den Bankimport: Suchbegriff oder IBAN → Mietverhältnis oder Kostenart."
+msgstr "Matching rules for the bank import: search term or IBAN → tenancy or cost type."
+
+msgid "Beendete Mietverhältnisse nach Ablauf der Aufbewahrungsfristen anonymisieren, Auskunft nach Art. 15 DSGVO exportieren. Löschkonzept und Fristen im Überblick."
+msgstr "Anonymise ended tenancies after the retention periods expire, export access reports under Art. 15 GDPR. Overview of deletion concept and deadlines."
+
+msgid "Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer, Mahn- und Portaloptionen. Backup aller Plugin-Tabellen als JSON, Wiederherstellung, Option „Daten bei Deinstallation löschen“."
+msgstr "Landlord details, bank account, creditor ID, tax number, dunning and portal options. Backup of all plugin tables as JSON, restore, option “delete data on uninstall”."
+
+msgid "Mieterportal"
+msgstr "Tenant portal"
+
+msgid "Shortcode [mietverwaltung_portal] auf einer Seite einfügen. Angemeldete Mieter (verknüpfter WordPress-Benutzer) sehen Abrechnungen und freigegebene Dokumente, melden Schäden und Zählerstände."
+msgstr "Insert the shortcode [mietverwaltung_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
+
+msgid "Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag und Mieterportal in einem Plugin. Auf jeder Seite finden Sie oben rechts unter „Hilfe“ eine Kurzbeschreibung."
+msgstr "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
+
+msgid "Schnellstart"
+msgstr "Quick start"
+
+msgid "Module"
+msgstr "Modules"
+
+msgid "Rechtliche Hinweise"
+msgstr "Legal notes"
+
+msgid "Das Plugin ersetzt keine Rechts- oder Steuerberatung. Vertragsmuster, Berechnungen und Fristen beruhen auf der Rechtslage in Deutschland (BGB, BetrKV, HeizkostenV, EStG) und sind vor Verwendung zu prüfen. Alle Daten bleiben in Ihrer WordPress-Datenbank; es werden keine Daten an Dritte übertragen."
+msgstr "The plugin does not replace legal or tax advice. Contract templates, calculations and deadlines are based on German law (BGB, BetrKV, HeizkostenV, EStG) and must be checked before use. All data stays in your WordPress database; no data is transmitted to third parties."
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Alle Hilfethemen"
+msgstr "All help topics"
+
+msgid "Keine Konditionen für "
+msgstr "No rent conditions for "
+
+msgid "Miete %1$s fehlt oder unvollständig: %2$s (Soll %3$s, Ist %4$s)"
+msgstr "Rent %1$s missing or incomplete: %2$s (due %3$s, paid %4$s)"
+
+msgid "Rückstand %1$s bei %2$s"
+msgstr "Arrears %1$s for %2$s"
+
+msgid "Betriebskostenabrechnung %1$d für %2$s noch nicht fertiggestellt – Frist 31.12.%3$d (§ 556 Abs. 3 BGB), noch %4$d Tage"
+msgstr "Service charge statement %1$d for %2$s not yet finalised – deadline 31 Dec %3$d (§ 556 (3) BGB), %4$d days left"
+
+msgid "Zinsbindung %1$s endet am %2$s (%3$d Tage) – Anschlussfinanzierung prüfen"
+msgstr "Fixed-rate period %1$s ends on %2$s (%3$d days) – check follow-up financing"
+
+msgid "Zinsbescheinigung %1$d für Darlehen %2$s noch nicht erfasst"
+msgstr "Interest certificate %1$d for loan %2$s not yet entered"
+
+msgid "Anschaffungsnahe Herstellungskosten überschritten bei %1$s (%2$s netto > %3$s)"
+msgstr "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
+
+msgid "15-%%-Grenze bei %1$s zu %2$s %% ausgeschöpft (Frist bis %3$s)"
+msgstr "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
+
+msgid "Aufbewahrungsfrist abgelaufen: Mieterdaten „"
+msgstr "Retention period expired: tenant data “"
+
+msgid "Mietverhältnis %1$s endet am %2$s – Übergabe, Kaution, Zählerstände vorbereiten"
+msgstr "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
+
+msgid ": Saldo"
+msgstr ": balance"
+
+msgid "✅ Keine offenen Hinweise."
+msgstr "✅ No open notices."
+
+msgid "Zur Mietverwaltung"
+msgstr "Go to Rental Management"
+
+msgid "Einzahlung Mieter"
+msgstr "Payment by tenant"
+
+msgid "Zinsgutschrift"
+msgstr "Interest credit"
+
+msgid "Verrechnung mit Forderung"
+msgstr "Offset against claim"
+
+msgid "Auszahlung an Mieter"
+msgstr "Payout to tenant"
+
+msgid "Kautionskonto"
+msgstr "Deposit account"
+
+msgid "Die Kaution ist getrennt vom Vermögen des Vermieters zum üblichen Zinssatz für Spareinlagen mit dreimonatiger Kündigungsfrist anzulegen; die Zinsen stehen dem Mieter zu (§ 551 Abs. 3 BGB). Rückzahlung nach Mietende und angemessener Prüffrist (i. d. R. 3–6 Monate), abzüglich berechtigter Forderungen."
+msgstr "The deposit must be invested separately from the landlord's assets at the usual rate for savings deposits with three months' notice; the interest belongs to the tenant (§ 551 (3) BGB). Repayment after the end of the tenancy and a reasonable review period (usually 3–6 months), less justified claims."
+
+msgid "Vereinbart (§ 551)"
+msgstr "Agreed (§ 551)"
+
+msgid "Eingezahlt"
+msgstr "Paid in"
+
+msgid "Zinsen gutgeschrieben"
+msgstr "Interest credited"
+
+msgid "Kontostand"
+msgstr "Balance"
+
+msgid "Mietkonto-Saldo"
+msgstr "Rent account balance"
+
+msgid "Noch keine Buchung."
+msgstr "No entries yet."
+
+msgid "Buchung erfassen"
+msgstr "Record entry"
+
+msgid "Zinsen gutschreiben"
+msgstr "Credit interest"
+
+msgid "Zinssatz"
+msgstr "Interest rate"
+
+msgid "%% p. a. bis Stichtag"
+msgstr "%% p.a. up to reference date"
+
+msgid "Taggenau berechnen und buchen"
+msgstr "Calculate daily and book"
+
+msgid "Zinssatz laut Kautionskonto/Sparbuch der Bank. Berechnung seit der letzten Zinsgutschrift auf den jeweiligen Kontostand (act/365)."
+msgstr "Interest rate per the bank's deposit account/savings book. Calculated since the last interest credit on the respective balance (act/365)."
+
+msgid "Rückzahlungsabrechnung"
+msgstr "Repayment settlement"
+
+msgid "Kontostand %s − offener Mietrückstand %s ="
+msgstr "Balance %s − open rent arrears %s ="
+
+msgid "%s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %s) als „Verrechnung“ buchen, dann Abrechnung erzeugen."
+msgstr "%s. Book further deductions (damage, decorative repairs not carried out, amount due from the last service charge statement – released so far %s) as “Offset”, then generate the settlement."
+
+msgid " (Restforderung gegen den Mieter)"
+msgstr " (remaining claim against the tenant)"
+
+msgid " Auszahlungsbetrag"
+msgstr " Payout amount"
+
+msgid "Kautionsabrechnung (PDF)"
+msgstr "Deposit settlement (PDF)"
+
+msgid "… ablegen"
+msgstr "… file"
+
+msgid "Mietverhältnis läuft noch – Abrechnung erst nach Rückgabe."
+msgstr "Tenancy still running – settlement only after return of the flat."
+
+msgid "das Mietverhältnis über die Wohnung %1$s / %2$s %3$s. Hiermit rechne ich die von Ihnen geleistete Mietsicherheit ab:"
+msgstr "the tenancy of the flat %1$s / %2$s %3$s. I hereby settle the deposit you provided:"
+
+msgid "Buchung"
+msgstr "Entry"
+
+msgid "Kontostand einschließlich Zinsen"
+msgstr "Balance including interest"
+
+msgid "abzüglich offener Mietforderungen laut Mietkonto"
+msgstr "less open rent claims per rent account"
+
+msgid "Auszahlungsbetrag"
+msgstr "Payout amount"
+
+msgid "Verbleibende Forderung gegen Sie"
+msgstr "Remaining claim against you"
+
+msgid "Der Betrag wird innerhalb von 14 Tagen auf das mir mitgeteilte Konto überwiesen. Sollte mir noch keine Bankverbindung vorliegen, bitte ich um Mitteilung."
+msgstr "The amount will be transferred within 14 days to the account you have given me. If I do not yet have your bank details, please let me know."
+
+msgid "Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen."
+msgstr "Please transfer the remaining amount of %s within 14 days."
+
+msgid "Mit dieser Abrechnung sind alle Ansprüche aus der Mietsicherheit abgegolten. Eine ausstehende Betriebskostenabrechnung für das letzte Nutzungsjahr bleibt vorbehalten, soweit nicht bereits berücksichtigt."
+msgstr "This settlement discharges all claims arising from the deposit. An outstanding service charge statement for the last year of use remains reserved unless already taken into account."
+
+msgid "Zahlungserinnerung"
+msgstr "Payment reminder"
+
+msgid "1. Mahnung"
+msgstr "1st dunning letter"
+
+msgid "Letzte Mahnung"
+msgstr "Final dunning letter"
+
+msgid "Verzug tritt ohne Mahnung ein, wenn die Miete zum vereinbarten Zahltag nicht eingeht (§ 286 Abs. 2 Nr. 1 BGB). Eine Zahlungserinnerung ist dennoch üblich. Fristlose Kündigung ist bei Rückstand von zwei Monatsmieten möglich (§ 543 Abs. 2 Nr. 3 BGB) – vorher anwaltlich prüfen lassen."
+msgstr "Default occurs without a reminder if the rent is not received by the agreed payment day (§ 286 (2) no. 1 BGB). A payment reminder is nevertheless customary. Termination without notice is possible with arrears of two months' rent (§ 543 (2) no. 3 BGB) – have this checked by a lawyer first."
+
+msgid "Saldo"
+msgstr "Balance"
+
+msgid "Monatsmiete"
+msgstr "Monthly rent"
+
+msgid "Rückstand in Monaten"
+msgstr "Arrears in months"
+
+msgid "⚠ ≥ 2 Monatsmieten"
+msgstr "⚠ ≥ 2 months' rent"
+
+msgid "Keine Rückstände – alle Mietkonten ausgeglichen."
+msgstr "No arrears – all rent accounts balanced."
+
+msgid "Verlauf"
+msgstr "History"
+
+msgid "Stufe"
+msgstr "Level"
+
+msgid "Frist"
+msgstr "Deadline"
+
+msgid "Mietverhältnis nicht gefunden."
+msgstr "Tenancy not found."
+
+msgid "Gezahlt"
+msgstr "Paid"
+
+msgid "Gesamtrückstand"
+msgstr "Total arrears"
+
+msgid "Sicher handelt es sich um ein Versehen. Bitte überweisen Sie den offenen Betrag von"
+msgstr "This is surely an oversight. Please transfer the outstanding amount of"
+
+msgid ". Sollte die Zahlung bereits erfolgt sein, betrachten Sie dieses Schreiben als gegenstandslos."
+msgstr ". If payment has already been made, please disregard this letter."
+
+msgid "Ich fordere Sie auf, den Betrag von"
+msgstr "I request that you transfer the amount of"
+
+msgid "bis spätestens"
+msgstr "by no later than"
+
+msgid "zu überweisen. Sie befinden sich mit den Zahlungen in Verzug (§ 286 Abs. 2 Nr. 1 BGB); ab Fälligkeit sind Verzugszinsen geschuldet (§ 288 BGB)."
+msgstr ". You are in default with your payments (§ 286 (2) no. 1 BGB); default interest is owed from the due date (§ 288 BGB)."
+
+msgid "Der Rückstand beträgt inzwischen mehr als zwei Monatsmieten. Ich weise Sie darauf hin, dass ich in diesem Fall berechtigt bin, das Mietverhältnis fristlos zu kündigen (§ 543 Abs. 2 Satz 1 Nr. 3 BGB)."
+msgstr "The arrears now exceed two months' rent. I would point out that in this case I am entitled to terminate the tenancy without notice (§ 543 (2) sentence 1 no. 3 BGB)."
+
+msgid "Nach fruchtlosem Ablauf der Frist werde ich den Rückstand gerichtlich geltend machen (Mahnbescheid). Die dadurch entstehenden Kosten gehen zu Ihren Lasten."
+msgstr "If the deadline passes without payment, I will pursue the arrears through the courts (order for payment). The resulting costs will be charged to you."
+
+msgid "Ich setze Ihnen eine"
+msgstr "I am setting you a"
+
+msgid "letzte Frist bis zum %s"
+msgstr "final deadline of %s"
+
+msgid ", den Betrag von"
+msgstr " to pay the amount of"
+
+msgid "vollständig zu zahlen."
+msgstr "in full."
+
+msgid "SEPA-Basislastschriftmandat"
+msgstr "SEPA core direct debit mandate"
+
+msgid "<strong>Zahlungsempfänger (Gläubiger):"
+msgstr "<strong>Payee (creditor):"
+
+msgid "<strong>Gläubiger-Identifikationsnummer:"
+msgstr "<strong>Creditor identifier:"
+
+msgid "<strong>Mandatsreferenz:"
+msgstr "<strong>Mandate reference:"
+
+msgid "<strong>Art der Zahlung:"
+msgstr "<strong>Type of payment:"
+
+msgid "wiederkehrende Zahlung"
+msgstr "recurring payment"
+
+msgid "Ich ermächtige %1$s, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von %2$s auf mein Konto gezogenen Lastschriften einzulösen."
+msgstr "I authorise %1$s to collect payments from my account by direct debit. At the same time I instruct my bank to honour the direct debits drawn on my account by %2$s."
+
+msgid "Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen."
+msgstr "Note: I may request a refund of the debited amount within eight weeks from the debit date. The terms agreed with my bank apply."
+
+msgid "<strong>Verwendungszweck:"
+msgstr "<strong>Purpose:"
+
+msgid "Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt."
+msgstr "Monthly rent including advance payments for the flat %1$s, %2$s, %3$s %4$s – currently %5$s, due on the %6$d. working day of the month. Changes to the amount (rent adjustment, new advance payments) will be notified at least 14 days before collection."
+
+msgid "Kontoinhaber"
+msgstr "Account holder"
+
+msgid "Straße, Hausnummer"
+msgstr "Street, house number"
+
+msgid "PLZ, Ort"
+msgstr "Postcode, town"
+
+msgid "Kreditinstitut"
+msgstr "Bank"
+
+msgid "IBAN"
+msgstr "IBAN"
+
+msgid "BIC"
+msgstr "BIC"
+
+msgid "Kellerabteil"
+msgstr "Cellar compartment"
+
+msgid "2 Haustürschlüssel, 2 Wohnungsschlüssel, 1 Briefkastenschlüssel"
+msgstr "2 front door keys, 2 flat keys, 1 letterbox key"
+
+msgid "Vertragsoptionen gespeichert."
+msgstr "Contract options saved."
+
+msgid "<strong>Hinweis:"
+msgstr "<strong>Note:"
+
+msgid "Der Vertrag wird aus den Daten des Mietverhältnisses (Parteien, Wohnung, Miete, Kaution, Beginn, Ende) und den Optionen unten erzeugt. Die Klauseln folgen dem BGB und der BGH-Rechtsprechung (Stand 2026). Vor Verwendung bei besonderen Konstellationen (Gewerbe, WG, möbliert, Mietpreisbremse) rechtlich prüfen lassen."
+msgstr "The agreement is generated from the tenancy data (parties, flat, rent, deposit, start, end) and the options below. The clauses follow the BGB and Federal Court of Justice case law (as of 2026). Have it checked legally before use in special situations (commercial, shared flat, furnished, rent cap)."
+
+msgid "Mietvertrag (PDF)"
+msgstr "Tenancy agreement (PDF)"
+
+msgid "Übergabeprotokoll Einzug"
+msgstr "Handover protocol move-in"
+
+msgid "Übergabeprotokoll Auszug"
+msgstr "Handover protocol move-out"
+
+msgid "Datenschutzinformation"
+msgstr "Privacy notice"
+
+msgid "SEPA-Lastschriftmandat"
+msgstr "SEPA direct debit mandate"
+
+msgid "HTML-Ansicht"
+msgstr "HTML view"
+
+msgid "Vertragsoptionen"
+msgstr "Contract options"
+
+msgid "Weitere Mieter (Name, Geburtsdatum)"
+msgstr "Additional tenants (name, date of birth)"
+
+msgid "Nur für dritte Personen – der beim Mieter hinterlegte Ehe-/Lebenspartner wird automatisch aufgenommen. Alle Mieter haften gesamtschuldnerisch."
+msgstr "For third parties only – the spouse/partner stored with the tenant is included automatically. All tenants are jointly and severally liable."
+
+msgid "Räume"
+msgstr "Rooms"
+
+msgid "z. B. 3 Zimmer, Küche, Bad mit WC, Flur, Balkon"
+msgstr "e.g. 3 rooms, kitchen, bathroom with WC, hallway, balcony"
+
+msgid "Nebenräume / Stellplatz"
+msgstr "Ancillary rooms / parking"
+
+msgid "Mitvermietete Ausstattung"
+msgstr "Fixtures included"
+
+msgid "z. B. Einbauküche (Hersteller, Baujahr), Waschmaschinenanschluss"
+msgstr "e.g. fitted kitchen (manufacturer, year), washing machine connection"
+
+msgid "Übergebene Schlüssel"
+msgstr "Keys handed over"
+
+msgid "Befristungsgrund (nur bei Mietende)"
+msgstr "Reason for fixed term (only with end date)"
+
+msgid "Zeitmietvertrag nur mit Grund nach § 575 BGB: Eigenbedarf, Abriss/Umbau, Werkswohnung. Ohne Grund gilt der Vertrag als unbefristet."
+msgstr "Fixed-term agreement only with a reason under § 575 BGB: own use, demolition/conversion, company flat. Without a reason the agreement is deemed open-ended."
+
+msgid "Mietart"
+msgstr "Rent type"
+
+msgid "Vergleichsmiete (Erhöhung nach § 558)"
+msgstr "Reference rent (increase under § 558)"
+
+msgid "Staffelmiete (§ 557a)"
+msgstr "Stepped rent (§ 557a)"
+
+msgid "Indexmiete (§ 557b)"
+msgstr "Index-linked rent (§ 557b)"
+
+msgid "Staffeln (bei Staffelmiete)"
+msgstr "Steps (for stepped rent)"
+
+msgid "Je Zeile: Datum;Kaltmiete – z. B. 2027-01-01;650,00. Zwischen den Staffeln mindestens ein Jahr."
+msgstr "One per line: date;base rent – e.g. 2027-01-01;650.00. At least one year between steps."
+
+msgid "Kaution zahlbar in"
+msgstr "Deposit payable in"
+
+msgid "einer Summe"
+msgstr "one sum"
+
+msgid "drei Monatsraten (§ 551 Abs. 2)"
+msgstr "three monthly instalments (§ 551 (2))"
+
+msgid "Höchstens drei Nettokaltmieten; Betrag aus dem Mietverhältnis."
+msgstr "Maximum three months' net base rent; amount from the tenancy."
+
+msgid "Kleinreparaturen: Höchstbetrag je Fall (€)"
+msgstr "Minor repairs: maximum per case (€)"
+
+msgid "Rechtsprechung: ca. 100–150 €. Nur Teile mit häufigem direktem Zugriff des Mieters."
+msgstr "Case law: approx. €100–150. Only parts frequently accessed directly by the tenant."
+
+msgid "Kleinreparaturen: Höchstbetrag je Jahr (% der Jahreskaltmiete)"
+msgstr "Minor repairs: maximum per year (% of annual base rent)"
+
+msgid "Üblich 6–8 %, oft zusätzlich gedeckelt (hier: und maximal 8 Fälle × Einzelbetrag)."
+msgstr "Usually 6–8 %, often additionally capped (here: and at most 8 cases × single amount)."
+
+msgid "Zustand bei Übergabe"
+msgstr "Condition at handover"
+
+msgid "renoviert – Schönheitsreparaturen trägt der Mieter nach Bedarf"
+msgstr "renovated – tenant bears decorative repairs as needed"
+
+msgid "unrenoviert"
+msgstr "unrenovated"
+
+msgid "unrenoviert – keine Schönheitsreparaturklausel (BGH VIII ZR 185/14)"
+msgstr "unrenovated – no decorative repairs clause (BGH VIII ZR 185/14)"
+
+msgid "Tierhaltung"
+msgstr "Pets"
+
+msgid "Kleintiere frei, sonst Zustimmung (Standard)"
+msgstr "Small animals allowed, otherwise consent (default)"
+
+msgid "Haustiere gestattet"
+msgstr "Pets permitted"
+
+msgid "Ein generelles Verbot ist unwirksam (BGH VIII ZR 168/12)."
+msgstr "A blanket ban is invalid (BGH VIII ZR 168/12)."
+
+msgid "Untervermietung"
+msgstr "Subletting"
+
+msgid "nur mit Zustimmung (§ 540), berechtigtes Interesse § 553 bleibt"
+msgstr "only with consent (§ 540), legitimate interest under § 553 remains"
+
+msgid "Beiderseitiger Kündigungsverzicht"
+msgstr "Mutual waiver of termination"
+
+msgid "keiner"
+msgstr "none"
+
+msgid "1 Jahr"
+msgstr "1 year"
+
+msgid "2 Jahre"
+msgstr "2 years"
+
+msgid "3 Jahre"
+msgstr "3 years"
+
+msgid "4 Jahre (Maximum)"
+msgstr "4 years (maximum)"
+
+msgid "Formularvertraglich höchstens 4 Jahre ab Vertragsschluss (BGH VIII ZR 86/10)."
+msgstr "In standard-form contracts at most 4 years from signing (BGH VIII ZR 86/10)."
+
+msgid "Rauchen in der Wohnung"
+msgstr "Smoking in the flat"
+
+msgid "Bitte unterlassen (nicht verbindlich untersagbar)"
+msgstr "Please refrain (cannot be bindingly prohibited)"
+
+msgid "keine Regelung"
+msgstr "no provision"
+
+msgid "Hausordnung als Anlage"
+msgstr "House rules as annex"
+
+msgid "ja"
+msgstr "yes"
+
+msgid "nein"
+msgstr "no"
+
+msgid "Art (Bedarf/Verbrauch), Kennwert kWh/(m²·a), Effizienzklasse, Ausstellungsdatum – Vorlagepflicht § 80 GEG."
+msgstr "Type (demand/consumption), value kWh/(m²·a), efficiency class, issue date – must be presented under § 80 GEG."
+
+msgid "Vormiete (nur bei Mietpreisbremse, § 556g Abs. 1a)"
+msgstr "Previous rent (rent cap areas only, § 556g (1a))"
+
+msgid "Nur in Gebieten der bayerischen Mieterschutzverordnung: Auskunft über die Vormiete, wenn die Miete über Vergleichsmiete + 10 % liegt."
+msgstr "Only in areas covered by the Bavarian Tenant Protection Ordinance: disclosure of the previous rent if the rent exceeds the reference rent + 10 %."
+
+msgid "Mitbenutzungsrechte (Gemeinschaftsräume)"
+msgstr "Shared use rights (communal rooms)"
+
+msgid "Waschküche, Trockenraum, Fahrradkeller, Garten – nach Hausordnung."
+msgstr "Laundry room, drying room, bicycle cellar, garden – per house rules."
+
+msgid "Mietereigentum / nicht mitvermietet"
+msgstr "Tenant's property / not included"
+
+msgid "Gegenstände, die der Mieter vom Vormieter übernommen hat oder die ihm gehören."
+msgstr "Items the tenant took over from the previous tenant or that belong to them."
+
+msgid "Möblierungszuschlag"
+msgstr "Furnishing surcharge"
+
+msgid "ja – in der Kaltmiete enthalten, Betrag in „Sonstige Vereinbarungen“ nennen"
+msgstr "yes – included in base rent, state amount under “Other agreements”"
+
+msgid "Vorauszahlung mit jährlicher Abrechnung (Standard)"
+msgstr "Advance payment with annual statement (default)"
+
+msgid "Pauschale ohne Abrechnung (§ 556 Abs. 2 BGB)"
+msgstr "Flat rate without statement (§ 556 (2) BGB)"
+
+msgid "Bei Pauschale keine Abrechnung und keine Nachforderung; Erhöhung nur bei gestiegenen Kosten durch Erklärung in Textform (§ 560 Abs. 1)."
+msgstr "With a flat rate there is no statement and no additional claim; increase only for increased costs by declaration in text form (§ 560 (1))."
+
+msgid "Mietpreisbremse – Ausnahme (nur angespannter Markt)"
+msgstr "Rent cap – exception (tight market only)"
+
+msgid "keine / nicht betroffen"
+msgstr "none / not affected"
+
+msgid "Vormiete war bereits höher (§ 556e Abs. 1)"
+msgstr "Previous rent was already higher (§ 556e (1))"
+
+msgid "Modernisierung in den letzten 3 Jahren (§ 556e Abs. 2)"
+msgstr "Modernisation within the last 3 years (§ 556e (2))"
+
+msgid "Erste Vermietung nach umfassender Modernisierung (§ 556f S. 2)"
+msgstr "First letting after comprehensive modernisation (§ 556f sentence 2)"
+
+msgid "Neubau, erstmals nach 1.10.2014 vermietet (§ 556f S. 1)"
+msgstr "New build, first let after 1 Oct 2014 (§ 556f sentence 1)"
+
+msgid "Die Auskunft muss vor Vertragsschluss unaufgefordert in Textform erfolgen (§ 556g Abs. 1a BGB), sonst kann sich der Vermieter nicht auf die Ausnahme berufen."
+msgstr "The disclosure must be made unprompted in text form before signing (§ 556g (1a) BGB); otherwise the landlord cannot rely on the exception."
+
+msgid "Zahlungsweise"
+msgstr "Payment method"
+
+msgid "Dauerauftrag"
+msgstr "Standing order"
+
+msgid "SEPA-Lastschriftmandat (Anlage)"
+msgstr "SEPA direct debit mandate (annex)"
+
+msgid "Zustand bei Übergabe / bekannte Mängel"
+msgstr "Condition at handover / known defects"
+
+msgid "Kurz; Details ins Übergabeprotokoll."
+msgstr "Brief; details in the handover protocol."
+
+msgid "Vom Vermieter noch auszuführende Arbeiten"
+msgstr "Work still to be carried out by the landlord"
+
+msgid "… bis spätestens (Datum)"
+msgstr "… by no later than (date)"
+
+msgid "Vom Mieter auf eigene Kosten auszuführende Arbeiten"
+msgstr "Work to be carried out by the tenant at own expense"
+
+msgid "Gegenleistung ggf. in „Sonstige Vereinbarungen“ (z. B. Mietfreiheit)."
+msgstr "Consideration, if any, under “Other agreements” (e.g. rent-free period)."
+
+msgid "Gartenpflege durch den Mieter"
+msgstr "Garden maintenance by the tenant"
+
+msgid "nein / durch Vermieter bzw. Dienstleister (Betriebskosten)"
+msgstr "no / by landlord or contractor (service charges)"
+
+msgid "ja – Mieter pflegt den ihm zugewiesenen Gartenteil"
+msgstr "yes – tenant maintains the garden area assigned to them"
+
+msgid "Merkblatt Heizen und Lüften als Anlage"
+msgstr "Heating and ventilation leaflet as annex"
+
+msgid "Sonstige Vereinbarungen"
+msgstr "Other agreements"
+
+msgid "Mieter/in"
+msgstr "Tenant"
+
+msgid "Mieter (alle)"
+msgstr "Tenant(s)"
+
+msgid "Keller/Lager"
+msgstr "Cellar/storage"
+
+msgid "Gewerbefläche"
+msgstr "Commercial space"
+
+msgid "Mietvertrag über Wohnraum"
+msgstr "Residential tenancy agreement"
+
+msgid "Grundmiete"
+msgstr "Base rent"
+
+msgid "Betriebskostenpauschale (ohne Heizung/Warmwasser)"
+msgstr "Service charge flat rate (excl. heating/hot water)"
+
+msgid "Vorauszahlung Betriebskosten (ohne Heizung/Warmwasser)"
+msgstr "Advance payment service charges (excl. heating/hot water)"
+
+msgid "Vorauszahlung Heizung und Warmwasser"
+msgstr "Advance payment heating and hot water"
+
+msgid "Gesamtmiete monatlich"
+msgstr "Total monthly rent"
+
+msgid "Datenschutzinformation nach Art. 13 DSGVO"
+msgstr "Privacy notice under Art. 13 GDPR"
+
+msgid "<strong>Verantwortlicher:"
+msgstr "<strong>Controller:"
+
+msgid "Auszug"
+msgstr "Move-out"
+
+msgid "Einzug"
+msgstr "Move-in"
+
+msgid "Übergabeprotokoll – %s"
+msgstr "Handover protocol – %s"
+
+msgid "Vermieter: %s"
+msgstr "Landlord: %s"
+
+msgid "Mieter: %s"
+msgstr "Tenant: %s"
+
+msgid "Datum der Übergabe:"
+msgstr "Date of handover:"
+
+msgid "</span> &nbsp; Uhrzeit:"
+msgstr "</span> &nbsp; Time:"
+
+msgid "1. Zählerstände"
+msgstr "1. Meter readings"
+
+msgid "Nummer"
+msgstr "Number"
+
+msgid "Stand"
+msgstr "Reading"
+
+msgid "Stand laut System"
+msgstr "Reading per system"
+
+msgid "Heizung (kWh/Einh.)"
+msgstr "Heating (kWh/units)"
+
+msgid "2. Schlüssel"
+msgstr "2. Keys"
+
+msgid "3. Zustand der Räume"
+msgstr "3. Condition of rooms"
+
+msgid "Bewertung: 1 = neuwertig, 2 = gut, 3 = gebraucht/normale Abnutzung, 4 = mangelhaft (Mängel beschreiben). Fotos als Anlage."
+msgstr "Rating: 1 = as new, 2 = good, 3 = used/normal wear, 4 = defective (describe defects). Photos as annex."
+
+msgid "Raum"
+msgstr "Room"
+
+msgid "Boden"
+msgstr "Floor"
+
+msgid "Wände/Decke"
+msgstr "Walls/ceiling"
+
+msgid "Fenster/Türen"
+msgstr "Windows/doors"
+
+msgid "Elektrik/Sanitär"
+msgstr "Electrics/plumbing"
+
+msgid "Bemerkungen / Mängel"
+msgstr "Remarks / defects"
+
+msgid "4. Ausstattung und Funktionsprüfung"
+msgstr "4. Fixtures and function check"
+
+msgid "Gegenstand"
+msgstr "Item"
+
+msgid "vorhanden"
+msgstr "present"
+
+msgid "funktioniert"
+msgstr "works"
+
+msgid "Bemerkung"
+msgstr "Remark"
+
+msgid "☐ ja ☐ nein"
+msgstr "☐ yes ☐ no"
+
+msgid "5. Rückgabe"
+msgstr "5. Return"
+
+msgid "☐ Wohnung vollständig geräumt und besenrein &nbsp; ☐ Alle Schlüssel zurückgegeben &nbsp; ☐ Schönheitsreparaturen fällig/ausgeführt:"
+msgstr "☐ Flat completely cleared and broom-clean &nbsp; ☐ All keys returned &nbsp; ☐ Decorative repairs due/carried out:"
+
+msgid "Vereinbarte Nacharbeiten durch den Mieter bis"
+msgstr "Agreed follow-up work by the tenant by"
+
+msgid "Neue Anschrift des Mieters (für Kautionsabrechnung und Betriebskostenabrechnung):"
+msgstr "Tenant's new address (for deposit and service charge settlement):"
+
+msgid "Kautionsrückzahlung auf IBAN:"
+msgstr "Deposit refund to IBAN:"
+
+msgid "5. Vereinbarungen"
+msgstr "5. Agreements"
+
+msgid "Vom Vermieter noch zu erledigen bis"
+msgstr "Still to be done by the landlord by"
+
+msgid "Dem Mieter übergeben: ☐ Energieausweis ☐ Hausordnung ☐ Datenschutzinformation ☐ Bedienungsanleitungen (Heizung, Küche)"
+msgstr "Handed to the tenant: ☐ Energy certificate ☐ House rules ☐ Privacy notice ☐ Operating instructions (heating, kitchen)"
+
+msgid "Die Parteien bestätigen die Richtigkeit der Angaben. Nicht vermerkte Mängel gelten als bei Übergabe nicht vorhanden, soweit sie bei der Besichtigung erkennbar waren."
+msgstr "The parties confirm the accuracy of the details. Defects not noted are deemed not to have existed at handover insofar as they were discernible on inspection."
+
+msgid "[Mietverwaltung] Zählerstand gemeldet"
+msgstr "[Rental Management] Meter reading submitted"
+
+msgid "Kein Zugriff."
+msgstr "No access."
+
+msgid "[Mietverwaltung] Neue Meldung: "
+msgstr "[Rental Management] New report: "
+
+msgid "Bitte melden Sie sich an, um Ihr Mieterportal zu sehen."
+msgstr "Please log in to see your tenant portal."
+
+msgid "Ihrem Benutzerkonto ist noch kein Mietverhältnis zugeordnet. Bitte wenden Sie sich an Ihren Vermieter."
+msgstr "No tenancy is assigned to your user account yet. Please contact your landlord."
+
+msgid "Zählerstand gespeichert. Vielen Dank."
+msgstr "Meter reading saved. Thank you."
+
+msgid "Der Stand ist kleiner als der zuletzt erfasste – bitte prüfen."
+msgstr "The reading is lower than the last one recorded – please check."
+
+msgid "Zählerstand konnte nicht gespeichert werden."
+msgstr "Meter reading could not be saved."
+
+msgid "Ihre Meldung wurde übermittelt. Vielen Dank."
+msgstr "Your report has been submitted. Thank you."
+
+msgid "Die Meldung konnte nicht gespeichert werden. Bitte Betreff angeben."
+msgstr "The report could not be saved. Please enter a subject."
+
+msgid "Vorauszahlungen BK / HK"
+msgstr "Advances SC / heating"
+
+msgid "Gesamtmiete / Monat"
+msgstr "Total rent / month"
+
+msgid "Rückstand"
+msgstr "Arrears"
+
+msgid "ausgeglichen / Guthaben"
+msgstr "balanced / credit"
+
+msgid "Mietkonto (letzte 12 Monate)"
+msgstr "Rent account (last 12 months)"
+
+msgid "Keine Meldungen."
+msgstr "No reports."
+
+msgid "Betriebskostenabrechnungen"
+msgstr "Service charge statements"
+
+msgid "Kosten"
+msgstr "Costs"
+
+msgid "Abrechnung öffnen"
+msgstr "Open statement"
+
+msgid "Zählerstand melden"
+msgstr "Submit meter reading"
+
+msgid "Foto (optional)"
+msgstr "Photo (optional)"
+
+msgid "Zählerstand senden"
+msgstr "Send meter reading"
+
+msgid "Schaden oder Mangel melden"
+msgstr "Report damage or defect"
+
+msgid "Meldung absenden"
+msgstr "Submit report"
+
+msgid "AfA"
+msgstr "Depreciation"
+
+msgid "Steuerjahr:"
+msgstr "Tax year:"
+
+msgid "Zeilennummern gespeichert."
+msgstr "Line numbers saved."
+
+msgid "Entwicklung"
+msgstr "Trend"
+
+msgid "Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten."
+msgstr "Cash basis (§ 11 EStG): income by date received, expenses by payment date of the receipt. Rent receipts are split into rent and recoverable charges in proportion to the rent conditions of the respective month. Depreciation and loan interest flow in automatically from “Depreciation” and “Interest certificates”. Anlage V line numbers change every year – please refer to the current form."
+
+msgid "Vorjahr %s (%+.1f %%)"
+msgstr "Prior year %s (%+.1f %%)"
+
+msgid "Einnahmen gesamt"
+msgstr "Total income"
+
+msgid "Werbungskosten gesamt"
+msgstr "Total expenses"
+
+msgid "Überschuss / Verlust"
+msgstr "Surplus / loss"
+
+msgid "Einnahmen"
+msgstr "Income"
+
+msgid "Mieteinnahmen (ohne Umlagen)"
+msgstr "Rental income (excl. recoverable charges)"
+
+msgid "Vereinnahmte Umlagen"
+msgstr "Recoverable charges received"
+
+msgid "Keine Zahlungseingänge in diesem Jahr."
+msgstr "No payments received in this year."
+
+msgid "Summe"
+msgstr "Total"
+
+msgid "Werbungskosten"
+msgstr "Expenses"
+
+msgid "Anlage-V-Gruppe / Position"
+msgstr "Anlage V group / item"
+
+msgid "Zeile Anlage V"
+msgstr "Anlage V line"
+
+msgid "davon umlagefähig"
+msgstr "of which recoverable"
+
+msgid "Keine Werbungskosten in diesem Jahr."
+msgstr "No expenses in this year."
+
+msgid "Summe Werbungskosten"
+msgstr "Total expenses"
+
+msgid "Die Zeilennummern stehen auf dem amtlichen Formular „Anlage V“ des jeweiligen Jahres (ELSTER). Einmal eingetragen, werden sie für Folgejahre vorbelegt, bis sich das Formular ändert."
+msgstr "The line numbers are on the official “Anlage V” form of the respective year (ELSTER). Once entered, they are pre-filled for subsequent years until the form changes."
+
+msgid "Anschaffung"
+msgstr "Acquisition"
+
+msgid "Bemessungsgrundlage"
+msgstr "Depreciation base"
+
+msgid "Methode / Satz"
+msgstr "Method / rate"
+
+msgid "Monate"
+msgstr "Months"
+
+msgid "Grunderwerbsteuer"
+msgstr "Transfer tax"
+
+msgid "Notar"
+msgstr "Notary"
+
+msgid "Grundbuch"
+msgstr "Land registry"
+
+msgid "Makler"
+msgstr "Agent"
+
+msgid "Sonstige"
+msgstr "Other"
+
+msgid "→ Anschaffungskosten"
+msgstr "→ Acquisition costs"
+
+msgid "%s: Anteil Grund und Boden ist 0 %% – das Finanzamt verlangt eine Aufteilung (Kaufvertrag oder BMF-Arbeitshilfe)."
+msgstr "%s: land share is 0 %% – the tax office requires a split (purchase contract or BMF tool)."
+
+msgid "degressiv"
+msgstr "declining balance"
+
+msgid "linear"
+msgstr "straight-line"
+
+msgid "Keine Anlagegüter erfasst. Gebäude und Anschaffungsnebenkosten unter"
+msgstr "No assets recorded. Enter building and acquisition costs under"
+
+msgid "Finanzierung"
+msgstr "Financing"
+
+msgid "Sollzins"
+msgstr "Interest rate"
+
+msgid "Keine Belege."
+msgstr "No receipts."
+
+msgid "Anschaffungsnahe Herstellungskosten (§ 6 Abs. 1 Nr. 1a EStG) – %1$s: Erhaltungsaufwand %2$s bis %3$s bisher %4$s netto, Grenze 15 %% = %5$s (%6$s %%)."
+msgstr "Acquisition-related construction costs (§ 6 (1) no. 1a EStG) – %1$s: maintenance expenses %2$s to %3$s so far %4$s net, 15 %% limit = %5$s (%6$s %%)."
+
+msgid "<strong>Grenze überschritten!"
+msgstr "<strong>Limit exceeded!"
+
+msgid "%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären."
+msgstr "%s The expenses are deemed construction costs and are only deductible via depreciation – please clarify with your tax adviser."
+
+msgid "<strong>Achtung:"
+msgstr "<strong>Attention:"
+
+msgid "%s Weitere Renovierungen in der Frist könnten die Grenze reißen."
+msgstr "%s Further renovations within the period could breach the limit."

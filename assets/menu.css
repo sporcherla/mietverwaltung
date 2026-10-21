@@ -1,0 +1,12 @@
+/* Mietverwaltung – strukturiertes Untermenü */
+#adminmenu .toplevel_page_mv_uebersicht .wp-submenu a .dashicons { font-size: 15px; width: 15px; height: 15px; line-height: 15px; margin: 0 6px 0 -2px; vertical-align: text-bottom; opacity: .75; }
+#adminmenu .toplevel_page_mv_uebersicht .wp-submenu li.current a .dashicons,
+#adminmenu .toplevel_page_mv_uebersicht .wp-submenu a:hover .dashicons { opacity: 1; }
+#adminmenu .toplevel_page_mv_uebersicht .wp-submenu a .mv-menu-group { display: block; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(240,246,252,.5); margin: 6px 0 -2px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,.08); }
+#adminmenu .toplevel_page_mv_uebersicht .wp-submenu li:has(> a > .mv-menu-group) { pointer-events: none; }
+#adminmenu .toplevel_page_mv_uebersicht .wp-submenu li:has(> a > .mv-menu-group) a { padding-top: 0; padding-bottom: 0; }
+/* Hauptmenü-Icon (SVG) an Admin-Farbschema anpassen */
+#adminmenu .toplevel_page_mv_uebersicht .wp-menu-image img { opacity: .6; padding: 7px 0 0; }
+#adminmenu .toplevel_page_mv_uebersicht:hover .wp-menu-image img, #adminmenu .toplevel_page_mv_uebersicht.wp-has-current-submenu .wp-menu-image img { opacity: 1; }
+/* Mobil: Icons bleiben, Gruppen kompakter */
+@media (max-width: 782px) { #adminmenu .toplevel_page_mv_uebersicht .wp-submenu a .mv-menu-group { margin-top: 10px; } }

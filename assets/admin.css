@@ -1,0 +1,48 @@
+.mv-wrap .mv-actions { width: 160px; }
+.mv-wrap .mv-req { color: #b32d2e; }
+.mv-wrap .mv-num { max-width: 140px; text-align: right; }
+.mv-wrap .mv-neg { color: #b32d2e; font-weight: 600; }
+.mv-wrap .mv-pos { color: #1a7f37; }
+.mv-wrap .mv-warn { color: #dba617; }
+.mv-wrap .mv-op td, .mv-wrap .mv-op th { text-align: right; }
+.mv-wrap .mv-op td:first-child, .mv-wrap .mv-op th:first-child { text-align: left; }
+.mv-wrap .mv-op { margin-bottom: 2em; }
+.mv-wrap .mv-form .button { margin-left: 6px; }
+.mv-wrap .mv-delete { color: #b32d2e; }
+.mv-wrap .mv-filter { margin: 10px 0 15px; display: flex; gap: 10px; align-items: center; }
+.mv-wrap .mv-kacheln { display: flex; gap: 12px; margin: 15px 0; flex-wrap: wrap; }
+.mv-wrap .mv-kachel { background: #fff; border: 1px solid #c3c4c7; padding: 12px 16px; min-width: 200px; }
+.mv-wrap .mv-kachel span { display: block; font-size: 12px; color: #646970; }
+.mv-wrap .mv-kachel strong { display: block; font-size: 20px; }
+.mv-wrap .mv-gruppe td { background: #f0f0f1; }
+.mv-wrap .mv-indent { padding-left: 24px !important; }
+@media print { #adminmenumain, #wpadminbar, .mv-filter, .notice { display: none !important; } #wpcontent { margin-left: 0; } }
+.mv-wrap .mv-extract { margin-top: 10px; padding: 10px 14px; background: #f6f7f7; border-left: 4px solid #2271b1; max-width: 720px; }
+.mv-wrap .mv-extract-table th { width: 220px; text-align: left; }
+.mv-wrap .mv-extract-warn { color: #b32d2e; }
+.mv-wrap .mv-pill { display: inline-block; background: #fff; border: 1px solid #c3c4c7; border-radius: 3px; padding: 2px 8px; margin-right: 4px; }
+.mv-wrap .mv-bank td { vertical-align: top; }
+.mv-wrap .mv-bank select, .mv-wrap .mv-bank input[type=month] { max-width: 260px; }
+.mv-wrap .mv-z-zahlung, .mv-wrap .mv-z-beleg { margin-bottom: 4px; }
+.mv-wrap .mv-kachel small { display: block; color: #646970; font-size: 11px; margin-top: 2px; }
+.mv-wrap .mv-details { margin: 10px 0 20px; } .mv-wrap .mv-details summary { cursor: pointer; font-weight: 600; }
+.mv-wrap .mv-kachel h3 { margin: 0 0 8px; }
+/* Mobil */
+@media (max-width: 782px) {
+  .mv-wrap .mv-kacheln { flex-direction: column; } .mv-wrap .mv-kachel { min-width: 0 !important; }
+  .mv-wrap .mv-filter { flex-wrap: wrap; }
+  .mv-wrap table.widefat { display: block; overflow-x: auto; white-space: nowrap; }
+  .mv-wrap .mv-form input[type=text], .mv-wrap .mv-form input[type=date], .mv-wrap .mv-form select, .mv-wrap .mv-form textarea { width: 100%; max-width: none; }
+  .mv-wrap .mv-num { text-align: left; }
+  .mv-wrap .form-table th { padding-bottom: 0; }
+  .mv-wrap .button { min-height: 40px; line-height: 38px; margin-bottom: 6px; }
+}
+.mv-wrap .mv-zusatz td { padding: 2px 10px 2px 0; }
+.mv-wrap .mv-op .mv-op-check { width: 34px; text-align: center !important; color: #1a7f37; }
+
+/* Hilfe */
+.mv-hilfe-schritte li { margin-bottom: 8px; }
+.mv-hilfe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin: 10px 0 20px; }
+.mv-hilfe-karte { background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; padding: 10px 14px; }
+.mv-hilfe-karte h3 { margin: 4px 0 8px; font-size: 14px; }
+.mv-hilfe-karte p { margin: 0 0 6px; color: #3c434a; }
