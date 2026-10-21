@@ -24,18 +24,18 @@ class Mietv_PDF {
 	private string $fuss = '';
 
 	private static array $widths     = [];
-	private static array $widthsBold = [];
+	private static array $widths_bold = [];
 
 	public function __construct() {
-		$this->initWidths();
-		$this->neueSeite();
+		$this->init_widths();
+		$this->neue_seite();
 	}
 
 	/* ------------------------------------------------------------------ */
 	/* Fontmetrik Helvetica (AFM, 1/1000 em)                              */
 	/* ------------------------------------------------------------------ */
 
-	private function initWidths(): void {
+	private function init_widths(): void {
 		if ( self::$widths ) {
 			return;
 		}
@@ -239,14 +239,14 @@ class Mietv_PDF {
 		foreach ( $bmap as $c => $v ) {
 			$b[ $c ] = $v;
 		}
-		self::$widthsBold = $b;
+		self::$widths_bold = $b;
 	}
 
 	private function enc( string $s ): string {
 		$s   = str_replace( [ '☐', '✓', '→', '←', '·', '⚠', '…' ], [ '[ ]', 'x', '->', '<-', '-', '!', '...' ], $s );
-		$out = @iconv( 'UTF-8', 'CP1252', $s );
+		$out = iconv( 'UTF-8', 'CP1252', $s );
 		if ( $out === false ) {
-			$out = @iconv( 'UTF-8', 'CP1252//TRANSLIT', $s );
+			$out = iconv( 'UTF-8', 'CP1252//TRANSLIT', $s );
 		}
 		return $out === false ? preg_replace( '/[^\x20-\x7E]/', '?', $s ) : $out;
 	}
@@ -255,7 +255,7 @@ class Mietv_PDF {
 		$fs   = $fs ?? $this->fs;
 		$bold = $bold ?? $this->bold;
 		$sum  = 0;
-		$tab  = $bold ? self::$widthsBold : self::$widths;
+		$tab  = $bold ? self::$widths_bold : self::$widths;
 		for ( $i = 0, $n = strlen( $cp1252 ); $i < $n; $i++ ) {
 			$sum += $tab[ ord( $cp1252[ $i ] ) ];
 		}
@@ -271,7 +271,7 @@ class Mietv_PDF {
 		$this->fuss = $fuss;
 	}
 
-	private function neueSeite(): void {
+	private function neue_seite(): void {
 		if ( $this->buf !== '' ) {
 			$this->pages[] = $this->buf;
 		}
@@ -282,9 +282,9 @@ class Mietv_PDF {
 		}
 	}
 
-	private function pruefeUmbruch( float $benoetigt ): void {
+	private function pruefe_umbruch( float $benoetigt ): void {
 		if ( $this->y - $benoetigt < $this->mb ) {
-			$this->neueSeite();
+			$this->neue_seite();
 		}
 	}
 
@@ -344,7 +344,7 @@ class Mietv_PDF {
 		return $zeilen ?: [ [] ];
 	}
 
-	private function zeileAusgeben( array $zeile, float $x, float $y, float $fs, string $align = 'left', float $breite = 0, float $grau = 0 ): void {
+	private function zeile_ausgeben( array $zeile, float $x, float $y, float $fs, string $align = 'left', float $breite = 0, float $grau = 0 ): void {
 		$gesamt = 0;
 		foreach ( $zeile as [ $t, $b ] ) {
 			$gesamt += $this->breite( $this->enc( $t ), $fs, $b );
@@ -369,9 +369,9 @@ class Mietv_PDF {
 		$zh     = $fs * 1.4;
 		$zeilen = $this->umbrechen( $segs, $breite, $fs );
 		foreach ( $zeilen as $i => $z ) {
-			$this->pruefeUmbruch( $zh );
+			$this->pruefe_umbruch( $zh );
 			$this->y -= $zh;
-			$this->zeileAusgeben( $z, $this->ml + $einzug, $this->y, $fs, $align, $breite, $grau );
+			$this->zeile_ausgeben( $z, $this->ml + $einzug, $this->y, $fs, $align, $breite, $grau );
 		}
 		$this->y -= $abstand;
 	}
@@ -382,7 +382,7 @@ class Mietv_PDF {
 			2 => 11.5,
 			3 => 10.5,
 		][ $ebene ] ?? 10.5;
-		$this->pruefeUmbruch( $fs * 3 );
+		$this->pruefe_umbruch( $fs * 3 );
 		$this->y -= $ebene === 1 ? 4 : 8;
 		$this->absatz( [ [ $t, true ] ], $fs, 2, $ebene === 1 ? 'center' : 'left' );
 		if ( $ebene === 2 ) {
@@ -396,7 +396,7 @@ class Mietv_PDF {
 	}
 
 	public function seitenumbruch(): void {
-		$this->neueSeite();
+		$this->neue_seite();
 	}
 
 	/**
@@ -469,7 +469,7 @@ class Mietv_PDF {
 				$maxzeilen  = max( $maxzeilen, count( $umbr[ $i ] ) );
 			}
 			$hoehe = $maxzeilen * $zh + 4;
-			$this->pruefeUmbruch( $hoehe );
+			$this->pruefe_umbruch( $hoehe );
 			if ( $kopf ) {
 				$this->rechteck( $this->ml, $this->y - $hoehe, $gesamt, $hoehe, 0.92 );
 			}
@@ -482,7 +482,7 @@ class Mietv_PDF {
 				$yy    = $this->y - 2;
 				foreach ( $zl as $zeile ) {
 					$yy -= $zh;
-					$this->zeileAusgeben( $zeile, $x + 4, $yy + $zh * 0.28, $fs, $align, $cols[ $i ] - 8 );
+					$this->zeile_ausgeben( $zeile, $x + 4, $yy + $zh * 0.28, $fs, $align, $cols[ $i ] - 8 );
 				}
 				$x += $cols[ $i ];
 			}
@@ -495,7 +495,7 @@ class Mietv_PDF {
 	}
 
 	public function unterschriften( array $felder ): void {
-		$this->pruefeUmbruch( 70 );
+		$this->pruefe_umbruch( 70 );
 		$this->y -= 40;
 		$gesamt   = $this->w - $this->ml - $this->mr;
 		$n        = count( $felder );
@@ -552,7 +552,7 @@ class Mietv_PDF {
 		foreach ( $offsets as $o ) {
 			$out .= sprintf( "%010d 00000 n \n", $o );
 		}
-		$out .= '<< /Size ' . ( count( $objs ) + 1 ) . ' /Root 1 0 R /Info << /Producer (Mietverwaltung) /CreationDate (D:' . date( 'YmdHis' ) . ") >> >>\n";
+		$out .= '<< /Size ' . ( count( $objs ) + 1 ) . ' /Root 1 0 R /Info << /Producer (Mietverwaltung) /CreationDate (D:' . gmdate( 'YmdHis' ) . ") >> >>\n";
 		$out  = str_replace( '<< /Size', "trailer\n<< /Size", $out );
 		$out .= "startxref\n" . $xref . "\n%%EOF\n";
 		return $out;
@@ -730,18 +730,35 @@ class Mietv_PDF {
 		return $pdf->ausgeben();
 	}
 
+	/** WP_Filesystem (direkt) initialisieren. */
+	public static function filesystem() {
+		global $wp_filesystem;
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		if ( ! $wp_filesystem ) {
+			WP_Filesystem();
+		}
+		return $wp_filesystem ?: null;
+	}
+
 	/** PDF in der Mediathek speichern und als Dokument verknüpfen. Liefert attachment_id. */
 	public static function ablegen( string $bytes, string $dateiname, int $objekt_id, ?int $mv_id, string $typ, string $bezeichnung, bool $mieter_sichtbar = false ): int {
 		global $wpdb;
 		$upload = wp_upload_dir();
 		$dir    = trailingslashit( $upload['basedir'] ) . 'mietverwaltung';
+		$fs     = self::filesystem();
 		if ( ! is_dir( $dir ) ) {
 			wp_mkdir_p( $dir );
-			file_put_contents( $dir . '/index.php', "<?php // Silence is golden.\n" );
+			if ( $fs ) {
+				$fs->put_contents( $dir . '/index.php', "<?php // Silence is golden.\n", FS_CHMOD_FILE );
+			}
 		}
 		$dateiname = sanitize_file_name( $dateiname );
 		$pfad      = $dir . '/' . wp_unique_filename( $dir, $dateiname );
-		file_put_contents( $pfad, $bytes );
+		if ( ! $fs || ! $fs->put_contents( $pfad, $bytes, FS_CHMOD_FILE ) ) {
+			return 0;
+		}
 		$att = wp_insert_attachment(
 			[
 				'post_mime_type' => 'application/pdf',

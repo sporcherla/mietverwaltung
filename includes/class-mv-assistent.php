@@ -28,7 +28,7 @@ class Mietv_Assistent {
 			return;
 		}
 		delete_transient( 'mietv_aktiviert' );
-		if ( isset( $_GET['activate-multi'] ) || self::fertig() || self::hat_daten() ) {
+		if ( isset( $_GET['activate-multi'] ) || self::fertig() || self::hat_daten() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			return;
 		}
 		wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG ) );
@@ -85,7 +85,7 @@ class Mietv_Assistent {
 			return;
 		}
 		check_admin_referer( 'mietv_assistent' );
-		$schritt = (int) $_POST['mietv_assistent_schritt'];
+		$schritt = ( isset( $_POST['mietv_assistent_schritt'] ) ? (int) $_POST['mietv_assistent_schritt'] : 0 );
 		$p       = wp_unslash( $_POST );
 		$t       = fn( string $k ) => sanitize_text_field( $p[ $k ] ?? '' );
 
@@ -276,7 +276,7 @@ class Mietv_Assistent {
 	public static function page(): void {
 		global $wpdb;
 		$stand   = self::stand();
-		$schritt = isset( $_GET['schritt'] ) ? max( 1, min( 6, (int) $_GET['schritt'] ) ) : self::naechster_schritt( $stand );
+		$schritt = isset( $_GET['schritt'] ) ? max( 1, min( 6, ( isset( $_GET['schritt'] ) ? (int) $_GET['schritt'] : 0 ) ) ) : self::naechster_schritt( $stand ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$fehler  = get_transient( 'mietv_assistent_fehler_' . get_current_user_id() );
 		delete_transient( 'mietv_assistent_fehler_' . get_current_user_id() );
 

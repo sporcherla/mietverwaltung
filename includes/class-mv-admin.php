@@ -34,7 +34,7 @@ class Mietv_Admin {
 		if ( empty( $_POST['mietv_op_nonce'] ) || ! current_user_can( self::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mietv_op_nonce'], 'mietv_op_buchen' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_op_nonce'] ?? '' ) ), 'mietv_op_buchen' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
@@ -43,7 +43,7 @@ class Mietv_Admin {
 		foreach ( Mietv_Soll::alle_mv() as $mv ) {
 			$mvs[ $mv->id ] = $mv;
 		}
-		foreach ( (array) ( $_POST['op'] ?? [] ) as $key ) {
+		foreach ( array_map( 'sanitize_text_field', wp_unslash( (array) ( $_POST['op'] ?? [] ) ) ) as $key ) {
 			[ $mv_id, $monat ] = array_pad( explode( '|', sanitize_text_field( $key ) ), 2, '' );
 			$mv_id             = (int) $mv_id;
 			if ( ! isset( $mvs[ $mv_id ] ) || ! preg_match( '/^\d{4}-\d{2}-01$/', $monat ) ) {
@@ -156,7 +156,7 @@ class Mietv_Admin {
 			return;
 		}
 		wp_enqueue_style( 'mietv-admin', MIETV_URL . 'assets/admin.css', [], MIETV_VERSION );
-		if ( strpos( $hook, 'mietv_anlagegueter' ) !== false && ! empty( $_GET['action'] ) ) {
+		if ( strpos( $hook, 'mietv_anlagegueter' ) !== false && ! empty( $_GET['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			wp_enqueue_script( 'mietv-pdfjs', 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', [], '3.11.174', true );
 			wp_enqueue_script( 'mietv-kaufvertrag', MIETV_URL . 'assets/kaufvertrag.js', [ 'mietv-pdfjs' ], MIETV_VERSION, true );
 			wp_add_inline_script( 'mietv-kaufvertrag', 'window.mvPdfWorker="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";', 'before' );
@@ -1364,7 +1364,7 @@ class Mietv_Admin {
 	}
 
 	private static function current_entity(): ?string {
-		$page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : '';
+		$page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$key  = substr( $page, 3 );
 		return isset( self::entities()[ $key ] ) ? $key : null;
 	}
@@ -1382,7 +1382,7 @@ class Mietv_Admin {
 
 		// Speichern
 		if ( isset( $_POST['mietv_entity'] ) ) {
-			$key = sanitize_key( $_POST['mietv_entity'] );
+			$key = sanitize_key( $_POST['mietv_entity'] ?? '' );
 			$ent = self::entities()[ $key ] ?? null;
 			if ( ! $ent || ! current_user_can( self::CAP ) ) {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
@@ -1397,7 +1397,7 @@ class Mietv_Admin {
 			foreach ( $ent['fields'] as $name => $f ) {
 				if ( $f['type'] === 'zusatz' ) {
 					$zusatz = [];
-					foreach ( (array) ( $_POST[ $name ] ?? [] ) as $eid => $anteil ) {
+					foreach ( map_deep( wp_unslash( (array) ( $_POST[ $name ] ?? [] ) ), 'sanitize_text_field' ) as $eid => $anteil ) {
 						if ( (int) $eid > 0 && ! empty( $_POST[ $name . '_on' ][ $eid ] ) ) {
 							$zusatz[ (int) $eid ] = mietv_to_float( wp_unslash( $anteil ) );
 						}
@@ -1422,7 +1422,7 @@ class Mietv_Admin {
 					}
 					continue;
 				}
-				$raw = isset( $_POST[ $name ] ) ? wp_unslash( $_POST[ $name ] ) : '';
+				$raw = isset( $_POST[ $name ] ) ? wp_unslash( $_POST[ $name ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- typabhängig in self::sanitize() bereinigt.
 				$val = self::sanitize( $f['type'], $raw );
 				if ( ! empty( $f['required'] ) && ( $val === '' || $val === null ) ) {
 					$errors[] = sprintf( /* translators: %s: Feldname */ __( '%s ist ein Pflichtfeld.', 'mietverwaltung' ), $f['label'] );
@@ -1529,7 +1529,7 @@ class Mietv_Admin {
 			if ( ! current_user_can( self::CAP ) ) {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 			}
-			$id = (int) $_GET['id'];
+			$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 );
 			check_admin_referer( 'mietv_delete_' . $key . '_' . $id );
 			$ent = self::entities()[ $key ];
 
@@ -1680,7 +1680,7 @@ class Mietv_Admin {
 				if ( isset( $d['betrag'] ) && abs( (float) $d['betrag'] ) < 0.005 ) {
 					$e[] = __( 'Betrag darf nicht 0 sein.', 'mietverwaltung' );
 				}
-				if ( ! empty( $d['datum'] ) && $d['datum'] > date( 'Y-m-d', strtotime( $heute . ' +7 days' ) ) ) {
+				if ( ! empty( $d['datum'] ) && $d['datum'] > gmdate( 'Y-m-d', strtotime( $heute . ' +7 days' ) ) ) {
 					$e[] = __( 'Zahlungsdatum liegt in der Zukunft.', 'mietverwaltung' );
 				}
 				if ( ! empty( $d['mv_id'] ) && ! empty( $d['monat'] ) ) {
@@ -1771,7 +1771,7 @@ class Mietv_Admin {
 			case 'datetime':
 				$raw = sanitize_text_field( $raw );
 				$ts  = strtotime( $raw );
-				return $ts ? date( 'Y-m-d H:i:s', $ts ) : null;
+				return $ts ? gmdate( 'Y-m-d H:i:s', $ts ) : null;
 			case 'email':
 				return sanitize_email( $raw );
 			case 'textarea':
@@ -1788,12 +1788,12 @@ class Mietv_Admin {
 	/* ------------------------------------------------------------------ */
 
 	private static function notices(): void {
-		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '';
+		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$map = [
 			'saved'       => [ 'success', esc_html__( 'Gespeichert.', 'mietverwaltung' ) ],
 			'deleted'     => [ 'success', esc_html__( 'Gelöscht.', 'mietverwaltung' ) ],
 			'haschildren' => [ 'error', esc_html__( 'Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden.', 'mietverwaltung' ) ],
-			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d Mieteingang/-eingänge gebucht.', 'mietverwaltung' ), (int) ( $_GET['n'] ?? 0 ) ) ],
+			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d Mieteingang/-eingänge gebucht.', 'mietverwaltung' ), ( isset( $_GET['n'] ) ? (int) $_GET['n'] : 0 ) ) ], // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		];
 		if ( isset( $map[ $msg ] ) ) {
 			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
@@ -1811,7 +1811,7 @@ class Mietv_Admin {
 			return;
 		}
 		$ent    = self::entities()[ $key ];
-		$action = isset( $_GET['action'] ) ? sanitize_key( $_GET['action'] ) : '';
+		$action = isset( $_GET['action'] ) ? sanitize_key( $_GET['action'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 
 		echo '<div class="wrap mv-wrap">';
 		if ( $action === 'new' || $action === 'edit' ) {
@@ -1836,7 +1836,7 @@ class Mietv_Admin {
 		if ( ! empty( $ent['filter_year'] ) ) {
 			$col   = $ent['filter_year'];
 			$jahre = $wpdb->get_col( "SELECT DISTINCT $col FROM " . mietv_table( $key ) . " ORDER BY $col DESC" );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
-			$jahr  = isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : ( $jahre ? (int) $jahre[0] : (int) current_time( 'Y' ) );
+			$jahr  = isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : ( $jahre ? (int) $jahre[0] : (int) current_time( 'Y' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			if ( $jahr > 0 ) {
 				$where = $wpdb->prepare( " WHERE $col = %d", $jahr );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			}
@@ -1925,7 +1925,7 @@ class Mietv_Admin {
 
 	private static function render_form( string $key, array $ent ): void {
 		global $wpdb;
-		$id       = isset( $_GET['id'] ) ? (int) $_GET['id'] : 0;
+		$id       = isset( $_GET['id'] ) ? (int) $_GET['id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$row      = $id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mietv_table( $key ) . ' WHERE id = %d', $id ) ) : null;  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 		$formdata = get_transient( 'mietv_formdata_' . get_current_user_id() );
 		if ( is_array( $formdata ) ) {
@@ -2016,7 +2016,7 @@ class Mietv_Admin {
 					printf( '<input type="month" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? substr( $val, 0, 7 ) : current_time( 'Y-m' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'datetime':
-					printf( '<input type="datetime-local" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? date( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="datetime-local" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? gmdate( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				default:
 					printf( '<input type="%4$s" id="mietv_%1$s" name="%1$s" value="%2$s" class="regular-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req, $f['type'] === 'email' ? 'email' : 'text' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.

@@ -120,11 +120,11 @@ class Mietv_Darlehen {
 		if ( empty( $_POST['mietv_darlehen_nonce'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mietv_darlehen_nonce'], 'mietv_darlehen' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_darlehen_nonce'] ?? '' ) ), 'mietv_darlehen' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$did = (int) $_POST['darlehen_id'];
+		$did = ( isset( $_POST['darlehen_id'] ) ? (int) $_POST['darlehen_id'] : 0 );
 		$d   = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen WHERE id = %d', $did ) );
 		if ( ! $d ) {
 			return;
@@ -134,13 +134,13 @@ class Mietv_Darlehen {
 			$wpdb->delete(
 				mietv_table( 'darlehen_raten' ),
 				[
-					'id'          => (int) $_POST['loeschen'],
+					'id'          => ( isset( $_POST['loeschen'] ) ? (int) $_POST['loeschen'] : 0 ),
 					'darlehen_id' => $did,
 				]
 			);
 		} elseif ( ! empty( $_POST['sondertilgung'] ) ) {
-			$betrag = mietv_to_float( $_POST['st_betrag'] ?? '0' );
-			$datum  = sanitize_text_field( $_POST['st_datum'] ?: current_time( 'Y-m-d' ) );
+			$betrag = mietv_to_float( sanitize_text_field( wp_unslash( $_POST['st_betrag'] ?? '' ) ) );
+			$datum  = ( sanitize_text_field( wp_unslash( $_POST['st_datum'] ?? '' ) ) ?: current_time( 'Y-m-d' ) );
 			if ( $betrag > 0 && preg_match( '/^\d{4}-\d{2}-\d{2}$/', $datum ) ) {
 				$wpdb->insert(
 					mietv_table( 'darlehen_raten' ),
@@ -157,13 +157,13 @@ class Mietv_Darlehen {
 			}
 		} else {
 			// Markierte Monate in Planreihenfolge buchen (Restschuld baut aufeinander auf)
-			$markiert = array_map( 'sanitize_text_field', (array) ( $_POST['monat'] ?? [] ) );
+			$markiert = array_map( 'sanitize_text_field', wp_unslash( (array) ( $_POST['monat'] ?? [] ) ) );
 			sort( $markiert );
 			foreach ( $markiert as $monat ) {
 				if ( ! preg_match( '/^\d{4}-\d{2}-01$/', $monat ) ) {
 					continue;
 				}
-				$exists = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_darlehen_raten WHERE darlehen_id = %d AND art = 'rate' AND datum BETWEEN %s AND %s", $did, $monat, date( 'Y-m-t', strtotime( $monat ) ) ) );
+				$exists = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_darlehen_raten WHERE darlehen_id = %d AND art = 'rate' AND datum BETWEEN %s AND %s", $did, $monat, gmdate( 'Y-m-t', strtotime( $monat ) ) ) );
 				if ( $exists ) {
 					continue;
 				}
@@ -199,7 +199,7 @@ class Mietv_Darlehen {
 	public static function page(): void {
 		global $wpdb;
 		$alle = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen ORDER BY status, bank' );
-		$did  = (int) ( $_GET['darlehen_id'] ?? ( $alle[0]->id ?? 0 ) );
+		$did  = ( isset( $_GET['darlehen_id'] ) ? (int) $_GET['darlehen_id'] : ( $alle[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$d    = null;
 		foreach ( $alle as $x ) {
 			if ( (int) $x->id === $did ) {
@@ -207,8 +207,8 @@ class Mietv_Darlehen {
 			}
 		}
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Darlehenskonto', 'mietverwaltung' ) . '</h1>';
-		if ( ( $_GET['msg'] ?? '' ) === 'ok' ) {
-			printf( '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '%d Buchung(en) angelegt.', 'mietverwaltung' ) . '</p></div>', (int) ( $_GET['n'] ?? 0 ) );
+		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'ok' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+			printf( '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '%d Buchung(en) angelegt.', 'mietverwaltung' ) . '</p></div>', ( isset( $_GET['n'] ) ? (int) $_GET['n'] : 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		}
 		if ( ! $alle ) {
 			printf( '<p>' . esc_html__( 'Noch kein Darlehen angelegt –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'Darlehen anlegen', 'mietverwaltung' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=new' ) ) );

@@ -21,7 +21,7 @@ class Mietv_Mietvertrag {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
-		$mv_id = (int) $_GET['mv_id'];
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_sepa_' . $mv_id );
 		$d = self::daten( $mv_id );
 		if ( ! $d ) {
@@ -34,10 +34,10 @@ class Mietv_Mietvertrag {
 		$gesamt = $k ? (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz : 0;
 		self::kopf( 'SEPA-Mandat ' . $m->nachname, [ $ob->id, $mv->id, 'sonstiges', 'SEPA-Lastschriftmandat', false ] );
 		echo '<h1>' . esc_html__( 'SEPA-Basislastschriftmandat', 'mietverwaltung' ) . '</h1>';
-		printf( '<p>' . '<strong>' . esc_html__( 'Zahlungsempfänger (Gläubiger):', 'mietverwaltung' ) . '</strong> %s, %s<br>' . '<strong>' . esc_html__( 'Gläubiger-Identifikationsnummer:', 'mietverwaltung' ) . '</strong> %s<br>' . '<strong>' . esc_html__( 'Mandatsreferenz:', 'mietverwaltung' ) . '</strong> %s<br>' . '<strong>' . esc_html__( 'Art der Zahlung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'wiederkehrende Zahlung', 'mietverwaltung' ) . '</p>', esc_html( $E::get( 'vermieter_name' ) ), esc_html( str_replace( "\n", ', ', $E::get( 'vermieter_adresse' ) ) ), esc_html( $gl ), esc_html( $ref ) );
+		printf( '<p><strong>' . esc_html__( 'Zahlungsempfänger (Gläubiger):', 'mietverwaltung' ) . '</strong> %s, %s<br><strong>' . esc_html__( 'Gläubiger-Identifikationsnummer:', 'mietverwaltung' ) . '</strong> %s<br><strong>' . esc_html__( 'Mandatsreferenz:', 'mietverwaltung' ) . '</strong> %s<br><strong>' . esc_html__( 'Art der Zahlung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'wiederkehrende Zahlung', 'mietverwaltung' ) . '</p>', esc_html( $E::get( 'vermieter_name' ) ), esc_html( str_replace( "\n", ', ', $E::get( 'vermieter_adresse' ) ) ), esc_html( $gl ), esc_html( $ref ) );
 		printf( '<p>' . esc_html__( 'Ich ermächtige %1$s, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von %2$s auf mein Konto gezogenen Lastschriften einzulösen.', 'mietverwaltung' ) . '</p>', esc_html( $E::get( 'vermieter_name' ) ), esc_html( $E::get( 'vermieter_name' ) ) );
 		echo '<p class="klein">' . esc_html__( 'Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.', 'mietverwaltung' ) . '</p>';
-		printf( '<p>' . '<strong>' . esc_html__( 'Verwendungszweck:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt.', 'mietverwaltung' ) . '</p>', esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( mietv_eur( $gesamt ) ), (int) max( 1, min( 3, (int) $mv->zahltag ) ) );
+		printf( '<p><strong>' . esc_html__( 'Verwendungszweck:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt.', 'mietverwaltung' ) . '</p>', esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( mietv_eur( $gesamt ) ), (int) max( 1, min( 3, (int) $mv->zahltag ) ) );
 		printf(
 			'<table><tr><td style="width:35%%">' . esc_html__( 'Kontoinhaber', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'Straße, Hausnummer', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'PLZ, Ort', 'mietverwaltung' ) . '</td><td>%s %s</td></tr><tr><td>' . esc_html__( 'Kreditinstitut', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'IBAN', 'mietverwaltung' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'BIC', 'mietverwaltung' ) . '</td><td>%s</td></tr></table>',
 			esc_html( implode( ' / ', array_map( fn( $z ) => preg_replace( '/^(Frau|Herr) /', '', $z ), mietv_mieter_personen( $m ) ) ) ),
@@ -101,14 +101,14 @@ class Mietv_Mietvertrag {
 		if ( empty( $_POST['mietv_vertrag_nonce'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mietv_vertrag_nonce'], 'mietv_vertrag' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_vertrag_nonce'] ?? '' ) ), 'mietv_vertrag' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$mv_id = (int) $_POST['mv_id'];
+		$mv_id = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : 0 );
 		$o     = [];
 		foreach ( self::optionen_default() as $k => $d ) {
-			$raw     = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : $d;
+			$raw     = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : $d; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- in der Folgezeile bereinigt.
 			$o[ $k ] = in_array( $k, [ 'raeume', 'ausstattung', 'staffeln', 'sonstiges', 'befristung_grund', 'schluessel', 'zustand_maengel', 'arbeiten_vermieter', 'arbeiten_mieter' ], true ) ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
 		}
 		$wpdb->delete( mietv_table( 'vertraege' ), [ 'mv_id' => $mv_id ] );
@@ -131,13 +131,13 @@ class Mietv_Mietvertrag {
 	public static function page(): void {
 		global $wpdb;
 		$mvs   = Mietv_Soll::alle_mv();
-		$mv_id = (int) ( $_GET['mv_id'] ?? ( $mvs[0]->id ?? 0 ) );
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : ( $mvs[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$o     = self::laden( $mv_id );
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mietvertrag', 'mietverwaltung' ) . '</h1>';
-		if ( ( $_GET['msg'] ?? '' ) === 'saved' ) {
+		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'saved' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Vertragsoptionen gespeichert.', 'mietverwaltung' ) . '</p></div>';
 		}
-		echo '<div class="notice notice-info inline"><p>' . '<strong>' . esc_html__( 'Hinweis:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Der Vertrag wird aus den Daten des Mietverhältnisses (Parteien, Wohnung, Miete, Kaution, Beginn, Ende) und den Optionen unten erzeugt. Die Klauseln folgen dem BGB und der BGH-Rechtsprechung (Stand 2026). Vor Verwendung bei besonderen Konstellationen (Gewerbe, WG, möbliert, Mietpreisbremse) rechtlich prüfen lassen.', 'mietverwaltung' ) . '</p></div>';
+		echo '<div class="notice notice-info inline"><p><strong>' . esc_html__( 'Hinweis:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Der Vertrag wird aus den Daten des Mietverhältnisses (Parteien, Wohnung, Miete, Kaution, Beginn, Ende) und den Optionen unten erzeugt. Die Klauseln folgen dem BGB und der BGH-Rechtsprechung (Stand 2026). Vor Verwendung bei besonderen Konstellationen (Gewerbe, WG, möbliert, Mietpreisbremse) rechtlich prüfen lassen.', 'mietverwaltung' ) . '</p></div>';
 
 		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_mietvertrag"><label>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . ' <select name="mv_id" onchange="this.form.submit()">';
 		foreach ( $mvs as $m ) {
@@ -345,7 +345,7 @@ class Mietv_Mietvertrag {
 	/** Startet die Ausgabe: PDF (gepuffert) oder HTML-Druckseite (?format=html). */
 	private static function kopf( string $titel, array $ablage = [] ): void {
 		$E = Mietv_Einstellungen::class;
-		if ( ( $_GET['format'] ?? 'pdf' ) !== 'html' ) {
+		if ( ( isset( $_GET['format'] ) ? sanitize_key( $_GET['format'] ) : 'pdf' ) !== 'html' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			self::$pdf_titel  = $titel;
 			self::$pdf_ablage = $ablage;
 			ob_start();
@@ -380,7 +380,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		if ( self::$pdf_titel !== null ) {
 			$html  = ob_get_clean();
 			$bytes = Mietv_PDF::dokument( $html, Mietv_Brief::absender_zeile() );
-			if ( self::$pdf_ablage && ! empty( $_GET['ablegen'] ) ) {
+			if ( self::$pdf_ablage && ! empty( $_GET['ablegen'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 				[ $objekt_id, $mv_id, $typ, $bez, $sichtbar ] = self::$pdf_ablage;
 				Mietv_PDF::ablegen( $bytes, self::$pdf_titel . '.pdf', (int) $objekt_id, $mv_id ? (int) $mv_id : null, $typ, $bez, (bool) $sichtbar );
 			}
@@ -474,7 +474,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
-		$mv_id = (int) $_GET['mv_id'];
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_vertrag_' . $mv_id );
 		$d = self::daten( $mv_id );
 		if ( ! $d ) {
@@ -518,7 +518,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 			echo '<h2>' . esc_html( $t ) . '</h2>';
 		};
 
-		if ( ( $_GET['nur'] ?? '' ) === 'datenschutz' ) {
+		if ( ( isset( $_GET['nur'] ) ? sanitize_key( $_GET['nur'] ) : '' ) === 'datenschutz' ) {
 			self::kopf( 'Datenschutzinformation ' . $m->nachname, [ $ob->id, $mv->id, 'sonstiges', 'Datenschutzinformation Art. 13', true ] );
 			echo self::datenschutz_html( $vermieter ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			self::fuss();
@@ -762,7 +762,7 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 	private static function datenschutz_html( string $vermieter ): string {
 		$E = Mietv_Einstellungen::class;
 		return '<h1>' . esc_html__( 'Datenschutzinformation nach Art. 13 DSGVO', 'mietverwaltung' ) . '</h1>
-<p>' . '<strong>' . esc_html__( 'Verantwortlicher:', 'mietverwaltung' ) . '</strong> ' . esc_html( $vermieter ) . ( $E::get( 'vermieter_email' ) ? ', E-Mail ' . esc_html( $E::get( 'vermieter_email' ) ) : '' ) . ( $E::get( 'vermieter_telefon' ) ? ', Telefon ' . esc_html( $E::get( 'vermieter_telefon' ) ) : '' ) . '. Ein Datenschutzbeauftragter ist nicht bestellt (nicht erforderlich, Art. 37 DSGVO).</p>
+<p><strong>' . esc_html__( 'Verantwortlicher:', 'mietverwaltung' ) . '</strong> ' . esc_html( $vermieter ) . ( $E::get( 'vermieter_email' ) ? ', E-Mail ' . esc_html( $E::get( 'vermieter_email' ) ) : '' ) . ( $E::get( 'vermieter_telefon' ) ? ', Telefon ' . esc_html( $E::get( 'vermieter_telefon' ) ) : '' ) . '. Ein Datenschutzbeauftragter ist nicht bestellt (nicht erforderlich, Art. 37 DSGVO).</p>
 <p><strong>Zwecke und Rechtsgrundlagen:</strong> Anbahnung, Durchführung und Beendigung des Mietverhältnisses einschließlich Mietbuchhaltung, Betriebskostenabrechnung, Mängelbearbeitung und Schriftverkehr (Art. 6 Abs. 1 lit. b DSGVO); Erfüllung gesetzlicher Pflichten, insbesondere steuerliche Aufbewahrung und Abrechnungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO, § 556 BGB); Wahrung berechtigter Interessen wie Geltendmachung von Ansprüchen und Hausverwaltung (Art. 6 Abs. 1 lit. f DSGVO).</p>
 <p><strong>Datenkategorien:</strong> Name, Anschrift, Geburtsdatum, Kontaktdaten, Bankverbindung, Personenzahl im Haushalt, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zählerstände), Meldungen und Schriftverkehr, Zugangsdaten zum Mieterportal.</p>
 <p><strong>Empfänger:</strong> Soweit für die Durchführung des Mietverhältnisses erforderlich: Finanzamt und Steuerberater (Einkünfte aus Vermietung), Kreditinstitut (Zahlungsverkehr), Energieversorger, Messdienstleister und Abrechnungsunternehmen (Verbrauchsdaten für Heiz- und Betriebskostenabrechnung), bei Eigentumswohnungen die WEG-Verwaltung (Name, Verbrauchsdaten, Umlagerelevantes), Handwerker und Dienstleister (Name und Kontaktdaten zur Terminvereinbarung), Gebäude- und Haftpflichtversicherer bei Schadensfällen, Rechtsanwalt, Gericht oder Inkasso bei Streitigkeiten, Meldebehörde (Wohnungsgeberbestätigung), Hosting-Anbieter der Verwaltungssoftware als Auftragsverarbeiter (Art. 28 DSGVO). Anderen Mietern wird auf Verlangen Einsicht in die Abrechnungsbelege gewährt, soweit dies zur Prüfung ihrer Abrechnung erforderlich ist. Eine Übermittlung in Drittländer findet nicht statt.</p>
@@ -781,9 +781,9 @@ td, th { padding: 2px 6px; vertical-align: top; text-align: left; border-bottom:
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$mv_id = (int) $_GET['mv_id'];
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_uebergabe_' . $mv_id );
-		$art = ( $_GET['art'] ?? 'einzug' ) === 'auszug' ? __( 'Auszug', 'mietverwaltung' ) : __( 'Einzug', 'mietverwaltung' );
+		$art = ( isset( $_GET['art'] ) ? sanitize_key( $_GET['art'] ) : 'einzug' ) === 'auszug' ? __( 'Auszug', 'mietverwaltung' ) : __( 'Einzug', 'mietverwaltung' );
 		$d   = self::daten( $mv_id );
 		if ( ! $d ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );

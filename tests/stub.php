@@ -39,3 +39,8 @@ require __DIR__.'/../includes/class-mv-bank.php';
 $src=file_get_contents(__DIR__.'/../includes/class-mv-db.php');
 preg_match_all('/CREATE TABLE \' \. \$wpdb->prefix \. "mv_(\w+) \((.*?)\) \$charset;"/s',$src,$m,PREG_SET_ORDER);
 foreach($m as $t){ $body=$t[2]; $body=preg_replace('/bigint\(20\) unsigned NOT NULL AUTO_INCREMENT/','INTEGER PRIMARY KEY AUTOINCREMENT',$body); $body=preg_replace('/,\s*PRIMARY KEY\s+\(id\)/','',$body); $body=preg_replace('/,\s*(UNIQUE )?KEY \w+ \([\w,]+\)/','',$body); $body=preg_replace('/\b(bigint|smallint|tinyint|int)\(\d+\)( unsigned)?/','INTEGER',$body); $body=preg_replace('/decimal\(\d+,\d+\)/','REAL',$body); $body=preg_replace('/varchar\(\d+\)/','TEXT',$body); $body=str_replace(['datetime','longtext','char(32)'],['TEXT','TEXT','TEXT'],$body); $wpdb->exec("CREATE TABLE wp_mv_{$t[1]} ($body)"); }
+if ( ! function_exists( 'map_deep' ) ) { function map_deep($v,$cb){ if(is_array($v)){ foreach($v as $k=>$x){ $v[$k]=map_deep($x,$cb);} return $v;} return is_scalar($v)?$cb($v):$v; } }
+if ( ! function_exists( 'wp_unslash' ) ) { function wp_unslash($s){return $s;} }
+if ( ! function_exists( 'sanitize_text_field' ) ) { function sanitize_text_field($s){return trim(strip_tags((string)$s));} }
+if ( ! function_exists( 'sanitize_key' ) ) { function sanitize_key($s){return preg_replace('/[^a-z0-9_]/','',strtolower((string)$s));} }
+if ( ! function_exists( 'sanitize_file_name' ) ) { function sanitize_file_name($s){return $s;} }

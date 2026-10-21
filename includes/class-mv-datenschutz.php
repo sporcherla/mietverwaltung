@@ -85,7 +85,7 @@ class Mietv_Datenschutz {
 		if ( empty( $_GET['mietv_anonym'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		$id = (int) $_GET['mietv_anonym'];
+		$id = ( isset( $_GET['mietv_anonym'] ) ? (int) $_GET['mietv_anonym'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_anonym_' . $id );
 		self::anonymisieren( $id );
 		wp_safe_redirect( admin_url( 'admin.php?page=mietv_datenschutz&msg=anonym' ) );
@@ -98,7 +98,7 @@ class Mietv_Datenschutz {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$id = (int) $_GET['mieter'];
+		$id = ( isset( $_GET['mieter'] ) ? (int) $_GET['mieter'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_auskunft_' . $id );
 		$mieter = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $id ), ARRAY_A );
 		if ( ! $mieter ) {
@@ -134,7 +134,7 @@ class Mietv_Datenschutz {
 	public static function page(): void {
 		global $wpdb;
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Datenschutz', 'mietverwaltung' ) . '</h1>';
-		if ( ( $_GET['msg'] ?? '' ) === 'anonym' ) {
+		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'anonym' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Mieterdaten anonymisiert. Zahlungs- und Abrechnungsdaten bleiben ohne Personenbezug erhalten.', 'mietverwaltung' ) . '</p></div>';
 		}
 		printf( '<p class="description">' . esc_html__( 'Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete (', 'mietverwaltung' ) . '<a href="%s">' . esc_html__( 'Einstellungen', 'mietverwaltung' ) . '</a>' . esc_html__( '). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten.', 'mietverwaltung' ) . '</p>', (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ), esc_url( admin_url( 'admin.php?page=mietv_einstellungen' ) ) );
@@ -174,11 +174,11 @@ class Mietv_Datenschutz {
 		echo '</ul>';
 
 		echo '<h2>' . esc_html__( 'Hinweise für das Verarbeitungsverzeichnis', 'mietverwaltung' ) . '</h2><ul style="list-style:disc;margin-left:1.5em">
-<li>' . '<strong>' . esc_html__( 'Verarbeitungstätigkeit:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr).', 'mietverwaltung' ) . '</li>
-<li>' . '<strong>' . esc_html__( 'Betroffene:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller.', 'mietverwaltung' ) . '</li>
-<li>' . '<strong>' . esc_html__( 'Datenkategorien:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen.', 'mietverwaltung' ) . '</li>
-<li>' . '<strong>' . esc_html__( 'Technisch-organisatorische Maßnahmen:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst.', 'mietverwaltung' ) . '</li>
-<li>' . '<strong>' . esc_html__( 'Auftragsverarbeiter:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich).', 'mietverwaltung' ) . '</li>
+<li><strong>' . esc_html__( 'Verarbeitungstätigkeit:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr).', 'mietverwaltung' ) . '</li>
+<li><strong>' . esc_html__( 'Betroffene:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller.', 'mietverwaltung' ) . '</li>
+<li><strong>' . esc_html__( 'Datenkategorien:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen.', 'mietverwaltung' ) . '</li>
+<li><strong>' . esc_html__( 'Technisch-organisatorische Maßnahmen:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst.', 'mietverwaltung' ) . '</li>
+<li><strong>' . esc_html__( 'Auftragsverarbeiter:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich).', 'mietverwaltung' ) . '</li>
 </ul></div>';
 	}
 }

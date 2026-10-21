@@ -74,9 +74,9 @@ class Mietv_Mahnung {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$mv_id = (int) $_GET['mv'];
+		$mv_id = ( isset( $_GET['mv'] ) ? (int) $_GET['mv'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_mahnung_' . $mv_id );
-		$stufe = max( 1, min( 3, (int) $_GET['stufe'] ) );
+		$stufe = max( 1, min( 3, ( isset( $_GET['stufe'] ) ? (int) $_GET['stufe'] : 0 ) ) );
 		$mv    = null;
 		foreach ( Mietv_Soll::alle_mv() as $m ) {
 			if ( (int) $m->id === $mv_id ) {
@@ -89,7 +89,7 @@ class Mietv_Mahnung {
 		$op         = Mietv_Soll::op_liste( $mv );
 		$rueckstand = -$op['saldo'];
 		$tage       = (int) Mietv_Einstellungen::get( 'mahn_tage_' . $stufe, 7 );
-		$frist      = date( 'Y-m-d', strtotime( '+' . $tage . ' days' ) );
+		$frist      = gmdate( 'Y-m-d', strtotime( '+' . $tage . ' days' ) );
 		$k          = Mietv_Soll::konditionen( $mv_id, current_time( 'Y-m-01' ) );
 		$miete      = $k ? (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz : 0;
 
@@ -148,10 +148,13 @@ class Mietv_Mahnung {
 			$email = $mrow ? array_filter( [ $mrow->email, $mrow->p_email ] ) : [];
 			if ( $email ) {
 				$tmp = wp_tempnam( $titel . '.pdf' );
-				file_put_contents( $tmp, $pdf );
+				$fs  = Mietv_PDF::filesystem();
+				if ( $fs ) {
+					$fs->put_contents( $tmp, $pdf, FS_CHMOD_FILE );
+				}
 				$plain = wp_strip_all_tags( str_replace( [ '</p>', '</tr>' ], [ "\n\n", "\n" ], $text ) );
 				wp_mail( $email, $betreff, $plain . "\n\n" . Mietv_Einstellungen::get( 'vermieter_name' ) . "\n" . Mietv_Einstellungen::get( 'vermieter_adresse' ), [ 'Reply-To: ' . Mietv_Einstellungen::get( 'vermieter_email' ) ], [ $tmp ] );
-				@unlink( $tmp );
+				wp_delete_file( $tmp );
 			}
 		}
 

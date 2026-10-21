@@ -46,7 +46,7 @@ class Mietv_Einstellungen {
 		if ( empty( $_POST['mietv_einstellungen_nonce'] ) ) {
 			return;
 		}
-		if ( ! current_user_can( Mietv_Admin::CAP ) || ! wp_verify_nonce( $_POST['mietv_einstellungen_nonce'], 'mietv_einstellungen' ) ) {
+		if ( ! current_user_can( Mietv_Admin::CAP ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_einstellungen_nonce'] ?? '' ) ), 'mietv_einstellungen' ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
 
@@ -56,14 +56,15 @@ class Mietv_Einstellungen {
 				wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=noconfirm' ) );
 				exit;
 			}
-			$msg = self::restore( file_get_contents( $_FILES['mietv_restore']['tmp_name'] ) ) ? 'restored' : 'restorefail';
+			$msg = self::restore( (string) file_get_contents( sanitize_text_field( $_FILES['mietv_restore']['tmp_name'] ) ) ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Hochgeladene Datei lokal lesen.
+			 ? 'restored' : 'restorefail';
 			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=' . $msg ) );
 			exit;
 		}
 
 		$data = [];
 		foreach ( self::defaults() as $k => $d ) {
-			$raw        = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : '';
+			$raw        = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- in der Folgezeile bereinigt.
 			$data[ $k ] = $k === 'vermieter_adresse' ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
 		}
 		update_option( self::OPTION, $data );
@@ -73,7 +74,7 @@ class Mietv_Einstellungen {
 
 	public static function page(): void {
 		$o   = array_merge( self::defaults(), get_option( self::OPTION, [] ) );
-		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '';
+		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$map = [
 			'saved'       => [ 'success', esc_html__( 'Einstellungen gespeichert.', 'mietverwaltung' ) ],
 			'restored'    => [ 'success', esc_html__( 'Backup eingespielt. Alle Daten wurden ersetzt.', 'mietverwaltung' ) ],

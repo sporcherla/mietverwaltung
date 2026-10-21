@@ -75,9 +75,9 @@ class Mietv_Brief {
 		$absender_zeile = self::absender_zeile();
 		$datum          = $datum ?: current_time( 'd.m.Y' );
 
-		if ( ( $_GET['format'] ?? 'pdf' ) !== 'html' ) {
+		if ( ( isset( $_GET['format'] ) ? sanitize_key( $_GET['format'] ) : 'pdf' ) !== 'html' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			$bytes = self::pdf( $empfaenger, $betreff, $body, $datum );
-			if ( $ablage && ! empty( $_GET['ablegen'] ) ) {
+			if ( $ablage && ! empty( $_GET['ablegen'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 				Mietv_PDF::ablegen( $bytes, $titel . '.pdf', (int) $ablage[0], $ablage[1] ? (int) $ablage[1] : null, $ablage[2], $ablage[3], ! empty( $ablage[4] ) );
 			}
 			Mietv_PDF::senden( $bytes, $titel . '.pdf' );

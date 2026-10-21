@@ -79,7 +79,7 @@ class Mietv_Bank {
 		$start = 0;
 		foreach ( array_slice( $zeilen, 0, 15 ) as $i => $z ) {
 			foreach ( [ ';', ',', "\t" ] as $s ) {
-				$f = str_getcsv( $z, $s );
+				$f = str_getcsv( $z, $s, '\"', '\\' );
 				$l = array_map( fn( $x ) => mb_strtolower( trim( $x, "\" \t" ) ), $f );
 				if ( count( $f ) >= 3 && self::spalte( $l, [ 'buchungstag', 'buchungsdatum', 'datum', 'valuta', 'wertstellung', 'buchung' ] ) !== null && self::spalte( $l, [ 'betrag', 'umsatz', 'amount' ] ) !== null ) {
 					$sep   = $s;
@@ -101,7 +101,7 @@ class Mietv_Bank {
 
 		$rows = [];
 		for ( $i = $start; $i < count( $zeilen ); $i++ ) {
-			$f = str_getcsv( $zeilen[ $i ], $sep );
+			$f = str_getcsv( $zeilen[ $i ], $sep, '\"', '\\' );
 			if ( count( $f ) < 3 ) {
 				continue;
 			}
@@ -264,14 +264,14 @@ class Mietv_Bank {
 		if ( empty( $_POST['mietv_bank_nonce'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mietv_bank_nonce'], 'mietv_bank' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_bank_nonce'] ?? '' ) ), 'mietv_bank' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
 		$key = 'mietv_bank_' . get_current_user_id();
 
 		if ( ! empty( $_FILES['mietv_bank_datei']['tmp_name'] ) ) {
-			$rows = self::parse( file_get_contents( $_FILES['mietv_bank_datei']['tmp_name'] ), $_FILES['mietv_bank_datei']['name'] );
+			$rows = self::parse( (string) file_get_contents( sanitize_text_field( $_FILES['mietv_bank_datei']['tmp_name'] ?? '' ) ), sanitize_file_name( wp_unslash( $_FILES['mietv_bank_datei']['name'] ?? '' ) ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Hochgeladene Datei lokal lesen.
 			if ( ! $rows ) {
 				wp_safe_redirect( admin_url( 'admin.php?page=mietv_bank&msg=leer' ) );
 				exit;
@@ -284,7 +284,7 @@ class Mietv_Bank {
 		if ( isset( $_POST['mietv_bank_uebernehmen'] ) ) {
 			$rows = get_transient( $key ) ?: [];
 			$n    = 0;
-			foreach ( (array) ( $_POST['zeile'] ?? [] ) as $i => $z ) {
+			foreach ( map_deep( wp_unslash( (array) ( $_POST['zeile'] ?? [] ) ), 'sanitize_text_field' ) as $i => $z ) {
 				if ( empty( $z['ok'] ) || ! isset( $rows[ $i ] ) ) {
 					continue;
 				}
@@ -363,14 +363,14 @@ class Mietv_Bank {
 
 	public static function page(): void {
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Bankimport', 'mietverwaltung' ) . '</h1>';
-		$msg = sanitize_key( $_GET['msg'] ?? '' );
+		$msg = sanitize_key( $_GET['msg'] ?? '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( $msg === 'ok' ) {
-			printf( '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '%d Buchungen übernommen.', 'mietverwaltung' ) . '</p></div>', (int) ( $_GET['n'] ?? 0 ) );
+			printf( '<div class="notice notice-success is-dismissible"><p>' . esc_html__( '%d Buchungen übernommen.', 'mietverwaltung' ) . '</p></div>', ( isset( $_GET['n'] ) ? (int) $_GET['n'] : 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		} elseif ( $msg === 'leer' ) {
 			echo '<div class="notice notice-error"><p>' . esc_html__( 'Keine Buchungen erkannt. Unterstützt: CSV mit Kopfzeile (Buchungstag, Betrag, Verwendungszweck …) oder CAMT.053-XML.', 'mietverwaltung' ) . '</p></div>';
 		}
 
-		$rows = ( sanitize_key( $_GET['schritt'] ?? '' ) === 'pruefen' ) ? get_transient( 'mietv_bank_' . get_current_user_id() ) : null;
+		$rows = ( sanitize_key( isset( $_GET['schritt'] ) ? sanitize_key( $_GET['schritt'] ) : '' ) === 'pruefen' ) ? get_transient( 'mietv_bank_' . get_current_user_id() ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 
 		if ( ! $rows ) {
 			echo '<form method="post" enctype="multipart/form-data" class="mv-form">';

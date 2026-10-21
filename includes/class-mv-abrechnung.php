@@ -322,7 +322,7 @@ class Mietv_Abrechnung {
 		unset( $e );
 
 		// Frist § 556 Abs. 3 BGB
-		$frist = date( 'Y-m-d', strtotime( $bis . ' +12 months' ) );
+		$frist = gmdate( 'Y-m-d', strtotime( $bis . ' +12 months' ) );
 		if ( current_time( 'Y-m-d' ) > $frist ) {
 			$hinweise[] = 'Abrechnungsfrist (12 Monate nach Ende des Zeitraums, § 556 Abs. 3 BGB) ist am ' . mietv_date( $frist ) . ' abgelaufen – Nachforderungen sind ausgeschlossen, Guthaben sind auszuzahlen.';
 		}
@@ -382,14 +382,14 @@ class Mietv_Abrechnung {
 		$base = admin_url( 'admin.php?page=mietv_abrechnung' );
 
 		if ( $a === 'neu' ) {
-			$jahr = (int) ( $_POST['jahr'] ?? current_time( 'Y' ) - 1 );
+			$jahr = isset( $_POST['jahr'] ) ? (int) $_POST['jahr'] : (int) current_time( 'Y' ) - 1;
 			$id   = $wpdb->insert(
 				mietv_table( 'abrechnungen' ),
 				[
 					'owner_id'  => MIETV_OWNER_ID,
-					'objekt_id' => (int) $_POST['objekt_id'],
-					'von'       => sanitize_text_field( $_POST['von'] ?: $jahr . '-01-01' ),
-					'bis'       => sanitize_text_field( $_POST['bis'] ?: $jahr . '-12-31' ),
+					'objekt_id' => ( isset( $_POST['objekt_id'] ) ? (int) $_POST['objekt_id'] : 0 ),
+					'von'       => ( sanitize_text_field( wp_unslash( $_POST['von'] ?? '' ) ) ?: $jahr . '-01-01' ),
+					'bis'       => ( sanitize_text_field( wp_unslash( $_POST['bis'] ?? '' ) ) ?: $jahr . '-12-31' ),
 					'status'    => 'entwurf',
 				]
 			) ? $wpdb->insert_id : 0;
@@ -399,7 +399,7 @@ class Mietv_Abrechnung {
 			wp_safe_redirect( $base . '&id=' . $id );
 			exit;
 		}
-		$id = (int) ( $_REQUEST['id'] ?? 0 );
+		$id = ( isset( $_REQUEST['id'] ) ? (int) $_REQUEST['id'] : 0 );
 		if ( $a === 'neu_berechnen' ) {
 			self::berechnen( $id );
 			wp_safe_redirect( $base . '&id=' . $id . '&msg=berechnet' );
@@ -418,11 +418,11 @@ class Mietv_Abrechnung {
 			exit;
 		}
 		if ( $a === 'vz_anpassen' ) {
-			$erg = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE id = %d', (int) $_GET['erg'] ) );
+			$erg = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE id = %d', ( isset( $_GET['erg'] ) ? (int) $_GET['erg'] : 0 ) ) );
 			if ( $erg ) {
 				$monate = max( 1, round( $erg->tage / 30.4 ) );
 				$k      = Mietv_Soll::konditionen( (int) $erg->mv_id, current_time( 'Y-m-01' ) );
-				$ab     = date( 'Y-m-01', strtotime( '+1 month', strtotime( current_time( 'Y-m-01' ) ) ) );
+				$ab     = gmdate( 'Y-m-01', strtotime( '+1 month', strtotime( current_time( 'Y-m-01' ) ) ) );
 				$wpdb->insert(
 					mietv_table( 'konditionen' ),
 					[
@@ -445,7 +445,7 @@ class Mietv_Abrechnung {
 
 	public static function page(): void {
 		global $wpdb;
-		$id = (int) ( $_GET['id'] ?? 0 );
+		$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		echo '<div class="wrap mv-wrap">';
 		if ( $id ) {
 			self::detail( $id );
@@ -500,7 +500,7 @@ class Mietv_Abrechnung {
 		}
 		$ergs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, m.vorname, m.nachname, ei.bezeichnung AS einheit FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = e.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id JOIN ' . $wpdb->prefix . 'mv_einheiten ei ON ei.id = mv.einheit_id WHERE e.abrechnung_id = %d ORDER BY m.nachname', $id ) );
 
-		$msg = sanitize_key( $_GET['msg'] ?? '' );
+		$msg = sanitize_key( $_GET['msg'] ?? '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( $msg === 'berechnet' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Neu berechnet.', 'mietverwaltung' ) . '</p></div>';
 		} elseif ( $msg === 'vz' ) {
@@ -567,7 +567,7 @@ class Mietv_Abrechnung {
 
 	public static function brief( ?int $erg_id = null, bool $portal = false ): void {
 		global $wpdb;
-		$erg_id = $erg_id ?: (int) ( $_GET['erg'] ?? 0 );
+		$erg_id = $erg_id ?: ( isset( $_GET['erg'] ) ? (int) $_GET['erg'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( ! $portal ) {
 			if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );

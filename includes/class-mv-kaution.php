@@ -49,24 +49,24 @@ class Mietv_Kaution {
 		if ( empty( $_POST['mietv_kaution_nonce'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mietv_kaution_nonce'], 'mietv_kaution' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_kaution_nonce'] ?? '' ) ), 'mietv_kaution' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$mv_id = (int) $_POST['mv_id'];
+		$mv_id = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : 0 );
 		if ( ! empty( $_POST['loeschen'] ) ) {
 			$wpdb->delete(
 				mietv_table( 'kaution' ),
 				[
-					'id'    => (int) $_POST['loeschen'],
+					'id'    => ( isset( $_POST['loeschen'] ) ? (int) $_POST['loeschen'] : 0 ),
 					'mv_id' => $mv_id,
 				]
 			);
 		} elseif ( ! empty( $_POST['zins_berechnen'] ) ) {
 			// Zinsen seit letzter Gutschrift (bzw. erster Einzahlung) bis Stichtag, taggenau auf den jeweiligen Stand
 			$k     = self::konto( $mv_id );
-			$satz  = mietv_to_float( $_POST['zinssatz'] ?? '0' );
-			$bis   = sanitize_text_field( $_POST['stichtag'] ?: current_time( 'Y-m-d' ) );
+			$satz  = mietv_to_float( sanitize_text_field( wp_unslash( $_POST['zinssatz'] ?? '' ) ) );
+			$bis   = ( sanitize_text_field( wp_unslash( $_POST['stichtag'] ?? '' ) ) ?: current_time( 'Y-m-d' ) );
 			$zins  = 0.0;
 			$stand = 0.0;
 			$von   = null;
@@ -97,14 +97,14 @@ class Mietv_Kaution {
 				);
 			}
 		} else {
-			$betrag = mietv_to_float( $_POST['betrag'] ?? '0' );
-			$art    = sanitize_key( $_POST['art'] );
+			$betrag = mietv_to_float( sanitize_text_field( wp_unslash( $_POST['betrag'] ?? '' ) ) );
+			$art    = sanitize_key( $_POST['art'] ?? '' );
 			if ( $betrag > 0 && isset( self::arten()[ $art ] ) ) {
 				$wpdb->insert(
 					mietv_table( 'kaution' ),
 					[
 						'mv_id'  => $mv_id,
-						'datum'  => sanitize_text_field( $_POST['datum'] ?: current_time( 'Y-m-d' ) ),
+						'datum'  => ( sanitize_text_field( wp_unslash( $_POST['datum'] ?? '' ) ) ?: current_time( 'Y-m-d' ) ),
 						'art'    => $art,
 						'betrag' => $betrag,
 						'notiz'  => sanitize_text_field( wp_unslash( $_POST['notiz'] ?? '' ) ),
@@ -119,7 +119,7 @@ class Mietv_Kaution {
 	public static function page(): void {
 		global $wpdb;
 		$mvs   = Mietv_Soll::alle_mv();
-		$mv_id = (int) ( $_GET['mv_id'] ?? ( $mvs[0]->id ?? 0 ) );
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : ( $mvs[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$mv    = null;
 		foreach ( $mvs as $m ) {
 			if ( (int) $m->id === $mv_id ) {
@@ -211,7 +211,7 @@ class Mietv_Kaution {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$mv_id = (int) $_GET['mv_id'];
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_kaution_abr_' . $mv_id );
 		$mv = null;
 		foreach ( Mietv_Soll::alle_mv() as $m ) {

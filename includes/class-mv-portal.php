@@ -22,14 +22,14 @@ class Mietv_Portal {
 		if ( ! isset( $_POST['mietv_zaehler_nonce'] ) ) {
 			return;
 		}
-		if ( ! is_user_logged_in() || ! wp_verify_nonce( $_POST['mietv_zaehler_nonce'], 'mietv_zaehler' ) ) {
+		if ( ! is_user_logged_in() || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_zaehler_nonce'] ?? '' ) ), 'mietv_zaehler' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->einheit_id, self::eigene_mv() );
-		$z       = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_zaehler WHERE id = %d', (int) ( $_POST['zaehler_id'] ?? 0 ) ) );
-		$stand   = mietv_to_float( $_POST['stand'] ?? '' );
-		$datum   = sanitize_text_field( $_POST['datum'] ?? current_time( 'Y-m-d' ) );
+		$z       = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_zaehler WHERE id = %d', ( isset( $_POST['zaehler_id'] ) ? (int) $_POST['zaehler_id'] : 0 ) ) );
+		$stand   = mietv_to_float( sanitize_text_field( wp_unslash( $_POST['stand'] ?? '' ) ) );
+		$datum   = ( sanitize_text_field( wp_unslash( $_POST['datum'] ?? '' ) ) ?: current_time( 'Y-m-d' ) );
 		$flag    = 'fehler';
 		if ( $z && in_array( (int) $z->einheit_id, $erlaubt, true ) && $stand > 0 && preg_match( '/^\d{4}-\d{2}-\d{2}$/', $datum ) && $datum <= current_time( 'Y-m-d' ) ) {
 			$vorher = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum <= %s ORDER BY datum DESC LIMIT 1', $z->id, $datum ) );
@@ -64,11 +64,11 @@ class Mietv_Portal {
 
 	/** Freigegebene Abrechnung als Schreiben – nur für den eigenen Mieter. */
 	public static function handle_abrechnung(): void {
-		if ( empty( $_GET['mietv_abrechnung'] ) || ! is_user_logged_in() ) {
+		if ( empty( $_GET['mietv_abrechnung'] ) || ! is_user_logged_in() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			return;
 		}
 		global $wpdb;
-		$erg_id  = (int) $_GET['mietv_abrechnung'];
+		$erg_id  = ( isset( $_GET['mietv_abrechnung'] ) ? (int) $_GET['mietv_abrechnung'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->id, self::eigene_mv() );
 		$mv_id   = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT mv_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE id = %d AND freigegeben = 1', $erg_id ) );
 		if ( ! $mv_id || ! in_array( $mv_id, $erlaubt, true ) ) {
@@ -90,11 +90,11 @@ class Mietv_Portal {
 		if ( ! isset( $_POST['mietv_meldung_nonce'] ) ) {
 			return;
 		}
-		if ( ! is_user_logged_in() || ! wp_verify_nonce( $_POST['mietv_meldung_nonce'], 'mietv_meldung' ) ) {
+		if ( ! is_user_logged_in() || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_meldung_nonce'] ?? '' ) ), 'mietv_meldung' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
 		}
 		global $wpdb;
-		$mv_id   = (int) ( $_POST['mv_id'] ?? 0 );
+		$mv_id   = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : 0 );
 		$betreff = sanitize_text_field( wp_unslash( $_POST['betreff'] ?? '' ) );
 		$text    = sanitize_textarea_field( wp_unslash( $_POST['text'] ?? '' ) );
 
@@ -149,7 +149,7 @@ class Mietv_Portal {
 		echo self::css(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		echo '<div class="mv-portal">';
 
-		$zf = isset( $_GET['mietv_zaehler'] ) ? sanitize_key( $_GET['mietv_zaehler'] ) : '';
+		$zf = isset( $_GET['mietv_zaehler'] ) ? sanitize_key( $_GET['mietv_zaehler'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( $zf === 'ok' ) {
 			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Zählerstand gespeichert. Vielen Dank.', 'mietverwaltung' ) . '</p>';
 		} elseif ( $zf === 'kleiner' ) {
@@ -157,7 +157,7 @@ class Mietv_Portal {
 		} elseif ( $zf === 'fehler' ) {
 			echo '<p class="mv-notice mv-err">' . esc_html__( 'Zählerstand konnte nicht gespeichert werden.', 'mietverwaltung' ) . '</p>';
 		}
-		$flag = isset( $_GET['mietv_meldung'] ) ? sanitize_key( $_GET['mietv_meldung'] ) : '';
+		$flag = isset( $_GET['mietv_meldung'] ) ? sanitize_key( $_GET['mietv_meldung'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( $flag === 'ok' ) {
 			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Ihre Meldung wurde übermittelt. Vielen Dank.', 'mietverwaltung' ) . '</p>';
 		} elseif ( $flag === 'fehler' ) {

@@ -27,13 +27,13 @@ class Mietv_Steuer {
 		if ( empty( $_POST['mietv_zeilen_nonce'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_POST['mietv_zeilen_nonce'], 'mietv_zeilen' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_zeilen_nonce'] ?? '' ) ), 'mietv_zeilen' ) ) {
 			return;
 		}
-		$jahr          = (int) $_POST['jahr'];
+		$jahr          = ( isset( $_POST['jahr'] ) ? (int) $_POST['jahr'] : 0 );
 		$alle          = get_option( 'mietv_anlagev_zeilen', [] );
 		$alle[ $jahr ] = [];
-		foreach ( (array) ( $_POST['zeile'] ?? [] ) as $g => $z ) {
+		foreach ( map_deep( wp_unslash( (array) ( $_POST['zeile'] ?? [] ) ), 'sanitize_text_field' ) as $g => $z ) {
 			$alle[ $jahr ][ sanitize_key( $g ) ] = sanitize_text_field( $z );
 		}
 		update_option( 'mietv_anlagev_zeilen', $alle );
@@ -285,7 +285,7 @@ class Mietv_Steuer {
 
 	private static function jahr_aus_request(): int {
 		$jahre = self::jahre();
-		$j     = isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : 0;
+		$j     = isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		return $j > 1990 ? $j : (int) $jahre[0];
 	}
 
@@ -313,7 +313,7 @@ class Mietv_Steuer {
 		}
 		echo '</select></label> <a href="' . esc_url( $csv ) . '" class="button">CSV exportieren</a> <button type="button" class="button" onclick="window.print()">Drucken</button></form>';
 
-		if ( ( $_GET['msg'] ?? '' ) === 'zeilen' ) {
+		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'zeilen' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Zeilennummern gespeichert.', 'mietverwaltung' ) . '</p></div>';
 		}
 		$chart = self::chart( $jahr );
@@ -503,9 +503,9 @@ class Mietv_Steuer {
 				number_format( $p['quote'], 1, ',', '.' )
 			);
 			if ( $p['netto'] > $p['grenze'] ) {
-				printf( '<div class="notice notice-error inline"><p>' . '<strong>' . esc_html__( 'Grenze überschritten!', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-error inline"><p><strong>' . esc_html__( 'Grenze überschritten!', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
 			} elseif ( $p['aktiv'] && $p['quote'] >= 10 ) {
-				printf( '<div class="notice notice-warning inline"><p>' . '<strong>' . esc_html__( 'Achtung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-warning inline"><p><strong>' . esc_html__( 'Achtung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
 			}
 		}
 	}
@@ -518,7 +518,7 @@ class Mietv_Steuer {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
 		}
-		$jahr = (int) ( $_GET['jahr'] ?? 0 );
+		$jahr = ( isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_steuer_csv_' . $jahr );
 
 		header( 'Content-Type: text/csv; charset=utf-8' );
@@ -529,25 +529,25 @@ class Mietv_Steuer {
 		$num = fn( $v ) => number_format( (float) $v, 2, ',', '' );
 
 		$zeilen = self::zeilen( $jahr );
-		fputcsv( $out, [ 'Bereich', 'Gruppe', 'Zeile Anlage V', 'Position', 'Quelle', 'Datum', 'Rechnungssteller', 'Beleg-Nr.', 'Umlagefähig', 'Betrag' ], $sep );
+		fputcsv( $out, [ 'Bereich', 'Gruppe', 'Zeile Anlage V', 'Position', 'Quelle', 'Datum', 'Rechnungssteller', 'Beleg-Nr.', 'Umlagefähig', 'Betrag' ], $sep, '\"', '\\' );
 
 		foreach ( self::einnahmen( $jahr ) as $e ) {
-			fputcsv( $out, [ 'Einnahmen', 'Mieteinnahmen', $zeilen['einnahmen_miete'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['miete'] ) ], $sep );
-			fputcsv( $out, [ 'Einnahmen', 'Umlagen', $zeilen['einnahmen_umlagen'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['umlagen'] ) ], $sep );
+			fputcsv( $out, [ 'Einnahmen', 'Mieteinnahmen', $zeilen['einnahmen_miete'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['miete'] ) ], $sep, '\"', '\\' );
+			fputcsv( $out, [ 'Einnahmen', 'Umlagen', $zeilen['einnahmen_umlagen'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['umlagen'] ) ], $sep, '\"', '\\' );
 		}
 		foreach ( self::werbungskosten( $jahr ) as $gk => $g ) {
 			foreach ( $g['arten'] as $a ) {
-				fputcsv( $out, [ 'Werbungskosten (Summe)', $g['label'], $zeilen[ $gk ] ?? '', $a->name, $a->quelle, '', '', '', $a->umlagefaehig ? 'ja' : 'nein', $num( $a->summe ) ], $sep );
+				fputcsv( $out, [ 'Werbungskosten (Summe)', $g['label'], $zeilen[ $gk ] ?? '', $a->name, $a->quelle, '', '', '', $a->umlagefaehig ? 'ja' : 'nein', $num( $a->summe ) ], $sep, '\"', '\\' );
 			}
 		}
 		foreach ( Mietv_Afa::uebersicht( $jahr ) as $r ) {
-			fputcsv( $out, [ 'AfA', 'Absetzung für Abnutzung', $zeilen['afa'] ?? '', $r['anlagegut']->bezeichnung, 'Anlagegut', mietv_date( $r['anlagegut']->anschaffung ), '', 'Restwert ' . $num( $r['restwert'] ), 'nein', $num( $r['afa'] ) ], $sep );
+			fputcsv( $out, [ 'AfA', 'Absetzung für Abnutzung', $zeilen['afa'] ?? '', $r['anlagegut']->bezeichnung, 'Anlagegut', mietv_date( $r['anlagegut']->anschaffung ), '', 'Restwert ' . $num( $r['restwert'] ), 'nein', $num( $r['afa'] ) ], $sep, '\"', '\\' );
 		}
 		foreach ( self::darlehen_jahr( $jahr ) as $d ) {
-			fputcsv( $out, [ 'Finanzierung', 'Schuldzinsen', $zeilen['schuldzinsen'] ?? '', $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ), 'Darlehen', '', $d->bank, 'Restschuld ' . $num( $d->restschuld ), 'nein', $num( $d->zinsen ) ], $sep );
+			fputcsv( $out, [ 'Finanzierung', 'Schuldzinsen', $zeilen['schuldzinsen'] ?? '', $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ), 'Darlehen', '', $d->bank, 'Restschuld ' . $num( $d->restschuld ), 'nein', $num( $d->zinsen ) ], $sep, '\"', '\\' );
 		}
 		foreach ( self::belege( $jahr ) as $b ) {
-			fputcsv( $out, [ 'Beleg', Mietv_DB::anlage_v_gruppen()[ $b->anlage_v ] ?? $b->anlage_v, $zeilen[ $b->anlage_v ] ?? '', $b->kostenart . ( $b->verteilt ? ' (Anteil ' . $b->anteil_nr . '/' . $b->verteilung_jahre . ')' : '' ), 'Belege', mietv_date( $b->datum ), $b->lieferant, $b->belegnr, $b->umlagefaehig ? 'ja' : 'nein', $num( $b->anteil ) ], $sep );
+			fputcsv( $out, [ 'Beleg', Mietv_DB::anlage_v_gruppen()[ $b->anlage_v ] ?? $b->anlage_v, $zeilen[ $b->anlage_v ] ?? '', $b->kostenart . ( $b->verteilt ? ' (Anteil ' . $b->anteil_nr . '/' . $b->verteilung_jahre . ')' : '' ), 'Belege', mietv_date( $b->datum ), $b->lieferant, $b->belegnr, $b->umlagefaehig ? 'ja' : 'nein', $num( $b->anteil ) ], $sep, '\"', '\\' );
 		}
 		fclose( $out );
 		exit;

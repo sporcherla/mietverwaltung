@@ -148,7 +148,7 @@ class Mietv_Afa {
 				continue;
 			}
 			$von    = $a->anschaffung;
-			$bis    = date( 'Y-m-d', strtotime( $von . ' +3 years -1 day' ) );
+			$bis    = gmdate( 'Y-m-d', strtotime( $von . ' +3 years -1 day' ) );
 			$brutto = (float) $wpdb->get_var(
 				$wpdb->prepare(
 					'SELECT COALESCE(SUM(b.betrag),0) FROM ' . $wpdb->prefix . 'mv_belege b

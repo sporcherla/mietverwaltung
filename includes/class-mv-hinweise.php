@@ -198,7 +198,7 @@ class Mietv_Hinweise {
 			return;
 		}
 		$hash = md5( wp_json_encode( array_column( $h, 'text' ) ) );
-		if ( get_option( 'mietv_hinweis_hash' ) === $hash && get_option( 'mietv_hinweis_datum' ) > date( 'Y-m-d', strtotime( '-7 days' ) ) ) {
+		if ( get_option( 'mietv_hinweis_hash' ) === $hash && get_option( 'mietv_hinweis_datum' ) > gmdate( 'Y-m-d', strtotime( '-7 days' ) ) ) {
 			return; // gleiche Hinweise: höchstens wöchentlich wiederholen
 		}
 		$text = 'Hinweise aus der Mietverwaltung (' . current_time( 'd.m.Y' ) . "):\n\n";
