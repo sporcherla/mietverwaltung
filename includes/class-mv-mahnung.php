@@ -35,7 +35,7 @@ class MV_Mahnung {
 			++$n;
 			$k        = MV_Soll::konditionen( (int) $mv->id, current_time( 'Y-m-01' ) );
 			$miete    = $k ? (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz : 0;
-			$letzte   = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mahnungen' ) . ' WHERE mv_id = %d ORDER BY datum DESC, id DESC LIMIT 1', $mv->id ) );
+			$letzte   = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mahnungen WHERE mv_id = %d ORDER BY datum DESC, id DESC LIMIT 1', $mv->id ) );
 			$naechste = $letzte ? min( 3, (int) $letzte->stufe + 1 ) : 1;
 			echo '<tr>';
 			printf(
@@ -58,7 +58,7 @@ class MV_Mahnung {
 		}
 		echo '</tbody></table>';
 
-		$hist = $wpdb->get_results( 'SELECT h.*, m.nachname, m.vorname FROM ' . mv_table( 'mahnungen' ) . ' h JOIN ' . mv_table( 'mietverhaeltnisse' ) . ' mv ON mv.id = h.mv_id JOIN ' . mv_table( 'mieter' ) . ' m ON m.id = mv.mieter_id ORDER BY h.datum DESC LIMIT 50' );
+		$hist = $wpdb->get_results( 'SELECT h.*, m.nachname, m.vorname FROM ' . $wpdb->prefix . 'mv_mahnungen h JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = h.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id ORDER BY h.datum DESC LIMIT 50' );
 		if ( $hist ) {
 			echo '<h2>' . esc_html__( 'Verlauf', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Mieter', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Stufe', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Frist', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'E-Mail', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 			foreach ( $hist as $h ) {
@@ -138,13 +138,13 @@ class MV_Mahnung {
 			]
 		);
 
-		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $mv->einheit_id ) );
+		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
 		$titel     = self::stufen()[ $stufe ] . ' ' . current_time( 'Y-m-d' );
 		$pdf       = MV_Brief::pdf( MV_Brief::empfaenger( $mv ), $betreff, $text );
 		MV_PDF::ablegen( $pdf, $titel . '.pdf', $objekt_id, $mv_id, 'sonstiges', $titel . ' – ' . $mv->nachname, false );
 
 		if ( $per_email ) {
-			$mrow  = $wpdb->get_row( $wpdb->prepare( 'SELECT email, p_email FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $mv->mieter_id ) );
+			$mrow  = $wpdb->get_row( $wpdb->prepare( 'SELECT email, p_email FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $mv->mieter_id ) );
 			$email = $mrow ? array_filter( [ $mrow->email, $mrow->p_email ] ) : [];
 			if ( $email ) {
 				$tmp = wp_tempnam( $titel . '.pdf' );

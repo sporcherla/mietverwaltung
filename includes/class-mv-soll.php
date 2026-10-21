@@ -13,7 +13,7 @@ class MV_Soll {
 		global $wpdb;
 		return $wpdb->get_row(
 			$wpdb->prepare(
-				'SELECT * FROM ' . mv_table( 'konditionen' ) . ' WHERE mv_id = %d AND gueltig_ab <= %s ORDER BY gueltig_ab DESC, id DESC LIMIT 1',
+				'SELECT * FROM ' . $wpdb->prefix . 'mv_konditionen WHERE mv_id = %d AND gueltig_ab <= %s ORDER BY gueltig_ab DESC, id DESC LIMIT 1',
 				$mv_id,
 				$monat
 			)
@@ -25,7 +25,7 @@ class MV_Soll {
 		global $wpdb;
 		return (float) $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT COALESCE(SUM(betrag),0) FROM ' . mv_table( 'zahlungen' ) . ' WHERE mv_id = %d AND monat = %s',
+				'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE mv_id = %d AND monat = %s',
 				$mv_id,
 				$monat
 			)
@@ -90,13 +90,13 @@ class MV_Soll {
 		$where = $nur_aktiv ? "WHERE (mv.ende IS NULL OR mv.ende = '0000-00-00' OR mv.ende >= CURDATE())" : '';
 		return $wpdb->get_results(
 			'SELECT mv.*, m.vorname, m.nachname, m.p_vorname, m.p_nachname, m.wp_user_id, e.bezeichnung AS einheit, o.bezeichnung AS objekt, o.heizung,
-			        (SELECT GROUP_CONCAT(ze.bezeichnung) FROM ' . mv_table( 'mv_einheiten' ) . ' z JOIN ' . mv_table( 'einheiten' ) . ' ze ON ze.id = z.einheit_id WHERE z.mv_id = mv.id) AS zusatz
-			 FROM ' . mv_table( 'mietverhaeltnisse' ) . ' mv
-			 JOIN ' . mv_table( 'mieter' ) . ' m ON m.id = mv.mieter_id
-			 JOIN ' . mv_table( 'einheiten' ) . ' e ON e.id = mv.einheit_id
-			 JOIN ' . mv_table( 'objekte' ) . " o ON o.id = e.objekt_id
-			 $where
-			 ORDER BY mv.beginn DESC"
+			        (SELECT GROUP_CONCAT(ze.bezeichnung) FROM ' . $wpdb->prefix . 'mv_mv_einheiten z JOIN ' . $wpdb->prefix . 'mv_einheiten ze ON ze.id = z.einheit_id WHERE z.mv_id = mv.id) AS zusatz
+			 FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv
+			 JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id
+			 JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.id = mv.einheit_id
+			 JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = e.objekt_id '
+			. $where // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Konstante Bedingung ohne Nutzereingabe.
+			. ' ORDER BY mv.beginn DESC'
 		);
 	}
 
@@ -109,6 +109,6 @@ class MV_Soll {
 	/** Zusatzeinheiten eines Mietverhältnisses mit Mietanteil. */
 	public static function zusatzeinheiten( int $mv_id ): array {
 		global $wpdb;
-		return $wpdb->get_results( $wpdb->prepare( 'SELECT z.*, e.bezeichnung, e.typ, e.flaeche FROM ' . mv_table( 'mv_einheiten' ) . ' z JOIN ' . mv_table( 'einheiten' ) . ' e ON e.id = z.einheit_id WHERE z.mv_id = %d ORDER BY e.typ, e.bezeichnung', $mv_id ) );
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT z.*, e.bezeichnung, e.typ, e.flaeche FROM ' . $wpdb->prefix . 'mv_mv_einheiten z JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.id = z.einheit_id WHERE z.mv_id = %d ORDER BY e.typ, e.bezeichnung', $mv_id ) );
 	}
 }

@@ -12,8 +12,8 @@ class MV_Brief {
 	/** Empfängerblock aus Mietverhältnis (Mieter + Objektadresse). */
 	public static function empfaenger( object $mv ): string {
 		global $wpdb;
-		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $mv->mieter_id ) );
-		$o = $wpdb->get_row( $wpdb->prepare( 'SELECT o.* FROM ' . mv_table( 'objekte' ) . ' o JOIN ' . mv_table( 'einheiten' ) . ' e ON e.objekt_id = o.id WHERE e.id = %d', $mv->einheit_id ) );
+		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $mv->mieter_id ) );
+		$o = $wpdb->get_row( $wpdb->prepare( 'SELECT o.* FROM ' . $wpdb->prefix . 'mv_objekte o JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.objekt_id = o.id WHERE e.id = %d', $mv->einheit_id ) );
 		$z = mv_mieter_personen( $m );
 		if ( $o ) {
 			$z[] = $o->strasse;
@@ -24,7 +24,7 @@ class MV_Brief {
 
 	public static function anrede( object $mv ): string {
 		global $wpdb;
-		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT anrede, nachname, p_anrede, p_nachname FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $mv->mieter_id ) );
+		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT anrede, nachname, p_anrede, p_nachname FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $mv->mieter_id ) );
 		if ( ! $m ) {
 			return __( 'Sehr geehrte Damen und Herren,', 'mietverwaltung' );
 		}
@@ -110,7 +110,7 @@ h2 { font-size: 12pt; margin: 8mm 0 2mm; }
 <div class="empf"><?php echo esc_html( $empfaenger ); ?></div>
 <div class="datum"><?php echo esc_html( self::ort() . ', ' . $datum ); ?></div>
 <div class="betreff"><?php echo esc_html( $betreff ); ?></div>
-		<?php echo $body; ?>
+		<?php echo $body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Brieftext wird intern aus escapten Werten erzeugt. ?>
 <p>Mit freundlichen Grüßen</p>
 <p style="margin-top:14mm"><?php echo esc_html( $E::get( 'vermieter_name' ) ); ?></p>
 </div>

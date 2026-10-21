@@ -776,7 +776,7 @@ class MV_PDF {
 		header( 'Content-Type: application/pdf' );
 		header( 'Content-Disposition: inline; filename="' . sanitize_file_name( $dateiname ) . '"' );
 		header( 'Content-Length: ' . strlen( $bytes ) );
-		echo $bytes;
+		echo $bytes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		exit;
 	}
 }

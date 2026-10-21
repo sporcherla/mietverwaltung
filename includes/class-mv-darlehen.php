@@ -16,7 +16,7 @@ class MV_Darlehen {
 	/** Gebuchte Raten eines Darlehens, chronologisch. */
 	public static function raten( int $darlehen_id ): array {
 		global $wpdb;
-		return $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'darlehen_raten' ) . ' WHERE darlehen_id = %d ORDER BY datum, id', $darlehen_id ) );
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen_raten WHERE darlehen_id = %d ORDER BY datum, id', $darlehen_id ) );
 	}
 
 	/** Restschuld nach allen gebuchten Raten. */
@@ -98,12 +98,12 @@ class MV_Darlehen {
 	/** Jahreswerte aus gebuchten Raten: ['zinsen','tilgung','restschuld','anzahl'] oder null. */
 	public static function jahreswerte( int $darlehen_id, int $jahr ): ?array {
 		global $wpdb;
-		$r = $wpdb->get_row( $wpdb->prepare( 'SELECT SUM(zins) AS zinsen, SUM(tilgung) AS tilgung, COUNT(*) AS anzahl FROM ' . mv_table( 'darlehen_raten' ) . ' WHERE darlehen_id = %d AND datum BETWEEN %s AND %s', $darlehen_id, $jahr . '-01-01', $jahr . '-12-31' ) );
+		$r = $wpdb->get_row( $wpdb->prepare( 'SELECT SUM(zins) AS zinsen, SUM(tilgung) AS tilgung, COUNT(*) AS anzahl FROM ' . $wpdb->prefix . 'mv_darlehen_raten WHERE darlehen_id = %d AND datum BETWEEN %s AND %s', $darlehen_id, $jahr . '-01-01', $jahr . '-12-31' ) );
 		if ( ! $r || ! (int) $r->anzahl ) {
 			return null;
 		}
-		$d       = $wpdb->get_row( $wpdb->prepare( 'SELECT betrag FROM ' . mv_table( 'darlehen' ) . ' WHERE id = %d', $darlehen_id ) );
-		$getilgt = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(tilgung),0) FROM ' . mv_table( 'darlehen_raten' ) . ' WHERE darlehen_id = %d AND datum <= %s', $darlehen_id, $jahr . '-12-31' ) );
+		$d       = $wpdb->get_row( $wpdb->prepare( 'SELECT betrag FROM ' . $wpdb->prefix . 'mv_darlehen WHERE id = %d', $darlehen_id ) );
+		$getilgt = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(tilgung),0) FROM ' . $wpdb->prefix . 'mv_darlehen_raten WHERE darlehen_id = %d AND datum <= %s', $darlehen_id, $jahr . '-12-31' ) );
 		return [
 			'zinsen'     => round( (float) $r->zinsen, 2 ),
 			'tilgung'    => round( (float) $r->tilgung, 2 ),
@@ -125,7 +125,7 @@ class MV_Darlehen {
 		}
 		global $wpdb;
 		$did = (int) $_POST['darlehen_id'];
-		$d   = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'darlehen' ) . ' WHERE id = %d', $did ) );
+		$d   = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen WHERE id = %d', $did ) );
 		if ( ! $d ) {
 			return;
 		}
@@ -163,7 +163,7 @@ class MV_Darlehen {
 				if ( ! preg_match( '/^\d{4}-\d{2}-01$/', $monat ) ) {
 					continue;
 				}
-				$exists = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'darlehen_raten' ) . " WHERE darlehen_id = %d AND art = 'rate' AND datum BETWEEN %s AND %s", $did, $monat, date( 'Y-m-t', strtotime( $monat ) ) ) );
+				$exists = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_darlehen_raten WHERE darlehen_id = %d AND art = 'rate' AND datum BETWEEN %s AND %s", $did, $monat, date( 'Y-m-t', strtotime( $monat ) ) ) );
 				if ( $exists ) {
 					continue;
 				}
@@ -198,7 +198,7 @@ class MV_Darlehen {
 
 	public static function page(): void {
 		global $wpdb;
-		$alle = $wpdb->get_results( 'SELECT * FROM ' . mv_table( 'darlehen' ) . ' ORDER BY status, bank' );
+		$alle = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen ORDER BY status, bank' );
 		$did  = (int) ( $_GET['darlehen_id'] ?? ( $alle[0]->id ?? 0 ) );
 		$d    = null;
 		foreach ( $alle as $x ) {
@@ -216,7 +216,7 @@ class MV_Darlehen {
 		}
 		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mv_darlehenskonto"><label>' . esc_html__( 'Darlehen', 'mietverwaltung' ) . ' <select name="darlehen_id" onchange="this.form.submit()">';
 		foreach ( $alle as $x ) {
-			printf( '<option value="%d"%s>%s</option>', $x->id, selected( $did, $x->id, false ), esc_html( $x->bank . ( $x->bezeichnung ? ' – ' . $x->bezeichnung : '' ) . ' (' . mv_eur( $x->betrag ) . ')' ) );
+			printf( '<option value="%d"%s>%s</option>', (int) $x->id, selected( $did, (int) $x->id, false ), esc_html( $x->bank . ( $x->bezeichnung ? ' – ' . $x->bezeichnung : '' ) . ' (' . mv_eur( $x->betrag ) . ')' ) );
 		}
 		echo '</select></label></form>';
 		if ( ! $d ) {
@@ -257,14 +257,14 @@ class MV_Darlehen {
 			esc_html( mv_eur( $tilg_gesamt ) ),
 			esc_html__( 'Rate / Sollzins', 'mietverwaltung' ),
 			esc_html( mv_eur( $d->rate ) . ' / ' . number_format( (float) $d->zinssatz, 2, ',', '.' ) . ' %' ),
-			$monate_rest ? sprintf( esc_html__( 'Restlaufzeit ca. %d Monate', 'mietverwaltung' ), $monate_rest ) : ''
+			$monate_rest ? sprintf( esc_html__( 'Restlaufzeit ca. %d Monate', 'mietverwaltung' ), (int) $monate_rest ) : ''
 		);
 
 		echo '<p class="description">' . esc_html__( 'Offene Monate abhaken und buchen: Zins = Restschuld × Sollzins / 12, Tilgung = Rate − Zins. Die Jahressummen fließen als Schuldzinsen in die Anlage V, solange keine Zinsbescheinigung der Bank für das Jahr erfasst ist – diese hat Vorrang (taggenaue Bankrechnung).', 'mietverwaltung' ) . '</p>';
 
 		echo '<form method="post" id="mv-dl-form">';
 		wp_nonce_field( 'mv_darlehen', 'mv_darlehen_nonce' );
-		printf( '<input type="hidden" name="darlehen_id" value="%d">', $d->id );
+		printf( '<input type="hidden" name="darlehen_id" value="%d">', (int) $d->id );
 		if ( $offen ) {
 			echo '<p><button class="button button-primary">' . esc_html__( 'Markierte Raten buchen', 'mietverwaltung' ) . '</button></p>';
 		}
@@ -297,7 +297,7 @@ class MV_Darlehen {
 		wp_nonce_field( 'mv_darlehen', 'mv_darlehen_nonce' );
 		printf(
 			'<input type="hidden" name="darlehen_id" value="%d"><p><input type="date" name="st_datum" value="%s"> <input type="text" name="st_betrag" class="mv-num" placeholder="%s" inputmode="decimal"> <button name="sondertilgung" value="1" class="button">%s</button></p><p class="description">%s</p></form></div>',
-			$d->id,
+			(int) $d->id,
 			esc_attr( current_time( 'Y-m-d' ) ),
 			esc_attr__( 'Betrag', 'mietverwaltung' ),
 			esc_html__( 'Buchen', 'mietverwaltung' ),
@@ -309,12 +309,12 @@ class MV_Darlehen {
 		$jahre = array_unique( array_map( fn( $r ) => (int) substr( $r['monat'], 0, 4 ), $gebucht ) );
 		rsort( $jahre );
 		foreach ( $jahre as $j ) {
-			$besch = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'darlehen_jahre' ) . ' WHERE darlehen_id = %d AND jahr = %d', $d->id, $j ) );
+			$besch = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen_jahre WHERE darlehen_id = %d AND jahr = %d', $d->id, $j ) );
 			$jw    = self::jahreswerte( (int) $d->id, $j );
 			if ( $besch ) {
-				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s%s</td></tr>', $j, esc_html( mv_eur( $besch->zinsen ) ), esc_html( mv_eur( $besch->tilgung ) ), esc_html( mv_eur( $besch->restschuld ) ), esc_html__( 'Zinsbescheinigung', 'mietverwaltung' ), $jw && abs( $jw['zinsen'] - (float) $besch->zinsen ) > 5 ? ' <span class="mv-warn" title="' . esc_attr( sprintf( __( 'Berechnet: %s', 'mietverwaltung' ), mv_eur( $jw['zinsen'] ) ) ) . '">⚠</span>' : '' );
+				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s%s</td></tr>', (int) $j, esc_html( mv_eur( $besch->zinsen ) ), esc_html( mv_eur( $besch->tilgung ) ), esc_html( mv_eur( $besch->restschuld ) ), esc_html__( 'Zinsbescheinigung', 'mietverwaltung' ), $jw && abs( $jw['zinsen'] - (float) $besch->zinsen ) > 5 ? ' <span class="mv-warn" title="' . esc_attr( sprintf( esc_html__( 'Berechnet: %s', 'mietverwaltung' ), mv_eur( $jw['zinsen'] ) ) ) . '">⚠</span>' : '' );
 			} elseif ( $jw ) {
-				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s</td></tr>', $j, esc_html( mv_eur( $jw['zinsen'] ) ), esc_html( mv_eur( $jw['tilgung'] ) ), esc_html( mv_eur( $jw['restschuld'] ) ), esc_html__( 'berechnet aus Raten', 'mietverwaltung' ) );
+				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s</td></tr>', (int) $j, esc_html( mv_eur( $jw['zinsen'] ) ), esc_html( mv_eur( $jw['tilgung'] ) ), esc_html( mv_eur( $jw['restschuld'] ) ), esc_html__( 'berechnet aus Raten', 'mietverwaltung' ) );
 			}
 		}
 		echo '</tbody></table><p class="description">' . esc_html__( 'Liegt die Zinsbescheinigung der Bank vor, unter „Zinsbescheinigungen“ erfassen – sie ersetzt die berechneten Werte in der Steuer-Auswertung.', 'mietverwaltung' ) . '</p></div></div></div>';

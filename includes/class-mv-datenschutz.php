@@ -18,10 +18,10 @@ class MV_Datenschutz {
 		global $wpdb;
 		$jahre = (int) MV_Einstellungen::get( 'aufbewahrung_jahre', 10 );
 		$out   = [];
-		$rows  = $wpdb->get_results( 'SELECT mv.*, m.vorname, m.nachname, m.email, e.bezeichnung AS einheit, o.bezeichnung AS objekt FROM ' . mv_table( 'mietverhaeltnisse' ) . ' mv JOIN ' . mv_table( 'mieter' ) . ' m ON m.id = mv.mieter_id JOIN ' . mv_table( 'einheiten' ) . ' e ON e.id = mv.einheit_id JOIN ' . mv_table( 'objekte' ) . " o ON o.id = e.objekt_id WHERE mv.ende IS NOT NULL AND mv.ende <> '0000-00-00' AND mv.ende < CURDATE() ORDER BY mv.ende" );
+		$rows  = $wpdb->get_results( 'SELECT mv.*, m.vorname, m.nachname, m.email, e.bezeichnung AS einheit, o.bezeichnung AS objekt FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.id = mv.einheit_id JOIN ' . $wpdb->prefix . "mv_objekte o ON o.id = e.objekt_id WHERE mv.ende IS NOT NULL AND mv.ende <> '0000-00-00' AND mv.ende < CURDATE() ORDER BY mv.ende" );
 		foreach ( $rows as $r ) {
 			$frist  = ( (int) substr( $r->ende, 0, 4 ) + $jahre ) . '-12-31';
-			$aktive = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'mietverhaeltnisse' ) . " WHERE mieter_id = %d AND (ende IS NULL OR ende = '0000-00-00' OR ende >= CURDATE())", $r->mieter_id ) );
+			$aktive = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_mietverhaeltnisse WHERE mieter_id = %d AND (ende IS NULL OR ende = '0000-00-00' OR ende >= CURDATE())", $r->mieter_id ) );
 			$out[]  = [
 				'mv'           => $r,
 				'label'        => $r->nachname . ', ' . $r->vorname . ' – ' . $r->objekt . ' / ' . $r->einheit,
@@ -62,7 +62,7 @@ class MV_Datenschutz {
 			],
 			[ 'id' => $mieter_id ]
 		);
-		$mv_ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE mieter_id = %d', $mieter_id ) );
+		$mv_ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE mieter_id = %d', $mieter_id ) );
 		foreach ( $mv_ids as $mv_id ) {
 			$wpdb->update( mv_table( 'mietverhaeltnisse' ), [ 'notiz' => '' ], [ 'id' => $mv_id ] );
 			$wpdb->update(
@@ -74,7 +74,7 @@ class MV_Datenschutz {
 				[ 'mv_id' => $mv_id ]
 			);
 			$wpdb->update( mv_table( 'zahlungen' ), [ 'verwendungszweck' => '' ], [ 'mv_id' => $mv_id ] );
-			foreach ( $wpdb->get_col( $wpdb->prepare( 'SELECT attachment_id FROM ' . mv_table( 'dokumente' ) . ' WHERE mv_id = %d AND attachment_id IS NOT NULL', $mv_id ) ) as $att ) {
+			foreach ( $wpdb->get_col( $wpdb->prepare( 'SELECT attachment_id FROM ' . $wpdb->prefix . 'mv_dokumente WHERE mv_id = %d AND attachment_id IS NOT NULL', $mv_id ) ) as $att ) {
 				wp_delete_attachment( (int) $att, true );
 			}
 			$wpdb->delete( mv_table( 'dokumente' ), [ 'mv_id' => $mv_id ] );
@@ -100,29 +100,29 @@ class MV_Datenschutz {
 		global $wpdb;
 		$id = (int) $_GET['mieter'];
 		check_admin_referer( 'mv_auskunft_' . $id );
-		$mieter = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $id ), ARRAY_A );
+		$mieter = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $id ), ARRAY_A );
 		if ( ! $mieter ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
 		}
 		unset( $mieter['owner_id'] );
 		$d = [
-			'auskunft_nach'     => __( 'Art. 15 DSGVO', 'mietverwaltung' ),
+			'auskunft_nach'     => esc_html__( 'Art. 15 DSGVO', 'mietverwaltung' ),
 			'erstellt'          => current_time( 'mysql' ),
 			'verantwortlicher'  => MV_Einstellungen::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', MV_Einstellungen::get( 'vermieter_adresse' ) ),
-			'zwecke'            => __( 'Durchführung des Mietverhältnisses (Art. 6 Abs. 1 lit. b DSGVO), Erfüllung steuer- und handelsrechtlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO)', 'mietverwaltung' ),
+			'zwecke'            => esc_html__( 'Durchführung des Mietverhältnisses (Art. 6 Abs. 1 lit. b DSGVO), Erfüllung steuer- und handelsrechtlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO)', 'mietverwaltung' ),
 			'speicherdauer'     => sprintf( /* translators: %d: Jahre */ __( '%d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete', 'mietverwaltung' ), (int) MV_Einstellungen::get( 'aufbewahrung_jahre', 10 ) ),
-			'empfaenger'        => __( 'Finanzamt (Anlage V), Steuerberater (sofern beauftragt), Bank (Zahlungsverkehr)', 'mietverwaltung' ),
+			'empfaenger'        => esc_html__( 'Finanzamt (Anlage V), Steuerberater (sofern beauftragt), Bank (Zahlungsverkehr)', 'mietverwaltung' ),
 			'stammdaten'        => $mieter,
 			'mietverhaeltnisse' => [],
 		];
-		foreach ( $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE mieter_id = %d', $id ), ARRAY_A ) as $mv ) {
-			$mv['konditionen']        = $wpdb->get_results( $wpdb->prepare( 'SELECT gueltig_ab, kaltmiete, bk_vz, hk_vz FROM ' . mv_table( 'konditionen' ) . ' WHERE mv_id = %d ORDER BY gueltig_ab', $mv['id'] ), ARRAY_A );
-			$mv['zahlungen']          = $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betrag, monat, verwendungszweck FROM ' . mv_table( 'zahlungen' ) . ' WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
-			$mv['meldungen']          = $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betreff, text, status FROM ' . mv_table( 'meldungen' ) . ' WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
-			$mv['mahnungen']          = $wpdb->get_results( $wpdb->prepare( 'SELECT datum, stufe, betrag, frist FROM ' . mv_table( 'mahnungen' ) . ' WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
-			$mv['erhoehungen']        = $wpdb->get_results( $wpdb->prepare( 'SELECT zugang, art, alt, neu, wirksam_ab FROM ' . mv_table( 'erhoehungen' ) . ' WHERE mv_id = %d ORDER BY zugang', $mv['id'] ), ARRAY_A );
-			$mv['abrechnungen']       = $wpdb->get_results( $wpdb->prepare( 'SELECT a.von, a.bis, e.kosten_bk, e.kosten_hk, e.vz_bk, e.vz_hk, e.saldo FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e JOIN ' . mv_table( 'abrechnungen' ) . ' a ON a.id = e.abrechnung_id WHERE e.mv_id = %d ORDER BY a.bis', $mv['id'] ), ARRAY_A );
-			$mv['dokumente']          = $wpdb->get_results( $wpdb->prepare( 'SELECT typ, bezeichnung, datum FROM ' . mv_table( 'dokumente' ) . ' WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
+		foreach ( $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE mieter_id = %d', $id ), ARRAY_A ) as $mv ) {
+			$mv['konditionen']        = $wpdb->get_results( $wpdb->prepare( 'SELECT gueltig_ab, kaltmiete, bk_vz, hk_vz FROM ' . $wpdb->prefix . 'mv_konditionen WHERE mv_id = %d ORDER BY gueltig_ab', $mv['id'] ), ARRAY_A );
+			$mv['zahlungen']          = $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betrag, monat, verwendungszweck FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
+			$mv['meldungen']          = $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betreff, text, status FROM ' . $wpdb->prefix . 'mv_meldungen WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
+			$mv['mahnungen']          = $wpdb->get_results( $wpdb->prepare( 'SELECT datum, stufe, betrag, frist FROM ' . $wpdb->prefix . 'mv_mahnungen WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
+			$mv['erhoehungen']        = $wpdb->get_results( $wpdb->prepare( 'SELECT zugang, art, alt, neu, wirksam_ab FROM ' . $wpdb->prefix . 'mv_erhoehungen WHERE mv_id = %d ORDER BY zugang', $mv['id'] ), ARRAY_A );
+			$mv['abrechnungen']       = $wpdb->get_results( $wpdb->prepare( 'SELECT a.von, a.bis, e.kosten_bk, e.kosten_hk, e.vz_bk, e.vz_hk, e.saldo FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.mv_id = %d ORDER BY a.bis', $mv['id'] ), ARRAY_A );
+			$mv['dokumente']          = $wpdb->get_results( $wpdb->prepare( 'SELECT typ, bezeichnung, datum FROM ' . $wpdb->prefix . 'mv_dokumente WHERE mv_id = %d ORDER BY datum', $mv['id'] ), ARRAY_A );
 			$d['mietverhaeltnisse'][] = $mv;
 		}
 		header( 'Content-Type: application/json; charset=utf-8' );
@@ -158,7 +158,7 @@ class MV_Datenschutz {
 				esc_html( $x['label'] ),
 				esc_html( mv_date( $mv->ende ) ),
 				esc_html( mv_date( $x['frist'] ) ),
-				$status,
+				$status, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 				( ! $x['anonym'] && ! $x['andere_aktiv'] ) ? sprintf( '<a href="%s" class="button button-small%s" onclick="return confirm(\'Personenbezug unwiderruflich entfernen?%s\')">' . esc_html__( 'Anonymisieren', 'mietverwaltung' ) . '</a>', esc_url( $url ), $x['faellig'] ? ' button-primary' : '', $x['faellig'] ? '' : ' Die Aufbewahrungsfrist ist noch nicht abgelaufen!' ) : '–'
 			);
 		}
@@ -168,17 +168,17 @@ class MV_Datenschutz {
 		echo '</tbody></table>';
 
 		echo '<h2>' . esc_html__( 'Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)', 'mietverwaltung' ) . '</h2><p>' . esc_html__( 'Erzeugt eine vollständige Datenübersicht des Mieters als JSON – Frist für die Beantwortung: ein Monat (Art. 12 Abs. 3 DSGVO).', 'mietverwaltung' ) . '</p><ul>';
-		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . mv_table( 'mieter' ) . " WHERE nachname NOT LIKE 'Anonymisiert%' ORDER BY nachname" ) as $m ) {
+		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . $wpdb->prefix . "mv_mieter WHERE nachname NOT LIKE 'Anonymisiert%' ORDER BY nachname" ) as $m ) {
 			printf( '<li>%s – <a href="%s">' . esc_html__( 'Auskunft exportieren', 'mietverwaltung' ) . '</a></li>', esc_html( mv_mieter_name( $m ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mv_auskunft&mieter=' . $m->id ), 'mv_auskunft_' . $m->id ) ) );
 		}
 		echo '</ul>';
 
 		echo '<h2>' . esc_html__( 'Hinweise für das Verarbeitungsverzeichnis', 'mietverwaltung' ) . '</h2><ul style="list-style:disc;margin-left:1.5em">
-<li>' . __( '<strong>Verarbeitungstätigkeit:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr).', 'mietverwaltung' ) . '</li>
-<li>' . __( '<strong>Betroffene:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller.', 'mietverwaltung' ) . '</li>
-<li>' . __( '<strong>Datenkategorien:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen.', 'mietverwaltung' ) . '</li>
-<li>' . __( '<strong>Technisch-organisatorische Maßnahmen:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst.', 'mietverwaltung' ) . '</li>
-<li>' . __( '<strong>Auftragsverarbeiter:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich).', 'mietverwaltung' ) . '</li>
+<li>' . '<strong>' . esc_html__( 'Verarbeitungstätigkeit:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr).', 'mietverwaltung' ) . '</li>
+<li>' . '<strong>' . esc_html__( 'Betroffene:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller.', 'mietverwaltung' ) . '</li>
+<li>' . '<strong>' . esc_html__( 'Datenkategorien:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen.', 'mietverwaltung' ) . '</li>
+<li>' . '<strong>' . esc_html__( 'Technisch-organisatorische Maßnahmen:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst.', 'mietverwaltung' ) . '</li>
+<li>' . '<strong>' . esc_html__( 'Auftragsverarbeiter:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich).', 'mietverwaltung' ) . '</li>
 </ul></div>';
 	}
 }

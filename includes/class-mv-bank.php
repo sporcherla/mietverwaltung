@@ -205,10 +205,10 @@ class MV_Bank {
 
 	public static function vorschlaege( array $rows ): array {
 		global $wpdb;
-		$regeln = $wpdb->get_results( 'SELECT * FROM ' . mv_table( 'bank_regeln' ) );
+		$regeln = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'mv_bank_regeln' );
 		$mvs    = MV_Soll::alle_mv( true );
-		$mieter = $wpdb->get_results( 'SELECT id, nachname, iban FROM ' . mv_table( 'mieter' ), OBJECT_K );
-		$hashes = $wpdb->get_col( 'SELECT hash FROM ' . mv_table( 'bank_import' ) );
+		$mieter = $wpdb->get_results( 'SELECT id, nachname, iban FROM ' . $wpdb->prefix . 'mv_mieter', OBJECT_K );
+		$hashes = $wpdb->get_col( 'SELECT hash FROM ' . $wpdb->prefix . 'mv_bank_import' );
 		$hashes = array_flip( $hashes );
 
 		foreach ( $rows as &$r ) {
@@ -393,27 +393,27 @@ class MV_Bank {
 			$dis     = $r['bereits'] ? ' disabled' : '';
 			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] ) ? ' checked' : '';
 			echo '<tr' . ( $r['bereits'] ? ' style="opacity:.5"' : '' ) . '>';
-			printf( '<td><input type="checkbox" name="zeile[%d][ok]" value="1"%s%s></td>', $i, $checked, $dis );
-			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br>' . __( '<em>bereits importiert', 'mietverwaltung' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
-			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Mietzahlung', 'mietverwaltung' ) . '</option><option value="beleg"%s>' . esc_html__( 'Beleg', 'mietverwaltung' ) . '</option><option value="ignorieren"%s>–</option></select></td>', $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'ignorieren', false ) );
+			printf( '<td><input type="checkbox" name="zeile[%d][ok]" value="1"%s%s></td>', (int) $i, $checked, $dis ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br>' . '<em>' . esc_html__( 'bereits importiert', 'mietverwaltung' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
+			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Mietzahlung', 'mietverwaltung' ) . '</option><option value="beleg"%s>' . esc_html__( 'Beleg', 'mietverwaltung' ) . '</option><option value="ignorieren"%s>–</option></select></td>', (int) $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'ignorieren', false ) );
 			echo '<td>';
 			// Zahlung
-			printf( '<div class="mv-z-zahlung"><select name="zeile[%d][mv_id]"><option value="">' . esc_html__( '– Mietverhältnis –', 'mietverwaltung' ) . '</option>', $i );
+			printf( '<div class="mv-z-zahlung"><select name="zeile[%d][mv_id]"><option value="">' . esc_html__( '– Mietverhältnis –', 'mietverwaltung' ) . '</option>', (int) $i );
 			foreach ( $opt_mv as $k => $v ) {
-				printf( '<option value="%d"%s>%s</option>', $k, selected( $r['mv_id'], $k, false ), esc_html( $v ) );
+				printf( '<option value="%d"%s>%s</option>', (int) $k, selected( $r['mv_id'], (int) $k, false ), esc_html( $v ) );
 			}
-			printf( '</select> <input type="month" name="zeile[%d][monat]" value="%s" title="Zuordnung Monat"></div>', $i, esc_attr( substr( $r['monat'], 0, 7 ) ) );
+			printf( '</select> <input type="month" name="zeile[%d][monat]" value="%s" title="Zuordnung Monat"></div>', (int) $i, esc_attr( substr( $r['monat'], 0, 7 ) ) );
 			// Beleg
-			printf( '<div class="mv-z-beleg"><select name="zeile[%d][objekt_id]">', $i );
+			printf( '<div class="mv-z-beleg"><select name="zeile[%d][objekt_id]">', (int) $i );
 			foreach ( $opt_ob as $k => $v ) {
-				printf( '<option value="%d"%s>%s</option>', $k, selected( $r['objekt_id'] ?: $erstes_objekt, $k, false ), esc_html( $v ) );
+				printf( '<option value="%d"%s>%s</option>', (int) $k, selected( $r['objekt_id'] ?: $erstes_objekt, (int) $k, false ), esc_html( $v ) );
 			}
-			printf( '</select> <select name="zeile[%d][kostenart_id]"><option value="">' . esc_html__( '– Kostenart –', 'mietverwaltung' ) . '</option>', $i );
+			printf( '</select> <select name="zeile[%d][kostenart_id]"><option value="">' . esc_html__( '– Kostenart –', 'mietverwaltung' ) . '</option>', (int) $i );
 			foreach ( $opt_ka as $k => $v ) {
-				printf( '<option value="%d"%s>%s</option>', $k, selected( $r['kostenart_id'], $k, false ), esc_html( $v ) );
+				printf( '<option value="%d"%s>%s</option>', (int) $k, selected( $r['kostenart_id'], (int) $k, false ), esc_html( $v ) );
 			}
 			echo '</select></div></td>';
-			printf( '<td><label><input type="checkbox" name="zeile[%d][regel]" value="1"> „%s“</label></td>', $i, esc_html( mb_substr( $r['name'], 0, 25 ) ) );
+			printf( '<td><label><input type="checkbox" name="zeile[%d][regel]" value="1"> „%s“</label></td>', (int) $i, esc_html( mb_substr( $r['name'], 0, 25 ) ) );
 			echo '</tr>';
 		}
 		echo '</tbody></table><p><button name="mv_bank_uebernehmen" class="button button-primary">' . esc_html__( 'Markierte Buchungen übernehmen', 'mietverwaltung' ) . '</button></p></form></div>';

@@ -41,7 +41,7 @@ class MV_Assistent {
 
 	public static function hat_daten(): bool {
 		global $wpdb;
-		return (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . mv_table( 'mietverhaeltnisse' ) ) > 0;
+		return (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse' ) > 0;
 	}
 
 	public static function stand(): array {
@@ -284,7 +284,7 @@ class MV_Assistent {
 		echo '<ol class="mv-schritte">';
 		foreach ( self::schritte() as $n => $label ) {
 			$cls = $n < $schritt ? 'erledigt' : ( $n === $schritt ? 'aktiv' : '' );
-			printf( '<li class="%s"><a href="%s"><span>%d</span> %s</a></li>', esc_attr( $cls ), esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=' . $n ) ), $n, esc_html( $label ) );
+			printf( '<li class="%s"><a href="%s"><span>%d</span> %s</a></li>', esc_attr( $cls ), esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=' . $n ) ), (int) $n, esc_html( $label ) );
 		}
 		echo '</ol>';
 		if ( $fehler ) {
@@ -299,7 +299,7 @@ class MV_Assistent {
 
 		echo '<form method="post" class="mv-assistent-form">';
 		wp_nonce_field( 'mv_assistent' );
-		printf( '<input type="hidden" name="mv_assistent_schritt" value="%d">', $schritt );
+		printf( '<input type="hidden" name="mv_assistent_schritt" value="%d">', (int) $schritt );
 		$f   = fn( string $name, string $label, string $wert = '', string $typ = 'text', string $hint = '', bool $req = false ) => printf(
 			'<tr><th><label for="mv_%1$s">%2$s%6$s</label></th><td><input type="%4$s" id="mv_%1$s" name="%1$s" value="%3$s" class="regular-text"%7$s>%5$s</td></tr>',
 			esc_attr( $name ),
@@ -333,7 +333,7 @@ class MV_Assistent {
 				break;
 
 			case 2:
-				$ob = ! empty( $stand['objekt_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $stand['objekt_id'] ) ) : null;
+				$ob = ! empty( $stand['objekt_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_objekte WHERE id = %d', $stand['objekt_id'] ) ) : null;
 				echo '<tr><td colspan="2"><p>' . esc_html__( 'Ein Objekt ist das Haus oder die Eigentumswohnung. Das Baujahr bestimmt den AfA-Satz, die Heizungsart die Heizkostenverteilung.', 'mietverwaltung' ) . '</p></td></tr>';
 				$f( 'bezeichnung', __( 'Bezeichnung', 'mietverwaltung' ), $ob->bezeichnung ?? '', 'text', __( 'z. B. „ETW Musterstraße 1“', 'mietverwaltung' ), true );
 				$f( 'strasse', __( 'Straße / Nr.', 'mietverwaltung' ), $ob->strasse ?? '', 'text', '', true );
@@ -344,17 +344,17 @@ class MV_Assistent {
 					'heizung',
 					__( 'Heizung', 'mietverwaltung' ),
 					[
-						'zentral'    => __( 'Zentralheizung (HeizkostenV, verbrauchsabhängig)', 'mietverwaltung' ),
-						'fernwaerme' => __( 'Fernwärme (HeizkostenV)', 'mietverwaltung' ),
-						'dezentral'  => __( 'Dezentral / Etagenheizung (Mieter rechnet selbst ab)', 'mietverwaltung' ),
+						'zentral'    => esc_html__( 'Zentralheizung (HeizkostenV, verbrauchsabhängig)', 'mietverwaltung' ),
+						'fernwaerme' => esc_html__( 'Fernwärme (HeizkostenV)', 'mietverwaltung' ),
+						'dezentral'  => esc_html__( 'Dezentral / Etagenheizung (Mieter rechnet selbst ab)', 'mietverwaltung' ),
 					],
 					$ob->heizung ?? 'zentral'
 				);
 				break;
 
 			case 3:
-				$e = ! empty( $stand['einheit_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $stand['einheit_id'] ) ) : null;
-				$g = ! empty( $stand['garage_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $stand['garage_id'] ) ) : null;
+				$e = ! empty( $stand['einheit_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['einheit_id'] ) ) : null;
+				$g = ! empty( $stand['garage_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['garage_id'] ) ) : null;
 				echo '<tr><td colspan="2"><p>' . esc_html__( 'Die Wohnung ist die Haupteinheit. Garage oder Stellplatz können gleich mit angelegt und im nächsten Schritt demselben Vertrag zugeordnet werden.', 'mietverwaltung' ) . '</p></td></tr>';
 				$f( 'einheit', __( 'Wohnung – Bezeichnung', 'mietverwaltung' ), $e->bezeichnung ?? __( 'Wohnung', 'mietverwaltung' ), 'text', __( 'z. B. „Wohnung EG links“', 'mietverwaltung' ), true );
 				$f( 'lage', __( 'Lage', 'mietverwaltung' ), $e->lage ?? '', 'text', __( 'z. B. „1. OG“', 'mietverwaltung' ) );
@@ -366,8 +366,8 @@ class MV_Assistent {
 					'garage_typ',
 					__( 'Typ', 'mietverwaltung' ),
 					[
-						'garage'     => __( 'Garage', 'mietverwaltung' ),
-						'stellplatz' => __( 'Stellplatz', 'mietverwaltung' ),
+						'garage'     => esc_html__( 'Garage', 'mietverwaltung' ),
+						'stellplatz' => esc_html__( 'Stellplatz', 'mietverwaltung' ),
 					],
 					$g->typ ?? 'garage'
 				);
@@ -375,11 +375,11 @@ class MV_Assistent {
 				break;
 
 			case 4:
-				$m       = ! empty( $stand['mieter_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $stand['mieter_id'] ) ) : null;
+				$m       = ! empty( $stand['mieter_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $stand['mieter_id'] ) ) : null;
 				$anreden = [
 					''     => '–',
-					'Frau' => __( 'Frau', 'mietverwaltung' ),
-					'Herr' => __( 'Herr', 'mietverwaltung' ),
+					'Frau' => esc_html__( 'Frau', 'mietverwaltung' ),
+					'Herr' => esc_html__( 'Herr', 'mietverwaltung' ),
 				];
 				$sel( 'anrede', __( 'Anrede', 'mietverwaltung' ), $anreden + [ 'Firma' => __( 'Firma', 'mietverwaltung' ) ], $m->anrede ?? '' );
 				$f( 'vorname', __( 'Vorname', 'mietverwaltung' ), $m->vorname ?? '' );
@@ -398,10 +398,10 @@ class MV_Assistent {
 				break;
 
 			case 5:
-				$mv      = ! empty( $stand['mv_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE id = %d', $stand['mv_id'] ) ) : null;
-				$k       = $mv ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'konditionen' ) . ' WHERE mv_id = %d ORDER BY gueltig_ab DESC LIMIT 1', $mv->id ) ) : null;
-				$mieter  = ! empty( $stand['mieter_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mieter' ) . ' WHERE id = %d', $stand['mieter_id'] ) ) : null;
-				$einheit = ! empty( $stand['einheit_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT bezeichnung FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $stand['einheit_id'] ) ) : null;
+				$mv      = ! empty( $stand['mv_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $stand['mv_id'] ) ) : null;
+				$k       = $mv ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_konditionen WHERE mv_id = %d ORDER BY gueltig_ab DESC LIMIT 1', $mv->id ) ) : null;
+				$mieter  = ! empty( $stand['mieter_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $stand['mieter_id'] ) ) : null;
+				$einheit = ! empty( $stand['einheit_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT bezeichnung FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['einheit_id'] ) ) : null;
 				printf( '<tr><td colspan="2"><p>%s <strong>%s</strong> → <strong>%s</strong></p></td></tr>', esc_html__( 'Mietverhältnis:', 'mietverwaltung' ), esc_html( mv_mieter_name( $mieter ) ), esc_html( $einheit->bezeichnung ?? '–' ) );
 				$f( 'beginn', __( 'Mietbeginn', 'mietverwaltung' ), $mv->beginn ?? '', 'date', '', true );
 				$f( 'kaltmiete', __( 'Kaltmiete gesamt (€)', 'mietverwaltung' ), isset( $k->kaltmiete ) ? number_format( (float) $k->kaltmiete, 2, ',', '' ) : '', 'text', __( 'Inklusive Garage/Stellplatz, falls mitvermietet.', 'mietverwaltung' ), true );
@@ -411,7 +411,7 @@ class MV_Assistent {
 				$f( 'personen', __( 'Personen im Haushalt', 'mietverwaltung' ), (string) ( $mv->personen ?? ( mv_hat_partner( $mieter ) ? 2 : 1 ) ), 'number' );
 				$f( 'zahltag', __( 'Zahltag (Tag im Monat)', 'mietverwaltung' ), (string) ( $mv->zahltag ?? 3 ), 'number' );
 				if ( ! empty( $stand['garage_id'] ) ) {
-					$g = $wpdb->get_var( $wpdb->prepare( 'SELECT bezeichnung FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $stand['garage_id'] ) );
+					$g = $wpdb->get_var( $wpdb->prepare( 'SELECT bezeichnung FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['garage_id'] ) );
 					printf( '<tr><th>%s</th><td><label><input type="checkbox" name="mit_garage" value="1" checked> %s</label></td></tr>', esc_html__( 'Zusatzeinheit', 'mietverwaltung' ), esc_html( sprintf( __( '„%s“ gehört zu diesem Vertrag (eine Gesamtmiete, eine Buchung)', 'mietverwaltung' ), $g ) ) );
 				}
 				break;
@@ -449,7 +449,7 @@ class MV_Assistent {
 		echo '<div class="mv-hilfe-karte" style="max-width:720px">';
 		echo '<h2>✅ ' . esc_html__( 'Einrichtung abgeschlossen', 'mietverwaltung' ) . '</h2>';
 		if ( ! empty( $stand['mv_id'] ) ) {
-			$label = $wpdb->get_var( $wpdb->prepare( "SELECT CONCAT(m.nachname, ', ', m.vorname) FROM " . mv_table( 'mietverhaeltnisse' ) . ' mv JOIN ' . mv_table( 'mieter' ) . ' m ON m.id = mv.mieter_id WHERE mv.id = %d', $stand['mv_id'] ) );
+			$label = $wpdb->get_var( $wpdb->prepare( "SELECT CONCAT(m.nachname, ', ', m.vorname) FROM " . $wpdb->prefix . 'mv_mietverhaeltnisse mv JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id WHERE mv.id = %d', $stand['mv_id'] ) );
 			printf( '<p>%s <strong>%s</strong>.</p>', esc_html__( 'Angelegt wurde das Mietverhältnis', 'mietverwaltung' ), esc_html( (string) $label ) );
 		}
 		echo '<p>' . esc_html__( 'Sinnvolle nächste Schritte:', 'mietverwaltung' ) . '</p><ul style="list-style:disc;margin-left:20px">';

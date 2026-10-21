@@ -13,8 +13,8 @@ class MV_Afa {
 	public static function alle(): array {
 		global $wpdb;
 		return $wpdb->get_results(
-			'SELECT a.*, o.bezeichnung AS objekt FROM ' . mv_table( 'anlagegueter' ) . ' a
-			 JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = a.objekt_id ORDER BY a.objekt_id, a.anschaffung'
+			'SELECT a.*, o.bezeichnung AS objekt FROM ' . $wpdb->prefix . 'mv_anlagegueter a
+			 JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id ORDER BY a.objekt_id, a.anschaffung'
 		);
 	}
 
@@ -44,7 +44,7 @@ class MV_Afa {
 
 	public static function gesetzlicher_satz( object $a ): float {
 		global $wpdb;
-		$baujahr = isset( $a->baujahr ) ? (int) $a->baujahr : (int) $wpdb->get_var( $wpdb->prepare( 'SELECT baujahr FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $a->objekt_id ?? 0 ) );
+		$baujahr = isset( $a->baujahr ) ? (int) $a->baujahr : (int) $wpdb->get_var( $wpdb->prepare( 'SELECT baujahr FROM ' . $wpdb->prefix . 'mv_objekte WHERE id = %d', $a->objekt_id ?? 0 ) );
 		if ( $baujahr > 0 && $baujahr < 1925 ) {
 			return 2.5;
 		}
@@ -151,8 +151,8 @@ class MV_Afa {
 			$bis    = date( 'Y-m-d', strtotime( $von . ' +3 years -1 day' ) );
 			$brutto = (float) $wpdb->get_var(
 				$wpdb->prepare(
-					'SELECT COALESCE(SUM(b.betrag),0) FROM ' . mv_table( 'belege' ) . ' b
-				 JOIN ' . mv_table( 'kostenarten' ) . " k ON k.id = b.kostenart_id
+					'SELECT COALESCE(SUM(b.betrag),0) FROM ' . $wpdb->prefix . 'mv_belege b
+				 JOIN ' . $wpdb->prefix . "mv_kostenarten k ON k.id = b.kostenart_id
 				 WHERE b.objekt_id = %d AND k.anlage_v = 'erhaltung' AND b.datum BETWEEN %s AND %s",
 					$a->objekt_id,
 					$von,

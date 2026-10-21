@@ -37,7 +37,7 @@ class MV_Hinweise {
 			if ( ! $k ) {
 				$h[] = [
 					'typ'  => 'warn',
-					'text' => __( 'Keine Konditionen für ', 'mietverwaltung' ) . mv_monat( $monat ) . ' bei ' . MV_Soll::mv_label( $mv ),
+					'text' => esc_html__( 'Keine Konditionen für ', 'mietverwaltung' ) . mv_monat( $monat ) . ' bei ' . MV_Soll::mv_label( $mv ),
 					'url'  => admin_url( 'admin.php?page=mv_konditionen' ),
 				];
 				continue;
@@ -63,12 +63,12 @@ class MV_Hinweise {
 
 		// Betriebskostenabrechnung Vorjahr (Frist 31.12.)
 		$vorjahr = $jahr - 1;
-		foreach ( $wpdb->get_results( 'SELECT * FROM ' . mv_table( 'objekte' ) ) as $o ) {
-			$hat_mv = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'mietverhaeltnisse' ) . ' mv JOIN ' . mv_table( 'einheiten' ) . " e ON e.id = mv.einheit_id WHERE e.objekt_id = %d AND mv.beginn <= %s AND (mv.ende IS NULL OR mv.ende = '0000-00-00' OR mv.ende >= %s)", $o->id, $vorjahr . '-12-31', $vorjahr . '-01-01' ) );
+		foreach ( $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'mv_objekte' ) as $o ) {
+			$hat_mv = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv JOIN ' . $wpdb->prefix . "mv_einheiten e ON e.id = mv.einheit_id WHERE e.objekt_id = %d AND mv.beginn <= %s AND (mv.ende IS NULL OR mv.ende = '0000-00-00' OR mv.ende >= %s)", $o->id, $vorjahr . '-12-31', $vorjahr . '-01-01' ) );
 			if ( ! $hat_mv ) {
 				continue;
 			}
-			$fertig = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'abrechnungen' ) . " WHERE objekt_id = %d AND status = 'fertig' AND bis >= %s AND bis <= %s", $o->id, $vorjahr . '-06-30', $vorjahr . '-12-31' ) );
+			$fertig = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_abrechnungen WHERE objekt_id = %d AND status = 'fertig' AND bis >= %s AND bis <= %s", $o->id, $vorjahr . '-06-30', $vorjahr . '-12-31' ) );
 			if ( ! $fertig ) {
 				$rest = (int) ( ( strtotime( $jahr . '-12-31' ) - strtotime( $heute ) ) / 86400 );
 				$h[]  = [
@@ -80,7 +80,7 @@ class MV_Hinweise {
 		}
 
 		// Zinsbindung läuft in 12 Monaten aus
-		foreach ( $wpdb->get_results( 'SELECT * FROM ' . mv_table( 'darlehen' ) . " WHERE status = 'aktiv' AND zinsbindung_bis IS NOT NULL" ) as $d ) {
+		foreach ( $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . "mv_darlehen WHERE status = 'aktiv' AND zinsbindung_bis IS NOT NULL" ) as $d ) {
 			$rest = (int) ( ( strtotime( $d->zinsbindung_bis ) - strtotime( $heute ) ) / 86400 );
 			if ( $rest <= 365 ) {
 				$h[] = [
@@ -89,7 +89,7 @@ class MV_Hinweise {
 					'url'  => admin_url( 'admin.php?page=mv_darlehen' ),
 				];
 			}
-			$besch = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'darlehen_jahre' ) . ' WHERE darlehen_id = %d AND jahr = %d', $d->id, $vorjahr ) );
+			$besch = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_darlehen_jahre WHERE darlehen_id = %d AND jahr = %d', $d->id, $vorjahr ) );
 			$raten = class_exists( 'MV_Darlehen' ) ? MV_Darlehen::jahreswerte( (int) $d->id, $vorjahr ) : null;
 			if ( ! $besch && ! $raten && (int) current_time( 'n' ) >= 2 ) {
 				$h[] = [
@@ -120,7 +120,7 @@ class MV_Hinweise {
 		}
 
 		// Offene Meldungen
-		$offen = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . mv_table( 'meldungen' ) . " WHERE status = 'offen'" );
+		$offen = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_meldungen WHERE status = 'offen'" );
 		if ( $offen ) {
 			$h[] = [
 				'typ'  => 'warn',
@@ -134,7 +134,7 @@ class MV_Hinweise {
 			foreach ( MV_Datenschutz::faellig() as $f ) {
 				$h[] = [
 					'typ'  => 'info',
-					'text' => __( 'Aufbewahrungsfrist abgelaufen: Mieterdaten „', 'mietverwaltung' ) . $f['label'] . '“ können anonymisiert werden',
+					'text' => esc_html__( 'Aufbewahrungsfrist abgelaufen: Mieterdaten „', 'mietverwaltung' ) . $f['label'] . '“ können anonymisiert werden',
 					'url'  => admin_url( 'admin.php?page=mv_datenschutz' ),
 				];
 			}
@@ -182,7 +182,7 @@ class MV_Hinweise {
 					'warn'  => '🟡',
 					'info'  => 'ℹ️',
 				][ $x['typ'] ] ?? '';
-				printf( '<li>%s <a href="%s">%s</a></li>', $icon, esc_url( $x['url'] ), esc_html( $x['text'] ) );
+				printf( '<li>%s <a href="%s">%s</a></li>', $icon, esc_url( $x['url'] ), esc_html( $x['text'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			}
 			echo '</ul>';
 		}

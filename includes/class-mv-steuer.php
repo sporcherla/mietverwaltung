@@ -98,7 +98,7 @@ class MV_Steuer {
 		$out       = [];
 		$zahlungen = $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM ' . mv_table( 'zahlungen' ) . ' WHERE YEAR(datum) = %d ORDER BY datum',
+				'SELECT * FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE YEAR(datum) = %d ORDER BY datum',
 				$jahr
 			)
 		);
@@ -140,9 +140,9 @@ class MV_Steuer {
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
 				'SELECT b.*, k.name AS kostenart, k.anlage_v, k.umlagefaehig, o.bezeichnung AS objekt
-			 FROM ' . mv_table( 'belege' ) . ' b
-			 JOIN ' . mv_table( 'kostenarten' ) . ' k ON k.id = b.kostenart_id
-			 JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = b.objekt_id
+			 FROM ' . $wpdb->prefix . 'mv_belege b
+			 JOIN ' . $wpdb->prefix . 'mv_kostenarten k ON k.id = b.kostenart_id
+			 JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = b.objekt_id
 			 WHERE b.steuerjahr <= %d AND b.steuerjahr + b.verteilung_jahre > %d
 			 ORDER BY b.datum, b.id',
 				$jahr,
@@ -199,7 +199,7 @@ class MV_Steuer {
 			}
 			$arten[ 'afa|a' . $r['anlagegut']->id ] = (object) [
 				'gruppe'       => 'afa',
-				'name'         => __( 'AfA', 'mietverwaltung' ) . ' ' . $r['anlagegut']->bezeichnung,
+				'name'         => esc_html__( 'AfA', 'mietverwaltung' ) . ' ' . $r['anlagegut']->bezeichnung,
 				'anzahl'       => 1,
 				'summe'        => $r['afa'],
 				'umlagefaehig' => 0,
@@ -214,7 +214,7 @@ class MV_Steuer {
 			}
 			$arten[ 'schuldzinsen|d' . $d->darlehen_id ] = (object) [
 				'gruppe'       => 'schuldzinsen',
-				'name'         => __( 'Zinsen', 'mietverwaltung' ) . ' ' . $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ),
+				'name'         => esc_html__( 'Zinsen', 'mietverwaltung' ) . ' ' . $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ),
 				'anzahl'       => 1,
 				'summe'        => (float) $d->zinsen,
 				'umlagefaehig' => 0,
@@ -238,15 +238,15 @@ class MV_Steuer {
 		$rows      = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT j.*, d.bank, d.bezeichnung, d.betrag, d.zinssatz, d.zinsbindung_bis, 'bescheinigung' AS quelle
-			 FROM " . mv_table( 'darlehen_jahre' ) . ' j
-			 JOIN ' . mv_table( 'darlehen' ) . ' d ON d.id = j.darlehen_id
+			 FROM " . $wpdb->prefix . 'mv_darlehen_jahre j
+			 JOIN ' . $wpdb->prefix . 'mv_darlehen d ON d.id = j.darlehen_id
 			 WHERE j.jahr = %d ORDER BY d.bank',
 				$jahr
 			)
 		);
 		$vorhanden = array_map( fn( $r ) => (int) $r->darlehen_id, $rows );
 		if ( class_exists( 'MV_Darlehen' ) ) {
-			foreach ( $wpdb->get_results( 'SELECT * FROM ' . mv_table( 'darlehen' ) ) as $d ) {
+			foreach ( $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen' ) as $d ) {
 				if ( in_array( (int) $d->id, $vorhanden, true ) ) {
 					continue;
 				}
@@ -275,9 +275,9 @@ class MV_Steuer {
 
 	private static function jahre(): array {
 		global $wpdb;
-		$a = $wpdb->get_col( 'SELECT DISTINCT steuerjahr FROM ' . mv_table( 'belege' ) );
-		$b = $wpdb->get_col( 'SELECT DISTINCT YEAR(datum) FROM ' . mv_table( 'zahlungen' ) );
-		$c = $wpdb->get_col( 'SELECT DISTINCT jahr FROM ' . mv_table( 'darlehen_jahre' ) );
+		$a = $wpdb->get_col( 'SELECT DISTINCT steuerjahr FROM ' . $wpdb->prefix . 'mv_belege' );
+		$b = $wpdb->get_col( 'SELECT DISTINCT YEAR(datum) FROM ' . $wpdb->prefix . 'mv_zahlungen' );
+		$c = $wpdb->get_col( 'SELECT DISTINCT jahr FROM ' . $wpdb->prefix . 'mv_darlehen_jahre' );
 		$j = array_unique( array_map( 'intval', array_merge( $a, $b, $c, [ (int) current_time( 'Y' ) ] ) ) );
 		rsort( $j );
 		return $j;
@@ -309,7 +309,7 @@ class MV_Steuer {
 		echo '<div class="wrap mv-wrap"><h1>Steuer – Anlage V ' . (int) $jahr . '</h1>';
 		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mv_steuer"><label>' . esc_html__( 'Steuerjahr:', 'mietverwaltung' ) . ' <select name="jahr" onchange="this.form.submit()">';
 		foreach ( self::jahre() as $j ) {
-			printf( '<option value="%1$d"%2$s>%1$d</option>', $j, selected( $jahr, $j, false ) );
+			printf( '<option value="%1$d"%2$s>%1$d</option>', (int) $j, selected( (int) $jahr, (int) $j, false ) );
 		}
 		echo '</select></label> <a href="' . esc_url( $csv ) . '" class="button">CSV exportieren</a> <button type="button" class="button" onclick="window.print()">Drucken</button></form>';
 
@@ -318,7 +318,7 @@ class MV_Steuer {
 		}
 		$chart = self::chart( $jahr );
 		if ( $chart ) {
-			echo '<h2>' . esc_html__( 'Entwicklung', 'mietverwaltung' ) . '</h2>' . $chart;
+			echo '<h2>' . esc_html__( 'Entwicklung', 'mietverwaltung' ) . '</h2>' . $chart; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		}
 		echo '<p class="description">' . esc_html__( 'Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten.', 'mietverwaltung' ) . '</p>';
 
@@ -344,12 +344,12 @@ class MV_Steuer {
 		printf(
 			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Einnahmen gesamt', 'mietverwaltung' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Werbungskosten gesamt', 'mietverwaltung' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Überschuss / Verlust', 'mietverwaltung' ) . '</span><strong class="%s">%s</strong>%s</div></div>',
 			esc_html( mv_eur( $ein_sum ) ),
-			$delta( $ein_sum, $ein_vj_sum ),
+			$delta( $ein_sum, $ein_vj_sum ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			esc_html( mv_eur( $wk_sum ) ),
-			$delta( $wk_sum, $wk_vj_sum ),
+			$delta( $wk_sum, $wk_vj_sum ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			esc_attr( $cls ),
 			esc_html( mv_eur( $ergebnis ) ),
-			$delta( $ergebnis, $ein_vj_sum - $wk_vj_sum )
+			$delta( $ergebnis, $ein_vj_sum - $wk_vj_sum ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		);
 
 		// Einnahmen
@@ -386,10 +386,10 @@ class MV_Steuer {
 		// Zeilen-Zuordnung pflegen
 		echo '<details class="mv-details"><summary>Zeilennummern der Anlage V ' . (int) $jahr . ' pflegen</summary><form method="post" class="mv-form">';
 		wp_nonce_field( 'mv_zeilen', 'mv_zeilen_nonce' );
-		printf( '<input type="hidden" name="jahr" value="%d"><table class="form-table"><tbody>', $jahr );
+		printf( '<input type="hidden" name="jahr" value="%d"><table class="form-table"><tbody>', (int) $jahr );
 		$felder = [
-			'einnahmen_miete'   => __( 'Mieteinnahmen (ohne Umlagen)', 'mietverwaltung' ),
-			'einnahmen_umlagen' => __( 'Vereinnahmte Umlagen', 'mietverwaltung' ),
+			'einnahmen_miete'   => esc_html__( 'Mieteinnahmen (ohne Umlagen)', 'mietverwaltung' ),
+			'einnahmen_umlagen' => esc_html__( 'Vereinnahmte Umlagen', 'mietverwaltung' ),
 		] + array_filter( MV_DB::anlage_v_gruppen(), fn( $k ) => $k !== 'einnahmen', ARRAY_FILTER_USE_KEY ) + [
 			'summe_wk' => 'Summe Werbungskosten',
 			'ergebnis' => 'Überschuss / Verlust',
@@ -429,7 +429,7 @@ class MV_Steuer {
 					esc_html( $a->bezeichnung ),
 					esc_html( mv_date( $a->anschaffung ) ),
 					esc_html( mv_eur( $r['basis'] ) ),
-					$a->methode === 'degressiv' ? __( 'degressiv', 'mietverwaltung' ) : __( 'linear', 'mietverwaltung' ),
+					$a->methode === 'degressiv' ? esc_html__( 'degressiv', 'mietverwaltung' ) : esc_html__( 'linear', 'mietverwaltung' ),
 					esc_html( number_format( $r['satz'], 2, ',', '.' ) ),
 					(int) $r['monate'],
 					esc_html( mv_eur( $r['afa'] ) ),
@@ -503,9 +503,9 @@ class MV_Steuer {
 				number_format( $p['quote'], 1, ',', '.' )
 			);
 			if ( $p['netto'] > $p['grenze'] ) {
-				printf( '<div class="notice notice-error inline"><p>' . __( '<strong>Grenze überschritten!', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-error inline"><p>' . '<strong>' . esc_html__( 'Grenze überschritten!', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
 			} elseif ( $p['aktiv'] && $p['quote'] >= 10 ) {
-				printf( '<div class="notice notice-warning inline"><p>' . __( '<strong>Achtung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-warning inline"><p>' . '<strong>' . esc_html__( 'Achtung:', 'mietverwaltung' ) . '</strong> ' . esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
 			}
 		}
 	}

@@ -61,19 +61,19 @@ class MV_Abrechnung {
 			return null;
 		}
 		$ph      = implode( ',', array_fill( 0, count( $typen ), '%s' ) );
-		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT id FROM ' . mv_table( 'zaehler' ) . " WHERE einheit_id = %d AND typ IN ($ph)", array_merge( [ $einheit_id ], $typen ) ) );
+		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT id FROM ' . $wpdb->prefix . "mv_zaehler WHERE einheit_id = %d AND typ IN ($ph)", array_merge( [ $einheit_id ], $typen ) ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Platzhalterliste wird aus count() erzeugt.
 		if ( ! $zaehler ) {
 			return null;
 		}
 		$sum      = 0.0;
 		$gefunden = false;
 		foreach ( $zaehler as $z ) {
-			$start = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum <= %s ORDER BY datum DESC LIMIT 1', $z->id, $von ) );
-			$ende  = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum >= %s ORDER BY datum ASC LIMIT 1', $z->id, $bis ) );
+			$start = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum <= %s ORDER BY datum DESC LIMIT 1', $z->id, $von ) );
+			$ende  = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum >= %s ORDER BY datum ASC LIMIT 1', $z->id, $bis ) );
 			if ( $start === null || $ende === null ) {
 				// Toleranz: Ablesung bis 14 Tage um den Stichtag
-				$start = $start ?? $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum <= DATE_ADD(%s, INTERVAL 14 DAY) ORDER BY datum ASC LIMIT 1', $z->id, $von ) );
-				$ende  = $ende ?? $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum >= DATE_SUB(%s, INTERVAL 14 DAY) ORDER BY datum DESC LIMIT 1', $z->id, $bis ) );
+				$start = $start ?? $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum <= DATE_ADD(%s, INTERVAL 14 DAY) ORDER BY datum ASC LIMIT 1', $z->id, $von ) );
+				$ende  = $ende ?? $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum >= DATE_SUB(%s, INTERVAL 14 DAY) ORDER BY datum DESC LIMIT 1', $z->id, $bis ) );
 			}
 			if ( $start !== null && $ende !== null ) {
 				$sum     += max( 0, (float) $ende - (float) $start );
@@ -93,7 +93,7 @@ class MV_Abrechnung {
 	 */
 	public static function berechnen( int $abrechnung_id ): array {
 		global $wpdb;
-		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'abrechnungen' ) . ' WHERE id = %d', $abrechnung_id ) );
+		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_abrechnungen WHERE id = %d', $abrechnung_id ) );
 		if ( ! $abr ) {
 			return [
 				'ergebnisse' => [],
@@ -101,7 +101,7 @@ class MV_Abrechnung {
 				'positionen' => [],
 			];
 		}
-		$objekt               = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $abr->objekt_id ) );
+		$objekt               = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_objekte WHERE id = %d', $abr->objekt_id ) );
 		$von                  = $abr->von;
 		$bis                  = $abr->bis;
 		$D                    = self::tage( $von, $bis );
@@ -110,7 +110,7 @@ class MV_Abrechnung {
 		$hk_verbrauch_prozent = max( 50, min( 70, (int) $objekt->hk_verbrauchsanteil ?: 70 ) );
 
 		// Einheiten des Objekts
-		$einheiten        = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'einheiten' ) . ' WHERE objekt_id = %d', $abr->objekt_id ), OBJECT_K );
+		$einheiten        = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE objekt_id = %d', $abr->objekt_id ), OBJECT_K );
 		$wohn             = array_filter( $einheiten, fn( $e ) => in_array( $e->typ, [ 'wohnung', 'gewerbe' ], true ) );
 		$flaeche_gesamt   = array_sum( array_map( fn( $e ) => (float) $e->flaeche, $wohn ) );
 		$anzahl_einheiten = count( $wohn ) ?: count( $einheiten );
@@ -142,7 +142,7 @@ class MV_Abrechnung {
 		$belege = $wpdb->get_results(
 			$wpdb->prepare(
 				'SELECT b.*, k.name AS kostenart, k.schluessel, k.anlage_v, k.betrkv
-			 FROM ' . mv_table( 'belege' ) . ' b JOIN ' . mv_table( 'kostenarten' ) . ' k ON k.id = b.kostenart_id
+			 FROM ' . $wpdb->prefix . 'mv_belege b JOIN ' . $wpdb->prefix . 'mv_kostenarten k ON k.id = b.kostenart_id
 			 WHERE b.objekt_id = %d AND k.umlagefaehig = 1
 			   AND COALESCE(b.zeitraum_von, b.datum) <= %s AND COALESCE(b.zeitraum_bis, b.zeitraum_von, b.datum) >= %s
 			 ORDER BY k.sortierung, b.datum',
@@ -418,7 +418,7 @@ class MV_Abrechnung {
 			exit;
 		}
 		if ( $a === 'vz_anpassen' ) {
-			$erg = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' WHERE id = %d', (int) $_GET['erg'] ) );
+			$erg = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE id = %d', (int) $_GET['erg'] ) );
 			if ( $erg ) {
 				$monate = max( 1, round( $erg->tage / 30.4 ) );
 				$k      = MV_Soll::konditionen( (int) $erg->mv_id, current_time( 'Y-m-01' ) );
@@ -458,16 +458,16 @@ class MV_Abrechnung {
 	private static function liste(): void {
 		global $wpdb;
 		echo '<h1>' . esc_html__( 'Betriebskostenabrechnung', 'mietverwaltung' ) . '</h1>';
-		$rows = $wpdb->get_results( 'SELECT a.*, o.bezeichnung AS objekt, (SELECT COUNT(*) FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e WHERE e.abrechnung_id = a.id) AS anzahl FROM ' . mv_table( 'abrechnungen' ) . ' a JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = a.objekt_id ORDER BY a.bis DESC' );
+		$rows = $wpdb->get_results( 'SELECT a.*, o.bezeichnung AS objekt, (SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e WHERE e.abrechnung_id = a.id) AS anzahl FROM ' . $wpdb->prefix . 'mv_abrechnungen a JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id ORDER BY a.bis DESC' );
 
 		echo '<h2>' . esc_html__( 'Neue Abrechnung', 'mietverwaltung' ) . '</h2><form method="post" class="mv-filter">';
 		wp_nonce_field( 'mv_abr_neu' );
 		echo '<input type="hidden" name="mv_abr_action" value="neu"><label>' . esc_html__( 'Objekt', 'mietverwaltung' ) . ' <select name="objekt_id" required>';
 		foreach ( MV_Admin::opt_objekte() as $k => $v ) {
-			printf( '<option value="%d">%s</option>', $k, esc_html( $v ) );
+			printf( '<option value="%d">%s</option>', (int) $k, esc_html( $v ) );
 		}
 		$vj = (int) current_time( 'Y' ) - 1;
-		printf( '</select></label> <label>' . esc_html__( 'Zeitraum von', 'mietverwaltung' ) . ' <input type="date" name="von" value="%d-01-01"></label> <label>' . esc_html__( 'bis', 'mietverwaltung' ) . ' <input type="date" name="bis" value="%d-12-31"></label> <button class="button button-primary">' . esc_html__( 'Berechnen', 'mietverwaltung' ) . '</button></form>', $vj, $vj );
+		printf( '</select></label> <label>' . esc_html__( 'Zeitraum von', 'mietverwaltung' ) . ' <input type="date" name="von" value="%d-01-01"></label> <label>' . esc_html__( 'bis', 'mietverwaltung' ) . ' <input type="date" name="bis" value="%d-12-31"></label> <button class="button button-primary">' . esc_html__( 'Berechnen', 'mietverwaltung' ) . '</button></form>', (int) $vj, (int) $vj );
 		echo '<p class="description">' . esc_html__( 'Voraussetzungen: umlagefähige Belege mit Leistungszeitraum, Wohnflächen an den Einheiten, Personenzahl am Mietverhältnis, bei Verbrauchsschlüssel Zählerstände zu Beginn und Ende. Frist: 12 Monate nach Ende des Zeitraums (§ 556 Abs. 3 BGB).', 'mietverwaltung' ) . '</p>';
 
 		echo '<h2>' . esc_html__( 'Vorhandene Abrechnungen', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Objekt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Zeitraum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Status', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Mieter', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Erstellt', 'mietverwaltung' ) . '</th><th></th></tr></thead><tbody>';
@@ -493,12 +493,12 @@ class MV_Abrechnung {
 
 	private static function detail( int $id ): void {
 		global $wpdb;
-		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT a.*, o.bezeichnung AS objekt, o.heizung, o.hk_verbrauchsanteil FROM ' . mv_table( 'abrechnungen' ) . ' a JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = a.objekt_id WHERE a.id = %d', $id ) );
+		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT a.*, o.bezeichnung AS objekt, o.heizung, o.hk_verbrauchsanteil FROM ' . $wpdb->prefix . 'mv_abrechnungen a JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id WHERE a.id = %d', $id ) );
 		if ( ! $abr ) {
 			echo '<p>' . esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) . '</p>';
 			return;
 		}
-		$ergs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, m.vorname, m.nachname, ei.bezeichnung AS einheit FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e JOIN ' . mv_table( 'mietverhaeltnisse' ) . ' mv ON mv.id = e.mv_id JOIN ' . mv_table( 'mieter' ) . ' m ON m.id = mv.mieter_id JOIN ' . mv_table( 'einheiten' ) . ' ei ON ei.id = mv.einheit_id WHERE e.abrechnung_id = %d ORDER BY m.nachname', $id ) );
+		$ergs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, m.vorname, m.nachname, ei.bezeichnung AS einheit FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = e.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id JOIN ' . $wpdb->prefix . 'mv_einheiten ei ON ei.id = mv.einheit_id WHERE e.abrechnung_id = %d ORDER BY m.nachname', $id ) );
 
 		$msg = sanitize_key( $_GET['msg'] ?? '' );
 		if ( $msg === 'berechnet' ) {
@@ -541,7 +541,7 @@ class MV_Abrechnung {
 				esc_html( mv_eur( $e->vz_bk + $e->vz_hk ) ),
 				$e->saldo < 0 ? 'mv-neg' : 'mv-pos',
 				esc_html( mv_eur( abs( $e->saldo ) ) ),
-				$e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben', 'mietverwaltung' ),
+				$e->saldo < 0 ? esc_html__( 'Nachzahlung', 'mietverwaltung' ) : esc_html__( 'Guthaben', 'mietverwaltung' ),
 				esc_html( ( $e->par35a_handwerker + $e->par35a_haushalt ) > 0 ? mv_eur( $e->par35a_handwerker + $e->par35a_haushalt ) : '–' ),
 				esc_url( $brief ),
 				esc_url( $brief ),
@@ -574,13 +574,13 @@ class MV_Abrechnung {
 			}
 			check_admin_referer( 'mv_abr_brief_' . $erg_id );
 		}
-		$e = $wpdb->get_row( $wpdb->prepare( 'SELECT e.*, a.von, a.bis, a.objekt_id FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e JOIN ' . mv_table( 'abrechnungen' ) . ' a ON a.id = e.abrechnung_id WHERE e.id = %d', $erg_id ) );
+		$e = $wpdb->get_row( $wpdb->prepare( 'SELECT e.*, a.von, a.bis, a.objekt_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.id = %d', $erg_id ) );
 		if ( ! $e ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
 		}
-		$mv      = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE id = %d', $e->mv_id ) );
-		$objekt  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'objekte' ) . ' WHERE id = %d', $e->objekt_id ) );
-		$einheit = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $mv->einheit_id ) );
+		$mv      = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $e->mv_id ) );
+		$objekt  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_objekte WHERE id = %d', $e->objekt_id ) );
+		$einheit = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
 		$d       = json_decode( $e->details, true );
 
 		$b  = '<p>' . esc_html( MV_Brief::anrede( $mv ) ) . '</p>';

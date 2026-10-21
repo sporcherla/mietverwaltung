@@ -136,9 +136,9 @@ class MV_Admin {
 		$bar->add_node(
 			[
 				'id'    => 'mv-fokus',
-				'title' => self::fokus_aktiv() ? __( '⌂ WordPress-Menü einblenden', 'mietverwaltung' ) : __( '▣ Nur Mietverwaltung anzeigen', 'mietverwaltung' ),
+				'title' => self::fokus_aktiv() ? esc_html__( '⌂ WordPress-Menü einblenden', 'mietverwaltung' ) : esc_html__( '▣ Nur Mietverwaltung anzeigen', 'mietverwaltung' ),
 				'href'  => self::fokus_url(),
-				'meta'  => [ 'title' => __( 'Fokusmodus der Mietverwaltung umschalten', 'mietverwaltung' ) ],
+				'meta'  => [ 'title' => esc_html__( 'Fokusmodus der Mietverwaltung umschalten', 'mietverwaltung' ) ],
 			]
 		);
 	}
@@ -147,7 +147,7 @@ class MV_Admin {
 		if ( ! self::fokus_aktiv() ) {
 			return;
 		}
-		echo '<style>#wp-admin-bar-mv-fokus > ' . 'a { background: #2271b1 !important; color: #fff !important; } #wp-admin-bar-new-content, #wp-admin-bar-comments, #wp-admin-bar-updates, #wp-admin-bar-wp-logo { display: none !important; }' . '</style>';
+		echo '<style>#wp-admin-bar-mv-fokus > a { background: #2271b1 !important; color: #fff !important; } #wp-admin-bar-new-content, #wp-admin-bar-comments, #wp-admin-bar-updates, #wp-admin-bar-wp-logo { display: none !important; }</style>';
 	}
 
 	public static function assets( string $hook ): void {
@@ -164,22 +164,22 @@ class MV_Admin {
 				'mv-kaufvertrag',
 				'mvI18n',
 				[
-					'kein_text'    => __( 'Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen).', 'mietverwaltung' ),
-					'kein_pdfjs'   => __( 'pdf.js konnte nicht geladen werden (Netzwerk/Adblocker?). Werte bitte manuell eintragen.', 'mietverwaltung' ),
-					'lese'         => __( 'Lese Kaufvertrag …', 'mietverwaltung' ),
-					'fehler'       => __( 'PDF konnte nicht gelesen werden:', 'mietverwaltung' ),
-					'nur_pdf'      => __( 'Auslesen nur bei PDF möglich.', 'mietverwaltung' ),
-					'erkannt'      => __( 'Aus dem Kaufvertrag erkannt', 'mietverwaltung' ),
-					'seiten'       => __( 'Seiten', 'mietverwaltung' ),
-					'uebernehmen'  => __( 'zum Übernehmen anklicken, danach prüfen:', 'mietverwaltung' ),
-					'nicht'        => __( 'nicht gefunden', 'mietverwaltung' ),
-					'kaufpreis'    => __( 'Kaufpreis', 'mietverwaltung' ),
-					'uebergang'    => __( 'Übergang Nutzen/Lasten', 'mietverwaltung' ),
-					'grund_betrag' => __( 'Grund und Boden (Betrag)', 'mietverwaltung' ),
-					'grund_anteil' => __( 'Anteil Grund und Boden', 'mietverwaltung' ),
-					'vertrag'      => __( 'Vertragsdatum (Info)', 'mietverwaltung' ),
-					'flaeche'      => __( 'Wohnfläche (Info)', 'mietverwaltung' ),
-					'hinweis'      => __( 'Erkennung ist heuristisch. Fehlt die Aufteilung Grund/Gebäude im Vertrag, hilft die BMF-Arbeitshilfe zur Kaufpreisaufteilung.', 'mietverwaltung' ),
+					'kein_text'    => esc_html__( 'Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen).', 'mietverwaltung' ),
+					'kein_pdfjs'   => esc_html__( 'pdf.js konnte nicht geladen werden (Netzwerk/Adblocker?). Werte bitte manuell eintragen.', 'mietverwaltung' ),
+					'lese'         => esc_html__( 'Lese Kaufvertrag …', 'mietverwaltung' ),
+					'fehler'       => esc_html__( 'PDF konnte nicht gelesen werden:', 'mietverwaltung' ),
+					'nur_pdf'      => esc_html__( 'Auslesen nur bei PDF möglich.', 'mietverwaltung' ),
+					'erkannt'      => esc_html__( 'Aus dem Kaufvertrag erkannt', 'mietverwaltung' ),
+					'seiten'       => esc_html__( 'Seiten', 'mietverwaltung' ),
+					'uebernehmen'  => esc_html__( 'zum Übernehmen anklicken, danach prüfen:', 'mietverwaltung' ),
+					'nicht'        => esc_html__( 'nicht gefunden', 'mietverwaltung' ),
+					'kaufpreis'    => esc_html__( 'Kaufpreis', 'mietverwaltung' ),
+					'uebergang'    => esc_html__( 'Übergang Nutzen/Lasten', 'mietverwaltung' ),
+					'grund_betrag' => esc_html__( 'Grund und Boden (Betrag)', 'mietverwaltung' ),
+					'grund_anteil' => esc_html__( 'Anteil Grund und Boden', 'mietverwaltung' ),
+					'vertrag'      => esc_html__( 'Vertragsdatum (Info)', 'mietverwaltung' ),
+					'flaeche'      => esc_html__( 'Wohnfläche (Info)', 'mietverwaltung' ),
+					'hinweis'      => esc_html__( 'Erkennung ist heuristisch. Fehlt die Aufteilung Grund/Gebäude im Vertrag, hilft die BMF-Arbeitshilfe zur Kaufpreisaufteilung.', 'mietverwaltung' ),
 				]
 			);
 		}
@@ -196,563 +196,563 @@ class MV_Admin {
 
 		self::$entities = [
 			'objekte'           => [
-				'label'    => __( 'Objekte', 'mietverwaltung' ),
-				'singular' => __( 'Objekt', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Objekte', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Objekt', 'mietverwaltung' ),
 				'order'    => 'bezeichnung ASC',
 				'owner'    => true,
 				'children' => [ 'einheiten', 'objekt_id' ],
 				'fields'   => [
 					'bezeichnung'         => [
-						'label'    => __( 'Bezeichnung', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Bezeichnung', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
 					],
 					'strasse'             => [
-						'label' => __( 'Straße / Nr.', 'mietverwaltung' ),
+						'label' => esc_html__( 'Straße / Nr.', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'plz'                 => [
-						'label' => __( 'PLZ', 'mietverwaltung' ),
+						'label' => esc_html__( 'PLZ', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'ort'                 => [
-						'label' => __( 'Ort', 'mietverwaltung' ),
+						'label' => esc_html__( 'Ort', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'baujahr'             => [
-						'label' => __( 'Baujahr', 'mietverwaltung' ),
+						'label' => esc_html__( 'Baujahr', 'mietverwaltung' ),
 						'type'  => 'int',
 					],
 					'heizung'             => [
-						'label'   => __( 'Heizung', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Heizung', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'zentral'    => __( 'Zentralheizung (HeizkostenV, verbrauchsabhängig)', 'mietverwaltung' ),
-							'fernwaerme' => __( 'Fernwärme (HeizkostenV)', 'mietverwaltung' ),
-							'dezentral'  => __( 'Dezentral / Etagenheizung (Mieter rechnet selbst ab)', 'mietverwaltung' ),
+							'zentral'    => esc_html__( 'Zentralheizung (HeizkostenV, verbrauchsabhängig)', 'mietverwaltung' ),
+							'fernwaerme' => esc_html__( 'Fernwärme (HeizkostenV)', 'mietverwaltung' ),
+							'dezentral'  => esc_html__( 'Dezentral / Etagenheizung (Mieter rechnet selbst ab)', 'mietverwaltung' ),
 						],
 					],
 					'hk_verbrauchsanteil' => [
-						'label' => __( 'Heizkosten: Verbrauchsanteil (%)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Heizkosten: Verbrauchsanteil (%)', 'mietverwaltung' ),
 						'type'  => 'int',
-						'hint'  => __( '50–70 % nach Verbrauch, Rest nach Wohnfläche (§ 7 HeizkostenV). Nur bei Zentralheizung/Fernwärme.', 'mietverwaltung' ),
+						'hint'  => esc_html__( '50–70 % nach Verbrauch, Rest nach Wohnfläche (§ 7 HeizkostenV). Nur bei Zentralheizung/Fernwärme.', 'mietverwaltung' ),
 					],
 					'notiz'               => [
-						'label' => __( 'Notiz', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notiz', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 				],
 			],
 			'einheiten'         => [
-				'label'    => __( 'Einheiten', 'mietverwaltung' ),
-				'singular' => __( 'Einheit', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Einheiten', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Einheit', 'mietverwaltung' ),
 				'order'    => 'objekt_id ASC, bezeichnung ASC',
 				'children' => [ 'mietverhaeltnisse', 'einheit_id' ],
 				'fields'   => [
 					'objekt_id'   => [
-						'label'    => __( 'Objekt', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Objekt', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_objekte' ],
 					],
 					'bezeichnung' => [
-						'label'    => __( 'Bezeichnung', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Bezeichnung', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'z. B. „Wohnung EG links“', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'z. B. „Wohnung EG links“', 'mietverwaltung' ),
 					],
 					'lage'        => [
-						'label' => __( 'Lage', 'mietverwaltung' ),
+						'label' => esc_html__( 'Lage', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
-						'hint'  => __( 'z. B. „1. OG“', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'z. B. „1. OG“', 'mietverwaltung' ),
 					],
 					'flaeche'     => [
-						'label' => __( 'Wohnfläche (m²)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Wohnfläche (m²)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
 					],
 					'zimmer'      => [
-						'label' => __( 'Zimmer', 'mietverwaltung' ),
+						'label' => esc_html__( 'Zimmer', 'mietverwaltung' ),
 						'type'  => 'decimal',
 					],
 					'typ'         => [
-						'label'   => __( 'Typ', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Typ', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'wohnung'    => __( 'Wohnung', 'mietverwaltung' ),
-							'gewerbe'    => __( 'Gewerbe', 'mietverwaltung' ),
-							'stellplatz' => __( 'Stellplatz', 'mietverwaltung' ),
-							'garage'     => __( 'Garage', 'mietverwaltung' ),
-							'keller'     => __( 'Keller / Lager', 'mietverwaltung' ),
+							'wohnung'    => esc_html__( 'Wohnung', 'mietverwaltung' ),
+							'gewerbe'    => esc_html__( 'Gewerbe', 'mietverwaltung' ),
+							'stellplatz' => esc_html__( 'Stellplatz', 'mietverwaltung' ),
+							'garage'     => esc_html__( 'Garage', 'mietverwaltung' ),
+							'keller'     => esc_html__( 'Keller / Lager', 'mietverwaltung' ),
 						],
 					],
 				],
 			],
 			'mieter'            => [
-				'label'    => __( 'Mieter', 'mietverwaltung' ),
-				'singular' => __( 'Mieter', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Mieter', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Mieter', 'mietverwaltung' ),
 				'order'    => 'nachname ASC, vorname ASC',
 				'owner'    => true,
 				'children' => [ 'mietverhaeltnisse', 'mieter_id' ],
 				'fields'   => [
 					'anrede'         => [
-						'label'   => __( 'Anrede', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Anrede', 'mietverwaltung' ),
 						'type'    => 'select',
 						'options' => [
 							''      => '–',
-							'Frau'  => __( 'Frau', 'mietverwaltung' ),
-							'Herr'  => __( 'Herr', 'mietverwaltung' ),
-							'Firma' => __( 'Firma', 'mietverwaltung' ),
+							'Frau'  => esc_html__( 'Frau', 'mietverwaltung' ),
+							'Herr'  => esc_html__( 'Herr', 'mietverwaltung' ),
+							'Firma' => esc_html__( 'Firma', 'mietverwaltung' ),
 						],
 					],
 					'vorname'        => [
-						'label' => __( 'Vorname', 'mietverwaltung' ),
+						'label' => esc_html__( 'Vorname', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'nachname'       => [
-						'label'    => __( 'Nachname', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Nachname', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
 					],
 					'email'          => [
-						'label' => __( 'E-Mail', 'mietverwaltung' ),
+						'label' => esc_html__( 'E-Mail', 'mietverwaltung' ),
 						'type'  => 'email',
 						'list'  => true,
 					],
 					'telefon'        => [
-						'label' => __( 'Telefon', 'mietverwaltung' ),
+						'label' => esc_html__( 'Telefon', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'geburtsdatum'   => [
-						'label' => __( 'Geburtsdatum', 'mietverwaltung' ),
+						'label' => esc_html__( 'Geburtsdatum', 'mietverwaltung' ),
 						'type'  => 'date',
-						'hint'  => __( 'Für den Mietvertrag (Identifizierung der Vertragspartei).', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Für den Mietvertrag (Identifizierung der Vertragspartei).', 'mietverwaltung' ),
 					],
 					'anschrift_alt'  => [
-						'label' => __( 'Bisherige Anschrift', 'mietverwaltung' ),
+						'label' => esc_html__( 'Bisherige Anschrift', 'mietverwaltung' ),
 						'type'  => 'text',
-						'hint'  => __( 'Anschrift bei Vertragsschluss (vor Einzug) – erscheint im Vertrag.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Anschrift bei Vertragsschluss (vor Einzug) – erscheint im Vertrag.', 'mietverwaltung' ),
 					],
 					'p_anrede'       => [
-						'label'   => __( 'Mitmieter/in – Anrede', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Mitmieter/in – Anrede', 'mietverwaltung' ),
 						'type'    => 'select',
 						'options' => [
 							''     => '–',
-							'Frau' => __( 'Frau', 'mietverwaltung' ),
-							'Herr' => __( 'Herr', 'mietverwaltung' ),
+							'Frau' => esc_html__( 'Frau', 'mietverwaltung' ),
+							'Herr' => esc_html__( 'Herr', 'mietverwaltung' ),
 						],
-						'hint'    => __( 'Ehe-/Lebenspartner als zweite Vertragspartei (optional). Erscheint automatisch in Mietvertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll; haftet gesamtschuldnerisch.', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Ehe-/Lebenspartner als zweite Vertragspartei (optional). Erscheint automatisch in Mietvertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll; haftet gesamtschuldnerisch.', 'mietverwaltung' ),
 					],
 					'p_vorname'      => [
-						'label' => __( 'Mitmieter/in – Vorname', 'mietverwaltung' ),
+						'label' => esc_html__( 'Mitmieter/in – Vorname', 'mietverwaltung' ),
 						'type'  => 'text',
 					],
 					'p_nachname'     => [
-						'label' => __( 'Mitmieter/in – Nachname', 'mietverwaltung' ),
+						'label' => esc_html__( 'Mitmieter/in – Nachname', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'p_geburtsdatum' => [
-						'label' => __( 'Mitmieter/in – Geburtsdatum', 'mietverwaltung' ),
+						'label' => esc_html__( 'Mitmieter/in – Geburtsdatum', 'mietverwaltung' ),
 						'type'  => 'date',
 					],
 					'p_email'        => [
-						'label' => __( 'Mitmieter/in – E-Mail', 'mietverwaltung' ),
+						'label' => esc_html__( 'Mitmieter/in – E-Mail', 'mietverwaltung' ),
 						'type'  => 'email',
-						'hint'  => __( 'Erhält Mahnungen und Schreiben in Kopie, wenn angegeben.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Erhält Mahnungen und Schreiben in Kopie, wenn angegeben.', 'mietverwaltung' ),
 					],
 					'iban'           => [
-						'label' => __( 'IBAN (für Bankimport-Zuordnung)', 'mietverwaltung' ),
+						'label' => esc_html__( 'IBAN (für Bankimport-Zuordnung)', 'mietverwaltung' ),
 						'type'  => 'text',
 					],
 					'wp_user_id'     => [
-						'label'   => __( 'Portalzugang (WP-Benutzer)', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Portalzugang (WP-Benutzer)', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [ __CLASS__, 'opt_users' ],
-						'hint'    => __( 'Benutzer anlegen unter „Benutzer“, Rolle „Abonnent“ genügt.', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Benutzer anlegen unter „Benutzer“, Rolle „Abonnent“ genügt.', 'mietverwaltung' ),
 					],
 					'notiz'          => [
-						'label' => __( 'Notiz', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notiz', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 				],
 			],
 			'mietverhaeltnisse' => [
-				'label'      => __( 'Mietverhältnisse', 'mietverwaltung' ),
-				'singular'   => __( 'Mietverhältnis', 'mietverwaltung' ),
+				'label'      => esc_html__( 'Mietverhältnisse', 'mietverwaltung' ),
+				'singular'   => esc_html__( 'Mietverhältnis', 'mietverwaltung' ),
 				'order'      => 'beginn DESC',
 				'children'   => [ 'zahlungen', 'mv_id' ],
 				'fields'     => [
 					'einheit_id'      => [
-						'label'    => __( 'Einheit', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Einheit', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_einheiten' ],
 					],
 					'mieter_id'       => [
-						'label'    => __( 'Mieter', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Mieter', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_mieter' ],
 					],
 					'beginn'          => [
-						'label'    => __( 'Mietbeginn', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Mietbeginn', 'mietverwaltung' ),
 						'type'     => 'date',
 						'required' => true,
 						'list'     => true,
 					],
 					'ende'            => [
-						'label' => __( 'Mietende', 'mietverwaltung' ),
+						'label' => esc_html__( 'Mietende', 'mietverwaltung' ),
 						'type'  => 'date',
 						'list'  => true,
-						'hint'  => __( 'leer = unbefristet', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'leer = unbefristet', 'mietverwaltung' ),
 					],
 					'kaution'         => [
-						'label' => __( 'Kaution (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Kaution (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
 					],
 					'personen'        => [
-						'label' => __( 'Personen im Haushalt', 'mietverwaltung' ),
+						'label' => esc_html__( 'Personen im Haushalt', 'mietverwaltung' ),
 						'type'  => 'int',
-						'hint'  => __( 'für Umlageschlüssel nach Personen', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'für Umlageschlüssel nach Personen', 'mietverwaltung' ),
 					],
 					'zahltag'         => [
-						'label' => __( 'Zahltag (Tag im Monat)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Zahltag (Tag im Monat)', 'mietverwaltung' ),
 						'type'  => 'int',
 					],
 					'zusatzeinheiten' => [
-						'label' => __( 'Weitere Einheiten im selben Vertrag', 'mietverwaltung' ),
+						'label' => esc_html__( 'Weitere Einheiten im selben Vertrag', 'mietverwaltung' ),
 						'type'  => 'zusatz',
 						'list'  => true,
-						'hint'  => __( 'Garage, Stellplatz, Keller, die zusammen mit der Wohnung vermietet sind. Der Mietanteil ist in der Kaltmiete der Konditionen bereits enthalten und dient nur der Ausweisung im Vertrag.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Garage, Stellplatz, Keller, die zusammen mit der Wohnung vermietet sind. Der Mietanteil ist in der Kaltmiete der Konditionen bereits enthalten und dient nur der Ausweisung im Vertrag.', 'mietverwaltung' ),
 					],
 					'notiz'           => [
-						'label' => __( 'Notiz', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notiz', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 				],
-				'after_form' => __( 'Konditionen (Kaltmiete, Vorauszahlungen) werden unter „Konditionen“ mit Gültigkeitsdatum erfasst – als Gesamtmiete inkl. Garage/Stellplatz. Jede Erhöhung = neuer Eintrag.', 'mietverwaltung' ),
+				'after_form' => esc_html__( 'Konditionen (Kaltmiete, Vorauszahlungen) werden unter „Konditionen“ mit Gültigkeitsdatum erfasst – als Gesamtmiete inkl. Garage/Stellplatz. Jede Erhöhung = neuer Eintrag.', 'mietverwaltung' ),
 			],
 			'konditionen'       => [
-				'label'    => __( 'Konditionen', 'mietverwaltung' ),
-				'singular' => __( 'Kondition', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Konditionen', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Kondition', 'mietverwaltung' ),
 				'order'    => 'mv_id ASC, gueltig_ab DESC',
 				'fields'   => [
 					'mv_id'      => [
-						'label'    => __( 'Mietverhältnis', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Mietverhältnis', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_mv' ],
 					],
 					'gueltig_ab' => [
-						'label'    => __( 'Gültig ab', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Gültig ab', 'mietverwaltung' ),
 						'type'     => 'date',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'In der Regel der 1. eines Monats', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'In der Regel der 1. eines Monats', 'mietverwaltung' ),
 					],
 					'kaltmiete'  => [
-						'label'    => __( 'Kaltmiete (€)', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Kaltmiete (€)', 'mietverwaltung' ),
 						'type'     => 'decimal',
 						'required' => true,
 						'list'     => true,
 					],
 					'bk_vz'      => [
-						'label' => __( 'Betriebskosten-VZ (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Betriebskosten-VZ (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
 					],
 					'hk_vz'      => [
-						'label' => __( 'Heizkosten-VZ (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Heizkosten-VZ (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
 					],
 				],
 			],
 			'zahlungen'         => [
-				'label'    => __( 'Zahlungen', 'mietverwaltung' ),
-				'singular' => __( 'Zahlung', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Zahlungen', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Zahlung', 'mietverwaltung' ),
 				'order'    => 'datum DESC, id DESC',
 				'fields'   => [
 					'mv_id'            => [
-						'label'    => __( 'Mietverhältnis', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Mietverhältnis', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_mv' ],
 					],
 					'datum'            => [
-						'label'    => __( 'Zahlungsdatum', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Zahlungsdatum', 'mietverwaltung' ),
 						'type'     => 'date',
 						'required' => true,
 						'list'     => true,
 					],
 					'betrag'           => [
-						'label'    => __( 'Betrag (€)', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Betrag (€)', 'mietverwaltung' ),
 						'type'     => 'decimal',
 						'required' => true,
 						'list'     => true,
 					],
 					'monat'            => [
-						'label'    => __( 'Zuordnung Monat', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Zuordnung Monat', 'mietverwaltung' ),
 						'type'     => 'month',
 						'required' => true,
 						'list'     => true,
 					],
 					'verwendungszweck' => [
-						'label' => __( 'Verwendungszweck', 'mietverwaltung' ),
+						'label' => esc_html__( 'Verwendungszweck', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'quelle'           => [
-						'label'   => __( 'Quelle', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Quelle', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'manuell'  => __( 'manuell', 'mietverwaltung' ),
-							'bank'     => __( 'Bankimport', 'mietverwaltung' ),
-							'abgehakt' => __( 'Übersicht (abgehakt)', 'mietverwaltung' ),
+							'manuell'  => esc_html__( 'manuell', 'mietverwaltung' ),
+							'bank'     => esc_html__( 'Bankimport', 'mietverwaltung' ),
+							'abgehakt' => esc_html__( 'Übersicht (abgehakt)', 'mietverwaltung' ),
 						],
 					],
 				],
 			],
 			'belege'            => [
-				'label'       => __( 'Belege', 'mietverwaltung' ),
-				'singular'    => __( 'Beleg', 'mietverwaltung' ),
+				'label'       => esc_html__( 'Belege', 'mietverwaltung' ),
+				'singular'    => esc_html__( 'Beleg', 'mietverwaltung' ),
 				'order'       => 'datum DESC, id DESC',
 				'owner'       => true,
 				'upload'      => true,
 				'filter_year' => 'steuerjahr',
 				'fields'      => [
 					'objekt_id'        => [
-						'label'    => __( 'Objekt', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Objekt', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_objekte' ],
 					],
 					'kostenart_id'     => [
-						'label'    => __( 'Kostenart', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Kostenart', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_kostenarten' ],
 					],
 					'datum'            => [
-						'label'    => __( 'Zahlungsdatum', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Zahlungsdatum', 'mietverwaltung' ),
 						'type'     => 'date',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'Abflussdatum – maßgeblich für das Steuerjahr (§ 11 EStG). Bei Lastschrift: Tag der Abbuchung.', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'Abflussdatum – maßgeblich für das Steuerjahr (§ 11 EStG). Bei Lastschrift: Tag der Abbuchung.', 'mietverwaltung' ),
 					],
 					'steuerjahr'       => [
-						'label' => __( 'Steuerjahr', 'mietverwaltung' ),
+						'label' => esc_html__( 'Steuerjahr', 'mietverwaltung' ),
 						'type'  => 'int',
 						'list'  => true,
-						'hint'  => __( 'leer = Jahr des Zahlungsdatums. Abweichend nur bei regelmäßig wiederkehrenden Zahlungen um den Jahreswechsel (10-Tage-Regel).', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'leer = Jahr des Zahlungsdatums. Abweichend nur bei regelmäßig wiederkehrenden Zahlungen um den Jahreswechsel (10-Tage-Regel).', 'mietverwaltung' ),
 					],
 					'betrag'           => [
-						'label'    => __( 'Betrag brutto (€)', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Betrag brutto (€)', 'mietverwaltung' ),
 						'type'     => 'decimal',
 						'required' => true,
 						'list'     => true,
 					],
 					'lieferant'        => [
-						'label' => __( 'Rechnungssteller', 'mietverwaltung' ),
+						'label' => esc_html__( 'Rechnungssteller', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'belegnr'          => [
-						'label' => __( 'Rechnungs-/Belegnummer', 'mietverwaltung' ),
+						'label' => esc_html__( 'Rechnungs-/Belegnummer', 'mietverwaltung' ),
 						'type'  => 'text',
 					],
 					'zeitraum_von'     => [
-						'label' => __( 'Leistungszeitraum von', 'mietverwaltung' ),
+						'label' => esc_html__( 'Leistungszeitraum von', 'mietverwaltung' ),
 						'type'  => 'date',
-						'hint'  => __( 'Für die Betriebskostenabrechnung (z. B. Versicherung 01.01.–31.12.). Leer = Zahlungsdatum.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Für die Betriebskostenabrechnung (z. B. Versicherung 01.01.–31.12.). Leer = Zahlungsdatum.', 'mietverwaltung' ),
 					],
 					'zeitraum_bis'     => [
-						'label' => __( 'Leistungszeitraum bis', 'mietverwaltung' ),
+						'label' => esc_html__( 'Leistungszeitraum bis', 'mietverwaltung' ),
 						'type'  => 'date',
 					],
 					'verteilung_jahre' => [
-						'label'   => __( 'Verteilung (§ 82b EStDV)', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Verteilung (§ 82b EStDV)', 'mietverwaltung' ),
 						'type'    => 'select',
 						'options' => [
-							'1' => __( 'nein – voll im Zahlungsjahr', 'mietverwaltung' ),
-							'2' => __( 'auf 2 Jahre', 'mietverwaltung' ),
-							'3' => __( 'auf 3 Jahre', 'mietverwaltung' ),
-							'4' => __( 'auf 4 Jahre', 'mietverwaltung' ),
-							'5' => __( 'auf 5 Jahre', 'mietverwaltung' ),
+							'1' => esc_html__( 'nein – voll im Zahlungsjahr', 'mietverwaltung' ),
+							'2' => esc_html__( 'auf 2 Jahre', 'mietverwaltung' ),
+							'3' => esc_html__( 'auf 3 Jahre', 'mietverwaltung' ),
+							'4' => esc_html__( 'auf 4 Jahre', 'mietverwaltung' ),
+							'5' => esc_html__( 'auf 5 Jahre', 'mietverwaltung' ),
 						],
-						'hint'    => __( 'Nur für größeren Erhaltungsaufwand an Wohngebäuden. Gleichmäßige Verteilung ab dem Steuerjahr.', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Nur für größeren Erhaltungsaufwand an Wohngebäuden. Gleichmäßige Verteilung ab dem Steuerjahr.', 'mietverwaltung' ),
 					],
 					'par35a'           => [
-						'label'   => __( '§ 35a EStG (für Mieter)', 'mietverwaltung' ),
+						'label'   => esc_html__( '§ 35a EStG (für Mieter)', 'mietverwaltung' ),
 						'type'    => 'select',
 						'options' => [
-							''           => __( '– nein –', 'mietverwaltung' ),
-							'handwerker' => __( 'Handwerkerleistung (20 %, max. 1.200 €)', 'mietverwaltung' ),
-							'haushalt'   => __( 'Haushaltsnahe Dienstleistung (20 %, max. 4.000 €)', 'mietverwaltung' ),
+							''           => esc_html__( '– nein –', 'mietverwaltung' ),
+							'handwerker' => esc_html__( 'Handwerkerleistung (20 %, max. 1.200 €)', 'mietverwaltung' ),
+							'haushalt'   => esc_html__( 'Haushaltsnahe Dienstleistung (20 %, max. 4.000 €)', 'mietverwaltung' ),
 						],
-						'hint'    => __( 'Hausmeister, Gartenpflege, Schornsteinfeger, Wartung Heizung … Der Lohnanteil wird in der Betriebskostenabrechnung für den Mieter ausgewiesen.', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Hausmeister, Gartenpflege, Schornsteinfeger, Wartung Heizung … Der Lohnanteil wird in der Betriebskostenabrechnung für den Mieter ausgewiesen.', 'mietverwaltung' ),
 					],
 					'lohnanteil'       => [
-						'label' => __( 'davon Lohn-/Arbeitskosten brutto (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'davon Lohn-/Arbeitskosten brutto (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
-						'hint'  => __( 'Laut Rechnung; ohne Material.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Laut Rechnung; ohne Material.', 'mietverwaltung' ),
 					],
 					'beschreibung'     => [
-						'label' => __( 'Beschreibung', 'mietverwaltung' ),
+						'label' => esc_html__( 'Beschreibung', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 					'attachment_id'    => [
-						'label' => __( 'Belegdatei (PDF/Foto)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Belegdatei (PDF/Foto)', 'mietverwaltung' ),
 						'type'  => 'file',
 						'list'  => true,
 					],
 				],
 			],
 			'zaehler'           => [
-				'label'    => __( 'Zähler', 'mietverwaltung' ),
-				'singular' => __( 'Zähler', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Zähler', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Zähler', 'mietverwaltung' ),
 				'order'    => 'objekt_id ASC, einheit_id ASC, typ ASC',
 				'children' => [ 'zaehlerstaende', 'zaehler_id' ],
 				'fields'   => [
 					'objekt_id'  => [
-						'label'    => __( 'Objekt', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Objekt', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_objekte' ],
 					],
 					'einheit_id' => [
-						'label'   => __( 'Einheit', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Einheit', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [ __CLASS__, 'opt_einheiten_optional' ],
-						'hint'    => __( 'Leer = Hauptzähler des Hauses (nur zur Info, nicht für die Verteilung).', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Leer = Hauptzähler des Hauses (nur zur Info, nicht für die Verteilung).', 'mietverwaltung' ),
 					],
 					'typ'        => [
-						'label'    => __( 'Art', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Art', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [
-							'kaltwasser' => __( 'Kaltwasser (m³)', 'mietverwaltung' ),
-							'warmwasser' => __( 'Warmwasser (m³)', 'mietverwaltung' ),
-							'heizung'    => __( 'Heizung (kWh / Einheiten)', 'mietverwaltung' ),
-							'strom'      => __( 'Strom (kWh)', 'mietverwaltung' ),
+							'kaltwasser' => esc_html__( 'Kaltwasser (m³)', 'mietverwaltung' ),
+							'warmwasser' => esc_html__( 'Warmwasser (m³)', 'mietverwaltung' ),
+							'heizung'    => esc_html__( 'Heizung (kWh / Einheiten)', 'mietverwaltung' ),
+							'strom'      => esc_html__( 'Strom (kWh)', 'mietverwaltung' ),
 						],
 					],
 					'nummer'     => [
-						'label' => __( 'Zählernummer', 'mietverwaltung' ),
+						'label' => esc_html__( 'Zählernummer', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'notiz'      => [
-						'label' => __( 'Notiz', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notiz', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 				],
 			],
 			'zaehlerstaende'    => [
-				'label'    => __( 'Zählerstände', 'mietverwaltung' ),
-				'singular' => __( 'Zählerstand', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Zählerstände', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Zählerstand', 'mietverwaltung' ),
 				'order'    => 'datum DESC, zaehler_id ASC',
 				'upload'   => true,
 				'fields'   => [
 					'zaehler_id'    => [
-						'label'    => __( 'Zähler', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Zähler', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_zaehler' ],
 					],
 					'datum'         => [
-						'label'    => __( 'Ablesedatum', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Ablesedatum', 'mietverwaltung' ),
 						'type'     => 'date',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'Für die Abrechnung: Stand zum Beginn und zum Ende des Zeitraums (z. B. 01.01. und 31.12.).', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'Für die Abrechnung: Stand zum Beginn und zum Ende des Zeitraums (z. B. 01.01. und 31.12.).', 'mietverwaltung' ),
 					],
 					'stand'         => [
-						'label'    => __( 'Zählerstand', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Zählerstand', 'mietverwaltung' ),
 						'type'     => 'decimal',
 						'required' => true,
 						'list'     => true,
 					],
 					'quelle'        => [
-						'label'   => __( 'Quelle', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Quelle', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'vermieter' => __( 'Vermieter/Ablesung', 'mietverwaltung' ),
-							'mieter'    => __( 'Mieter (Portal)', 'mietverwaltung' ),
-							'versorger' => __( 'Versorger/Ablesedienst', 'mietverwaltung' ),
+							'vermieter' => esc_html__( 'Vermieter/Ablesung', 'mietverwaltung' ),
+							'mieter'    => esc_html__( 'Mieter (Portal)', 'mietverwaltung' ),
+							'versorger' => esc_html__( 'Versorger/Ablesedienst', 'mietverwaltung' ),
 						],
 					],
 					'attachment_id' => [
-						'label' => __( 'Foto', 'mietverwaltung' ),
+						'label' => esc_html__( 'Foto', 'mietverwaltung' ),
 						'type'  => 'file',
 						'list'  => true,
 					],
 				],
 			],
 			'bank_regeln'       => [
-				'label'    => __( 'Bankimport-Regeln', 'mietverwaltung' ),
-				'singular' => __( 'Regel', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Bankimport-Regeln', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Regel', 'mietverwaltung' ),
 				'order'    => 'muster ASC',
 				'owner'    => true,
 				'fields'   => [
 					'muster'       => [
-						'label'    => __( 'Suchtext', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Suchtext', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'Wird in Name und Verwendungszweck gesucht (Groß-/Kleinschreibung egal), z. B. „Stadtwerke“ oder „N-ERGIE“.', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'Wird in Name und Verwendungszweck gesucht (Groß-/Kleinschreibung egal), z. B. „Stadtwerke“ oder „N-ERGIE“.', 'mietverwaltung' ),
 					],
 					'typ'          => [
-						'label'   => __( 'Anlegen als', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Anlegen als', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'beleg'      => __( 'Beleg (Ausgabe)', 'mietverwaltung' ),
-							'zahlung'    => __( 'Mietzahlung (Eingang)', 'mietverwaltung' ),
-							'ignorieren' => __( 'Ignorieren', 'mietverwaltung' ),
+							'beleg'      => esc_html__( 'Beleg (Ausgabe)', 'mietverwaltung' ),
+							'zahlung'    => esc_html__( 'Mietzahlung (Eingang)', 'mietverwaltung' ),
+							'ignorieren' => esc_html__( 'Ignorieren', 'mietverwaltung' ),
 						],
 					],
 					'objekt_id'    => [
-						'label'   => __( 'Objekt', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Objekt', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [ __CLASS__, 'opt_objekte' ],
 					],
 					'kostenart_id' => [
-						'label'   => __( 'Kostenart (bei Beleg)', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Kostenart (bei Beleg)', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [ __CLASS__, 'opt_kostenarten_optional' ],
 					],
 					'mv_id'        => [
-						'label'   => __( 'Mietverhältnis (bei Zahlung)', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Mietverhältnis (bei Zahlung)', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [ __CLASS__, 'opt_mv_optional' ],
@@ -760,404 +760,404 @@ class MV_Admin {
 				],
 			],
 			'anlagegueter'      => [
-				'label'    => __( 'Abschreibung (AfA)', 'mietverwaltung' ),
-				'singular' => __( 'Anlagegut', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Abschreibung (AfA)', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Anlagegut', 'mietverwaltung' ),
 				'order'    => 'objekt_id ASC, anschaffung ASC',
 				'owner'    => true,
 				'upload'   => true,
 				'fields'   => [
 					'attachment_id'        => [
-						'label'   => __( 'Kaufvertrag (PDF)', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Kaufvertrag (PDF)', 'mietverwaltung' ),
 						'type'    => 'file',
 						'list'    => true,
 						'extract' => 'kaufvertrag',
-						'hint'    => __( 'Nach Auswahl wird der Vertrag im Browser ausgelesen; erkannte Werte erscheinen unten als Vorschläge. Nichts wird hochgeladen, bevor du speicherst.', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Nach Auswahl wird der Vertrag im Browser ausgelesen; erkannte Werte erscheinen unten als Vorschläge. Nichts wird hochgeladen, bevor du speicherst.', 'mietverwaltung' ),
 					],
 					'objekt_id'            => [
-						'label'    => __( 'Objekt', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Objekt', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_objekte' ],
 					],
 					'bezeichnung'          => [
-						'label'    => __( 'Bezeichnung', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Bezeichnung', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'z. B. „Gebäude Musterstraße 1“ oder „Einbauküche“', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'z. B. „Gebäude Musterstraße 1“ oder „Einbauküche“', 'mietverwaltung' ),
 					],
 					'typ'                  => [
-						'label'   => __( 'Art', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Art', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'gebaeude'  => __( 'Gebäude', 'mietverwaltung' ),
-							'beweglich' => __( 'Bewegliches Wirtschaftsgut (Einbauküche, Möbel …)', 'mietverwaltung' ),
+							'gebaeude'  => esc_html__( 'Gebäude', 'mietverwaltung' ),
+							'beweglich' => esc_html__( 'Bewegliches Wirtschaftsgut (Einbauküche, Möbel …)', 'mietverwaltung' ),
 						],
 					],
 					'anschaffung'          => [
-						'label'    => __( 'Anschaffung / Fertigstellung', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Anschaffung / Fertigstellung', 'mietverwaltung' ),
 						'type'     => 'date',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'Beim Kauf: Übergang von Nutzen und Lasten. AfA beginnt zeitanteilig ab diesem Monat.', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'Beim Kauf: Übergang von Nutzen und Lasten. AfA beginnt zeitanteilig ab diesem Monat.', 'mietverwaltung' ),
 					],
 					'ak'                   => [
-						'label'    => __( 'Kaufpreis / Herstellungskosten (€)', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Kaufpreis / Herstellungskosten (€)', 'mietverwaltung' ),
 						'type'     => 'decimal',
 						'required' => true,
 						'list'     => true,
 					],
 					'nk_grunderwerbsteuer' => [
-						'label' => __( 'Grunderwerbsteuer (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Grunderwerbsteuer (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
-						'hint'  => __( 'Bayern 3,5 % des Kaufpreises (Bescheid des Finanzamts).', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Bayern 3,5 % des Kaufpreises (Bescheid des Finanzamts).', 'mietverwaltung' ),
 					],
 					'nk_notar'             => [
-						'label' => __( 'Notar – Kaufvertrag (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notar – Kaufvertrag (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
-						'hint'  => __( 'Nur der Teil für Beurkundung des Kaufvertrags. Der Teil für die Grundschuld gehört unten zu „Finanzierung“.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Nur der Teil für Beurkundung des Kaufvertrags. Der Teil für die Grundschuld gehört unten zu „Finanzierung“.', 'mietverwaltung' ),
 					],
 					'nk_grundbuch'         => [
-						'label' => __( 'Grundbuch – Auflassung/Eigentumsumschreibung (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Grundbuch – Auflassung/Eigentumsumschreibung (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
-						'hint'  => __( 'Kostenrechnung des Grundbuchamts für Vormerkung und Eigentumsumschreibung.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Kostenrechnung des Grundbuchamts für Vormerkung und Eigentumsumschreibung.', 'mietverwaltung' ),
 					],
 					'nk_makler'            => [
-						'label' => __( 'Maklerprovision (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Maklerprovision (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 					],
 					'nk_sonstige'          => [
-						'label' => __( 'Sonstige Anschaffungsnebenkosten (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Sonstige Anschaffungsnebenkosten (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
-						'hint'  => __( 'z. B. Gutachter vor Kauf, Fahrtkosten zur Besichtigung, Übersetzer.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'z. B. Gutachter vor Kauf, Fahrtkosten zur Besichtigung, Übersetzer.', 'mietverwaltung' ),
 					],
 					'nebenkosten'          => [
-						'label' => __( 'Summe Anschaffungsnebenkosten (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Summe Anschaffungsnebenkosten (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
-						'hint'  => __( 'Wird aus den Einzelpositionen berechnet, sobald dort etwas eingetragen ist; sonst manuell.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Wird aus den Einzelpositionen berechnet, sobald dort etwas eingetragen ist; sonst manuell.', 'mietverwaltung' ),
 					],
 					'nk_finanzierung'      => [
-						'label' => __( 'Finanzierungskosten – Notar/Grundbuch Grundschuld (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Finanzierungskosten – Notar/Grundbuch Grundschuld (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
-						'hint'  => __( 'Keine Anschaffungskosten! Sofort abziehbare Werbungskosten (Geldbeschaffungskosten). Beim Speichern wird automatisch ein Beleg der Kostenart „Geldbeschaffungskosten“ angelegt, falls noch keiner mit diesem Betrag existiert.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Keine Anschaffungskosten! Sofort abziehbare Werbungskosten (Geldbeschaffungskosten). Beim Speichern wird automatisch ein Beleg der Kostenart „Geldbeschaffungskosten“ angelegt, falls noch keiner mit diesem Betrag existiert.', 'mietverwaltung' ),
 					],
 					'grundanteil'          => [
-						'label' => __( 'Anteil Grund und Boden (%)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Anteil Grund und Boden (%)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
-						'hint'  => __( 'Nur Gebäude; der Bodenanteil ist nicht abschreibbar. Aufteilung laut Kaufvertrag oder BMF-Arbeitshilfe zur Kaufpreisaufteilung. Auch Eigentumswohnungen haben einen Miteigentumsanteil am Grund (häufig 15–30 %). 0 % akzeptiert das Finanzamt in der Regel nicht.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Nur Gebäude; der Bodenanteil ist nicht abschreibbar. Aufteilung laut Kaufvertrag oder BMF-Arbeitshilfe zur Kaufpreisaufteilung. Auch Eigentumswohnungen haben einen Miteigentumsanteil am Grund (häufig 15–30 %). 0 % akzeptiert das Finanzamt in der Regel nicht.', 'mietverwaltung' ),
 					],
 					'methode'              => [
-						'label'   => __( 'Methode', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Methode', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'linear'    => __( 'Linear (§ 7 Abs. 4 EStG)', 'mietverwaltung' ),
-							'degressiv' => __( 'Degressiv vom Restwert (§ 7 Abs. 5a EStG, Neubau Baubeginn 10/2023–09/2029)', 'mietverwaltung' ),
+							'linear'    => esc_html__( 'Linear (§ 7 Abs. 4 EStG)', 'mietverwaltung' ),
+							'degressiv' => esc_html__( 'Degressiv vom Restwert (§ 7 Abs. 5a EStG, Neubau Baubeginn 10/2023–09/2029)', 'mietverwaltung' ),
 						],
 					],
 					'satz'                 => [
-						'label' => __( 'AfA-Satz (% p. a.)', 'mietverwaltung' ),
+						'label' => esc_html__( 'AfA-Satz (% p. a.)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
-						'hint'  => __( 'Leer = automatisch: Gebäude nach Baujahr des Objekts (vor 1925: 2,5 %, ab 2023: 3 %, sonst 2 %), bewegliche Güter 100 / Nutzungsdauer. Degressiv: 5 %. Nur eintragen, wenn abweichend (z. B. 4 % bei nachgewiesener kürzerer Restnutzungsdauer).', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Leer = automatisch: Gebäude nach Baujahr des Objekts (vor 1925: 2,5 %, ab 2023: 3 %, sonst 2 %), bewegliche Güter 100 / Nutzungsdauer. Degressiv: 5 %. Nur eintragen, wenn abweichend (z. B. 4 % bei nachgewiesener kürzerer Restnutzungsdauer).', 'mietverwaltung' ),
 					],
 					'nutzungsdauer'        => [
-						'label' => __( 'Nutzungsdauer (Jahre)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Nutzungsdauer (Jahre)', 'mietverwaltung' ),
 						'type'  => 'int',
-						'hint'  => __( 'Nur bewegliche Wirtschaftsgüter, z. B. Einbauküche 10 Jahre. GWG bis 800 € netto: Nutzungsdauer 1 = Sofortabzug.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Nur bewegliche Wirtschaftsgüter, z. B. Einbauküche 10 Jahre. GWG bis 800 € netto: Nutzungsdauer 1 = Sofortabzug.', 'mietverwaltung' ),
 					],
 					'ende'                 => [
-						'label' => __( 'Ausscheiden (Verkauf/Entnahme)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Ausscheiden (Verkauf/Entnahme)', 'mietverwaltung' ),
 						'type'  => 'date',
 					],
 					'notiz'                => [
-						'label' => __( 'Notiz', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notiz', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 				],
 			],
 			'darlehen'          => [
-				'label'    => __( 'Darlehen', 'mietverwaltung' ),
-				'singular' => __( 'Darlehen', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Darlehen', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Darlehen', 'mietverwaltung' ),
 				'order'    => 'status ASC, auszahlung ASC',
 				'owner'    => true,
 				'children' => [ 'darlehen_jahre', 'darlehen_id' ],
 				'upload'   => true,
 				'fields'   => [
 					'objekt_id'       => [
-						'label'    => __( 'Objekt', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Objekt', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_objekte' ],
 					],
 					'bank'            => [
-						'label'    => __( 'Bank', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Bank', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
 					],
 					'bezeichnung'     => [
-						'label' => __( 'Bezeichnung / Konto-Nr.', 'mietverwaltung' ),
+						'label' => esc_html__( 'Bezeichnung / Konto-Nr.', 'mietverwaltung' ),
 						'type'  => 'text',
 						'list'  => true,
 					],
 					'betrag'          => [
-						'label'    => __( 'Darlehensbetrag (€)', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Darlehensbetrag (€)', 'mietverwaltung' ),
 						'type'     => 'decimal',
 						'required' => true,
 						'list'     => true,
 					],
 					'auszahlung'      => [
-						'label' => __( 'Auszahlung', 'mietverwaltung' ),
+						'label' => esc_html__( 'Auszahlung', 'mietverwaltung' ),
 						'type'  => 'date',
 						'list'  => true,
 					],
 					'zinssatz'        => [
-						'label' => __( 'Sollzins (% p. a.)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Sollzins (% p. a.)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
 					],
 					'zinsbindung_bis' => [
-						'label' => __( 'Zinsbindung bis', 'mietverwaltung' ),
+						'label' => esc_html__( 'Zinsbindung bis', 'mietverwaltung' ),
 						'type'  => 'date',
 						'list'  => true,
 					],
 					'rate'            => [
-						'label' => __( 'Monatsrate (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Monatsrate (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 					],
 					'tilgung'         => [
-						'label' => __( 'Anfängliche Tilgung (% p. a.)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Anfängliche Tilgung (% p. a.)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 					],
 					'status'          => [
-						'label'   => __( 'Status', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Status', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'aktiv'     => __( 'Aktiv', 'mietverwaltung' ),
-							'abgeloest' => __( 'Abgelöst', 'mietverwaltung' ),
+							'aktiv'     => esc_html__( 'Aktiv', 'mietverwaltung' ),
+							'abgeloest' => esc_html__( 'Abgelöst', 'mietverwaltung' ),
 						],
 					],
 					'attachment_id'   => [
-						'label' => __( 'Darlehensvertrag (PDF)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Darlehensvertrag (PDF)', 'mietverwaltung' ),
 						'type'  => 'file',
 						'list'  => true,
 					],
 					'notiz'           => [
-						'label' => __( 'Notiz', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notiz', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 				],
 			],
 			'dokumente'         => [
-				'label'    => __( 'Dokumente', 'mietverwaltung' ),
-				'singular' => __( 'Dokument', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Dokumente', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Dokument', 'mietverwaltung' ),
 				'order'    => 'datum DESC, id DESC',
 				'owner'    => true,
 				'upload'   => true,
 				'fields'   => [
 					'objekt_id'       => [
-						'label'    => __( 'Objekt', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Objekt', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_objekte' ],
 					],
 					'mv_id'           => [
-						'label'   => __( 'Mietverhältnis', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Mietverhältnis', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [ __CLASS__, 'opt_mv_optional' ],
-						'hint'    => __( 'Nur bei mieterbezogenen Dokumenten (Mietvertrag, Übergabeprotokoll, Abrechnung).', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Nur bei mieterbezogenen Dokumenten (Mietvertrag, Übergabeprotokoll, Abrechnung).', 'mietverwaltung' ),
 					],
 					'typ'             => [
-						'label'   => __( 'Art', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Art', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'kaufvertrag'        => __( 'Kaufvertrag', 'mietverwaltung' ),
-							'grundbuch'          => __( 'Grundbuchauszug', 'mietverwaltung' ),
-							'teilungserklaerung' => __( 'Teilungserklärung / WEG', 'mietverwaltung' ),
-							'mietvertrag'        => __( 'Mietvertrag', 'mietverwaltung' ),
-							'uebergabeprotokoll' => __( 'Übergabeprotokoll', 'mietverwaltung' ),
-							'abrechnung'         => __( 'Betriebskostenabrechnung', 'mietverwaltung' ),
-							'versicherung'       => __( 'Versicherungsschein', 'mietverwaltung' ),
-							'energieausweis'     => __( 'Energieausweis', 'mietverwaltung' ),
-							'sonstiges'          => __( 'Sonstiges', 'mietverwaltung' ),
+							'kaufvertrag'        => esc_html__( 'Kaufvertrag', 'mietverwaltung' ),
+							'grundbuch'          => esc_html__( 'Grundbuchauszug', 'mietverwaltung' ),
+							'teilungserklaerung' => esc_html__( 'Teilungserklärung / WEG', 'mietverwaltung' ),
+							'mietvertrag'        => esc_html__( 'Mietvertrag', 'mietverwaltung' ),
+							'uebergabeprotokoll' => esc_html__( 'Übergabeprotokoll', 'mietverwaltung' ),
+							'abrechnung'         => esc_html__( 'Betriebskostenabrechnung', 'mietverwaltung' ),
+							'versicherung'       => esc_html__( 'Versicherungsschein', 'mietverwaltung' ),
+							'energieausweis'     => esc_html__( 'Energieausweis', 'mietverwaltung' ),
+							'sonstiges'          => esc_html__( 'Sonstiges', 'mietverwaltung' ),
 						],
 					],
 					'bezeichnung'     => [
-						'label'    => __( 'Bezeichnung', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Bezeichnung', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
 					],
 					'datum'           => [
-						'label' => __( 'Datum', 'mietverwaltung' ),
+						'label' => esc_html__( 'Datum', 'mietverwaltung' ),
 						'type'  => 'date',
 						'list'  => true,
 					],
 					'mieter_sichtbar' => [
-						'label'   => __( 'Im Mieterportal sichtbar', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Im Mieterportal sichtbar', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'0' => __( 'Nein', 'mietverwaltung' ),
-							'1' => __( 'Ja', 'mietverwaltung' ),
+							'0' => esc_html__( 'Nein', 'mietverwaltung' ),
+							'1' => esc_html__( 'Ja', 'mietverwaltung' ),
 						],
-						'hint'    => __( 'Nur wirksam mit zugeordnetem Mietverhältnis.', 'mietverwaltung' ),
+						'hint'    => esc_html__( 'Nur wirksam mit zugeordnetem Mietverhältnis.', 'mietverwaltung' ),
 					],
 					'attachment_id'   => [
-						'label'    => __( 'Datei (PDF)', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Datei (PDF)', 'mietverwaltung' ),
 						'type'     => 'file',
 						'required' => true,
 						'list'     => true,
 					],
 					'notiz'           => [
-						'label' => __( 'Notiz', 'mietverwaltung' ),
+						'label' => esc_html__( 'Notiz', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 				],
 			],
 			'darlehen_jahre'    => [
-				'label'       => __( 'Zinsbescheinigungen', 'mietverwaltung' ),
-				'singular'    => __( 'Jahreswert Darlehen', 'mietverwaltung' ),
+				'label'       => esc_html__( 'Zinsbescheinigungen', 'mietverwaltung' ),
+				'singular'    => esc_html__( 'Jahreswert Darlehen', 'mietverwaltung' ),
 				'order'       => 'jahr DESC, darlehen_id ASC',
 				'upload'      => true,
 				'filter_year' => 'jahr',
 				'fields'      => [
 					'darlehen_id'   => [
-						'label'    => __( 'Darlehen', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Darlehen', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_darlehen' ],
 					],
 					'jahr'          => [
-						'label'    => __( 'Jahr', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Jahr', 'mietverwaltung' ),
 						'type'     => 'int',
 						'required' => true,
 						'list'     => true,
 					],
 					'zinsen'        => [
-						'label'    => __( 'Gezahlte Zinsen (€)', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Gezahlte Zinsen (€)', 'mietverwaltung' ),
 						'type'     => 'decimal',
 						'required' => true,
 						'list'     => true,
-						'hint'     => __( 'Laut Jahreszinsbescheinigung der Bank – das ist der Werbungskostenbetrag.', 'mietverwaltung' ),
+						'hint'     => esc_html__( 'Laut Jahreszinsbescheinigung der Bank – das ist der Werbungskostenbetrag.', 'mietverwaltung' ),
 					],
 					'tilgung'       => [
-						'label' => __( 'Tilgung (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Tilgung (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
-						'hint'  => __( 'Nicht abziehbar, nur zur Info.', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'Nicht abziehbar, nur zur Info.', 'mietverwaltung' ),
 					],
 					'restschuld'    => [
-						'label' => __( 'Restschuld 31.12. (€)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Restschuld 31.12. (€)', 'mietverwaltung' ),
 						'type'  => 'decimal',
 						'list'  => true,
 					],
 					'attachment_id' => [
-						'label' => __( 'Zinsbescheinigung (PDF)', 'mietverwaltung' ),
+						'label' => esc_html__( 'Zinsbescheinigung (PDF)', 'mietverwaltung' ),
 						'type'  => 'file',
 						'list'  => true,
 					],
 				],
 			],
 			'kostenarten'       => [
-				'label'    => __( 'Kostenarten', 'mietverwaltung' ),
-				'singular' => __( 'Kostenart', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Kostenarten', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Kostenart', 'mietverwaltung' ),
 				'order'    => 'sortierung ASC, name ASC',
 				'owner'    => true,
 				'children' => [ 'belege', 'kostenart_id' ],
 				'fields'   => [
 					'name'         => [
-						'label'    => __( 'Bezeichnung', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Bezeichnung', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
 					],
 					'anlage_v'     => [
-						'label'    => __( 'Anlage V – Gruppe', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Anlage V – Gruppe', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ 'MV_DB', 'anlage_v_gruppen' ],
 					],
 					'umlagefaehig' => [
-						'label'   => __( 'Umlagefähig (BetrKV)', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Umlagefähig (BetrKV)', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'0' => __( 'Nein – trägt der Vermieter', 'mietverwaltung' ),
-							'1' => __( 'Ja – geht in die Betriebskostenabrechnung', 'mietverwaltung' ),
+							'0' => esc_html__( 'Nein – trägt der Vermieter', 'mietverwaltung' ),
+							'1' => esc_html__( 'Ja – geht in die Betriebskostenabrechnung', 'mietverwaltung' ),
 						],
 					],
 					'schluessel'   => [
-						'label'   => __( 'Umlageschlüssel', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Umlageschlüssel', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
 							''          => '–',
-							'flaeche'   => __( 'Wohnfläche', 'mietverwaltung' ),
-							'personen'  => __( 'Personen', 'mietverwaltung' ),
-							'verbrauch' => __( 'Verbrauch (Zähler)', 'mietverwaltung' ),
-							'einheit'   => __( 'je Einheit', 'mietverwaltung' ),
+							'flaeche'   => esc_html__( 'Wohnfläche', 'mietverwaltung' ),
+							'personen'  => esc_html__( 'Personen', 'mietverwaltung' ),
+							'verbrauch' => esc_html__( 'Verbrauch (Zähler)', 'mietverwaltung' ),
+							'einheit'   => esc_html__( 'je Einheit', 'mietverwaltung' ),
 						],
 					],
 					'betrkv'       => [
-						'label' => __( 'Rechtsgrundlage', 'mietverwaltung' ),
+						'label' => esc_html__( 'Rechtsgrundlage', 'mietverwaltung' ),
 						'type'  => 'text',
-						'hint'  => __( 'z. B. § 2 Nr. 1 BetrKV', 'mietverwaltung' ),
+						'hint'  => esc_html__( 'z. B. § 2 Nr. 1 BetrKV', 'mietverwaltung' ),
 					],
 					'sortierung'   => [
-						'label' => __( 'Sortierung', 'mietverwaltung' ),
+						'label' => esc_html__( 'Sortierung', 'mietverwaltung' ),
 						'type'  => 'int',
 					],
 				],
 			],
 			'meldungen'         => [
-				'label'    => __( 'Meldungen', 'mietverwaltung' ),
-				'singular' => __( 'Meldung', 'mietverwaltung' ),
+				'label'    => esc_html__( 'Meldungen', 'mietverwaltung' ),
+				'singular' => esc_html__( 'Meldung', 'mietverwaltung' ),
 				'order'    => 'datum DESC',
 				'fields'   => [
 					'mv_id'   => [
-						'label'    => __( 'Mietverhältnis', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Mietverhältnis', 'mietverwaltung' ),
 						'type'     => 'select',
 						'required' => true,
 						'list'     => true,
 						'options'  => [ __CLASS__, 'opt_mv' ],
 					],
 					'datum'   => [
-						'label'    => __( 'Datum', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Datum', 'mietverwaltung' ),
 						'type'     => 'datetime',
 						'required' => true,
 						'list'     => true,
 					],
 					'betreff' => [
-						'label'    => __( 'Betreff', 'mietverwaltung' ),
+						'label'    => esc_html__( 'Betreff', 'mietverwaltung' ),
 						'type'     => 'text',
 						'required' => true,
 						'list'     => true,
 					],
 					'text'    => [
-						'label' => __( 'Beschreibung', 'mietverwaltung' ),
+						'label' => esc_html__( 'Beschreibung', 'mietverwaltung' ),
 						'type'  => 'textarea',
 					],
 					'status'  => [
-						'label'   => __( 'Status', 'mietverwaltung' ),
+						'label'   => esc_html__( 'Status', 'mietverwaltung' ),
 						'type'    => 'select',
 						'list'    => true,
 						'options' => [
-							'offen'          => __( 'Offen', 'mietverwaltung' ),
-							'in_bearbeitung' => __( 'In Bearbeitung', 'mietverwaltung' ),
-							'erledigt'       => __( 'Erledigt', 'mietverwaltung' ),
+							'offen'          => esc_html__( 'Offen', 'mietverwaltung' ),
+							'in_bearbeitung' => esc_html__( 'In Bearbeitung', 'mietverwaltung' ),
+							'erledigt'       => esc_html__( 'Erledigt', 'mietverwaltung' ),
 						],
 					],
 				],
@@ -1172,7 +1172,7 @@ class MV_Admin {
 	public static function opt_objekte(): array {
 		global $wpdb;
 		$out = [];
-		foreach ( $wpdb->get_results( 'SELECT id, bezeichnung FROM ' . mv_table( 'objekte' ) . ' ORDER BY bezeichnung' ) as $r ) {
+		foreach ( $wpdb->get_results( 'SELECT id, bezeichnung FROM ' . $wpdb->prefix . 'mv_objekte ORDER BY bezeichnung' ) as $r ) {
 			$out[ $r->id ] = $r->bezeichnung;
 		}
 		return $out;
@@ -1181,7 +1181,7 @@ class MV_Admin {
 	public static function opt_einheiten(): array {
 		global $wpdb;
 		$out  = [];
-		$rows = $wpdb->get_results( 'SELECT e.id, e.bezeichnung, o.bezeichnung AS objekt FROM ' . mv_table( 'einheiten' ) . ' e JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = e.objekt_id ORDER BY o.bezeichnung, e.bezeichnung' );
+		$rows = $wpdb->get_results( 'SELECT e.id, e.bezeichnung, o.bezeichnung AS objekt FROM ' . $wpdb->prefix . 'mv_einheiten e JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = e.objekt_id ORDER BY o.bezeichnung, e.bezeichnung' );
 		foreach ( $rows as $r ) {
 			$out[ $r->id ] = $r->objekt . ' / ' . $r->bezeichnung;
 		}
@@ -1191,7 +1191,7 @@ class MV_Admin {
 	public static function opt_mieter(): array {
 		global $wpdb;
 		$out = [];
-		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . mv_table( 'mieter' ) . ' ORDER BY nachname, vorname' ) as $r ) {
+		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . $wpdb->prefix . 'mv_mieter ORDER BY nachname, vorname' ) as $r ) {
 			$out[ $r->id ] = mv_mieter_name( $r );
 		}
 		return $out;
@@ -1208,7 +1208,7 @@ class MV_Admin {
 	public static function opt_kostenarten(): array {
 		global $wpdb;
 		$out = [];
-		foreach ( $wpdb->get_results( 'SELECT id, name, umlagefaehig FROM ' . mv_table( 'kostenarten' ) . ' ORDER BY sortierung, name' ) as $r ) {
+		foreach ( $wpdb->get_results( 'SELECT id, name, umlagefaehig FROM ' . $wpdb->prefix . 'mv_kostenarten ORDER BY sortierung, name' ) as $r ) {
 			$out[ $r->id ] = $r->name . ( $r->umlagefaehig ? ' [umlagefähig]' : '' );
 		}
 		return $out;
@@ -1225,7 +1225,7 @@ class MV_Admin {
 	public static function opt_zaehler(): array {
 		global $wpdb;
 		$out  = [];
-		$rows = $wpdb->get_results( 'SELECT z.*, o.bezeichnung AS objekt, e.bezeichnung AS einheit FROM ' . mv_table( 'zaehler' ) . ' z JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = z.objekt_id LEFT JOIN ' . mv_table( 'einheiten' ) . ' e ON e.id = z.einheit_id ORDER BY o.bezeichnung, e.bezeichnung, z.typ' );
+		$rows = $wpdb->get_results( 'SELECT z.*, o.bezeichnung AS objekt, e.bezeichnung AS einheit FROM ' . $wpdb->prefix . 'mv_zaehler z JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = z.objekt_id LEFT JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.id = z.einheit_id ORDER BY o.bezeichnung, e.bezeichnung, z.typ' );
 		foreach ( $rows as $r ) {
 			$out[ $r->id ] = $r->objekt . ' / ' . ( $r->einheit ?: 'Haus' ) . ' – ' . ucfirst( $r->typ ) . ( $r->nummer ? ' (' . $r->nummer . ')' : '' );
 		}
@@ -1239,7 +1239,7 @@ class MV_Admin {
 	public static function opt_darlehen(): array {
 		global $wpdb;
 		$out = [];
-		foreach ( $wpdb->get_results( 'SELECT id, bank, bezeichnung, betrag FROM ' . mv_table( 'darlehen' ) . ' ORDER BY bank' ) as $r ) {
+		foreach ( $wpdb->get_results( 'SELECT id, bank, bezeichnung, betrag FROM ' . $wpdb->prefix . 'mv_darlehen ORDER BY bank' ) as $r ) {
 			$out[ $r->id ] = $r->bank . ( $r->bezeichnung ? ' – ' . $r->bezeichnung : '' ) . ' (' . mv_eur( $r->betrag ) . ')';
 		}
 		return $out;
@@ -1262,13 +1262,13 @@ class MV_Admin {
 		add_submenu_page( 'mv_uebersicht', __( 'Übersicht', 'mietverwaltung' ), '<span class="dashicons dashicons-dashboard"></span> ' . __( 'Übersicht', 'mietverwaltung' ), self::CAP, 'mv_uebersicht', [ __CLASS__, 'page_uebersicht' ] );
 		// Gruppen (## = Überschrift) und Dashicons
 		$reihenfolge = [
-			'##' . __( 'Alltag', 'mietverwaltung' ),
+			'##' . esc_html__( 'Alltag', 'mietverwaltung' ),
 			'zahlungen',
 			'belege',
 			'__bank',
 			'meldungen',
 			'dokumente',
-			'##' . __( 'Verwaltung', 'mietverwaltung' ),
+			'##' . esc_html__( 'Verwaltung', 'mietverwaltung' ),
 			'objekte',
 			'einheiten',
 			'mieter',
@@ -1278,7 +1278,7 @@ class MV_Admin {
 			'__kaution',
 			'__erhoehung',
 			'__mahnung',
-			'##' . __( 'Jahresabschluss', 'mietverwaltung' ),
+			'##' . esc_html__( 'Jahresabschluss', 'mietverwaltung' ),
 			'zaehler',
 			'zaehlerstaende',
 			'__abrechnung',
@@ -1288,7 +1288,7 @@ class MV_Admin {
 			'__darlehenskonto',
 			'darlehen_jahre',
 			'__steuer',
-			'##' . __( 'System', 'mietverwaltung' ),
+			'##' . esc_html__( 'System', 'mietverwaltung' ),
 			'bank_regeln',
 			'__datenschutz',
 			'__einstellungen',
@@ -1327,27 +1327,27 @@ class MV_Admin {
 			'__assistent'       => 'welcome-learn-more',
 		];
 		$kurz        = [
-			'__assistent'     => __( 'Assistent', 'mietverwaltung' ),
-			'__abrechnung'    => __( 'BK-Abrechnung', 'mietverwaltung' ),
-			'__einstellungen' => __( 'Einstellungen', 'mietverwaltung' ),
-			'__mietvertrag'   => __( 'Mietvertrag', 'mietverwaltung' ),
-			'darlehen_jahre'  => __( 'Zinsbescheinigung', 'mietverwaltung' ),
-			'bank_regeln'     => __( 'Bankregeln', 'mietverwaltung' ),
+			'__assistent'     => esc_html__( 'Assistent', 'mietverwaltung' ),
+			'__abrechnung'    => esc_html__( 'BK-Abrechnung', 'mietverwaltung' ),
+			'__einstellungen' => esc_html__( 'Einstellungen', 'mietverwaltung' ),
+			'__mietvertrag'   => esc_html__( 'Mietvertrag', 'mietverwaltung' ),
+			'darlehen_jahre'  => esc_html__( 'Zinsbescheinigung', 'mietverwaltung' ),
+			'bank_regeln'     => esc_html__( 'Bankregeln', 'mietverwaltung' ),
 		];
 		$ico         = fn( string $key, string $label ) => '<span class="dashicons dashicons-' . esc_attr( $icons[ $key ] ?? 'marker' ) . '"></span> ' . ( $kurz[ $key ] ?? $label );
 		$seiten      = [
 			'__mietvertrag'    => [ __( 'Mietvertrag & Übergabe', 'mietverwaltung' ), [ 'MV_Mietvertrag', 'page' ] ],
-			'__bank'           => [ __( 'Bankimport', 'mietverwaltung' ), [ 'MV_Bank', 'page' ] ],
-			'__mahnung'        => [ __( 'Mahnwesen', 'mietverwaltung' ), [ 'MV_Mahnung', 'page' ] ],
-			'__erhoehung'      => [ __( 'Mieterhöhung', 'mietverwaltung' ), [ 'MV_Erhoehung', 'page' ] ],
-			'__kaution'        => [ __( 'Kaution', 'mietverwaltung' ), [ 'MV_Kaution', 'page' ] ],
-			'__darlehenskonto' => [ __( 'Darlehenskonto', 'mietverwaltung' ), [ 'MV_Darlehen', 'page' ] ],
-			'__abrechnung'     => [ __( 'Betriebskostenabrechnung', 'mietverwaltung' ), [ 'MV_Abrechnung', 'page' ] ],
-			'__steuer'         => [ __( 'Steuer (Anlage V)', 'mietverwaltung' ), [ 'MV_Steuer', 'page' ] ],
-			'__datenschutz'    => [ __( 'Datenschutz', 'mietverwaltung' ), [ 'MV_Datenschutz', 'page' ] ],
+			'__bank'           => [ esc_html__( 'Bankimport', 'mietverwaltung' ), [ 'MV_Bank', 'page' ] ],
+			'__mahnung'        => [ esc_html__( 'Mahnwesen', 'mietverwaltung' ), [ 'MV_Mahnung', 'page' ] ],
+			'__erhoehung'      => [ esc_html__( 'Mieterhöhung', 'mietverwaltung' ), [ 'MV_Erhoehung', 'page' ] ],
+			'__kaution'        => [ esc_html__( 'Kaution', 'mietverwaltung' ), [ 'MV_Kaution', 'page' ] ],
+			'__darlehenskonto' => [ esc_html__( 'Darlehenskonto', 'mietverwaltung' ), [ 'MV_Darlehen', 'page' ] ],
+			'__abrechnung'     => [ esc_html__( 'Betriebskostenabrechnung', 'mietverwaltung' ), [ 'MV_Abrechnung', 'page' ] ],
+			'__steuer'         => [ esc_html__( 'Steuer (Anlage V)', 'mietverwaltung' ), [ 'MV_Steuer', 'page' ] ],
+			'__datenschutz'    => [ esc_html__( 'Datenschutz', 'mietverwaltung' ), [ 'MV_Datenschutz', 'page' ] ],
 			'__einstellungen'  => [ __( 'Einstellungen & Backup', 'mietverwaltung' ), [ 'MV_Einstellungen', 'page' ] ],
-			'__hilfe'          => [ __( 'Hilfe', 'mietverwaltung' ), [ 'MV_Hilfe', 'page' ] ],
-			'__assistent'      => [ __( 'Einrichtungsassistent', 'mietverwaltung' ), [ 'MV_Assistent', 'page' ] ],
+			'__hilfe'          => [ esc_html__( 'Hilfe', 'mietverwaltung' ), [ 'MV_Hilfe', 'page' ] ],
+			'__assistent'      => [ esc_html__( 'Einrichtungsassistent', 'mietverwaltung' ), [ 'MV_Assistent', 'page' ] ],
 		];
 		$ents        = self::entities();
 		$g           = 0;
@@ -1535,7 +1535,7 @@ class MV_Admin {
 
 			if ( ! empty( $ent['children'] ) ) {
 				[ $ctable, $fk ] = $ent['children'];
-				$cnt             = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( $ctable ) . " WHERE $fk = %d", $id ) );
+				$cnt             = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( $ctable ) . " WHERE $fk = %d", $id ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 				if ( $cnt > 0 ) {
 					wp_safe_redirect( self::url( $key, [ 'msg' => 'haschildren' ] ) );
 					exit;
@@ -1561,7 +1561,7 @@ class MV_Admin {
 		static $cache = [];
 		if ( ! isset( $cache[ $table ] ) ) {
 			$cache[ $table ] = [];
-			$cols            = $wpdb->get_results( 'SHOW COLUMNS FROM `' . $table . '`', ARRAY_A );
+			$cols            = $wpdb->get_results( 'SHOW COLUMNS FROM `' . $table . '`', ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			foreach ( (array) $cols as $c ) {
 				$cache[ $table ][ $c['Field'] ] = [
 					'null'    => strtoupper( (string) $c['Null'] ) === 'YES',
@@ -1588,7 +1588,7 @@ class MV_Admin {
 	/** Geldbeschaffungskosten (Grundschuldbestellung) als Beleg anlegen – einmalig je Objekt/Betrag. */
 	private static function finanzierungsbeleg( int $objekt_id, float $betrag, string $datum, string $bezeichnung ): void {
 		global $wpdb;
-		$ka = $wpdb->get_var( 'SELECT id FROM ' . mv_table( 'kostenarten' ) . " WHERE name LIKE '%Geldbeschaffung%' ORDER BY id LIMIT 1" );
+		$ka = $wpdb->get_var( 'SELECT id FROM ' . $wpdb->prefix . "mv_kostenarten WHERE name LIKE '%Geldbeschaffung%' ORDER BY id LIMIT 1" );
 		if ( ! $ka ) {
 			$wpdb->insert(
 				mv_table( 'kostenarten' ),
@@ -1604,7 +1604,7 @@ class MV_Admin {
 			);
 			$ka = $wpdb->insert_id;
 		}
-		$exists = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'belege' ) . ' WHERE objekt_id = %d AND kostenart_id = %d AND ABS(betrag - %f) < 0.01', $objekt_id, $ka, $betrag ) );
+		$exists = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_belege WHERE objekt_id = %d AND kostenart_id = %d AND ABS(betrag - %f) < 0.01', $objekt_id, $ka, $betrag ) );
 		if ( $exists ) {
 			return;
 		}
@@ -1641,7 +1641,7 @@ class MV_Admin {
 				}
 				if ( ! empty( $d['einheit_id'] ) && ! empty( $d['beginn'] ) ) {
 					$ende      = $d['ende'] ?: '9999-12-31';
-					$kollision = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'mietverhaeltnisse' ) . " WHERE einheit_id = %d AND id <> %d AND beginn <= %s AND COALESCE(NULLIF(ende,'0000-00-00'),'9999-12-31') >= %s", $d['einheit_id'], $id, $ende, $d['beginn'] ) );
+					$kollision = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_mietverhaeltnisse WHERE einheit_id = %d AND id <> %d AND beginn <= %s AND COALESCE(NULLIF(ende,'0000-00-00'),'9999-12-31') >= %s", $d['einheit_id'], $id, $ende, $d['beginn'] ) );
 					if ( $kollision ) {
 						$e[] = __( 'Für diese Einheit besteht im Zeitraum bereits ein anderes Mietverhältnis.', 'mietverwaltung' );
 					}
@@ -1655,8 +1655,8 @@ class MV_Admin {
 						continue;
 					}
 					$ende  = $d['ende'] ?: '9999-12-31';
-					$koll  = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'mv_einheiten' ) . ' z JOIN ' . mv_table( 'mietverhaeltnisse' ) . " mv ON mv.id = z.mv_id WHERE z.einheit_id = %d AND mv.id <> %d AND mv.beginn <= %s AND COALESCE(NULLIF(mv.ende,'0000-00-00'),'9999-12-31') >= %s", $eid, $id, $ende, $d['beginn'] ?? '0000-00-00' ) );
-					$koll += $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mv_table( 'mietverhaeltnisse' ) . " WHERE einheit_id = %d AND id <> %d AND beginn <= %s AND COALESCE(NULLIF(ende,'0000-00-00'),'9999-12-31') >= %s", $eid, $id, $ende, $d['beginn'] ?? '0000-00-00' ) );
+					$koll  = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_mv_einheiten z JOIN ' . $wpdb->prefix . "mv_mietverhaeltnisse mv ON mv.id = z.mv_id WHERE z.einheit_id = %d AND mv.id <> %d AND mv.beginn <= %s AND COALESCE(NULLIF(mv.ende,'0000-00-00'),'9999-12-31') >= %s", $eid, $id, $ende, $d['beginn'] ?? '0000-00-00' ) );
+					$koll += $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_mietverhaeltnisse WHERE einheit_id = %d AND id <> %d AND beginn <= %s AND COALESCE(NULLIF(ende,'0000-00-00'),'9999-12-31') >= %s", $eid, $id, $ende, $d['beginn'] ?? '0000-00-00' ) );
 					if ( $koll ) {
 						$e[] = sprintf( /* translators: %s: Einheit */ __( 'Weitere Einheit „%s“ ist im Zeitraum bereits anderweitig vermietet.', 'mietverwaltung' ), self::opt_einheiten()[ $eid ] ?? $eid );
 					}
@@ -1664,7 +1664,7 @@ class MV_Admin {
 				break;
 			case 'konditionen':
 				if ( ! empty( $d['mv_id'] ) && ! empty( $d['gueltig_ab'] ) ) {
-					$mv = $wpdb->get_row( $wpdb->prepare( 'SELECT beginn, kaution FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE id = %d', $d['mv_id'] ) );
+					$mv = $wpdb->get_row( $wpdb->prepare( 'SELECT beginn, kaution FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $d['mv_id'] ) );
 					if ( $mv && $d['gueltig_ab'] < $mv->beginn ) {
 						$e[] = 'Gültig ab (' . mv_date( $d['gueltig_ab'] ) . ') liegt vor dem Mietbeginn (' . mv_date( $mv->beginn ) . ').';
 					}
@@ -1684,7 +1684,7 @@ class MV_Admin {
 					$e[] = __( 'Zahlungsdatum liegt in der Zukunft.', 'mietverwaltung' );
 				}
 				if ( ! empty( $d['mv_id'] ) && ! empty( $d['monat'] ) ) {
-					$mv = $wpdb->get_row( $wpdb->prepare( 'SELECT beginn FROM ' . mv_table( 'mietverhaeltnisse' ) . ' WHERE id = %d', $d['mv_id'] ) );
+					$mv = $wpdb->get_row( $wpdb->prepare( 'SELECT beginn FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $d['mv_id'] ) );
 					if ( $mv && $d['monat'] < substr( $mv->beginn, 0, 7 ) . '-01' ) {
 						$e[] = __( 'Zuordnungsmonat liegt vor dem Mietbeginn.', 'mietverwaltung' );
 					}
@@ -1711,7 +1711,7 @@ class MV_Admin {
 				break;
 			case 'zaehlerstaende':
 				if ( ! empty( $d['zaehler_id'] ) && ! empty( $d['datum'] ) ) {
-					$vorher = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum < %s AND id <> %d ORDER BY datum DESC LIMIT 1', $d['zaehler_id'], $d['datum'], $id ) );
+					$vorher = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum < %s AND id <> %d ORDER BY datum DESC LIMIT 1', $d['zaehler_id'], $d['datum'], $id ) );
 					if ( $vorher !== null && (float) $d['stand'] < (float) $vorher ) {
 						$e[] = 'Zählerstand (' . $d['stand'] . ') ist kleiner als der vorherige Stand (' . $vorher . ') – Zählerwechsel? Dann neuen Zähler anlegen.';
 					}
@@ -1790,13 +1790,13 @@ class MV_Admin {
 	private static function notices(): void {
 		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '';
 		$map = [
-			'saved'       => [ 'success', __( 'Gespeichert.', 'mietverwaltung' ) ],
-			'deleted'     => [ 'success', __( 'Gelöscht.', 'mietverwaltung' ) ],
-			'haschildren' => [ 'error', __( 'Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden.', 'mietverwaltung' ) ],
+			'saved'       => [ 'success', esc_html__( 'Gespeichert.', 'mietverwaltung' ) ],
+			'deleted'     => [ 'success', esc_html__( 'Gelöscht.', 'mietverwaltung' ) ],
+			'haschildren' => [ 'error', esc_html__( 'Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden.', 'mietverwaltung' ) ],
 			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d Mieteingang/-eingänge gebucht.', 'mietverwaltung' ), (int) ( $_GET['n'] ?? 0 ) ) ],
 		];
 		if ( isset( $map[ $msg ] ) ) {
-			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) );
+			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		}
 		$errors = get_transient( 'mv_errors_' . get_current_user_id() );
 		if ( $errors ) {
@@ -1835,10 +1835,10 @@ class MV_Admin {
 		$where = '';
 		if ( ! empty( $ent['filter_year'] ) ) {
 			$col   = $ent['filter_year'];
-			$jahre = $wpdb->get_col( "SELECT DISTINCT $col FROM " . mv_table( $key ) . " ORDER BY $col DESC" );
+			$jahre = $wpdb->get_col( "SELECT DISTINCT $col FROM " . mv_table( $key ) . " ORDER BY $col DESC" );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			$jahr  = isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : ( $jahre ? (int) $jahre[0] : (int) current_time( 'Y' ) );
 			if ( $jahr > 0 ) {
-				$where = $wpdb->prepare( " WHERE $col = %d", $jahr );
+				$where = $wpdb->prepare( " WHERE $col = %d", $jahr );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			}
 			echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mv_' . esc_attr( $key ) . '"><label>Jahr: <select name="jahr" onchange="this.form.submit()">';
 			printf( '<option value="0"%s>' . esc_html__( 'alle', 'mietverwaltung' ) . '</option>', selected( $jahr, 0, false ) );
@@ -1848,7 +1848,7 @@ class MV_Admin {
 			echo '</select></label></form>';
 		}
 
-		$rows = $wpdb->get_results( 'SELECT * FROM ' . mv_table( $key ) . $where . ' ORDER BY ' . $ent['order'] );
+		$rows = $wpdb->get_results( 'SELECT * FROM ' . mv_table( $key ) . $where . ' ORDER BY ' . $ent['order'] );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 		$cols = array_filter( $ent['fields'], fn( $f ) => ! empty( $f['list'] ) );
 
 		// Options einmalig auflösen
@@ -1926,26 +1926,26 @@ class MV_Admin {
 	private static function render_form( string $key, array $ent ): void {
 		global $wpdb;
 		$id       = isset( $_GET['id'] ) ? (int) $_GET['id'] : 0;
-		$row      = $id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( $key ) . ' WHERE id = %d', $id ) ) : null;
+		$row      = $id ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( $key ) . ' WHERE id = %d', $id ) ) : null;  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 		$formdata = get_transient( 'mv_formdata_' . get_current_user_id() );
 		if ( is_array( $formdata ) ) {
 			delete_transient( 'mv_formdata_' . get_current_user_id() );
 			$row = (object) array_merge( $row ? (array) $row : [], $formdata );
 		}
 
-		printf( '<h1>%s %s</h1>', $id ? __( 'Bearbeiten:', 'mietverwaltung' ) : __( 'Neu:', 'mietverwaltung' ), esc_html( $ent['singular'] ) );
+		printf( '<h1>%s %s</h1>', $id ? esc_html__( 'Bearbeiten:', 'mietverwaltung' ) : esc_html__( 'Neu:', 'mietverwaltung' ), esc_html( $ent['singular'] ) );
 		self::notices();
 
 		echo '<form method="post" class="mv-form"' . ( ! empty( $ent['upload'] ) ? ' enctype="multipart/form-data"' : '' ) . '>';
 		wp_nonce_field( 'mv_save_' . $key );
-		printf( '<input type="hidden" name="mv_entity" value="%s"><input type="hidden" name="mv_record_id" value="%d">', esc_attr( $key ), $id );
+		printf( '<input type="hidden" name="mv_entity" value="%s"><input type="hidden" name="mv_record_id" value="%d">', esc_attr( $key ), (int) $id );
 		echo '<table class="form-table"><tbody>';
 
 		foreach ( $ent['fields'] as $name => $f ) {
 			$val = $row && property_exists( $row, $name ) ? $row->$name : '';
 			$req = ! empty( $f['required'] ) ? ' required' : '';
 			$lbl = esc_html( $f['label'] ) . ( ! empty( $f['required'] ) ? ' <span class="mv-req">*</span>' : '' );
-			printf( '<tr><th scope="row"><label for="mv_%s">%s</label></th><td>', esc_attr( $name ), $lbl );
+			printf( '<tr><th scope="row"><label for="mv_%s">%s</label></th><td>', esc_attr( $name ), $lbl ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 
 			switch ( $f['type'] ) {
 				case 'zusatz':
@@ -1953,7 +1953,7 @@ class MV_Admin {
 					foreach ( $id ? MV_Soll::zusatzeinheiten( $id ) : [] as $z ) {
 						$vorhanden[ $z->einheit_id ] = (float) $z->mietanteil;
 					}
-					$alle = $wpdb->get_results( 'SELECT e.id, e.bezeichnung, e.typ, o.bezeichnung AS objekt FROM ' . mv_table( 'einheiten' ) . ' e JOIN ' . mv_table( 'objekte' ) . ' o ON o.id = e.objekt_id ORDER BY o.bezeichnung, e.typ, e.bezeichnung' );
+					$alle = $wpdb->get_results( 'SELECT e.id, e.bezeichnung, e.typ, o.bezeichnung AS objekt FROM ' . $wpdb->prefix . 'mv_einheiten e JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = e.objekt_id ORDER BY o.bezeichnung, e.typ, e.bezeichnung' );
 					if ( ! $alle ) {
 						echo '<p class="description">' . esc_html__( 'Noch keine Einheiten angelegt.', 'mietverwaltung' ) . '</p>';
 					}
@@ -1994,7 +1994,7 @@ class MV_Admin {
 					break;
 				case 'select':
 					$options = is_callable( $f['options'] ) ? call_user_func( $f['options'] ) : $f['options'];
-					printf( '<select id="mv_%1$s" name="%1$s"%2$s>', esc_attr( $name ), $req );
+					printf( '<select id="mv_%1$s" name="%1$s"%2$s>', esc_attr( $name ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					if ( ! empty( $f['required'] ) ) {
 						echo '<option value="">' . esc_html__( '– bitte wählen –', 'mietverwaltung' ) . '</option>';
 					}
@@ -2004,22 +2004,22 @@ class MV_Admin {
 					echo '</select>';
 					break;
 				case 'decimal':
-					printf( '<input type="text" id="mv_%1$s" name="%1$s" value="%2$s" class="regular-text mv-num" inputmode="decimal"%3$s>', esc_attr( $name ), esc_attr( $val !== '' && $val !== null ? number_format( (float) $val, 2, ',', '' ) : '' ), $req );
+					printf( '<input type="text" id="mv_%1$s" name="%1$s" value="%2$s" class="regular-text mv-num" inputmode="decimal"%3$s>', esc_attr( $name ), esc_attr( $val !== '' && $val !== null ? number_format( (float) $val, 2, ',', '' ) : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'int':
-					printf( '<input type="number" id="mv_%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req );
+					printf( '<input type="number" id="mv_%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'date':
-					printf( '<input type="date" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val && $val !== '0000-00-00' ? $val : '' ), $req );
+					printf( '<input type="date" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val && $val !== '0000-00-00' ? $val : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'month':
-					printf( '<input type="month" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? substr( $val, 0, 7 ) : current_time( 'Y-m' ) ), $req );
+					printf( '<input type="month" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? substr( $val, 0, 7 ) : current_time( 'Y-m' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				case 'datetime':
-					printf( '<input type="datetime-local" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? date( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), $req );
+					printf( '<input type="datetime-local" id="mv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? date( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 					break;
 				default:
-					printf( '<input type="%4$s" id="mv_%1$s" name="%1$s" value="%2$s" class="regular-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req, $f['type'] === 'email' ? 'email' : 'text' );
+					printf( '<input type="%4$s" id="mv_%1$s" name="%1$s" value="%2$s" class="regular-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req, $f['type'] === 'email' ? 'email' : 'text' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			}
 			if ( ! empty( $f['hint'] ) ) {
 				echo '<p class="description">' . esc_html( $f['hint'] ) . '</p>';
@@ -2042,7 +2042,7 @@ class MV_Admin {
 	public static function page_uebersicht(): void {
 		global $wpdb;
 		echo '<div class="wrap mv-wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Mietverwaltung – Übersicht', 'mietverwaltung' ) . '</h1> ';
-		printf( '<a href="%s" class="page-title-action">%s</a><hr class="wp-header-end">', esc_url( self::fokus_url() ), self::fokus_aktiv() ? __( 'WordPress-Menü einblenden', 'mietverwaltung' ) : __( 'WordPress-Menü ausblenden', 'mietverwaltung' ) );
+		printf( '<a href="%s" class="page-title-action">%s</a><hr class="wp-header-end">', esc_url( self::fokus_url() ), self::fokus_aktiv() ? esc_html__( 'WordPress-Menü einblenden', 'mietverwaltung' ) : esc_html__( 'WordPress-Menü ausblenden', 'mietverwaltung' ) );
 		self::notices();
 
 		$mvs = MV_Soll::alle_mv( true );
@@ -2051,14 +2051,14 @@ class MV_Admin {
 			return;
 		}
 
-		$offene = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . mv_table( 'meldungen' ) . " WHERE status <> 'erledigt'" );
+		$offene = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_meldungen WHERE status <> 'erledigt'" );
 		if ( $offene ) {
-			printf( '<div class="notice notice-warning inline"><p>' . esc_html__( '%d offene Meldung(en) –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'zur Bearbeitung', 'mietverwaltung' ) . '</a></p></div>', $offene, esc_url( self::url( 'meldungen' ) ) );
+			printf( '<div class="notice notice-warning inline"><p>' . esc_html__( '%d offene Meldung(en) –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'zur Bearbeitung', 'mietverwaltung' ) . '</a></p></div>', (int) $offene, esc_url( self::url( 'meldungen' ) ) );
 		}
 
 		echo '<form method="post" id="mv-op-form">';
 		wp_nonce_field( 'mv_op_buchen', 'mv_op_nonce' );
-		echo '<p class="description">' . esc_html__( 'Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar).', 'mietverwaltung' ) . ' <button class="button button-primary" onclick="return document.querySelectorAll(\'#mv-op-form input[name=\\\'op[]\\\']:checked\').length>0||(alert(\'' . esc_js( __( 'Bitte mindestens einen Monat anhaken.', 'mietverwaltung' ) ) . '\'),false)">' . esc_html__( 'Markierte als bezahlt buchen', 'mietverwaltung' ) . '</button></p>';
+		echo '<p class="description">' . esc_html__( 'Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar).', 'mietverwaltung' ) . ' <button class="button button-primary" onclick="return document.querySelectorAll(\'#mv-op-form input[name=\\\'op[]\\\']:checked\').length>0||(alert(\'' . esc_js( esc_html__( 'Bitte mindestens einen Monat anhaken.', 'mietverwaltung' ) ) . '\'),false)">' . esc_html__( 'Markierte als bezahlt buchen', 'mietverwaltung' ) . '</button></p>';
 		$offen_gesamt = 0;
 		foreach ( $mvs as $mv ) {
 			$op          = MV_Soll::op_liste( $mv );

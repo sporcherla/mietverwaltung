@@ -15,17 +15,17 @@ class MV_Kaution {
 
 	public static function arten(): array {
 		return [
-			'einzahlung'  => __( 'Einzahlung Mieter', 'mietverwaltung' ),
-			'zins'        => __( 'Zinsgutschrift', 'mietverwaltung' ),
-			'verrechnung' => __( 'Verrechnung mit Forderung', 'mietverwaltung' ),
-			'auszahlung'  => __( 'Auszahlung an Mieter', 'mietverwaltung' ),
+			'einzahlung'  => esc_html__( 'Einzahlung Mieter', 'mietverwaltung' ),
+			'zins'        => esc_html__( 'Zinsgutschrift', 'mietverwaltung' ),
+			'verrechnung' => esc_html__( 'Verrechnung mit Forderung', 'mietverwaltung' ),
+			'auszahlung'  => esc_html__( 'Auszahlung an Mieter', 'mietverwaltung' ),
 		];
 	}
 
 	/** Stand und Summen je Mietverhältnis. */
 	public static function konto( int $mv_id ): array {
 		global $wpdb;
-		$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'kaution' ) . ' WHERE mv_id = %d ORDER BY datum, id', $mv_id ) );
+		$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_kaution WHERE mv_id = %d ORDER BY datum, id', $mv_id ) );
 		$s    = [
 			'einzahlung'   => 0.0,
 			'zins'         => 0.0,
@@ -130,7 +130,7 @@ class MV_Kaution {
 		echo '<p class="description">' . esc_html__( 'Die Kaution ist getrennt vom Vermögen des Vermieters zum üblichen Zinssatz für Spareinlagen mit dreimonatiger Kündigungsfrist anzulegen; die Zinsen stehen dem Mieter zu (§ 551 Abs. 3 BGB). Rückzahlung nach Mietende und angemessener Prüffrist (i. d. R. 3–6 Monate), abzüglich berechtigter Forderungen.', 'mietverwaltung' ) . '</p>';
 		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mv_kaution"><label>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . ' <select name="mv_id" onchange="this.form.submit()">';
 		foreach ( $mvs as $m ) {
-			printf( '<option value="%d"%s>%s</option>', $m->id, selected( $mv_id, $m->id, false ), esc_html( MV_Soll::mv_label( $m ) ) );
+			printf( '<option value="%d"%s>%s</option>', (int) $m->id, selected( (int) $mv_id, (int) $m->id, false ), esc_html( MV_Soll::mv_label( $m ) ) );
 		}
 		echo '</select></label></form>';
 		if ( ! $mv ) {
@@ -144,7 +144,7 @@ class MV_Kaution {
 		printf(
 			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Vereinbart (§ 551)', 'mietverwaltung' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Eingezahlt', 'mietverwaltung' ) . '</span><strong class="%s">%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Zinsen gutgeschrieben', 'mietverwaltung' ) . '</span><strong>%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Kontostand', 'mietverwaltung' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Mietkonto-Saldo', 'mietverwaltung' ) . '</span><strong class="%s">%s</strong></div></div>',
 			esc_html( mv_eur( $soll ) ),
-			$cls,
+			$cls, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			esc_html( mv_eur( $k['einzahlung'] ) ),
 			$k['einzahlung'] + 0.005 < $soll ? 'noch offen: ' . esc_html( mv_eur( $soll - $k['einzahlung'] ) ) : 'vollständig',
 			esc_html( mv_eur( $k['zins'] ) ),
@@ -164,9 +164,9 @@ class MV_Kaution {
 				in_array( $b->art, [ 'einzahlung', 'zins' ], true ) ? 'mv-pos' : 'mv-neg',
 				in_array( $b->art, [ 'einzahlung', 'zins' ], true ) ? '+' : '–',
 				esc_html( mv_eur( $b->betrag ) ),
-				wp_nonce_field( 'mv_kaution', 'mv_kaution_nonce', true, false ),
-				$mv_id,
-				$b->id
+				wp_nonce_field( 'mv_kaution', 'mv_kaution_nonce', true, false ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+				(int) $mv_id,
+				(int) $b->id
 			);
 		}
 		if ( ! $k['buchungen'] ) {
@@ -176,20 +176,20 @@ class MV_Kaution {
 
 		echo '<div class="mv-kacheln"><div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Buchung erfassen', 'mietverwaltung' ) . '</h3><form method="post">';
 		wp_nonce_field( 'mv_kaution', 'mv_kaution_nonce' );
-		printf( '<input type="hidden" name="mv_id" value="%d"><p><input type="date" name="datum" value="%s"> <select name="art">', $mv_id, esc_attr( current_time( 'Y-m-d' ) ) );
+		printf( '<input type="hidden" name="mv_id" value="%d"><p><input type="date" name="datum" value="%s"> <select name="art">', (int) $mv_id, esc_attr( current_time( 'Y-m-d' ) ) );
 		foreach ( self::arten() as $a => $l ) {
-			printf( '<option value="%s">%s</option>', $a, esc_html( $l ) );
+			printf( '<option value="%s">%s</option>', $a, esc_html( $l ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		}
 		printf( '</select></p><p><input type="text" name="betrag" class="mv-num" placeholder="Betrag" value="%s"> <input type="text" name="notiz" placeholder="Notiz" class="regular-text"></p><p><button class="button button-primary">' . esc_html__( 'Buchen', 'mietverwaltung' ) . '</button></p></form></div>', $k['einzahlung'] + 0.005 < $soll ? esc_attr( number_format( round( $soll / 3, 2 ), 2, ',', '' ) ) : '' );
 
 		echo '<div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Zinsen gutschreiben', 'mietverwaltung' ) . '</h3><form method="post">';
 		wp_nonce_field( 'mv_kaution', 'mv_kaution_nonce' );
-		printf( '<input type="hidden" name="mv_id" value="%d"><p>' . esc_html__( 'Zinssatz', 'mietverwaltung' ) . ' <input type="text" name="zinssatz" class="small-text mv-num" value="%s"> ' . esc_html__( '%% p. a. bis Stichtag', 'mietverwaltung' ) . ' <input type="date" name="stichtag" value="%s"></p><p><button name="zins_berechnen" value="1" class="button">' . esc_html__( 'Taggenau berechnen und buchen', 'mietverwaltung' ) . '</button></p><p class="description">' . esc_html__( 'Zinssatz laut Kautionskonto/Sparbuch der Bank. Berechnung seit der letzten Zinsgutschrift auf den jeweiligen Kontostand (act/365).', 'mietverwaltung' ) . '</p></form></div></div>', $mv_id, esc_attr( '0,50' ), esc_attr( current_time( 'Y' ) . '-12-31' ) );
+		printf( '<input type="hidden" name="mv_id" value="%d"><p>' . esc_html__( 'Zinssatz', 'mietverwaltung' ) . ' <input type="text" name="zinssatz" class="small-text mv-num" value="%s"> ' . esc_html__( '%% p. a. bis Stichtag', 'mietverwaltung' ) . ' <input type="date" name="stichtag" value="%s"></p><p><button name="zins_berechnen" value="1" class="button">' . esc_html__( 'Taggenau berechnen und buchen', 'mietverwaltung' ) . '</button></p><p class="description">' . esc_html__( 'Zinssatz laut Kautionskonto/Sparbuch der Bank. Berechnung seit der letzten Zinsgutschrift auf den jeweiligen Kontostand (act/365).', 'mietverwaltung' ) . '</p></form></div></div>', (int) $mv_id, esc_attr( '0,50' ), esc_attr( current_time( 'Y' ) . '-12-31' ) );
 
 		// Rückzahlungsabrechnung
 		$beendet = $mv->ende && $mv->ende !== '0000-00-00' && $mv->ende <= current_time( 'Y-m-d' );
 		echo '<h2>' . esc_html__( 'Rückzahlungsabrechnung', 'mietverwaltung' ) . '</h2>';
-		$offene_bk   = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(CASE WHEN saldo < 0 THEN -saldo ELSE 0 END),0) FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' WHERE mv_id = %d AND freigegeben = 1', $mv_id ) );
+		$offene_bk   = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(CASE WHEN saldo < 0 THEN -saldo ELSE 0 END),0) FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE mv_id = %d AND freigegeben = 1', $mv_id ) );
 		$forderungen = max( 0, -$op['saldo'] );
 		$auszahlung  = $k['stand'] - $forderungen;
 		printf(
@@ -198,7 +198,7 @@ class MV_Kaution {
 			esc_html( mv_eur( $forderungen ) ),
 			$auszahlung < 0 ? 'mv-neg' : 'mv-pos',
 			esc_html( mv_eur( $auszahlung ) ),
-			$auszahlung < 0 ? __( ' (Restforderung gegen den Mieter)', 'mietverwaltung' ) : __( ' Auszahlungsbetrag', 'mietverwaltung' ),
+			$auszahlung < 0 ? esc_html__( ' (Restforderung gegen den Mieter)', 'mietverwaltung' ) : esc_html__( ' Auszahlungsbetrag', 'mietverwaltung' ),
 			esc_html( mv_eur( $offene_bk ) )
 		);
 		$u = wp_nonce_url( admin_url( 'admin-post.php?action=mv_kaution_abrechnung&mv_id=' . $mv_id ), 'mv_kaution_abr_' . $mv_id );
@@ -244,7 +244,7 @@ class MV_Kaution {
 			$b .= sprintf( '<p>' . esc_html__( 'Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen.', 'mietverwaltung' ) . '</p>', esc_html( mv_eur( abs( $auszahlung ) ) ) ) . MV_Brief::bankverbindung();
 		}
 		$b        .= '<p class="hinweis">' . esc_html__( 'Mit dieser Abrechnung sind alle Ansprüche aus der Mietsicherheit abgegolten. Eine ausstehende Betriebskostenabrechnung für das letzte Nutzungsjahr bleibt vorbehalten, soweit nicht bereits berücksichtigt.', 'mietverwaltung' ) . '</p>';
-		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . mv_table( 'einheiten' ) . ' WHERE id = %d', $mv->einheit_id ) );
+		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
 		MV_Brief::ausgeben( 'Kautionsabrechnung ' . $mv->nachname, MV_Brief::empfaenger( $mv ), 'Abrechnung der Mietkaution', $b, null, true, [ $objekt_id, $mv_id, 'sonstiges', 'Kautionsabrechnung', true ] );
 	}
 }

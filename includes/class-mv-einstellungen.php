@@ -75,14 +75,14 @@ class MV_Einstellungen {
 		$o   = array_merge( self::defaults(), get_option( self::OPTION, [] ) );
 		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '';
 		$map = [
-			'saved'       => [ 'success', __( 'Einstellungen gespeichert.', 'mietverwaltung' ) ],
-			'restored'    => [ 'success', __( 'Backup eingespielt. Alle Daten wurden ersetzt.', 'mietverwaltung' ) ],
-			'restorefail' => [ 'error', __( 'Backup konnte nicht gelesen werden (kein gültiges Mietverwaltung-JSON).', 'mietverwaltung' ) ],
-			'noconfirm'   => [ 'error', __( 'Wiederherstellung abgebrochen: Bestätigung fehlt.', 'mietverwaltung' ) ],
+			'saved'       => [ 'success', esc_html__( 'Einstellungen gespeichert.', 'mietverwaltung' ) ],
+			'restored'    => [ 'success', esc_html__( 'Backup eingespielt. Alle Daten wurden ersetzt.', 'mietverwaltung' ) ],
+			'restorefail' => [ 'error', esc_html__( 'Backup konnte nicht gelesen werden (kein gültiges Mietverwaltung-JSON).', 'mietverwaltung' ) ],
+			'noconfirm'   => [ 'error', esc_html__( 'Wiederherstellung abgebrochen: Bestätigung fehlt.', 'mietverwaltung' ) ],
 		];
-		echo '<div class="wrap mv-wrap"><h1>' . __( 'Einstellungen &amp; Backup', 'mietverwaltung' ) . '</h1>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Einstellungen & Backup', 'mietverwaltung' ) . '</h1>';
 		if ( isset( $map[ $msg ] ) ) {
-			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) );
+			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		}
 
 		echo '<form method="post" enctype="multipart/form-data" class="mv-form">';
@@ -106,8 +106,8 @@ class MV_Einstellungen {
 			__( 'Tägliche E-Mail bei Hinweisen', 'mietverwaltung' ),
 			$o,
 			[
-				'1' => __( 'Ein', 'mietverwaltung' ),
-				'0' => __( 'Aus', 'mietverwaltung' ),
+				'1' => esc_html__( 'Ein', 'mietverwaltung' ),
+				'0' => esc_html__( 'Aus', 'mietverwaltung' ),
 			],
 			__( 'Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-%-Grenze. Nur wenn es etwas zu melden gibt.', 'mietverwaltung' )
 		);
@@ -120,8 +120,8 @@ class MV_Einstellungen {
 			__( 'Gebiet mit angespanntem Wohnungsmarkt', 'mietverwaltung' ),
 			$o,
 			[
-				'0' => __( 'Nein (Kappungsgrenze 20 %)', 'mietverwaltung' ),
-				'1' => __( 'Ja (Kappungsgrenze 15 %)', 'mietverwaltung' ),
+				'0' => esc_html__( 'Nein (Kappungsgrenze 20 %)', 'mietverwaltung' ),
+				'1' => esc_html__( 'Ja (Kappungsgrenze 15 %)', 'mietverwaltung' ),
 			],
 			__( 'Bayern: Mieterschutzverordnung – gilt u. a. für Fürth, Nürnberg, Erlangen und einige Umlandgemeinden; Zirndorf/Oberasbach/Stein prüfen.', 'mietverwaltung' )
 		);
@@ -140,8 +140,8 @@ class MV_Einstellungen {
 			__( 'Beim Löschen des Plugins', 'mietverwaltung' ),
 			$o,
 			[
-				'0' => __( 'Alle Daten behalten (Standard)', 'mietverwaltung' ),
-				'1' => __( 'Alle Tabellen und Einstellungen löschen', 'mietverwaltung' ),
+				'0' => esc_html__( 'Alle Daten behalten (Standard)', 'mietverwaltung' ),
+				'1' => esc_html__( 'Alle Tabellen und Einstellungen löschen', 'mietverwaltung' ),
 			],
 			__( 'Gilt nur für „Löschen“ auf der Plugin-Seite, nicht für „Deaktivieren“. Mediathek-Dateien bleiben in jedem Fall.', 'mietverwaltung' )
 		);
@@ -194,7 +194,7 @@ class MV_Einstellungen {
 			'tabellen'      => [],
 		];
 		foreach ( self::tabellen() as $t ) {
-			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mv_table( $t ), ARRAY_A );
+			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mv_table( $t ), ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
 		}
 		header( 'Content-Type: application/json; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="mietverwaltung-backup-' . current_time( 'Y-m-d' ) . '.json"' );
@@ -209,7 +209,7 @@ class MV_Einstellungen {
 			return false;
 		}
 		foreach ( self::tabellen() as $t ) {
-			$wpdb->query( 'DELETE FROM ' . mv_table( $t ) );
+			$wpdb->query( 'DELETE FROM ' . mv_table( $t ) );  // phpcs:ignore WordPress.DB.PreparedSQL -- Tabellenname aus fester Liste.
 			foreach ( (array) ( $d['tabellen'][ $t ] ?? [] ) as $row ) {
 				$wpdb->insert( mv_table( $t ), $row );
 			}

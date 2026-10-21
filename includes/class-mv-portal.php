@@ -27,12 +27,12 @@ class MV_Portal {
 		}
 		global $wpdb;
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->einheit_id, self::eigene_mv() );
-		$z       = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'zaehler' ) . ' WHERE id = %d', (int) ( $_POST['zaehler_id'] ?? 0 ) ) );
+		$z       = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_zaehler WHERE id = %d', (int) ( $_POST['zaehler_id'] ?? 0 ) ) );
 		$stand   = mv_to_float( $_POST['stand'] ?? '' );
 		$datum   = sanitize_text_field( $_POST['datum'] ?? current_time( 'Y-m-d' ) );
 		$flag    = 'fehler';
 		if ( $z && in_array( (int) $z->einheit_id, $erlaubt, true ) && $stand > 0 && preg_match( '/^\d{4}-\d{2}-\d{2}$/', $datum ) && $datum <= current_time( 'Y-m-d' ) ) {
-			$vorher = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . mv_table( 'zaehlerstaende' ) . ' WHERE zaehler_id = %d AND datum <= %s ORDER BY datum DESC LIMIT 1', $z->id, $datum ) );
+			$vorher = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum <= %s ORDER BY datum DESC LIMIT 1', $z->id, $datum ) );
 			if ( $vorher === null || $stand >= (float) $vorher ) {
 				$att = null;
 				if ( ! empty( $_FILES['foto']['name'] ) && current_user_can( 'read' ) ) {
@@ -70,7 +70,7 @@ class MV_Portal {
 		global $wpdb;
 		$erg_id  = (int) $_GET['mv_abrechnung'];
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->id, self::eigene_mv() );
-		$mv_id   = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT mv_id FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' WHERE id = %d AND freigegeben = 1', $erg_id ) );
+		$mv_id   = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT mv_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE id = %d AND freigegeben = 1', $erg_id ) );
 		if ( ! $mv_id || ! in_array( $mv_id, $erlaubt, true ) ) {
 			wp_die( esc_html__( 'Kein Zugriff.', 'mietverwaltung' ) );
 		}
@@ -146,7 +146,7 @@ class MV_Portal {
 
 		global $wpdb;
 		ob_start();
-		echo self::css();
+		echo self::css(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		echo '<div class="mv-portal">';
 
 		$zf = isset( $_GET['mv_zaehler'] ) ? sanitize_key( $_GET['mv_zaehler'] ) : '';
@@ -180,7 +180,7 @@ class MV_Portal {
 				'<div class="mv-card"><span>' . esc_html__( 'Kontostand', 'mietverwaltung' ) . '</span><strong class="%s">%s</strong><small>%s</small></div>',
 				esc_attr( $cls ),
 				esc_html( mv_eur( $op['saldo'] ) ),
-				$op['saldo'] < -0.005 ? __( 'Rückstand', 'mietverwaltung' ) : __( 'ausgeglichen / Guthaben', 'mietverwaltung' )
+				$op['saldo'] < -0.005 ? esc_html__( 'Rückstand', 'mietverwaltung' ) : esc_html__( 'ausgeglichen / Guthaben', 'mietverwaltung' )
 			);
 			echo '</div>';
 
@@ -200,13 +200,13 @@ class MV_Portal {
 			echo '</tbody></table>';
 
 			// Meldungen
-			$meldungen = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'meldungen' ) . ' WHERE mv_id = %d ORDER BY datum DESC LIMIT 20', $mv->id ) );
+			$meldungen = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_meldungen WHERE mv_id = %d ORDER BY datum DESC LIMIT 20', $mv->id ) );
 			echo '<h4>' . esc_html__( 'Meldungen', 'mietverwaltung' ) . '</h4>';
 			if ( $meldungen ) {
 				$status = [
-					'offen'          => __( 'Offen', 'mietverwaltung' ),
-					'in_bearbeitung' => __( 'In Bearbeitung', 'mietverwaltung' ),
-					'erledigt'       => __( 'Erledigt', 'mietverwaltung' ),
+					'offen'          => esc_html__( 'Offen', 'mietverwaltung' ),
+					'in_bearbeitung' => esc_html__( 'In Bearbeitung', 'mietverwaltung' ),
+					'erledigt'       => esc_html__( 'Erledigt', 'mietverwaltung' ),
 				];
 				echo '<table class="mv-table"><thead><tr><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betreff', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Status', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 				foreach ( $meldungen as $m ) {
@@ -224,7 +224,7 @@ class MV_Portal {
 			}
 
 			// Freigegebene Abrechnungen
-			$abrs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, a.von, a.bis FROM ' . mv_table( 'abrechnung_ergebnis' ) . ' e JOIN ' . mv_table( 'abrechnungen' ) . ' a ON a.id = e.abrechnung_id WHERE e.mv_id = %d AND e.freigegeben = 1 ORDER BY a.bis DESC', $mv->id ) );
+			$abrs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, a.von, a.bis FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.mv_id = %d AND e.freigegeben = 1 ORDER BY a.bis DESC', $mv->id ) );
 			if ( $abrs ) {
 				echo '<h4>' . esc_html__( 'Betriebskostenabrechnungen', 'mietverwaltung' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Zeitraum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Kosten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Vorauszahlungen', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ergebnis', 'mietverwaltung' ) . '</th><th></th></tr></thead><tbody>';
 				foreach ( $abrs as $a ) {
@@ -235,7 +235,7 @@ class MV_Portal {
 						esc_html( mv_eur( $a->kosten_bk + $a->kosten_hk ) ),
 						esc_html( mv_eur( $a->vz_bk + $a->vz_hk ) ),
 						$a->saldo < 0 ? 'mv-neg' : 'mv-pos',
-						$a->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben', 'mietverwaltung' ),
+						$a->saldo < 0 ? esc_html__( 'Nachzahlung', 'mietverwaltung' ) : esc_html__( 'Guthaben', 'mietverwaltung' ),
 						esc_html( mv_eur( abs( $a->saldo ) ) ),
 						esc_url( add_query_arg( 'mv_abrechnung', $a->id, get_permalink() ) )
 					);
@@ -244,7 +244,7 @@ class MV_Portal {
 			}
 
 			// Freigegebene Dokumente
-			$docs = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . mv_table( 'dokumente' ) . ' WHERE mv_id = %d AND mieter_sichtbar = 1 AND attachment_id IS NOT NULL ORDER BY datum DESC', $mv->id ) );
+			$docs = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_dokumente WHERE mv_id = %d AND mieter_sichtbar = 1 AND attachment_id IS NOT NULL ORDER BY datum DESC', $mv->id ) );
 			if ( $docs ) {
 				echo '<h4>' . esc_html__( 'Dokumente', 'mietverwaltung' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Dokument', 'mietverwaltung' ) . '</th><th></th></tr></thead><tbody>';
 				foreach ( $docs as $d ) {
@@ -255,20 +255,20 @@ class MV_Portal {
 			}
 
 			// Zählerstände melden
-			$zaehler = $wpdb->get_results( $wpdb->prepare( "SELECT z.*, (SELECT CONCAT(stand, '|', datum) FROM " . mv_table( 'zaehlerstaende' ) . ' s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter FROM ' . mv_table( 'zaehler' ) . ' z WHERE z.einheit_id = %d ORDER BY z.typ', $mv->einheit_id ) );
+			$zaehler = $wpdb->get_results( $wpdb->prepare( "SELECT z.*, (SELECT CONCAT(stand, '|', datum) FROM " . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter FROM ' . $wpdb->prefix . 'mv_zaehler z WHERE z.einheit_id = %d ORDER BY z.typ', $mv->einheit_id ) );
 			if ( $zaehler ) {
 				$typen = [
-					'kaltwasser' => __( 'Kaltwasser (m³)', 'mietverwaltung' ),
-					'warmwasser' => __( 'Warmwasser (m³)', 'mietverwaltung' ),
-					'heizung'    => __( 'Heizung', 'mietverwaltung' ),
-					'strom'      => __( 'Strom (kWh)', 'mietverwaltung' ),
+					'kaltwasser' => esc_html__( 'Kaltwasser (m³)', 'mietverwaltung' ),
+					'warmwasser' => esc_html__( 'Warmwasser (m³)', 'mietverwaltung' ),
+					'heizung'    => esc_html__( 'Heizung', 'mietverwaltung' ),
+					'strom'      => esc_html__( 'Strom (kWh)', 'mietverwaltung' ),
 				];
 				echo '<h4>' . esc_html__( 'Zählerstand melden', 'mietverwaltung' ) . '</h4><form method="post" enctype="multipart/form-data" class="mv-form">';
 				wp_nonce_field( 'mv_zaehler', 'mv_zaehler_nonce' );
 				echo '<p><label>' . esc_html__( 'Zähler', 'mietverwaltung' ) . '<br><select name="zaehler_id">';
 				foreach ( $zaehler as $z ) {
 					[ $ls, $ld ] = $z->letzter ? explode( '|', $z->letzter ) : [ null, null ];
-					printf( '<option value="%d">%s %s%s</option>', $z->id, esc_html( $typen[ $z->typ ] ?? $z->typ ), esc_html( $z->nummer ), $ls !== null ? ' – zuletzt ' . esc_html( number_format( (float) $ls, 2, ',', '.' ) . ' am ' . mv_date( $ld ) ) : '' );
+					printf( '<option value="%d">%s %s%s</option>', (int) $z->id, esc_html( $typen[ $z->typ ] ?? $z->typ ), esc_html( $z->nummer ), $ls !== null ? ' – zuletzt ' . esc_html( number_format( (float) $ls, 2, ',', '.' ) . ' am ' . mv_date( $ld ) ) : '' );
 				}
 				printf( '</select></label></p><p><label>' . esc_html__( 'Datum', 'mietverwaltung' ) . '<br><input type="date" name="datum" value="%s" max="%s"></label></p><p><label>' . esc_html__( 'Stand', 'mietverwaltung' ) . '<br><input type="text" name="stand" inputmode="decimal" required></label></p><p><label>' . esc_html__( 'Foto (optional)', 'mietverwaltung' ) . '<br><input type="file" name="foto" accept="image/*" capture="environment"></label></p><p><button type="submit" class="mv-btn">' . esc_html__( 'Zählerstand senden', 'mietverwaltung' ) . '</button></p></form>', esc_attr( current_time( 'Y-m-d' ) ), esc_attr( current_time( 'Y-m-d' ) ) );
 			}
@@ -287,7 +287,7 @@ class MV_Portal {
 
 	private static function css(): string {
 		return '<style>
-' . '.mv-portal{max-width:860px;font-size:15px}
+.mv-portal{max-width:860px;font-size:15px}
 .mv-portal h3{margin:0 0 .5em}
 .mv-portal h4{margin:1.5em 0 .5em}
 .mv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
