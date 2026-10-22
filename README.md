@@ -4,7 +4,7 @@
 
 **Mietverwaltung** bündelt alles, was ein privater Vermieter für eine oder mehrere Wohnungen braucht, in einem WordPress-Plugin: Stammdaten, Mieteingänge, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag mit allen Anlagen, Kaution, Darlehen, Mahnwesen, Mieterhöhung und ein Mieterportal. Alle Daten bleiben in der eigenen WordPress-Datenbank – kein Cloud-Dienst, keine Datenübertragung an Dritte.
 
-- Version: **0.9.9** · Lizenz: GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
+- Version: **1.0.0** · Lizenz: GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
 - Sprachen: Deutsch (Quellsprache), Englisch
 - Zielgruppe: Dauervermietung von Wohnraum in Deutschland (keine Ferienwohnungen)
 

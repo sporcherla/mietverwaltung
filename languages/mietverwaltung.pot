@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Mietverwaltung\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "X-Domain: mietverwaltung\n"
-"POT-Creation-Date: 2026-10-21\n"
+"POT-Creation-Date: 2026-10-22\n"
 
 #: includes/class-mv-abrechnung.php:120
 msgid "Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich."
@@ -21,7 +21,7 @@ msgstr ""
 msgid "„%1$s“: Keine (vollständigen) Zählerstände für den Zeitraum – ersatzweise nach Wohnfläche verteilt%2$s."
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:462 includes/class-mv-admin.php:991 includes/class-mv-admin.php:1347
+#: includes/class-mv-abrechnung.php:462 includes/class-mv-admin.php:1004 includes/class-mv-admin.php:1330
 msgid "Betriebskostenabrechnung"
 msgstr ""
 
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Neue Abrechnung"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:467 includes/class-mv-abrechnung.php:475 includes/class-mv-admin.php:202
+#: includes/class-mv-abrechnung.php:467 includes/class-mv-abrechnung.php:475 includes/class-mv-admin.php:215
 msgid "Objekt"
 msgstr ""
 
@@ -57,11 +57,11 @@ msgstr ""
 msgid "Zeitraum"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:475 includes/class-mv-admin.php:941 includes/class-mv-admin.php:1156
+#: includes/class-mv-abrechnung.php:475 includes/class-mv-admin.php:954 includes/class-mv-admin.php:1169
 msgid "Status"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:475 includes/class-mv-admin.php:303 includes/class-mv-admin.php:304
+#: includes/class-mv-abrechnung.php:475 includes/class-mv-admin.php:316 includes/class-mv-admin.php:317
 msgid "Mieter"
 msgstr ""
 
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Öffnen"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:479 includes/class-mv-admin.php:1905
+#: includes/class-mv-abrechnung.php:479 includes/class-mv-admin.php:1923
 msgid "Löschen"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "VZ anpassen"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:546 includes/class-mv-abrechnung.php:610 includes/class-mv-portal.php:240
+#: includes/class-mv-abrechnung.php:546 includes/class-mv-abrechnung.php:602 includes/class-mv-portal.php:240
 msgid "Nachzahlung"
 msgstr ""
 
@@ -153,11 +153,11 @@ msgstr ""
 msgid "Positionen %s"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:558 includes/class-mv-abrechnung.php:602 includes/class-mv-admin.php:554
+#: includes/class-mv-abrechnung.php:558 includes/class-mv-abrechnung.php:593 includes/class-mv-admin.php:567
 msgid "Kostenart"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:558 includes/class-mv-abrechnung.php:602
+#: includes/class-mv-abrechnung.php:558 includes/class-mv-abrechnung.php:593
 msgid "Gesamtkosten"
 msgstr ""
 
@@ -177,19 +177,11 @@ msgstr ""
 msgid "Anteil"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:575 includes/class-mv-admin.php:1390 includes/class-mv-admin.php:1532
+#: includes/class-mv-abrechnung.php:575 includes/class-mv-admin.php:1408 includes/class-mv-admin.php:1550
 msgid "Keine Berechtigung."
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:590
-msgid "für die Wohnung"
-msgstr ""
-
-#: includes/class-mv-abrechnung.php:590
-msgid "erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum"
-msgstr ""
-
-#: includes/class-mv-abrechnung.php:590
+#: includes/class-mv-abrechnung.php:589
 msgid "%1$s bis %2$s"
 msgstr ""
 
@@ -197,67 +189,75 @@ msgstr ""
 msgid ". Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d."
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:602
+#: includes/class-mv-abrechnung.php:591
+msgid "für die Wohnung"
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:591
+msgid "erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum"
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:593
 msgid "Verteilerschlüssel"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:602 includes/class-mv-admin.php:2103 includes/class-mv-steuer.php:358
+#: includes/class-mv-abrechnung.php:593 includes/class-mv-admin.php:2189 includes/class-mv-steuer.php:358
 msgid "Gesamt"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:602
+#: includes/class-mv-abrechnung.php:593
 msgid "Ihr Anteil"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:602 includes/class-mv-bank.php:394 includes/class-mv-darlehen.php:304
+#: includes/class-mv-abrechnung.php:593 includes/class-mv-bank.php:394 includes/class-mv-darlehen.php:304
 msgid "Betrag"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:608
+#: includes/class-mv-abrechnung.php:599
 msgid "Summe Ihrer Kosten"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:609
+#: includes/class-mv-abrechnung.php:600
 msgid "abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:610
+#: includes/class-mv-abrechnung.php:602
 msgid "Guthaben zu Ihren Gunsten"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:614
+#: includes/class-mv-abrechnung.php:606
 msgid "Bitte überweisen Sie den Nachzahlungsbetrag von"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:614 includes/class-mv-mahnung.php:112
+#: includes/class-mv-abrechnung.php:606 includes/class-mv-mahnung.php:112
 msgid "bis zum"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:616
+#: includes/class-mv-abrechnung.php:608
 msgid "Das Guthaben von"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:616
+#: includes/class-mv-abrechnung.php:608
 msgid "wird Ihnen innerhalb von 30 Tagen überwiesen bzw. mit der nächsten Mietzahlung verrechnet."
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:620
+#: includes/class-mv-abrechnung.php:612
 msgid "Bescheinigung nach § 35a EStG"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:620
+#: includes/class-mv-abrechnung.php:612
 msgid "In den abgerechneten Kosten sind folgende Arbeitskostenanteile enthalten, die Sie in Ihrer Einkommensteuererklärung geltend machen können:"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:622
+#: includes/class-mv-abrechnung.php:614
 msgid "Handwerkerleistungen (§ 35a Abs. 3 EStG) – Ihr Anteil Lohnkosten"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:625
+#: includes/class-mv-abrechnung.php:617
 msgid "Haushaltsnahe Dienstleistungen (§ 35a Abs. 2 EStG) – Ihr Anteil Lohnkosten"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:630
+#: includes/class-mv-abrechnung.php:622
 msgid "Die Belege können nach Terminvereinbarung eingesehen werden. Einwendungen gegen die Abrechnung sind innerhalb von 12 Monaten nach Zugang mitzuteilen (§ 556 Abs. 3 Satz 5 BGB)."
 msgstr ""
 
@@ -281,1275 +281,1319 @@ msgstr ""
 msgid "Fokusmodus der Mietverwaltung umschalten"
 msgstr ""
 
-#: includes/class-mv-admin.php:169
-msgid "Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen)."
-msgstr ""
-
-#: includes/class-mv-admin.php:170
-msgid "pdf.js konnte nicht geladen werden. Werte bitte manuell eintragen."
-msgstr ""
-
-#: includes/class-mv-admin.php:171
-msgid "Lese Kaufvertrag …"
-msgstr ""
-
-#: includes/class-mv-admin.php:172
-msgid "PDF konnte nicht gelesen werden:"
-msgstr ""
-
-#: includes/class-mv-admin.php:173
-msgid "Auslesen nur bei PDF möglich."
-msgstr ""
-
-#: includes/class-mv-admin.php:174
-msgid "Aus dem Kaufvertrag erkannt"
-msgstr ""
-
-#: includes/class-mv-admin.php:175
-msgid "Seiten"
-msgstr ""
-
-#: includes/class-mv-admin.php:176
-msgid "zum Übernehmen anklicken, danach prüfen:"
-msgstr ""
-
-#: includes/class-mv-admin.php:177
-msgid "nicht gefunden"
-msgstr ""
-
-#: includes/class-mv-admin.php:178 includes/class-mv-steuer.php:424
-msgid "Kaufpreis"
-msgstr ""
-
-#: includes/class-mv-admin.php:179
-msgid "Übergang Nutzen/Lasten"
-msgstr ""
-
-#: includes/class-mv-admin.php:180
-msgid "Grund und Boden (Betrag)"
-msgstr ""
-
-#: includes/class-mv-admin.php:181
-msgid "Anteil Grund und Boden"
-msgstr ""
-
-#: includes/class-mv-admin.php:182
-msgid "Vertragsdatum (Info)"
-msgstr ""
-
-#: includes/class-mv-admin.php:183
-msgid "Wohnfläche (Info)"
-msgstr ""
-
-#: includes/class-mv-admin.php:184
-msgid "Erkennung ist heuristisch. Fehlt die Aufteilung Grund/Gebäude im Vertrag, hilft die BMF-Arbeitshilfe zur Kaufpreisaufteilung."
-msgstr ""
-
-#: includes/class-mv-admin.php:201 includes/class-mv-hilfe.php:69
-msgid "Objekte"
-msgstr ""
-
-#: includes/class-mv-admin.php:208 includes/class-mv-admin.php:267 includes/class-mv-admin.php:786
-msgid "Bezeichnung"
-msgstr ""
-
-#: includes/class-mv-admin.php:214 includes/class-mv-assistent.php:341
-msgid "Straße / Nr."
-msgstr ""
-
-#: includes/class-mv-admin.php:219 includes/class-mv-assistent.php:342
-msgid "PLZ"
-msgstr ""
-
-#: includes/class-mv-admin.php:224 includes/class-mv-assistent.php:343
-msgid "Ort"
-msgstr ""
-
-#: includes/class-mv-admin.php:229 includes/class-mv-assistent.php:344
-msgid "Baujahr"
-msgstr ""
-
-#: includes/class-mv-admin.php:233 includes/class-mv-assistent.php:347 includes/class-mv-portal.php:265
-msgid "Heizung"
-msgstr ""
-
-#: includes/class-mv-admin.php:237 includes/class-mv-assistent.php:349
-msgid "Zentralheizung (HeizkostenV, verbrauchsabhängig)"
-msgstr ""
-
-#: includes/class-mv-admin.php:238 includes/class-mv-assistent.php:350
-msgid "Fernwärme (HeizkostenV)"
-msgstr ""
-
-#: includes/class-mv-admin.php:239 includes/class-mv-assistent.php:351
-msgid "Dezentral / Etagenheizung (Mieter rechnet selbst ab)"
-msgstr ""
-
-#: includes/class-mv-admin.php:243
-msgid "Heizkosten: Verbrauchsanteil (%)"
-msgstr ""
-
-#: includes/class-mv-admin.php:245
-msgid "50–70 % nach Verbrauch, Rest nach Wohnfläche (§ 7 HeizkostenV). Nur bei Zentralheizung/Fernwärme."
-msgstr ""
-
-#: includes/class-mv-admin.php:248 includes/class-mv-admin.php:390 includes/class-mv-admin.php:448
-msgid "Notiz"
-msgstr ""
-
-#: includes/class-mv-admin.php:254 includes/class-mv-assistent.php:77 includes/class-mv-hilfe.php:75
-msgid "Einheiten"
-msgstr ""
-
-#: includes/class-mv-admin.php:255 includes/class-mv-admin.php:402 includes/class-mv-admin.php:649
-msgid "Einheit"
-msgstr ""
-
-#: includes/class-mv-admin.php:271 includes/class-mv-assistent.php:361
-msgid "z. B. „Wohnung EG links“"
-msgstr ""
-
-#: includes/class-mv-admin.php:274 includes/class-mv-assistent.php:362
-msgid "Lage"
-msgstr ""
-
-#: includes/class-mv-admin.php:277 includes/class-mv-assistent.php:362
-msgid "z. B. „1. OG“"
-msgstr ""
-
-#: includes/class-mv-admin.php:280 includes/class-mv-assistent.php:363
-msgid "Wohnfläche (m²)"
-msgstr ""
-
-#: includes/class-mv-admin.php:285 includes/class-mv-assistent.php:364
-msgid "Zimmer"
-msgstr ""
-
-#: includes/class-mv-admin.php:289 includes/class-mv-assistent.php:369
-msgid "Typ"
-msgstr ""
-
-#: includes/class-mv-admin.php:293 includes/class-mv-assistent.php:361 includes/class-mv-mietvertrag.php:493
-msgid "Wohnung"
-msgstr ""
-
-#: includes/class-mv-admin.php:294
-msgid "Gewerbe"
-msgstr ""
-
-#: includes/class-mv-admin.php:295 includes/class-mv-assistent.php:372 includes/class-mv-mietvertrag.php:490
-msgid "Stellplatz"
-msgstr ""
-
-#: includes/class-mv-admin.php:296 includes/class-mv-assistent.php:371 includes/class-mv-mietvertrag.php:489
-msgid "Garage"
-msgstr ""
-
-#: includes/class-mv-admin.php:297
-msgid "Keller / Lager"
-msgstr ""
-
-#: includes/class-mv-admin.php:310 includes/class-mv-assistent.php:386 includes/class-mv-assistent.php:395
-msgid "Anrede"
-msgstr ""
-
-#: includes/class-mv-admin.php:314 includes/class-mv-admin.php:355 includes/class-mv-assistent.php:383
-msgid "Frau"
-msgstr ""
-
-#: includes/class-mv-admin.php:315 includes/class-mv-admin.php:356 includes/class-mv-assistent.php:384
-msgid "Herr"
-msgstr ""
-
-#: includes/class-mv-admin.php:316 includes/class-mv-assistent.php:386
-msgid "Firma"
-msgstr ""
-
-#: includes/class-mv-admin.php:320 includes/class-mv-assistent.php:387 includes/class-mv-assistent.php:396
-msgid "Vorname"
-msgstr ""
-
-#: includes/class-mv-admin.php:325 includes/class-mv-assistent.php:388 includes/class-mv-assistent.php:397
-msgid "Nachname"
-msgstr ""
-
-#: includes/class-mv-admin.php:331 includes/class-mv-assistent.php:330 includes/class-mv-assistent.php:390
-msgid "E-Mail"
-msgstr ""
-
-#: includes/class-mv-admin.php:336 includes/class-mv-assistent.php:331 includes/class-mv-assistent.php:391
-msgid "Telefon"
-msgstr ""
-
-#: includes/class-mv-admin.php:341 includes/class-mv-assistent.php:389 includes/class-mv-assistent.php:398
-msgid "Geburtsdatum"
-msgstr ""
-
-#: includes/class-mv-admin.php:343
-msgid "Für den Mietvertrag (Identifizierung der Vertragspartei)."
-msgstr ""
-
-#: includes/class-mv-admin.php:346 includes/class-mv-assistent.php:392
-msgid "Bisherige Anschrift"
-msgstr ""
-
-#: includes/class-mv-admin.php:348
-msgid "Anschrift bei Vertragsschluss (vor Einzug) – erscheint im Vertrag."
-msgstr ""
-
-#: includes/class-mv-admin.php:351
-msgid "Mitmieter/in – Anrede"
-msgstr ""
-
-#: includes/class-mv-admin.php:358
-msgid "Ehe-/Lebenspartner als zweite Vertragspartei (optional). Erscheint automatisch in Mietvertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll; haftet gesamtschuldnerisch."
-msgstr ""
-
-#: includes/class-mv-admin.php:361
-msgid "Mitmieter/in – Vorname"
-msgstr ""
-
-#: includes/class-mv-admin.php:365
-msgid "Mitmieter/in – Nachname"
-msgstr ""
-
-#: includes/class-mv-admin.php:370
-msgid "Mitmieter/in – Geburtsdatum"
-msgstr ""
-
-#: includes/class-mv-admin.php:374
-msgid "Mitmieter/in – E-Mail"
-msgstr ""
-
-#: includes/class-mv-admin.php:376
-msgid "Erhält Mahnungen und Schreiben in Kopie, wenn angegeben."
-msgstr ""
-
-#: includes/class-mv-admin.php:379
-msgid "IBAN (für Bankimport-Zuordnung)"
-msgstr ""
-
-#: includes/class-mv-admin.php:383
-msgid "Portalzugang (WP-Benutzer)"
-msgstr ""
-
-#: includes/class-mv-admin.php:387
-msgid "Benutzer anlegen unter „Benutzer“, Rolle „Abonnent“ genügt."
-msgstr ""
-
-#: includes/class-mv-admin.php:396 includes/class-mv-hilfe.php:87
-msgid "Mietverhältnisse"
-msgstr ""
-
-#: includes/class-mv-admin.php:397 includes/class-mv-admin.php:460 includes/class-mv-admin.php:497
-msgid "Mietverhältnis"
-msgstr ""
-
-#: includes/class-mv-admin.php:416 includes/class-mv-assistent.php:408 includes/class-mv-portal.php:175
-msgid "Mietbeginn"
-msgstr ""
-
-#: includes/class-mv-admin.php:422
-msgid "Mietende"
-msgstr ""
-
-#: includes/class-mv-admin.php:425
-msgid "leer = unbefristet"
-msgstr ""
-
-#: includes/class-mv-admin.php:428 includes/class-mv-assistent.php:412
-msgid "Kaution (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:433 includes/class-mv-assistent.php:413
-msgid "Personen im Haushalt"
-msgstr ""
-
-#: includes/class-mv-admin.php:435
-msgid "für Umlageschlüssel nach Personen"
-msgstr ""
-
-#: includes/class-mv-admin.php:438 includes/class-mv-assistent.php:414
-msgid "Zahltag (Tag im Monat)"
-msgstr ""
-
-#: includes/class-mv-admin.php:442
-msgid "Weitere Einheiten im selben Vertrag"
-msgstr ""
-
-#: includes/class-mv-admin.php:445
-msgid "Garage, Stellplatz, Keller, die zusammen mit der Wohnung vermietet sind. Der Mietanteil ist in der Kaltmiete der Konditionen bereits enthalten und dient nur der Ausweisung im Vertrag."
-msgstr ""
-
-#: includes/class-mv-admin.php:452
-msgid "Konditionen (Kaltmiete, Vorauszahlungen) werden unter „Konditionen“ mit Gültigkeitsdatum erfasst – als Gesamtmiete inkl. Garage/Stellplatz. Jede Erhöhung = neuer Eintrag."
-msgstr ""
-
-#: includes/class-mv-admin.php:455 includes/class-mv-hilfe.php:93
-msgid "Konditionen"
-msgstr ""
-
-#: includes/class-mv-admin.php:456
-msgid "Kondition"
-msgstr ""
-
-#: includes/class-mv-admin.php:467 includes/class-mv-erhoehung.php:234
-msgid "Gültig ab"
-msgstr ""
-
-#: includes/class-mv-admin.php:471
-msgid "In der Regel der 1. eines Monats"
-msgstr ""
-
-#: includes/class-mv-admin.php:474
-msgid "Kaltmiete (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:480
-msgid "Betriebskosten-VZ (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:485
-msgid "Heizkosten-VZ (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:492 includes/class-mv-hilfe.php:38
-msgid "Zahlungen"
-msgstr ""
-
-#: includes/class-mv-admin.php:493
-msgid "Zahlung"
-msgstr ""
-
-#: includes/class-mv-admin.php:504 includes/class-mv-admin.php:561
-msgid "Zahlungsdatum"
-msgstr ""
-
-#: includes/class-mv-admin.php:510
-msgid "Betrag (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:516
-msgid "Zuordnung Monat"
-msgstr ""
-
-#: includes/class-mv-admin.php:522
-msgid "Verwendungszweck"
-msgstr ""
-
-#: includes/class-mv-admin.php:527 includes/class-mv-admin.php:705 includes/class-mv-darlehen.php:310
-msgid "Quelle"
-msgstr ""
-
-#: includes/class-mv-admin.php:531
-msgid "manuell"
-msgstr ""
-
-#: includes/class-mv-admin.php:532 includes/class-mv-admin.php:1342 includes/class-mv-bank.php:368
-msgid "Bankimport"
-msgstr ""
-
-#: includes/class-mv-admin.php:533
-msgid "Übersicht (abgehakt)"
-msgstr ""
-
-#: includes/class-mv-admin.php:539 includes/class-mv-hilfe.php:44 includes/class-mv-steuer.php:369
-msgid "Belege"
-msgstr ""
-
-#: includes/class-mv-admin.php:540 includes/class-mv-bank.php:401
-msgid "Beleg"
-msgstr ""
-
-#: includes/class-mv-admin.php:565
-msgid "Abflussdatum – maßgeblich für das Steuerjahr (§ 11 EStG). Bei Lastschrift: Tag der Abbuchung."
-msgstr ""
-
-#: includes/class-mv-admin.php:568
-msgid "Steuerjahr"
-msgstr ""
-
-#: includes/class-mv-admin.php:571
-msgid "leer = Jahr des Zahlungsdatums. Abweichend nur bei regelmäßig wiederkehrenden Zahlungen um den Jahreswechsel (10-Tage-Regel)."
-msgstr ""
-
-#: includes/class-mv-admin.php:574
-msgid "Betrag brutto (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:580
-msgid "Rechnungssteller"
-msgstr ""
-
-#: includes/class-mv-admin.php:585
-msgid "Rechnungs-/Belegnummer"
-msgstr ""
-
-#: includes/class-mv-admin.php:589
-msgid "Leistungszeitraum von"
-msgstr ""
-
-#: includes/class-mv-admin.php:591
-msgid "Für die Betriebskostenabrechnung (z. B. Versicherung 01.01.–31.12.). Leer = Zahlungsdatum."
-msgstr ""
-
-#: includes/class-mv-admin.php:594
-msgid "Leistungszeitraum bis"
-msgstr ""
-
-#: includes/class-mv-admin.php:598
-msgid "Verteilung (§ 82b EStDV)"
-msgstr ""
-
-#: includes/class-mv-admin.php:601
-msgid "nein – voll im Zahlungsjahr"
-msgstr ""
-
-#: includes/class-mv-admin.php:602
-msgid "auf 2 Jahre"
-msgstr ""
-
-#: includes/class-mv-admin.php:603
-msgid "auf 3 Jahre"
-msgstr ""
-
-#: includes/class-mv-admin.php:604
-msgid "auf 4 Jahre"
-msgstr ""
-
-#: includes/class-mv-admin.php:605
-msgid "auf 5 Jahre"
-msgstr ""
-
-#: includes/class-mv-admin.php:607
-msgid "Nur für größeren Erhaltungsaufwand an Wohngebäuden. Gleichmäßige Verteilung ab dem Steuerjahr."
-msgstr ""
-
-#: includes/class-mv-admin.php:610
-msgid "§ 35a EStG (für Mieter)"
-msgstr ""
-
-#: includes/class-mv-admin.php:613
-msgid "– nein –"
-msgstr ""
-
-#: includes/class-mv-admin.php:614
-msgid "Handwerkerleistung (20 %, max. 1.200 €)"
-msgstr ""
-
-#: includes/class-mv-admin.php:615
-msgid "Haushaltsnahe Dienstleistung (20 %, max. 4.000 €)"
-msgstr ""
-
-#: includes/class-mv-admin.php:617
-msgid "Hausmeister, Gartenpflege, Schornsteinfeger, Wartung Heizung … Der Lohnanteil wird in der Betriebskostenabrechnung für den Mieter ausgewiesen."
-msgstr ""
-
-#: includes/class-mv-admin.php:620
-msgid "davon Lohn-/Arbeitskosten brutto (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:622
-msgid "Laut Rechnung; ohne Material."
-msgstr ""
-
-#: includes/class-mv-admin.php:625 includes/class-mv-admin.php:1152 includes/class-mv-portal.php:282
-msgid "Beschreibung"
-msgstr ""
-
-#: includes/class-mv-admin.php:629
-msgid "Belegdatei (PDF/Foto)"
-msgstr ""
-
-#: includes/class-mv-admin.php:636 includes/class-mv-admin.php:637 includes/class-mv-admin.php:685
-msgid "Zähler"
-msgstr ""
-
-#: includes/class-mv-admin.php:653
-msgid "Leer = Hauptzähler des Hauses (nur zur Info, nicht für die Verteilung)."
-msgstr ""
-
-#: includes/class-mv-admin.php:656 includes/class-mv-admin.php:793 includes/class-mv-admin.php:982
-msgid "Art"
-msgstr ""
-
-#: includes/class-mv-admin.php:661 includes/class-mv-mietvertrag.php:813 includes/class-mv-portal.php:263
-msgid "Kaltwasser (m³)"
-msgstr ""
-
-#: includes/class-mv-admin.php:662 includes/class-mv-mietvertrag.php:814 includes/class-mv-portal.php:264
-msgid "Warmwasser (m³)"
-msgstr ""
-
-#: includes/class-mv-admin.php:663
-msgid "Heizung (kWh / Einheiten)"
-msgstr ""
-
-#: includes/class-mv-admin.php:664 includes/class-mv-mietvertrag.php:816 includes/class-mv-portal.php:266
-msgid "Strom (kWh)"
-msgstr ""
-
-#: includes/class-mv-admin.php:668
-msgid "Zählernummer"
-msgstr ""
-
-#: includes/class-mv-admin.php:679 includes/class-mv-hilfe.php:130
-msgid "Zählerstände"
-msgstr ""
-
-#: includes/class-mv-admin.php:680 includes/class-mv-admin.php:699
-msgid "Zählerstand"
-msgstr ""
-
-#: includes/class-mv-admin.php:692
-msgid "Ablesedatum"
-msgstr ""
-
-#: includes/class-mv-admin.php:696
-msgid "Für die Abrechnung: Stand zum Beginn und zum Ende des Zeitraums (z. B. 01.01. und 31.12.)."
-msgstr ""
-
-#: includes/class-mv-admin.php:709
-msgid "Vermieter/Ablesung"
-msgstr ""
-
-#: includes/class-mv-admin.php:710
-msgid "Mieter (Portal)"
-msgstr ""
-
-#: includes/class-mv-admin.php:711
-msgid "Versorger/Ablesedienst"
-msgstr ""
-
-#: includes/class-mv-admin.php:715
-msgid "Foto"
-msgstr ""
-
-#: includes/class-mv-admin.php:722
-msgid "Bankimport-Regeln"
-msgstr ""
-
-#: includes/class-mv-admin.php:723
-msgid "Regel"
-msgstr ""
-
-#: includes/class-mv-admin.php:728
-msgid "Suchtext"
-msgstr ""
-
-#: includes/class-mv-admin.php:732
-msgid "Wird in Name und Verwendungszweck gesucht (Groß-/Kleinschreibung egal), z. B. „Stadtwerke“ oder „N-ERGIE“."
-msgstr ""
-
-#: includes/class-mv-admin.php:735 includes/class-mv-bank.php:394
-msgid "Anlegen als"
-msgstr ""
-
-#: includes/class-mv-admin.php:739
-msgid "Beleg (Ausgabe)"
-msgstr ""
-
-#: includes/class-mv-admin.php:740
-msgid "Mietzahlung (Eingang)"
-msgstr ""
-
-#: includes/class-mv-admin.php:741
-msgid "Ignorieren"
-msgstr ""
-
-#: includes/class-mv-admin.php:751
-msgid "Kostenart (bei Beleg)"
-msgstr ""
-
-#: includes/class-mv-admin.php:757
-msgid "Mietverhältnis (bei Zahlung)"
-msgstr ""
-
-#: includes/class-mv-admin.php:765 includes/class-mv-steuer.php:408
-msgid "Abschreibung (AfA)"
-msgstr ""
-
-#: includes/class-mv-admin.php:766 includes/class-mv-steuer.php:410
-msgid "Anlagegut"
-msgstr ""
-
-#: includes/class-mv-admin.php:772
-msgid "Kaufvertrag (PDF)"
-msgstr ""
-
-#: includes/class-mv-admin.php:776
-msgid "Nach Auswahl wird der Vertrag im Browser ausgelesen; erkannte Werte erscheinen unten als Vorschläge. Nichts wird hochgeladen, bevor du speicherst."
-msgstr ""
-
-#: includes/class-mv-admin.php:790
-msgid "z. B. „Gebäude Musterstraße 1“ oder „Einbauküche“"
-msgstr ""
-
-#: includes/class-mv-admin.php:797
-msgid "Gebäude"
-msgstr ""
-
-#: includes/class-mv-admin.php:798
-msgid "Bewegliches Wirtschaftsgut (Einbauküche, Möbel …)"
-msgstr ""
-
-#: includes/class-mv-admin.php:802
-msgid "Anschaffung / Fertigstellung"
-msgstr ""
-
-#: includes/class-mv-admin.php:806
-msgid "Beim Kauf: Übergang von Nutzen und Lasten. AfA beginnt zeitanteilig ab diesem Monat."
-msgstr ""
-
-#: includes/class-mv-admin.php:809
-msgid "Kaufpreis / Herstellungskosten (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:815
-msgid "Grunderwerbsteuer (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:817
-msgid "Bayern 3,5 % des Kaufpreises (Bescheid des Finanzamts)."
-msgstr ""
-
-#: includes/class-mv-admin.php:820
-msgid "Notar – Kaufvertrag (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:822
-msgid "Nur der Teil für Beurkundung des Kaufvertrags. Der Teil für die Grundschuld gehört unten zu „Finanzierung“."
-msgstr ""
-
-#: includes/class-mv-admin.php:825
-msgid "Grundbuch – Auflassung/Eigentumsumschreibung (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:827
-msgid "Kostenrechnung des Grundbuchamts für Vormerkung und Eigentumsumschreibung."
-msgstr ""
-
-#: includes/class-mv-admin.php:830
-msgid "Maklerprovision (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:834
-msgid "Sonstige Anschaffungsnebenkosten (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:836
-msgid "z. B. Gutachter vor Kauf, Fahrtkosten zur Besichtigung, Übersetzer."
-msgstr ""
-
-#: includes/class-mv-admin.php:839
-msgid "Summe Anschaffungsnebenkosten (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:842
-msgid "Wird aus den Einzelpositionen berechnet, sobald dort etwas eingetragen ist; sonst manuell."
-msgstr ""
-
-#: includes/class-mv-admin.php:845
-msgid "Finanzierungskosten – Notar/Grundbuch Grundschuld (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:847
-msgid "Keine Anschaffungskosten! Sofort abziehbare Werbungskosten (Geldbeschaffungskosten). Beim Speichern wird automatisch ein Beleg der Kostenart „Geldbeschaffungskosten“ angelegt, falls noch keiner mit diesem Betrag existiert."
-msgstr ""
-
-#: includes/class-mv-admin.php:850
-msgid "Anteil Grund und Boden (%)"
-msgstr ""
-
-#: includes/class-mv-admin.php:853
-msgid "Nur Gebäude; der Bodenanteil ist nicht abschreibbar. Aufteilung laut Kaufvertrag oder BMF-Arbeitshilfe zur Kaufpreisaufteilung. Auch Eigentumswohnungen haben einen Miteigentumsanteil am Grund (häufig 15–30 %). 0 % akzeptiert das Finanzamt in der Regel nicht."
-msgstr ""
-
-#: includes/class-mv-admin.php:856
-msgid "Methode"
-msgstr ""
-
-#: includes/class-mv-admin.php:860
-msgid "Linear (§ 7 Abs. 4 EStG)"
-msgstr ""
-
-#: includes/class-mv-admin.php:861
-msgid "Degressiv vom Restwert (§ 7 Abs. 5a EStG, Neubau Baubeginn 10/2023–09/2029)"
-msgstr ""
-
-#: includes/class-mv-admin.php:865
-msgid "AfA-Satz (% p. a.)"
-msgstr ""
-
-#: includes/class-mv-admin.php:868
-msgid "Leer = automatisch: Gebäude nach Baujahr des Objekts (vor 1925: 2,5 %, ab 2023: 3 %, sonst 2 %), bewegliche Güter 100 / Nutzungsdauer. Degressiv: 5 %. Nur eintragen, wenn abweichend (z. B. 4 % bei nachgewiesener kürzerer Restnutzungsdauer)."
-msgstr ""
-
-#: includes/class-mv-admin.php:871
-msgid "Nutzungsdauer (Jahre)"
-msgstr ""
-
-#: includes/class-mv-admin.php:873
-msgid "Nur bewegliche Wirtschaftsgüter, z. B. Einbauküche 10 Jahre. GWG bis 800 € netto: Nutzungsdauer 1 = Sofortabzug."
-msgstr ""
-
-#: includes/class-mv-admin.php:876
-msgid "Ausscheiden (Verkauf/Entnahme)"
-msgstr ""
-
-#: includes/class-mv-admin.php:886 includes/class-mv-admin.php:887 includes/class-mv-admin.php:1038
-msgid "Darlehen"
-msgstr ""
-
-#: includes/class-mv-admin.php:901 includes/class-mv-assistent.php:333 includes/class-mv-einstellungen.php:100
-msgid "Bank"
-msgstr ""
-
-#: includes/class-mv-admin.php:907
-msgid "Bezeichnung / Konto-Nr."
-msgstr ""
-
-#: includes/class-mv-admin.php:912
-msgid "Darlehensbetrag (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:918
-msgid "Auszahlung"
-msgstr ""
-
-#: includes/class-mv-admin.php:923
-msgid "Sollzins (% p. a.)"
-msgstr ""
-
-#: includes/class-mv-admin.php:928 includes/class-mv-steuer.php:450
-msgid "Zinsbindung bis"
-msgstr ""
-
-#: includes/class-mv-admin.php:933
-msgid "Monatsrate (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:937
-msgid "Anfängliche Tilgung (% p. a.)"
-msgstr ""
-
-#: includes/class-mv-admin.php:945
-msgid "Aktiv"
-msgstr ""
-
-#: includes/class-mv-admin.php:946
-msgid "Abgelöst"
-msgstr ""
-
-#: includes/class-mv-admin.php:950
-msgid "Darlehensvertrag (PDF)"
-msgstr ""
-
-#: includes/class-mv-admin.php:961 includes/class-mv-hilfe.php:63 includes/class-mv-portal.php:251
-msgid "Dokumente"
-msgstr ""
-
-#: includes/class-mv-admin.php:962 includes/class-mv-portal.php:251
-msgid "Dokument"
-msgstr ""
-
-#: includes/class-mv-admin.php:979
-msgid "Nur bei mieterbezogenen Dokumenten (Mietvertrag, Übergabeprotokoll, Abrechnung)."
-msgstr ""
-
-#: includes/class-mv-admin.php:986
-msgid "Kaufvertrag"
-msgstr ""
-
-#: includes/class-mv-admin.php:987
-msgid "Grundbuchauszug"
-msgstr ""
-
-#: includes/class-mv-admin.php:988
-msgid "Teilungserklärung / WEG"
-msgstr ""
-
-#: includes/class-mv-admin.php:989 includes/class-mv-admin.php:1335 includes/class-mv-mietvertrag.php:138
-msgid "Mietvertrag"
-msgstr ""
-
-#: includes/class-mv-admin.php:990
-msgid "Übergabeprotokoll"
-msgstr ""
-
-#: includes/class-mv-admin.php:992
-msgid "Versicherungsschein"
-msgstr ""
-
-#: includes/class-mv-admin.php:993 includes/class-mv-mietvertrag.php:251
-msgid "Energieausweis"
-msgstr ""
-
-#: includes/class-mv-admin.php:994
-msgid "Sonstiges"
-msgstr ""
-
-#: includes/class-mv-admin.php:1004 includes/class-mv-admin.php:1140 includes/class-mv-bank.php:394
-msgid "Datum"
-msgstr ""
-
-#: includes/class-mv-admin.php:1009
-msgid "Im Mieterportal sichtbar"
-msgstr ""
-
-#: includes/class-mv-admin.php:1013
-msgid "Nein"
-msgstr ""
-
-#: includes/class-mv-admin.php:1014
-msgid "Ja"
-msgstr ""
-
-#: includes/class-mv-admin.php:1016
-msgid "Nur wirksam mit zugeordnetem Mietverhältnis."
-msgstr ""
-
-#: includes/class-mv-admin.php:1019
-msgid "Datei (PDF)"
-msgstr ""
-
-#: includes/class-mv-admin.php:1031
-msgid "Zinsbescheinigungen"
-msgstr ""
-
-#: includes/class-mv-admin.php:1032
-msgid "Jahreswert Darlehen"
-msgstr ""
-
-#: includes/class-mv-admin.php:1045 includes/class-mv-darlehen.php:310
-msgid "Jahr"
-msgstr ""
-
-#: includes/class-mv-admin.php:1051
-msgid "Gezahlte Zinsen (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:1055
-msgid "Laut Jahreszinsbescheinigung der Bank – das ist der Werbungskostenbetrag."
-msgstr ""
-
-#: includes/class-mv-admin.php:1058
-msgid "Tilgung (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:1061
-msgid "Nicht abziehbar, nur zur Info."
-msgstr ""
-
-#: includes/class-mv-admin.php:1064
-msgid "Restschuld 31.12. (€)"
-msgstr ""
-
-#: includes/class-mv-admin.php:1069
-msgid "Zinsbescheinigung (PDF)"
-msgstr ""
-
-#: includes/class-mv-admin.php:1076 includes/class-mv-hilfe.php:143
-msgid "Kostenarten"
-msgstr ""
-
-#: includes/class-mv-admin.php:1089
-msgid "Anlage V – Gruppe"
-msgstr ""
-
-#: includes/class-mv-admin.php:1096
-msgid "Umlagefähig (BetrKV)"
-msgstr ""
-
-#: includes/class-mv-admin.php:1100
-msgid "Nein – trägt der Vermieter"
-msgstr ""
-
-#: includes/class-mv-admin.php:1101
-msgid "Ja – geht in die Betriebskostenabrechnung"
-msgstr ""
-
-#: includes/class-mv-admin.php:1105
-msgid "Umlageschlüssel"
-msgstr ""
-
-#: includes/class-mv-admin.php:1110
-msgid "Wohnfläche"
-msgstr ""
-
-#: includes/class-mv-admin.php:1111
-msgid "Personen"
-msgstr ""
-
-#: includes/class-mv-admin.php:1112
-msgid "Verbrauch (Zähler)"
-msgstr ""
-
-#: includes/class-mv-admin.php:1113
-msgid "je Einheit"
-msgstr ""
-
-#: includes/class-mv-admin.php:1117
-msgid "Rechtsgrundlage"
-msgstr ""
-
-#: includes/class-mv-admin.php:1119
-msgid "z. B. § 2 Nr. 1 BetrKV"
-msgstr ""
-
-#: includes/class-mv-admin.php:1122
-msgid "Sortierung"
-msgstr ""
-
-#: includes/class-mv-admin.php:1128 includes/class-mv-hilfe.php:57 includes/class-mv-portal.php:206
-msgid "Meldungen"
-msgstr ""
-
-#: includes/class-mv-admin.php:1129
-msgid "Meldung"
-msgstr ""
-
-#: includes/class-mv-admin.php:1146 includes/class-mv-portal.php:213 includes/class-mv-portal.php:281
-msgid "Betreff"
-msgstr ""
-
-#: includes/class-mv-admin.php:1160 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:209
-msgid "Offen"
-msgstr ""
-
-#: includes/class-mv-admin.php:1161 includes/class-mv-portal.php:210
-msgid "In Bearbeitung"
-msgstr ""
-
-#: includes/class-mv-admin.php:1162 includes/class-mv-portal.php:211
-msgid "Erledigt"
-msgstr ""
-
-#: includes/class-mv-admin.php:1263 includes/class-mv-admin.php:1263 includes/class-mv-hinweise.php:164
+#: includes/class-mv-admin.php:171 includes/class-mv-admin.php:1276 includes/class-mv-admin.php:1276
 msgid "Mietverwaltung"
 msgstr ""
 
-#: includes/class-mv-admin.php:1264 includes/class-mv-admin.php:1264 includes/class-mv-hilfe.php:31
+#: includes/class-mv-admin.php:182
+msgid "Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen)."
+msgstr ""
+
+#: includes/class-mv-admin.php:183
+msgid "pdf.js konnte nicht geladen werden. Werte bitte manuell eintragen."
+msgstr ""
+
+#: includes/class-mv-admin.php:184
+msgid "Lese Kaufvertrag …"
+msgstr ""
+
+#: includes/class-mv-admin.php:185
+msgid "PDF konnte nicht gelesen werden:"
+msgstr ""
+
+#: includes/class-mv-admin.php:186
+msgid "Auslesen nur bei PDF möglich."
+msgstr ""
+
+#: includes/class-mv-admin.php:187
+msgid "Aus dem Kaufvertrag erkannt"
+msgstr ""
+
+#: includes/class-mv-admin.php:188
+msgid "Seiten"
+msgstr ""
+
+#: includes/class-mv-admin.php:189
+msgid "zum Übernehmen anklicken, danach prüfen:"
+msgstr ""
+
+#: includes/class-mv-admin.php:190
+msgid "nicht gefunden"
+msgstr ""
+
+#: includes/class-mv-admin.php:191 includes/class-mv-steuer.php:424
+msgid "Kaufpreis"
+msgstr ""
+
+#: includes/class-mv-admin.php:192
+msgid "Übergang Nutzen/Lasten"
+msgstr ""
+
+#: includes/class-mv-admin.php:193
+msgid "Grund und Boden (Betrag)"
+msgstr ""
+
+#: includes/class-mv-admin.php:194
+msgid "Anteil Grund und Boden"
+msgstr ""
+
+#: includes/class-mv-admin.php:195
+msgid "Vertragsdatum (Info)"
+msgstr ""
+
+#: includes/class-mv-admin.php:196
+msgid "Wohnfläche (Info)"
+msgstr ""
+
+#: includes/class-mv-admin.php:197
+msgid "Erkennung ist heuristisch. Fehlt die Aufteilung Grund/Gebäude im Vertrag, hilft die BMF-Arbeitshilfe zur Kaufpreisaufteilung."
+msgstr ""
+
+#: includes/class-mv-admin.php:214 includes/class-mv-hilfe.php:69
+msgid "Objekte"
+msgstr ""
+
+#: includes/class-mv-admin.php:221 includes/class-mv-admin.php:280 includes/class-mv-admin.php:799
+msgid "Bezeichnung"
+msgstr ""
+
+#: includes/class-mv-admin.php:227 includes/class-mv-assistent.php:341
+msgid "Straße / Nr."
+msgstr ""
+
+#: includes/class-mv-admin.php:232 includes/class-mv-assistent.php:342
+msgid "PLZ"
+msgstr ""
+
+#: includes/class-mv-admin.php:237 includes/class-mv-assistent.php:343
+msgid "Ort"
+msgstr ""
+
+#: includes/class-mv-admin.php:242 includes/class-mv-assistent.php:344
+msgid "Baujahr"
+msgstr ""
+
+#: includes/class-mv-admin.php:246 includes/class-mv-assistent.php:347 includes/class-mv-portal.php:265
+msgid "Heizung"
+msgstr ""
+
+#: includes/class-mv-admin.php:250 includes/class-mv-assistent.php:349
+msgid "Zentralheizung (HeizkostenV, verbrauchsabhängig)"
+msgstr ""
+
+#: includes/class-mv-admin.php:251 includes/class-mv-assistent.php:350
+msgid "Fernwärme (HeizkostenV)"
+msgstr ""
+
+#: includes/class-mv-admin.php:252 includes/class-mv-assistent.php:351
+msgid "Dezentral / Etagenheizung (Mieter rechnet selbst ab)"
+msgstr ""
+
+#: includes/class-mv-admin.php:256
+msgid "Heizkosten: Verbrauchsanteil (%)"
+msgstr ""
+
+#: includes/class-mv-admin.php:258
+msgid "50–70 % nach Verbrauch, Rest nach Wohnfläche (§ 7 HeizkostenV). Nur bei Zentralheizung/Fernwärme."
+msgstr ""
+
+#: includes/class-mv-admin.php:261 includes/class-mv-admin.php:403 includes/class-mv-admin.php:461
+msgid "Notiz"
+msgstr ""
+
+#: includes/class-mv-admin.php:267 includes/class-mv-assistent.php:77 includes/class-mv-hilfe.php:75
+msgid "Einheiten"
+msgstr ""
+
+#: includes/class-mv-admin.php:268 includes/class-mv-admin.php:415 includes/class-mv-admin.php:662
+msgid "Einheit"
+msgstr ""
+
+#: includes/class-mv-admin.php:284 includes/class-mv-assistent.php:361
+msgid "z. B. „Wohnung EG links“"
+msgstr ""
+
+#: includes/class-mv-admin.php:287 includes/class-mv-assistent.php:362
+msgid "Lage"
+msgstr ""
+
+#: includes/class-mv-admin.php:290 includes/class-mv-assistent.php:362
+msgid "z. B. „1. OG“"
+msgstr ""
+
+#: includes/class-mv-admin.php:293 includes/class-mv-assistent.php:363
+msgid "Wohnfläche (m²)"
+msgstr ""
+
+#: includes/class-mv-admin.php:298 includes/class-mv-assistent.php:364
+msgid "Zimmer"
+msgstr ""
+
+#: includes/class-mv-admin.php:302 includes/class-mv-assistent.php:369
+msgid "Typ"
+msgstr ""
+
+#: includes/class-mv-admin.php:306 includes/class-mv-assistent.php:361 includes/class-mv-mietvertrag.php:493
+msgid "Wohnung"
+msgstr ""
+
+#: includes/class-mv-admin.php:307
+msgid "Gewerbe"
+msgstr ""
+
+#: includes/class-mv-admin.php:308 includes/class-mv-assistent.php:372 includes/class-mv-mietvertrag.php:490
+msgid "Stellplatz"
+msgstr ""
+
+#: includes/class-mv-admin.php:309 includes/class-mv-assistent.php:371 includes/class-mv-mietvertrag.php:489
+msgid "Garage"
+msgstr ""
+
+#: includes/class-mv-admin.php:310
+msgid "Keller / Lager"
+msgstr ""
+
+#: includes/class-mv-admin.php:323 includes/class-mv-assistent.php:386 includes/class-mv-assistent.php:395
+msgid "Anrede"
+msgstr ""
+
+#: includes/class-mv-admin.php:327 includes/class-mv-admin.php:368 includes/class-mv-assistent.php:383
+msgid "Frau"
+msgstr ""
+
+#: includes/class-mv-admin.php:328 includes/class-mv-admin.php:369 includes/class-mv-assistent.php:384
+msgid "Herr"
+msgstr ""
+
+#: includes/class-mv-admin.php:329 includes/class-mv-assistent.php:386
+msgid "Firma"
+msgstr ""
+
+#: includes/class-mv-admin.php:333 includes/class-mv-assistent.php:387 includes/class-mv-assistent.php:396
+msgid "Vorname"
+msgstr ""
+
+#: includes/class-mv-admin.php:338 includes/class-mv-assistent.php:388 includes/class-mv-assistent.php:397
+msgid "Nachname"
+msgstr ""
+
+#: includes/class-mv-admin.php:344 includes/class-mv-assistent.php:330 includes/class-mv-assistent.php:390
+msgid "E-Mail"
+msgstr ""
+
+#: includes/class-mv-admin.php:349 includes/class-mv-assistent.php:331 includes/class-mv-assistent.php:391
+msgid "Telefon"
+msgstr ""
+
+#: includes/class-mv-admin.php:354 includes/class-mv-assistent.php:389 includes/class-mv-assistent.php:398
+msgid "Geburtsdatum"
+msgstr ""
+
+#: includes/class-mv-admin.php:356
+msgid "Für den Mietvertrag (Identifizierung der Vertragspartei)."
+msgstr ""
+
+#: includes/class-mv-admin.php:359 includes/class-mv-assistent.php:392
+msgid "Bisherige Anschrift"
+msgstr ""
+
+#: includes/class-mv-admin.php:361
+msgid "Anschrift bei Vertragsschluss (vor Einzug) – erscheint im Vertrag."
+msgstr ""
+
+#: includes/class-mv-admin.php:364
+msgid "Mitmieter/in – Anrede"
+msgstr ""
+
+#: includes/class-mv-admin.php:371
+msgid "Ehe-/Lebenspartner als zweite Vertragspartei (optional). Erscheint automatisch in Mietvertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll; haftet gesamtschuldnerisch."
+msgstr ""
+
+#: includes/class-mv-admin.php:374
+msgid "Mitmieter/in – Vorname"
+msgstr ""
+
+#: includes/class-mv-admin.php:378
+msgid "Mitmieter/in – Nachname"
+msgstr ""
+
+#: includes/class-mv-admin.php:383
+msgid "Mitmieter/in – Geburtsdatum"
+msgstr ""
+
+#: includes/class-mv-admin.php:387
+msgid "Mitmieter/in – E-Mail"
+msgstr ""
+
+#: includes/class-mv-admin.php:389
+msgid "Erhält Mahnungen und Schreiben in Kopie, wenn angegeben."
+msgstr ""
+
+#: includes/class-mv-admin.php:392
+msgid "IBAN (für Bankimport-Zuordnung)"
+msgstr ""
+
+#: includes/class-mv-admin.php:396
+msgid "Portalzugang (WP-Benutzer)"
+msgstr ""
+
+#: includes/class-mv-admin.php:400
+msgid "Benutzer anlegen unter „Benutzer“, Rolle „Abonnent“ genügt."
+msgstr ""
+
+#: includes/class-mv-admin.php:409 includes/class-mv-hilfe.php:87
+msgid "Mietverhältnisse"
+msgstr ""
+
+#: includes/class-mv-admin.php:410 includes/class-mv-admin.php:473 includes/class-mv-admin.php:510
+msgid "Mietverhältnis"
+msgstr ""
+
+#: includes/class-mv-admin.php:429 includes/class-mv-assistent.php:408 includes/class-mv-portal.php:175
+msgid "Mietbeginn"
+msgstr ""
+
+#: includes/class-mv-admin.php:435
+msgid "Mietende"
+msgstr ""
+
+#: includes/class-mv-admin.php:438
+msgid "leer = unbefristet"
+msgstr ""
+
+#: includes/class-mv-admin.php:441 includes/class-mv-assistent.php:412
+msgid "Kaution (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:446 includes/class-mv-assistent.php:413
+msgid "Personen im Haushalt"
+msgstr ""
+
+#: includes/class-mv-admin.php:448
+msgid "für Umlageschlüssel nach Personen"
+msgstr ""
+
+#: includes/class-mv-admin.php:451 includes/class-mv-assistent.php:414
+msgid "Zahltag (Tag im Monat)"
+msgstr ""
+
+#: includes/class-mv-admin.php:455
+msgid "Weitere Einheiten im selben Vertrag"
+msgstr ""
+
+#: includes/class-mv-admin.php:458
+msgid "Garage, Stellplatz, Keller, die zusammen mit der Wohnung vermietet sind. Der Mietanteil ist in der Kaltmiete der Konditionen bereits enthalten und dient nur der Ausweisung im Vertrag."
+msgstr ""
+
+#: includes/class-mv-admin.php:465
+msgid "Konditionen (Kaltmiete, Vorauszahlungen) werden unter „Konditionen“ mit Gültigkeitsdatum erfasst – als Gesamtmiete inkl. Garage/Stellplatz. Jede Erhöhung = neuer Eintrag."
+msgstr ""
+
+#: includes/class-mv-admin.php:468 includes/class-mv-hilfe.php:93
+msgid "Konditionen"
+msgstr ""
+
+#: includes/class-mv-admin.php:469
+msgid "Kondition"
+msgstr ""
+
+#: includes/class-mv-admin.php:480 includes/class-mv-erhoehung.php:234
+msgid "Gültig ab"
+msgstr ""
+
+#: includes/class-mv-admin.php:484
+msgid "In der Regel der 1. eines Monats"
+msgstr ""
+
+#: includes/class-mv-admin.php:487
+msgid "Kaltmiete (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:493
+msgid "Betriebskosten-VZ (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:498
+msgid "Heizkosten-VZ (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:505 includes/class-mv-hilfe.php:38
+msgid "Zahlungen"
+msgstr ""
+
+#: includes/class-mv-admin.php:506
+msgid "Zahlung"
+msgstr ""
+
+#: includes/class-mv-admin.php:517 includes/class-mv-admin.php:574
+msgid "Zahlungsdatum"
+msgstr ""
+
+#: includes/class-mv-admin.php:523
+msgid "Betrag (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:529
+msgid "Zuordnung Monat"
+msgstr ""
+
+#: includes/class-mv-admin.php:535
+msgid "Verwendungszweck"
+msgstr ""
+
+#: includes/class-mv-admin.php:540 includes/class-mv-admin.php:718 includes/class-mv-darlehen.php:310
+msgid "Quelle"
+msgstr ""
+
+#: includes/class-mv-admin.php:544
+msgid "manuell"
+msgstr ""
+
+#: includes/class-mv-admin.php:545 includes/class-mv-admin.php:1325 includes/class-mv-admin.php:2107
+msgid "Bankimport"
+msgstr ""
+
+#: includes/class-mv-admin.php:546
+msgid "Übersicht (abgehakt)"
+msgstr ""
+
+#: includes/class-mv-admin.php:552 includes/class-mv-hilfe.php:44 includes/class-mv-steuer.php:369
+msgid "Belege"
+msgstr ""
+
+#: includes/class-mv-admin.php:553 includes/class-mv-bank.php:401
+msgid "Beleg"
+msgstr ""
+
+#: includes/class-mv-admin.php:578
+msgid "Abflussdatum – maßgeblich für das Steuerjahr (§ 11 EStG). Bei Lastschrift: Tag der Abbuchung."
+msgstr ""
+
+#: includes/class-mv-admin.php:581
+msgid "Steuerjahr"
+msgstr ""
+
+#: includes/class-mv-admin.php:584
+msgid "leer = Jahr des Zahlungsdatums. Abweichend nur bei regelmäßig wiederkehrenden Zahlungen um den Jahreswechsel (10-Tage-Regel)."
+msgstr ""
+
+#: includes/class-mv-admin.php:587
+msgid "Betrag brutto (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:593
+msgid "Rechnungssteller"
+msgstr ""
+
+#: includes/class-mv-admin.php:598
+msgid "Rechnungs-/Belegnummer"
+msgstr ""
+
+#: includes/class-mv-admin.php:602
+msgid "Leistungszeitraum von"
+msgstr ""
+
+#: includes/class-mv-admin.php:604
+msgid "Für die Betriebskostenabrechnung (z. B. Versicherung 01.01.–31.12.). Leer = Zahlungsdatum."
+msgstr ""
+
+#: includes/class-mv-admin.php:607
+msgid "Leistungszeitraum bis"
+msgstr ""
+
+#: includes/class-mv-admin.php:611
+msgid "Verteilung (§ 82b EStDV)"
+msgstr ""
+
+#: includes/class-mv-admin.php:614
+msgid "nein – voll im Zahlungsjahr"
+msgstr ""
+
+#: includes/class-mv-admin.php:615
+msgid "auf 2 Jahre"
+msgstr ""
+
+#: includes/class-mv-admin.php:616
+msgid "auf 3 Jahre"
+msgstr ""
+
+#: includes/class-mv-admin.php:617
+msgid "auf 4 Jahre"
+msgstr ""
+
+#: includes/class-mv-admin.php:618
+msgid "auf 5 Jahre"
+msgstr ""
+
+#: includes/class-mv-admin.php:620
+msgid "Nur für größeren Erhaltungsaufwand an Wohngebäuden. Gleichmäßige Verteilung ab dem Steuerjahr."
+msgstr ""
+
+#: includes/class-mv-admin.php:623
+msgid "§ 35a EStG (für Mieter)"
+msgstr ""
+
+#: includes/class-mv-admin.php:626
+msgid "– nein –"
+msgstr ""
+
+#: includes/class-mv-admin.php:627
+msgid "Handwerkerleistung (20 %, max. 1.200 €)"
+msgstr ""
+
+#: includes/class-mv-admin.php:628
+msgid "Haushaltsnahe Dienstleistung (20 %, max. 4.000 €)"
+msgstr ""
+
+#: includes/class-mv-admin.php:630
+msgid "Hausmeister, Gartenpflege, Schornsteinfeger, Wartung Heizung … Der Lohnanteil wird in der Betriebskostenabrechnung für den Mieter ausgewiesen."
+msgstr ""
+
+#: includes/class-mv-admin.php:633
+msgid "davon Lohn-/Arbeitskosten brutto (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:635
+msgid "Laut Rechnung; ohne Material."
+msgstr ""
+
+#: includes/class-mv-admin.php:638 includes/class-mv-admin.php:1165 includes/class-mv-portal.php:282
+msgid "Beschreibung"
+msgstr ""
+
+#: includes/class-mv-admin.php:642
+msgid "Belegdatei (PDF/Foto)"
+msgstr ""
+
+#: includes/class-mv-admin.php:649 includes/class-mv-admin.php:650 includes/class-mv-admin.php:698
+msgid "Zähler"
+msgstr ""
+
+#: includes/class-mv-admin.php:666
+msgid "Leer = Hauptzähler des Hauses (nur zur Info, nicht für die Verteilung)."
+msgstr ""
+
+#: includes/class-mv-admin.php:669 includes/class-mv-admin.php:806 includes/class-mv-admin.php:995
+msgid "Art"
+msgstr ""
+
+#: includes/class-mv-admin.php:674 includes/class-mv-mietvertrag.php:813 includes/class-mv-portal.php:263
+msgid "Kaltwasser (m³)"
+msgstr ""
+
+#: includes/class-mv-admin.php:675 includes/class-mv-mietvertrag.php:814 includes/class-mv-portal.php:264
+msgid "Warmwasser (m³)"
+msgstr ""
+
+#: includes/class-mv-admin.php:676
+msgid "Heizung (kWh / Einheiten)"
+msgstr ""
+
+#: includes/class-mv-admin.php:677 includes/class-mv-mietvertrag.php:816 includes/class-mv-portal.php:266
+msgid "Strom (kWh)"
+msgstr ""
+
+#: includes/class-mv-admin.php:681
+msgid "Zählernummer"
+msgstr ""
+
+#: includes/class-mv-admin.php:692 includes/class-mv-hilfe.php:130
+msgid "Zählerstände"
+msgstr ""
+
+#: includes/class-mv-admin.php:693 includes/class-mv-admin.php:712 includes/class-mv-admin.php:2108
+msgid "Zählerstand"
+msgstr ""
+
+#: includes/class-mv-admin.php:705
+msgid "Ablesedatum"
+msgstr ""
+
+#: includes/class-mv-admin.php:709
+msgid "Für die Abrechnung: Stand zum Beginn und zum Ende des Zeitraums (z. B. 01.01. und 31.12.)."
+msgstr ""
+
+#: includes/class-mv-admin.php:722
+msgid "Vermieter/Ablesung"
+msgstr ""
+
+#: includes/class-mv-admin.php:723
+msgid "Mieter (Portal)"
+msgstr ""
+
+#: includes/class-mv-admin.php:724
+msgid "Versorger/Ablesedienst"
+msgstr ""
+
+#: includes/class-mv-admin.php:728
+msgid "Foto"
+msgstr ""
+
+#: includes/class-mv-admin.php:735
+msgid "Bankimport-Regeln"
+msgstr ""
+
+#: includes/class-mv-admin.php:736
+msgid "Regel"
+msgstr ""
+
+#: includes/class-mv-admin.php:741
+msgid "Suchtext"
+msgstr ""
+
+#: includes/class-mv-admin.php:745
+msgid "Wird in Name und Verwendungszweck gesucht (Groß-/Kleinschreibung egal), z. B. „Stadtwerke“ oder „N-ERGIE“."
+msgstr ""
+
+#: includes/class-mv-admin.php:748 includes/class-mv-bank.php:394
+msgid "Anlegen als"
+msgstr ""
+
+#: includes/class-mv-admin.php:752
+msgid "Beleg (Ausgabe)"
+msgstr ""
+
+#: includes/class-mv-admin.php:753
+msgid "Mietzahlung (Eingang)"
+msgstr ""
+
+#: includes/class-mv-admin.php:754
+msgid "Ignorieren"
+msgstr ""
+
+#: includes/class-mv-admin.php:764
+msgid "Kostenart (bei Beleg)"
+msgstr ""
+
+#: includes/class-mv-admin.php:770
+msgid "Mietverhältnis (bei Zahlung)"
+msgstr ""
+
+#: includes/class-mv-admin.php:778 includes/class-mv-steuer.php:408
+msgid "Abschreibung (AfA)"
+msgstr ""
+
+#: includes/class-mv-admin.php:779 includes/class-mv-steuer.php:410
+msgid "Anlagegut"
+msgstr ""
+
+#: includes/class-mv-admin.php:785
+msgid "Kaufvertrag (PDF)"
+msgstr ""
+
+#: includes/class-mv-admin.php:789
+msgid "Nach Auswahl wird der Vertrag im Browser ausgelesen; erkannte Werte erscheinen unten als Vorschläge. Nichts wird hochgeladen, bevor du speicherst."
+msgstr ""
+
+#: includes/class-mv-admin.php:803
+msgid "z. B. „Gebäude Musterstraße 1“ oder „Einbauküche“"
+msgstr ""
+
+#: includes/class-mv-admin.php:810
+msgid "Gebäude"
+msgstr ""
+
+#: includes/class-mv-admin.php:811
+msgid "Bewegliches Wirtschaftsgut (Einbauküche, Möbel …)"
+msgstr ""
+
+#: includes/class-mv-admin.php:815
+msgid "Anschaffung / Fertigstellung"
+msgstr ""
+
+#: includes/class-mv-admin.php:819
+msgid "Beim Kauf: Übergang von Nutzen und Lasten. AfA beginnt zeitanteilig ab diesem Monat."
+msgstr ""
+
+#: includes/class-mv-admin.php:822
+msgid "Kaufpreis / Herstellungskosten (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:828
+msgid "Grunderwerbsteuer (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:830
+msgid "Bayern 3,5 % des Kaufpreises (Bescheid des Finanzamts)."
+msgstr ""
+
+#: includes/class-mv-admin.php:833
+msgid "Notar – Kaufvertrag (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:835
+msgid "Nur der Teil für Beurkundung des Kaufvertrags. Der Teil für die Grundschuld gehört unten zu „Finanzierung“."
+msgstr ""
+
+#: includes/class-mv-admin.php:838
+msgid "Grundbuch – Auflassung/Eigentumsumschreibung (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:840
+msgid "Kostenrechnung des Grundbuchamts für Vormerkung und Eigentumsumschreibung."
+msgstr ""
+
+#: includes/class-mv-admin.php:843
+msgid "Maklerprovision (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:847
+msgid "Sonstige Anschaffungsnebenkosten (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:849
+msgid "z. B. Gutachter vor Kauf, Fahrtkosten zur Besichtigung, Übersetzer."
+msgstr ""
+
+#: includes/class-mv-admin.php:852
+msgid "Summe Anschaffungsnebenkosten (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:855
+msgid "Wird aus den Einzelpositionen berechnet, sobald dort etwas eingetragen ist; sonst manuell."
+msgstr ""
+
+#: includes/class-mv-admin.php:858
+msgid "Finanzierungskosten – Notar/Grundbuch Grundschuld (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:860
+msgid "Keine Anschaffungskosten! Sofort abziehbare Werbungskosten (Geldbeschaffungskosten). Beim Speichern wird automatisch ein Beleg der Kostenart „Geldbeschaffungskosten“ angelegt, falls noch keiner mit diesem Betrag existiert."
+msgstr ""
+
+#: includes/class-mv-admin.php:863
+msgid "Anteil Grund und Boden (%)"
+msgstr ""
+
+#: includes/class-mv-admin.php:866
+msgid "Nur Gebäude; der Bodenanteil ist nicht abschreibbar. Aufteilung laut Kaufvertrag oder BMF-Arbeitshilfe zur Kaufpreisaufteilung. Auch Eigentumswohnungen haben einen Miteigentumsanteil am Grund (häufig 15–30 %). 0 % akzeptiert das Finanzamt in der Regel nicht."
+msgstr ""
+
+#: includes/class-mv-admin.php:869
+msgid "Methode"
+msgstr ""
+
+#: includes/class-mv-admin.php:873
+msgid "Linear (§ 7 Abs. 4 EStG)"
+msgstr ""
+
+#: includes/class-mv-admin.php:874
+msgid "Degressiv vom Restwert (§ 7 Abs. 5a EStG, Neubau Baubeginn 10/2023–09/2029)"
+msgstr ""
+
+#: includes/class-mv-admin.php:878
+msgid "AfA-Satz (% p. a.)"
+msgstr ""
+
+#: includes/class-mv-admin.php:881
+msgid "Leer = automatisch: Gebäude nach Baujahr des Objekts (vor 1925: 2,5 %, ab 2023: 3 %, sonst 2 %), bewegliche Güter 100 / Nutzungsdauer. Degressiv: 5 %. Nur eintragen, wenn abweichend (z. B. 4 % bei nachgewiesener kürzerer Restnutzungsdauer)."
+msgstr ""
+
+#: includes/class-mv-admin.php:884
+msgid "Nutzungsdauer (Jahre)"
+msgstr ""
+
+#: includes/class-mv-admin.php:886
+msgid "Nur bewegliche Wirtschaftsgüter, z. B. Einbauküche 10 Jahre. GWG bis 800 € netto: Nutzungsdauer 1 = Sofortabzug."
+msgstr ""
+
+#: includes/class-mv-admin.php:889
+msgid "Ausscheiden (Verkauf/Entnahme)"
+msgstr ""
+
+#: includes/class-mv-admin.php:899 includes/class-mv-admin.php:900 includes/class-mv-admin.php:1051
+msgid "Darlehen"
+msgstr ""
+
+#: includes/class-mv-admin.php:914 includes/class-mv-assistent.php:333 includes/class-mv-einstellungen.php:100
+msgid "Bank"
+msgstr ""
+
+#: includes/class-mv-admin.php:920
+msgid "Bezeichnung / Konto-Nr."
+msgstr ""
+
+#: includes/class-mv-admin.php:925
+msgid "Darlehensbetrag (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:931
+msgid "Auszahlung"
+msgstr ""
+
+#: includes/class-mv-admin.php:936
+msgid "Sollzins (% p. a.)"
+msgstr ""
+
+#: includes/class-mv-admin.php:941 includes/class-mv-steuer.php:450
+msgid "Zinsbindung bis"
+msgstr ""
+
+#: includes/class-mv-admin.php:946
+msgid "Monatsrate (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:950
+msgid "Anfängliche Tilgung (% p. a.)"
+msgstr ""
+
+#: includes/class-mv-admin.php:958
+msgid "Aktiv"
+msgstr ""
+
+#: includes/class-mv-admin.php:959
+msgid "Abgelöst"
+msgstr ""
+
+#: includes/class-mv-admin.php:963
+msgid "Darlehensvertrag (PDF)"
+msgstr ""
+
+#: includes/class-mv-admin.php:974 includes/class-mv-hilfe.php:63 includes/class-mv-portal.php:251
+msgid "Dokumente"
+msgstr ""
+
+#: includes/class-mv-admin.php:975 includes/class-mv-portal.php:251
+msgid "Dokument"
+msgstr ""
+
+#: includes/class-mv-admin.php:992
+msgid "Nur bei mieterbezogenen Dokumenten (Mietvertrag, Übergabeprotokoll, Abrechnung)."
+msgstr ""
+
+#: includes/class-mv-admin.php:999
+msgid "Kaufvertrag"
+msgstr ""
+
+#: includes/class-mv-admin.php:1000
+msgid "Grundbuchauszug"
+msgstr ""
+
+#: includes/class-mv-admin.php:1001
+msgid "Teilungserklärung / WEG"
+msgstr ""
+
+#: includes/class-mv-admin.php:1002 includes/class-mv-admin.php:1318 includes/class-mv-admin.php:2110
+msgid "Mietvertrag"
+msgstr ""
+
+#: includes/class-mv-admin.php:1003
+msgid "Übergabeprotokoll"
+msgstr ""
+
+#: includes/class-mv-admin.php:1005
+msgid "Versicherungsschein"
+msgstr ""
+
+#: includes/class-mv-admin.php:1006 includes/class-mv-mietvertrag.php:251
+msgid "Energieausweis"
+msgstr ""
+
+#: includes/class-mv-admin.php:1007
+msgid "Sonstiges"
+msgstr ""
+
+#: includes/class-mv-admin.php:1017 includes/class-mv-admin.php:1153 includes/class-mv-bank.php:394
+msgid "Datum"
+msgstr ""
+
+#: includes/class-mv-admin.php:1022
+msgid "Im Mieterportal sichtbar"
+msgstr ""
+
+#: includes/class-mv-admin.php:1026
+msgid "Nein"
+msgstr ""
+
+#: includes/class-mv-admin.php:1027
+msgid "Ja"
+msgstr ""
+
+#: includes/class-mv-admin.php:1029
+msgid "Nur wirksam mit zugeordnetem Mietverhältnis."
+msgstr ""
+
+#: includes/class-mv-admin.php:1032
+msgid "Datei (PDF)"
+msgstr ""
+
+#: includes/class-mv-admin.php:1044
+msgid "Zinsbescheinigungen"
+msgstr ""
+
+#: includes/class-mv-admin.php:1045
+msgid "Jahreswert Darlehen"
+msgstr ""
+
+#: includes/class-mv-admin.php:1058 includes/class-mv-darlehen.php:310
+msgid "Jahr"
+msgstr ""
+
+#: includes/class-mv-admin.php:1064
+msgid "Gezahlte Zinsen (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:1068
+msgid "Laut Jahreszinsbescheinigung der Bank – das ist der Werbungskostenbetrag."
+msgstr ""
+
+#: includes/class-mv-admin.php:1071
+msgid "Tilgung (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:1074
+msgid "Nicht abziehbar, nur zur Info."
+msgstr ""
+
+#: includes/class-mv-admin.php:1077
+msgid "Restschuld 31.12. (€)"
+msgstr ""
+
+#: includes/class-mv-admin.php:1082
+msgid "Zinsbescheinigung (PDF)"
+msgstr ""
+
+#: includes/class-mv-admin.php:1089 includes/class-mv-hilfe.php:143
+msgid "Kostenarten"
+msgstr ""
+
+#: includes/class-mv-admin.php:1102
+msgid "Anlage V – Gruppe"
+msgstr ""
+
+#: includes/class-mv-admin.php:1109
+msgid "Umlagefähig (BetrKV)"
+msgstr ""
+
+#: includes/class-mv-admin.php:1113
+msgid "Nein – trägt der Vermieter"
+msgstr ""
+
+#: includes/class-mv-admin.php:1114
+msgid "Ja – geht in die Betriebskostenabrechnung"
+msgstr ""
+
+#: includes/class-mv-admin.php:1118
+msgid "Umlageschlüssel"
+msgstr ""
+
+#: includes/class-mv-admin.php:1123
+msgid "Wohnfläche"
+msgstr ""
+
+#: includes/class-mv-admin.php:1124
+msgid "Personen"
+msgstr ""
+
+#: includes/class-mv-admin.php:1125
+msgid "Verbrauch (Zähler)"
+msgstr ""
+
+#: includes/class-mv-admin.php:1126
+msgid "je Einheit"
+msgstr ""
+
+#: includes/class-mv-admin.php:1130
+msgid "Rechtsgrundlage"
+msgstr ""
+
+#: includes/class-mv-admin.php:1132
+msgid "z. B. § 2 Nr. 1 BetrKV"
+msgstr ""
+
+#: includes/class-mv-admin.php:1135
+msgid "Sortierung"
+msgstr ""
+
+#: includes/class-mv-admin.php:1141 includes/class-mv-hilfe.php:57 includes/class-mv-portal.php:206
+msgid "Meldungen"
+msgstr ""
+
+#: includes/class-mv-admin.php:1142
+msgid "Meldung"
+msgstr ""
+
+#: includes/class-mv-admin.php:1159 includes/class-mv-portal.php:213 includes/class-mv-portal.php:281
+msgid "Betreff"
+msgstr ""
+
+#: includes/class-mv-admin.php:1173 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:209
+msgid "Offen"
+msgstr ""
+
+#: includes/class-mv-admin.php:1174 includes/class-mv-portal.php:210
+msgid "In Bearbeitung"
+msgstr ""
+
+#: includes/class-mv-admin.php:1175 includes/class-mv-portal.php:211
+msgid "Erledigt"
+msgstr ""
+
+#: includes/class-mv-admin.php:1277 includes/class-mv-admin.php:1277 includes/class-mv-hilfe.php:31
 msgid "Übersicht"
 msgstr ""
 
-#: includes/class-mv-admin.php:1267
+#: includes/class-mv-admin.php:1280
 msgid "Alltag"
 msgstr ""
 
-#: includes/class-mv-admin.php:1273
+#: includes/class-mv-admin.php:1286
 msgid "Verwaltung"
 msgstr ""
 
-#: includes/class-mv-admin.php:1283
+#: includes/class-mv-admin.php:1296
 msgid "Jahresabschluss"
 msgstr ""
 
-#: includes/class-mv-admin.php:1293
+#: includes/class-mv-admin.php:1306
 msgid "System"
 msgstr ""
 
-#: includes/class-mv-admin.php:1332
+#: includes/class-mv-admin.php:1315
 msgid "Assistent"
 msgstr ""
 
-#: includes/class-mv-admin.php:1333
+#: includes/class-mv-admin.php:1316 includes/class-mv-admin.php:2109
 msgid "BK-Abrechnung"
 msgstr ""
 
-#: includes/class-mv-admin.php:1334 includes/class-mv-datenschutz.php:142 includes/class-mv-hilfe.php:18
+#: includes/class-mv-admin.php:1317 includes/class-mv-datenschutz.php:142 includes/class-mv-hilfe.php:18
 msgid "Einstellungen"
 msgstr ""
 
-#: includes/class-mv-admin.php:1336 includes/class-mv-darlehen.php:317 includes/class-mv-hilfe.php:168
+#: includes/class-mv-admin.php:1319 includes/class-mv-darlehen.php:317 includes/class-mv-hilfe.php:168
 msgid "Zinsbescheinigung"
 msgstr ""
 
-#: includes/class-mv-admin.php:1337 includes/class-mv-hilfe.php:180
+#: includes/class-mv-admin.php:1320 includes/class-mv-hilfe.php:180
 msgid "Bankregeln"
 msgstr ""
 
-#: includes/class-mv-admin.php:1341 includes/class-mv-hilfe.php:99
+#: includes/class-mv-admin.php:1324 includes/class-mv-hilfe.php:99
 msgid "Mietvertrag & Übergabe"
 msgstr ""
 
-#: includes/class-mv-admin.php:1343 includes/class-mv-hilfe.php:118 includes/class-mv-mahnung.php:27
+#: includes/class-mv-admin.php:1326 includes/class-mv-hilfe.php:118 includes/class-mv-mahnung.php:27
 msgid "Mahnwesen"
 msgstr ""
 
-#: includes/class-mv-admin.php:1344 includes/class-mv-erhoehung.php:182 includes/class-mv-hilfe.php:112
+#: includes/class-mv-admin.php:1327 includes/class-mv-erhoehung.php:182 includes/class-mv-hilfe.php:112
 msgid "Mieterhöhung"
 msgstr ""
 
-#: includes/class-mv-admin.php:1345 includes/class-mv-hilfe.php:106 includes/class-mv-portal.php:179
+#: includes/class-mv-admin.php:1328 includes/class-mv-hilfe.php:106 includes/class-mv-portal.php:179
 msgid "Kaution"
 msgstr ""
 
-#: includes/class-mv-admin.php:1346 includes/class-mv-darlehen.php:211 includes/class-mv-hilfe.php:162
+#: includes/class-mv-admin.php:1329 includes/class-mv-darlehen.php:211 includes/class-mv-hilfe.php:162
 msgid "Darlehenskonto"
 msgstr ""
 
-#: includes/class-mv-admin.php:1348 includes/class-mv-hilfe.php:174
+#: includes/class-mv-admin.php:1331 includes/class-mv-hilfe.php:174
 msgid "Steuer (Anlage V)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1349 includes/class-mv-datenschutz.php:138 includes/class-mv-einstellungen.php:136
+#: includes/class-mv-admin.php:1332 includes/class-mv-datenschutz.php:138 includes/class-mv-einstellungen.php:136
 msgid "Datenschutz"
 msgstr ""
 
-#: includes/class-mv-admin.php:1350 includes/class-mv-einstellungen.php:86 includes/class-mv-hilfe.php:198
+#: includes/class-mv-admin.php:1333 includes/class-mv-einstellungen.php:86 includes/class-mv-hilfe.php:198
 msgid "Einstellungen & Backup"
 msgstr ""
 
-#: includes/class-mv-admin.php:1351 includes/class-mv-hilfe.php:214
+#: includes/class-mv-admin.php:1334 includes/class-mv-hilfe.php:214
 msgid "Hilfe"
 msgstr ""
 
-#: includes/class-mv-admin.php:1352 includes/class-mv-assistent.php:285 includes/class-mv-hilfe.php:192
+#: includes/class-mv-admin.php:1335 includes/class-mv-assistent.php:285 includes/class-mv-hilfe.php:192
 msgid "Einrichtungsassistent"
 msgstr ""
 
-#: includes/class-mv-admin.php:1423 includes/class-mv-admin.php:1430
+#: includes/class-mv-admin.php:1441 includes/class-mv-admin.php:1448
 msgid "%s ist ein Pflichtfeld."
 msgstr ""
 
-#: includes/class-mv-admin.php:1510
+#: includes/class-mv-admin.php:1528
 msgid "Speichern fehlgeschlagen: %s"
 msgstr ""
 
-#: includes/class-mv-admin.php:1510
+#: includes/class-mv-admin.php:1528
 msgid "unbekannter Datenbankfehler"
 msgstr ""
 
-#: includes/class-mv-admin.php:1642
+#: includes/class-mv-admin.php:1660
 msgid "Mietende liegt vor dem Mietbeginn."
 msgstr ""
 
-#: includes/class-mv-admin.php:1648
+#: includes/class-mv-admin.php:1666
 msgid "Für diese Einheit besteht im Zeitraum bereits ein anderes Mietverhältnis."
 msgstr ""
 
-#: includes/class-mv-admin.php:1652
+#: includes/class-mv-admin.php:1670
 msgid "Zahltag muss zwischen 1 und 28 liegen."
 msgstr ""
 
-#: includes/class-mv-admin.php:1656
+#: includes/class-mv-admin.php:1674
 msgid "Die Haupteinheit kann nicht zugleich weitere Einheit sein."
 msgstr ""
 
-#: includes/class-mv-admin.php:1663
+#: includes/class-mv-admin.php:1681
 msgid "Weitere Einheit „%s“ ist im Zeitraum bereits anderweitig vermietet."
 msgstr ""
 
-#: includes/class-mv-admin.php:1678
+#: includes/class-mv-admin.php:1696
 msgid "Kaltmiete muss größer als 0 sein."
 msgstr ""
 
-#: includes/class-mv-admin.php:1683
+#: includes/class-mv-admin.php:1701
 msgid "Betrag darf nicht 0 sein."
 msgstr ""
 
-#: includes/class-mv-admin.php:1686
+#: includes/class-mv-admin.php:1704
 msgid "Zahlungsdatum liegt in der Zukunft."
 msgstr ""
 
-#: includes/class-mv-admin.php:1691
+#: includes/class-mv-admin.php:1709
 msgid "Zuordnungsmonat liegt vor dem Mietbeginn."
 msgstr ""
 
-#: includes/class-mv-admin.php:1697
+#: includes/class-mv-admin.php:1715
 msgid "Leistungszeitraum: „bis“ liegt vor „von“."
 msgstr ""
 
-#: includes/class-mv-admin.php:1700
+#: includes/class-mv-admin.php:1718
 msgid "Betrag muss größer als 0 sein (Gutschriften als negativen Beleg mit Beschreibung erfassen ist nicht vorgesehen – bitte mit dem Originalbeleg verrechnen)."
 msgstr ""
 
-#: includes/class-mv-admin.php:1703
+#: includes/class-mv-admin.php:1721
 msgid "Lohnanteil kann nicht größer als der Rechnungsbetrag sein."
 msgstr ""
 
-#: includes/class-mv-admin.php:1706
+#: includes/class-mv-admin.php:1724
 msgid "Steuerjahr weicht um mehr als ein Jahr vom Zahlungsdatum ab."
 msgstr ""
 
-#: includes/class-mv-admin.php:1711
+#: includes/class-mv-admin.php:1729
 msgid "Wohnfläche muss größer als 0 sein (wird für die Betriebskostenabrechnung benötigt)."
 msgstr ""
 
-#: includes/class-mv-admin.php:1724
+#: includes/class-mv-admin.php:1742
 msgid "Anteil Grund und Boden muss unter 100 % liegen."
 msgstr ""
 
-#: includes/class-mv-admin.php:1727
+#: includes/class-mv-admin.php:1745
 msgid "Bewegliches Wirtschaftsgut: Nutzungsdauer oder AfA-Satz angeben."
 msgstr ""
 
-#: includes/class-mv-admin.php:1732
+#: includes/class-mv-admin.php:1750
 msgid "Jahr ungültig."
 msgstr ""
 
-#: includes/class-mv-admin.php:1739
+#: includes/class-mv-admin.php:1757
 msgid "IBAN ungültig (Prüfziffer)."
 msgstr ""
 
-#: includes/class-mv-admin.php:1795
+#: includes/class-mv-admin.php:1813
 msgid "Gespeichert."
 msgstr ""
 
-#: includes/class-mv-admin.php:1796
+#: includes/class-mv-admin.php:1814
 msgid "Gelöscht."
 msgstr ""
 
-#: includes/class-mv-admin.php:1797
+#: includes/class-mv-admin.php:1815
 msgid "Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden."
 msgstr ""
 
-#: includes/class-mv-admin.php:1798
+#: includes/class-mv-admin.php:1816
 msgid "%d Mieteingang/-eingänge gebucht."
 msgstr ""
 
-#: includes/class-mv-admin.php:1830
+#: includes/class-mv-admin.php:1848
 msgid "%s hinzufügen"
 msgstr ""
 
-#: includes/class-mv-admin.php:1846
+#: includes/class-mv-admin.php:1864
 msgid "alle"
 msgstr ""
 
-#: includes/class-mv-admin.php:1868
+#: includes/class-mv-admin.php:1886
 msgid "Aktionen"
 msgstr ""
 
-#: includes/class-mv-admin.php:1905
+#: includes/class-mv-admin.php:1923
 msgid "Bearbeiten"
 msgstr ""
 
-#: includes/class-mv-admin.php:1938
+#: includes/class-mv-admin.php:1956
 msgid "Bearbeiten:"
 msgstr ""
 
-#: includes/class-mv-admin.php:1938
+#: includes/class-mv-admin.php:1956
 msgid "Neu:"
 msgstr ""
 
-#: includes/class-mv-admin.php:1960
+#: includes/class-mv-admin.php:1978
 msgid "Noch keine Einheiten angelegt."
 msgstr ""
 
-#: includes/class-mv-admin.php:1973
+#: includes/class-mv-admin.php:1991
 msgid "Mietanteil"
 msgstr ""
 
-#: includes/class-mv-admin.php:1983
+#: includes/class-mv-admin.php:2001
 msgid "Aktuelle Datei öffnen"
 msgstr ""
 
-#: includes/class-mv-admin.php:1983
+#: includes/class-mv-admin.php:2001
 msgid "– neue Datei wählen, um sie zu ersetzen."
 msgstr ""
 
-#: includes/class-mv-admin.php:1988
+#: includes/class-mv-admin.php:2006
 msgid "📷 Foto aufnehmen"
 msgstr ""
 
-#: includes/class-mv-admin.php:2001
+#: includes/class-mv-admin.php:2019
 msgid "– bitte wählen –"
 msgstr ""
 
-#: includes/class-mv-admin.php:2036
+#: includes/class-mv-admin.php:2054
 msgid "Abbrechen"
 msgstr ""
 
-#: includes/class-mv-admin.php:2046
-msgid "Mietverwaltung – Übersicht"
+#: includes/class-mv-admin.php:2085
+msgid "Objekte / Einheiten"
 msgstr ""
 
-#: includes/class-mv-admin.php:2047
-msgid "WordPress-Menü einblenden"
+#: includes/class-mv-admin.php:2085
+msgid "aktive Mietverhältnisse"
 msgstr ""
 
-#: includes/class-mv-admin.php:2047
-msgid "WordPress-Menü ausblenden"
+#: includes/class-mv-admin.php:2086
+msgid "Monatliches Soll"
 msgstr ""
 
-#: includes/class-mv-admin.php:2052
-msgid "Noch kein aktives Mietverhältnis. Reihenfolge zum Start:"
+#: includes/class-mv-admin.php:2086
+msgid "Kaltmiete + Vorauszahlungen"
 msgstr ""
 
-#: includes/class-mv-admin.php:2052
-msgid "Objekt → Einheit → Mieter → Mietverhältnis → Konditionen"
+#: includes/class-mv-admin.php:2087
+msgid "Offene Mietforderungen"
 msgstr ""
 
-#: includes/class-mv-admin.php:2052
-msgid "oder den Einrichtungsassistenten nutzen"
+#: includes/class-mv-admin.php:2087
+msgid "Rückstand – unten abhaken oder mahnen"
 msgstr ""
 
-#: includes/class-mv-admin.php:2058
-msgid "%d offene Meldung(en) –"
-msgstr ""
-
-#: includes/class-mv-admin.php:2058
-msgid "zur Bearbeitung"
-msgstr ""
-
-#: includes/class-mv-admin.php:2063
-msgid "Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar)."
-msgstr ""
-
-#: includes/class-mv-admin.php:2063
-msgid "Bitte mindestens einen Monat anhaken."
-msgstr ""
-
-#: includes/class-mv-admin.php:2063 includes/class-mv-admin.php:2111
-msgid "Markierte als bezahlt buchen"
-msgstr ""
-
-#: includes/class-mv-admin.php:2071
-msgid "Mietbeginn %1$s · Kaution %2$s · Saldo gesamt:"
-msgstr ""
-
-#: includes/class-mv-admin.php:2071
-msgid "Zahlung erfassen"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079
-msgid "alle offenen Monate dieses Mietverhältnisses"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079 includes/class-mv-darlehen.php:273 includes/class-mv-mahnung.php:100
-msgid "Monat"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079 includes/class-mv-portal.php:176
-msgid "Kaltmiete"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079
-msgid "BK-VZ"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079
-msgid "HK-VZ"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:190
-msgid "Soll"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079
-msgid "Ist"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079 includes/class-mv-portal.php:190
-msgid "Differenz"
-msgstr ""
-
-#: includes/class-mv-admin.php:2079
-msgid "Saldo kumuliert"
+#: includes/class-mv-admin.php:2087
+msgid "Alle Mietkonten ausgeglichen"
 msgstr ""
 
 #: includes/class-mv-admin.php:2088
+msgid "Einnahmen %d"
+msgstr ""
+
+#: includes/class-mv-admin.php:2088
+msgid "Werbungskosten bisher %s"
+msgstr ""
+
+#: includes/class-mv-admin.php:2105 includes/class-mv-admin.php:2156
+msgid "Zahlung erfassen"
+msgstr ""
+
+#: includes/class-mv-admin.php:2106
+msgid "Beleg erfassen"
+msgstr ""
+
+#: includes/class-mv-admin.php:2119
+msgid "Hinweise"
+msgstr ""
+
+#: includes/class-mv-admin.php:2121
+msgid "%d offene Meldung(en) aus dem Mieterportal"
+msgstr ""
+
+#: includes/class-mv-admin.php:2132
+msgid "Mietverwaltung – Übersicht"
+msgstr ""
+
+#: includes/class-mv-admin.php:2133
+msgid "WordPress-Menü einblenden"
+msgstr ""
+
+#: includes/class-mv-admin.php:2133
+msgid "WordPress-Menü ausblenden"
+msgstr ""
+
+#: includes/class-mv-admin.php:2138
+msgid "Noch kein aktives Mietverhältnis. Reihenfolge zum Start:"
+msgstr ""
+
+#: includes/class-mv-admin.php:2138
+msgid "Objekt → Einheit → Mieter → Mietverhältnis → Konditionen"
+msgstr ""
+
+#: includes/class-mv-admin.php:2138
+msgid "oder den Einrichtungsassistenten nutzen"
+msgstr ""
+
+#: includes/class-mv-admin.php:2148
+msgid "Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar)."
+msgstr ""
+
+#: includes/class-mv-admin.php:2148
+msgid "Bitte mindestens einen Monat anhaken."
+msgstr ""
+
+#: includes/class-mv-admin.php:2148 includes/class-mv-admin.php:2198
+msgid "Markierte als bezahlt buchen"
+msgstr ""
+
+#: includes/class-mv-admin.php:2154
+msgid "Mietbeginn %1$s · Kaution %2$s"
+msgstr ""
+
+#: includes/class-mv-admin.php:2156 includes/class-mv-mahnung.php:30
+msgid "Saldo"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165
+msgid "alle offenen Monate dieses Mietverhältnisses"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165 includes/class-mv-darlehen.php:273 includes/class-mv-mahnung.php:100
+msgid "Monat"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165 includes/class-mv-portal.php:176
+msgid "Kaltmiete"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165
+msgid "BK-VZ"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165
+msgid "HK-VZ"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:190
+msgid "Soll"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165
+msgid "Ist"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165 includes/class-mv-portal.php:190
+msgid "Differenz"
+msgstr ""
+
+#: includes/class-mv-admin.php:2165
+msgid "Saldo kumuliert"
+msgstr ""
+
+#: includes/class-mv-admin.php:2174
 msgid "%s als bezahlt buchen"
 msgstr ""
 
@@ -2445,7 +2489,7 @@ msgstr ""
 msgid "monatlich mit Wirkung"
 msgstr ""
 
-#: includes/class-mv-erhoehung.php:282 includes/class-mv-erhoehung.php:292 includes/class-mv-erhoehung.php:299
+#: includes/class-mv-erhoehung.php:282 includes/class-mv-erhoehung.php:292 includes/class-mv-erhoehung.php:300
 msgid "ab dem %s"
 msgstr ""
 
@@ -2494,14 +2538,14 @@ msgid "Einer Zustimmung bedarf es nicht; die Anpassung wird mit Beginn des über
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:299
-msgid "wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete"
-msgstr ""
-
-#: includes/class-mv-erhoehung.php:299
 msgid "monatlich (bisher %1$s). Grund: %2$s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %3$s."
 msgstr ""
 
-#: includes/class-mv-erhoehung.php:299
+#: includes/class-mv-erhoehung.php:300
+msgid "wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete"
+msgstr ""
+
+#: includes/class-mv-erhoehung.php:300
 msgid "Bitte passen Sie Ihren Dauerauftrag entsprechend an."
 msgstr ""
 
@@ -2853,7 +2897,7 @@ msgstr ""
 msgid "Rückzahlungsabrechnung"
 msgstr ""
 
-#: includes/class-mv-kaution.php:198
+#: includes/class-mv-kaution.php:197
 msgid "Kontostand %1$s − offener Mietrückstand %2$s ="
 msgstr ""
 
@@ -2861,59 +2905,59 @@ msgstr ""
 msgid "%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen."
 msgstr ""
 
-#: includes/class-mv-kaution.php:203
+#: includes/class-mv-kaution.php:198
 msgid " (Restforderung gegen den Mieter)"
 msgstr ""
 
-#: includes/class-mv-kaution.php:203
+#: includes/class-mv-kaution.php:198
 msgid " Auszahlungsbetrag"
 msgstr ""
 
-#: includes/class-mv-kaution.php:207
+#: includes/class-mv-kaution.php:208
 msgid "Kautionsabrechnung (PDF)"
 msgstr ""
 
-#: includes/class-mv-kaution.php:207 includes/class-mv-mietvertrag.php:156 includes/class-mv-mietvertrag.php:156
+#: includes/class-mv-kaution.php:208 includes/class-mv-mietvertrag.php:156 includes/class-mv-mietvertrag.php:156
 msgid "… ablegen"
 msgstr ""
 
-#: includes/class-mv-kaution.php:207
+#: includes/class-mv-kaution.php:208
 msgid "Mietverhältnis läuft noch – Abrechnung erst nach Rückgabe."
 msgstr ""
 
-#: includes/class-mv-kaution.php:233
+#: includes/class-mv-kaution.php:234
 msgid "das Mietverhältnis über die Wohnung %1$s / %2$s %3$s. Hiermit rechne ich die von Ihnen geleistete Mietsicherheit ab:"
 msgstr ""
 
-#: includes/class-mv-kaution.php:234
+#: includes/class-mv-kaution.php:235
 msgid "Buchung"
 msgstr ""
 
-#: includes/class-mv-kaution.php:238
+#: includes/class-mv-kaution.php:239
 msgid "Kontostand einschließlich Zinsen"
 msgstr ""
 
-#: includes/class-mv-kaution.php:240
+#: includes/class-mv-kaution.php:241
 msgid "abzüglich offener Mietforderungen laut Mietkonto"
 msgstr ""
 
-#: includes/class-mv-kaution.php:242
+#: includes/class-mv-kaution.php:243
 msgid "Auszahlungsbetrag"
 msgstr ""
 
-#: includes/class-mv-kaution.php:242
+#: includes/class-mv-kaution.php:243
 msgid "Verbleibende Forderung gegen Sie"
 msgstr ""
 
-#: includes/class-mv-kaution.php:244
+#: includes/class-mv-kaution.php:245
 msgid "Der Betrag wird innerhalb von 14 Tagen auf das mir mitgeteilte Konto überwiesen. Sollte mir noch keine Bankverbindung vorliegen, bitte ich um Mitteilung."
 msgstr ""
 
-#: includes/class-mv-kaution.php:246
+#: includes/class-mv-kaution.php:247
 msgid "Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen."
 msgstr ""
 
-#: includes/class-mv-kaution.php:248
+#: includes/class-mv-kaution.php:249
 msgid "Mit dieser Abrechnung sind alle Ansprüche aus der Mietsicherheit abgegolten. Eine ausstehende Betriebskostenabrechnung für das letzte Nutzungsjahr bleibt vorbehalten, soweit nicht bereits berücksichtigt."
 msgstr ""
 
@@ -2931,10 +2975,6 @@ msgstr ""
 
 #: includes/class-mv-mahnung.php:28
 msgid "Verzug tritt ohne Mahnung ein, wenn die Miete zum vereinbarten Zahltag nicht eingeht (§ 286 Abs. 2 Nr. 1 BGB). Eine Zahlungserinnerung ist dennoch üblich. Fristlose Kündigung ist bei Rückstand von zwei Monatsmieten möglich (§ 543 Abs. 2 Nr. 3 BGB) – vorher anwaltlich prüfen lassen."
-msgstr ""
-
-#: includes/class-mv-mahnung.php:30
-msgid "Saldo"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:30

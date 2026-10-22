@@ -1,6 +1,6 @@
 # Einreichung bei WordPress.org – Checkliste
 
-Stand: Version 0.9.9. Alles Technische ist erledigt; die folgenden Schritte kann nur der Autor selbst ausführen (Account, Formular, SVN).
+Stand: Version 1.0.0. Alles Technische ist erledigt; die folgenden Schritte kann nur der Autor selbst ausführen (Account, Formular, SVN).
 
 ## Bereits erledigt (geprüft in dieser Version)
 
@@ -15,7 +15,7 @@ Stand: Version 0.9.9. Alles Technische ist erledigt; die folgenden Schritte kann
 | Direkte Datenbankzugriffe begründet (eigene Tabellen) | ✅ Datei-Kommentare `phpcs:disable WordPress.DB.DirectDatabaseQuery` |
 | `readme.txt` auf Englisch, gültige Kopfzeilen, ≤ 5 Tags, Kurzbeschreibung ≤ 150 Zeichen | ✅ |
 | `Tested up to` = aktuelle stabile WordPress-Version | ✅ 7.1 (Stand Oktober 2026 – vor dem Absenden prüfen) |
-| `Stable tag` = Version im Plugin-Header | ✅ 0.9.9 |
+| `Stable tag` = Version im Plugin-Header | ✅ 1.0.0 |
 | GPL-kompatible Lizenz, Lizenzdatei | ✅ GPL-2.0-or-later, `LICENSE` |
 | Deinstallation räumt auf (optional, Standard: Daten behalten) | ✅ `uninstall.php` |
 | Übersetzbar, Text Domain = Slug, Domain Path | ✅ `mietverwaltung`, `/languages` |
@@ -37,8 +37,8 @@ Stand: Version 0.9.9. Alles Technische ist erledigt; die folgenden Schritte kann
    cd mietverwaltung-svn
    # Plugin-Dateien (Inhalt des ZIP) nach trunk/, Bilder aus .wordpress-org/ nach assets/
    svn add trunk/* assets/*
-   svn ci -m "Version 0.9.9"
-   svn cp trunk tags/0.9.9 && svn ci -m "Tag 0.9.9"
+   svn ci -m "Version 1.0.0"
+   svn cp trunk tags/1.0.0 && svn ci -m "Tag 1.0.0"
    ```
    Alternativ den GitHub-Workflow „10up/action-wordpress-plugin-deploy“ einrichten, der bei jedem Git-Tag automatisch nach SVN deployt.
 6. **Übersetzungen**: Nach Freigabe übernimmt translate.wordpress.org die Sprachpakete; die mitgelieferte `en_US` bleibt als Fallback.

@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: mietverwaltung\n"
-"PO-Revision-Date: 2026-10-21\n"
+"PO-Revision-Date: 2026-10-22\n"
 
 msgid "Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich."
 msgstr "No living areas entered for the units – allocation by area is not possible."
@@ -141,17 +141,17 @@ msgstr "Share"
 msgid "Keine Berechtigung."
 msgstr "Permission denied."
 
-msgid "für die Wohnung"
-msgstr "for the flat"
-
-msgid "erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum"
-msgstr "please find the statement of service and heating charges for the period"
-
 msgid "%1$s bis %2$s"
 msgstr "%1$s to %2$s"
 
 msgid ". Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d."
 msgstr ". Your period of use: %1$s to %2$s (%3$d days). Living area %4$s m², persons in household: %5$d."
+
+msgid "für die Wohnung"
+msgstr "for the flat"
+
+msgid "erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum"
+msgstr "please find the statement of service and heating charges for the period"
 
 msgid "Verteilerschlüssel"
 msgstr "Allocation key"
@@ -215,6 +215,9 @@ msgstr "▣ Show rental management only"
 
 msgid "Fokusmodus der Mietverwaltung umschalten"
 msgstr "Toggle rental management focus mode"
+
+msgid "Mietverwaltung"
+msgstr "Rental Management"
 
 msgid "Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen)."
 msgstr "No text layer found – the PDF is probably a scan. Please enter the values manually (or make the PDF searchable with OCR first)."
@@ -924,9 +927,6 @@ msgstr "In progress"
 msgid "Erledigt"
 msgstr "Done"
 
-msgid "Mietverwaltung"
-msgstr "Rental Management"
-
 msgid "Übersicht"
 msgstr "Overview"
 
@@ -1101,6 +1101,45 @@ msgstr "– please select –"
 msgid "Abbrechen"
 msgstr "Cancel"
 
+msgid "Objekte / Einheiten"
+msgstr "Properties / units"
+
+msgid "aktive Mietverhältnisse"
+msgstr "active tenancies"
+
+msgid "Monatliches Soll"
+msgstr "Monthly rent due"
+
+msgid "Kaltmiete + Vorauszahlungen"
+msgstr "Base rent + advance payments"
+
+msgid "Offene Mietforderungen"
+msgstr "Open rent claims"
+
+msgid "Rückstand – unten abhaken oder mahnen"
+msgstr "Arrears – tick below or send a reminder"
+
+msgid "Alle Mietkonten ausgeglichen"
+msgstr "All rent accounts balanced"
+
+msgid "Einnahmen %d"
+msgstr "Income %d"
+
+msgid "Werbungskosten bisher %s"
+msgstr "Expenses so far %s"
+
+msgid "Zahlung erfassen"
+msgstr "Record payment"
+
+msgid "Beleg erfassen"
+msgstr "Record receipt"
+
+msgid "Hinweise"
+msgstr "Notices"
+
+msgid "%d offene Meldung(en) aus dem Mieterportal"
+msgstr "%d open report(s) from the tenant portal"
+
 msgid "Mietverwaltung – Übersicht"
 msgstr "Rental Management – Overview"
 
@@ -1119,12 +1158,6 @@ msgstr "Property → Unit → Tenant → Tenancy → Rent conditions"
 msgid "oder den Einrichtungsassistenten nutzen"
 msgstr "or use the setup wizard"
 
-msgid "%d offene Meldung(en) –"
-msgstr "%d open report(s) –"
-
-msgid "zur Bearbeitung"
-msgstr "go to reports"
-
 msgid "Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar)."
 msgstr "Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments)."
 
@@ -1134,11 +1167,11 @@ msgstr "Please tick at least one month."
 msgid "Markierte als bezahlt buchen"
 msgstr "Book selected as paid"
 
-msgid "Mietbeginn %1$s · Kaution %2$s · Saldo gesamt:"
-msgstr "Start %1$s · Deposit %2$s · Total balance:"
+msgid "Mietbeginn %1$s · Kaution %2$s"
+msgstr "Start %1$s · Deposit %2$s"
 
-msgid "Zahlung erfassen"
-msgstr "Record payment"
+msgid "Saldo"
+msgstr "Balance"
 
 msgid "alle offenen Monate dieses Mietverhältnisses"
 msgstr "all open months of this tenancy"
@@ -1875,11 +1908,11 @@ msgstr ". The total rent including advance payments will then be %s."
 msgid "Einer Zustimmung bedarf es nicht; die Anpassung wird mit Beginn des übernächsten Monats nach Zugang dieses Schreibens wirksam (§ 557b Abs. 3 BGB). Bitte passen Sie Ihren Dauerauftrag entsprechend an."
 msgstr "No consent is required; the adjustment takes effect at the start of the second month after receipt of this letter (§ 557b (3) BGB). Please adjust your standing order accordingly."
 
-msgid "wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete"
-msgstr "as discussed or contractually agreed, the net base rent is"
-
 msgid "monatlich (bisher %1$s). Grund: %2$s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %3$s."
 msgstr "per month (previously %1$s). Reason: %2$s. The total rent including advance payments will then be %3$s."
+
+msgid "wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete"
+msgstr "as discussed or contractually agreed, the net base rent is"
 
 msgid "Bitte passen Sie Ihren Dauerauftrag entsprechend an."
 msgstr "Please adjust your standing order accordingly."
@@ -2204,9 +2237,6 @@ msgstr "Final dunning letter"
 
 msgid "Verzug tritt ohne Mahnung ein, wenn die Miete zum vereinbarten Zahltag nicht eingeht (§ 286 Abs. 2 Nr. 1 BGB). Eine Zahlungserinnerung ist dennoch üblich. Fristlose Kündigung ist bei Rückstand von zwei Monatsmieten möglich (§ 543 Abs. 2 Nr. 3 BGB) – vorher anwaltlich prüfen lassen."
 msgstr "Default occurs without a reminder if the rent is not received by the agreed payment day (§ 286 (2) no. 1 BGB). A payment reminder is nevertheless customary. Termination without notice is possible with arrears of two months' rent (§ 543 (2) no. 3 BGB) – have this checked by a lawyer first."
-
-msgid "Saldo"
-msgstr "Balance"
 
 msgid "Monatsmiete"
 msgstr "Monthly rent"

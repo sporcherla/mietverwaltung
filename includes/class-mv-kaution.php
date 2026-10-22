@@ -121,7 +121,7 @@ class Mietv_Kaution {
 	public static function page(): void {
 		global $wpdb;
 		$mvs   = Mietv_Soll::alle_mv();
-		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : ( $mvs[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : (int) ( $mvs[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$mv    = null;
 		foreach ( $mvs as $m ) {
 			if ( (int) $m->id === $mv_id ) {
@@ -194,15 +194,16 @@ class Mietv_Kaution {
 		$offene_bk   = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(CASE WHEN saldo < 0 THEN -saldo ELSE 0 END),0) FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE mv_id = %d AND freigegeben = 1', $mv_id ) );
 		$forderungen = max( 0, -$op['saldo'] );
 		$auszahlung  = $k['stand'] - $forderungen;
+		$kopf        = sprintf( /* translators: %1$s: Kontostand, %2$s: Rückstand */ __( 'Kontostand %1$s − offener Mietrückstand %2$s =', 'mietverwaltung' ), mietv_eur( $k['stand'] ), mietv_eur( $forderungen ) );
+		$rest        = sprintf( /* translators: %1$s: Auszahlung/Restforderung, %2$s: Betrag aus Betriebskostenabrechnung */ __( '%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen.', 'mietverwaltung' ), $auszahlung < 0 ? __( ' (Restforderung gegen den Mieter)', 'mietverwaltung' ) : __( ' Auszahlungsbetrag', 'mietverwaltung' ), mietv_eur( $offene_bk ) );
 		printf(
-			'<p>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'Kontostand %1$s − offener Mietrückstand %2$s =', 'mietverwaltung' ) . ' <strong class="%s">%s</strong>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( '%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen.', 'mietverwaltung' ) . '</p>',
-			esc_html( mietv_eur( $k['stand'] ) ),
-			esc_html( mietv_eur( $forderungen ) ),
+			'<p>%s <strong class="%s">%s</strong>%s</p>',
+			esc_html( $kopf ),
 			$auszahlung < 0 ? 'mv-neg' : 'mv-pos',
 			esc_html( mietv_eur( $auszahlung ) ),
-			$auszahlung < 0 ? esc_html__( ' (Restforderung gegen den Mieter)', 'mietverwaltung' ) : esc_html__( ' Auszahlungsbetrag', 'mietverwaltung' ),
-			esc_html( mietv_eur( $offene_bk ) )
+			esc_html( $rest )
 		);
+
 		$u = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_kaution_abrechnung&mv_id=' . $mv_id ), 'mietv_kaution_abr_' . $mv_id );
 		printf( '<p><a href="%s" target="_blank" class="button%s">' . esc_html__( 'Kautionsabrechnung (PDF)', 'mietverwaltung' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietverwaltung' ) . '</a>%s</p>', esc_url( $u ), $beendet ? ' button-primary' : '', esc_url( $u ), $beendet ? '' : ' <span class="description">' . esc_html__( 'Mietverhältnis läuft noch – Abrechnung erst nach Rückgabe.', 'mietverwaltung' ) . '</span>' );
 		echo '</div>';

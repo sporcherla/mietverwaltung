@@ -201,7 +201,7 @@ class Mietv_Darlehen {
 	public static function page(): void {
 		global $wpdb;
 		$alle = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen ORDER BY status, bank' );
-		$did  = ( isset( $_GET['darlehen_id'] ) ? (int) $_GET['darlehen_id'] : ( $alle[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$did  = ( isset( $_GET['darlehen_id'] ) ? (int) $_GET['darlehen_id'] : (int) ( $alle[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$d    = null;
 		foreach ( $alle as $x ) {
 			if ( (int) $x->id === $did ) {

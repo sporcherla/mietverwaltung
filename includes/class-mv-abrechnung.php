@@ -585,29 +585,21 @@ class Mietv_Abrechnung {
 		$einheit = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
 		$d       = json_decode( $e->details, true );
 
-		$b  = '<p>' . esc_html( Mietv_Brief::anrede( $mv ) ) . '</p>';
-		$b .= sprintf(
-			'<p>' . esc_html__( 'für die Wohnung', 'mietverwaltung' ) . ' <strong>%s, %s</strong> ' . esc_html__( 'erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum', 'mietverwaltung' ) . ' <strong>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( '%1$s bis %2$s', 'mietverwaltung' ) . '</strong>' . /* translators: %1$s: Wert, %2$s: Wert, %3$d: Wert, %4$s: Wert, %5$d: Wert */ esc_html__( '. Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d.', 'mietverwaltung' ) . '</p>',
-			esc_html( $objekt->strasse . ', ' . $objekt->plz . ' ' . $objekt->ort ),
-			esc_html( $einheit->bezeichnung ),
-			esc_html( mietv_date( $e->von ) ),
-			esc_html( mietv_date( $e->bis ) ),
-			esc_html( mietv_date( $d['von'] ) ),
-			esc_html( mietv_date( $d['bis'] ) ),
-			(int) $e->tage,
-			esc_html( number_format( $d['flaeche'], 2, ',', '.' ) ),
-			(int) $d['personen']
-		);
+		$b        = '<p>' . esc_html( Mietv_Brief::anrede( $mv ) ) . '</p>';
+		$zeitraum = sprintf( /* translators: %1$s: Datum von, %2$s: Datum bis */ __( '%1$s bis %2$s', 'mietverwaltung' ), mietv_date( $e->von ), mietv_date( $e->bis ) );
+		$nutzung  = sprintf( /* translators: %1$s: Datum von, %2$s: Datum bis, %3$d: Tage, %4$s: Fläche, %5$d: Personen */ __( '. Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d.', 'mietverwaltung' ), mietv_date( $d['von'] ), mietv_date( $d['bis'] ), (int) $e->tage, number_format( $d['flaeche'], 2, ',', '.' ), (int) $d['personen'] );
+		$b       .= '<p>' . esc_html__( 'für die Wohnung', 'mietverwaltung' ) . ' <strong>' . esc_html( $objekt->strasse . ', ' . $objekt->plz . ' ' . $objekt->ort ) . ', ' . esc_html( $einheit->bezeichnung ) . '</strong> ' . esc_html__( 'erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum', 'mietverwaltung' ) . ' <strong>' . esc_html( $zeitraum ) . '</strong>' . esc_html( $nutzung ) . '</p>';
 
 		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Kostenart', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamtkosten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Verteilerschlüssel', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ihr Anteil', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
 		foreach ( $d['positionen'] as $p ) {
 			$b .= sprintf( '<tr><td>%s<br><small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $p['name'] ), esc_html( $p['betrkv'] ), esc_html( mietv_eur( $p['gesamt'] ) ), esc_html( $p['schluessel'] ), esc_html( number_format( $p['basis_gesamt'], 2, ',', '.' ) ), esc_html( number_format( $p['basis_mv'], 2, ',', '.' ) ), esc_html( mietv_eur( $p['anteil'] ) ) );
 		}
-		$kosten = $e->kosten_bk + $e->kosten_hk;
-		$vz     = $e->vz_bk + $e->vz_hk;
-		$b     .= sprintf( '<tr class="summe"><td colspan="5">' . esc_html__( 'Summe Ihrer Kosten', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $kosten ) ) );
-		$b     .= sprintf( '<tr><td colspan="5">' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)', 'mietverwaltung' ) . '</td><td>– %s</td></tr>', esc_html( mietv_eur( $e->vz_bk ) ), esc_html( mietv_eur( $e->vz_hk ) ), esc_html( mietv_eur( $vz ) ) );
-		$b     .= sprintf( '<tr class="summe"><td colspan="5">%s</td><td>%s</td></tr></tbody></table>', $e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben zu Ihren Gunsten', 'mietverwaltung' ), esc_html( mietv_eur( abs( $e->saldo ) ) ) );
+		$kosten  = $e->kosten_bk + $e->kosten_hk;
+		$vz      = $e->vz_bk + $e->vz_hk;
+		$b      .= sprintf( '<tr class="summe"><td colspan="5">' . esc_html__( 'Summe Ihrer Kosten', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $kosten ) ) );
+		$vz_text = sprintf( /* translators: %1$s: Betrag, %2$s: Betrag */ __( 'abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)', 'mietverwaltung' ), mietv_eur( $e->vz_bk ), mietv_eur( $e->vz_hk ) );
+		$b      .= '<tr><td colspan="5">' . esc_html( $vz_text ) . '</td><td>– ' . esc_html( mietv_eur( $vz ) ) . '</td></tr>';
+		$b      .= sprintf( '<tr class="summe"><td colspan="5">%s</td><td>%s</td></tr></tbody></table>', $e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben zu Ihren Gunsten', 'mietverwaltung' ), esc_html( mietv_eur( abs( $e->saldo ) ) ) );
 
 		if ( $e->saldo < -0.005 ) {
 			$frist = date_i18n( 'd.m.Y', strtotime( '+30 days' ) );

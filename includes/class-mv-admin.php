@@ -158,6 +158,19 @@ class Mietv_Admin {
 			return;
 		}
 		wp_enqueue_style( 'mietv-admin', MIETV_URL . 'assets/admin.css', [], MIETV_VERSION );
+		wp_enqueue_script( 'mietv-admin', MIETV_URL . 'assets/admin.js', [], MIETV_VERSION, true );
+		$slug  = preg_replace( '/^.*_page_mietv_/', '', $hook );
+		$icons = self::icons();
+		$key   = isset( $icons[ $slug ] ) ? $slug : '__' . $slug;
+		wp_localize_script(
+			'mietv-admin',
+			'mietvUI',
+			[
+				'icon'       => $icons[ $key ] ?? 'admin-home',
+				'uebersicht' => admin_url( 'admin.php?page=mietv_uebersicht' ),
+				'plugin'     => esc_html__( 'Mietverwaltung', 'mietverwaltung' ),
+			]
+		);
 		if ( strpos( $hook, 'mietv_anlagegueter' ) !== false && ! empty( $_GET['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			wp_enqueue_script( 'mietv-pdfjs', MIETV_URL . 'assets/pdfjs/pdf.min.js', [], '3.11.174', true );
 			wp_enqueue_script( 'mietv-kaufvertrag', MIETV_URL . 'assets/kaufvertrag.js', [ 'mietv-pdfjs' ], MIETV_VERSION, true );
@@ -1297,37 +1310,7 @@ class Mietv_Admin {
 			'__assistent',
 			'__hilfe',
 		];
-		$icons       = [
-			'uebersicht'        => 'dashboard',
-			'zahlungen'         => 'money-alt',
-			'belege'            => 'clipboard',
-			'__bank'            => 'bank',
-			'meldungen'         => 'warning',
-			'dokumente'         => 'portfolio',
-			'objekte'           => 'building',
-			'einheiten'         => 'admin-home',
-			'mieter'            => 'groups',
-			'mietverhaeltnisse' => 'id-alt',
-			'konditionen'       => 'tag',
-			'__mietvertrag'     => 'media-document',
-			'__kaution'         => 'lock',
-			'__erhoehung'       => 'chart-line',
-			'__mahnung'         => 'megaphone',
-			'zaehler'           => 'performance',
-			'zaehlerstaende'    => 'editor-ol',
-			'__abrechnung'      => 'calculator',
-			'kostenarten'       => 'category',
-			'anlagegueter'      => 'chart-area',
-			'darlehen'          => 'money',
-			'__darlehenskonto'  => 'chart-bar',
-			'darlehen_jahre'    => 'media-spreadsheet',
-			'__steuer'          => 'chart-pie',
-			'bank_regeln'       => 'randomize',
-			'__datenschutz'     => 'shield',
-			'__einstellungen'   => 'admin-generic',
-			'__hilfe'           => 'editor-help',
-			'__assistent'       => 'welcome-learn-more',
-		];
+		$icons       = self::icons();
 		$kurz        = [
 			'__assistent'     => esc_html__( 'Assistent', 'mietverwaltung' ),
 			'__abrechnung'    => esc_html__( 'BK-Abrechnung', 'mietverwaltung' ),
@@ -1365,9 +1348,44 @@ class Mietv_Admin {
 		}
 	}
 
+	/** Dashicon je Menüpunkt. */
+	public static function icons(): array {
+		return [
+			'uebersicht'        => 'dashboard',
+			'zahlungen'         => 'money-alt',
+			'belege'            => 'clipboard',
+			'__bank'            => 'bank',
+			'meldungen'         => 'warning',
+			'dokumente'         => 'portfolio',
+			'objekte'           => 'building',
+			'einheiten'         => 'admin-home',
+			'mieter'            => 'groups',
+			'mietverhaeltnisse' => 'id-alt',
+			'konditionen'       => 'tag',
+			'__mietvertrag'     => 'media-document',
+			'__kaution'         => 'lock',
+			'__erhoehung'       => 'chart-line',
+			'__mahnung'         => 'megaphone',
+			'zaehler'           => 'performance',
+			'zaehlerstaende'    => 'editor-ol',
+			'__abrechnung'      => 'calculator',
+			'kostenarten'       => 'category',
+			'anlagegueter'      => 'chart-area',
+			'darlehen'          => 'money',
+			'__darlehenskonto'  => 'chart-bar',
+			'darlehen_jahre'    => 'media-spreadsheet',
+			'__steuer'          => 'chart-pie',
+			'bank_regeln'       => 'randomize',
+			'__datenschutz'     => 'shield',
+			'__einstellungen'   => 'admin-generic',
+			'__hilfe'           => 'editor-help',
+			'__assistent'       => 'welcome-learn-more',
+		];
+	}
+
 	private static function current_entity(): ?string {
 		$page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		$key  = substr( $page, 3 );
+		$key  = substr( $page, 6 );
 		return isset( self::entities()[ $key ] ) ? $key : null;
 	}
 
@@ -2041,6 +2059,74 @@ class Mietv_Admin {
 	/* Übersicht: Offene Posten                                           */
 	/* ------------------------------------------------------------------ */
 
+	/** Kennzahlen, Schnellzugriff und Hinweise oberhalb der offenen Posten. */
+	private static function dashboard( array $mvs, int $offene_meldungen ): void {
+		global $wpdb;
+		$jahr       = (int) current_time( 'Y' );
+		$objekte    = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_objekte' );
+		$einheiten  = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_einheiten' );
+		$einnahmen  = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE datum BETWEEN %s AND %s', $jahr . '-01-01', $jahr . '-12-31' ) );
+		$kosten     = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_belege WHERE steuerjahr = %d', $jahr ) );
+		$rueckstand = 0.0;
+		$soll_monat = 0.0;
+		foreach ( $mvs as $mv ) {
+			$op = Mietv_Soll::op_liste( $mv );
+			if ( $op['saldo'] < -0.005 ) {
+				$rueckstand += -$op['saldo'];
+			}
+			$k = Mietv_Soll::konditionen( (int) $mv->id, current_time( 'Y-m-01' ) );
+			if ( $k ) {
+				$soll_monat += (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz;
+			}
+		}
+		$hinweise = class_exists( 'Mietv_Hinweise' ) ? Mietv_Hinweise::alle() : [];
+
+		$kpi = [
+			[ 'admin-home', __( 'Objekte / Einheiten', 'mietverwaltung' ), $objekte . ' / ' . $einheiten, count( $mvs ) . ' ' . __( 'aktive Mietverhältnisse', 'mietverwaltung' ), self::url( 'objekte' ), '' ],
+			[ 'money-alt', __( 'Monatliches Soll', 'mietverwaltung' ), mietv_eur( $soll_monat ), __( 'Kaltmiete + Vorauszahlungen', 'mietverwaltung' ), self::url( 'konditionen' ), '' ],
+			[ 'warning', __( 'Offene Mietforderungen', 'mietverwaltung' ), mietv_eur( $rueckstand ), $rueckstand > 0.005 ? __( 'Rückstand – unten abhaken oder mahnen', 'mietverwaltung' ) : __( 'Alle Mietkonten ausgeglichen', 'mietverwaltung' ), admin_url( 'admin.php?page=mietv_mahnung' ), $rueckstand > 0.005 ? 'mv-kpi-neg' : 'mv-kpi-pos' ],
+			[ 'chart-pie', sprintf( /* translators: %d: Jahr */ __( 'Einnahmen %d', 'mietverwaltung' ), $jahr ), mietv_eur( $einnahmen ), sprintf( /* translators: %s: Betrag */ __( 'Werbungskosten bisher %s', 'mietverwaltung' ), mietv_eur( $kosten ) ), admin_url( 'admin.php?page=mietv_steuer&jahr=' . $jahr ), '' ],
+		];
+		echo '<div class="mv-kpis">';
+		foreach ( $kpi as [ $icon, $label, $wert, $sub, $url, $cls ] ) {
+			printf(
+				'<a class="mv-kpi %s" href="%s"><span class="mv-kpi-icon dashicons dashicons-%s"></span><span class="mv-kpi-label">%s</span><strong class="mv-kpi-wert">%s</strong><span class="mv-kpi-sub">%s</span></a>',
+				esc_attr( $cls ),
+				esc_url( $url ),
+				esc_attr( $icon ),
+				esc_html( $label ),
+				esc_html( $wert ),
+				esc_html( $sub )
+			);
+		}
+		echo '</div>';
+
+		$schnell = [
+			[ 'money-alt', __( 'Zahlung erfassen', 'mietverwaltung' ), self::url( 'zahlungen', [ 'action' => 'new' ] ) ],
+			[ 'clipboard', __( 'Beleg erfassen', 'mietverwaltung' ), self::url( 'belege', [ 'action' => 'new' ] ) ],
+			[ 'bank', __( 'Bankimport', 'mietverwaltung' ), admin_url( 'admin.php?page=mietv_bank' ) ],
+			[ 'editor-ol', __( 'Zählerstand', 'mietverwaltung' ), self::url( 'zaehlerstaende', [ 'action' => 'new' ] ) ],
+			[ 'calculator', __( 'BK-Abrechnung', 'mietverwaltung' ), admin_url( 'admin.php?page=mietv_abrechnung' ) ],
+			[ 'media-document', __( 'Mietvertrag', 'mietverwaltung' ), admin_url( 'admin.php?page=mietv_mietvertrag' ) ],
+		];
+		echo '<div class="mv-quick">';
+		foreach ( $schnell as [ $icon, $label, $url ] ) {
+			printf( '<a class="mv-quick-btn" href="%s"><span class="dashicons dashicons-%s"></span>%s</a>', esc_url( $url ), esc_attr( $icon ), esc_html( $label ) );
+		}
+		echo '</div>';
+
+		if ( $hinweise || $offene_meldungen ) {
+			echo '<section class="mv-card mv-hinweise"><header class="mv-card-head"><h2>' . esc_html__( 'Hinweise', 'mietverwaltung' ) . '</h2></header><ul>';
+			if ( $offene_meldungen ) {
+				printf( '<li class="warn"><span class="dashicons dashicons-warning"></span><a href="%s">' . /* translators: %d: Anzahl */ esc_html__( '%d offene Meldung(en) aus dem Mieterportal', 'mietverwaltung' ) . '</a></li>', esc_url( self::url( 'meldungen' ) ), (int) $offene_meldungen );
+			}
+			foreach ( array_slice( $hinweise, 0, 8 ) as $h ) {
+				printf( '<li class="%s"><span class="dashicons dashicons-%s"></span><a href="%s">%s</a></li>', esc_attr( $h['typ'] ), esc_attr( $h['typ'] === 'error' ? 'dismiss' : ( $h['typ'] === 'warn' ? 'warning' : 'info' ) ), esc_url( $h['url'] ), esc_html( $h['text'] ) );
+			}
+			echo '</ul></section>';
+		}
+	}
+
 	public static function page_uebersicht(): void {
 		global $wpdb;
 		echo '<div class="wrap mv-wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Mietverwaltung – Übersicht', 'mietverwaltung' ) . '</h1> ';
@@ -2054,26 +2140,26 @@ class Mietv_Admin {
 		}
 
 		$offene = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_meldungen WHERE status <> 'erledigt'" );
-		if ( $offene ) {
-			printf( '<div class="notice notice-warning inline"><p>' . /* translators: %d: Wert */ esc_html__( '%d offene Meldung(en) –', 'mietverwaltung' ) . ' <a href="%s">' . esc_html__( 'zur Bearbeitung', 'mietverwaltung' ) . '</a></p></div>', (int) $offene, esc_url( self::url( 'meldungen' ) ) );
-		}
+
+		self::dashboard( $mvs, $offene );
 
 		echo '<form method="post" id="mv-op-form">';
 		wp_nonce_field( 'mietv_op_buchen', 'mietv_op_nonce' );
-		echo '<p class="description">' . esc_html__( 'Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar).', 'mietverwaltung' ) . ' <button class="button button-primary" onclick="return document.querySelectorAll(\'#mv-op-form input[name=\\\'op[]\\\']:checked\').length>0||(alert(\'' . esc_js( esc_html__( 'Bitte mindestens einen Monat anhaken.', 'mietverwaltung' ) ) . '\'),false)">' . esc_html__( 'Markierte als bezahlt buchen', 'mietverwaltung' ) . '</button></p>';
+		echo '<p class="description mv-op-hinweis">' . esc_html__( 'Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar).', 'mietverwaltung' ) . ' <button class="button button-primary" onclick="return document.querySelectorAll(\'#mv-op-form input[name=\\\'op[]\\\']:checked\').length>0||(alert(\'' . esc_js( esc_html__( 'Bitte mindestens einen Monat anhaken.', 'mietverwaltung' ) ) . '\'),false)">' . esc_html__( 'Markierte als bezahlt buchen', 'mietverwaltung' ) . '</button></p>';
 		$offen_gesamt = 0;
 		foreach ( $mvs as $mv ) {
 			$op          = Mietv_Soll::op_liste( $mv );
 			$saldo_class = $op['saldo'] < -0.005 ? 'mv-neg' : ( $op['saldo'] > 0.005 ? 'mv-pos' : '' );
 
-			printf( '<h2>%s</h2>', esc_html( Mietv_Soll::mietv_label( $mv ) ) );
+			$meta = sprintf( /* translators: %1$s: Datum, %2$s: Betrag */ __( 'Mietbeginn %1$s · Kaution %2$s', 'mietverwaltung' ), mietv_date( $mv->beginn ), mietv_eur( $mv->kaution ) );
 			printf(
-				'<p>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'Mietbeginn %1$s · Kaution %2$s · Saldo gesamt:', 'mietverwaltung' ) . ' <strong class="%s">%s</strong> <a href="%s" class="button button-small">' . esc_html__( 'Zahlung erfassen', 'mietverwaltung' ) . '</a></p>',
-				esc_html( mietv_date( $mv->beginn ) ),
-				esc_html( mietv_eur( $mv->kaution ) ),
-				esc_attr( $saldo_class ),
+				'<section class="mv-card mv-mvcard"><header class="mv-card-head"><div><h2>%s</h2><p class="mv-muted">%s</p></div><div class="mv-card-tools"><span class="mv-badge %s">' . esc_html__( 'Saldo', 'mietverwaltung' ) . ' %s</span> <a href="%s" class="button">' . esc_html__( 'Zahlung erfassen', 'mietverwaltung' ) . '</a> <a href="%s" class="button">' . esc_html__( 'Mietvertrag', 'mietverwaltung' ) . '</a></div></header>',
+				esc_html( Mietv_Soll::mietv_label( $mv ) ),
+				esc_html( $meta ),
+				esc_attr( $saldo_class ?: 'mv-neutral' ),
 				esc_html( mietv_eur( $op['saldo'] ) ),
-				esc_url( self::url( 'zahlungen', [ 'action' => 'new' ] ) )
+				esc_url( self::url( 'zahlungen', [ 'action' => 'new' ] ) ),
+				esc_url( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . (int) $mv->id ) )
 			);
 
 			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" title="' . esc_attr__( 'alle offenen Monate dieses Mietverhältnisses', 'mietverwaltung' ) . '" onclick="this.closest(\'table\').querySelectorAll(\'tbody input[type=checkbox]\').forEach(c=>c.checked=this.checked)"></th><th>' . esc_html__( 'Monat', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Kaltmiete', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'BK-VZ', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'HK-VZ', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Soll', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ist', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Differenz', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Saldo kumuliert', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
@@ -2106,6 +2192,7 @@ class Mietv_Admin {
 				esc_attr( $saldo_class ),
 				esc_html( mietv_eur( $op['saldo'] ) )
 			);
+			echo '</section>';
 		}
 		if ( $offen_gesamt ) {
 			echo '<p><button class="button button-primary">' . esc_html__( 'Markierte als bezahlt buchen', 'mietverwaltung' ) . '</button></p>';

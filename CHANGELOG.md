@@ -2,6 +2,14 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietverwaltung“.
 
+## 1.0.0 – Neues Backend-Layout
+
+- **Seitenkopf** auf allen Plugin-Seiten mit Modul-Icon, Breadcrumb und Aktionsbuttons; Inhalte in Karten mit abgesetztem Seitenhintergrund.
+- **Übersicht als Dashboard**: Kennzahlen (Objekte/Einheiten, monatliches Soll, offene Mietforderungen, Einnahmen des Jahres), Schnellzugriff (Zahlung, Beleg, Bankimport, Zählerstand, BK-Abrechnung, Mietvertrag), Hinweise-Karte; jedes Mietverhältnis als Karte mit Saldo-Badge und Direktlinks.
+- Einheitliche Tabellen (ruhige Kopfzeile, Zeilen-Hover, tabellarische Zahlen, kein Wortumbruch in Spaltentiteln), Formulare mit klaren Eingabefeldern und Fokusrahmen, abgerundete Buttons in der Plugin-Farbwelt, Kennzahlenkacheln auf Steuer-, Kautions- und Darlehensseiten.
+- Technik: `assets/admin.js` (Seitenkopf, Tabellen-/Formularkarten), überarbeitete `assets/admin.css` mit Design-Tokens; keine Änderungen an Datenmodell oder Logik.
+- Behoben: Nach der Präfix-Umstellung waren alle Stammdaten-Seiten leer (`substr`-Offset); falsche Platzhalterreihenfolge in Betriebskosten-Anschreiben, Kautionsabrechnung und Mieterhöhungs-Schreiben; Vorauswahl auf Kautions-, Mieterhöhungs- und Darlehensseite griff nicht (fehlender Int-Cast).
+
 ## 0.9.9 – Einrichtungsassistent, Coding Standards, WordPress.org-Reife
 
 - **Einrichtungsassistent**: fünf Schritte (Vermieter → Objekt → Einheiten mit Garage → Mieter mit Partner → Mietverhältnis mit Konditionen). Jeder Schritt speichert sofort, Wiederaufruf aktualisiert statt zu duplizieren; Start nach Aktivierung, Hinweis auf der Übersicht, Verlinkung aus der Hilfe.

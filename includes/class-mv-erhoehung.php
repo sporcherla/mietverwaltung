@@ -188,7 +188,7 @@ class Mietv_Erhoehung {
 
 		$mvs   = Mietv_Soll::alle_mv( true );
 		$in    = isset( $_POST['mietv_erh_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_erh_nonce'] ?? '' ) ), 'mietv_erh' ) ? self::eingaben() : null;
-		$mv_id = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : ( $mvs[0]->id ?? 0 ) );
+		$mv_id = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : (int) ( $mvs[0]->id ?? 0 ) );
 		$mv    = null;
 		foreach ( $mvs as $m ) {
 			if ( (int) $m->id === $mv_id ) {
@@ -296,7 +296,8 @@ class Mietv_Erhoehung {
 			$b .= '<p>' . esc_html__( 'Einer Zustimmung bedarf es nicht; die Anpassung wird mit Beginn des übernächsten Monats nach Zugang dieses Schreibens wirksam (§ 557b Abs. 3 BGB). Bitte passen Sie Ihren Dauerauftrag entsprechend an.', 'mietverwaltung' ) . '</p>';
 		} else {
 			$betreff = 'Anpassung der Miete';
-			$b      .= sprintf( '<p>' . esc_html__( 'wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete', 'mietverwaltung' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'ab dem %s', 'mietverwaltung' ) . '</strong> <strong>%s</strong> ' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'monatlich (bisher %1$s). Grund: %2$s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %3$s.', 'mietverwaltung' ) . '</p><p>' . esc_html__( 'Bitte passen Sie Ihren Dauerauftrag entsprechend an.', 'mietverwaltung' ) . '</p>', esc_html( mietv_date( $e->wirksam_ab ) ), esc_html( mietv_eur( $e->neu ) ), esc_html( mietv_eur( $e->alt ) ), esc_html( $begr[0] ), esc_html( mietv_eur( $gesamt ) ) );
+			$rest    = sprintf( /* translators: %1$s: bisherige Miete, %2$s: Grund, %3$s: Gesamtmiete */ __( 'monatlich (bisher %1$s). Grund: %2$s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %3$s.', 'mietverwaltung' ), mietv_eur( $e->alt ), $begr[0], mietv_eur( $gesamt ) );
+			$b      .= '<p>' . esc_html__( 'wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete', 'mietverwaltung' ) . ' <strong>' . esc_html( sprintf( /* translators: %s: Datum */ __( 'ab dem %s', 'mietverwaltung' ), mietv_date( $e->wirksam_ab ) ) ) . '</strong> <strong>' . esc_html( mietv_eur( $e->neu ) ) . '</strong> ' . esc_html( $rest ) . '</p><p>' . esc_html__( 'Bitte passen Sie Ihren Dauerauftrag entsprechend an.', 'mietverwaltung' ) . '</p>';
 		}
 		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
 		Mietv_Brief::ausgeben( 'Mieterhoehung ' . $e->zugang, Mietv_Brief::empfaenger( $mv ), $betreff, $b, mietv_date( $e->zugang ), true, [ $objekt_id, $mv->id, 'sonstiges', 'Mieterhöhung ' . mietv_date( $e->zugang ), false ] );

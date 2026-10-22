@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 0.9.9
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,10 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 7. Tenant portal
 
 == Changelog ==
+
+= 1.0.0 =
+* New admin layout: page header with icon, cards, dashboard with key figures, quick actions and notices on the overview, consistent tables and forms
+* Fixed: entity pages were blank after the prefix change; placeholder order in several generated letters; fallback selection on deposit, rent increase and loan pages
 
 = 0.9.9 =
 * Setup wizard (five steps from landlord to first tenancy)

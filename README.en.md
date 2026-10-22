@@ -4,7 +4,7 @@
 
 **Mietverwaltung** (“rental management”) puts everything a private landlord needs for one or more flats into a single WordPress plugin: master data, rent receipts, expense receipts, service charge statements, German tax reporting (Anlage V), a complete tenancy agreement with all annexes, deposit account, loans, dunning, rent increases and a tenant portal. All data stays in your own WordPress database – no cloud service, no data transfer to third parties.
 
-- Version **0.9.9** · License GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
+- Version **1.0.0** · License GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
 - Languages: German (source), English (complete UI translation)
 - Scope: long-term residential letting under **German law** (not holiday lets)
 
