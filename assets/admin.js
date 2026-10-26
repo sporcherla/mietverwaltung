@@ -71,6 +71,19 @@
 			d.appendChild( t );
 		} );
 
+		/* Bankimport: Zuordnungsfelder passend zum Typ zeigen */
+		wrap.querySelectorAll( 'select[name$="[typ]"]' ).forEach( function ( sel ) {
+			var row = sel.closest( 'tr' );
+			if ( ! row ) { return; }
+			var sync = function () {
+				var z = row.querySelector( '.mv-z-zahlung' ), b = row.querySelector( '.mv-z-beleg' );
+				if ( z ) { z.style.display = sel.value === 'zahlung' ? '' : 'none'; }
+				if ( b ) { b.style.display = sel.value === 'beleg' ? '' : 'none'; }
+			};
+			sel.addEventListener( 'change', sync );
+			sync();
+		} );
+
 		/* Zahlen rechtsbündig markieren */
 		wrap.querySelectorAll( 'table.widefat td' ).forEach( function ( td ) {
 			if ( /^-?[\d.]+,\d{2}\s?€$/.test( td.textContent.trim() ) ) { td.classList.add( 'mv-td-num' ); }

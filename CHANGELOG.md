@@ -1,6 +1,14 @@
 # Changelog
 
-Alle nennenswerten Änderungen am Plugin „Mietverwaltung“.
+Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
+
+## 1.0.1 – Umbenennung in Mietfux, Review-Rückmeldungen von WordPress.org
+
+- **Neuer Name „Mietfux – Mietverwaltung für Vermieter“**, Slug und Text-Domain `mietfux`, Hauptdatei `mietfux.php`. Das Review-Team stufte „Mietverwaltung“ als zu generisch ein. Interner Präfix `mietv_` und Tabellen `wp_mv_*` bleiben; der Shortcode `[mietverwaltung_portal]` funktioniert weiter als Alias zu `[mietfux_portal]`.
+- **Kein Inline-CSS/JS mehr**: Portal-Stylesheet, Druckansichten (Schreiben, Mietvertrag) und Fokusmodus laufen über `wp_enqueue_style`/`wp_add_inline_style`/`wp_print_styles`; Auto-Druck als `assets/druck.js`.
+- `load_plugin_textdomain()` entfernt (WordPress.org liefert Übersetzungen über translate.wordpress.org); `.po/.mo` bleiben im Repository, sind aber nicht mehr im Paket. Contributor in `readme.txt` auf den WordPress.org-Benutzer gesetzt.
+- Behoben: die `admin_post_*`-Hooks trugen noch den alten Präfix – **alle PDF-/CSV-/Backup-/Auskunfts-Links liefen ins Leere**; `fputcsv`/`str_getcsv` mit ungültigem Enclosure-Zeichen (CSV-Export und Bank-CSV-Import brachen ab); Checkbox-Zeile im Übergabeprotokoll ohne Escaping.
+- Bankimport: Zuordnungsfelder werden passend zum gewählten Typ ein-/ausgeblendet.
 
 ## 1.0.0 – Neues Backend-Layout
 

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Mietv_Steuer {
 
 	public static function init(): void {
-		add_action( 'admin_post_mv_steuer_csv', [ __CLASS__, 'csv' ] );
+		add_action( 'admin_post_mietv_steuer_csv', [ __CLASS__, 'csv' ] );
 		add_action( 'admin_init', [ __CLASS__, 'zeilen_speichern' ] );
 	}
 
@@ -201,7 +201,7 @@ class Mietv_Steuer {
 			}
 			$arten[ 'afa|a' . $r['anlagegut']->id ] = (object) [
 				'gruppe'       => 'afa',
-				'name'         => esc_html__( 'AfA', 'mietverwaltung' ) . ' ' . $r['anlagegut']->bezeichnung,
+				'name'         => esc_html__( 'AfA', 'mietfux' ) . ' ' . $r['anlagegut']->bezeichnung,
 				'anzahl'       => 1,
 				'summe'        => $r['afa'],
 				'umlagefaehig' => 0,
@@ -216,7 +216,7 @@ class Mietv_Steuer {
 			}
 			$arten[ 'schuldzinsen|d' . $d->darlehen_id ] = (object) [
 				'gruppe'       => 'schuldzinsen',
-				'name'         => esc_html__( 'Zinsen', 'mietverwaltung' ) . ' ' . $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ),
+				'name'         => esc_html__( 'Zinsen', 'mietfux' ) . ' ' . $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ),
 				'anzahl'       => 1,
 				'summe'        => (float) $d->zinsen,
 				'umlagefaehig' => 0,
@@ -309,20 +309,20 @@ class Mietv_Steuer {
 		$csv = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_steuer_csv&jahr=' . $jahr ), 'mietv_steuer_csv_' . $jahr );
 
 		echo '<div class="wrap mv-wrap"><h1>Steuer – Anlage V ' . (int) $jahr . '</h1>';
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_steuer"><label>' . esc_html__( 'Steuerjahr:', 'mietverwaltung' ) . ' <select name="jahr" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_steuer"><label>' . esc_html__( 'Steuerjahr:', 'mietfux' ) . ' <select name="jahr" onchange="this.form.submit()">';
 		foreach ( self::jahre() as $j ) {
 			printf( '<option value="%1$d"%2$s>%1$d</option>', (int) $j, selected( (int) $jahr, (int) $j, false ) );
 		}
 		echo '</select></label> <a href="' . esc_url( $csv ) . '" class="button">CSV exportieren</a> <button type="button" class="button" onclick="window.print()">Drucken</button></form>';
 
 		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'zeilen' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Zeilennummern gespeichert.', 'mietverwaltung' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Zeilennummern gespeichert.', 'mietfux' ) . '</p></div>';
 		}
 		$chart = self::chart( $jahr );
 		if ( $chart ) {
-			echo '<h2>' . esc_html__( 'Entwicklung', 'mietverwaltung' ) . '</h2>' . $chart; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			echo '<h2>' . esc_html__( 'Entwicklung', 'mietfux' ) . '</h2>' . $chart; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		}
-		echo '<p class="description">' . esc_html__( 'Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten.', 'mietverwaltung' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten.', 'mietfux' ) . '</p>';
 
 		// Hinweise
 		self::hinweise();
@@ -338,13 +338,13 @@ class Mietv_Steuer {
 				return '';
 			}
 			$p = ( $neu / $alt - 1 ) * 100;
-			return sprintf( '<small>' . /* translators: %1$s: Wert, %2$+.1f: Wert */ esc_html__( 'Vorjahr %1$s (%2$+.1f %%)', 'mietverwaltung' ) . '</small>', mietv_eur( $alt ), $p );
+			return sprintf( '<small>' . /* translators: %1$s: Wert, %2$+.1f: Wert */ esc_html__( 'Vorjahr %1$s (%2$+.1f %%)', 'mietfux' ) . '</small>', mietv_eur( $alt ), $p );
 		};
 
 		// Ergebnis
 		$cls = $ergebnis < 0 ? 'mv-neg' : 'mv-pos';
 		printf(
-			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Einnahmen gesamt', 'mietverwaltung' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Werbungskosten gesamt', 'mietverwaltung' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Überschuss / Verlust', 'mietverwaltung' ) . '</span><strong class="%s">%s</strong>%s</div></div>',
+			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Einnahmen gesamt', 'mietfux' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Werbungskosten gesamt', 'mietfux' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Überschuss / Verlust', 'mietfux' ) . '</span><strong class="%s">%s</strong>%s</div></div>',
 			esc_html( mietv_eur( $ein_sum ) ),
 			$delta( $ein_sum, $ein_vj_sum ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			esc_html( mietv_eur( $wk_sum ) ),
@@ -355,18 +355,18 @@ class Mietv_Steuer {
 		);
 
 		// Einnahmen
-		echo '<h2>' . esc_html__( 'Einnahmen', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Mieteinnahmen (ohne Umlagen)', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Vereinnahmte Umlagen', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamt', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
+		echo '<h2>' . esc_html__( 'Einnahmen', 'mietfux' ) . '</h2><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Mietverhältnis', 'mietfux' ) . '</th><th>' . esc_html__( 'Mieteinnahmen (ohne Umlagen)', 'mietfux' ) . '</th><th>' . esc_html__( 'Vereinnahmte Umlagen', 'mietfux' ) . '</th><th>' . esc_html__( 'Gesamt', 'mietfux' ) . '</th></tr></thead><tbody>';
 		if ( ! $ein ) {
-			echo '<tr><td colspan="4">' . esc_html__( 'Keine Zahlungseingänge in diesem Jahr.', 'mietverwaltung' ) . '</td></tr>';
+			echo '<tr><td colspan="4">' . esc_html__( 'Keine Zahlungseingänge in diesem Jahr.', 'mietfux' ) . '</td></tr>';
 		}
 		foreach ( $ein as $e ) {
 			printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $e['label'] ), esc_html( mietv_eur( $e['miete'] ) ), esc_html( mietv_eur( $e['umlagen'] ) ), esc_html( mietv_eur( $e['gesamt'] ) ) );
 		}
-		printf( '</tbody><tfoot><tr><th>' . esc_html__( 'Summe', 'mietverwaltung' ) . '</th><th>%s</th><th>%s</th><th>%s</th></tr></tfoot></table>', esc_html( mietv_eur( $ein_miete ) ), esc_html( mietv_eur( $ein_uml ) ), esc_html( mietv_eur( $ein_sum ) ) );
+		printf( '</tbody><tfoot><tr><th>' . esc_html__( 'Summe', 'mietfux' ) . '</th><th>%s</th><th>%s</th><th>%s</th></tr></tfoot></table>', esc_html( mietv_eur( $ein_miete ) ), esc_html( mietv_eur( $ein_uml ) ), esc_html( mietv_eur( $ein_sum ) ) );
 
 		// Werbungskosten
 		$zeilen = self::zeilen( $jahr );
-		echo '<h2>' . esc_html__( 'Werbungskosten', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Anlage-V-Gruppe / Position', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Zeile Anlage V', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Quelle', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Belege', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'davon umlagefähig', 'mietverwaltung' ) . '</th><th>Vorjahr ' . (int) $vj . '</th><th>Betrag ' . (int) $jahr . '</th></tr></thead><tbody>';
+		echo '<h2>' . esc_html__( 'Werbungskosten', 'mietfux' ) . '</h2><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Anlage-V-Gruppe / Position', 'mietfux' ) . '</th><th>' . esc_html__( 'Zeile Anlage V', 'mietfux' ) . '</th><th>' . esc_html__( 'Quelle', 'mietfux' ) . '</th><th>' . esc_html__( 'Belege', 'mietfux' ) . '</th><th>' . esc_html__( 'davon umlagefähig', 'mietfux' ) . '</th><th>Vorjahr ' . (int) $vj . '</th><th>Betrag ' . (int) $jahr . '</th></tr></thead><tbody>';
 		foreach ( $wk as $gk => $g ) {
 			if ( ! $g['arten'] && empty( $wk_vj[ $gk ]['arten'] ) ) {
 				continue;
@@ -381,17 +381,17 @@ class Mietv_Steuer {
 			}
 		}
 		if ( abs( $wk_sum ) < 0.005 ) {
-			echo '<tr><td colspan="7">' . esc_html__( 'Keine Werbungskosten in diesem Jahr.', 'mietverwaltung' ) . '</td></tr>';
+			echo '<tr><td colspan="7">' . esc_html__( 'Keine Werbungskosten in diesem Jahr.', 'mietfux' ) . '</td></tr>';
 		}
-		printf( '</tbody><tfoot><tr><th>' . esc_html__( 'Summe Werbungskosten', 'mietverwaltung' ) . '</th><th>%s</th><th></th><th></th><th></th><th>%s</th><th>%s</th></tr></tfoot></table>', esc_html( $zeilen['summe_wk'] ?? '' ), esc_html( mietv_eur( $wk_vj_sum ) ), esc_html( mietv_eur( $wk_sum ) ) );
+		printf( '</tbody><tfoot><tr><th>' . esc_html__( 'Summe Werbungskosten', 'mietfux' ) . '</th><th>%s</th><th></th><th></th><th></th><th>%s</th><th>%s</th></tr></tfoot></table>', esc_html( $zeilen['summe_wk'] ?? '' ), esc_html( mietv_eur( $wk_vj_sum ) ), esc_html( mietv_eur( $wk_sum ) ) );
 
 		// Zeilen-Zuordnung pflegen
 		echo '<details class="mv-details"><summary>Zeilennummern der Anlage V ' . (int) $jahr . ' pflegen</summary><form method="post" class="mv-form">';
 		wp_nonce_field( 'mietv_zeilen', 'mietv_zeilen_nonce' );
 		printf( '<input type="hidden" name="jahr" value="%d"><table class="form-table"><tbody>', (int) $jahr );
 		$felder = [
-			'einnahmen_miete'   => esc_html__( 'Mieteinnahmen (ohne Umlagen)', 'mietverwaltung' ),
-			'einnahmen_umlagen' => esc_html__( 'Vereinnahmte Umlagen', 'mietverwaltung' ),
+			'einnahmen_miete'   => esc_html__( 'Mieteinnahmen (ohne Umlagen)', 'mietfux' ),
+			'einnahmen_umlagen' => esc_html__( 'Vereinnahmte Umlagen', 'mietfux' ),
 		] + array_filter( Mietv_DB::anlage_v_gruppen(), fn( $k ) => $k !== 'einnahmen', ARRAY_FILTER_USE_KEY ) + [
 			'summe_wk' => 'Summe Werbungskosten',
 			'ergebnis' => 'Überschuss / Verlust',
@@ -401,37 +401,37 @@ class Mietv_Steuer {
 		}
 		echo '</tbody></table>';
 		submit_button( 'Zeilen speichern', 'secondary' );
-		echo '</form><p class="description">' . esc_html__( 'Die Zeilennummern stehen auf dem amtlichen Formular „Anlage V“ des jeweiligen Jahres (ELSTER). Einmal eingetragen, werden sie für Folgejahre vorbelegt, bis sich das Formular ändert.', 'mietverwaltung' ) . '</p></details>';
+		echo '</form><p class="description">' . esc_html__( 'Die Zeilennummern stehen auf dem amtlichen Formular „Anlage V“ des jeweiligen Jahres (ELSTER). Einmal eingetragen, werden sie für Folgejahre vorbelegt, bis sich das Formular ändert.', 'mietfux' ) . '</p></details>';
 
 		// AfA
 		$afa = Mietv_Afa::uebersicht( $jahr );
-		echo '<h2>' . esc_html__( 'Abschreibung (AfA)', 'mietverwaltung' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Abschreibung (AfA)', 'mietfux' ) . '</h2>';
 		if ( $afa ) {
-			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Anlagegut', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Anschaffung', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Bemessungsgrundlage', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Methode / Satz', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Monate', 'mietverwaltung' ) . '</th><th>AfA ' . (int) $jahr . '</th><th>Restbuchwert 31.12.</th></tr></thead><tbody>';
+			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Anlagegut', 'mietfux' ) . '</th><th>' . esc_html__( 'Anschaffung', 'mietfux' ) . '</th><th>' . esc_html__( 'Bemessungsgrundlage', 'mietfux' ) . '</th><th>' . esc_html__( 'Methode / Satz', 'mietfux' ) . '</th><th>' . esc_html__( 'Monate', 'mietfux' ) . '</th><th>AfA ' . (int) $jahr . '</th><th>Restbuchwert 31.12.</th></tr></thead><tbody>';
 			foreach ( $afa as $r ) {
 				$a  = $r['anlagegut'];
 				$nk = array_filter(
 					[
-						__( 'Grunderwerbsteuer', 'mietverwaltung' ) => (float) ( $a->nk_grunderwerbsteuer ?? 0 ),
-						__( 'Notar', 'mietverwaltung' )    => (float) ( $a->nk_notar ?? 0 ),
-						__( 'Grundbuch', 'mietverwaltung' ) => (float) ( $a->nk_grundbuch ?? 0 ),
-						__( 'Makler', 'mietverwaltung' )   => (float) ( $a->nk_makler ?? 0 ),
-						__( 'Sonstige', 'mietverwaltung' ) => (float) ( $a->nk_sonstige ?? 0 ),
+						__( 'Grunderwerbsteuer', 'mietfux' ) => (float) ( $a->nk_grunderwerbsteuer ?? 0 ),
+						__( 'Notar', 'mietfux' )     => (float) ( $a->nk_notar ?? 0 ),
+						__( 'Grundbuch', 'mietfux' ) => (float) ( $a->nk_grundbuch ?? 0 ),
+						__( 'Makler', 'mietfux' )    => (float) ( $a->nk_makler ?? 0 ),
+						__( 'Sonstige', 'mietfux' )  => (float) ( $a->nk_sonstige ?? 0 ),
 					]
 				);
 				if ( $nk ) {
 					$teile = implode( ' · ', array_map( fn( $l, $v ) => $l . ' ' . mietv_eur( $v ), array_keys( $nk ), $nk ) );
-					printf( '<tr><td colspan="7" class="mv-indent"><small>%s: %s %s = %s %s %s</small></td></tr>', esc_html( $a->bezeichnung ), esc_html__( 'Kaufpreis', 'mietverwaltung' ), esc_html( mietv_eur( $a->ak ) ), esc_html( $teile ), esc_html__( '→ Anschaffungskosten', 'mietverwaltung' ), esc_html( mietv_eur( (float) $a->ak + (float) $a->nebenkosten ) ) );
+					printf( '<tr><td colspan="7" class="mv-indent"><small>%s: %s %s = %s %s %s</small></td></tr>', esc_html( $a->bezeichnung ), esc_html__( 'Kaufpreis', 'mietfux' ), esc_html( mietv_eur( $a->ak ) ), esc_html( $teile ), esc_html__( '→ Anschaffungskosten', 'mietfux' ), esc_html( mietv_eur( (float) $a->ak + (float) $a->nebenkosten ) ) );
 				}
 				if ( $a->typ === 'gebaeude' && (float) $a->grundanteil <= 0 ) {
-					echo '<tr><td colspan="7" class="mv-warn">⚠ ' . esc_html( sprintf( /* translators: %s: Wert */ __( '%s: Anteil Grund und Boden ist 0 %% – das Finanzamt verlangt eine Aufteilung (Kaufvertrag oder BMF-Arbeitshilfe).', 'mietverwaltung' ), $a->bezeichnung ) ) . '</td></tr>';
+					echo '<tr><td colspan="7" class="mv-warn">⚠ ' . esc_html( sprintf( /* translators: %s: Wert */ __( '%s: Anteil Grund und Boden ist 0 %% – das Finanzamt verlangt eine Aufteilung (Kaufvertrag oder BMF-Arbeitshilfe).', 'mietfux' ), $a->bezeichnung ) ) . '</td></tr>';
 				}
 				printf(
 					'<tr><td>%s</td><td>%s</td><td>%s</td><td>%s %s %%</td><td>%d</td><td><strong>%s</strong></td><td>%s</td></tr>',
 					esc_html( $a->bezeichnung ),
 					esc_html( mietv_date( $a->anschaffung ) ),
 					esc_html( mietv_eur( $r['basis'] ) ),
-					$a->methode === 'degressiv' ? esc_html__( 'degressiv', 'mietverwaltung' ) : esc_html__( 'linear', 'mietverwaltung' ),
+					$a->methode === 'degressiv' ? esc_html__( 'degressiv', 'mietfux' ) : esc_html__( 'linear', 'mietfux' ),
 					esc_html( number_format( $r['satz'], 2, ',', '.' ) ),
 					(int) $r['monate'],
 					esc_html( mietv_eur( $r['afa'] ) ),
@@ -440,14 +440,14 @@ class Mietv_Steuer {
 			}
 			echo '</tbody></table>';
 		} else {
-			echo '<p>' . esc_html__( 'Keine Anlagegüter erfasst. Gebäude und Anschaffungsnebenkosten unter', 'mietverwaltung' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=mietv_anlagegueter' ) ) . '">Abschreibung (AfA)</a> anlegen.</p>';
+			echo '<p>' . esc_html__( 'Keine Anlagegüter erfasst. Gebäude und Anschaffungsnebenkosten unter', 'mietfux' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=mietv_anlagegueter' ) ) . '">Abschreibung (AfA)</a> anlegen.</p>';
 		}
 
 		// Finanzierung
 		$dj = self::darlehen_jahr( $jahr );
-		echo '<h2>' . esc_html__( 'Finanzierung', 'mietverwaltung' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Finanzierung', 'mietfux' ) . '</h2>';
 		if ( $dj ) {
-			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Darlehen', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Sollzins', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Zinsbindung bis', 'mietverwaltung' ) . '</th><th>Zinsen ' . (int) $jahr . ' (Werbungskosten)</th><th>Tilgung</th><th>Restschuld 31.12.</th><th>Bescheinigung</th></tr></thead><tbody>';
+			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Darlehen', 'mietfux' ) . '</th><th>' . esc_html__( 'Sollzins', 'mietfux' ) . '</th><th>' . esc_html__( 'Zinsbindung bis', 'mietfux' ) . '</th><th>Zinsen ' . (int) $jahr . ' (Werbungskosten)</th><th>Tilgung</th><th>Restschuld 31.12.</th><th>Bescheinigung</th></tr></thead><tbody>';
 			foreach ( $dj as $d ) {
 				$url = $d->attachment_id ? wp_get_attachment_url( (int) $d->attachment_id ) : '';
 				printf(
@@ -484,7 +484,7 @@ class Mietv_Steuer {
 			);
 		}
 		if ( ! $belege ) {
-			echo '<tr><td colspan="7">' . esc_html__( 'Keine Belege.', 'mietverwaltung' ) . '</td></tr>';
+			echo '<tr><td colspan="7">' . esc_html__( 'Keine Belege.', 'mietfux' ) . '</td></tr>';
 		}
 		echo '</tbody></table></div>';
 	}
@@ -496,7 +496,7 @@ class Mietv_Steuer {
 			}
 			$a   = $p['anlagegut'];
 			$txt = sprintf(
-				/* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert, %5$s: Wert, %6$s: Wert */                __( 'Anschaffungsnahe Herstellungskosten (§ 6 Abs. 1 Nr. 1a EStG) – %1$s: Erhaltungsaufwand %2$s bis %3$s bisher %4$s netto, Grenze 15 %% = %5$s (%6$s %%).', 'mietverwaltung' ),
+				/* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert, %5$s: Wert, %6$s: Wert */                __( 'Anschaffungsnahe Herstellungskosten (§ 6 Abs. 1 Nr. 1a EStG) – %1$s: Erhaltungsaufwand %2$s bis %3$s bisher %4$s netto, Grenze 15 %% = %5$s (%6$s %%).', 'mietfux' ),
 				$a->bezeichnung,
 				mietv_date( $p['von'] ),
 				mietv_date( $p['bis'] ),
@@ -505,9 +505,9 @@ class Mietv_Steuer {
 				number_format( $p['quote'], 1, ',', '.' )
 			);
 			if ( $p['netto'] > $p['grenze'] ) {
-				printf( '<div class="notice notice-error inline"><p><strong>' . esc_html__( 'Grenze überschritten!', 'mietverwaltung' ) . '</strong> ' . /* translators: %s: Wert */ esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-error inline"><p><strong>' . esc_html__( 'Grenze überschritten!', 'mietfux' ) . '</strong> ' . /* translators: %s: Wert */ esc_html__( '%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären.', 'mietfux' ) . '</p></div>', esc_html( $txt ) );
 			} elseif ( $p['aktiv'] && $p['quote'] >= 10 ) {
-				printf( '<div class="notice notice-warning inline"><p><strong>' . esc_html__( 'Achtung:', 'mietverwaltung' ) . '</strong> ' . /* translators: %s: Wert */ esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietverwaltung' ) . '</p></div>', esc_html( $txt ) );
+				printf( '<div class="notice notice-warning inline"><p><strong>' . esc_html__( 'Achtung:', 'mietfux' ) . '</strong> ' . /* translators: %s: Wert */ esc_html__( '%s Weitere Renovierungen in der Frist könnten die Grenze reißen.', 'mietfux' ) . '</p></div>', esc_html( $txt ) );
 			}
 		}
 	}
@@ -518,7 +518,7 @@ class Mietv_Steuer {
 
 	public static function csv(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		$jahr = ( isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_steuer_csv_' . $jahr );
@@ -531,25 +531,25 @@ class Mietv_Steuer {
 		$num = fn( $v ) => number_format( (float) $v, 2, ',', '' );
 
 		$zeilen = self::zeilen( $jahr );
-		fputcsv( $out, [ 'Bereich', 'Gruppe', 'Zeile Anlage V', 'Position', 'Quelle', 'Datum', 'Rechnungssteller', 'Beleg-Nr.', 'Umlagefähig', 'Betrag' ], $sep, '\"', '\\' );
+		fputcsv( $out, [ 'Bereich', 'Gruppe', 'Zeile Anlage V', 'Position', 'Quelle', 'Datum', 'Rechnungssteller', 'Beleg-Nr.', 'Umlagefähig', 'Betrag' ], $sep, '"', '\\' );
 
 		foreach ( self::einnahmen( $jahr ) as $e ) {
-			fputcsv( $out, [ 'Einnahmen', 'Mieteinnahmen', $zeilen['einnahmen_miete'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['miete'] ) ], $sep, '\"', '\\' );
-			fputcsv( $out, [ 'Einnahmen', 'Umlagen', $zeilen['einnahmen_umlagen'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['umlagen'] ) ], $sep, '\"', '\\' );
+			fputcsv( $out, [ 'Einnahmen', 'Mieteinnahmen', $zeilen['einnahmen_miete'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['miete'] ) ], $sep, '"', '\\' );
+			fputcsv( $out, [ 'Einnahmen', 'Umlagen', $zeilen['einnahmen_umlagen'] ?? '', $e['label'], 'Zahlungen', '', '', '', '', $num( $e['umlagen'] ) ], $sep, '"', '\\' );
 		}
 		foreach ( self::werbungskosten( $jahr ) as $gk => $g ) {
 			foreach ( $g['arten'] as $a ) {
-				fputcsv( $out, [ 'Werbungskosten (Summe)', $g['label'], $zeilen[ $gk ] ?? '', $a->name, $a->quelle, '', '', '', $a->umlagefaehig ? 'ja' : 'nein', $num( $a->summe ) ], $sep, '\"', '\\' );
+				fputcsv( $out, [ 'Werbungskosten (Summe)', $g['label'], $zeilen[ $gk ] ?? '', $a->name, $a->quelle, '', '', '', $a->umlagefaehig ? 'ja' : 'nein', $num( $a->summe ) ], $sep, '"', '\\' );
 			}
 		}
 		foreach ( Mietv_Afa::uebersicht( $jahr ) as $r ) {
-			fputcsv( $out, [ 'AfA', 'Absetzung für Abnutzung', $zeilen['afa'] ?? '', $r['anlagegut']->bezeichnung, 'Anlagegut', mietv_date( $r['anlagegut']->anschaffung ), '', 'Restwert ' . $num( $r['restwert'] ), 'nein', $num( $r['afa'] ) ], $sep, '\"', '\\' );
+			fputcsv( $out, [ 'AfA', 'Absetzung für Abnutzung', $zeilen['afa'] ?? '', $r['anlagegut']->bezeichnung, 'Anlagegut', mietv_date( $r['anlagegut']->anschaffung ), '', 'Restwert ' . $num( $r['restwert'] ), 'nein', $num( $r['afa'] ) ], $sep, '"', '\\' );
 		}
 		foreach ( self::darlehen_jahr( $jahr ) as $d ) {
-			fputcsv( $out, [ 'Finanzierung', 'Schuldzinsen', $zeilen['schuldzinsen'] ?? '', $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ), 'Darlehen', '', $d->bank, 'Restschuld ' . $num( $d->restschuld ), 'nein', $num( $d->zinsen ) ], $sep, '\"', '\\' );
+			fputcsv( $out, [ 'Finanzierung', 'Schuldzinsen', $zeilen['schuldzinsen'] ?? '', $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ), 'Darlehen', '', $d->bank, 'Restschuld ' . $num( $d->restschuld ), 'nein', $num( $d->zinsen ) ], $sep, '"', '\\' );
 		}
 		foreach ( self::belege( $jahr ) as $b ) {
-			fputcsv( $out, [ 'Beleg', Mietv_DB::anlage_v_gruppen()[ $b->anlage_v ] ?? $b->anlage_v, $zeilen[ $b->anlage_v ] ?? '', $b->kostenart . ( $b->verteilt ? ' (Anteil ' . $b->anteil_nr . '/' . $b->verteilung_jahre . ')' : '' ), 'Belege', mietv_date( $b->datum ), $b->lieferant, $b->belegnr, $b->umlagefaehig ? 'ja' : 'nein', $num( $b->anteil ) ], $sep, '\"', '\\' );
+			fputcsv( $out, [ 'Beleg', Mietv_DB::anlage_v_gruppen()[ $b->anlage_v ] ?? $b->anlage_v, $zeilen[ $b->anlage_v ] ?? '', $b->kostenart . ( $b->verteilt ? ' (Anteil ' . $b->anteil_nr . '/' . $b->verteilung_jahre . ')' : '' ), 'Belege', mietv_date( $b->datum ), $b->lieferant, $b->belegnr, $b->umlagefaehig ? 'ja' : 'nein', $num( $b->anteil ) ], $sep, '"', '\\' );
 		}
 		fclose( $out ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- php://output
 		exit;

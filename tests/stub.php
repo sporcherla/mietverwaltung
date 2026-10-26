@@ -44,3 +44,5 @@ if ( ! function_exists( 'wp_unslash' ) ) { function wp_unslash($s){return $s;} }
 if ( ! function_exists( 'sanitize_text_field' ) ) { function sanitize_text_field($s){return trim(strip_tags((string)$s));} }
 if ( ! function_exists( 'sanitize_key' ) ) { function sanitize_key($s){return preg_replace('/[^a-z0-9_]/','',strtolower((string)$s));} }
 if ( ! function_exists( 'sanitize_file_name' ) ) { function sanitize_file_name($s){return $s;} }
+if ( ! function_exists( 'wp_enqueue_style' ) ) { function wp_enqueue_style(){} function wp_enqueue_script(){} function wp_print_styles(){} function wp_print_scripts(){} function wp_add_inline_style(){} }
+if ( ! defined( 'MIETV_URL' ) ) { define( 'MIETV_URL', '/plugin/' ); define( 'MIETV_VERSION', 'test' ); }

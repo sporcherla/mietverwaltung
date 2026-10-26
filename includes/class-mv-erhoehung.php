@@ -13,7 +13,7 @@ class Mietv_Erhoehung {
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
-		add_action( 'admin_post_mv_erhoehung_brief', [ __CLASS__, 'brief' ] );
+		add_action( 'admin_post_mietv_erhoehung_brief', [ __CLASS__, 'brief' ] );
 	}
 
 	/** Beginn des n-ten Monats nach dem Zugangsmonat (n=3 → § 558b; n=2 → § 557b). */
@@ -78,9 +78,9 @@ class Mietv_Erhoehung {
 			$res['neu']  = $in['neu'] > 0 ? min( (float) $in['neu'], $res['max'] ) : $res['max'];
 			$res['neu']  = round( $res['neu'], 2 );
 			if ( $res['neu'] <= $alt ) {
-				$res['fehler'][] = __( 'Keine Erhöhung möglich: Die ortsübliche Vergleichsmiete bzw. die Kappungsgrenze liegt nicht über der aktuellen Miete.', 'mietverwaltung' );
+				$res['fehler'][] = __( 'Keine Erhöhung möglich: Die ortsübliche Vergleichsmiete bzw. die Kappungsgrenze liegt nicht über der aktuellen Miete.', 'mietfux' );
 			}
-			$res['hinweise'][]  = sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$d: Wert, %5$s: Wert, %6$s: Wert, %7$s: Wert */ __( 'Ortsübliche Vergleichsmiete: %1$s €/m² × %2$s m² = %3$s. Kappungsgrenze (%4$d %% auf Miete vor 3 Jahren %5$s): %6$s. Zulässiges Maximum: %7$s.', 'mietverwaltung' ), number_format( (float) $in['vergleich_qm'], 2, ',', '.' ), number_format( $flaeche, 2, ',', '.' ), mietv_eur( $vergleich ), $kappung * 100, mietv_eur( $miete_vor3 ), mietv_eur( $max_kappung ), mietv_eur( $res['max'] ) );
+			$res['hinweise'][]  = sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$d: Wert, %5$s: Wert, %6$s: Wert, %7$s: Wert */ __( 'Ortsübliche Vergleichsmiete: %1$s €/m² × %2$s m² = %3$s. Kappungsgrenze (%4$d %% auf Miete vor 3 Jahren %5$s): %6$s. Zulässiges Maximum: %7$s.', 'mietfux' ), number_format( (float) $in['vergleich_qm'], 2, ',', '.' ), number_format( $flaeche, 2, ',', '.' ), mietv_eur( $vergleich ), $kappung * 100, mietv_eur( $miete_vor3 ), mietv_eur( $max_kappung ), mietv_eur( $res['max'] ) );
 			$res['hinweise'][]  = 'Wirksam ab Beginn des dritten Monats nach Zugang (§ 558b Abs. 1 BGB): ' . mietv_date( $res['wirksam_ab'] ) . '. Der Mieter hat bis dahin Zeit zur Zustimmung; ohne Zustimmung Klage innerhalb weiterer drei Monate (§ 558b Abs. 2).';
 			$res['begruendung'] = $in['begruendung'] ?: 'Mietspiegel';
 		} elseif ( $art === 'index' ) {
@@ -88,23 +88,23 @@ class Mietv_Erhoehung {
 			$vpi_alt           = (float) $in['vpi_alt'];
 			$vpi_neu           = (float) $in['vpi_neu'];
 			if ( $vpi_alt <= 0 || $vpi_neu <= 0 ) {
-				$res['fehler'][] = __( 'Bitte beide Indexstände (VPI, Basis 2020 = 100) angeben.', 'mietverwaltung' );
+				$res['fehler'][] = __( 'Bitte beide Indexstände (VPI, Basis 2020 = 100) angeben.', 'mietfux' );
 			} else {
 				$res['neu'] = round( $alt * $vpi_neu / $vpi_alt, 2 );
 				$basis      = self::letzte_erhoehung( (int) $mv->id ) ?: $mv->beginn;
 				if ( gmdate( 'Y-m-d', strtotime( $basis . ' +12 months' ) ) > $res['wirksam_ab'] ) {
-					$res['fehler'][] = __( 'Indexmiete: Die Miete muss mindestens ein Jahr unverändert gewesen sein (§ 557b Abs. 2 BGB).', 'mietverwaltung' );
+					$res['fehler'][] = __( 'Indexmiete: Die Miete muss mindestens ein Jahr unverändert gewesen sein (§ 557b Abs. 2 BGB).', 'mietfux' );
 				}
-				$res['hinweise'][]  = sprintf( /* translators: %1$s: VPI alt, %2$s: VPI neu, %3$s: Änderung in Prozent, %4$s: neue Kaltmiete, %5$s: bisherige Kaltmiete, %6$s: Datum */ __( 'VPI %1$s → %2$s = %3$+.2f %%. Neue Kaltmiete %4$s (bisher %5$s). Wirksam ab Beginn des übernächsten Monats nach Zugang: %6$s.', 'mietverwaltung' ), number_format( $vpi_alt, 1, ',', '.' ), number_format( $vpi_neu, 1, ',', '.' ), ( $vpi_neu / $vpi_alt - 1 ) * 100, mietv_eur( $res['neu'] ), mietv_eur( $alt ), mietv_date( $res['wirksam_ab'] ) );
+				$res['hinweise'][]  = sprintf( /* translators: %1$s: VPI alt, %2$s: VPI neu, %3$s: Änderung in Prozent, %4$s: neue Kaltmiete, %5$s: bisherige Kaltmiete, %6$s: Datum */ __( 'VPI %1$s → %2$s = %3$+.2f %%. Neue Kaltmiete %4$s (bisher %5$s). Wirksam ab Beginn des übernächsten Monats nach Zugang: %6$s.', 'mietfux' ), number_format( $vpi_alt, 1, ',', '.' ), number_format( $vpi_neu, 1, ',', '.' ), ( $vpi_neu / $vpi_alt - 1 ) * 100, mietv_eur( $res['neu'] ), mietv_eur( $alt ), mietv_date( $res['wirksam_ab'] ) );
 				$res['begruendung'] = 'Indexmiete, VPI ' . number_format( $vpi_alt, 1, ',', '.' ) . ' → ' . number_format( $vpi_neu, 1, ',', '.' );
 			}
 		} else { // vereinbarung / staffel
 			$res['neu']        = round( (float) $in['neu'], 2 );
 			$res['wirksam_ab'] = $in['wirksam_ab'] ?: self::wirksam_ab( $zugang, 1 );
 			if ( $res['neu'] <= 0 ) {
-				$res['fehler'][] = __( 'Neue Kaltmiete angeben.', 'mietverwaltung' );
+				$res['fehler'][] = __( 'Neue Kaltmiete angeben.', 'mietfux' );
 			}
-			$res['hinweise'][]  = __( 'Einvernehmliche Änderung (§ 557 Abs. 1 BGB) bzw. vereinbarte Staffel (§ 557a BGB) – bedarf der Zustimmung des Mieters bzw. der Vereinbarung im Vertrag.', 'mietverwaltung' );
+			$res['hinweise'][]  = __( 'Einvernehmliche Änderung (§ 557 Abs. 1 BGB) bzw. vereinbarte Staffel (§ 557a BGB) – bedarf der Zustimmung des Mieters bzw. der Vereinbarung im Vertrag.', 'mietfux' );
 			$res['begruendung'] = $in['begruendung'] ?: 'Vereinbarung';
 		}
 		return $res;
@@ -179,11 +179,11 @@ class Mietv_Erhoehung {
 
 	public static function page(): void {
 		global $wpdb;
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mieterhöhung', 'mietverwaltung' ) . '</h1>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mieterhöhung', 'mietfux' ) . '</h1>';
 		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'ok' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			$u  = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_erhoehung_brief&id=' . $id ), 'mietv_erh_brief_' . $id );
-			printf( '<div class="notice notice-success"><p>' . esc_html__( 'Erhöhung gespeichert und neue Kondition angelegt.', 'mietverwaltung' ) . ' <a href="%s" target="_blank" class="button">' . esc_html__( 'PDF öffnen', 'mietverwaltung' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( 'PDF ablegen', 'mietverwaltung' ) . '</a></p></div>', esc_url( $u ), esc_url( $u ) );
+			printf( '<div class="notice notice-success"><p>' . esc_html__( 'Erhöhung gespeichert und neue Kondition angelegt.', 'mietfux' ) . ' <a href="%s" target="_blank" class="button">' . esc_html__( 'PDF öffnen', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( 'PDF ablegen', 'mietfux' ) . '</a></p></div>', esc_url( $u ), esc_url( $u ) );
 		}
 
 		$mvs   = Mietv_Soll::alle_mv( true );
@@ -201,41 +201,41 @@ class Mietv_Erhoehung {
 		echo '<form method="post" class="mv-form">';
 		wp_nonce_field( 'mietv_erh', 'mietv_erh_nonce' );
 		echo '<table class="form-table"><tbody>';
-		echo '<tr><th>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . '</th><td><select name="mv_id" onchange="this.form.submit()">';
+		echo '<tr><th>' . esc_html__( 'Mietverhältnis', 'mietfux' ) . '</th><td><select name="mv_id" onchange="this.form.submit()">';
 		foreach ( $mvs as $m ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $m->id, selected( (int) $mv_id, (int) $m->id, false ), esc_html( Mietv_Soll::mietv_label( $m ) ) );
 		}
 		echo '</select>';
 		if ( $mv ) {
 			$letzte = self::letzte_erhoehung( $mv_id );
-			printf( ' <span class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert */ esc_html__( 'Aktuelle Kaltmiete %1$s, Wohnfläche %2$s m², Mietbeginn %3$s%4$s', 'mietverwaltung' ) . '</span>', esc_html( mietv_eur( self::kaltmiete_am( $mv_id, current_time( 'Y-m-d' ) ) ) ), esc_html( number_format( $flaeche, 2, ',', '.' ) ), esc_html( mietv_date( $mv->beginn ) ), $letzte ? ', letzte Erhöhung ' . esc_html( mietv_date( $letzte ) ) : '' );
+			printf( ' <span class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert */ esc_html__( 'Aktuelle Kaltmiete %1$s, Wohnfläche %2$s m², Mietbeginn %3$s%4$s', 'mietfux' ) . '</span>', esc_html( mietv_eur( self::kaltmiete_am( $mv_id, current_time( 'Y-m-d' ) ) ) ), esc_html( number_format( $flaeche, 2, ',', '.' ) ), esc_html( mietv_date( $mv->beginn ) ), $letzte ? ', letzte Erhöhung ' . esc_html( mietv_date( $letzte ) ) : '' );
 		}
 		echo '</td></tr>';
-		echo '<tr><th>' . esc_html__( 'Art', 'mietverwaltung' ) . '</th><td><select name="art" onchange="this.form.submit()">';
+		echo '<tr><th>' . esc_html__( 'Art', 'mietfux' ) . '</th><td><select name="art" onchange="this.form.submit()">';
 		foreach ( [
-			'vergleich'    => esc_html__( 'Ortsübliche Vergleichsmiete (§ 558 BGB)', 'mietverwaltung' ),
-			'index'        => esc_html__( 'Indexmiete (§ 557b BGB)', 'mietverwaltung' ),
-			'vereinbarung' => esc_html__( 'Vereinbarung / Staffel', 'mietverwaltung' ),
+			'vergleich'    => esc_html__( 'Ortsübliche Vergleichsmiete (§ 558 BGB)', 'mietfux' ),
+			'index'        => esc_html__( 'Indexmiete (§ 557b BGB)', 'mietfux' ),
+			'vereinbarung' => esc_html__( 'Vereinbarung / Staffel', 'mietfux' ),
 		] as $k => $v ) {
 			printf( '<option value="%s"%s>%s</option>', (int) $k, selected( $art, (int) $k, false ), esc_html( $v ) );
 		}
 		echo '</select></td></tr>';
-		printf( '<tr><th>' . esc_html__( 'Zugang des Schreibens beim Mieter', 'mietverwaltung' ) . '</th><td><input type="date" name="zugang" value="%s"></td></tr>', esc_attr( $in['zugang'] ?? current_time( 'Y-m-d' ) ) );
+		printf( '<tr><th>' . esc_html__( 'Zugang des Schreibens beim Mieter', 'mietfux' ) . '</th><td><input type="date" name="zugang" value="%s"></td></tr>', esc_attr( $in['zugang'] ?? current_time( 'Y-m-d' ) ) );
 		printf( '<input type="hidden" name="flaeche" value="%s">', esc_attr( $flaeche ) );
 		if ( $art === 'vergleich' ) {
-			printf( '<tr><th>' . esc_html__( 'Ortsübliche Vergleichsmiete (€/m²)', 'mietverwaltung' ) . '</th><td><input type="text" name="vergleich_qm" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'Mietspiegel (Fürth/Nürnberg qualifiziert), drei Vergleichswohnungen oder Gutachten', 'mietverwaltung' ) . '</span></td></tr>', esc_attr( $in['vergleich_qm'] ?? '' ) );
-			printf( '<tr><th>' . esc_html__( 'Gewünschte neue Kaltmiete (€)', 'mietverwaltung' ) . '</th><td><input type="text" name="neu" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'leer = zulässiges Maximum', 'mietverwaltung' ) . '</span></td></tr>', esc_attr( $in['neu'] ?? '' ) );
-			printf( '<tr><th>' . esc_html__( 'Begründung', 'mietverwaltung' ) . '</th><td><textarea name="begruendung" rows="3" class="large-text">%s</textarea><p class="description">' . esc_html__( 'z. B. „Mietspiegel der Stadt Fürth 2025, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“', 'mietverwaltung' ) . '</p></td></tr>', esc_textarea( $in['begruendung'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'Ortsübliche Vergleichsmiete (€/m²)', 'mietfux' ) . '</th><td><input type="text" name="vergleich_qm" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'Mietspiegel (Fürth/Nürnberg qualifiziert), drei Vergleichswohnungen oder Gutachten', 'mietfux' ) . '</span></td></tr>', esc_attr( $in['vergleich_qm'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'Gewünschte neue Kaltmiete (€)', 'mietfux' ) . '</th><td><input type="text" name="neu" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'leer = zulässiges Maximum', 'mietfux' ) . '</span></td></tr>', esc_attr( $in['neu'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'Begründung', 'mietfux' ) . '</th><td><textarea name="begruendung" rows="3" class="large-text">%s</textarea><p class="description">' . esc_html__( 'z. B. „Mietspiegel der Stadt Fürth 2025, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“', 'mietfux' ) . '</p></td></tr>', esc_textarea( $in['begruendung'] ?? '' ) );
 		} elseif ( $art === 'index' ) {
-			printf( '<tr><th>' . esc_html__( 'VPI bei letzter Mietfestsetzung', 'mietverwaltung' ) . '</th><td><input type="text" name="vpi_alt" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'Verbraucherpreisindex Deutschland, Basis 2020 = 100 (destatis)', 'mietverwaltung' ) . '</span></td></tr>', esc_attr( $in['vpi_alt'] ?? '' ) );
-			printf( '<tr><th>' . esc_html__( 'VPI aktuell', 'mietverwaltung' ) . '</th><td><input type="text" name="vpi_neu" value="%s" class="small-text mv-num"></td></tr>', esc_attr( $in['vpi_neu'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'VPI bei letzter Mietfestsetzung', 'mietfux' ) . '</th><td><input type="text" name="vpi_alt" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'Verbraucherpreisindex Deutschland, Basis 2020 = 100 (destatis)', 'mietfux' ) . '</span></td></tr>', esc_attr( $in['vpi_alt'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'VPI aktuell', 'mietfux' ) . '</th><td><input type="text" name="vpi_neu" value="%s" class="small-text mv-num"></td></tr>', esc_attr( $in['vpi_neu'] ?? '' ) );
 		} else {
-			printf( '<tr><th>' . esc_html__( 'Neue Kaltmiete (€)', 'mietverwaltung' ) . '</th><td><input type="text" name="neu" value="%s" class="small-text mv-num"></td></tr>', esc_attr( $in['neu'] ?? '' ) );
-			printf( '<tr><th>' . esc_html__( 'Gültig ab', 'mietverwaltung' ) . '</th><td><input type="date" name="wirksam_ab" value="%s"></td></tr>', esc_attr( $in['wirksam_ab'] ?? '' ) );
-			printf( '<tr><th>' . esc_html__( 'Begründung', 'mietverwaltung' ) . '</th><td><input type="text" name="begruendung" value="%s" class="regular-text"></td></tr>', esc_attr( $in['begruendung'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'Neue Kaltmiete (€)', 'mietfux' ) . '</th><td><input type="text" name="neu" value="%s" class="small-text mv-num"></td></tr>', esc_attr( $in['neu'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'Gültig ab', 'mietfux' ) . '</th><td><input type="date" name="wirksam_ab" value="%s"></td></tr>', esc_attr( $in['wirksam_ab'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'Begründung', 'mietfux' ) . '</th><td><input type="text" name="begruendung" value="%s" class="regular-text"></td></tr>', esc_attr( $in['begruendung'] ?? '' ) );
 		}
 		echo '</tbody></table>';
-		echo '<p><button name="pruefen" value="1" class="button">' . esc_html__( 'Prüfen', 'mietverwaltung' ) . '</button> ';
+		echo '<p><button name="pruefen" value="1" class="button">' . esc_html__( 'Prüfen', 'mietfux' ) . '</button> ';
 
 		if ( $in && $mv && ( ! empty( $_POST['pruefen'] ) || ! empty( $_POST['uebernehmen'] ) ) ) {
 			$res = self::pruefen( $mv, $art, $in );
@@ -246,17 +246,17 @@ class Mietv_Erhoehung {
 				echo '<div class="notice notice-info inline"><p>' . esc_html( $h ) . '</p></div>';
 			}
 			if ( ! $res['fehler'] ) {
-				printf( '<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Bisher', 'mietverwaltung' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . /* translators: %s: Wert */ esc_html__( 'Neu ab %s', 'mietverwaltung' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Erhöhung', 'mietverwaltung' ) . '</span><strong>%s (%+.1f %%)</strong></div></div>', esc_html( mietv_eur( $res['alt'] ) ), esc_html( mietv_date( $res['wirksam_ab'] ) ), esc_html( mietv_eur( $res['neu'] ) ), esc_html( mietv_eur( $res['neu'] - $res['alt'] ) ), (float) ( $res['alt'] > 0 ? ( $res['neu'] / $res['alt'] - 1 ) * 100 : 0 ) );
-				echo '<button name="uebernehmen" value="1" class="button button-primary" onclick="return confirm(\'Kondition anlegen und Erhöhung speichern?\')">' . esc_html__( 'Erhöhung speichern, Kondition anlegen, Schreiben erzeugen', 'mietverwaltung' ) . '</button>';
+				printf( '<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Bisher', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . /* translators: %s: Wert */ esc_html__( 'Neu ab %s', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Erhöhung', 'mietfux' ) . '</span><strong>%s (%+.1f %%)</strong></div></div>', esc_html( mietv_eur( $res['alt'] ) ), esc_html( mietv_date( $res['wirksam_ab'] ) ), esc_html( mietv_eur( $res['neu'] ) ), esc_html( mietv_eur( $res['neu'] - $res['alt'] ) ), (float) ( $res['alt'] > 0 ? ( $res['neu'] / $res['alt'] - 1 ) * 100 : 0 ) );
+				echo '<button name="uebernehmen" value="1" class="button button-primary" onclick="return confirm(\'Kondition anlegen und Erhöhung speichern?\')">' . esc_html__( 'Erhöhung speichern, Kondition anlegen, Schreiben erzeugen', 'mietfux' ) . '</button>';
 			}
 		}
 		echo '</p></form>';
 
 		$hist = $wpdb->get_results( 'SELECT e.*, m.nachname FROM ' . $wpdb->prefix . 'mv_erhoehungen e JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = e.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id ORDER BY e.zugang DESC' );
 		if ( $hist ) {
-			echo '<h2>' . esc_html__( 'Bisherige Erhöhungen', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Zugang', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Mieter', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Art', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Alt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Neu', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Wirksam ab', 'mietverwaltung' ) . '</th><th></th></tr></thead><tbody>';
+			echo '<h2>' . esc_html__( 'Bisherige Erhöhungen', 'mietfux' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Zugang', 'mietfux' ) . '</th><th>' . esc_html__( 'Mieter', 'mietfux' ) . '</th><th>' . esc_html__( 'Art', 'mietfux' ) . '</th><th>' . esc_html__( 'Alt', 'mietfux' ) . '</th><th>' . esc_html__( 'Neu', 'mietfux' ) . '</th><th>' . esc_html__( 'Wirksam ab', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 			foreach ( $hist as $h ) {
-				printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a href="%s" target="_blank">' . esc_html__( 'Schreiben', 'mietverwaltung' ) . '</a></td></tr>', esc_html( mietv_date( $h->zugang ) ), esc_html( $h->nachname ), esc_html( $h->art ), esc_html( mietv_eur( $h->alt ) ), esc_html( mietv_eur( $h->neu ) ), esc_html( mietv_date( $h->wirksam_ab ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_erhoehung_brief&id=' . $h->id ), 'mietv_erh_brief_' . $h->id ) ) );
+				printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a href="%s" target="_blank">' . esc_html__( 'Schreiben', 'mietfux' ) . '</a></td></tr>', esc_html( mietv_date( $h->zugang ) ), esc_html( $h->nachname ), esc_html( $h->art ), esc_html( mietv_eur( $h->alt ) ), esc_html( mietv_eur( $h->neu ) ), esc_html( mietv_date( $h->wirksam_ab ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_erhoehung_brief&id=' . $h->id ), 'mietv_erh_brief_' . $h->id ) ) );
 			}
 			echo '</tbody></table>';
 		}
@@ -265,7 +265,7 @@ class Mietv_Erhoehung {
 
 	public static function brief(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
@@ -279,25 +279,25 @@ class Mietv_Erhoehung {
 		$b = '<p>' . esc_html( Mietv_Brief::anrede( $mv ) ) . '</p>';
 		if ( $e->art === 'vergleich' ) {
 			$betreff = 'Mieterhöhungsverlangen nach § 558 BGB';
-			$b      .= sprintf( '<p>' . esc_html__( 'die Nettokaltmiete für die von Ihnen gemietete Wohnung beträgt derzeit', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'monatlich. Hiermit verlange ich Ihre Zustimmung zur Erhöhung der Nettokaltmiete auf', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'monatlich mit Wirkung', 'mietverwaltung' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'ab dem %s', 'mietverwaltung' ) . '</strong>.</p>', esc_html( mietv_eur( $e->alt ) ), esc_html( mietv_eur( $e->neu ) ), esc_html( mietv_date( $e->wirksam_ab ) ) );
-			$b      .= '<p><strong>' . esc_html__( 'Begründung:', 'mietverwaltung' ) . '</strong> Die verlangte Miete übersteigt nicht die ortsübliche Vergleichsmiete. ' . esc_html( $begr[0] ) . '</p>';
+			$b      .= sprintf( '<p>' . esc_html__( 'die Nettokaltmiete für die von Ihnen gemietete Wohnung beträgt derzeit', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'monatlich. Hiermit verlange ich Ihre Zustimmung zur Erhöhung der Nettokaltmiete auf', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'monatlich mit Wirkung', 'mietfux' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'ab dem %s', 'mietfux' ) . '</strong>.</p>', esc_html( mietv_eur( $e->alt ) ), esc_html( mietv_eur( $e->neu ) ), esc_html( mietv_date( $e->wirksam_ab ) ) );
+			$b      .= '<p><strong>' . esc_html__( 'Begründung:', 'mietfux' ) . '</strong> Die verlangte Miete übersteigt nicht die ortsübliche Vergleichsmiete. ' . esc_html( $begr[0] ) . '</p>';
 			foreach ( array_slice( $begr, 1 ) as $z ) {
 				$b .= '<p class="hinweis">' . esc_html( $z ) . '</p>';
 			}
-			$b .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'Die Miete ist seit mindestens 15 Monaten unverändert; die Kappungsgrenze (§ 558 Abs. 3 BGB) ist eingehalten. Die Vorauszahlungen bleiben unverändert, sodass die monatliche Gesamtmiete ab dem %s', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'beträgt.', 'mietverwaltung' ) . '</p>', esc_html( mietv_date( $e->wirksam_ab ) ), esc_html( mietv_eur( $gesamt ) ) );
-			$b .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'Bitte erteilen Sie Ihre Zustimmung bis zum Ablauf des zweiten Kalendermonats nach Zugang dieses Schreibens (§ 558b Abs. 2 BGB), indem Sie die beiliegende Kopie unterschrieben zurücksenden oder den erhöhten Betrag ab dem %s überweisen.', 'mietverwaltung' ) . '</p>', esc_html( mietv_date( $e->wirksam_ab ) ) );
-			$b .= '<p style="margin-top:12mm;border-top:1px solid #000;padding-top:3mm"><strong>' . esc_html__( 'Zustimmungserklärung', 'mietverwaltung' ) . '</strong><br>Ich/Wir stimme(n) der Erhöhung der Nettokaltmiete auf ' . esc_html( mietv_eur( $e->neu ) ) . ' ab dem ' . esc_html( mietv_date( $e->wirksam_ab ) ) . ' zu.<br><br>_______________________________<br>Ort, Datum, Unterschrift Mieter</p>';
+			$b .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'Die Miete ist seit mindestens 15 Monaten unverändert; die Kappungsgrenze (§ 558 Abs. 3 BGB) ist eingehalten. Die Vorauszahlungen bleiben unverändert, sodass die monatliche Gesamtmiete ab dem %s', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'beträgt.', 'mietfux' ) . '</p>', esc_html( mietv_date( $e->wirksam_ab ) ), esc_html( mietv_eur( $gesamt ) ) );
+			$b .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'Bitte erteilen Sie Ihre Zustimmung bis zum Ablauf des zweiten Kalendermonats nach Zugang dieses Schreibens (§ 558b Abs. 2 BGB), indem Sie die beiliegende Kopie unterschrieben zurücksenden oder den erhöhten Betrag ab dem %s überweisen.', 'mietfux' ) . '</p>', esc_html( mietv_date( $e->wirksam_ab ) ) );
+			$b .= '<p style="margin-top:12mm;border-top:1px solid #000;padding-top:3mm"><strong>' . esc_html__( 'Zustimmungserklärung', 'mietfux' ) . '</strong><br>Ich/Wir stimme(n) der Erhöhung der Nettokaltmiete auf ' . esc_html( mietv_eur( $e->neu ) ) . ' ab dem ' . esc_html( mietv_date( $e->wirksam_ab ) ) . ' zu.<br><br>_______________________________<br>Ort, Datum, Unterschrift Mieter</p>';
 		} elseif ( $e->art === 'index' ) {
 			$betreff = 'Mietanpassung nach § 557b BGB (Indexmiete)';
-			$b      .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'gemäß der im Mietvertrag vereinbarten Indexmiete passe ich die Nettokaltmiete entsprechend der Entwicklung des Verbraucherpreisindex für Deutschland an. %s.', 'mietverwaltung' ) . '</p><p>' . esc_html__( 'Die Nettokaltmiete erhöht sich von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'auf', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'monatlich', 'mietverwaltung' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'ab dem %s', 'mietverwaltung' ) . '</strong>' . /* translators: %s: Wert */ esc_html__( '. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %s.', 'mietverwaltung' ) . '</p>', esc_html( $begr[0] ), esc_html( mietv_eur( $e->alt ) ), esc_html( mietv_eur( $e->neu ) ), esc_html( mietv_date( $e->wirksam_ab ) ), esc_html( mietv_eur( $gesamt ) ) );
+			$b      .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'gemäß der im Mietvertrag vereinbarten Indexmiete passe ich die Nettokaltmiete entsprechend der Entwicklung des Verbraucherpreisindex für Deutschland an. %s.', 'mietfux' ) . '</p><p>' . esc_html__( 'Die Nettokaltmiete erhöht sich von', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'auf', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'monatlich', 'mietfux' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'ab dem %s', 'mietfux' ) . '</strong>' . /* translators: %s: Wert */ esc_html__( '. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %s.', 'mietfux' ) . '</p>', esc_html( $begr[0] ), esc_html( mietv_eur( $e->alt ) ), esc_html( mietv_eur( $e->neu ) ), esc_html( mietv_date( $e->wirksam_ab ) ), esc_html( mietv_eur( $gesamt ) ) );
 			foreach ( array_slice( $begr, 1 ) as $z ) {
 				$b .= '<p class="hinweis">' . esc_html( $z ) . '</p>';
 			}
-			$b .= '<p>' . esc_html__( 'Einer Zustimmung bedarf es nicht; die Anpassung wird mit Beginn des übernächsten Monats nach Zugang dieses Schreibens wirksam (§ 557b Abs. 3 BGB). Bitte passen Sie Ihren Dauerauftrag entsprechend an.', 'mietverwaltung' ) . '</p>';
+			$b .= '<p>' . esc_html__( 'Einer Zustimmung bedarf es nicht; die Anpassung wird mit Beginn des übernächsten Monats nach Zugang dieses Schreibens wirksam (§ 557b Abs. 3 BGB). Bitte passen Sie Ihren Dauerauftrag entsprechend an.', 'mietfux' ) . '</p>';
 		} else {
 			$betreff = 'Anpassung der Miete';
-			$rest    = sprintf( /* translators: %1$s: bisherige Miete, %2$s: Grund, %3$s: Gesamtmiete */ __( 'monatlich (bisher %1$s). Grund: %2$s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %3$s.', 'mietverwaltung' ), mietv_eur( $e->alt ), $begr[0], mietv_eur( $gesamt ) );
-			$b      .= '<p>' . esc_html__( 'wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete', 'mietverwaltung' ) . ' <strong>' . esc_html( sprintf( /* translators: %s: Datum */ __( 'ab dem %s', 'mietverwaltung' ), mietv_date( $e->wirksam_ab ) ) ) . '</strong> <strong>' . esc_html( mietv_eur( $e->neu ) ) . '</strong> ' . esc_html( $rest ) . '</p><p>' . esc_html__( 'Bitte passen Sie Ihren Dauerauftrag entsprechend an.', 'mietverwaltung' ) . '</p>';
+			$rest    = sprintf( /* translators: %1$s: bisherige Miete, %2$s: Grund, %3$s: Gesamtmiete */ __( 'monatlich (bisher %1$s). Grund: %2$s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %3$s.', 'mietfux' ), mietv_eur( $e->alt ), $begr[0], mietv_eur( $gesamt ) );
+			$b      .= '<p>' . esc_html__( 'wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete', 'mietfux' ) . ' <strong>' . esc_html( sprintf( /* translators: %s: Datum */ __( 'ab dem %s', 'mietfux' ), mietv_date( $e->wirksam_ab ) ) ) . '</strong> <strong>' . esc_html( mietv_eur( $e->neu ) ) . '</strong> ' . esc_html( $rest ) . '</p><p>' . esc_html__( 'Bitte passen Sie Ihren Dauerauftrag entsprechend an.', 'mietfux' ) . '</p>';
 		}
 		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
 		Mietv_Brief::ausgeben( 'Mieterhoehung ' . $e->zugang, Mietv_Brief::empfaenger( $mv ), $betreff, $b, mietv_date( $e->zugang ), true, [ $objekt_id, $mv->id, 'sonstiges', 'Mieterhöhung ' . mietv_date( $e->zugang ), false ] );

@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Mietverwaltung\n"
+"Project-Id-Version: Mietfux\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: mietverwaltung\n"
-"PO-Revision-Date: 2026-10-22\n"
+"PO-Revision-Date: 2026-10-26\n"
 
 msgid "Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich."
 msgstr "No living areas entered for the units – allocation by area is not possible."
@@ -210,14 +210,14 @@ msgstr "Rent %s"
 msgid "⌂ WordPress-Menü einblenden"
 msgstr "⌂ Show WordPress menu"
 
-msgid "▣ Nur Mietverwaltung anzeigen"
-msgstr "▣ Show rental management only"
+msgid "▣ Nur Mietfux anzeigen"
+msgstr "▣ Show Mietfux only"
 
-msgid "Fokusmodus der Mietverwaltung umschalten"
-msgstr "Toggle rental management focus mode"
+msgid "Fokusmodus von Mietfux umschalten"
+msgstr "Toggle Mietfux focus mode"
 
-msgid "Mietverwaltung"
-msgstr "Rental Management"
+msgid "Mietfux"
+msgstr "Mietfux"
 
 msgid "Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen)."
 msgstr "No text layer found – the PDF is probably a scan. Please enter the values manually (or make the PDF searchable with OCR first)."
@@ -1140,8 +1140,8 @@ msgstr "Notices"
 msgid "%d offene Meldung(en) aus dem Mieterportal"
 msgstr "%d open report(s) from the tenant portal"
 
-msgid "Mietverwaltung – Übersicht"
-msgstr "Rental Management – Overview"
+msgid "Mietfux – Übersicht"
+msgstr "Mietfux – Overview"
 
 msgid "WordPress-Menü einblenden"
 msgstr "Show WordPress menu"
@@ -1212,8 +1212,8 @@ msgstr "statutory by year built (§ 7 (4) EStG)"
 msgid "kein Satz – bitte eintragen"
 msgstr "no rate – please enter"
 
-msgid "Willkommen in der Mietverwaltung."
-msgstr "Welcome to Rental Management."
+msgid "Willkommen bei Mietfux."
+msgstr "Welcome to Mietfux."
 
 msgid "Der Einrichtungsassistent legt in fünf Schritten Vermieter, Objekt, Einheit, Mieter und Mietverhältnis an."
 msgstr "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps."
@@ -2052,8 +2052,8 @@ msgstr "Landlord details, bank account, creditor ID, tax number, dunning and por
 msgid "Mieterportal"
 msgstr "Tenant portal"
 
-msgid "Shortcode [mietverwaltung_portal] auf einer Seite einfügen. Angemeldete Mieter (verknüpfter WordPress-Benutzer) sehen Abrechnungen und freigegebene Dokumente, melden Schäden und Zählerstände."
-msgstr "Insert the shortcode [mietverwaltung_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
+msgid "Shortcode [mietfux_portal] auf einer Seite einfügen. Angemeldete Mieter (verknüpfter WordPress-Benutzer) sehen Abrechnungen und freigegebene Dokumente, melden Schäden und Zählerstände."
+msgstr "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
 
 msgid "Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag und Mieterportal in einem Plugin. Auf jeder Seite finden Sie oben rechts unter „Hilfe“ eine Kurzbeschreibung."
 msgstr "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
@@ -2118,8 +2118,8 @@ msgstr ": balance"
 msgid "✅ Keine offenen Hinweise."
 msgstr "✅ No open notices."
 
-msgid "Zur Mietverwaltung"
-msgstr "Go to Rental Management"
+msgid "Zu Mietfux"
+msgstr "Go to Mietfux"
 
 msgid "Einzahlung Mieter"
 msgstr "Payment by tenant"
@@ -2745,8 +2745,14 @@ msgstr "☐ yes ☐ no"
 msgid "5. Rückgabe"
 msgstr "5. Return"
 
-msgid "☐ Wohnung vollständig geräumt und besenrein &nbsp; ☐ Alle Schlüssel zurückgegeben &nbsp; ☐ Schönheitsreparaturen fällig/ausgeführt:"
-msgstr "☐ Flat completely cleared and broom-clean &nbsp; ☐ All keys returned &nbsp; ☐ Decorative repairs due/carried out:"
+msgid "☐ Wohnung vollständig geräumt und besenrein"
+msgstr "☐ Flat completely cleared and broom-clean"
+
+msgid "☐ Alle Schlüssel zurückgegeben"
+msgstr "☐ All keys returned"
+
+msgid "☐ Schönheitsreparaturen fällig/ausgeführt:"
+msgstr "☐ Decorative repairs due/carried out:"
 
 msgid "Vereinbarte Nacharbeiten durch den Mieter bis"
 msgstr "Agreed follow-up work by the tenant by"
@@ -2769,14 +2775,14 @@ msgstr "Handed to the tenant: ☐ Energy certificate ☐ House rules ☐ Privacy
 msgid "Die Parteien bestätigen die Richtigkeit der Angaben. Nicht vermerkte Mängel gelten als bei Übergabe nicht vorhanden, soweit sie bei der Besichtigung erkennbar waren."
 msgstr "The parties confirm the accuracy of the details. Defects not noted are deemed not to have existed at handover insofar as they were discernible on inspection."
 
-msgid "[Mietverwaltung] Zählerstand gemeldet"
-msgstr "[Rental Management] Meter reading submitted"
+msgid "[Mietfux] Zählerstand gemeldet"
+msgstr "[Mietfux] Meter reading submitted"
 
 msgid "Kein Zugriff."
 msgstr "No access."
 
-msgid "[Mietverwaltung] Neue Meldung: "
-msgstr "[Rental Management] New report: "
+msgid "[Mietfux] Neue Meldung: "
+msgstr "[Mietfux] New report: "
 
 msgid "Bitte melden Sie sich an, um Ihr Mieterportal zu sehen."
 msgstr "Please log in to see your tenant portal."

@@ -1,10 +1,10 @@
-# Mietverwaltung – WordPress plugin for private landlords
+# Mietfux – rental management for German landlords (WordPress plugin)
 
 [Deutsche Version → README.md](README.md)
 
-**Mietverwaltung** (“rental management”) puts everything a private landlord needs for one or more flats into a single WordPress plugin: master data, rent receipts, expense receipts, service charge statements, German tax reporting (Anlage V), a complete tenancy agreement with all annexes, deposit account, loans, dunning, rent increases and a tenant portal. All data stays in your own WordPress database – no cloud service, no data transfer to third parties.
+**Mietfux** puts everything a private landlord needs for one or more flats into a single WordPress plugin: master data, rent receipts, expense receipts, service charge statements, German tax reporting (Anlage V), a complete tenancy agreement with all annexes, deposit account, loans, dunning, rent increases and a tenant portal. All data stays in your own WordPress database – no cloud service, no data transfer to third parties.
 
-- Version **1.0.0** · License GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
+- Version **1.0.1** · License GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
 - Languages: German (source), English (complete UI translation)
 - Scope: long-term residential letting under **German law** (not holiday lets)
 
@@ -43,7 +43,7 @@
 | **Deposit** | Deposit account under § 551 BGB: payments, daily interest, offsetting, settlement as PDF |
 | **Dunning** | Payment reminder, 1st and final dunning letter with deadlines, PDF, email to tenant and co-tenant, warning at ≥ 2 months' arrears |
 | **Rent increase** | § 558 (reference rent, cap 15/20 %, waiting period), § 557b (index/CPI), agreement/stepped rent; letter and new rent condition created automatically |
-| **Tenant portal** | Shortcode `[mietverwaltung_portal]`: rent account, statements, released documents, damage reports, meter readings |
+| **Tenant portal** | Shortcode `[mietfux_portal]`: rent account, statements, released documents, damage reports, meter readings |
 | **Documents** | Storage with type, date, portal release; all generated PDFs can be filed here automatically |
 | **Data protection** | Deletion concept with retention periods (§ 147 AO), anonymisation of ended tenancies, Art. 15 access report as JSON, notes for the record of processing activities |
 | **System** | Setup wizard, help page + contextual help, structured menu with icons, focus mode (hide WordPress menu), dashboard widget with notices, daily email reminder, backup/restore as JSON, dedicated “Landlord” role, clean uninstall |
@@ -119,7 +119,7 @@ Dashboard widget and daily cron check (`mv_taeglich`): missing rent, statement d
 
 ## Tenant portal
 
-Insert the shortcode `[mietverwaltung_portal]` on a page. Link the WordPress user on the tenant record (the “Subscriber” role is sufficient). Logged-in tenants see: rent conditions and rent account for the last 12 months, service charge statements, released documents; they can report damage and submit meter readings (with photo). The landlord is notified by email.
+Insert the shortcode `[mietfux_portal]` on a page. Link the WordPress user on the tenant record (the “Subscriber” role is sufficient). Logged-in tenants see: rent conditions and rent account for the last 12 months, service charge statements, released documents; they can report damage and submit meter readings (with photo). The landlord is notified by email.
 
 ---
 

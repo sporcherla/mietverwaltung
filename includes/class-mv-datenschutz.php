@@ -12,7 +12,7 @@ class Mietv_Datenschutz {
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
-		add_action( 'admin_post_mv_auskunft', [ __CLASS__, 'auskunft' ] );
+		add_action( 'admin_post_mietv_auskunft', [ __CLASS__, 'auskunft' ] );
 	}
 
 	/** Beendete Mietverhältnisse mit Löschfrist. */
@@ -97,23 +97,23 @@ class Mietv_Datenschutz {
 	/** Auskunft nach Art. 15 DSGVO / Datenübertragbarkeit Art. 20: alle Daten eines Mieters als JSON. */
 	public static function auskunft(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$id = ( isset( $_GET['mieter'] ) ? (int) $_GET['mieter'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		check_admin_referer( 'mietv_auskunft_' . $id );
 		$mieter = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $id ), ARRAY_A );
 		if ( ! $mieter ) {
-			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
 		}
 		unset( $mieter['owner_id'] );
 		$d = [
-			'auskunft_nach'     => esc_html__( 'Art. 15 DSGVO', 'mietverwaltung' ),
+			'auskunft_nach'     => esc_html__( 'Art. 15 DSGVO', 'mietfux' ),
 			'erstellt'          => current_time( 'mysql' ),
 			'verantwortlicher'  => Mietv_Einstellungen::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', Mietv_Einstellungen::get( 'vermieter_adresse' ) ),
-			'zwecke'            => esc_html__( 'Durchführung des Mietverhältnisses (Art. 6 Abs. 1 lit. b DSGVO), Erfüllung steuer- und handelsrechtlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO)', 'mietverwaltung' ),
-			'speicherdauer'     => sprintf( /* translators: %d: Jahre */ __( '%d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete', 'mietverwaltung' ), (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ) ),
-			'empfaenger'        => esc_html__( 'Finanzamt (Anlage V), Steuerberater (sofern beauftragt), Bank (Zahlungsverkehr)', 'mietverwaltung' ),
+			'zwecke'            => esc_html__( 'Durchführung des Mietverhältnisses (Art. 6 Abs. 1 lit. b DSGVO), Erfüllung steuer- und handelsrechtlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO)', 'mietfux' ),
+			'speicherdauer'     => sprintf( /* translators: %d: Jahre */ __( '%d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete', 'mietfux' ), (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ) ),
+			'empfaenger'        => esc_html__( 'Finanzamt (Anlage V), Steuerberater (sofern beauftragt), Bank (Zahlungsverkehr)', 'mietfux' ),
 			'stammdaten'        => $mieter,
 			'mietverhaeltnisse' => [],
 		];
@@ -135,13 +135,13 @@ class Mietv_Datenschutz {
 
 	public static function page(): void {
 		global $wpdb;
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Datenschutz', 'mietverwaltung' ) . '</h1>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Datenschutz', 'mietfux' ) . '</h1>';
 		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'anonym' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Mieterdaten anonymisiert. Zahlungs- und Abrechnungsdaten bleiben ohne Personenbezug erhalten.', 'mietverwaltung' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Mieterdaten anonymisiert. Zahlungs- und Abrechnungsdaten bleiben ohne Personenbezug erhalten.', 'mietfux' ) . '</p></div>';
 		}
-		printf( '<p class="description">' . /* translators: %d: Wert */ esc_html__( 'Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete (', 'mietverwaltung' ) . '<a href="%s">' . esc_html__( 'Einstellungen', 'mietverwaltung' ) . '</a>' . esc_html__( '). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten.', 'mietverwaltung' ) . '</p>', (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ), esc_url( admin_url( 'admin.php?page=mietv_einstellungen' ) ) );
+		printf( '<p class="description">' . /* translators: %d: Wert */ esc_html__( 'Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete (', 'mietfux' ) . '<a href="%s">' . esc_html__( 'Einstellungen', 'mietfux' ) . '</a>' . esc_html__( '). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten.', 'mietfux' ) . '</p>', (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ), esc_url( admin_url( 'admin.php?page=mietv_einstellungen' ) ) );
 
-		echo '<h2>' . esc_html__( 'Löschkonzept – beendete Mietverhältnisse', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ende', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Löschfrist', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Status', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Aktion', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
+		echo '<h2>' . esc_html__( 'Löschkonzept – beendete Mietverhältnisse', 'mietfux' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Mietverhältnis', 'mietfux' ) . '</th><th>' . esc_html__( 'Ende', 'mietfux' ) . '</th><th>' . esc_html__( 'Löschfrist', 'mietfux' ) . '</th><th>' . esc_html__( 'Status', 'mietfux' ) . '</th><th>' . esc_html__( 'Aktion', 'mietfux' ) . '</th></tr></thead><tbody>';
 		$b = self::beendete();
 		foreach ( $b as $x ) {
 			$mv = $x['mv'];
@@ -150,7 +150,7 @@ class Mietv_Datenschutz {
 			} elseif ( $x['andere_aktiv'] ) {
 				$status = 'Mieter hat weiteres aktives Mietverhältnis';
 			} elseif ( $x['faellig'] ) {
-				$status = '<span class="mv-neg">' . esc_html__( 'Frist abgelaufen', 'mietverwaltung' ) . '</span>';
+				$status = '<span class="mv-neg">' . esc_html__( 'Frist abgelaufen', 'mietfux' ) . '</span>';
 			} else {
 				$status = 'in Aufbewahrung';
 			}
@@ -161,26 +161,26 @@ class Mietv_Datenschutz {
 				esc_html( mietv_date( $mv->ende ) ),
 				esc_html( mietv_date( $x['frist'] ) ),
 				$status, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
-				( ! $x['anonym'] && ! $x['andere_aktiv'] ) ? sprintf( '<a href="%s" class="button button-small%s" onclick="return confirm(\'Personenbezug unwiderruflich entfernen?%s\')">' . esc_html__( 'Anonymisieren', 'mietverwaltung' ) . '</a>', esc_url( $url ), $x['faellig'] ? ' button-primary' : '', $x['faellig'] ? '' : ' Die Aufbewahrungsfrist ist noch nicht abgelaufen!' ) : '–'
+				( ! $x['anonym'] && ! $x['andere_aktiv'] ) ? sprintf( '<a href="%s" class="button button-small%s" onclick="return confirm(\'Personenbezug unwiderruflich entfernen?%s\')">' . esc_html__( 'Anonymisieren', 'mietfux' ) . '</a>', esc_url( $url ), $x['faellig'] ? ' button-primary' : '', $x['faellig'] ? '' : ' Die Aufbewahrungsfrist ist noch nicht abgelaufen!' ) : '–'
 			);
 		}
 		if ( ! $b ) {
-			echo '<tr><td colspan="5">' . esc_html__( 'Keine beendeten Mietverhältnisse.', 'mietverwaltung' ) . '</td></tr>';
+			echo '<tr><td colspan="5">' . esc_html__( 'Keine beendeten Mietverhältnisse.', 'mietfux' ) . '</td></tr>';
 		}
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)', 'mietverwaltung' ) . '</h2><p>' . esc_html__( 'Erzeugt eine vollständige Datenübersicht des Mieters als JSON – Frist für die Beantwortung: ein Monat (Art. 12 Abs. 3 DSGVO).', 'mietverwaltung' ) . '</p><ul>';
+		echo '<h2>' . esc_html__( 'Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)', 'mietfux' ) . '</h2><p>' . esc_html__( 'Erzeugt eine vollständige Datenübersicht des Mieters als JSON – Frist für die Beantwortung: ein Monat (Art. 12 Abs. 3 DSGVO).', 'mietfux' ) . '</p><ul>';
 		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . $wpdb->prefix . "mv_mieter WHERE nachname NOT LIKE 'Anonymisiert%' ORDER BY nachname" ) as $m ) {
-			printf( '<li>%s – <a href="%s">' . esc_html__( 'Auskunft exportieren', 'mietverwaltung' ) . '</a></li>', esc_html( mietv_mieter_name( $m ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_auskunft&mieter=' . $m->id ), 'mietv_auskunft_' . $m->id ) ) );
+			printf( '<li>%s – <a href="%s">' . esc_html__( 'Auskunft exportieren', 'mietfux' ) . '</a></li>', esc_html( mietv_mieter_name( $m ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_auskunft&mieter=' . $m->id ), 'mietv_auskunft_' . $m->id ) ) );
 		}
 		echo '</ul>';
 
-		echo '<h2>' . esc_html__( 'Hinweise für das Verarbeitungsverzeichnis', 'mietverwaltung' ) . '</h2><ul style="list-style:disc;margin-left:1.5em">
-<li><strong>' . esc_html__( 'Verarbeitungstätigkeit:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr).', 'mietverwaltung' ) . '</li>
-<li><strong>' . esc_html__( 'Betroffene:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller.', 'mietverwaltung' ) . '</li>
-<li><strong>' . esc_html__( 'Datenkategorien:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen.', 'mietverwaltung' ) . '</li>
-<li><strong>' . esc_html__( 'Technisch-organisatorische Maßnahmen:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst.', 'mietverwaltung' ) . '</li>
-<li><strong>' . esc_html__( 'Auftragsverarbeiter:', 'mietverwaltung' ) . '</strong> ' . esc_html__( 'Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich).', 'mietverwaltung' ) . '</li>
+		echo '<h2>' . esc_html__( 'Hinweise für das Verarbeitungsverzeichnis', 'mietfux' ) . '</h2><ul style="list-style:disc;margin-left:1.5em">
+<li><strong>' . esc_html__( 'Verarbeitungstätigkeit:', 'mietfux' ) . '</strong> ' . esc_html__( 'Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr).', 'mietfux' ) . '</li>
+<li><strong>' . esc_html__( 'Betroffene:', 'mietfux' ) . '</strong> ' . esc_html__( 'Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller.', 'mietfux' ) . '</li>
+<li><strong>' . esc_html__( 'Datenkategorien:', 'mietfux' ) . '</strong> ' . esc_html__( 'Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen.', 'mietfux' ) . '</li>
+<li><strong>' . esc_html__( 'Technisch-organisatorische Maßnahmen:', 'mietfux' ) . '</strong> ' . esc_html__( 'Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst.', 'mietfux' ) . '</li>
+<li><strong>' . esc_html__( 'Auftragsverarbeiter:', 'mietfux' ) . '</strong> ' . esc_html__( 'Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich).', 'mietfux' ) . '</li>
 </ul></div>';
 	}
 }

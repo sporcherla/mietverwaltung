@@ -1,6 +1,30 @@
 # Einreichung bei WordPress.org – Checkliste
 
-Stand: Version 1.0.0. Alles Technische ist erledigt; die folgenden Schritte kann nur der Autor selbst ausführen (Account, Formular, SVN).
+## Stand nach dem ersten Review (26.10.2026)
+
+Das Review-Team hat fünf Punkte genannt; alle sind in 1.0.1 umgesetzt:
+
+| Punkt | Umsetzung |
+|---|---|
+| Name „Mietverwaltung“ zu generisch | Neuer Name **Mietfux – Mietverwaltung für Vermieter**, Slug `mietfux`, Text-Domain `mietfux`, Hauptdatei `mietfux.php` |
+| Inline `<style>`/`<script>` | Portal-CSS, Druckansichten und Fokusmodus über `wp_enqueue_style`/`wp_add_inline_style`/`wp_print_styles`, Auto-Druck als `assets/druck.js` |
+| Escaping (`__()` mit `&nbsp;`) | String aufgeteilt, `esc_html__()` |
+| Contributors | `hirnmarkus` |
+| Übersetzungsdateien / `load_plugin_textdomain()` | `.po/.mo` nicht mehr im Paket, Aufruf entfernt |
+
+**Antwort an das Review-Team** (kurz, im selben E-Mail-Thread):
+
+> Thank you for the review. I have uploaded version 1.0.1.
+>
+> Please reserve the new permalink **mietfux** (display name: “Mietfux – Mietverwaltung für Vermieter”). Plugin headers, readme and text domain already use it.
+>
+> All inline CSS/JS has been moved to enqueued assets, the escaping issue is fixed, translation files and load_plugin_textdomain() have been removed, and the contributor is now my WordPress.org username.
+>
+> Note: the plugin keeps its own database tables (wp_mv_*), hence the direct $wpdb queries; the generated tenancy agreement and house rules are German legal documents and are intentionally not translated.
+
+
+
+Stand: Version 1.0.1. Alles Technische ist erledigt; die folgenden Schritte kann nur der Autor selbst ausführen (Account, Formular, SVN).
 
 ## Bereits erledigt (geprüft in dieser Version)
 
@@ -26,7 +50,7 @@ Stand: Version 1.0.0. Alles Technische ist erledigt; die folgenden Schritte kann
 
 1. **WordPress.org-Konto** anlegen bzw. anmelden (https://login.wordpress.org/). Der Nutzername wird der Contributor in `readme.txt` – dort steht derzeit `sporcherla`; ggf. anpassen.
 2. **Slug prüfen**: Gewünscht ist `mietverwaltung`. Falls bereits vergeben, schlägt das Review-Team einen anderen vor; dann müssen Text Domain und Ordnername folgen (Suchen/Ersetzen `mietverwaltung` → neuer Slug in Plugin-Header, `load_plugin_textdomain`, Dateinamen unter `languages/`).
-3. **ZIP hochladen** unter https://wordpress.org/plugins/developers/add/ – die Datei `mietverwaltung.zip` aus dem Release (ohne `tests/`, `phpcs.xml.dist`, Markdown-Dateien, `.wordpress-org/`).
+3. **ZIP hochladen** unter https://wordpress.org/plugins/developers/add/ – die Datei `mietfux.zip` aus dem Release (ohne `tests/`, `phpcs.xml.dist`, Markdown-Dateien, `.wordpress-org/`).
 4. **Review abwarten** (derzeit mehrere Wochen). Rückfragen kommen per E-Mail an die Account-Adresse; Antworten im selben Thread. Typische Nachfragen bei diesem Plugin könnten sein:
    - *Direkte DB-Queries*: Begründung „eigene Tabellen `wp_mv_*`, keine WP-Objekte“ – steht als Kommentar in jeder Datei.
    - *Dateischreiben in `uploads/mietverwaltung`*: erfolgt über `WP_Filesystem`, Dateien werden als Attachments registriert.
@@ -37,7 +61,7 @@ Stand: Version 1.0.0. Alles Technische ist erledigt; die folgenden Schritte kann
    cd mietverwaltung-svn
    # Plugin-Dateien (Inhalt des ZIP) nach trunk/, Bilder aus .wordpress-org/ nach assets/
    svn add trunk/* assets/*
-   svn ci -m "Version 1.0.0"
+   svn ci -m "Version 1.0.1"
    svn cp trunk tags/1.0.0 && svn ci -m "Tag 1.0.0"
    ```
    Alternativ den GitHub-Workflow „10up/action-wordpress-plugin-deploy“ einrichten, der bei jedem Git-Tag automatisch nach SVN deployt.
@@ -47,10 +71,10 @@ Stand: Version 1.0.0. Alles Technische ist erledigt; die folgenden Schritte kann
 
 ```bash
 cd ..
-zip -r mietverwaltung.zip mietverwaltung \
-  -x 'mietverwaltung/.git/*' 'mietverwaltung/tests/*' 'mietverwaltung/.wordpress-org/*' \
-     'mietverwaltung/phpcs.xml.dist' 'mietverwaltung/.gitignore' 'mietverwaltung/.distignore' \
-     'mietverwaltung/*.md'
+zip -r mietfux.zip mietverwaltung \
+  -x 'mietfux/.git/*' 'mietfux/tests/*' 'mietfux/.wordpress-org/*' \
+     'mietfux/phpcs.xml.dist' 'mietfux/.gitignore' 'mietfux/.distignore' \
+     'mietfux/*.md'
 ```
 
 ## Prüfwerkzeuge erneut laufen lassen
@@ -60,5 +84,5 @@ zip -r mietverwaltung.zip mietverwaltung \
 phpcs
 
 # Plugin Check in einer WordPress-Installation mit aktiviertem Plugin „Plugin Check“
-wp plugin check mietverwaltung --include-experimental
+wp plugin check mietfux --include-experimental
 ```

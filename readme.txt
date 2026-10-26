@@ -1,10 +1,10 @@
-=== Mietverwaltung ===
-Contributors: sporcherla
+=== Mietfux – Mietverwaltung für Vermieter ===
+Contributors: hirnmarkus
 Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Rental management for German landlords: tenancies, payments, service charge stat
 
 == Description ==
 
-**Mietverwaltung** ("rental management") puts everything a private landlord in Germany needs for one or more flats into a single plugin. All data stays in your own WordPress database – no cloud service, no data transfer to third parties, no external scripts.
+**Mietfux** ("Miet" = rent, "Fux" = fox) puts everything a private landlord in Germany needs for one or more flats into a single plugin. All data stays in your own WordPress database – no cloud service, no data transfer to third parties, no external scripts.
 
 The user interface is available in German and English. The generated legal documents (tenancy agreement, house rules, information sheets) are in German because they implement German tenancy law (BGB, BetrKV, HeizkostenV, EStG).
 
@@ -27,7 +27,7 @@ The user interface is available in German and English. The generated legal docum
 * **Loans** – repayment schedule, instalments to tick off, extra repayments, bank interest certificates
 * **Tenancy agreement** – complete residential agreement with annexes: house rules, heating/ventilation leaflet, privacy notice, SEPA direct debit mandate, move-in/move-out handover protocol
 * **Deposit account** (§ 551 BGB), **dunning** (three levels), **rent increases** (§ 558 / § 557b BGB)
-* **Tenant portal** via shortcode `[mietverwaltung_portal]` – rent account, statements, released documents, damage reports, meter readings
+* **Tenant portal** via shortcode `[mietfux_portal]` – rent account, statements, released documents, damage reports, meter readings
 * **Data protection** – deletion concept with retention periods, anonymisation, Art. 15 GDPR access report
 * **Setup wizard**, in-app help, focus mode, backup/restore as JSON, clean uninstall
 
@@ -40,8 +40,8 @@ Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Betriebsko
 == Installation ==
 
 1. Upload the plugin and activate it – the `wp_mv_*` tables are created automatically.
-2. Follow the setup wizard (landlord → property → units → tenant → tenancy) or open **Mietverwaltung → Help**.
-3. For the tenant portal, insert the shortcode `[mietverwaltung_portal]` on a page and link the WordPress user on the tenant record.
+2. Follow the setup wizard (landlord → property → units → tenant → tenancy) or open **Mietfux → Help**.
+3. For the tenant portal, insert the shortcode `[mietfux_portal]` on a page and link the WordPress user on the tenant record.
 
 == Frequently Asked Questions ==
 
@@ -76,6 +76,11 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 7. Tenant portal
 
 == Changelog ==
+
+= 1.0.1 =
+* Renamed to Mietfux (slug `mietfux`, text domain `mietfux`); the shortcode `[mietverwaltung_portal]` keeps working as an alias
+* All CSS/JS now enqueued via the WordPress API (portal, print views, focus mode); translation files removed from the package in favour of translate.wordpress.org
+* Fixed: admin-post actions for PDF/CSV/backup after the prefix change; CSV export and bank CSV import enclosure character
 
 = 1.0.0 =
 * New admin layout: page header with icon, cards, dashboard with key figures, quick actions and notices on the overview, consistent tables and forms

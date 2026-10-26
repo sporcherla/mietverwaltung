@@ -554,7 +554,7 @@ class Mietv_PDF {
 		foreach ( $offsets as $o ) {
 			$out .= sprintf( "%010d 00000 n \n", $o );
 		}
-		$out .= '<< /Size ' . ( count( $objs ) + 1 ) . ' /Root 1 0 R /Info << /Producer (Mietverwaltung) /CreationDate (D:' . gmdate( 'YmdHis' ) . ") >> >>\n";
+		$out .= '<< /Size ' . ( count( $objs ) + 1 ) . ' /Root 1 0 R /Info << /Producer (Mietfux) /CreationDate (D:' . gmdate( 'YmdHis' ) . ") >> >>\n";
 		$out  = str_replace( '<< /Size', "trailer\n<< /Size", $out );
 		$out .= "startxref\n" . $xref . "\n%%EOF\n";
 		return $out;
@@ -748,7 +748,7 @@ class Mietv_PDF {
 	public static function ablegen( string $bytes, string $dateiname, int $objekt_id, ?int $mv_id, string $typ, string $bezeichnung, bool $mieter_sichtbar = false ): int {
 		global $wpdb;
 		$upload = wp_upload_dir();
-		$dir    = trailingslashit( $upload['basedir'] ) . 'mietverwaltung';
+		$dir    = trailingslashit( $upload['basedir'] ) . 'mietfux';
 		$fs     = self::filesystem();
 		if ( ! is_dir( $dir ) ) {
 			wp_mkdir_p( $dir );

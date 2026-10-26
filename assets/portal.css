@@ -1,0 +1,17 @@
+/* Mieterportal */
+.mv-portal{max-width:860px;font-size:15px}
+.mv-portal h3{margin:0 0 .5em}
+.mv-portal h4{margin:1.5em 0 .5em}
+.mv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.mv-card{border:1px solid #ddd;border-radius:6px;padding:10px 12px;background:#fafafa}
+.mv-card span{display:block;font-size:12px;color:#666}
+.mv-card strong{display:block;font-size:18px}
+.mv-card small{display:block;color:#666;font-size:12px}
+.mv-table{width:100%;border-collapse:collapse}
+.mv-table th,.mv-table td{padding:6px 8px;border-bottom:1px solid #e5e5e5;text-align:left}
+.mv-neg{color:#b32d2e}.mv-pos{color:#1a7f37}
+.mv-notice{padding:10px;border-radius:4px}.mv-ok{background:#e6f4ea}.mv-err{background:#fde8e8}
+.mv-status{padding:2px 8px;border-radius:10px;font-size:12px;background:#eee}
+.mv-status-offen{background:#fff3cd}.mv-status-erledigt{background:#e6f4ea}
+.mv-form input[type=text],.mv-form textarea{width:100%;max-width:600px;padding:6px}
+.mv-btn{display:inline-block;padding:8px 16px;background:#1d2327;color:#fff;border:0;border-radius:4px;cursor:pointer;text-decoration:none}' . '

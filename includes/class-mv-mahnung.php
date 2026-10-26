@@ -11,23 +11,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Mietv_Mahnung {
 
 	public static function init(): void {
-		add_action( 'admin_post_mv_mahnung', [ __CLASS__, 'erzeugen' ] );
+		add_action( 'admin_post_mietv_mahnung', [ __CLASS__, 'erzeugen' ] );
 	}
 
 	public static function stufen(): array {
 		return [
-			1 => __( 'Zahlungserinnerung', 'mietverwaltung' ),
-			2 => __( '1. Mahnung', 'mietverwaltung' ),
-			3 => __( 'Letzte Mahnung', 'mietverwaltung' ),
+			1 => __( 'Zahlungserinnerung', 'mietfux' ),
+			2 => __( '1. Mahnung', 'mietfux' ),
+			3 => __( 'Letzte Mahnung', 'mietfux' ),
 		];
 	}
 
 	public static function page(): void {
 		global $wpdb;
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mahnwesen', 'mietverwaltung' ) . '</h1>';
-		echo '<p class="description">' . esc_html__( 'Verzug tritt ohne Mahnung ein, wenn die Miete zum vereinbarten Zahltag nicht eingeht (§ 286 Abs. 2 Nr. 1 BGB). Eine Zahlungserinnerung ist dennoch üblich. Fristlose Kündigung ist bei Rückstand von zwei Monatsmieten möglich (§ 543 Abs. 2 Nr. 3 BGB) – vorher anwaltlich prüfen lassen.', 'mietverwaltung' ) . '</p>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mahnwesen', 'mietfux' ) . '</h1>';
+		echo '<p class="description">' . esc_html__( 'Verzug tritt ohne Mahnung ein, wenn die Miete zum vereinbarten Zahltag nicht eingeht (§ 286 Abs. 2 Nr. 1 BGB). Eine Zahlungserinnerung ist dennoch üblich. Fristlose Kündigung ist bei Rückstand von zwei Monatsmieten möglich (§ 543 Abs. 2 Nr. 3 BGB) – vorher anwaltlich prüfen lassen.', 'mietfux' ) . '</p>';
 
-		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Saldo', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Monatsmiete', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Rückstand in Monaten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Letzte Mahnung', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Aktion', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
+		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Mietverhältnis', 'mietfux' ) . '</th><th>' . esc_html__( 'Saldo', 'mietfux' ) . '</th><th>' . esc_html__( 'Monatsmiete', 'mietfux' ) . '</th><th>' . esc_html__( 'Rückstand in Monaten', 'mietfux' ) . '</th><th>' . esc_html__( 'Letzte Mahnung', 'mietfux' ) . '</th><th>' . esc_html__( 'Aktion', 'mietfux' ) . '</th></tr></thead><tbody>';
 		$n = 0;
 		foreach ( Mietv_Soll::alle_mv( true ) as $mv ) {
 			$op = Mietv_Soll::op_liste( $mv );
@@ -45,7 +45,7 @@ class Mietv_Mahnung {
 				esc_html( Mietv_Soll::mietv_label( $mv ) ),
 				esc_html( mietv_eur( $op['saldo'] ) ),
 				esc_html( mietv_eur( $miete ) ),
-				$miete > 0 ? esc_html( number_format( -$op['saldo'] / $miete, 1, ',', '.' ) ) . ( -$op['saldo'] >= 2 * $miete ? ' <span class="mv-neg">' . esc_html__( '⚠ ≥ 2 Monatsmieten', 'mietverwaltung' ) . '</span>' : '' ) : '–',
+				$miete > 0 ? esc_html( number_format( -$op['saldo'] / $miete, 1, ',', '.' ) ) . ( -$op['saldo'] >= 2 * $miete ? ' <span class="mv-neg">' . esc_html__( '⚠ ≥ 2 Monatsmieten', 'mietfux' ) . '</span>' : '' ) : '–',
 				$letzte ? esc_html( self::stufen()[ $letzte->stufe ] . ' am ' . mietv_date( $letzte->datum ) . ( $letzte->per_email ? ' (E-Mail)' : '' ) ) : '–'
 			);
 			foreach ( self::stufen() as $s => $label ) {
@@ -56,13 +56,13 @@ class Mietv_Mahnung {
 			echo '</td></tr>';
 		}
 		if ( ! $n ) {
-			echo '<tr><td colspan="6">' . esc_html__( 'Keine Rückstände – alle Mietkonten ausgeglichen.', 'mietverwaltung' ) . '</td></tr>';
+			echo '<tr><td colspan="6">' . esc_html__( 'Keine Rückstände – alle Mietkonten ausgeglichen.', 'mietfux' ) . '</td></tr>';
 		}
 		echo '</tbody></table>';
 
 		$hist = $wpdb->get_results( 'SELECT h.*, m.nachname, m.vorname FROM ' . $wpdb->prefix . 'mv_mahnungen h JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = h.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id ORDER BY h.datum DESC LIMIT 50' );
 		if ( $hist ) {
-			echo '<h2>' . esc_html__( 'Verlauf', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Mieter', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Stufe', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Frist', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'E-Mail', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
+			echo '<h2>' . esc_html__( 'Verlauf', 'mietfux' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Datum', 'mietfux' ) . '</th><th>' . esc_html__( 'Mieter', 'mietfux' ) . '</th><th>' . esc_html__( 'Stufe', 'mietfux' ) . '</th><th>' . esc_html__( 'Betrag', 'mietfux' ) . '</th><th>' . esc_html__( 'Frist', 'mietfux' ) . '</th><th>' . esc_html__( 'E-Mail', 'mietfux' ) . '</th></tr></thead><tbody>';
 			foreach ( $hist as $h ) {
 				printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( mietv_date( $h->datum ) ), esc_html( $h->nachname . ', ' . $h->vorname ), esc_html( self::stufen()[ $h->stufe ] ?? $h->stufe ), esc_html( mietv_eur( $h->betrag ) ), esc_html( mietv_date( $h->frist ) ), $h->per_email ? 'ja' : '–' );
 			}
@@ -73,7 +73,7 @@ class Mietv_Mahnung {
 
 	public static function erzeugen(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$mv_id = ( isset( $_GET['mv'] ) ? (int) $_GET['mv'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
@@ -86,7 +86,7 @@ class Mietv_Mahnung {
 			}
 		}
 		if ( ! $mv ) {
-			wp_die( esc_html__( 'Mietverhältnis nicht gefunden.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Mietverhältnis nicht gefunden.', 'mietfux' ) );
 		}
 		$op         = Mietv_Soll::op_liste( $mv );
 		$rueckstand = -$op['saldo'];
@@ -97,11 +97,11 @@ class Mietv_Mahnung {
 
 		// Offene Monate
 		$offen   = array_filter( $op['rows'], fn( $r ) => $r['diff'] < -0.005 );
-		$tabelle = '<table class="liste"><thead><tr><th>' . esc_html__( 'Monat', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Soll', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gezahlt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Offen', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
+		$tabelle = '<table class="liste"><thead><tr><th>' . esc_html__( 'Monat', 'mietfux' ) . '</th><th>' . esc_html__( 'Soll', 'mietfux' ) . '</th><th>' . esc_html__( 'Gezahlt', 'mietfux' ) . '</th><th>' . esc_html__( 'Offen', 'mietfux' ) . '</th></tr></thead><tbody>';
 		foreach ( $offen as $r ) {
 			$tabelle .= sprintf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( mietv_monat( $r['monat'] ) ), esc_html( mietv_eur( $r['soll'] ) ), esc_html( mietv_eur( $r['ist'] ) ), esc_html( mietv_eur( -$r['diff'] ) ) );
 		}
-		$tabelle .= sprintf( '<tr class="summe"><td colspan="3">' . esc_html__( 'Gesamtrückstand', 'mietverwaltung' ) . '</td><td>%s</td></tr></tbody></table>', esc_html( mietv_eur( $rueckstand ) ) );
+		$tabelle .= sprintf( '<tr class="summe"><td colspan="3">' . esc_html__( 'Gesamtrückstand', 'mietfux' ) . '</td><td>%s</td></tr></tbody></table>', esc_html( mietv_eur( $rueckstand ) ) );
 
 		$anrede = '<p>' . esc_html( Mietv_Brief::anrede( $mv ) ) . '</p>';
 		$objekt = $mv->objekt . ' / ' . $mv->einheit;
@@ -109,20 +109,20 @@ class Mietv_Mahnung {
 			case 1:
 				$betreff = 'Zahlungserinnerung – Mietverhältnis ' . $objekt;
 				$text    = $anrede . '<p>bei der Durchsicht Ihres Mietkontos habe ich festgestellt, dass folgende Zahlungen noch nicht eingegangen sind:</p>' . $tabelle
-					. sprintf( '<p>' . esc_html__( 'Sicher handelt es sich um ein Versehen. Bitte überweisen Sie den offenen Betrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'bis zum', 'mietverwaltung' ) . ' <strong>%s</strong>' . esc_html__( '. Sollte die Zahlung bereits erfolgt sein, betrachten Sie dieses Schreiben als gegenstandslos.', 'mietverwaltung' ) . '</p>', esc_html( mietv_eur( $rueckstand ) ), esc_html( mietv_date( $frist ) ) );
+					. sprintf( '<p>' . esc_html__( 'Sicher handelt es sich um ein Versehen. Bitte überweisen Sie den offenen Betrag von', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'bis zum', 'mietfux' ) . ' <strong>%s</strong>' . esc_html__( '. Sollte die Zahlung bereits erfolgt sein, betrachten Sie dieses Schreiben als gegenstandslos.', 'mietfux' ) . '</p>', esc_html( mietv_eur( $rueckstand ) ), esc_html( mietv_date( $frist ) ) );
 				break;
 			case 2:
 				$betreff = 'Mahnung – Mietrückstand ' . $objekt;
 				$text    = $anrede . '<p>trotz meiner Zahlungserinnerung ist folgender Mietrückstand weiterhin offen:</p>' . $tabelle
-					. sprintf( '<p>' . esc_html__( 'Ich fordere Sie auf, den Betrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'bis spätestens', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'zu überweisen. Sie befinden sich mit den Zahlungen in Verzug (§ 286 Abs. 2 Nr. 1 BGB); ab Fälligkeit sind Verzugszinsen geschuldet (§ 288 BGB).', 'mietverwaltung' ) . '</p>', esc_html( mietv_eur( $rueckstand ) ), esc_html( mietv_date( $frist ) ) );
+					. sprintf( '<p>' . esc_html__( 'Ich fordere Sie auf, den Betrag von', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'bis spätestens', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'zu überweisen. Sie befinden sich mit den Zahlungen in Verzug (§ 286 Abs. 2 Nr. 1 BGB); ab Fälligkeit sind Verzugszinsen geschuldet (§ 288 BGB).', 'mietfux' ) . '</p>', esc_html( mietv_eur( $rueckstand ) ), esc_html( mietv_date( $frist ) ) );
 				break;
 			default:
 				$betreff = 'Letzte Mahnung vor Einleitung rechtlicher Schritte – ' . $objekt;
 				$kuend   = $miete > 0 && $rueckstand >= 2 * $miete
-					? '<p>' . esc_html__( 'Der Rückstand beträgt inzwischen mehr als zwei Monatsmieten. Ich weise Sie darauf hin, dass ich in diesem Fall berechtigt bin, das Mietverhältnis fristlos zu kündigen (§ 543 Abs. 2 Satz 1 Nr. 3 BGB).', 'mietverwaltung' ) . '</p>'
-					: '<p>' . esc_html__( 'Nach fruchtlosem Ablauf der Frist werde ich den Rückstand gerichtlich geltend machen (Mahnbescheid). Die dadurch entstehenden Kosten gehen zu Ihren Lasten.', 'mietverwaltung' ) . '</p>';
+					? '<p>' . esc_html__( 'Der Rückstand beträgt inzwischen mehr als zwei Monatsmieten. Ich weise Sie darauf hin, dass ich in diesem Fall berechtigt bin, das Mietverhältnis fristlos zu kündigen (§ 543 Abs. 2 Satz 1 Nr. 3 BGB).', 'mietfux' ) . '</p>'
+					: '<p>' . esc_html__( 'Nach fruchtlosem Ablauf der Frist werde ich den Rückstand gerichtlich geltend machen (Mahnbescheid). Die dadurch entstehenden Kosten gehen zu Ihren Lasten.', 'mietfux' ) . '</p>';
 				$text    = $anrede . '<p>trotz Zahlungserinnerung und Mahnung ist folgender Mietrückstand weiterhin offen:</p>' . $tabelle
-					. sprintf( '<p>' . esc_html__( 'Ich setze Ihnen eine', 'mietverwaltung' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'letzte Frist bis zum %s', 'mietverwaltung' ) . '</strong>' . esc_html__( ', den Betrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'vollständig zu zahlen.', 'mietverwaltung' ) . '</p>', esc_html( mietv_date( $frist ) ), esc_html( mietv_eur( $rueckstand ) ) ) . $kuend
+					. sprintf( '<p>' . esc_html__( 'Ich setze Ihnen eine', 'mietfux' ) . ' <strong>' . /* translators: %s: Wert */ esc_html__( 'letzte Frist bis zum %s', 'mietfux' ) . '</strong>' . esc_html__( ', den Betrag von', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'vollständig zu zahlen.', 'mietfux' ) . '</p>', esc_html( mietv_date( $frist ) ), esc_html( mietv_eur( $rueckstand ) ) ) . $kuend
 					. '<p>Sollten Sie in Zahlungsschwierigkeiten sein, nehmen Sie bitte umgehend Kontakt mit mir auf, um eine Lösung zu finden.</p>';
 		}
 		$text .= Mietv_Brief::bankverbindung();

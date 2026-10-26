@@ -28,20 +28,20 @@ class Mietv_Brief {
 		global $wpdb;
 		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT anrede, nachname, p_anrede, p_nachname FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $mv->mieter_id ) );
 		if ( ! $m ) {
-			return __( 'Sehr geehrte Damen und Herren,', 'mietverwaltung' );
+			return __( 'Sehr geehrte Damen und Herren,', 'mietfux' );
 		}
 		$teil  = function ( $anrede, $nachname ) {
 			if ( $anrede === 'Frau' ) {
-				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrte Frau %s', 'mietverwaltung' ), $nachname );
+				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrte Frau %s', 'mietfux' ), $nachname );
 			}
 			if ( $anrede === 'Herr' ) {
-				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrter Herr %s', 'mietverwaltung' ), $nachname );
+				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrter Herr %s', 'mietfux' ), $nachname );
 			}
 			return null;
 		};
 		$teile = array_filter( [ $teil( $m->anrede, $m->nachname ), mietv_hat_partner( $m ) ? $teil( $m->p_anrede, $m->p_nachname ) : null ] );
 		if ( ! $teile ) {
-			return __( 'Sehr geehrte Damen und Herren,', 'mietverwaltung' );
+			return __( 'Sehr geehrte Damen und Herren,', 'mietfux' );
 		}
 		$text = implode( ', ', $teile ) . ',';
 		return mb_strtoupper( mb_substr( $text, 0, 1 ) ) . mb_substr( $text, 1 );
@@ -87,25 +87,14 @@ class Mietv_Brief {
 		?>
 <!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8"><title><?php echo esc_html( $titel ); ?></title>
-<style>
-@page { size: A4; margin: 20mm 20mm 20mm 25mm; }
-body { font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.45; color: #000; margin: 0; }
-.seite { max-width: 165mm; margin: 0 auto; padding: 20px; }
-.absender { font-size: 8pt; border-bottom: 1px solid #000; padding-bottom: 2px; margin-top: 25mm; width: 85mm; }
-.empf { white-space: pre-line; margin-top: 4mm; height: 30mm; }
-.datum { text-align: right; margin-top: -10mm; }
-.betreff { font-weight: bold; margin: 12mm 0 6mm; }
-table.liste { width: 100%; border-collapse: collapse; margin: 4mm 0; font-size: 10pt; }
-table.liste th, table.liste td { padding: 3px 6px; border-bottom: 1px solid #ccc; text-align: right; vertical-align: top; }
-table.liste th:first-child, table.liste td:first-child { text-align: left; }
-table.liste th { background: #eee; }
-table.liste tr.summe td { font-weight: bold; border-top: 2px solid #000; border-bottom: none; }
-.hinweis { font-size: 9pt; color: #333; margin-top: 6mm; }
-.toolbar { background: #1d2327; color: #fff; padding: 8px 16px; font-size: 13px; }
-.toolbar button { margin-right: 8px; }
-h2 { font-size: 12pt; margin: 8mm 0 2mm; }
-@media print { .toolbar { display: none; } .seite { padding: 0; max-width: none; } }
-</style></head><body>
+		<?php
+		wp_enqueue_style( 'mietv-dokument-brief', MIETV_URL . 'assets/dokument-brief.css', [], MIETV_VERSION );
+		if ( $auto_print ) {
+			wp_enqueue_script( 'mietv-druck', MIETV_URL . 'assets/druck.js', [], MIETV_VERSION, true );
+		}
+		wp_print_styles( 'mietv-dokument-brief' );
+		?>
+</head><body>
 <div class="toolbar"><button onclick="window.print()">Drucken / Als PDF sichern</button><button onclick="window.close()">Schließen</button> <?php echo esc_html( $titel ); ?></div>
 <div class="seite">
 <div class="absender"><?php echo esc_html( $absender_zeile ); ?></div>
@@ -117,9 +106,10 @@ h2 { font-size: 12pt; margin: 8mm 0 2mm; }
 <p style="margin-top:14mm"><?php echo esc_html( $einst::get( 'vermieter_name' ) ); ?></p>
 </div>
 		<?php
-		if ( $auto_print ) :
-			?>
-			<script>window.addEventListener('load',function(){setTimeout(function(){window.print();},300);});</script><?php endif; ?>
+		if ( $auto_print ) {
+			wp_print_scripts( 'mietv-druck' );
+		}
+		?>
 </body></html>
 		<?php
 		exit;

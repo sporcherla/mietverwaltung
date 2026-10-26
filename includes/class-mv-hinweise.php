@@ -39,7 +39,7 @@ class Mietv_Hinweise {
 			if ( ! $k ) {
 				$h[] = [
 					'typ'  => 'warn',
-					'text' => esc_html__( 'Keine Konditionen für ', 'mietverwaltung' ) . mietv_monat( $monat ) . ' bei ' . Mietv_Soll::mietv_label( $mv ),
+					'text' => esc_html__( 'Keine Konditionen für ', 'mietfux' ) . mietv_monat( $monat ) . ' bei ' . Mietv_Soll::mietv_label( $mv ),
 					'url'  => admin_url( 'admin.php?page=mietv_konditionen' ),
 				];
 				continue;
@@ -49,7 +49,7 @@ class Mietv_Hinweise {
 			if ( $tag > (int) $mv->zahltag + 5 && $ist + 0.005 < $soll ) {
 				$h[] = [
 					'typ'  => 'error',
-					'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert */ __( 'Miete %1$s fehlt oder unvollständig: %2$s (Soll %3$s, Ist %4$s)', 'mietverwaltung' ), mietv_monat( $monat ), Mietv_Soll::mietv_label( $mv ), mietv_eur( $soll ), mietv_eur( $ist ) ),
+					'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert */ __( 'Miete %1$s fehlt oder unvollständig: %2$s (Soll %3$s, Ist %4$s)', 'mietfux' ), mietv_monat( $monat ), Mietv_Soll::mietv_label( $mv ), mietv_eur( $soll ), mietv_eur( $ist ) ),
 					'url'  => admin_url( 'admin.php?page=mietv_uebersicht' ),
 				];
 			}
@@ -57,7 +57,7 @@ class Mietv_Hinweise {
 			if ( $op['saldo'] < -0.005 ) {
 				$h[] = [
 					'typ'  => 'error',
-					'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( 'Rückstand %1$s bei %2$s', 'mietverwaltung' ), mietv_eur( -$op['saldo'] ), Mietv_Soll::mietv_label( $mv ) ),
+					'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( 'Rückstand %1$s bei %2$s', 'mietfux' ), mietv_eur( -$op['saldo'] ), Mietv_Soll::mietv_label( $mv ) ),
 					'url'  => admin_url( 'admin.php?page=mietv_mahnung' ),
 				];
 			}
@@ -75,7 +75,7 @@ class Mietv_Hinweise {
 				$rest = (int) ( ( strtotime( $jahr . '-12-31' ) - strtotime( $heute ) ) / 86400 );
 				$h[]  = [
 					'typ'  => $rest <= 60 ? 'error' : 'info',
-					'text' => sprintf( /* translators: %1$d: Wert, %2$s: Wert, %3$d: Wert, %4$d: Wert */ __( 'Betriebskostenabrechnung %1$d für %2$s noch nicht fertiggestellt – Frist 31.12.%3$d (§ 556 Abs. 3 BGB), noch %4$d Tage', 'mietverwaltung' ), $vorjahr, $o->bezeichnung, $jahr, $rest ),
+					'text' => sprintf( /* translators: %1$d: Wert, %2$s: Wert, %3$d: Wert, %4$d: Wert */ __( 'Betriebskostenabrechnung %1$d für %2$s noch nicht fertiggestellt – Frist 31.12.%3$d (§ 556 Abs. 3 BGB), noch %4$d Tage', 'mietfux' ), $vorjahr, $o->bezeichnung, $jahr, $rest ),
 					'url'  => admin_url( 'admin.php?page=mietv_abrechnung' ),
 				];
 			}
@@ -87,7 +87,7 @@ class Mietv_Hinweise {
 			if ( $rest <= 365 ) {
 				$h[] = [
 					'typ'  => $rest <= 90 ? 'error' : 'warn',
-					'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$d: Wert */ __( 'Zinsbindung %1$s endet am %2$s (%3$d Tage) – Anschlussfinanzierung prüfen', 'mietverwaltung' ), $d->bank, mietv_date( $d->zinsbindung_bis ), $rest ),
+					'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$d: Wert */ __( 'Zinsbindung %1$s endet am %2$s (%3$d Tage) – Anschlussfinanzierung prüfen', 'mietfux' ), $d->bank, mietv_date( $d->zinsbindung_bis ), $rest ),
 					'url'  => admin_url( 'admin.php?page=mietv_darlehen' ),
 				];
 			}
@@ -96,7 +96,7 @@ class Mietv_Hinweise {
 			if ( ! $besch && ! $raten && (int) current_time( 'n' ) >= 2 ) {
 				$h[] = [
 					'typ'  => 'info',
-					'text' => sprintf( /* translators: %1$d: Wert, %2$s: Wert */ __( 'Zinsbescheinigung %1$d für Darlehen %2$s noch nicht erfasst', 'mietverwaltung' ), $vorjahr, $d->bank ),
+					'text' => sprintf( /* translators: %1$d: Wert, %2$s: Wert */ __( 'Zinsbescheinigung %1$d für Darlehen %2$s noch nicht erfasst', 'mietfux' ), $vorjahr, $d->bank ),
 					'url'  => admin_url( 'admin.php?page=mietv_darlehen_jahre' ),
 				];
 			}
@@ -108,13 +108,13 @@ class Mietv_Hinweise {
 				if ( $p['netto'] > $p['grenze'] ) {
 					$h[] = [
 						'typ'  => 'error',
-						'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ __( 'Anschaffungsnahe Herstellungskosten überschritten bei %1$s (%2$s netto > %3$s)', 'mietverwaltung' ), $p['anlagegut']->bezeichnung, mietv_eur( $p['netto'] ), mietv_eur( $p['grenze'] ) ),
+						'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ __( 'Anschaffungsnahe Herstellungskosten überschritten bei %1$s (%2$s netto > %3$s)', 'mietfux' ), $p['anlagegut']->bezeichnung, mietv_eur( $p['netto'] ), mietv_eur( $p['grenze'] ) ),
 						'url'  => admin_url( 'admin.php?page=mietv_steuer' ),
 					];
 				} elseif ( $p['aktiv'] && $p['quote'] >= 10 ) {
 					$h[] = [
 						'typ'  => 'warn',
-						'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ __( '15-%%-Grenze bei %1$s zu %2$s %% ausgeschöpft (Frist bis %3$s)', 'mietverwaltung' ), $p['anlagegut']->bezeichnung, number_format( $p['quote'], 1, ',', '.' ), mietv_date( $p['bis'] ) ),
+						'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ __( '15-%%-Grenze bei %1$s zu %2$s %% ausgeschöpft (Frist bis %3$s)', 'mietfux' ), $p['anlagegut']->bezeichnung, number_format( $p['quote'], 1, ',', '.' ), mietv_date( $p['bis'] ) ),
 						'url'  => admin_url( 'admin.php?page=mietv_steuer' ),
 					];
 				}
@@ -136,7 +136,7 @@ class Mietv_Hinweise {
 			foreach ( Mietv_Datenschutz::faellig() as $f ) {
 				$h[] = [
 					'typ'  => 'info',
-					'text' => esc_html__( 'Aufbewahrungsfrist abgelaufen: Mieterdaten „', 'mietverwaltung' ) . $f['label'] . '“ können anonymisiert werden',
+					'text' => esc_html__( 'Aufbewahrungsfrist abgelaufen: Mieterdaten „', 'mietfux' ) . $f['label'] . '“ können anonymisiert werden',
 					'url'  => admin_url( 'admin.php?page=mietv_datenschutz' ),
 				];
 			}
@@ -149,7 +149,7 @@ class Mietv_Hinweise {
 				if ( $rest <= 90 ) {
 					$h[] = [
 						'typ'  => 'info',
-						'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( 'Mietverhältnis %1$s endet am %2$s – Übergabe, Kaution, Zählerstände vorbereiten', 'mietverwaltung' ), Mietv_Soll::mietv_label( $mv ), mietv_date( $mv->ende ) ),
+						'text' => sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( 'Mietverhältnis %1$s endet am %2$s – Übergabe, Kaution, Zählerstände vorbereiten', 'mietfux' ), Mietv_Soll::mietv_label( $mv ), mietv_date( $mv->ende ) ),
 						'url'  => admin_url( 'admin.php?page=mietv_mietverhaeltnisse' ),
 					];
 				}
@@ -161,7 +161,7 @@ class Mietv_Hinweise {
 
 	public static function widget(): void {
 		if ( current_user_can( Mietv_Admin::CAP ) ) {
-			wp_add_dashboard_widget( 'mietv_dashboard', __( 'Mietverwaltung', 'mietverwaltung' ), [ __CLASS__, 'widget_inhalt' ] );
+			wp_add_dashboard_widget( 'mietv_dashboard', __( 'Mietfux', 'mietfux' ), [ __CLASS__, 'widget_inhalt' ] );
 		}
 	}
 
@@ -170,12 +170,12 @@ class Mietv_Hinweise {
 		echo '<ul>';
 		foreach ( $mvs as $mv ) {
 			$op = Mietv_Soll::op_liste( $mv );
-			printf( '<li><strong>%s</strong>' . esc_html__( ': Saldo', 'mietverwaltung' ) . ' <span style="color:%s">%s</span></li>', esc_html( Mietv_Soll::mietv_label( $mv ) ), $op['saldo'] < -0.005 ? '#b32d2e' : '#1a7f37', esc_html( mietv_eur( $op['saldo'] ) ) );
+			printf( '<li><strong>%s</strong>' . esc_html__( ': Saldo', 'mietfux' ) . ' <span style="color:%s">%s</span></li>', esc_html( Mietv_Soll::mietv_label( $mv ) ), $op['saldo'] < -0.005 ? '#b32d2e' : '#1a7f37', esc_html( mietv_eur( $op['saldo'] ) ) );
 		}
 		echo '</ul>';
 		$h = self::alle();
 		if ( ! $h ) {
-			echo '<p>' . esc_html__( '✅ Keine offenen Hinweise.', 'mietverwaltung' ) . '</p>';
+			echo '<p>' . esc_html__( '✅ Keine offenen Hinweise.', 'mietfux' ) . '</p>';
 		} else {
 			echo '<ul style="margin-left:1em">';
 			foreach ( $h as $x ) {
@@ -188,7 +188,7 @@ class Mietv_Hinweise {
 			}
 			echo '</ul>';
 		}
-		printf( '<p><a href="%s" class="button">' . esc_html__( 'Zur Mietverwaltung', 'mietverwaltung' ) . '</a></p>', esc_url( admin_url( 'admin.php?page=mietv_uebersicht' ) ) );
+		printf( '<p><a href="%s" class="button">' . esc_html__( 'Zu Mietfux', 'mietfux' ) . '</a></p>', esc_url( admin_url( 'admin.php?page=mietv_uebersicht' ) ) );
 	}
 
 	public static function cron(): void {
@@ -207,7 +207,7 @@ class Mietv_Hinweise {
 		foreach ( $h as $x ) {
 			$text .= ( $x['typ'] === 'error' ? '!! ' : ' - ' ) . $x['text'] . "\n   " . $x['url'] . "\n";
 		}
-		wp_mail( Mietv_Einstellungen::get( 'erinnerung_email', get_option( 'admin_email' ) ), '[Mietverwaltung] ' . count( $h ) . ' Hinweis(e)', $text );
+		wp_mail( Mietv_Einstellungen::get( 'erinnerung_email', get_option( 'admin_email' ) ), '[Mietfux] ' . count( $h ) . ' Hinweis(e)', $text );
 		update_option( 'mietv_hinweis_hash', $hash );
 		update_option( 'mietv_hinweis_datum', current_time( 'Y-m-d' ) );
 	}

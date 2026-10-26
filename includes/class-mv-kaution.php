@@ -12,15 +12,15 @@ class Mietv_Kaution {
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
-		add_action( 'admin_post_mv_kaution_abrechnung', [ __CLASS__, 'abrechnung' ] );
+		add_action( 'admin_post_mietv_kaution_abrechnung', [ __CLASS__, 'abrechnung' ] );
 	}
 
 	public static function arten(): array {
 		return [
-			'einzahlung'  => esc_html__( 'Einzahlung Mieter', 'mietverwaltung' ),
-			'zins'        => esc_html__( 'Zinsgutschrift', 'mietverwaltung' ),
-			'verrechnung' => esc_html__( 'Verrechnung mit Forderung', 'mietverwaltung' ),
-			'auszahlung'  => esc_html__( 'Auszahlung an Mieter', 'mietverwaltung' ),
+			'einzahlung'  => esc_html__( 'Einzahlung Mieter', 'mietfux' ),
+			'zins'        => esc_html__( 'Zinsgutschrift', 'mietfux' ),
+			'verrechnung' => esc_html__( 'Verrechnung mit Forderung', 'mietfux' ),
+			'auszahlung'  => esc_html__( 'Auszahlung an Mieter', 'mietfux' ),
 		];
 	}
 
@@ -52,7 +52,7 @@ class Mietv_Kaution {
 			return;
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_kaution_nonce'] ?? '' ) ), 'mietv_kaution' ) ) {
-			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$mv_id = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : 0 );
@@ -128,9 +128,9 @@ class Mietv_Kaution {
 				$mv = $m;
 			}
 		}
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Kautionskonto', 'mietverwaltung' ) . '</h1>';
-		echo '<p class="description">' . esc_html__( 'Die Kaution ist getrennt vom Vermögen des Vermieters zum üblichen Zinssatz für Spareinlagen mit dreimonatiger Kündigungsfrist anzulegen; die Zinsen stehen dem Mieter zu (§ 551 Abs. 3 BGB). Rückzahlung nach Mietende und angemessener Prüffrist (i. d. R. 3–6 Monate), abzüglich berechtigter Forderungen.', 'mietverwaltung' ) . '</p>';
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_kaution"><label>' . esc_html__( 'Mietverhältnis', 'mietverwaltung' ) . ' <select name="mv_id" onchange="this.form.submit()">';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Kautionskonto', 'mietfux' ) . '</h1>';
+		echo '<p class="description">' . esc_html__( 'Die Kaution ist getrennt vom Vermögen des Vermieters zum üblichen Zinssatz für Spareinlagen mit dreimonatiger Kündigungsfrist anzulegen; die Zinsen stehen dem Mieter zu (§ 551 Abs. 3 BGB). Rückzahlung nach Mietende und angemessener Prüffrist (i. d. R. 3–6 Monate), abzüglich berechtigter Forderungen.', 'mietfux' ) . '</p>';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_kaution"><label>' . esc_html__( 'Mietverhältnis', 'mietfux' ) . ' <select name="mv_id" onchange="this.form.submit()">';
 		foreach ( $mvs as $m ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $m->id, selected( (int) $mv_id, (int) $m->id, false ), esc_html( Mietv_Soll::mietv_label( $m ) ) );
 		}
@@ -144,7 +144,7 @@ class Mietv_Kaution {
 		$op   = Mietv_Soll::op_liste( $mv );
 		$cls  = $k['stand'] + 0.005 < $soll ? 'mv-neg' : 'mv-pos';
 		printf(
-			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Vereinbart (§ 551)', 'mietverwaltung' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Eingezahlt', 'mietverwaltung' ) . '</span><strong class="%s">%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Zinsen gutgeschrieben', 'mietverwaltung' ) . '</span><strong>%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Kontostand', 'mietverwaltung' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Mietkonto-Saldo', 'mietverwaltung' ) . '</span><strong class="%s">%s</strong></div></div>',
+			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Vereinbart (§ 551)', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Eingezahlt', 'mietfux' ) . '</span><strong class="%s">%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Zinsen gutgeschrieben', 'mietfux' ) . '</span><strong>%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Kontostand', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Mietkonto-Saldo', 'mietfux' ) . '</span><strong class="%s">%s</strong></div></div>',
 			esc_html( mietv_eur( $soll ) ),
 			$cls, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 			esc_html( mietv_eur( $k['einzahlung'] ) ),
@@ -156,7 +156,7 @@ class Mietv_Kaution {
 			esc_html( mietv_eur( $op['saldo'] ) )
 		);
 
-		echo '<h2>' . esc_html__( 'Buchungen', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Art', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Notiz', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th><th></th></tr></thead><tbody>';
+		echo '<h2>' . esc_html__( 'Buchungen', 'mietfux' ) . '</h2><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Datum', 'mietfux' ) . '</th><th>' . esc_html__( 'Art', 'mietfux' ) . '</th><th>' . esc_html__( 'Notiz', 'mietfux' ) . '</th><th>' . esc_html__( 'Betrag', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( $k['buchungen'] as $b ) {
 			printf(
 				'<tr><td>%s</td><td>%s</td><td style="text-align:left">%s</td><td class="%s">%s%s</td><td><form method="post" style="display:inline">%s<input type="hidden" name="mv_id" value="%d"><button name="loeschen" value="%d" class="button-link mv-delete" onclick="return confirm(\'Buchung löschen?\')">×</button></form></td></tr>',
@@ -172,30 +172,30 @@ class Mietv_Kaution {
 			);
 		}
 		if ( ! $k['buchungen'] ) {
-			echo '<tr><td colspan="5">' . esc_html__( 'Noch keine Buchung.', 'mietverwaltung' ) . '</td></tr>';
+			echo '<tr><td colspan="5">' . esc_html__( 'Noch keine Buchung.', 'mietfux' ) . '</td></tr>';
 		}
 		echo '</tbody></table>';
 
-		echo '<div class="mv-kacheln"><div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Buchung erfassen', 'mietverwaltung' ) . '</h3><form method="post">';
+		echo '<div class="mv-kacheln"><div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Buchung erfassen', 'mietfux' ) . '</h3><form method="post">';
 		wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce' );
 		printf( '<input type="hidden" name="mv_id" value="%d"><p><input type="date" name="datum" value="%s"> <select name="art">', (int) $mv_id, esc_attr( current_time( 'Y-m-d' ) ) );
 		foreach ( self::arten() as $a => $l ) {
 			printf( '<option value="%s">%s</option>', $a, esc_html( $l ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
 		}
-		printf( '</select></p><p><input type="text" name="betrag" class="mv-num" placeholder="Betrag" value="%s"> <input type="text" name="notiz" placeholder="Notiz" class="regular-text"></p><p><button class="button button-primary">' . esc_html__( 'Buchen', 'mietverwaltung' ) . '</button></p></form></div>', $k['einzahlung'] + 0.005 < $soll ? esc_attr( number_format( round( $soll / 3, 2 ), 2, ',', '' ) ) : '' );
+		printf( '</select></p><p><input type="text" name="betrag" class="mv-num" placeholder="Betrag" value="%s"> <input type="text" name="notiz" placeholder="Notiz" class="regular-text"></p><p><button class="button button-primary">' . esc_html__( 'Buchen', 'mietfux' ) . '</button></p></form></div>', $k['einzahlung'] + 0.005 < $soll ? esc_attr( number_format( round( $soll / 3, 2 ), 2, ',', '' ) ) : '' );
 
-		echo '<div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Zinsen gutschreiben', 'mietverwaltung' ) . '</h3><form method="post">';
+		echo '<div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Zinsen gutschreiben', 'mietfux' ) . '</h3><form method="post">';
 		wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce' );
-		printf( '<input type="hidden" name="mv_id" value="%d"><p>' . esc_html__( 'Zinssatz', 'mietverwaltung' ) . ' <input type="text" name="zinssatz" class="small-text mv-num" value="%s"> ' . esc_html__( '%% p. a. bis Stichtag', 'mietverwaltung' ) . ' <input type="date" name="stichtag" value="%s"></p><p><button name="zins_berechnen" value="1" class="button">' . esc_html__( 'Taggenau berechnen und buchen', 'mietverwaltung' ) . '</button></p><p class="description">' . esc_html__( 'Zinssatz laut Kautionskonto/Sparbuch der Bank. Berechnung seit der letzten Zinsgutschrift auf den jeweiligen Kontostand (act/365).', 'mietverwaltung' ) . '</p></form></div></div>', (int) $mv_id, esc_attr( '0,50' ), esc_attr( current_time( 'Y' ) . '-12-31' ) );
+		printf( '<input type="hidden" name="mv_id" value="%d"><p>' . esc_html__( 'Zinssatz', 'mietfux' ) . ' <input type="text" name="zinssatz" class="small-text mv-num" value="%s"> ' . esc_html__( '%% p. a. bis Stichtag', 'mietfux' ) . ' <input type="date" name="stichtag" value="%s"></p><p><button name="zins_berechnen" value="1" class="button">' . esc_html__( 'Taggenau berechnen und buchen', 'mietfux' ) . '</button></p><p class="description">' . esc_html__( 'Zinssatz laut Kautionskonto/Sparbuch der Bank. Berechnung seit der letzten Zinsgutschrift auf den jeweiligen Kontostand (act/365).', 'mietfux' ) . '</p></form></div></div>', (int) $mv_id, esc_attr( '0,50' ), esc_attr( current_time( 'Y' ) . '-12-31' ) );
 
 		// Rückzahlungsabrechnung
 		$beendet = $mv->ende && $mv->ende !== '0000-00-00' && $mv->ende <= current_time( 'Y-m-d' );
-		echo '<h2>' . esc_html__( 'Rückzahlungsabrechnung', 'mietverwaltung' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Rückzahlungsabrechnung', 'mietfux' ) . '</h2>';
 		$offene_bk   = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(CASE WHEN saldo < 0 THEN -saldo ELSE 0 END),0) FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE mv_id = %d AND freigegeben = 1', $mv_id ) );
 		$forderungen = max( 0, -$op['saldo'] );
 		$auszahlung  = $k['stand'] - $forderungen;
-		$kopf        = sprintf( /* translators: %1$s: Kontostand, %2$s: Rückstand */ __( 'Kontostand %1$s − offener Mietrückstand %2$s =', 'mietverwaltung' ), mietv_eur( $k['stand'] ), mietv_eur( $forderungen ) );
-		$rest        = sprintf( /* translators: %1$s: Auszahlung/Restforderung, %2$s: Betrag aus Betriebskostenabrechnung */ __( '%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen.', 'mietverwaltung' ), $auszahlung < 0 ? __( ' (Restforderung gegen den Mieter)', 'mietverwaltung' ) : __( ' Auszahlungsbetrag', 'mietverwaltung' ), mietv_eur( $offene_bk ) );
+		$kopf        = sprintf( /* translators: %1$s: Kontostand, %2$s: Rückstand */ __( 'Kontostand %1$s − offener Mietrückstand %2$s =', 'mietfux' ), mietv_eur( $k['stand'] ), mietv_eur( $forderungen ) );
+		$rest        = sprintf( /* translators: %1$s: Auszahlung/Restforderung, %2$s: Betrag aus Betriebskostenabrechnung */ __( '%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen.', 'mietfux' ), $auszahlung < 0 ? __( ' (Restforderung gegen den Mieter)', 'mietfux' ) : __( ' Auszahlungsbetrag', 'mietfux' ), mietv_eur( $offene_bk ) );
 		printf(
 			'<p>%s <strong class="%s">%s</strong>%s</p>',
 			esc_html( $kopf ),
@@ -205,13 +205,13 @@ class Mietv_Kaution {
 		);
 
 		$u = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_kaution_abrechnung&mv_id=' . $mv_id ), 'mietv_kaution_abr_' . $mv_id );
-		printf( '<p><a href="%s" target="_blank" class="button%s">' . esc_html__( 'Kautionsabrechnung (PDF)', 'mietverwaltung' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietverwaltung' ) . '</a>%s</p>', esc_url( $u ), $beendet ? ' button-primary' : '', esc_url( $u ), $beendet ? '' : ' <span class="description">' . esc_html__( 'Mietverhältnis läuft noch – Abrechnung erst nach Rückgabe.', 'mietverwaltung' ) . '</span>' );
+		printf( '<p><a href="%s" target="_blank" class="button%s">' . esc_html__( 'Kautionsabrechnung (PDF)', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a>%s</p>', esc_url( $u ), $beendet ? ' button-primary' : '', esc_url( $u ), $beendet ? '' : ' <span class="description">' . esc_html__( 'Mietverhältnis läuft noch – Abrechnung erst nach Rückgabe.', 'mietfux' ) . '</span>' );
 		echo '</div>';
 	}
 
 	public static function abrechnung(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
@@ -223,7 +223,7 @@ class Mietv_Kaution {
 			}
 		}
 		if ( ! $mv ) {
-			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
 		}
 		$k          = self::konto( $mv_id );
 		$op         = Mietv_Soll::op_liste( $mv );
@@ -231,22 +231,22 @@ class Mietv_Kaution {
 		$auszahlung = $k['stand'] - $forderung;
 
 		$b  = '<p>' . esc_html( Mietv_Brief::anrede( $mv ) ) . '</p>';
-		$b .= sprintf( '<p>' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'das Mietverhältnis über die Wohnung %1$s / %2$s %3$s. Hiermit rechne ich die von Ihnen geleistete Mietsicherheit ab:', 'mietverwaltung' ) . '</p>', esc_html( $mv->objekt ), esc_html( $mv->einheit ), $mv->ende && $mv->ende !== '0000-00-00' ? 'endete am ' . esc_html( mietv_date( $mv->ende ) ) : 'ist beendet' );
-		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Datum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Buchung', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
+		$b .= sprintf( '<p>' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'das Mietverhältnis über die Wohnung %1$s / %2$s %3$s. Hiermit rechne ich die von Ihnen geleistete Mietsicherheit ab:', 'mietfux' ) . '</p>', esc_html( $mv->objekt ), esc_html( $mv->einheit ), $mv->ende && $mv->ende !== '0000-00-00' ? 'endete am ' . esc_html( mietv_date( $mv->ende ) ) : 'ist beendet' );
+		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Datum', 'mietfux' ) . '</th><th>' . esc_html__( 'Buchung', 'mietfux' ) . '</th><th>' . esc_html__( 'Betrag', 'mietfux' ) . '</th></tr></thead><tbody>';
 		foreach ( $k['buchungen'] as $x ) {
 			$b .= sprintf( '<tr><td>%s</td><td>%s%s</td><td>%s%s</td></tr>', esc_html( mietv_date( $x->datum ) ), esc_html( self::arten()[ $x->art ] ), $x->notiz ? ' – ' . esc_html( $x->notiz ) : '', in_array( $x->art, [ 'einzahlung', 'zins' ], true ) ? '' : '– ', esc_html( mietv_eur( $x->betrag ) ) );
 		}
-		$b .= sprintf( '<tr class="summe"><td colspan="2">' . esc_html__( 'Kontostand einschließlich Zinsen', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $k['stand'] ) ) );
+		$b .= sprintf( '<tr class="summe"><td colspan="2">' . esc_html__( 'Kontostand einschließlich Zinsen', 'mietfux' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $k['stand'] ) ) );
 		if ( $forderung > 0 ) {
-			$b .= sprintf( '<tr><td colspan="2">' . esc_html__( 'abzüglich offener Mietforderungen laut Mietkonto', 'mietverwaltung' ) . '</td><td>– %s</td></tr>', esc_html( mietv_eur( $forderung ) ) );
+			$b .= sprintf( '<tr><td colspan="2">' . esc_html__( 'abzüglich offener Mietforderungen laut Mietkonto', 'mietfux' ) . '</td><td>– %s</td></tr>', esc_html( mietv_eur( $forderung ) ) );
 		}
-		$b .= sprintf( '<tr class="summe"><td colspan="2">%s</td><td>%s</td></tr></tbody></table>', $auszahlung >= 0 ? __( 'Auszahlungsbetrag', 'mietverwaltung' ) : __( 'Verbleibende Forderung gegen Sie', 'mietverwaltung' ), esc_html( mietv_eur( abs( $auszahlung ) ) ) );
+		$b .= sprintf( '<tr class="summe"><td colspan="2">%s</td><td>%s</td></tr></tbody></table>', $auszahlung >= 0 ? __( 'Auszahlungsbetrag', 'mietfux' ) : __( 'Verbleibende Forderung gegen Sie', 'mietfux' ), esc_html( mietv_eur( abs( $auszahlung ) ) ) );
 		if ( $auszahlung >= 0 ) {
-			$b .= '<p>' . esc_html__( 'Der Betrag wird innerhalb von 14 Tagen auf das mir mitgeteilte Konto überwiesen. Sollte mir noch keine Bankverbindung vorliegen, bitte ich um Mitteilung.', 'mietverwaltung' ) . '</p>';
+			$b .= '<p>' . esc_html__( 'Der Betrag wird innerhalb von 14 Tagen auf das mir mitgeteilte Konto überwiesen. Sollte mir noch keine Bankverbindung vorliegen, bitte ich um Mitteilung.', 'mietfux' ) . '</p>';
 		} else {
-			$b .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen.', 'mietverwaltung' ) . '</p>', esc_html( mietv_eur( abs( $auszahlung ) ) ) ) . Mietv_Brief::bankverbindung();
+			$b .= sprintf( '<p>' . /* translators: %s: Wert */ esc_html__( 'Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen.', 'mietfux' ) . '</p>', esc_html( mietv_eur( abs( $auszahlung ) ) ) ) . Mietv_Brief::bankverbindung();
 		}
-		$b        .= '<p class="hinweis">' . esc_html__( 'Mit dieser Abrechnung sind alle Ansprüche aus der Mietsicherheit abgegolten. Eine ausstehende Betriebskostenabrechnung für das letzte Nutzungsjahr bleibt vorbehalten, soweit nicht bereits berücksichtigt.', 'mietverwaltung' ) . '</p>';
+		$b        .= '<p class="hinweis">' . esc_html__( 'Mit dieser Abrechnung sind alle Ansprüche aus der Mietsicherheit abgegolten. Eine ausstehende Betriebskostenabrechnung für das letzte Nutzungsjahr bleibt vorbehalten, soweit nicht bereits berücksichtigt.', 'mietfux' ) . '</p>';
 		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
 		Mietv_Brief::ausgeben( 'Kautionsabrechnung ' . $mv->nachname, Mietv_Brief::empfaenger( $mv ), 'Abrechnung der Mietkaution', $b, null, true, [ $objekt_id, $mv_id, 'sonstiges', 'Kautionsabrechnung', true ] );
 	}

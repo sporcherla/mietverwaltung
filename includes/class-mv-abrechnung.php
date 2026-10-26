@@ -18,7 +18,7 @@ class Mietv_Abrechnung {
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
-		add_action( 'admin_post_mv_abrechnung_brief', [ __CLASS__, 'brief' ] );
+		add_action( 'admin_post_mietv_abrechnung_brief', [ __CLASS__, 'brief' ] );
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -117,7 +117,7 @@ class Mietv_Abrechnung {
 		$flaeche_gesamt   = array_sum( array_map( fn( $e ) => (float) $e->flaeche, $wohn ) );
 		$anzahl_einheiten = count( $wohn ) ?: count( $einheiten );
 		if ( $flaeche_gesamt <= 0 ) {
-			$hinweise[] = __( 'Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich.', 'mietverwaltung' );
+			$hinweise[] = __( 'Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich.', 'mietfux' );
 		}
 
 		// Mietverhältnisse im Zeitraum
@@ -136,7 +136,7 @@ class Mietv_Abrechnung {
 			}
 		}
 		if ( ! $mvs ) {
-			$hinweise[] = __( 'Kein Mietverhältnis im Abrechnungszeitraum.', 'mietverwaltung' );
+			$hinweise[] = __( 'Kein Mietverhältnis im Abrechnungszeitraum.', 'mietfux' );
 		}
 		$personentage_gesamt = array_sum( array_map( fn( $m ) => max( 1, (int) $m->personen ) * $m->tage, $mvs ) );
 
@@ -214,7 +214,7 @@ class Mietv_Abrechnung {
 			// Heizkosten
 			if ( $art['heizung'] ) {
 				if ( ! $zentral ) {
-					$hinweise[] = sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( '„%1$s“ (%2$s) nicht umgelegt: Objekt hat dezentrale Heizung – Mieter rechnen direkt mit dem Versorger ab.', 'mietverwaltung' ), $art['name'], mietv_eur( $gesamt ) );
+					$hinweise[] = sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( '„%1$s“ (%2$s) nicht umgelegt: Objekt hat dezentrale Heizung – Mieter rechnen direkt mit dem Versorger ab.', 'mietfux' ), $art['name'], mietv_eur( $gesamt ) );
 					continue;
 				}
 				$teile = [ [ 'verbrauch', $gesamt * $hk_verbrauch_prozent / 100, 'Verbrauch (' . $hk_verbrauch_prozent . ' %)' ], [ 'flaeche', $gesamt * ( 100 - $hk_verbrauch_prozent ) / 100, 'Wohnfläche (' . ( 100 - $hk_verbrauch_prozent ) . ' %)' ] ];
@@ -238,7 +238,7 @@ class Mietv_Abrechnung {
 					}
 					$vb_gesamt = array_sum( $vb );
 					if ( count( $vb ) < count( $mvs ) || $vb_gesamt <= 0 ) {
-						$hinweise[] = sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( '„%1$s“: Keine (vollständigen) Zählerstände für den Zeitraum – ersatzweise nach Wohnfläche verteilt%2$s.', 'mietverwaltung' ), $art['name'], $art['heizung'] ? ' (Kürzungsrecht des Mieters 15 %, § 12 HeizkostenV, beachten)' : '' );
+						$hinweise[] = sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( '„%1$s“: Keine (vollständigen) Zählerstände für den Zeitraum – ersatzweise nach Wohnfläche verteilt%2$s.', 'mietfux' ), $art['name'], $art['heizung'] ? ' (Kürzungsrecht des Mieters 15 %, § 12 HeizkostenV, beachten)' : '' );
 						$schluessel = 'flaeche';
 					} else {
 						$basis_label  = 'Verbrauch';
@@ -459,28 +459,28 @@ class Mietv_Abrechnung {
 
 	private static function liste(): void {
 		global $wpdb;
-		echo '<h1>' . esc_html__( 'Betriebskostenabrechnung', 'mietverwaltung' ) . '</h1>';
+		echo '<h1>' . esc_html__( 'Betriebskostenabrechnung', 'mietfux' ) . '</h1>';
 		$rows = $wpdb->get_results( 'SELECT a.*, o.bezeichnung AS objekt, (SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e WHERE e.abrechnung_id = a.id) AS anzahl FROM ' . $wpdb->prefix . 'mv_abrechnungen a JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id ORDER BY a.bis DESC' );
 
-		echo '<h2>' . esc_html__( 'Neue Abrechnung', 'mietverwaltung' ) . '</h2><form method="post" class="mv-filter">';
+		echo '<h2>' . esc_html__( 'Neue Abrechnung', 'mietfux' ) . '</h2><form method="post" class="mv-filter">';
 		wp_nonce_field( 'mietv_abr_neu' );
-		echo '<input type="hidden" name="mietv_abr_action" value="neu"><label>' . esc_html__( 'Objekt', 'mietverwaltung' ) . ' <select name="objekt_id" required>';
+		echo '<input type="hidden" name="mietv_abr_action" value="neu"><label>' . esc_html__( 'Objekt', 'mietfux' ) . ' <select name="objekt_id" required>';
 		foreach ( Mietv_Admin::opt_objekte() as $k => $v ) {
 			printf( '<option value="%d">%s</option>', (int) $k, esc_html( $v ) );
 		}
 		$vj = (int) current_time( 'Y' ) - 1;
-		printf( '</select></label> <label>' . esc_html__( 'Zeitraum von', 'mietverwaltung' ) . ' <input type="date" name="von" value="%d-01-01"></label> <label>' . esc_html__( 'bis', 'mietverwaltung' ) . ' <input type="date" name="bis" value="%d-12-31"></label> <button class="button button-primary">' . esc_html__( 'Berechnen', 'mietverwaltung' ) . '</button></form>', (int) $vj, (int) $vj );
-		echo '<p class="description">' . esc_html__( 'Voraussetzungen: umlagefähige Belege mit Leistungszeitraum, Wohnflächen an den Einheiten, Personenzahl am Mietverhältnis, bei Verbrauchsschlüssel Zählerstände zu Beginn und Ende. Frist: 12 Monate nach Ende des Zeitraums (§ 556 Abs. 3 BGB).', 'mietverwaltung' ) . '</p>';
+		printf( '</select></label> <label>' . esc_html__( 'Zeitraum von', 'mietfux' ) . ' <input type="date" name="von" value="%d-01-01"></label> <label>' . esc_html__( 'bis', 'mietfux' ) . ' <input type="date" name="bis" value="%d-12-31"></label> <button class="button button-primary">' . esc_html__( 'Berechnen', 'mietfux' ) . '</button></form>', (int) $vj, (int) $vj );
+		echo '<p class="description">' . esc_html__( 'Voraussetzungen: umlagefähige Belege mit Leistungszeitraum, Wohnflächen an den Einheiten, Personenzahl am Mietverhältnis, bei Verbrauchsschlüssel Zählerstände zu Beginn und Ende. Frist: 12 Monate nach Ende des Zeitraums (§ 556 Abs. 3 BGB).', 'mietfux' ) . '</p>';
 
-		echo '<h2>' . esc_html__( 'Vorhandene Abrechnungen', 'mietverwaltung' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Objekt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Zeitraum', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Status', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Mieter', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Erstellt', 'mietverwaltung' ) . '</th><th></th></tr></thead><tbody>';
+		echo '<h2>' . esc_html__( 'Vorhandene Abrechnungen', 'mietfux' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Objekt', 'mietfux' ) . '</th><th>' . esc_html__( 'Zeitraum', 'mietfux' ) . '</th><th>' . esc_html__( 'Status', 'mietfux' ) . '</th><th>' . esc_html__( 'Mieter', 'mietfux' ) . '</th><th>' . esc_html__( 'Erstellt', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( $rows as $r ) {
 			$del = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=loeschen&id=' . $r->id ), 'mietv_abr_loeschen' );
 			printf(
-				'<tr><td>%s</td><td>%s – %s</td><td>%s</td><td>%d</td><td>%s</td><td><a href="%s">' . esc_html__( 'Öffnen', 'mietverwaltung' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Abrechnung löschen?\')">' . esc_html__( 'Löschen', 'mietverwaltung' ) . '</a></td></tr>',
+				'<tr><td>%s</td><td>%s – %s</td><td>%s</td><td>%d</td><td>%s</td><td><a href="%s">' . esc_html__( 'Öffnen', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Abrechnung löschen?\')">' . esc_html__( 'Löschen', 'mietfux' ) . '</a></td></tr>',
 				esc_html( $r->objekt ),
 				esc_html( mietv_date( $r->von ) ),
 				esc_html( mietv_date( $r->bis ) ),
-				$r->status === 'fertig' ? '<strong>' . esc_html__( 'Fertig / freigegeben', 'mietverwaltung' ) . '</strong>' : 'Entwurf',
+				$r->status === 'fertig' ? '<strong>' . esc_html__( 'Fertig / freigegeben', 'mietfux' ) . '</strong>' : 'Entwurf',
 				(int) $r->anzahl,
 				esc_html( $r->erstellt ? date_i18n( 'd.m.Y', strtotime( $r->erstellt ) ) : '–' ),
 				esc_url( admin_url( 'admin.php?page=mietv_abrechnung&id=' . $r->id ) ),
@@ -488,7 +488,7 @@ class Mietv_Abrechnung {
 			);
 		}
 		if ( ! $rows ) {
-			echo '<tr><td colspan="6">' . esc_html__( 'Noch keine Abrechnung.', 'mietverwaltung' ) . '</td></tr>';
+			echo '<tr><td colspan="6">' . esc_html__( 'Noch keine Abrechnung.', 'mietfux' ) . '</td></tr>';
 		}
 		echo '</tbody></table>';
 	}
@@ -497,19 +497,19 @@ class Mietv_Abrechnung {
 		global $wpdb;
 		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT a.*, o.bezeichnung AS objekt, o.heizung, o.hk_verbrauchsanteil FROM ' . $wpdb->prefix . 'mv_abrechnungen a JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id WHERE a.id = %d', $id ) );
 		if ( ! $abr ) {
-			echo '<p>' . esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) . '</p>';
+			echo '<p>' . esc_html__( 'Nicht gefunden.', 'mietfux' ) . '</p>';
 			return;
 		}
 		$ergs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, m.vorname, m.nachname, ei.bezeichnung AS einheit FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = e.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id JOIN ' . $wpdb->prefix . 'mv_einheiten ei ON ei.id = mv.einheit_id WHERE e.abrechnung_id = %d ORDER BY m.nachname', $id ) );
 
 		$msg = sanitize_key( $_GET['msg'] ?? '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( $msg === 'berechnet' ) {
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Neu berechnet.', 'mietverwaltung' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Neu berechnet.', 'mietfux' ) . '</p></div>';
 		} elseif ( $msg === 'vz' ) {
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Neue Vorauszahlung als Kondition ab dem nächsten Monat angelegt – bitte unter „Konditionen“ prüfen und dem Mieter mitteilen (§ 560 Abs. 4 BGB).', 'mietverwaltung' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Neue Vorauszahlung als Kondition ab dem nächsten Monat angelegt – bitte unter „Konditionen“ prüfen und dem Mieter mitteilen (§ 560 Abs. 4 BGB).', 'mietfux' ) . '</p></div>';
 		}
 
-		printf( '<h1>' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Betriebskostenabrechnung %1$s – %2$s bis %3$s', 'mietverwaltung' ) . '</h1>', esc_html( $abr->objekt ), esc_html( mietv_date( $abr->von ) ), esc_html( mietv_date( $abr->bis ) ) );
+		printf( '<h1>' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Betriebskostenabrechnung %1$s – %2$s bis %3$s', 'mietfux' ) . '</h1>', esc_html( $abr->objekt ), esc_html( mietv_date( $abr->von ) ), esc_html( mietv_date( $abr->bis ) ) );
 		$u = fn( $a ) => wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=' . $a . '&id=' . $id ), 'mietv_abr_' . $a );
 		echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=mietv_abrechnung' ) ) . '" class="button">← Übersicht</a> <a href="' . esc_url( $u( 'neu_berechnen' ) ) . '" class="button">Neu berechnen</a> ';
 		if ( $abr->status === 'fertig' ) {
@@ -518,7 +518,7 @@ class Mietv_Abrechnung {
 			echo '<a href="' . esc_url( $u( 'fertig' ) ) . '" class="button button-primary">Fertigstellen und im Mieterportal freigeben</a>';
 		}
 		echo '</p>';
-		printf( '<p class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Heizung: %1$s%2$s · Status: %3$s', 'mietverwaltung' ) . '</p>', esc_html( $abr->heizung ), $abr->heizung !== 'dezentral' ? ', Verbrauchsanteil ' . (int) ( $abr->hk_verbrauchsanteil ?: 70 ) . ' %' : '', esc_html( $abr->status ) );
+		printf( '<p class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Heizung: %1$s%2$s · Status: %3$s', 'mietfux' ) . '</p>', esc_html( $abr->heizung ), $abr->heizung !== 'dezentral' ? ', Verbrauchsanteil ' . (int) ( $abr->hk_verbrauchsanteil ?: 70 ) . ' %' : '', esc_html( $abr->status ) );
 
 		$hinweise = [];
 		if ( $ergs ) {
@@ -529,12 +529,12 @@ class Mietv_Abrechnung {
 			echo '<div class="notice notice-warning inline"><p>' . esc_html( $h ) . '</p></div>';
 		}
 
-		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Mieter / Einheit', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Tage', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betriebskosten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Heizkosten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Vorauszahlungen', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ergebnis', 'mietverwaltung' ) . '</th><th>§ 35a</th><th></th></tr></thead><tbody>';
+		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Mieter / Einheit', 'mietfux' ) . '</th><th>' . esc_html__( 'Tage', 'mietfux' ) . '</th><th>' . esc_html__( 'Betriebskosten', 'mietfux' ) . '</th><th>' . esc_html__( 'Heizkosten', 'mietfux' ) . '</th><th>' . esc_html__( 'Vorauszahlungen', 'mietfux' ) . '</th><th>' . esc_html__( 'Ergebnis', 'mietfux' ) . '</th><th>§ 35a</th><th></th></tr></thead><tbody>';
 		foreach ( $ergs as $e ) {
 			$brief = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_abrechnung_brief&erg=' . $e->id ), 'mietv_abr_brief_' . $e->id );
 			$vz    = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=vz_anpassen&id=' . $id . '&erg=' . $e->id ), 'mietv_abr_vz_anpassen' );
 			printf(
-				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietverwaltung' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'PDF ablegen', 'mietverwaltung' ) . '</a> <a href="%s" class="button button-small" onclick="return confirm(\'Neue Vorauszahlung ab nächstem Monat anlegen?\')">' . esc_html__( 'VZ anpassen', 'mietverwaltung' ) . '</a></td></tr>',
+				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'PDF ablegen', 'mietfux' ) . '</a> <a href="%s" class="button button-small" onclick="return confirm(\'Neue Vorauszahlung ab nächstem Monat anlegen?\')">' . esc_html__( 'VZ anpassen', 'mietfux' ) . '</a></td></tr>',
 				esc_html( $e->nachname . ', ' . $e->vorname ),
 				esc_html( $e->einheit ),
 				(int) $e->tage,
@@ -543,7 +543,7 @@ class Mietv_Abrechnung {
 				esc_html( mietv_eur( $e->vz_bk + $e->vz_hk ) ),
 				$e->saldo < 0 ? 'mv-neg' : 'mv-pos',
 				esc_html( mietv_eur( abs( $e->saldo ) ) ),
-				$e->saldo < 0 ? esc_html__( 'Nachzahlung', 'mietverwaltung' ) : esc_html__( 'Guthaben', 'mietverwaltung' ),
+				$e->saldo < 0 ? esc_html__( 'Nachzahlung', 'mietfux' ) : esc_html__( 'Guthaben', 'mietfux' ),
 				esc_html( ( $e->par35a_handwerker + $e->par35a_haushalt ) > 0 ? mietv_eur( $e->par35a_handwerker + $e->par35a_haushalt ) : '–' ),
 				esc_url( $brief ),
 				esc_url( $brief ),
@@ -555,7 +555,7 @@ class Mietv_Abrechnung {
 		// Detailpositionen
 		foreach ( $ergs as $e ) {
 			$d = json_decode( $e->details, true );
-			printf( '<h3>' . /* translators: %s: Wert */ esc_html__( 'Positionen %s', 'mietverwaltung' ) . '</h3><table class="wp-list-table widefat striped mv-op"><thead><tr><th>' . esc_html__( 'Kostenart', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamtkosten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Schlüssel', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Basis gesamt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Basis Mieter', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Anteil', 'mietverwaltung' ) . '</th></tr></thead><tbody>', esc_html( $e->nachname ) );
+			printf( '<h3>' . /* translators: %s: Wert */ esc_html__( 'Positionen %s', 'mietfux' ) . '</h3><table class="wp-list-table widefat striped mv-op"><thead><tr><th>' . esc_html__( 'Kostenart', 'mietfux' ) . '</th><th>' . esc_html__( 'Gesamtkosten', 'mietfux' ) . '</th><th>' . esc_html__( 'Schlüssel', 'mietfux' ) . '</th><th>' . esc_html__( 'Basis gesamt', 'mietfux' ) . '</th><th>' . esc_html__( 'Basis Mieter', 'mietfux' ) . '</th><th>' . esc_html__( 'Anteil', 'mietfux' ) . '</th></tr></thead><tbody>', esc_html( $e->nachname ) );
 			foreach ( $d['positionen'] ?? [] as $p ) {
 				printf( '<tr><td>%s <small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $p['name'] ), esc_html( $p['betrkv'] ), esc_html( mietv_eur( $p['gesamt'] ) ), esc_html( $p['schluessel'] ), esc_html( number_format( $p['basis_gesamt'], 2, ',', '.' ) ), esc_html( number_format( $p['basis_mv'], 2, ',', '.' ) ), esc_html( mietv_eur( $p['anteil'] ) ) );
 			}
@@ -572,13 +572,13 @@ class Mietv_Abrechnung {
 		$erg_id = $erg_id ?: ( isset( $_GET['erg'] ) ? (int) $_GET['erg'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( ! $portal ) {
 			if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-				wp_die( esc_html__( 'Keine Berechtigung.', 'mietverwaltung' ) );
+				wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 			}
 			check_admin_referer( 'mietv_abr_brief_' . $erg_id );
 		}
 		$e = $wpdb->get_row( $wpdb->prepare( 'SELECT e.*, a.von, a.bis, a.objekt_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.id = %d', $erg_id ) );
 		if ( ! $e ) {
-			wp_die( esc_html__( 'Nicht gefunden.', 'mietverwaltung' ) );
+			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
 		}
 		$mv      = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $e->mv_id ) );
 		$objekt  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_objekte WHERE id = %d', $e->objekt_id ) );
@@ -586,40 +586,40 @@ class Mietv_Abrechnung {
 		$d       = json_decode( $e->details, true );
 
 		$b        = '<p>' . esc_html( Mietv_Brief::anrede( $mv ) ) . '</p>';
-		$zeitraum = sprintf( /* translators: %1$s: Datum von, %2$s: Datum bis */ __( '%1$s bis %2$s', 'mietverwaltung' ), mietv_date( $e->von ), mietv_date( $e->bis ) );
-		$nutzung  = sprintf( /* translators: %1$s: Datum von, %2$s: Datum bis, %3$d: Tage, %4$s: Fläche, %5$d: Personen */ __( '. Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d.', 'mietverwaltung' ), mietv_date( $d['von'] ), mietv_date( $d['bis'] ), (int) $e->tage, number_format( $d['flaeche'], 2, ',', '.' ), (int) $d['personen'] );
-		$b       .= '<p>' . esc_html__( 'für die Wohnung', 'mietverwaltung' ) . ' <strong>' . esc_html( $objekt->strasse . ', ' . $objekt->plz . ' ' . $objekt->ort ) . ', ' . esc_html( $einheit->bezeichnung ) . '</strong> ' . esc_html__( 'erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum', 'mietverwaltung' ) . ' <strong>' . esc_html( $zeitraum ) . '</strong>' . esc_html( $nutzung ) . '</p>';
+		$zeitraum = sprintf( /* translators: %1$s: Datum von, %2$s: Datum bis */ __( '%1$s bis %2$s', 'mietfux' ), mietv_date( $e->von ), mietv_date( $e->bis ) );
+		$nutzung  = sprintf( /* translators: %1$s: Datum von, %2$s: Datum bis, %3$d: Tage, %4$s: Fläche, %5$d: Personen */ __( '. Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d.', 'mietfux' ), mietv_date( $d['von'] ), mietv_date( $d['bis'] ), (int) $e->tage, number_format( $d['flaeche'], 2, ',', '.' ), (int) $d['personen'] );
+		$b       .= '<p>' . esc_html__( 'für die Wohnung', 'mietfux' ) . ' <strong>' . esc_html( $objekt->strasse . ', ' . $objekt->plz . ' ' . $objekt->ort ) . ', ' . esc_html( $einheit->bezeichnung ) . '</strong> ' . esc_html__( 'erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum', 'mietfux' ) . ' <strong>' . esc_html( $zeitraum ) . '</strong>' . esc_html( $nutzung ) . '</p>';
 
-		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Kostenart', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamtkosten', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Verteilerschlüssel', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Gesamt', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Ihr Anteil', 'mietverwaltung' ) . '</th><th>' . esc_html__( 'Betrag', 'mietverwaltung' ) . '</th></tr></thead><tbody>';
+		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Kostenart', 'mietfux' ) . '</th><th>' . esc_html__( 'Gesamtkosten', 'mietfux' ) . '</th><th>' . esc_html__( 'Verteilerschlüssel', 'mietfux' ) . '</th><th>' . esc_html__( 'Gesamt', 'mietfux' ) . '</th><th>' . esc_html__( 'Ihr Anteil', 'mietfux' ) . '</th><th>' . esc_html__( 'Betrag', 'mietfux' ) . '</th></tr></thead><tbody>';
 		foreach ( $d['positionen'] as $p ) {
 			$b .= sprintf( '<tr><td>%s<br><small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $p['name'] ), esc_html( $p['betrkv'] ), esc_html( mietv_eur( $p['gesamt'] ) ), esc_html( $p['schluessel'] ), esc_html( number_format( $p['basis_gesamt'], 2, ',', '.' ) ), esc_html( number_format( $p['basis_mv'], 2, ',', '.' ) ), esc_html( mietv_eur( $p['anteil'] ) ) );
 		}
 		$kosten  = $e->kosten_bk + $e->kosten_hk;
 		$vz      = $e->vz_bk + $e->vz_hk;
-		$b      .= sprintf( '<tr class="summe"><td colspan="5">' . esc_html__( 'Summe Ihrer Kosten', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $kosten ) ) );
-		$vz_text = sprintf( /* translators: %1$s: Betrag, %2$s: Betrag */ __( 'abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)', 'mietverwaltung' ), mietv_eur( $e->vz_bk ), mietv_eur( $e->vz_hk ) );
+		$b      .= sprintf( '<tr class="summe"><td colspan="5">' . esc_html__( 'Summe Ihrer Kosten', 'mietfux' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $kosten ) ) );
+		$vz_text = sprintf( /* translators: %1$s: Betrag, %2$s: Betrag */ __( 'abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)', 'mietfux' ), mietv_eur( $e->vz_bk ), mietv_eur( $e->vz_hk ) );
 		$b      .= '<tr><td colspan="5">' . esc_html( $vz_text ) . '</td><td>– ' . esc_html( mietv_eur( $vz ) ) . '</td></tr>';
-		$b      .= sprintf( '<tr class="summe"><td colspan="5">%s</td><td>%s</td></tr></tbody></table>', $e->saldo < 0 ? __( 'Nachzahlung', 'mietverwaltung' ) : __( 'Guthaben zu Ihren Gunsten', 'mietverwaltung' ), esc_html( mietv_eur( abs( $e->saldo ) ) ) );
+		$b      .= sprintf( '<tr class="summe"><td colspan="5">%s</td><td>%s</td></tr></tbody></table>', $e->saldo < 0 ? __( 'Nachzahlung', 'mietfux' ) : __( 'Guthaben zu Ihren Gunsten', 'mietfux' ), esc_html( mietv_eur( abs( $e->saldo ) ) ) );
 
 		if ( $e->saldo < -0.005 ) {
 			$frist = date_i18n( 'd.m.Y', strtotime( '+30 days' ) );
-			$b    .= sprintf( '<p>' . esc_html__( 'Bitte überweisen Sie den Nachzahlungsbetrag von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'bis zum', 'mietverwaltung' ) . ' <strong>%s</strong>.</p>', esc_html( mietv_eur( abs( $e->saldo ) ) ), esc_html( $frist ) ) . Mietv_Brief::bankverbindung();
+			$b    .= sprintf( '<p>' . esc_html__( 'Bitte überweisen Sie den Nachzahlungsbetrag von', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'bis zum', 'mietfux' ) . ' <strong>%s</strong>.</p>', esc_html( mietv_eur( abs( $e->saldo ) ) ), esc_html( $frist ) ) . Mietv_Brief::bankverbindung();
 		} elseif ( $e->saldo > 0.005 ) {
-			$b .= sprintf( '<p>' . esc_html__( 'Das Guthaben von', 'mietverwaltung' ) . ' <strong>%s</strong> ' . esc_html__( 'wird Ihnen innerhalb von 30 Tagen überwiesen bzw. mit der nächsten Mietzahlung verrechnet.', 'mietverwaltung' ) . '</p>', esc_html( mietv_eur( $e->saldo ) ) );
+			$b .= sprintf( '<p>' . esc_html__( 'Das Guthaben von', 'mietfux' ) . ' <strong>%s</strong> ' . esc_html__( 'wird Ihnen innerhalb von 30 Tagen überwiesen bzw. mit der nächsten Mietzahlung verrechnet.', 'mietfux' ) . '</p>', esc_html( mietv_eur( $e->saldo ) ) );
 		}
 
 		if ( $e->par35a_handwerker > 0 || $e->par35a_haushalt > 0 ) {
-			$b .= '<h2>' . esc_html__( 'Bescheinigung nach § 35a EStG', 'mietverwaltung' ) . '</h2><p>' . esc_html__( 'In den abgerechneten Kosten sind folgende Arbeitskostenanteile enthalten, die Sie in Ihrer Einkommensteuererklärung geltend machen können:', 'mietverwaltung' ) . '</p><table class="liste">';
+			$b .= '<h2>' . esc_html__( 'Bescheinigung nach § 35a EStG', 'mietfux' ) . '</h2><p>' . esc_html__( 'In den abgerechneten Kosten sind folgende Arbeitskostenanteile enthalten, die Sie in Ihrer Einkommensteuererklärung geltend machen können:', 'mietfux' ) . '</p><table class="liste">';
 			if ( $e->par35a_handwerker > 0 ) {
-				$b .= sprintf( '<tr><td>' . esc_html__( 'Handwerkerleistungen (§ 35a Abs. 3 EStG) – Ihr Anteil Lohnkosten', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $e->par35a_handwerker ) ) );
+				$b .= sprintf( '<tr><td>' . esc_html__( 'Handwerkerleistungen (§ 35a Abs. 3 EStG) – Ihr Anteil Lohnkosten', 'mietfux' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $e->par35a_handwerker ) ) );
 			}
 			if ( $e->par35a_haushalt > 0 ) {
-				$b .= sprintf( '<tr><td>' . esc_html__( 'Haushaltsnahe Dienstleistungen (§ 35a Abs. 2 EStG) – Ihr Anteil Lohnkosten', 'mietverwaltung' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $e->par35a_haushalt ) ) );
+				$b .= sprintf( '<tr><td>' . esc_html__( 'Haushaltsnahe Dienstleistungen (§ 35a Abs. 2 EStG) – Ihr Anteil Lohnkosten', 'mietfux' ) . '</td><td>%s</td></tr>', esc_html( mietv_eur( $e->par35a_haushalt ) ) );
 			}
 			$b .= '</table>';
 		}
 
-		$b .= '<p class="hinweis">' . esc_html__( 'Die Belege können nach Terminvereinbarung eingesehen werden. Einwendungen gegen die Abrechnung sind innerhalb von 12 Monaten nach Zugang mitzuteilen (§ 556 Abs. 3 Satz 5 BGB).', 'mietverwaltung' ) . '</p>';
+		$b .= '<p class="hinweis">' . esc_html__( 'Die Belege können nach Terminvereinbarung eingesehen werden. Einwendungen gegen die Abrechnung sind innerhalb von 12 Monaten nach Zugang mitzuteilen (§ 556 Abs. 3 Satz 5 BGB).', 'mietfux' ) . '</p>';
 
 		Mietv_Brief::ausgeben( 'Betriebskostenabrechnung ' . substr( $e->bis, 0, 4 ), Mietv_Brief::empfaenger( $mv ), 'Betriebs- und Heizkostenabrechnung ' . mietv_date( $e->von ) . ' – ' . mietv_date( $e->bis ), $b, null, ! $portal, [ $e->objekt_id, $e->mv_id, 'abrechnung', 'Betriebskostenabrechnung ' . substr( $e->bis, 0, 4 ), true ] );
 	}

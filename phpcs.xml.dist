@@ -32,12 +32,12 @@
 	<rule ref="PHPCompatibility"/>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array"><element value="mietverwaltung"/></property>
+			<property name="text_domain" type="array"><element value="mietfux"/></property>
 		</properties>
 	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array"><element value="mietv"/><element value="Mietv"/><element value="MIETV"/><element value="mietverwaltung"/></property>
+			<property name="prefixes" type="array"><element value="mietv"/><element value="Mietv"/><element value="MIETV"/><element value="mietfux"/></property>
 		</properties>
 	</rule>
 </ruleset>

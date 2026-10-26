@@ -1,10 +1,10 @@
-# Mietverwaltung – WordPress-Plugin für private Vermieter
+# Mietfux – Mietverwaltung für Vermieter (WordPress-Plugin)
 
 [English version → README.en.md](README.en.md)
 
-**Mietverwaltung** bündelt alles, was ein privater Vermieter für eine oder mehrere Wohnungen braucht, in einem WordPress-Plugin: Stammdaten, Mieteingänge, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag mit allen Anlagen, Kaution, Darlehen, Mahnwesen, Mieterhöhung und ein Mieterportal. Alle Daten bleiben in der eigenen WordPress-Datenbank – kein Cloud-Dienst, keine Datenübertragung an Dritte.
+**Mietfux** bündelt alles, was ein privater Vermieter für eine oder mehrere Wohnungen braucht, in einem WordPress-Plugin: Stammdaten, Mieteingänge, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag mit allen Anlagen, Kaution, Darlehen, Mahnwesen, Mieterhöhung und ein Mieterportal. Alle Daten bleiben in der eigenen WordPress-Datenbank – kein Cloud-Dienst, keine Datenübertragung an Dritte.
 
-- Version: **1.0.0** · Lizenz: GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
+- Version: **1.0.1** · Lizenz: GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
 - Sprachen: Deutsch (Quellsprache), Englisch
 - Zielgruppe: Dauervermietung von Wohnraum in Deutschland (keine Ferienwohnungen)
 
@@ -41,7 +41,7 @@
 | **Kaution** | Kautionskonto nach § 551 BGB: Einzahlungen, taggenaue Verzinsung, Verrechnung, Rückzahlungsabrechnung als PDF |
 | **Mahnwesen** | Zahlungserinnerung, 1. und letzte Mahnung mit Fristen, PDF, E-Mail an Mieter und Mitmieter, Warnung bei ≥ 2 Monatsmieten Rückstand |
 | **Mieterhöhung** | § 558 (Vergleichsmiete, Kappungsgrenze 15/20 %, Sperrfrist), § 557b (Index/VPI), Vereinbarung/Staffel; Schreiben und neue Kondition automatisch |
-| **Mieterportal** | Shortcode `[mietverwaltung_portal]`: Mietkonto, Abrechnungen, freigegebene Dokumente, Schadensmeldung, Zählerstand melden |
+| **Mieterportal** | Shortcode `[mietfux_portal]`: Mietkonto, Abrechnungen, freigegebene Dokumente, Schadensmeldung, Zählerstand melden |
 | **Dokumente** | Ablage mit Typ, Datum, Portal-Freigabe; alle erzeugten PDFs landen auf Wunsch automatisch hier |
 | **Datenschutz** | Löschkonzept mit Fristen (§ 147 AO), Anonymisierung beendeter Mietverhältnisse, Auskunft Art. 15 als JSON, Hinweise für das Verarbeitungsverzeichnis |
 | **System** | Einrichtungsassistent, Hilfe-Seite + Kontexthilfe, strukturiertes Menü mit Icons, Fokusmodus (WordPress-Menü ausblenden), Dashboard-Widget mit Hinweisen, tägliche E-Mail-Erinnerung, Backup/Restore als JSON, eigene Rolle „Vermieter“, saubere Deinstallation |
@@ -115,7 +115,7 @@ Dashboard-Widget und tägliche Cron-Prüfung (`mv_taeglich`): fehlende Mieteing�
 
 ## Mieterportal
 
-Shortcode `[mietverwaltung_portal]` auf einer Seite einfügen. Beim Mieter den WordPress-Benutzer verknüpfen (Rolle „Abonnent“ genügt). Angemeldete Mieter sehen: Konditionen und Mietkonto der letzten 12 Monate, Betriebskostenabrechnungen, freigegebene Dokumente; sie können Schäden melden und Zählerstände (mit Foto) übermitteln. Der Vermieter wird per E-Mail benachrichtigt.
+Shortcode `[mietfux_portal]` auf einer Seite einfügen. Beim Mieter den WordPress-Benutzer verknüpfen (Rolle „Abonnent“ genügt). Angemeldete Mieter sehen: Konditionen und Mietkonto der letzten 12 Monate, Betriebskostenabrechnungen, freigegebene Dokumente; sie können Schäden melden und Zählerstände (mit Foto) übermitteln. Der Vermieter wird per E-Mail benachrichtigt.
 
 ---
 

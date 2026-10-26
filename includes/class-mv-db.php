@@ -86,7 +86,7 @@ class Mietv_DB {
 		if ( ! get_role( 'mietv_vermieter' ) ) {
 			add_role(
 				'mietv_vermieter',
-				__( 'Vermieter', 'mietverwaltung' ),
+				__( 'Vermieter', 'mietfux' ),
 				[
 					'read'            => true,
 					'upload_files'    => true,
@@ -101,16 +101,16 @@ class Mietv_DB {
 	/** Anlage-V-Gruppen (Zeilennummern ändern sich jährlich, daher nur Bezeichnungen). */
 	public static function anlage_v_gruppen(): array {
 		return [
-			'einnahmen'    => esc_html__( 'Einnahmen (nur zur Info, nicht als Beleg buchen)', 'mietverwaltung' ),
-			'afa'          => esc_html__( 'Absetzung für Abnutzung (AfA)', 'mietverwaltung' ),
-			'schuldzinsen' => esc_html__( 'Schuldzinsen und Geldbeschaffungskosten', 'mietverwaltung' ),
-			'erhaltung'    => esc_html__( 'Erhaltungsaufwendungen', 'mietverwaltung' ),
-			'grundsteuer'  => esc_html__( 'Grundsteuer, Straßenreinigung, Müllabfuhr', 'mietverwaltung' ),
-			'wasser'       => esc_html__( 'Wasserversorgung, Entwässerung, Hausbeleuchtung', 'mietverwaltung' ),
-			'heizung'      => esc_html__( 'Heizung, Warmwasser', 'mietverwaltung' ),
-			'versicherung' => esc_html__( 'Schornsteinreinigung, Hausversicherungen, Hauswart, Treppenreinigung, Fahrstuhl', 'mietverwaltung' ),
-			'verwaltung'   => esc_html__( 'Verwaltungskosten', 'mietverwaltung' ),
-			'sonstiges'    => esc_html__( 'Sonstige Werbungskosten', 'mietverwaltung' ),
+			'einnahmen'    => esc_html__( 'Einnahmen (nur zur Info, nicht als Beleg buchen)', 'mietfux' ),
+			'afa'          => esc_html__( 'Absetzung für Abnutzung (AfA)', 'mietfux' ),
+			'schuldzinsen' => esc_html__( 'Schuldzinsen und Geldbeschaffungskosten', 'mietfux' ),
+			'erhaltung'    => esc_html__( 'Erhaltungsaufwendungen', 'mietfux' ),
+			'grundsteuer'  => esc_html__( 'Grundsteuer, Straßenreinigung, Müllabfuhr', 'mietfux' ),
+			'wasser'       => esc_html__( 'Wasserversorgung, Entwässerung, Hausbeleuchtung', 'mietfux' ),
+			'heizung'      => esc_html__( 'Heizung, Warmwasser', 'mietfux' ),
+			'versicherung' => esc_html__( 'Schornsteinreinigung, Hausversicherungen, Hauswart, Treppenreinigung, Fahrstuhl', 'mietfux' ),
+			'verwaltung'   => esc_html__( 'Verwaltungskosten', 'mietfux' ),
+			'sonstiges'    => esc_html__( 'Sonstige Werbungskosten', 'mietfux' ),
 		];
 	}
 
