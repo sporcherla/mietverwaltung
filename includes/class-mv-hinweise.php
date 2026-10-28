@@ -184,7 +184,7 @@ class Mietv_Hinweise {
 					'warn'  => '🟡',
 					'info'  => 'ℹ️',
 				][ $x['typ'] ] ?? '';
-				printf( '<li>%s <a href="%s">%s</a></li>', $icon, esc_url( $x['url'] ), esc_html( $x['text'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+				printf( '<li>%s <a href="%s">%s</a></li>', esc_html( $icon ), esc_url( $x['url'] ), esc_html( $x['text'] ) );
 			}
 			echo '</ul>';
 		}

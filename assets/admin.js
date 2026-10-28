@@ -89,4 +89,32 @@
 			if ( /^-?[\d.]+,\d{2}\s?€$/.test( td.textContent.trim() ) ) { td.classList.add( 'mv-td-num' ); }
 		} );
 	} );
+
+	/* Bestätigungsabfragen, Alle-auswählen-Kästchen, Pflichtauswahl und Drucken (ohne Inline-JS) */
+	document.addEventListener( 'click', function ( e ) {
+		var el = e.target.closest( '[data-confirm], [data-require-checked], [data-action="print"]' );
+		if ( ! el ) { return; }
+		if ( el.hasAttribute( 'data-confirm' ) && ! window.confirm( el.getAttribute( 'data-confirm' ) ) ) {
+			e.preventDefault();
+			return;
+		}
+		if ( el.hasAttribute( 'data-require-checked' ) ) {
+			var form = el.closest( 'form' ) || document;
+			if ( ! form.querySelector( el.getAttribute( 'data-require-checked' ) + ':checked' ) ) {
+				window.alert( el.getAttribute( 'data-require-msg' ) || '' );
+				e.preventDefault();
+				return;
+			}
+		}
+		if ( el.getAttribute( 'data-action' ) === 'print' ) { window.print(); }
+	} );
+	document.addEventListener( 'change', function ( e ) {
+		var el = e.target;
+		if ( ! el.matches || ! el.matches( '[data-check-all]' ) ) { return; }
+		var table = el.closest( 'table' );
+		if ( ! table ) { return; }
+		table.querySelectorAll( el.getAttribute( 'data-check-all' ) ).forEach( function ( c ) {
+			if ( ! c.disabled ) { c.checked = el.checked; }
+		} );
+	} );
 }() );

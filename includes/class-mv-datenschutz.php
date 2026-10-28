@@ -102,7 +102,7 @@ class Mietv_Datenschutz {
 		}
 		global $wpdb;
 		check_admin_referer( 'mietv_auskunft' );
-		$id = ( isset( $_GET['mieter'] ) ? (int) $_GET['mieter'] : 0 );
+		$id     = ( isset( $_GET['mieter'] ) ? (int) $_GET['mieter'] : 0 );
 		$mieter = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $id ), ARRAY_A );
 		if ( ! $mieter ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
@@ -147,13 +147,13 @@ class Mietv_Datenschutz {
 		foreach ( $b as $x ) {
 			$mv = $x['mv'];
 			if ( $x['anonym'] ) {
-				$status = 'anonymisiert';
+				$status = esc_html__( 'anonymisiert', 'mietfux' );
 			} elseif ( $x['andere_aktiv'] ) {
-				$status = 'Mieter hat weiteres aktives Mietverhältnis';
+				$status = esc_html__( 'Mieter hat weiteres aktives Mietverhältnis', 'mietfux' );
 			} elseif ( $x['faellig'] ) {
 				$status = '<span class="mv-neg">' . esc_html__( 'Frist abgelaufen', 'mietfux' ) . '</span>';
 			} else {
-				$status = 'in Aufbewahrung';
+				$status = esc_html__( 'in Aufbewahrung', 'mietfux' );
 			}
 			$url = wp_nonce_url( admin_url( 'admin.php?page=mietv_datenschutz&mietv_anonym=' . $mv->mieter_id ), 'mietv_anonym' );
 			printf(
@@ -161,8 +161,8 @@ class Mietv_Datenschutz {
 				esc_html( $x['label'] ),
 				esc_html( mietv_date( $mv->ende ) ),
 				esc_html( mietv_date( $x['frist'] ) ),
-				$status, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
-				( ! $x['anonym'] && ! $x['andere_aktiv'] ) ? sprintf( '<a href="%s" class="button button-small%s" onclick="return confirm(\'Personenbezug unwiderruflich entfernen?%s\')">' . esc_html__( 'Anonymisieren', 'mietfux' ) . '</a>', esc_url( $url ), $x['faellig'] ? ' button-primary' : '', $x['faellig'] ? '' : ' Die Aufbewahrungsfrist ist noch nicht abgelaufen!' ) : '–'
+				wp_kses( $status, [ 'span' => [ 'class' => true ] ] ),
+				( ! $x['anonym'] && ! $x['andere_aktiv'] ) ? sprintf( '<a href="%s" class="button button-small%s" data-confirm="%s">' . esc_html__( 'Anonymisieren', 'mietfux' ) . '</a>', esc_url( $url ), $x['faellig'] ? ' button-primary' : '', esc_attr( __( 'Personenbezug unwiderruflich entfernen?', 'mietfux' ) . ( $x['faellig'] ? '' : ' ' . __( 'Die Aufbewahrungsfrist ist noch nicht abgelaufen!', 'mietfux' ) ) ) ) : '–'
 			);
 		}
 		if ( ! $b ) {

@@ -314,14 +314,14 @@ class Mietv_Steuer {
 		foreach ( self::jahre() as $j ) {
 			printf( '<option value="%1$d"%2$s>%1$d</option>', (int) $j, selected( (int) $jahr, (int) $j, false ) );
 		}
-		echo '</select></label> <a href="' . esc_url( $csv ) . '" class="button">CSV exportieren</a> <button type="button" class="button" onclick="window.print()">Drucken</button></form>';
+		echo '</select></label> <a href="' . esc_url( $csv ) . '" class="button">CSV exportieren</a> <button type="button" class="button" data-action="print">Drucken</button></form>';
 
 		if ( ( mietv_flash_get()['code'] ?? '' ) === 'zeilen' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Zeilennummern gespeichert.', 'mietfux' ) . '</p></div>';
 		}
 		$chart = self::chart( $jahr );
 		if ( $chart ) {
-			echo '<h2>' . esc_html__( 'Entwicklung', 'mietfux' ) . '</h2>' . $chart; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			echo '<h2>' . esc_html__( 'Entwicklung', 'mietfux' ) . '</h2>' . mietv_kses_svg( $chart );
 		}
 		echo '<p class="description">' . esc_html__( 'Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten.', 'mietfux' ) . '</p>';
 
@@ -347,12 +347,12 @@ class Mietv_Steuer {
 		printf(
 			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Einnahmen gesamt', 'mietfux' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Werbungskosten gesamt', 'mietfux' ) . '</span><strong>%s</strong>%s</div><div class="mv-kachel"><span>' . esc_html__( 'Überschuss / Verlust', 'mietfux' ) . '</span><strong class="%s">%s</strong>%s</div></div>',
 			esc_html( mietv_eur( $ein_sum ) ),
-			$delta( $ein_sum, $ein_vj_sum ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			wp_kses( $delta( $ein_sum, $ein_vj_sum ), [ 'small' => [] ] ),
 			esc_html( mietv_eur( $wk_sum ) ),
-			$delta( $wk_sum, $wk_vj_sum ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			wp_kses( $delta( $wk_sum, $wk_vj_sum ), [ 'small' => [] ] ),
 			esc_attr( $cls ),
 			esc_html( mietv_eur( $ergebnis ) ),
-			$delta( $ergebnis, $ein_vj_sum - $wk_vj_sum ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			wp_kses( $delta( $ergebnis, $ein_vj_sum - $wk_vj_sum ), [ 'small' => [] ] )
 		);
 
 		// Einnahmen

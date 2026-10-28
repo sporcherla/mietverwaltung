@@ -146,7 +146,7 @@ class Mietv_Kaution {
 		printf(
 			'<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Vereinbart (§ 551)', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Eingezahlt', 'mietfux' ) . '</span><strong class="%s">%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Zinsen gutgeschrieben', 'mietfux' ) . '</span><strong>%s</strong><small>%s</small></div><div class="mv-kachel"><span>' . esc_html__( 'Kontostand', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Mietkonto-Saldo', 'mietfux' ) . '</span><strong class="%s">%s</strong></div></div>',
 			esc_html( mietv_eur( $soll ) ),
-			$cls, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			esc_attr( $cls ),
 			esc_html( mietv_eur( $k['einzahlung'] ) ),
 			$k['einzahlung'] + 0.005 < $soll ? 'noch offen: ' . esc_html( mietv_eur( $soll - $k['einzahlung'] ) ) : 'vollständig',
 			esc_html( mietv_eur( $k['zins'] ) ),
@@ -159,14 +159,14 @@ class Mietv_Kaution {
 		echo '<h2>' . esc_html__( 'Buchungen', 'mietfux' ) . '</h2><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Datum', 'mietfux' ) . '</th><th>' . esc_html__( 'Art', 'mietfux' ) . '</th><th>' . esc_html__( 'Notiz', 'mietfux' ) . '</th><th>' . esc_html__( 'Betrag', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( $k['buchungen'] as $b ) {
 			printf(
-				'<tr><td>%s</td><td>%s</td><td style="text-align:left">%s</td><td class="%s">%s%s</td><td><form method="post" style="display:inline">%s<input type="hidden" name="mv_id" value="%d"><button name="loeschen" value="%d" class="button-link mv-delete" onclick="return confirm(\'Buchung löschen?\')">×</button></form></td></tr>',
+				'<tr><td>%s</td><td>%s</td><td style="text-align:left">%s</td><td class="%s">%s%s</td><td><form method="post" style="display:inline">%s<input type="hidden" name="mv_id" value="%d"><button name="loeschen" value="%d" class="button-link mv-delete" data-confirm="' . esc_attr__( 'Buchung löschen?', 'mietfux' ) . '">×</button></form></td></tr>',
 				esc_html( mietv_date( $b->datum ) ),
 				esc_html( self::arten()[ $b->art ] ?? $b->art ),
 				esc_html( $b->notiz ),
 				in_array( $b->art, [ 'einzahlung', 'zins' ], true ) ? 'mv-pos' : 'mv-neg',
 				in_array( $b->art, [ 'einzahlung', 'zins' ], true ) ? '+' : '–',
 				esc_html( mietv_eur( $b->betrag ) ),
-				wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce', true, false ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+				mietv_kses_html( wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce', true, false ) ),
 				(int) $mv_id,
 				(int) $b->id
 			);
@@ -180,7 +180,7 @@ class Mietv_Kaution {
 		wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce' );
 		printf( '<input type="hidden" name="mv_id" value="%d"><p><input type="date" name="datum" value="%s"> <select name="art">', (int) $mv_id, esc_attr( current_time( 'Y-m-d' ) ) );
 		foreach ( self::arten() as $a => $l ) {
-			printf( '<option value="%s">%s</option>', $a, esc_html( $l ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			printf( '<option value="%s">%s</option>', esc_attr( $a ), esc_html( $l ) );
 		}
 		printf( '</select></p><p><input type="text" name="betrag" class="mv-num" placeholder="Betrag" value="%s"> <input type="text" name="notiz" placeholder="Notiz" class="regular-text"></p><p><button class="button button-primary">' . esc_html__( 'Buchen', 'mietfux' ) . '</button></p></form></div>', $k['einzahlung'] + 0.005 < $soll ? esc_attr( number_format( round( $soll / 3, 2 ), 2, ',', '' ) ) : '' );
 
@@ -215,8 +215,9 @@ class Mietv_Kaution {
 		}
 		global $wpdb;
 		check_admin_referer( 'mietv_kaution_abr' );
+		Mietv_PDF::ablegen_aus_request( 'mietv_kaution_abr' );
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
-		$mv = null;
+		$mv    = null;
 		foreach ( Mietv_Soll::alle_mv() as $m ) {
 			if ( (int) $m->id === $mv_id ) {
 				$mv = $m;

@@ -56,7 +56,7 @@ class Mietv_Einstellungen {
 		if ( ! empty( $_FILES['mietv_restore']['tmp_name'] ) ) {
 			if ( empty( $_POST['mietv_restore_confirm'] ) ) {
 				mietv_flash_set( 'noconfirm' );
-			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen' ) );
+				wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen' ) );
 				exit;
 			}
 			$msg = self::restore( (string) file_get_contents( sanitize_text_field( $_FILES['mietv_restore']['tmp_name'] ) ) ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Hochgeladene Datei lokal lesen.
@@ -88,7 +88,7 @@ class Mietv_Einstellungen {
 		];
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Einstellungen & Backup', 'mietfux' ) . '</h1>';
 		if ( isset( $map[ $msg ] ) ) {
-			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $map[ $msg ][0] ), esc_html( $map[ $msg ][1] ) );
 		}
 
 		echo '<form method="post" enctype="multipart/form-data" class="mv-form">';

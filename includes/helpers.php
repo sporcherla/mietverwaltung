@@ -59,6 +59,84 @@ function mietv_mieter_name( $mieter ): string {
 	return $n;
 }
 
+/** Erlaubte Tags/Attribute für intern erzeugte Formular- und Tabellenfragmente (spätes Escaping via wp_kses). */
+function mietv_kses_html_tags(): array {
+	$attr = [
+		'id'          => true,
+		'class'       => true,
+		'name'        => true,
+		'value'       => true,
+		'type'        => true,
+		'title'       => true,
+		'style'       => true,
+		'href'        => true,
+		'target'      => true,
+		'for'         => true,
+		'required'    => true,
+		'checked'     => true,
+		'selected'    => true,
+		'disabled'    => true,
+		'hidden'      => true,
+		'readonly'    => true,
+		'placeholder' => true,
+		'inputmode'   => true,
+		'min'         => true,
+		'max'         => true,
+		'step'        => true,
+		'rows'        => true,
+		'cols'        => true,
+		'scope'       => true,
+		'colspan'     => true,
+		'data-*'      => true,
+	];
+	$tags = [];
+	foreach ( [ 'form', 'input', 'select', 'option', 'optgroup', 'textarea', 'button', 'label', 'a', 'span', 'div', 'p', 'small', 'strong', 'em', 'br', 'ul', 'li', 'h2', 'h3', 'h4', 'table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td' ] as $t ) {
+		$tags[ $t ] = $attr;
+	}
+	$tags['form']['method']  = true;
+	$tags['form']['enctype'] = true;
+	$tags['form']['action']  = true;
+	return $tags;
+}
+
+/** Intern erzeugtes HTML-Fragment spät escapen. */
+function mietv_kses_html( string $html ): string {
+	return wp_kses( $html, mietv_kses_html_tags() );
+}
+
+/** Intern erzeugte SVG-Grafik (Balkendiagramm) spät escapen. */
+function mietv_kses_svg( string $svg ): string {
+	$a = [
+		'x'           => true,
+		'y'           => true,
+		'x1'          => true,
+		'y1'          => true,
+		'x2'          => true,
+		'y2'          => true,
+		'width'       => true,
+		'height'      => true,
+		'fill'        => true,
+		'stroke'      => true,
+		'opacity'     => true,
+		'font-size'   => true,
+		'text-anchor' => true,
+		'viewbox'     => true,
+		'style'       => true,
+		'xmlns'       => true,
+	];
+	return wp_kses(
+		$svg,
+		[
+			'svg'   => $a,
+			'line'  => $a,
+			'rect'  => $a,
+			'text'  => $a,
+			'title' => [],
+			'g'     => $a,
+		]
+	);
+}
+
 /** Kurzlebige Statusmeldung je Benutzer (statt ?msg= in der URL). */
 function mietv_flash_set( string $code, array $extra = [] ): void {
 	set_transient( 'mietv_flash_' . get_current_user_id(), array_merge( [ 'code' => $code ], $extra ), 120 );

@@ -11,6 +11,15 @@
 	<arg name="colors"/>
 	<config name="minimum_supported_wp_version" value="6.0"/>
 	<config name="testVersion" value="8.0-"/>
+	<!-- Eigene Escaping-Helfer (wp_kses mit Whitelist). -->
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<property name="customEscapingFunctions" type="array">
+				<element value="mietv_kses_html"/>
+				<element value="mietv_kses_svg"/>
+			</property>
+		</properties>
+	</rule>
 	<rule ref="WordPress">
 		<!-- Deutsche Bezeichner und Dateinamen sind gewollt. -->
 		<exclude name="WordPress.Files.FileName"/>

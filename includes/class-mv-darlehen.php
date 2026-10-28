@@ -272,7 +272,7 @@ class Mietv_Darlehen {
 		if ( $offen ) {
 			echo '<p><button class="button button-primary">' . esc_html__( 'Markierte Raten buchen', 'mietfux' ) . '</button></p>';
 		}
-		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" onclick="document.querySelectorAll(\'#mv-dl-form tbody input[type=checkbox]\').forEach(c=>c.checked=this.checked)"></th><th>' . esc_html__( 'Monat', 'mietfux' ) . '</th><th>' . esc_html__( 'Art', 'mietfux' ) . '</th><th>' . esc_html__( 'Rate', 'mietfux' ) . '</th><th>' . esc_html__( 'Zins', 'mietfux' ) . '</th><th>' . esc_html__( 'Tilgung', 'mietfux' ) . '</th><th>' . esc_html__( 'Restschuld', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
+		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Monat', 'mietfux' ) . '</th><th>' . esc_html__( 'Art', 'mietfux' ) . '</th><th>' . esc_html__( 'Rate', 'mietfux' ) . '</th><th>' . esc_html__( 'Zins', 'mietfux' ) . '</th><th>' . esc_html__( 'Tilgung', 'mietfux' ) . '</th><th>' . esc_html__( 'Restschuld', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( array_reverse( $plan ) as $r ) {
 			$art = $r['art'] === 'sondertilgung' ? __( 'Sondertilgung', 'mietfux' ) : ( $r['gebucht'] ? __( 'Rate', 'mietfux' ) : __( 'Rate (offen)', 'mietfux' ) );
 			printf(
@@ -285,7 +285,7 @@ class Mietv_Darlehen {
 				esc_html( mietv_eur( $r['zins'] ) ),
 				esc_html( mietv_eur( $r['tilgung'] ) ),
 				esc_html( mietv_eur( $r['restschuld'] ) ),
-				$r['gebucht'] ? '<button name="loeschen" value="' . (int) $r['id'] . '" class="button-link mv-delete" onclick="return confirm(\'' . esc_js( __( 'Buchung löschen? Nachfolgende Restschulden werden neu berechnet.', 'mietfux' ) ) . '\')">×</button>' : ''
+				$r['gebucht'] ? '<button name="loeschen" value="' . (int) $r['id'] . '" class="button-link mv-delete" data-confirm="' . esc_attr__( 'Buchung löschen? Nachfolgende Restschulden werden neu berechnet.', 'mietfux' ) . '">×</button>' : ''
 			);
 		}
 		if ( ! $plan ) {

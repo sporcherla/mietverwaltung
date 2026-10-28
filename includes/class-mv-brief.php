@@ -79,7 +79,7 @@ class Mietv_Brief {
 
 		if ( ( isset( $_GET['format'] ) ? sanitize_key( $_GET['format'] ) : 'pdf' ) !== 'html' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 			$bytes = self::pdf( $empfaenger, $betreff, $body, $datum );
-			if ( $ablage && ! empty( $_GET['ablegen'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+			if ( $ablage && Mietv_PDF::ablegen_gewuenscht() ) {
 				Mietv_PDF::ablegen( $bytes, $titel . '.pdf', (int) $ablage[0], $ablage[1] ? (int) $ablage[1] : null, $ablage[2], $ablage[3], ! empty( $ablage[4] ) );
 			}
 			Mietv_PDF::senden( $bytes, $titel . '.pdf' );
@@ -89,23 +89,25 @@ class Mietv_Brief {
 <html lang="de"><head><meta charset="utf-8"><title><?php echo esc_html( $titel ); ?></title>
 		<?php
 		wp_enqueue_style( 'mietv-dokument-brief', MIETV_URL . 'assets/dokument-brief.css', [], MIETV_VERSION );
+		wp_enqueue_script( 'mietv-dokument', MIETV_URL . 'assets/dokument.js', [], MIETV_VERSION, true );
 		if ( $auto_print ) {
 			wp_enqueue_script( 'mietv-druck', MIETV_URL . 'assets/druck.js', [], MIETV_VERSION, true );
 		}
 		wp_print_styles( 'mietv-dokument-brief' );
 		?>
 </head><body>
-<div class="toolbar"><button onclick="window.print()">Drucken / Als PDF sichern</button><button onclick="window.close()">Schließen</button> <?php echo esc_html( $titel ); ?></div>
+<div class="toolbar"><button type="button" data-action="print">Drucken / Als PDF sichern</button><button type="button" data-action="close">Schließen</button> <?php echo esc_html( $titel ); ?></div>
 <div class="seite">
 <div class="absender"><?php echo esc_html( $absender_zeile ); ?></div>
 <div class="empf"><?php echo esc_html( $empfaenger ); ?></div>
 <div class="datum"><?php echo esc_html( self::ort() . ', ' . $datum ); ?></div>
 <div class="betreff"><?php echo esc_html( $betreff ); ?></div>
-		<?php echo $body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Brieftext wird intern aus escapten Werten erzeugt. ?>
+		<?php echo wp_kses_post( $body ); ?>
 <p>Mit freundlichen Grüßen</p>
 <p style="margin-top:14mm"><?php echo esc_html( $einst::get( 'vermieter_name' ) ); ?></p>
 </div>
 		<?php
+		wp_print_scripts( 'mietv-dokument' );
 		if ( $auto_print ) {
 			wp_print_scripts( 'mietv-druck' );
 		}

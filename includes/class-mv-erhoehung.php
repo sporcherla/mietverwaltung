@@ -249,7 +249,7 @@ class Mietv_Erhoehung {
 			}
 			if ( ! $res['fehler'] ) {
 				printf( '<div class="mv-kacheln"><div class="mv-kachel"><span>' . esc_html__( 'Bisher', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . /* translators: %s: Wert */ esc_html__( 'Neu ab %s', 'mietfux' ) . '</span><strong>%s</strong></div><div class="mv-kachel"><span>' . esc_html__( 'Erhöhung', 'mietfux' ) . '</span><strong>%s (%+.1f %%)</strong></div></div>', esc_html( mietv_eur( $res['alt'] ) ), esc_html( mietv_date( $res['wirksam_ab'] ) ), esc_html( mietv_eur( $res['neu'] ) ), esc_html( mietv_eur( $res['neu'] - $res['alt'] ) ), (float) ( $res['alt'] > 0 ? ( $res['neu'] / $res['alt'] - 1 ) * 100 : 0 ) );
-				echo '<button name="uebernehmen" value="1" class="button button-primary" onclick="return confirm(\'Kondition anlegen und Erhöhung speichern?\')">' . esc_html__( 'Erhöhung speichern, Kondition anlegen, Schreiben erzeugen', 'mietfux' ) . '</button>';
+				echo '<button name="uebernehmen" value="1" class="button button-primary" data-confirm="' . esc_attr__( 'Kondition anlegen und Erhöhung speichern?', 'mietfux' ) . '">' . esc_html__( 'Erhöhung speichern, Kondition anlegen, Schreiben erzeugen', 'mietfux' ) . '</button>';
 			}
 		}
 		echo '</p></form>';
@@ -271,7 +271,8 @@ class Mietv_Erhoehung {
 		}
 		global $wpdb;
 		check_admin_referer( 'mietv_erh_brief' );
-		$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 );
+		Mietv_PDF::ablegen_aus_request( 'mietv_erh_brief' );
+		$id     = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 );
 		$e      = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_erhoehungen WHERE id = %d', $id ) );
 		$mv     = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $e->mv_id ) );
 		$k      = Mietv_Soll::konditionen( (int) $mv->id, $e->wirksam_ab );

@@ -64,7 +64,8 @@ class Mietv_Portal {
 				$flag = 'kleiner';
 			}
 		}
-		wp_safe_redirect( add_query_arg( 'mietv_zaehler', $flag, remove_query_arg( [ 'mietv_zaehler', 'mietv_meldung' ] ) ) );
+		mietv_flash_set( 'zaehler_' . $flag );
+		wp_safe_redirect( remove_query_arg( [ 'mietv_zaehler', 'mietv_meldung' ] ) );
 		exit;
 	}
 
@@ -115,7 +116,8 @@ class Mietv_Portal {
 
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->id, self::eigene_mv() );
 		if ( ! in_array( $mv_id, $erlaubt, true ) || $betreff === '' ) {
-			wp_safe_redirect( add_query_arg( 'mietv_meldung', 'fehler', remove_query_arg( 'mietv_meldung' ) ) );
+			mietv_flash_set( 'meldung_fehler' );
+			wp_safe_redirect( remove_query_arg( 'mietv_meldung' ) );
 			exit;
 		}
 
@@ -145,7 +147,8 @@ class Mietv_Portal {
 			);
 		}
 
-		wp_safe_redirect( add_query_arg( 'mietv_meldung', 'ok', remove_query_arg( 'mietv_meldung' ) ) );
+		mietv_flash_set( 'meldung_ok' );
+		wp_safe_redirect( remove_query_arg( 'mietv_meldung' ) );
 		exit;
 	}
 
@@ -164,7 +167,8 @@ class Mietv_Portal {
 		wp_enqueue_style( 'mietv-portal', MIETV_URL . 'assets/portal.css', [], MIETV_VERSION );
 		echo '<div class="mv-portal">';
 
-		$zf = isset( $_GET['mietv_zaehler'] ) ? sanitize_key( $_GET['mietv_zaehler'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$code = mietv_flash_get()['code'] ?? '';
+		$zf   = str_starts_with( $code, 'zaehler_' ) ? substr( $code, 8 ) : '';
 		if ( $zf === 'ok' ) {
 			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Zählerstand gespeichert. Vielen Dank.', 'mietfux' ) . '</p>';
 		} elseif ( $zf === 'kleiner' ) {
@@ -172,7 +176,7 @@ class Mietv_Portal {
 		} elseif ( $zf === 'fehler' ) {
 			echo '<p class="mv-notice mv-err">' . esc_html__( 'Zählerstand konnte nicht gespeichert werden.', 'mietfux' ) . '</p>';
 		}
-		$flag = isset( $_GET['mietv_meldung'] ) ? sanitize_key( $_GET['mietv_meldung'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$flag = str_starts_with( $code, 'meldung_' ) ? substr( $code, 8 ) : '';
 		if ( $flag === 'ok' ) {
 			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Ihre Meldung wurde übermittelt. Vielen Dank.', 'mietfux' ) . '</p>';
 		} elseif ( $flag === 'fehler' ) {

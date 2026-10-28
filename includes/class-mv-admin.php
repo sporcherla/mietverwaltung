@@ -1807,14 +1807,14 @@ class Mietv_Admin {
 	private static function notices(): void {
 		$flash = mietv_flash_get();
 		$msg   = $flash['code'] ?? '';
-		$map = [
+		$map   = [
 			'saved'       => [ 'success', esc_html__( 'Gespeichert.', 'mietfux' ) ],
 			'deleted'     => [ 'success', esc_html__( 'Gelöscht.', 'mietfux' ) ],
 			'haschildren' => [ 'error', esc_html__( 'Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden.', 'mietfux' ) ],
 			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d Mieteingang/-eingänge gebucht.', 'mietfux' ), (int) ( $flash['n'] ?? 0 ) ) ],
 		];
 		if ( isset( $map[ $msg ] ) ) {
-			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $map[ $msg ][0] ), esc_html( $map[ $msg ][1] ) );
 		}
 		$errors = get_transient( 'mietv_errors_' . get_current_user_id() );
 		if ( $errors ) {
@@ -1918,7 +1918,7 @@ class Mietv_Admin {
 				),
 				'mietv_delete_' . $key . '_' . $r->id
 			);
-			printf( '<td class="mv-actions"><a href="%s">' . esc_html__( 'Bearbeiten', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Wirklich löschen?\')">' . esc_html__( 'Löschen', 'mietfux' ) . '</a></td>', esc_url( $edit ), esc_url( $del ) );
+			printf( '<td class="mv-actions"><a href="%s">' . esc_html__( 'Bearbeiten', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" data-confirm="' . esc_attr__( 'Wirklich löschen?', 'mietfux' ) . '">' . esc_html__( 'Löschen', 'mietfux' ) . '</a></td>', esc_url( $edit ), esc_url( $del ) );
 			echo '</tr>';
 		}
 		echo '</tbody></table>';
@@ -1963,7 +1963,7 @@ class Mietv_Admin {
 			$val = $row && property_exists( $row, $name ) ? $row->$name : '';
 			$req = ! empty( $f['required'] ) ? ' required' : '';
 			$lbl = esc_html( $f['label'] ) . ( ! empty( $f['required'] ) ? ' <span class="mv-req">*</span>' : '' );
-			printf( '<tr><th scope="row"><label for="mietv_%s">%s</label></th><td>', esc_attr( $name ), $lbl ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			printf( '<tr><th scope="row"><label for="mietv_%s">%s</label></th><td>', esc_attr( $name ), wp_kses( $lbl, [ 'span' => [ 'class' => true ] ] ) );
 
 			switch ( $f['type'] ) {
 				case 'zusatz':
@@ -2012,7 +2012,7 @@ class Mietv_Admin {
 					break;
 				case 'select':
 					$options = is_callable( $f['options'] ) ? call_user_func( $f['options'] ) : $f['options'];
-					printf( '<select id="mietv_%1$s" name="%1$s"%2$s>', esc_attr( $name ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<select id="mietv_%1$s" name="%1$s"%2$s>', esc_attr( $name ), esc_attr( $req ) );
 					if ( ! empty( $f['required'] ) ) {
 						echo '<option value="">' . esc_html__( '– bitte wählen –', 'mietfux' ) . '</option>';
 					}
@@ -2022,22 +2022,22 @@ class Mietv_Admin {
 					echo '</select>';
 					break;
 				case 'decimal':
-					printf( '<input type="text" id="mietv_%1$s" name="%1$s" value="%2$s" class="regular-text mv-num" inputmode="decimal"%3$s>', esc_attr( $name ), esc_attr( $val !== '' && $val !== null ? number_format( (float) $val, 2, ',', '' ) : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="text" id="mietv_%1$s" name="%1$s" value="%2$s" class="regular-text mv-num" inputmode="decimal"%3$s>', esc_attr( $name ), esc_attr( $val !== '' && $val !== null ? number_format( (float) $val, 2, ',', '' ) : '' ), esc_attr( $req ) );
 					break;
 				case 'int':
-					printf( '<input type="number" id="mietv_%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="number" id="mietv_%1$s" name="%1$s" value="%2$s" class="small-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), esc_attr( $req ) );
 					break;
 				case 'date':
-					printf( '<input type="date" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val && $val !== '0000-00-00' ? $val : '' ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="date" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val && $val !== '0000-00-00' ? $val : '' ), esc_attr( $req ) );
 					break;
 				case 'month':
-					printf( '<input type="month" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? substr( $val, 0, 7 ) : current_time( 'Y-m' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="month" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? substr( $val, 0, 7 ) : current_time( 'Y-m' ) ), esc_attr( $req ) );
 					break;
 				case 'datetime':
-					printf( '<input type="datetime-local" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? gmdate( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), $req ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="datetime-local" id="mietv_%1$s" name="%1$s" value="%2$s"%3$s>', esc_attr( $name ), esc_attr( $val ? gmdate( 'Y-m-d\TH:i', strtotime( $val ) ) : current_time( 'Y-m-d\TH:i' ) ), esc_attr( $req ) );
 					break;
 				default:
-					printf( '<input type="%4$s" id="mietv_%1$s" name="%1$s" value="%2$s" class="regular-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), $req, $f['type'] === 'email' ? 'email' : 'text' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+					printf( '<input type="%4$s" id="mietv_%1$s" name="%1$s" value="%2$s" class="regular-text"%3$s>', esc_attr( $name ), esc_attr( (string) $val ), esc_attr( $req ), esc_attr( $f['type'] === 'email' ? 'email' : 'text' ) );
 			}
 			if ( ! empty( $f['hint'] ) ) {
 				echo '<p class="description">' . esc_html( $f['hint'] ) . '</p>';
@@ -2143,7 +2143,7 @@ class Mietv_Admin {
 
 		echo '<form method="post" id="mv-op-form">';
 		wp_nonce_field( 'mietv_op_buchen', 'mietv_op_nonce' );
-		echo '<p class="description mv-op-hinweis">' . esc_html__( 'Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar).', 'mietfux' ) . ' <button class="button button-primary" onclick="return document.querySelectorAll(\'#mv-op-form input[name=\\\'op[]\\\']:checked\').length>0||(alert(\'' . esc_js( esc_html__( 'Bitte mindestens einen Monat anhaken.', 'mietfux' ) ) . '\'),false)">' . esc_html__( 'Markierte als bezahlt buchen', 'mietfux' ) . '</button></p>';
+		echo '<p class="description mv-op-hinweis">' . esc_html__( 'Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar).', 'mietfux' ) . ' <button class="button button-primary" data-require-checked="input[name=\'op[]\']" data-require-msg="' . esc_attr__( 'Bitte mindestens einen Monat anhaken.', 'mietfux' ) . '">' . esc_html__( 'Markierte als bezahlt buchen', 'mietfux' ) . '</button></p>';
 		$offen_gesamt = 0;
 		foreach ( $mvs as $mv ) {
 			$op          = Mietv_Soll::op_liste( $mv );
@@ -2160,7 +2160,7 @@ class Mietv_Admin {
 				esc_url( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . (int) $mv->id ) )
 			);
 
-			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" title="' . esc_attr__( 'alle offenen Monate dieses Mietverhältnisses', 'mietfux' ) . '" onclick="this.closest(\'table\').querySelectorAll(\'tbody input[type=checkbox]\').forEach(c=>c.checked=this.checked)"></th><th>' . esc_html__( 'Monat', 'mietfux' ) . '</th><th>' . esc_html__( 'Kaltmiete', 'mietfux' ) . '</th><th>' . esc_html__( 'BK-VZ', 'mietfux' ) . '</th><th>' . esc_html__( 'HK-VZ', 'mietfux' ) . '</th><th>' . esc_html__( 'Soll', 'mietfux' ) . '</th><th>' . esc_html__( 'Ist', 'mietfux' ) . '</th><th>' . esc_html__( 'Differenz', 'mietfux' ) . '</th><th>' . esc_html__( 'Saldo kumuliert', 'mietfux' ) . '</th></tr></thead><tbody>';
+			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" title="' . esc_attr__( 'alle offenen Monate dieses Mietverhältnisses', 'mietfux' ) . '" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Monat', 'mietfux' ) . '</th><th>' . esc_html__( 'Kaltmiete', 'mietfux' ) . '</th><th>' . esc_html__( 'BK-VZ', 'mietfux' ) . '</th><th>' . esc_html__( 'HK-VZ', 'mietfux' ) . '</th><th>' . esc_html__( 'Soll', 'mietfux' ) . '</th><th>' . esc_html__( 'Ist', 'mietfux' ) . '</th><th>' . esc_html__( 'Differenz', 'mietfux' ) . '</th><th>' . esc_html__( 'Saldo kumuliert', 'mietfux' ) . '</th></tr></thead><tbody>';
 			foreach ( array_reverse( $op['rows'] ) as $r ) {
 				$cls   = $r['diff'] < -0.005 ? 'mv-neg' : ( $r['diff'] > 0.005 ? 'mv-pos' : '' );
 				$offen = $r['diff'] < -0.005 && ! $r['ohne_konditionen'];

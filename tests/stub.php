@@ -54,3 +54,4 @@ if ( ! function_exists( 'set_transient' ) ) {
 	function delete_transient( $k ) { unset( $GLOBALS['mietv_test_transients'][ $k ] ); return true; }
 }
 if ( ! function_exists( 'get_current_user_id' ) ) { function get_current_user_id() { return 1; } }
+if ( ! function_exists( 'wp_kses_post' ) ) { function wp_kses_post( $s ) { return $s; } function wp_kses( $s, $a = [] ) { return $s; } }

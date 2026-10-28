@@ -24,8 +24,9 @@ class Mietv_Mietvertrag {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_sepa' );
+		Mietv_PDF::ablegen_aus_request( 'mietv_sepa' );
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
-		$d = self::daten( $mv_id );
+		$d     = self::daten( $mv_id );
 		if ( ! $d ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
 		}
@@ -50,7 +51,7 @@ class Mietv_Mietvertrag {
 			esc_html( $m->iban ?: '' ) . ( $m->iban ? '' : '<span class="feld" style="min-width:80mm"></span>' ),
 			'<span class="feld" style="min-width:60mm"></span>'
 		);
-		echo self::unterschriften( $ob->ort, $m ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+		echo wp_kses_post( self::unterschriften( $ob->ort, $m ) );
 		self::fuss();
 	}
 
@@ -358,10 +359,11 @@ class Mietv_Mietvertrag {
 <!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title><?php echo esc_html( $titel ); ?></title>
 		<?php
 		wp_enqueue_style( 'mietv-dokument-vertrag', MIETV_URL . 'assets/dokument-vertrag.css', [], MIETV_VERSION );
+		wp_enqueue_script( 'mietv-dokument', MIETV_URL . 'assets/dokument.js', [], MIETV_VERSION, true );
 		wp_print_styles( 'mietv-dokument-vertrag' );
 		?>
 </head><body>
-<div class="toolbar"><button onclick="window.print()">Drucken / Als PDF sichern</button> <?php echo esc_html( $titel ); ?></div>
+<div class="toolbar"><button type="button" data-action="print">Drucken / Als PDF sichern</button> <?php echo esc_html( $titel ); ?></div>
 <div class="seite">
 		<?php
 	}
@@ -370,13 +372,15 @@ class Mietv_Mietvertrag {
 		if ( self::$pdf_titel !== null ) {
 			$html  = ob_get_clean();
 			$bytes = Mietv_PDF::dokument( $html, Mietv_Brief::absender_zeile() );
-			if ( self::$pdf_ablage && ! empty( $_GET['ablegen'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+			if ( self::$pdf_ablage && Mietv_PDF::ablegen_gewuenscht() ) {
 				[ $objekt_id, $mv_id, $typ, $bez, $sichtbar ] = self::$pdf_ablage;
 				Mietv_PDF::ablegen( $bytes, self::$pdf_titel . '.pdf', (int) $objekt_id, $mv_id ? (int) $mv_id : null, $typ, $bez, (bool) $sichtbar );
 			}
 			Mietv_PDF::senden( $bytes, self::$pdf_titel . '.pdf' );
 		}
-		echo '</div></body></html>';
+		echo '</div>';
+		wp_print_scripts( 'mietv-dokument' );
+		echo '</body></html>';
 		exit;
 	}
 
@@ -465,8 +469,9 @@ class Mietv_Mietvertrag {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_vertrag_pdf' );
+		Mietv_PDF::ablegen_aus_request( 'mietv_vertrag_pdf' );
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
-		$d = self::daten( $mv_id );
+		$d     = self::daten( $mv_id );
 		if ( ! $d ) {
 			wp_die( esc_html__( 'Mietverhältnis nicht gefunden.', 'mietfux' ) );
 		}
@@ -502,7 +507,7 @@ class Mietv_Mietvertrag {
 		$ort       = Mietv_Brief::ort() ?: $ob->ort;
 		// Dokumentgenerator: Absätze bestehen aus festen Vertragstexten und bereits escapten Werten.
 		$absatz       = function ( string $t ): void {
-			echo '<p>' . $t . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<p>' . wp_kses_post( $t ) . '</p>';
 		};
 		$ueberschrift = function ( string $t ): void {
 			echo '<h2>' . esc_html( $t ) . '</h2>';
@@ -510,7 +515,7 @@ class Mietv_Mietvertrag {
 
 		if ( ( isset( $_GET['nur'] ) ? sanitize_key( $_GET['nur'] ) : '' ) === 'datenschutz' ) {
 			self::kopf( 'Datenschutzinformation ' . $m->nachname, [ $ob->id, $mv->id, 'sonstiges', 'Datenschutzinformation Art. 13', true ] );
-			echo self::datenschutz_html( $vermieter ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			echo wp_kses_post( self::datenschutz_html( $vermieter ) );
 			self::fuss();
 		}
 
@@ -585,7 +590,7 @@ class Mietv_Mietvertrag {
 			$absatz( 'Der Mieter trägt die Betriebskosten im Sinne des § 2 Betriebskostenverordnung (BetrKV) in der jeweils geltenden Fassung, soweit sie für das Objekt anfallen – auch neu entstehende Betriebskosten, soweit ihre Umlage zulässig ist. Hierauf leistet er die vereinbarten monatlichen Vorauszahlungen. Über die Vorauszahlungen rechnet der Vermieter jährlich ab; die Abrechnung ist dem Mieter spätestens zwölf Monate nach Ende des Abrechnungszeitraums mitzuteilen (§ 556 Abs. 3 BGB). Nach einer Abrechnung kann jede Partei die Vorauszahlungen durch Erklärung in Textform auf eine angemessene Höhe anpassen (§ 560 Abs. 4 BGB). Nachzahlungen und Guthaben sind innerhalb von 30 Tagen nach Zugang der Abrechnung auszugleichen. Der Mieter kann die Abrechnungsunterlagen beim Vermieter einsehen.' );
 		}
 		$absatz( 'Umgelegt werden insbesondere die nachfolgenden Betriebskosten mit dem jeweils genannten Umlageschlüssel. Soweit kein Schlüssel vereinbart ist, erfolgt die Verteilung nach dem Verhältnis der Wohnflächen; verbrauchsabhängig erfasste Kosten nach Verbrauch. Heiz- und Warmwasserkosten werden nach der Heizkostenverordnung abgerechnet' . ( $zentral ? ' (Verbrauchsanteil ' . (int) ( $ob->hk_verbrauchsanteil ?: 70 ) . ' %, Rest nach Wohnfläche)' : '' ) . '.' . ( $etw ? ' Bei Eigentumswohnungen gilt der von der Eigentümergemeinschaft angewandte Umlageschlüssel; die auf die Wohnung entfallende Grundsteuer wird in voller Höhe umgelegt.' : '' ) );
-		echo self::betrkv_tabelle( $zentral, $etw ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+		echo wp_kses_post( self::betrkv_tabelle( $zentral, $etw ) );
 		$absatz( 'Sach- und Arbeitsleistungen des Vermieters dürfen mit dem Betrag angesetzt werden, der für eine gleichwertige Leistung eines Dritten angesetzt werden könnte, ohne Umsatzsteuer (§ 1 Abs. 1 Satz 2 BetrKV). Der Mieter schließt ab Übergabe einen eigenen Stromliefervertrag für die Wohnung ab und weist dies auf Verlangen nach; eine Abmeldung vor Ende des Mietverhältnisses ist unzulässig. Der Vermieter ist nicht verpflichtet, Telekommunikationsanschlüsse (Internet, Fernsehen) bereitzustellen oder eine bestehende Versorgung aufrechtzuerhalten.' );
 		if ( $o['mietart'] === 'staffel' ) {
 			$absatz( '<strong>Staffelmiete (§ 557a BGB):</strong> Die Grundmiete erhöht sich wie folgt; zwischen zwei Staffeln liegt jeweils mindestens ein Jahr:' );
@@ -706,14 +711,14 @@ class Mietv_Mietvertrag {
 			$anlagen[] = 'SEPA-Lastschriftmandat';
 		}
 		$absatz( 'Anlagen: ' . esc_html( implode( ', ', $anlagen ) ) . '.' );
-		echo self::unterschriften( $ort, $m ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+		echo wp_kses_post( self::unterschriften( $ort, $m ) );
 
-		echo '<div class="umbruch"></div>' . self::datenschutz_html( $vermieter ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+		echo '<div class=\"umbruch\"></div>' . wp_kses_post( self::datenschutz_html( $vermieter ) );
 		if ( $o['hausordnung'] === '1' ) {
-			echo '<div class="umbruch"></div>' . self::hausordnung_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			echo '<div class=\"umbruch\"></div>' . wp_kses_post( self::hausordnung_html() );
 		}
 		if ( $o['merkblatt'] === '1' ) {
-			echo '<div class="umbruch"></div>' . self::merkblatt_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			echo '<div class=\"umbruch\"></div>' . wp_kses_post( self::merkblatt_html() );
 		}
 		self::fuss();
 	}
@@ -772,9 +777,10 @@ class Mietv_Mietvertrag {
 		}
 		global $wpdb;
 		check_admin_referer( 'mietv_uebergabe' );
+		Mietv_PDF::ablegen_aus_request( 'mietv_uebergabe' );
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
-		$art = ( isset( $_GET['art'] ) ? sanitize_key( $_GET['art'] ) : 'einzug' ) === 'auszug' ? __( 'Auszug', 'mietfux' ) : __( 'Einzug', 'mietfux' );
-		$d   = self::daten( $mv_id );
+		$art   = ( isset( $_GET['art'] ) ? sanitize_key( $_GET['art'] ) : 'einzug' ) === 'auszug' ? __( 'Auszug', 'mietfux' ) : __( 'Einzug', 'mietfux' );
+		$d     = self::daten( $mv_id );
 		if ( ! $d ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
 		}
@@ -827,12 +833,12 @@ class Mietv_Mietvertrag {
 		echo '</table>';
 
 		if ( $art === 'Auszug' ) {
-			echo '<h2>' . esc_html__( '5. Rückgabe', 'mietfux' ) . '</h2><p>' . esc_html__( '☐ Wohnung vollständig geräumt und besenrein', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ Alle Schlüssel zurückgegeben', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ Schönheitsreparaturen fällig/ausgeführt:', 'mietfux' ) . ' <span class="feld"></span></p><p>' . esc_html__( 'Vereinbarte Nacharbeiten durch den Mieter bis', 'mietfux' ) . ' <span class="feld"></span>: <span class="feld" style="min-width:100mm"></span></p><p>' . esc_html__( 'Neue Anschrift des Mieters (für Kautionsabrechnung und Betriebskostenabrechnung):', 'mietfux' ) . ' <span class="feld" style="min-width:120mm"></span></p><p>' . esc_html__( 'Kautionsrückzahlung auf IBAN:', 'mietfux' ) . ' <span class="feld" style="min-width:80mm"></span></p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+			echo '<h2>' . esc_html__( '5. Rückgabe', 'mietfux' ) . '</h2><p>' . esc_html__( '☐ Wohnung vollständig geräumt und besenrein', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ Alle Schlüssel zurückgegeben', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ Schönheitsreparaturen fällig/ausgeführt:', 'mietfux' ) . ' <span class="feld"></span></p><p>' . esc_html__( 'Vereinbarte Nacharbeiten durch den Mieter bis', 'mietfux' ) . ' <span class="feld"></span>: <span class="feld" style="min-width:100mm"></span></p><p>' . esc_html__( 'Neue Anschrift des Mieters (für Kautionsabrechnung und Betriebskostenabrechnung):', 'mietfux' ) . ' <span class="feld" style="min-width:120mm"></span></p><p>' . esc_html__( 'Kautionsrückzahlung auf IBAN:', 'mietfux' ) . ' <span class="feld" style="min-width:80mm"></span></p>';
 		} else {
 			echo '<h2>' . esc_html__( '5. Vereinbarungen', 'mietfux' ) . '</h2><p>' . esc_html__( 'Vom Vermieter noch zu erledigen bis', 'mietfux' ) . ' <span class="feld"></span>: <span class="feld" style="min-width:100mm"></span></p><p>' . esc_html__( 'Dem Mieter übergeben: ☐ Energieausweis ☐ Hausordnung ☐ Datenschutzinformation ☐ Bedienungsanleitungen (Heizung, Küche)', 'mietfux' ) . '</p>';
 		}
 		echo '<p class="klein">' . esc_html__( 'Die Parteien bestätigen die Richtigkeit der Angaben. Nicht vermerkte Mängel gelten als bei Übergabe nicht vorhanden, soweit sie bei der Besichtigung erkennbar waren.', 'mietfux' ) . '</p>';
-		echo self::unterschriften( $ort, $m ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+		echo wp_kses_post( self::unterschriften( $ort, $m ) );
 		self::fuss();
 	}
 }

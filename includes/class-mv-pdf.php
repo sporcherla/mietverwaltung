@@ -744,6 +744,19 @@ class Mietv_PDF {
 		return $wp_filesystem ?: null;
 	}
 
+	/** Ob das erzeugte PDF zusätzlich in den Dokumenten abgelegt werden soll (?ablegen=1). */
+	private static bool $ablegen_gewuenscht = false;
+
+	/** Ablage-Wunsch (?ablegen=1) übernehmen; die Nonce der jeweiligen Aktion wird dabei erneut geprüft. */
+	public static function ablegen_aus_request( string $nonce_action ): void {
+		$nonce                    = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+		self::$ablegen_gewuenscht = wp_verify_nonce( $nonce, $nonce_action ) && ! empty( $_GET['ablegen'] );
+	}
+
+	public static function ablegen_gewuenscht(): bool {
+		return self::$ablegen_gewuenscht;
+	}
+
 	/** PDF in der Mediathek speichern und als Dokument verknüpfen. Liefert attachment_id. */
 	public static function ablegen( string $bytes, string $dateiname, int $objekt_id, ?int $mv_id, string $typ, string $bezeichnung, bool $mieter_sichtbar = false ): int {
 		global $wpdb;
@@ -795,7 +808,7 @@ class Mietv_PDF {
 		header( 'Content-Type: application/pdf' );
 		header( 'Content-Disposition: inline; filename="' . sanitize_file_name( $dateiname ) . '"' );
 		header( 'Content-Length: ' . strlen( $bytes ) );
-		echo $bytes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
+		echo $bytes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Binärer PDF-Datenstrom (Content-Type: application/pdf), ein Escaping würde die Datei zerstören.
 		exit;
 	}
 }

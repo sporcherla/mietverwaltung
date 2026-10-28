@@ -383,7 +383,7 @@ class Mietv_Abrechnung {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
-		$a = sanitize_key( $_REQUEST['mietv_abr_action'] );
+		$a    = sanitize_key( $_REQUEST['mietv_abr_action'] );
 		$base = admin_url( 'admin.php?page=mietv_abrechnung' );
 
 		if ( $a === 'neu' ) {
@@ -481,7 +481,7 @@ class Mietv_Abrechnung {
 		foreach ( $rows as $r ) {
 			$del = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=loeschen&id=' . $r->id ), 'mietv_abr' );
 			printf(
-				'<tr><td>%s</td><td>%s – %s</td><td>%s</td><td>%d</td><td>%s</td><td><a href="%s">' . esc_html__( 'Öffnen', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Abrechnung löschen?\')">' . esc_html__( 'Löschen', 'mietfux' ) . '</a></td></tr>',
+				'<tr><td>%s</td><td>%s – %s</td><td>%s</td><td>%d</td><td>%s</td><td><a href="%s">' . esc_html__( 'Öffnen', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" data-confirm="' . esc_attr__( 'Abrechnung löschen?', 'mietfux' ) . '">' . esc_html__( 'Löschen', 'mietfux' ) . '</a></td></tr>',
 				esc_html( $r->objekt ),
 				esc_html( mietv_date( $r->von ) ),
 				esc_html( mietv_date( $r->bis ) ),
@@ -539,7 +539,7 @@ class Mietv_Abrechnung {
 			$brief = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_abrechnung_brief&erg=' . (int) $e->id ), 'mietv_abr_brief' );
 			$vz    = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=vz_anpassen&id=' . $id . '&erg=' . $e->id ), 'mietv_abr' );
 			printf(
-				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'PDF ablegen', 'mietfux' ) . '</a> <a href="%s" class="button button-small" onclick="return confirm(\'Neue Vorauszahlung ab nächstem Monat anlegen?\')">' . esc_html__( 'VZ anpassen', 'mietfux' ) . '</a></td></tr>',
+				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'PDF ablegen', 'mietfux' ) . '</a> <a href="%s" class="button button-small" data-confirm="' . esc_attr__( 'Neue Vorauszahlung ab nächstem Monat anlegen?', 'mietfux' ) . '">' . esc_html__( 'VZ anpassen', 'mietfux' ) . '</a></td></tr>',
 				esc_html( $e->nachname . ', ' . $e->vorname ),
 				esc_html( $e->einheit ),
 				(int) $e->tage,
@@ -579,10 +579,11 @@ class Mietv_Abrechnung {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 			}
 			check_admin_referer( 'mietv_abr_brief' );
+			Mietv_PDF::ablegen_aus_request( 'mietv_abr_brief' );
 			$erg_id = isset( $_GET['erg'] ) ? (int) $_GET['erg'] : 0;
 		}
 		$erg_id = (int) $erg_id;
-		$e = $wpdb->get_row( $wpdb->prepare( 'SELECT e.*, a.von, a.bis, a.objekt_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.id = %d', $erg_id ) );
+		$e      = $wpdb->get_row( $wpdb->prepare( 'SELECT e.*, a.von, a.bis, a.objekt_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.id = %d', $erg_id ) );
 		if ( ! $e ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
 		}
