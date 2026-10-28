@@ -371,7 +371,7 @@ class Mietv_Bank {
 		$flash = mietv_flash_get();
 		$msg   = $flash['code'] ?? '';
 		if ( $msg === 'ok' ) {
-			printf( '<div class="notice notice-success is-dismissible"><p>' . /* translators: %d: Wert */ esc_html__( '%d Buchungen übernommen.', 'mietfux' ) . '</p></div>', (int) ( $flash['n'] ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+			printf( '<div class="notice notice-success is-dismissible"><p>' . /* translators: %d: Wert */ esc_html__( '%d Buchungen übernommen.', 'mietfux' ) . '</p></div>', (int) ( $flash['n'] ?? 0 ) );
 		} elseif ( $msg === 'leer' ) {
 			echo '<div class="notice notice-error"><p>' . esc_html__( 'Keine Buchungen erkannt. Unterstützt: CSV mit Kopfzeile (Buchungstag, Betrag, Verwendungszweck …) oder CAMT.053-XML.', 'mietfux' ) . '</p></div>';
 		}
