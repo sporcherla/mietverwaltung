@@ -2,6 +2,13 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.0.2 – Zweite Review-Runde von WordPress.org (Nonces, spätes Escaping)
+
+- **Nonce-Logik durchgängig**: Jeder Handler prüft zuerst die Nonce (`check_admin_referer`/`wp_verify_nonce`) und liest erst danach Eingaben. Admin-post-Endpunkte (PDF, CSV, Backup, Mahnung, Anonymisierung, Auskunft, Kautionsabrechnung, Mieterhöhungs-Schreiben, SEPA, Übergabeprotokoll) haben eigene Nonce-Aktionen; der Abrechnungs-Link im Mieterportal trägt eine Nonce, und `ablegen=1` wirkt nur noch nach Nonce-Prüfung im Admin (`Mietv_PDF::ablegen_aus_request()`).
+- **Spätes Escaping**: Alle mit `phpcs:ignore … EscapeOutput` markierten Ausgaben wurden ersetzt – Attribute über `esc_attr()`, erzeugte HTML-Fragmente über `wp_kses()` mit Whitelist (`mietv_kses_html()`, `mietv_kses_svg()`) bzw. `wp_kses_post()` (Brieftext, Vertragsabsätze, Unterschriften, Anlagen, BetrKV-Tabelle). Einzige verbleibende Ausnahme: der binäre PDF-Datenstrom.
+- **Statusmeldungen** nach Redirects laufen über kurzlebige Transients je Benutzer (`mietv_flash_set/get`) statt über `?msg=` in der URL (Admin und Portal).
+- **Kein Inline-JavaScript mehr**: Bestätigungsabfragen (`data-confirm`), Alle-auswählen-Kästchen (`data-check-all`), Pflichtauswahl (`data-require-checked`) und Druckknöpfe (`data-action="print"`) werden von `assets/admin.js` bzw. `assets/dokument.js` bedient.
+
 ## 1.0.1 – Umbenennung in Mietfux, Review-Rückmeldungen von WordPress.org
 
 - **Neuer Name „Mietfux – Mietverwaltung für Vermieter“**, Slug und Text-Domain `mietfux`, Hauptdatei `mietfux.php`. Das Review-Team stufte „Mietverwaltung“ als zu generisch ein. Interner Präfix `mietv_` und Tabellen `wp_mv_*` bleiben; der Shortcode `[mietverwaltung_portal]` funktioniert weiter als Alias zu `[mietfux_portal]`.

@@ -166,7 +166,7 @@ class Mietv_Kaution {
 				in_array( $b->art, [ 'einzahlung', 'zins' ], true ) ? 'mv-pos' : 'mv-neg',
 				in_array( $b->art, [ 'einzahlung', 'zins' ], true ) ? '+' : '–',
 				esc_html( mietv_eur( $b->betrag ) ),
-				mietv_kses_html( wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce', true, false ) ),
+				wp_kses( wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce', true, false ), mietv_kses_html_tags() ),
 				(int) $mv_id,
 				(int) $b->id
 			);

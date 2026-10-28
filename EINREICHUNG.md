@@ -1,5 +1,28 @@
 # Einreichung bei WordPress.org – Checkliste
 
+## Stand nach dem zweiten Review (28.10.2026)
+
+Zwei Themen: Nonce-Logik und spätes Escaping. Beides ist in 1.0.2 umgesetzt (Details in CHANGELOG.md).
+
+| Punkt | Umsetzung |
+|---|---|
+| `Mietv_Portal::handle_abrechnung()` ohne Nonce, `ablegen=1` durch Mieter | Portal-Link mit `wp_nonce_url()`, `wp_verify_nonce()` vor dem Lesen; Ablage nur noch im Admin nach `check_admin_referer()` |
+| `handle_actions()` liest `mietv_entity` vor der Nonce | `check_admin_referer( 'mietv_save' )` ist die erste Anweisung |
+| `handle_meldung`/`handle_zaehler`: `! is_user_logged_in() \|\| ! wp_verify_nonce` | Getrennte Prüfungen, jede mit eigenem `wp_die()` |
+| `Mietv_Abrechnung::brief()` liest `erg` vor der Nonce | Capability → `check_admin_referer()` → Lesen |
+| `?msg=` in `page()`-Funktionen | Transients (`mietv_flash_set/get`) statt URL-Parameter |
+| Alle `phpcs:ignore EscapeOutput` | Entfernt: `esc_attr()` für Attribute, `wp_kses()`/`wp_kses_post()` für HTML-Fragmente, SVG-Whitelist für das Diagramm; einzige Ausnahme der PDF-Byte-Stream |
+
+**Antwort an das Review-Team** (kurz, im selben E-Mail-Thread):
+
+> Thank you for the detailed review. I have uploaded version 1.0.2.
+>
+> Nonces: every handler now verifies the nonce (check_admin_referer / wp_verify_nonce) before reading any input, with the login and nonce checks separated. The tenant-portal statement link now carries a nonce, and storing a generated PDF ("ablegen") is only possible from the admin endpoints after their nonce check. Status notices after redirects use per-user transients instead of ?msg= parameters, so the page() functions no longer read request data.
+>
+> Escaping: all output marked with phpcs:ignore has been reworked to escape late – esc_attr() for attributes, wp_kses() with an explicit whitelist for generated form/table/SVG fragments and wp_kses_post() for letter bodies and contract paragraphs. The only remaining exception is the binary PDF stream sent with Content-Type: application/pdf.
+>
+> PHPCS (WordPress-Extra + WordPress-Docs) and Plugin Check report no issues; tested on a clean install with WP_DEBUG enabled.
+
 ## Stand nach dem ersten Review (26.10.2026)
 
 Das Review-Team hat fünf Punkte genannt; alle sind in 1.0.1 umgesetzt:
@@ -24,7 +47,7 @@ Das Review-Team hat fünf Punkte genannt; alle sind in 1.0.1 umgesetzt:
 
 
 
-Stand: Version 1.0.1. Alles Technische ist erledigt; die folgenden Schritte kann nur der Autor selbst ausführen (Account, Formular, SVN).
+Stand: Version 1.0.2. Alles Technische ist erledigt; die folgenden Schritte kann nur der Autor selbst ausführen (Account, Formular, SVN).
 
 ## Bereits erledigt (geprüft in dieser Version)
 
@@ -61,7 +84,7 @@ Stand: Version 1.0.1. Alles Technische ist erledigt; die folgenden Schritte kann
    cd mietverwaltung-svn
    # Plugin-Dateien (Inhalt des ZIP) nach trunk/, Bilder aus .wordpress-org/ nach assets/
    svn add trunk/* assets/*
-   svn ci -m "Version 1.0.1"
+   svn ci -m "Version 1.0.2"
    svn cp trunk tags/1.0.0 && svn ci -m "Tag 1.0.0"
    ```
    Alternativ den GitHub-Workflow „10up/action-wordpress-plugin-deploy“ einrichten, der bei jedem Git-Tag automatisch nach SVN deployt.

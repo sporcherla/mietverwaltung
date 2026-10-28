@@ -3,7 +3,7 @@
  * Plugin Name: Mietfux – Mietverwaltung für Vermieter
  * Plugin URI: https://github.com/sporcherla/mietverwaltung
  * Description: Verwaltung von Mietobjekten, Mietverhältnissen, Zahlungen (Soll/Ist) und Mieterportal mit Schadensmeldung, Belegerfassung, AfA, Darlehen, Steuer-Auswertung (Anlage V), Betriebskostenabrechnung, Bankimport, Mahnwesen, Mieterhöhung, Mietvertrag/Übergabeprotokoll, Kautionskonto, PDF-Erzeugung, Datenschutz-Löschkonzept und Backup.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Markus Hirn
  * Requires at least: 6.0
  * Requires PHP: 8.0
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MIETV_VERSION', '1.0.1' );
+define( 'MIETV_VERSION', '1.0.2' );
 define( 'MIETV_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MIETV_URL', plugin_dir_url( __FILE__ ) );
 // Vorbereitung Mandantenfähigkeit: vorerst immer 1.

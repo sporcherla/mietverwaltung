@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,12 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 7. Tenant portal
 
 == Changelog ==
+
+= 1.0.2 =
+* Security review round 2: every request-driven action is now guarded by a nonce check before any input is read (admin forms, admin-post endpoints, tenant portal); the tenant portal statement link carries a nonce and can no longer trigger document storage
+* Late escaping everywhere: generated HTML fragments go through wp_kses()/wp_kses_post(), attributes through esc_attr(); all phpcs:ignore markers for output escaping removed (except the binary PDF stream)
+* Status notices use short-lived transients instead of ?msg= URL parameters
+* Remaining inline event handlers (confirm dialogs, select-all checkboxes, print buttons) moved into admin.js/dokument.js
 
 = 1.0.1 =
 * Renamed to Mietfux (slug `mietfux`, text domain `mietfux`); the shortcode `[mietverwaltung_portal]` keeps working as an alias

@@ -321,7 +321,7 @@ class Mietv_Steuer {
 		}
 		$chart = self::chart( $jahr );
 		if ( $chart ) {
-			echo '<h2>' . esc_html__( 'Entwicklung', 'mietfux' ) . '</h2>' . mietv_kses_svg( $chart );
+			echo '<h2>' . esc_html__( 'Entwicklung', 'mietfux' ) . '</h2>' . wp_kses( $chart, mietv_kses_svg_tags() );
 		}
 		echo '<p class="description">' . esc_html__( 'Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten.', 'mietfux' ) . '</p>';
 

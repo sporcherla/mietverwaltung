@@ -99,13 +99,8 @@ function mietv_kses_html_tags(): array {
 	return $tags;
 }
 
-/** Intern erzeugtes HTML-Fragment spät escapen. */
-function mietv_kses_html( string $html ): string {
-	return wp_kses( $html, mietv_kses_html_tags() );
-}
-
-/** Intern erzeugte SVG-Grafik (Balkendiagramm) spät escapen. */
-function mietv_kses_svg( string $svg ): string {
+/** Erlaubte Tags/Attribute für die intern erzeugte SVG-Grafik (Balkendiagramm). */
+function mietv_kses_svg_tags(): array {
 	$a = [
 		'x'           => true,
 		'y'           => true,
@@ -124,17 +119,14 @@ function mietv_kses_svg( string $svg ): string {
 		'style'       => true,
 		'xmlns'       => true,
 	];
-	return wp_kses(
-		$svg,
-		[
-			'svg'   => $a,
-			'line'  => $a,
-			'rect'  => $a,
-			'text'  => $a,
-			'title' => [],
-			'g'     => $a,
-		]
-	);
+	return [
+		'svg'   => $a,
+		'line'  => $a,
+		'rect'  => $a,
+		'text'  => $a,
+		'title' => [],
+		'g'     => $a,
+	];
 }
 
 /** Kurzlebige Statusmeldung je Benutzer (statt ?msg= in der URL). */
