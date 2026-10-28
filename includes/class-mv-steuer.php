@@ -39,7 +39,8 @@ class Mietv_Steuer {
 			$alle[ $jahr ][ sanitize_key( $g ) ] = sanitize_text_field( $z );
 		}
 		update_option( 'mietv_anlagev_zeilen', $alle );
-		wp_safe_redirect( admin_url( 'admin.php?page=mietv_steuer&jahr=' . $jahr . '&msg=zeilen' ) );
+		mietv_flash_set( 'zeilen' );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_steuer&jahr=' . $jahr ) );
 		exit;
 	}
 
@@ -306,7 +307,7 @@ class Mietv_Steuer {
 		$wk_sum    = array_sum( array_column( $wk, 'summe' ) );
 		$ergebnis  = $ein_sum - $wk_sum;
 
-		$csv = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_steuer_csv&jahr=' . $jahr ), 'mietv_steuer_csv_' . $jahr );
+		$csv = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_steuer_csv&jahr=' . $jahr ), 'mietv_steuer_csv' );
 
 		echo '<div class="wrap mv-wrap"><h1>Steuer – Anlage V ' . (int) $jahr . '</h1>';
 		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_steuer"><label>' . esc_html__( 'Steuerjahr:', 'mietfux' ) . ' <select name="jahr" onchange="this.form.submit()">';
@@ -315,7 +316,7 @@ class Mietv_Steuer {
 		}
 		echo '</select></label> <a href="' . esc_url( $csv ) . '" class="button">CSV exportieren</a> <button type="button" class="button" onclick="window.print()">Drucken</button></form>';
 
-		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'zeilen' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		if ( ( mietv_flash_get()['code'] ?? '' ) === 'zeilen' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Zeilennummern gespeichert.', 'mietfux' ) . '</p></div>';
 		}
 		$chart = self::chart( $jahr );
@@ -520,8 +521,8 @@ class Mietv_Steuer {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
-		$jahr = ( isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_steuer_csv_' . $jahr );
+		check_admin_referer( 'mietv_steuer_csv' );
+		$jahr = ( isset( $_GET['jahr'] ) ? (int) $_GET['jahr'] : 0 );
 
 		header( 'Content-Type: text/csv; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="anlage-v-' . $jahr . '.csv"' );

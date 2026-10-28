@@ -49,7 +49,7 @@ class Mietv_Mahnung {
 				$letzte ? esc_html( self::stufen()[ $letzte->stufe ] . ' am ' . mietv_date( $letzte->datum ) . ( $letzte->per_email ? ' (E-Mail)' : '' ) ) : '–'
 			);
 			foreach ( self::stufen() as $s => $label ) {
-				$url = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_mahnung&mv=' . $mv->id . '&stufe=' . $s ), 'mietv_mahnung_' . $mv->id );
+				$url = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_mahnung&mv=' . $mv->id . '&stufe=' . $s ), 'mietv_mahnung' );
 				printf( '<a href="%s" target="_blank" class="button button-small%s">%s</a> ', esc_url( $url ), $s === $naechste ? ' button-primary' : '', esc_html( $label ) );
 				printf( '<a href="%s" class="button button-small" title="per E-Mail an den Mieter senden und Schreiben öffnen" onclick="return confirm(\'%s jetzt per E-Mail senden?\')">✉</a> ', esc_url( $url . '&email=1' ), esc_attr( $label ) );
 			}
@@ -76,8 +76,8 @@ class Mietv_Mahnung {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
-		$mv_id = ( isset( $_GET['mv'] ) ? (int) $_GET['mv'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_mahnung_' . $mv_id );
+		check_admin_referer( 'mietv_mahnung' );
+		$mv_id = ( isset( $_GET['mv'] ) ? (int) $_GET['mv'] : 0 );
 		$stufe = max( 1, min( 3, ( isset( $_GET['stufe'] ) ? (int) $_GET['stufe'] : 0 ) ) );
 		$mv    = null;
 		foreach ( Mietv_Soll::alle_mv() as $m ) {

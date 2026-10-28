@@ -72,16 +72,8 @@ class Mietv_Admin {
 			);
 			++$n;
 		}
-		wp_safe_redirect(
-			add_query_arg(
-				[
-					'page' => 'mietv_uebersicht',
-					'msg'  => 'gebucht',
-					'n'    => $n,
-				],
-				admin_url( 'admin.php' )
-			)
-		);
+		mietv_flash_set( 'gebucht', [ 'n' => $n ] );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_uebersicht' ) );
 		exit;
 	}
 
@@ -99,10 +91,13 @@ class Mietv_Admin {
 	}
 
 	public static function handle_fokus(): void {
-		if ( empty( $_GET['mietv_fokus'] ) || ! current_user_can( self::CAP ) ) {
+		if ( ! isset( $_GET['mietv_fokus'] ) ) {
 			return;
 		}
 		check_admin_referer( 'mietv_fokus' );
+		if ( ! current_user_can( self::CAP ) ) {
+			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
+		}
 		update_user_meta( get_current_user_id(), 'mietv_fokus', $_GET['mietv_fokus'] === 'an' ? 1 : 0 );
 		wp_safe_redirect( admin_url( 'admin.php?page=mietv_uebersicht' ) );
 		exit;
@@ -1398,12 +1393,15 @@ class Mietv_Admin {
 
 		// Speichern
 		if ( isset( $_POST['mietv_entity'] ) ) {
-			$key = sanitize_key( $_POST['mietv_entity'] ?? '' );
-			$ent = self::entities()[ $key ] ?? null;
-			if ( ! $ent || ! current_user_can( self::CAP ) ) {
+			check_admin_referer( 'mietv_save' );
+			if ( ! current_user_can( self::CAP ) ) {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 			}
-			check_admin_referer( 'mietv_save_' . $key );
+			$key = sanitize_key( $_POST['mietv_entity'] );
+			$ent = self::entities()[ $key ] ?? null;
+			if ( ! $ent ) {
+				wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+			}
 
 			$id     = isset( $_POST['mietv_record_id'] ) ? (int) $_POST['mietv_record_id'] : 0;
 			$data   = [];
@@ -1535,7 +1533,8 @@ class Mietv_Admin {
 				);
 				exit;
 			}
-			wp_safe_redirect( self::url( $key, [ 'msg' => 'saved' ] ) );
+			mietv_flash_set( 'saved' );
+			wp_safe_redirect( self::url( $key ) );
 			exit;
 		}
 
@@ -1553,7 +1552,8 @@ class Mietv_Admin {
 				[ $ctable, $fk ] = $ent['children'];
 				$cnt             = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . mietv_table( $ctable ) . " WHERE $fk = %d", $id ) );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 				if ( $cnt > 0 ) {
-					wp_safe_redirect( self::url( $key, [ 'msg' => 'haschildren' ] ) );
+					mietv_flash_set( 'haschildren' );
+					wp_safe_redirect( self::url( $key ) );
 					exit;
 				}
 			}
@@ -1563,7 +1563,8 @@ class Mietv_Admin {
 				$wpdb->delete( mietv_table( 'meldungen' ), [ 'mv_id' => $id ] );
 			}
 			$wpdb->delete( mietv_table( $key ), [ 'id' => $id ] );
-			wp_safe_redirect( self::url( $key, [ 'msg' => 'deleted' ] ) );
+			mietv_flash_set( 'deleted' );
+			wp_safe_redirect( self::url( $key ) );
 			exit;
 		}
 	}
@@ -1804,12 +1805,13 @@ class Mietv_Admin {
 	/* ------------------------------------------------------------------ */
 
 	private static function notices(): void {
-		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$flash = mietv_flash_get();
+		$msg   = $flash['code'] ?? '';
 		$map = [
 			'saved'       => [ 'success', esc_html__( 'Gespeichert.', 'mietfux' ) ],
 			'deleted'     => [ 'success', esc_html__( 'Gelöscht.', 'mietfux' ) ],
 			'haschildren' => [ 'error', esc_html__( 'Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden.', 'mietfux' ) ],
-			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d Mieteingang/-eingänge gebucht.', 'mietfux' ), ( isset( $_GET['n'] ) ? (int) $_GET['n'] : 0 ) ) ], // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d Mieteingang/-eingänge gebucht.', 'mietfux' ), (int) ( $flash['n'] ?? 0 ) ) ],
 		];
 		if ( isset( $map[ $msg ] ) ) {
 			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $map[ $msg ][0], esc_html( $map[ $msg ][1] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Inhalt wird intern erzeugt und ist bereits escaped.
@@ -1953,7 +1955,7 @@ class Mietv_Admin {
 		self::notices();
 
 		echo '<form method="post" class="mv-form"' . ( ! empty( $ent['upload'] ) ? ' enctype="multipart/form-data"' : '' ) . '>';
-		wp_nonce_field( 'mietv_save_' . $key );
+		wp_nonce_field( 'mietv_save' );
 		printf( '<input type="hidden" name="mietv_entity" value="%s"><input type="hidden" name="mietv_record_id" value="%d">', esc_attr( $key ), (int) $id );
 		echo '<table class="form-table"><tbody>';
 

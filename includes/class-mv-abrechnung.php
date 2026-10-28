@@ -375,12 +375,15 @@ class Mietv_Abrechnung {
 	/* ------------------------------------------------------------------ */
 
 	public static function handle(): void {
-		if ( empty( $_REQUEST['mietv_abr_action'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
+		if ( ! isset( $_REQUEST['mietv_abr_action'] ) ) {
 			return;
+		}
+		check_admin_referer( 'mietv_abr' );
+		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
+			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$a = sanitize_key( $_REQUEST['mietv_abr_action'] );
-		check_admin_referer( 'mietv_abr_' . $a );
 		$base = admin_url( 'admin.php?page=mietv_abrechnung' );
 
 		if ( $a === 'neu' ) {
@@ -404,7 +407,8 @@ class Mietv_Abrechnung {
 		$id = ( isset( $_REQUEST['id'] ) ? (int) $_REQUEST['id'] : 0 );
 		if ( $a === 'neu_berechnen' ) {
 			self::berechnen( $id );
-			wp_safe_redirect( $base . '&id=' . $id . '&msg=berechnet' );
+			mietv_flash_set( 'berechnet' );
+			wp_safe_redirect( $base . '&id=' . $id );
 			exit;
 		}
 		if ( $a === 'fertig' || $a === 'entwurf' ) {
@@ -436,7 +440,8 @@ class Mietv_Abrechnung {
 					]
 				);
 			}
-			wp_safe_redirect( $base . '&id=' . $id . '&msg=vz' );
+			mietv_flash_set( 'vz' );
+			wp_safe_redirect( $base . '&id=' . $id );
 			exit;
 		}
 	}
@@ -463,7 +468,7 @@ class Mietv_Abrechnung {
 		$rows = $wpdb->get_results( 'SELECT a.*, o.bezeichnung AS objekt, (SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e WHERE e.abrechnung_id = a.id) AS anzahl FROM ' . $wpdb->prefix . 'mv_abrechnungen a JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id ORDER BY a.bis DESC' );
 
 		echo '<h2>' . esc_html__( 'Neue Abrechnung', 'mietfux' ) . '</h2><form method="post" class="mv-filter">';
-		wp_nonce_field( 'mietv_abr_neu' );
+		wp_nonce_field( 'mietv_abr' );
 		echo '<input type="hidden" name="mietv_abr_action" value="neu"><label>' . esc_html__( 'Objekt', 'mietfux' ) . ' <select name="objekt_id" required>';
 		foreach ( Mietv_Admin::opt_objekte() as $k => $v ) {
 			printf( '<option value="%d">%s</option>', (int) $k, esc_html( $v ) );
@@ -474,7 +479,7 @@ class Mietv_Abrechnung {
 
 		echo '<h2>' . esc_html__( 'Vorhandene Abrechnungen', 'mietfux' ) . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Objekt', 'mietfux' ) . '</th><th>' . esc_html__( 'Zeitraum', 'mietfux' ) . '</th><th>' . esc_html__( 'Status', 'mietfux' ) . '</th><th>' . esc_html__( 'Mieter', 'mietfux' ) . '</th><th>' . esc_html__( 'Erstellt', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( $rows as $r ) {
-			$del = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=loeschen&id=' . $r->id ), 'mietv_abr_loeschen' );
+			$del = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=loeschen&id=' . $r->id ), 'mietv_abr' );
 			printf(
 				'<tr><td>%s</td><td>%s – %s</td><td>%s</td><td>%d</td><td>%s</td><td><a href="%s">' . esc_html__( 'Öffnen', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" onclick="return confirm(\'Abrechnung löschen?\')">' . esc_html__( 'Löschen', 'mietfux' ) . '</a></td></tr>',
 				esc_html( $r->objekt ),
@@ -502,7 +507,7 @@ class Mietv_Abrechnung {
 		}
 		$ergs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, m.vorname, m.nachname, ei.bezeichnung AS einheit FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = e.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id JOIN ' . $wpdb->prefix . 'mv_einheiten ei ON ei.id = mv.einheit_id WHERE e.abrechnung_id = %d ORDER BY m.nachname', $id ) );
 
-		$msg = sanitize_key( $_GET['msg'] ?? '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$msg = mietv_flash_get()['code'] ?? '';
 		if ( $msg === 'berechnet' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Neu berechnet.', 'mietfux' ) . '</p></div>';
 		} elseif ( $msg === 'vz' ) {
@@ -510,7 +515,7 @@ class Mietv_Abrechnung {
 		}
 
 		printf( '<h1>' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Betriebskostenabrechnung %1$s – %2$s bis %3$s', 'mietfux' ) . '</h1>', esc_html( $abr->objekt ), esc_html( mietv_date( $abr->von ) ), esc_html( mietv_date( $abr->bis ) ) );
-		$u = fn( $a ) => wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=' . $a . '&id=' . $id ), 'mietv_abr_' . $a );
+		$u = fn( $a ) => wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=' . $a . '&id=' . $id ), 'mietv_abr' );
 		echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=mietv_abrechnung' ) ) . '" class="button">← Übersicht</a> <a href="' . esc_url( $u( 'neu_berechnen' ) ) . '" class="button">Neu berechnen</a> ';
 		if ( $abr->status === 'fertig' ) {
 			echo '<a href="' . esc_url( $u( 'entwurf' ) ) . '" class="button">Freigabe zurücknehmen</a> <span class="description">Freigegeben – im Mieterportal sichtbar.</span>';
@@ -531,8 +536,8 @@ class Mietv_Abrechnung {
 
 		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Mieter / Einheit', 'mietfux' ) . '</th><th>' . esc_html__( 'Tage', 'mietfux' ) . '</th><th>' . esc_html__( 'Betriebskosten', 'mietfux' ) . '</th><th>' . esc_html__( 'Heizkosten', 'mietfux' ) . '</th><th>' . esc_html__( 'Vorauszahlungen', 'mietfux' ) . '</th><th>' . esc_html__( 'Ergebnis', 'mietfux' ) . '</th><th>§ 35a</th><th></th></tr></thead><tbody>';
 		foreach ( $ergs as $e ) {
-			$brief = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_abrechnung_brief&erg=' . $e->id ), 'mietv_abr_brief_' . $e->id );
-			$vz    = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=vz_anpassen&id=' . $id . '&erg=' . $e->id ), 'mietv_abr_vz_anpassen' );
+			$brief = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_abrechnung_brief&erg=' . (int) $e->id ), 'mietv_abr_brief' );
+			$vz    = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=vz_anpassen&id=' . $id . '&erg=' . $e->id ), 'mietv_abr' );
 			printf(
 				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'PDF ablegen', 'mietfux' ) . '</a> <a href="%s" class="button button-small" onclick="return confirm(\'Neue Vorauszahlung ab nächstem Monat anlegen?\')">' . esc_html__( 'VZ anpassen', 'mietfux' ) . '</a></td></tr>',
 				esc_html( $e->nachname . ', ' . $e->vorname ),
@@ -569,13 +574,14 @@ class Mietv_Abrechnung {
 
 	public static function brief( ?int $erg_id = null, bool $portal = false ): void {
 		global $wpdb;
-		$erg_id = $erg_id ?: ( isset( $_GET['erg'] ) ? (int) $_GET['erg'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		if ( ! $portal ) {
 			if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 				wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 			}
-			check_admin_referer( 'mietv_abr_brief_' . $erg_id );
+			check_admin_referer( 'mietv_abr_brief' );
+			$erg_id = isset( $_GET['erg'] ) ? (int) $_GET['erg'] : 0;
 		}
+		$erg_id = (int) $erg_id;
 		$e = $wpdb->get_row( $wpdb->prepare( 'SELECT e.*, a.von, a.bis, a.objekt_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.id = %d', $erg_id ) );
 		if ( ! $e ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
@@ -621,6 +627,6 @@ class Mietv_Abrechnung {
 
 		$b .= '<p class="hinweis">' . esc_html__( 'Die Belege können nach Terminvereinbarung eingesehen werden. Einwendungen gegen die Abrechnung sind innerhalb von 12 Monaten nach Zugang mitzuteilen (§ 556 Abs. 3 Satz 5 BGB).', 'mietfux' ) . '</p>';
 
-		Mietv_Brief::ausgeben( 'Betriebskostenabrechnung ' . substr( $e->bis, 0, 4 ), Mietv_Brief::empfaenger( $mv ), 'Betriebs- und Heizkostenabrechnung ' . mietv_date( $e->von ) . ' – ' . mietv_date( $e->bis ), $b, null, ! $portal, [ $e->objekt_id, $e->mv_id, 'abrechnung', 'Betriebskostenabrechnung ' . substr( $e->bis, 0, 4 ), true ] );
+		Mietv_Brief::ausgeben( 'Betriebskostenabrechnung ' . substr( $e->bis, 0, 4 ), Mietv_Brief::empfaenger( $mv ), 'Betriebs- und Heizkostenabrechnung ' . mietv_date( $e->von ) . ' – ' . mietv_date( $e->bis ), $b, null, ! $portal, $portal ? null : [ $e->objekt_id, $e->mv_id, 'abrechnung', 'Betriebskostenabrechnung ' . substr( $e->bis, 0, 4 ), true ] );
 	}
 }

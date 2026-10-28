@@ -156,7 +156,8 @@ class Mietv_Erhoehung {
 				'begruendung' => $res['begruendung'] . "\n" . implode( "\n", $res['hinweise'] ),
 			]
 		);
-		wp_safe_redirect( admin_url( 'admin.php?page=mietv_erhoehung&msg=ok&id=' . $wpdb->insert_id ) );
+		mietv_flash_set( 'ok', [ 'id' => (int) $wpdb->insert_id ] );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_erhoehung' ) );
 		exit;
 	}
 
@@ -180,9 +181,10 @@ class Mietv_Erhoehung {
 	public static function page(): void {
 		global $wpdb;
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mieterhöhung', 'mietfux' ) . '</h1>';
-		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'ok' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-			$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-			$u  = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_erhoehung_brief&id=' . $id ), 'mietv_erh_brief_' . $id );
+		$flash = mietv_flash_get();
+		if ( ( $flash['code'] ?? '' ) === 'ok' ) {
+			$id = (int) ( $flash['id'] ?? 0 );
+			$u  = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_erhoehung_brief&id=' . $id ), 'mietv_erh_brief' );
 			printf( '<div class="notice notice-success"><p>' . esc_html__( 'Erhöhung gespeichert und neue Kondition angelegt.', 'mietfux' ) . ' <a href="%s" target="_blank" class="button">' . esc_html__( 'PDF öffnen', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( 'PDF ablegen', 'mietfux' ) . '</a></p></div>', esc_url( $u ), esc_url( $u ) );
 		}
 
@@ -268,8 +270,8 @@ class Mietv_Erhoehung {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
-		$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_erh_brief_' . $id );
+		check_admin_referer( 'mietv_erh_brief' );
+		$id = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 );
 		$e      = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_erhoehungen WHERE id = %d', $id ) );
 		$mv     = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $e->mv_id ) );
 		$k      = Mietv_Soll::konditionen( (int) $mv->id, $e->wirksam_ab );

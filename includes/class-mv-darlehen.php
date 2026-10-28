@@ -190,7 +190,8 @@ class Mietv_Darlehen {
 				++$n;
 			}
 		}
-		wp_safe_redirect( admin_url( 'admin.php?page=mietv_darlehenskonto&darlehen_id=' . $did . '&msg=ok&n=' . $n ) );
+		mietv_flash_set( 'ok', [ 'n' => $n ] );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_darlehenskonto&darlehen_id=' . $did ) );
 		exit;
 	}
 
@@ -209,8 +210,9 @@ class Mietv_Darlehen {
 			}
 		}
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Darlehenskonto', 'mietfux' ) . '</h1>';
-		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'ok' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-			printf( '<div class="notice notice-success is-dismissible"><p>' . /* translators: %d: Wert */ esc_html__( '%d Buchung(en) angelegt.', 'mietfux' ) . '</p></div>', ( isset( $_GET['n'] ) ? (int) $_GET['n'] : 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$flash = mietv_flash_get();
+		if ( ( $flash['code'] ?? '' ) === 'ok' ) {
+			printf( '<div class="notice notice-success is-dismissible"><p>' . /* translators: %d: Wert */ esc_html__( '%d Buchung(en) angelegt.', 'mietfux' ) . '</p></div>', (int) ( $flash['n'] ?? 0 ) );
 		}
 		if ( ! $alle ) {
 			printf( '<p>' . esc_html__( 'Noch kein Darlehen angelegt –', 'mietfux' ) . ' <a href="%s">' . esc_html__( 'Darlehen anlegen', 'mietfux' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=new' ) ) );

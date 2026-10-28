@@ -55,12 +55,14 @@ class Mietv_Einstellungen {
 		// Restore
 		if ( ! empty( $_FILES['mietv_restore']['tmp_name'] ) ) {
 			if ( empty( $_POST['mietv_restore_confirm'] ) ) {
-				wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=noconfirm' ) );
+				mietv_flash_set( 'noconfirm' );
+			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen' ) );
 				exit;
 			}
 			$msg = self::restore( (string) file_get_contents( sanitize_text_field( $_FILES['mietv_restore']['tmp_name'] ) ) ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Hochgeladene Datei lokal lesen.
 			? 'restored' : 'restorefail';
-			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=' . $msg ) );
+			mietv_flash_set( $msg );
+			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen' ) );
 			exit;
 		}
 
@@ -70,13 +72,14 @@ class Mietv_Einstellungen {
 			$data[ $k ] = $k === 'vermieter_adresse' ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
 		}
 		update_option( self::OPTION, $data );
-		wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen&msg=saved' ) );
+		mietv_flash_set( 'saved' );
+			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen' ) );
 		exit;
 	}
 
 	public static function page(): void {
 		$o   = array_merge( self::defaults(), get_option( self::OPTION, [] ) );
-		$msg = isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$msg = mietv_flash_get()['code'] ?? '';
 		$map = [
 			'saved'       => [ 'success', esc_html__( 'Einstellungen gespeichert.', 'mietfux' ) ],
 			'restored'    => [ 'success', esc_html__( 'Backup eingespielt. Alle Daten wurden ersetzt.', 'mietfux' ) ],

@@ -87,10 +87,11 @@ class Mietv_Datenschutz {
 		if ( empty( $_GET['mietv_anonym'] ) || ! current_user_can( Mietv_Admin::CAP ) ) {
 			return;
 		}
-		$id = ( isset( $_GET['mietv_anonym'] ) ? (int) $_GET['mietv_anonym'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_anonym_' . $id );
+		check_admin_referer( 'mietv_anonym' );
+		$id = ( isset( $_GET['mietv_anonym'] ) ? (int) $_GET['mietv_anonym'] : 0 );
 		self::anonymisieren( $id );
-		wp_safe_redirect( admin_url( 'admin.php?page=mietv_datenschutz&msg=anonym' ) );
+		mietv_flash_set( 'anonym' );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_datenschutz' ) );
 		exit;
 	}
 
@@ -100,8 +101,8 @@ class Mietv_Datenschutz {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
-		$id = ( isset( $_GET['mieter'] ) ? (int) $_GET['mieter'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_auskunft_' . $id );
+		check_admin_referer( 'mietv_auskunft' );
+		$id = ( isset( $_GET['mieter'] ) ? (int) $_GET['mieter'] : 0 );
 		$mieter = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $id ), ARRAY_A );
 		if ( ! $mieter ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
@@ -136,7 +137,7 @@ class Mietv_Datenschutz {
 	public static function page(): void {
 		global $wpdb;
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Datenschutz', 'mietfux' ) . '</h1>';
-		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'anonym' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		if ( ( mietv_flash_get()['code'] ?? '' ) === 'anonym' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Mieterdaten anonymisiert. Zahlungs- und Abrechnungsdaten bleiben ohne Personenbezug erhalten.', 'mietfux' ) . '</p></div>';
 		}
 		printf( '<p class="description">' . /* translators: %d: Wert */ esc_html__( 'Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete (', 'mietfux' ) . '<a href="%s">' . esc_html__( 'Einstellungen', 'mietfux' ) . '</a>' . esc_html__( '). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten.', 'mietfux' ) . '</p>', (int) Mietv_Einstellungen::get( 'aufbewahrung_jahre', 10 ), esc_url( admin_url( 'admin.php?page=mietv_einstellungen' ) ) );
@@ -154,7 +155,7 @@ class Mietv_Datenschutz {
 			} else {
 				$status = 'in Aufbewahrung';
 			}
-			$url = wp_nonce_url( admin_url( 'admin.php?page=mietv_datenschutz&mietv_anonym=' . $mv->mieter_id ), 'mietv_anonym_' . $mv->mieter_id );
+			$url = wp_nonce_url( admin_url( 'admin.php?page=mietv_datenschutz&mietv_anonym=' . $mv->mieter_id ), 'mietv_anonym' );
 			printf(
 				'<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
 				esc_html( $x['label'] ),
@@ -171,7 +172,7 @@ class Mietv_Datenschutz {
 
 		echo '<h2>' . esc_html__( 'Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)', 'mietfux' ) . '</h2><p>' . esc_html__( 'Erzeugt eine vollständige Datenübersicht des Mieters als JSON – Frist für die Beantwortung: ein Monat (Art. 12 Abs. 3 DSGVO).', 'mietfux' ) . '</p><ul>';
 		foreach ( $wpdb->get_results( 'SELECT id, vorname, nachname FROM ' . $wpdb->prefix . "mv_mieter WHERE nachname NOT LIKE 'Anonymisiert%' ORDER BY nachname" ) as $m ) {
-			printf( '<li>%s – <a href="%s">' . esc_html__( 'Auskunft exportieren', 'mietfux' ) . '</a></li>', esc_html( mietv_mieter_name( $m ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_auskunft&mieter=' . $m->id ), 'mietv_auskunft_' . $m->id ) ) );
+			printf( '<li>%s – <a href="%s">' . esc_html__( 'Auskunft exportieren', 'mietfux' ) . '</a></li>', esc_html( mietv_mieter_name( $m ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_auskunft&mieter=' . $m->id ), 'mietv_auskunft' ) ) );
 		}
 		echo '</ul>';
 

@@ -59,6 +59,21 @@ function mietv_mieter_name( $mieter ): string {
 	return $n;
 }
 
+/** Kurzlebige Statusmeldung je Benutzer (statt ?msg= in der URL). */
+function mietv_flash_set( string $code, array $extra = [] ): void {
+	set_transient( 'mietv_flash_' . get_current_user_id(), array_merge( [ 'code' => $code ], $extra ), 120 );
+}
+
+/** Statusmeldung abholen und löschen. */
+function mietv_flash_get(): array {
+	$k = 'mietv_flash_' . get_current_user_id();
+	$f = get_transient( $k );
+	if ( $f ) {
+		delete_transient( $k );
+	}
+	return is_array( $f ) ? $f : [];
+}
+
 /** Hat der Mieter eine zweite Vertragspartei? */
 function mietv_hat_partner( $mieter ): bool {
 	return $mieter && ! empty( $mieter->p_nachname );

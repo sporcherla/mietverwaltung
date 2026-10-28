@@ -204,7 +204,7 @@ class Mietv_Kaution {
 			esc_html( $rest )
 		);
 
-		$u = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_kaution_abrechnung&mv_id=' . $mv_id ), 'mietv_kaution_abr_' . $mv_id );
+		$u = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_kaution_abrechnung&mv_id=' . $mv_id ), 'mietv_kaution_abr' );
 		printf( '<p><a href="%s" target="_blank" class="button%s">' . esc_html__( 'Kautionsabrechnung (PDF)', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a>%s</p>', esc_url( $u ), $beendet ? ' button-primary' : '', esc_url( $u ), $beendet ? '' : ' <span class="description">' . esc_html__( 'Mietverhältnis läuft noch – Abrechnung erst nach Rückgabe.', 'mietfux' ) . '</span>' );
 		echo '</div>';
 	}
@@ -214,8 +214,8 @@ class Mietv_Kaution {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
-		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_kaution_abr_' . $mv_id );
+		check_admin_referer( 'mietv_kaution_abr' );
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
 		$mv = null;
 		foreach ( Mietv_Soll::alle_mv() as $m ) {
 			if ( (int) $m->id === $mv_id ) {

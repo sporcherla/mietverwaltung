@@ -25,8 +25,11 @@ class Mietv_Portal {
 		if ( ! isset( $_POST['mietv_zaehler_nonce'] ) ) {
 			return;
 		}
-		if ( ! is_user_logged_in() || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_zaehler_nonce'] ?? '' ) ), 'mietv_zaehler' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_zaehler_nonce'] ) ), 'mietv_zaehler' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+		}
+		if ( ! is_user_logged_in() ) {
+			wp_die( esc_html__( 'Kein Zugriff.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->einheit_id, self::eigene_mv() );
@@ -67,11 +70,17 @@ class Mietv_Portal {
 
 	/** Freigegebene Abrechnung als Schreiben – nur für den eigenen Mieter. */
 	public static function handle_abrechnung(): void {
-		if ( empty( $_GET['mietv_abrechnung'] ) || ! is_user_logged_in() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		if ( ! isset( $_GET['mietv_abrechnung'], $_GET['_wpnonce'] ) ) {
 			return;
 		}
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'mietv_portal_abrechnung' ) ) {
+			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+		}
+		if ( ! is_user_logged_in() ) {
+			wp_die( esc_html__( 'Kein Zugriff.', 'mietfux' ) );
+		}
 		global $wpdb;
-		$erg_id  = ( isset( $_GET['mietv_abrechnung'] ) ? (int) $_GET['mietv_abrechnung'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$erg_id  = (int) $_GET['mietv_abrechnung'];
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->id, self::eigene_mv() );
 		$mv_id   = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT mv_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE id = %d AND freigegeben = 1', $erg_id ) );
 		if ( ! $mv_id || ! in_array( $mv_id, $erlaubt, true ) ) {
@@ -93,8 +102,11 @@ class Mietv_Portal {
 		if ( ! isset( $_POST['mietv_meldung_nonce'] ) ) {
 			return;
 		}
-		if ( ! is_user_logged_in() || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_meldung_nonce'] ?? '' ) ), 'mietv_meldung' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_meldung_nonce'] ) ), 'mietv_meldung' ) ) {
 			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+		}
+		if ( ! is_user_logged_in() ) {
+			wp_die( esc_html__( 'Kein Zugriff.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$mv_id   = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : 0 );
@@ -240,7 +252,7 @@ class Mietv_Portal {
 						$a->saldo < 0 ? 'mv-neg' : 'mv-pos',
 						$a->saldo < 0 ? esc_html__( 'Nachzahlung', 'mietfux' ) : esc_html__( 'Guthaben', 'mietfux' ),
 						esc_html( mietv_eur( abs( $a->saldo ) ) ),
-						esc_url( add_query_arg( 'mietv_abrechnung', $a->id, get_permalink() ) )
+						esc_url( wp_nonce_url( add_query_arg( 'mietv_abrechnung', (int) $a->id, get_permalink() ), 'mietv_portal_abrechnung' ) )
 					);
 				}
 				echo '</tbody></table>';

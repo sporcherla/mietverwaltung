@@ -46,3 +46,11 @@ if ( ! function_exists( 'sanitize_key' ) ) { function sanitize_key($s){return pr
 if ( ! function_exists( 'sanitize_file_name' ) ) { function sanitize_file_name($s){return $s;} }
 if ( ! function_exists( 'wp_enqueue_style' ) ) { function wp_enqueue_style(){} function wp_enqueue_script(){} function wp_print_styles(){} function wp_print_scripts(){} function wp_add_inline_style(){} }
 if ( ! defined( 'MIETV_URL' ) ) { define( 'MIETV_URL', '/plugin/' ); define( 'MIETV_VERSION', 'test' ); }
+
+if ( ! function_exists( 'set_transient' ) ) {
+	$GLOBALS['mietv_test_transients'] = [];
+	function set_transient( $k, $v, $t = 0 ) { $GLOBALS['mietv_test_transients'][ $k ] = $v; return true; }
+	function get_transient( $k ) { return $GLOBALS['mietv_test_transients'][ $k ] ?? false; }
+	function delete_transient( $k ) { unset( $GLOBALS['mietv_test_transients'][ $k ] ); return true; }
+}
+if ( ! function_exists( 'get_current_user_id' ) ) { function get_current_user_id() { return 1; } }

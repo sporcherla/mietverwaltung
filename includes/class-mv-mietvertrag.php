@@ -23,8 +23,8 @@ class Mietv_Mietvertrag {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
-		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_sepa_' . $mv_id );
+		check_admin_referer( 'mietv_sepa' );
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
 		$d = self::daten( $mv_id );
 		if ( ! $d ) {
 			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
@@ -122,7 +122,8 @@ class Mietv_Mietvertrag {
 				'optionen' => wp_json_encode( $o, JSON_UNESCAPED_UNICODE ),
 			]
 		);
-		wp_safe_redirect( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . $mv_id . '&msg=saved' ) );
+		mietv_flash_set( 'saved' );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . $mv_id ) );
 		exit;
 	}
 
@@ -136,7 +137,7 @@ class Mietv_Mietvertrag {
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : (int) ( $mvs[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$o     = self::laden( $mv_id );
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mietvertrag', 'mietfux' ) . '</h1>';
-		if ( ( isset( $_GET['msg'] ) ? sanitize_key( $_GET['msg'] ) : '' ) === 'saved' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		if ( ( mietv_flash_get()['code'] ?? '' ) === 'saved' ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Vertragsoptionen gespeichert.', 'mietfux' ) . '</p></div>';
 		}
 		echo '<div class="notice notice-info inline"><p><strong>' . esc_html__( 'Hinweis:', 'mietfux' ) . '</strong> ' . esc_html__( 'Der Vertrag wird aus den Daten des Mietverhältnisses (Parteien, Wohnung, Miete, Kaution, Beginn, Ende) und den Optionen unten erzeugt. Die Klauseln folgen dem BGB und der BGH-Rechtsprechung (Stand 2026). Vor Verwendung bei besonderen Konstellationen (Gewerbe, WG, möbliert, Mietpreisbremse) rechtlich prüfen lassen.', 'mietfux' ) . '</p></div>';
@@ -151,9 +152,9 @@ class Mietv_Mietvertrag {
 			return;
 		}
 
-		$vertrag = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_vertrag&mv_id=' . $mv_id ), 'mietv_vertrag_' . $mv_id );
-		$ueberg  = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_uebergabe&mv_id=' . $mv_id ), 'mietv_uebergabe_' . $mv_id );
-		printf( '<p><a href="%1$s" target="_blank" class="button button-primary">' . esc_html__( 'Mietvertrag (PDF)', 'mietfux' ) . '</a> <a href="%1$s&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=einzug" target="_blank" class="button">' . esc_html__( 'Übergabeprotokoll Einzug', 'mietfux' ) . '</a> <a href="%2$s&art=einzug&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=auszug" target="_blank" class="button">' . esc_html__( 'Übergabeprotokoll Auszug', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&nur=datenschutz" target="_blank" class="button">' . esc_html__( 'Datenschutzinformation', 'mietfux' ) . '</a> &nbsp; <a href="%3$s" target="_blank" class="button">' . esc_html__( 'SEPA-Lastschriftmandat', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&format=html" target="_blank" class="button-link">' . esc_html__( 'HTML-Ansicht', 'mietfux' ) . '</a></p>', esc_url( $vertrag ), esc_url( $ueberg ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_sepa&mv_id=' . $mv_id ), 'mietv_sepa_' . $mv_id ) ) );
+		$vertrag = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_vertrag&mv_id=' . $mv_id ), 'mietv_vertrag_pdf' );
+		$ueberg  = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_uebergabe&mv_id=' . $mv_id ), 'mietv_uebergabe' );
+		printf( '<p><a href="%1$s" target="_blank" class="button button-primary">' . esc_html__( 'Mietvertrag (PDF)', 'mietfux' ) . '</a> <a href="%1$s&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=einzug" target="_blank" class="button">' . esc_html__( 'Übergabeprotokoll Einzug', 'mietfux' ) . '</a> <a href="%2$s&art=einzug&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=auszug" target="_blank" class="button">' . esc_html__( 'Übergabeprotokoll Auszug', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&nur=datenschutz" target="_blank" class="button">' . esc_html__( 'Datenschutzinformation', 'mietfux' ) . '</a> &nbsp; <a href="%3$s" target="_blank" class="button">' . esc_html__( 'SEPA-Lastschriftmandat', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&format=html" target="_blank" class="button-link">' . esc_html__( 'HTML-Ansicht', 'mietfux' ) . '</a></p>', esc_url( $vertrag ), esc_url( $ueberg ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_sepa&mv_id=' . $mv_id ), 'mietv_sepa' ) ) );
 
 		echo '<form method="post" class="mv-form">';
 		wp_nonce_field( 'mietv_vertrag', 'mietv_vertrag_nonce' );
@@ -463,8 +464,8 @@ class Mietv_Mietvertrag {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
-		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_vertrag_' . $mv_id );
+		check_admin_referer( 'mietv_vertrag_pdf' );
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
 		$d = self::daten( $mv_id );
 		if ( ! $d ) {
 			wp_die( esc_html__( 'Mietverhältnis nicht gefunden.', 'mietfux' ) );
@@ -770,8 +771,8 @@ class Mietv_Mietvertrag {
 			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
 		}
 		global $wpdb;
-		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
-		check_admin_referer( 'mietv_uebergabe_' . $mv_id );
+		check_admin_referer( 'mietv_uebergabe' );
+		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
 		$art = ( isset( $_GET['art'] ) ? sanitize_key( $_GET['art'] ) : 'einzug' ) === 'auszug' ? __( 'Auszug', 'mietfux' ) : __( 'Einzug', 'mietfux' );
 		$d   = self::daten( $mv_id );
 		if ( ! $d ) {
