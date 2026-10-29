@@ -1,5 +1,23 @@
 # Einreichung bei WordPress.org – Checkliste
 
+## ✅ Freigegeben am 29.10.2026
+
+SVN: `https://plugins.svn.wordpress.org/mietfux`, Benutzer `hirnmarkus`, Seite: https://wordpress.org/plugins/mietfux
+
+Erstes Commit (Struktur trunk/ · assets/ · tags/1.0.2):
+
+```
+svn co https://plugins.svn.wordpress.org/mietfux mietfux-svn-live
+# Plugin-Dateien (Inhalt des ZIP) nach trunk/, .wordpress-org/* nach assets/, Kopie von trunk nach tags/1.0.2
+cd mietfux-svn-live
+svn add --force trunk assets tags
+svn propset svn:mime-type image/png assets/*.png
+svn ci -m "Mietfux 1.0.2" --username hirnmarkus
+```
+
+Spätere Versionen: trunk aktualisieren, `Stable tag` in readme.txt erhöhen, `svn cp trunk tags/x.y.z`, committen.
+
+
 ## Stand nach dem zweiten Review (28.10.2026)
 
 Zwei Themen: Nonce-Logik und spätes Escaping. Beides ist in 1.0.2 umgesetzt (Details in CHANGELOG.md).
@@ -80,12 +98,12 @@ Stand: Version 1.0.2. Alles Technische ist erledigt; die folgenden Schritte kann
    - *Rechtstexte nur deutsch*: bewusst, da deutsches Mietrecht; in `readme.txt` erklärt.
 5. **Nach Freigabe**: SVN-Zugang kommt per Mail. Erstes Commit:
    ```bash
-   svn co https://plugins.svn.wordpress.org/mietverwaltung mietverwaltung-svn
-   cd mietverwaltung-svn
+   svn co https://plugins.svn.wordpress.org/mietfux mietfux-svn
+   cd mietfux-svn
    # Plugin-Dateien (Inhalt des ZIP) nach trunk/, Bilder aus .wordpress-org/ nach assets/
    svn add trunk/* assets/*
    svn ci -m "Version 1.0.2"
-   svn cp trunk tags/1.0.0 && svn ci -m "Tag 1.0.0"
+   svn cp trunk tags/1.0.2 && svn ci -m "Tag 1.0.2"
    ```
    Alternativ den GitHub-Workflow „10up/action-wordpress-plugin-deploy“ einrichten, der bei jedem Git-Tag automatisch nach SVN deployt.
 6. **Übersetzungen**: Nach Freigabe übernimmt translate.wordpress.org die Sprachpakete; die mitgelieferte `en_US` bleibt als Fallback.
