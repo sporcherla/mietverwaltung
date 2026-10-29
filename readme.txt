@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,7 +59,7 @@ The generator follows the German Civil Code (BGB) and Federal Court of Justice c
 
 = Which language is the interface in? =
 
-German and English. WordPress selects the language from the site or user setting. Legal documents are generated in German only.
+English (source) and German (bundled, complete). WordPress selects the language from the site or user setting. Legal documents are generated in German only.
 
 = What happens on uninstall? =
 
@@ -76,6 +76,10 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 7. Tenant portal
 
 == Changelog ==
+
+= 1.0.3 =
+* Source language switched to English (WordPress.org convention); the complete German translation is bundled as de_DE and loaded via load_plugin_textdomain(), so German sites look exactly as before
+* Plugin description in English
 
 = 1.0.2 =
 * Security review round 2: every request-driven action is now guarded by a nonce check before any input is read (admin forms, admin-post endpoints, tenant portal); the tenant portal statement link carries a nonce and can no longer trigger document storage

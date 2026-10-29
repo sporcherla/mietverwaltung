@@ -125,8 +125,8 @@ Insert the shortcode `[mietfux_portal]` on a page. Link the WordPress user on th
 
 ## Languages
 
-- Text domain `mietverwaltung`, source language German, POT under `languages/`.
-- **English** complete: `mietverwaltung-en_US.po/.mo`. WordPress selects the language by site or user setting.
+- Text domain `mietfux`, source language English (WordPress.org convention), POT under `languages/`.
+- **German** complete: `mietfux-de_DE.po/.mo` is bundled and loaded via `load_plugin_textdomain()`; also available on translate.wordpress.org. WordPress selects the language by site or user setting.
 - The tenancy agreement, house rules and leaflet deliberately remain in German – they are legal documents under German law.
 - Further languages: translate the POT with Poedit or Loco Translate and save as `mietverwaltung-<locale>.mo`.
 
@@ -158,7 +158,7 @@ Settings in `wp_options` (`mv_einstellungen`), focus mode in `user_meta`, databa
 mietverwaltung.php        bootstrap, plugin header
 includes/                 one class per module (MV_Admin, MV_Soll, MV_Abrechnung, MV_Steuer, MV_AfA, MV_Darlehen, MV_Mietvertrag, MV_PDF, MV_Brief, MV_Hilfe, …)
 assets/                   admin.css, menu.css, kaufvertrag.js
-languages/                POT, en_US
+languages/                POT, de_DE
 tests/                    tests without WordPress (SQLite $wpdb stub)
 uninstall.php
 ```

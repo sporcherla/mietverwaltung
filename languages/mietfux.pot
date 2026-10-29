@@ -1,64 +1,64 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Mietverwaltung\n"
+"Project-Id-Version: Mietfux\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"X-Domain: mietverwaltung\n"
-"POT-Creation-Date: 2026-10-28\n"
+"X-Domain: mietfux\n"
+"POT-Creation-Date: 2026-10-29\n"
 
 #: includes/class-mv-abrechnung.php:120
-msgid "Keine Wohnflächen bei den Einheiten hinterlegt – Flächenschlüssel nicht möglich."
+msgid "No living areas entered for the units – allocation by area is not possible."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:139
-msgid "Kein Mietverhältnis im Abrechnungszeitraum."
+msgid "No tenancy in the billing period."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:217
-msgid "„%1$s“ (%2$s) nicht umgelegt: Objekt hat dezentrale Heizung – Mieter rechnen direkt mit dem Versorger ab."
+msgid "“%1$s” (%2$s) not allocated: property has decentralised heating – tenants settle directly with the supplier."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:241
-msgid "„%1$s“: Keine (vollständigen) Zählerstände für den Zeitraum – ersatzweise nach Wohnfläche verteilt%2$s."
+msgid "“%1$s”: no (complete) meter readings for the period – allocated by living area instead%2$s."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:383 includes/class-mv-abrechnung.php:579 includes/class-mv-admin.php:99
-msgid "Keine Berechtigung."
+msgid "Permission denied."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:467 includes/class-mv-admin.php:995 includes/class-mv-admin.php:1321
-msgid "Betriebskostenabrechnung"
+msgid "Service charge statement"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:470
-msgid "Neue Abrechnung"
+msgid "New statement"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:472 includes/class-mv-abrechnung.php:480 includes/class-mv-admin.php:206
-msgid "Objekt"
+msgid "Property"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:477
-msgid "Zeitraum von"
+msgid "Period from"
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:477 includes/class-mv-erhoehung.php:295
+msgid "to"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:477
-msgid "bis"
-msgstr ""
-
-#: includes/class-mv-abrechnung.php:477
-msgid "Berechnen"
+msgid "Calculate"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:478
-msgid "Voraussetzungen: umlagefähige Belege mit Leistungszeitraum, Wohnflächen an den Einheiten, Personenzahl am Mietverhältnis, bei Verbrauchsschlüssel Zählerstände zu Beginn und Ende. Frist: 12 Monate nach Ende des Zeitraums (§ 556 Abs. 3 BGB)."
+msgid "Requirements: recoverable receipts with service period, living areas on the units, number of persons on the tenancy, and for consumption-based allocation meter readings at the start and end. Deadline: 12 months after the end of the period (§ 556 (3) BGB)."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:480
-msgid "Vorhandene Abrechnungen"
+msgid "Existing statements"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:480 includes/class-mv-portal.php:248
-msgid "Zeitraum"
+msgid "Period"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:480 includes/class-mv-admin.php:945 includes/class-mv-admin.php:1160
@@ -66,75 +66,75 @@ msgid "Status"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:480 includes/class-mv-admin.php:307 includes/class-mv-admin.php:308
-msgid "Mieter"
+msgid "Tenants"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:480
-msgid "Erstellt"
+msgid "Created"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:484
-msgid "Öffnen"
+msgid "Open"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:484
-msgid "Abrechnung löschen?"
+msgid "Delete statement?"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:484 includes/class-mv-admin.php:1921
-msgid "Löschen"
+msgid "Delete"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:488
-msgid "Fertig / freigegeben"
+msgid "Finalised / released"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:496
-msgid "Noch keine Abrechnung."
+msgid "No statement yet."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:505 includes/class-mv-abrechnung.php:588 includes/class-mv-datenschutz.php:108
-msgid "Nicht gefunden."
+msgid "Not found."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:512
-msgid "Neu berechnet."
+msgid "Recalculated."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:514
-msgid "Neue Vorauszahlung als Kondition ab dem nächsten Monat angelegt – bitte unter „Konditionen“ prüfen und dem Mieter mitteilen (§ 560 Abs. 4 BGB)."
+msgid "New advance payment created as a rent condition from next month – please check under “Rent conditions” and notify the tenant (§ 560 (4) BGB)."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:517
-msgid "Betriebskostenabrechnung %1$s – %2$s bis %3$s"
+msgid "Service charge statement %1$s – %2$s to %3$s"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:526
-msgid "Heizung: %1$s%2$s · Status: %3$s"
+msgid "Heating: %1$s%2$s · Status: %3$s"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:537
-msgid "Mieter / Einheit"
+msgid "Tenant / unit"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:537
-msgid "Tage"
+msgid "Days"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:537 includes/class-mv-mietvertrag.php:267
-msgid "Betriebskosten"
+msgid "Service charges"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:537
-msgid "Heizkosten"
+msgid "Heating costs"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:537 includes/class-mv-portal.php:248
-msgid "Vorauszahlungen"
+msgid "Advance payments"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:537 includes/class-mv-portal.php:248
-msgid "Ergebnis"
+msgid "Result"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:542
@@ -142,151 +142,151 @@ msgid "PDF"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:542 includes/class-mv-erhoehung.php:188
-msgid "PDF ablegen"
+msgid "File PDF"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:542
-msgid "Neue Vorauszahlung ab nächstem Monat anlegen?"
+msgid "Create new advance payment from next month?"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:542
-msgid "VZ anpassen"
+msgid "Adjust advance"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:551 includes/class-mv-abrechnung.php:609 includes/class-mv-portal.php:257
-msgid "Nachzahlung"
+msgid "Amount due"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:551 includes/class-mv-portal.php:257
-msgid "Guthaben"
+msgid "Credit"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:563
-msgid "Positionen %s"
+msgid "Items %s"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:563 includes/class-mv-abrechnung.php:600 includes/class-mv-admin.php:558
-msgid "Kostenart"
+msgid "Cost type"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:563 includes/class-mv-abrechnung.php:600
-msgid "Gesamtkosten"
+msgid "Total costs"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:563
-msgid "Schlüssel"
+msgid "Key"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:563
-msgid "Basis gesamt"
+msgid "Base total"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:563
-msgid "Basis Mieter"
+msgid "Base tenant"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:563
-msgid "Anteil"
+msgid "Share"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:596
-msgid "%1$s bis %2$s"
+msgid "%1$s to %2$s"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:597
-msgid ". Ihr Nutzungszeitraum: %1$s bis %2$s (%3$d Tage). Wohnfläche %4$s m², Personen im Haushalt: %5$d."
+msgid ". Your period of use: %1$s to %2$s (%3$d days). Living area %4$s m², persons in household: %5$d."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:598
-msgid "für die Wohnung"
+msgid "for the flat"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:598
-msgid "erhalten Sie die Abrechnung der Betriebs- und Heizkosten für den Zeitraum"
+msgid "please find the statement of service and heating charges for the period"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:600
-msgid "Verteilerschlüssel"
+#: includes/class-mv-abrechnung.php:600 includes/class-mv-admin.php:1109
+msgid "Allocation key"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:600 includes/class-mv-admin.php:2187 includes/class-mv-steuer.php:359
-msgid "Gesamt"
+msgid "Total"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:600
-msgid "Ihr Anteil"
+msgid "Your share"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:600 includes/class-mv-bank.php:397 includes/class-mv-darlehen.php:306
-msgid "Betrag"
+msgid "Amount"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:606
-msgid "Summe Ihrer Kosten"
+msgid "Total of your costs"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:607
-msgid "abzüglich geleistete Vorauszahlungen (Betriebskosten %1$s, Heizkosten %2$s)"
+msgid "less advance payments made (service charges %1$s, heating %2$s)"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:609
-msgid "Guthaben zu Ihren Gunsten"
+msgid "Credit in your favour"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:613
-msgid "Bitte überweisen Sie den Nachzahlungsbetrag von"
+msgid "Please transfer the amount due of"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:613 includes/class-mv-mahnung.php:112
-msgid "bis zum"
+msgid "by"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:615
-msgid "Das Guthaben von"
+msgid "The credit of"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:615
-msgid "wird Ihnen innerhalb von 30 Tagen überwiesen bzw. mit der nächsten Mietzahlung verrechnet."
+msgid "will be transferred to you within 30 days or offset against the next rent payment."
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:619
-msgid "Bescheinigung nach § 35a EStG"
+msgid "Certificate under § 35a EStG"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:619
-msgid "In den abgerechneten Kosten sind folgende Arbeitskostenanteile enthalten, die Sie in Ihrer Einkommensteuererklärung geltend machen können:"
+msgid "The costs billed include the following labour cost shares that you may claim in your income tax return:"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:621
-msgid "Handwerkerleistungen (§ 35a Abs. 3 EStG) – Ihr Anteil Lohnkosten"
+msgid "Tradesmen's services (§ 35a (3) EStG) – your share of labour costs"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:624
-msgid "Haushaltsnahe Dienstleistungen (§ 35a Abs. 2 EStG) – Ihr Anteil Lohnkosten"
+msgid "Household-related services (§ 35a (2) EStG) – your share of labour costs"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:629
-msgid "Die Belege können nach Terminvereinbarung eingesehen werden. Einwendungen gegen die Abrechnung sind innerhalb von 12 Monaten nach Zugang mitzuteilen (§ 556 Abs. 3 Satz 5 BGB)."
+msgid "Receipts may be inspected by appointment. Objections to the statement must be raised within 12 months of receipt (§ 556 (3) sentence 5 BGB)."
 msgstr ""
 
 #: includes/class-mv-admin.php:39 includes/class-mv-admin.php:1403 includes/class-mv-bank.php:271
-msgid "Ungültige Anfrage."
+msgid "Invalid request."
 msgstr ""
 
 #: includes/class-mv-admin.php:69
-msgid "Miete %s"
+msgid "Rent %s"
 msgstr ""
 
 #: includes/class-mv-admin.php:135
-msgid "⌂ WordPress-Menü einblenden"
+msgid "⌂ Show WordPress menu"
 msgstr ""
 
 #: includes/class-mv-admin.php:135
-msgid "▣ Nur Mietfux anzeigen"
+msgid "▣ Show Mietfux only"
 msgstr ""
 
 #: includes/class-mv-admin.php:137
-msgid "Fokusmodus von Mietfux umschalten"
+msgid "Toggle Mietfux focus mode"
 msgstr ""
 
 #: includes/class-mv-admin.php:162 includes/class-mv-admin.php:1267 includes/class-mv-admin.php:1267
@@ -294,163 +294,163 @@ msgid "Mietfux"
 msgstr ""
 
 #: includes/class-mv-admin.php:173
-msgid "Kein Textlayer gefunden – das PDF ist vermutlich ein Scan. Bitte Werte manuell eintragen (oder das PDF vorher per OCR durchsuchbar machen)."
+msgid "No text layer found – the PDF is probably a scan. Please enter the values manually (or make the PDF searchable with OCR first)."
 msgstr ""
 
 #: includes/class-mv-admin.php:174
-msgid "pdf.js konnte nicht geladen werden. Werte bitte manuell eintragen."
+msgid "pdf.js could not be loaded. Please enter the values manually."
 msgstr ""
 
 #: includes/class-mv-admin.php:175
-msgid "Lese Kaufvertrag …"
+msgid "Reading purchase contract …"
 msgstr ""
 
 #: includes/class-mv-admin.php:176
-msgid "PDF konnte nicht gelesen werden:"
+msgid "PDF could not be read:"
 msgstr ""
 
 #: includes/class-mv-admin.php:177
-msgid "Auslesen nur bei PDF möglich."
+msgid "Extraction is only possible for PDF files."
 msgstr ""
 
 #: includes/class-mv-admin.php:178
-msgid "Aus dem Kaufvertrag erkannt"
+msgid "Detected from the purchase contract"
 msgstr ""
 
 #: includes/class-mv-admin.php:179
-msgid "Seiten"
+msgid "pages"
 msgstr ""
 
 #: includes/class-mv-admin.php:180
-msgid "zum Übernehmen anklicken, danach prüfen:"
+msgid "click to apply, then verify:"
 msgstr ""
 
 #: includes/class-mv-admin.php:181
-msgid "nicht gefunden"
+msgid "not found"
 msgstr ""
 
 #: includes/class-mv-admin.php:182 includes/class-mv-steuer.php:425
-msgid "Kaufpreis"
+msgid "Purchase price"
 msgstr ""
 
 #: includes/class-mv-admin.php:183
-msgid "Übergang Nutzen/Lasten"
+msgid "Transfer of possession"
 msgstr ""
 
 #: includes/class-mv-admin.php:184
-msgid "Grund und Boden (Betrag)"
+msgid "Land (amount)"
 msgstr ""
 
 #: includes/class-mv-admin.php:185
-msgid "Anteil Grund und Boden"
+msgid "Land share"
 msgstr ""
 
 #: includes/class-mv-admin.php:186
-msgid "Vertragsdatum (Info)"
+msgid "Contract date (info)"
 msgstr ""
 
 #: includes/class-mv-admin.php:187
-msgid "Wohnfläche (Info)"
+msgid "Living area (info)"
 msgstr ""
 
 #: includes/class-mv-admin.php:188
-msgid "Erkennung ist heuristisch. Fehlt die Aufteilung Grund/Gebäude im Vertrag, hilft die BMF-Arbeitshilfe zur Kaufpreisaufteilung."
+msgid "Detection is heuristic. If the contract lacks a land/building split, use the Federal Ministry of Finance (BMF) purchase price allocation tool."
 msgstr ""
 
 #: includes/class-mv-admin.php:205 includes/class-mv-hilfe.php:69
-msgid "Objekte"
+msgid "Properties"
 msgstr ""
 
 #: includes/class-mv-admin.php:212 includes/class-mv-admin.php:271 includes/class-mv-admin.php:790
-msgid "Bezeichnung"
+msgid "Name"
 msgstr ""
 
 #: includes/class-mv-admin.php:218 includes/class-mv-assistent.php:341
-msgid "Straße / Nr."
+msgid "Street / no."
 msgstr ""
 
 #: includes/class-mv-admin.php:223 includes/class-mv-assistent.php:342
-msgid "PLZ"
+msgid "Postcode"
 msgstr ""
 
 #: includes/class-mv-admin.php:228 includes/class-mv-assistent.php:343
-msgid "Ort"
+msgid "Town"
 msgstr ""
 
 #: includes/class-mv-admin.php:233 includes/class-mv-assistent.php:344
-msgid "Baujahr"
+msgid "Year built"
 msgstr ""
 
 #: includes/class-mv-admin.php:237 includes/class-mv-assistent.php:347 includes/class-mv-portal.php:282
-msgid "Heizung"
+msgid "Heating"
 msgstr ""
 
 #: includes/class-mv-admin.php:241 includes/class-mv-assistent.php:349
-msgid "Zentralheizung (HeizkostenV, verbrauchsabhängig)"
+msgid "Central heating (HeizkostenV, consumption-based)"
 msgstr ""
 
 #: includes/class-mv-admin.php:242 includes/class-mv-assistent.php:350
-msgid "Fernwärme (HeizkostenV)"
+msgid "District heating (HeizkostenV)"
 msgstr ""
 
 #: includes/class-mv-admin.php:243 includes/class-mv-assistent.php:351
-msgid "Dezentral / Etagenheizung (Mieter rechnet selbst ab)"
+msgid "Decentralised / per-flat heating (tenant settles directly)"
 msgstr ""
 
 #: includes/class-mv-admin.php:247
-msgid "Heizkosten: Verbrauchsanteil (%)"
+msgid "Heating: consumption share (%)"
 msgstr ""
 
 #: includes/class-mv-admin.php:249
-msgid "50–70 % nach Verbrauch, Rest nach Wohnfläche (§ 7 HeizkostenV). Nur bei Zentralheizung/Fernwärme."
+msgid "50–70 % by consumption, remainder by living area (§ 7 HeizkostenV). Central/district heating only."
 msgstr ""
 
 #: includes/class-mv-admin.php:252 includes/class-mv-admin.php:394 includes/class-mv-admin.php:452
-msgid "Notiz"
+msgid "Note"
 msgstr ""
 
 #: includes/class-mv-admin.php:258 includes/class-mv-assistent.php:77 includes/class-mv-hilfe.php:75
-msgid "Einheiten"
+msgid "Units"
 msgstr ""
 
 #: includes/class-mv-admin.php:259 includes/class-mv-admin.php:406 includes/class-mv-admin.php:653
-msgid "Einheit"
+msgid "Unit"
 msgstr ""
 
 #: includes/class-mv-admin.php:275 includes/class-mv-assistent.php:361
-msgid "z. B. „Wohnung EG links“"
+msgid "e.g. “Ground floor flat, left”"
 msgstr ""
 
 #: includes/class-mv-admin.php:278 includes/class-mv-assistent.php:362
-msgid "Lage"
+msgid "Location"
 msgstr ""
 
 #: includes/class-mv-admin.php:281 includes/class-mv-assistent.php:362
-msgid "z. B. „1. OG“"
+msgid "e.g. “1st floor”"
 msgstr ""
 
 #: includes/class-mv-admin.php:284 includes/class-mv-assistent.php:363
-msgid "Wohnfläche (m²)"
+msgid "Living area (m²)"
 msgstr ""
 
-#: includes/class-mv-admin.php:289 includes/class-mv-assistent.php:364
-msgid "Zimmer"
+#: includes/class-mv-admin.php:289 includes/class-mv-assistent.php:364 includes/class-mv-mietvertrag.php:181
+msgid "Rooms"
 msgstr ""
 
-#: includes/class-mv-admin.php:293 includes/class-mv-assistent.php:369
-msgid "Typ"
+#: includes/class-mv-admin.php:293 includes/class-mv-admin.php:660 includes/class-mv-admin.php:797
+msgid "Type"
 msgstr ""
 
 #: includes/class-mv-admin.php:297 includes/class-mv-assistent.php:361 includes/class-mv-mietvertrag.php:486
-msgid "Wohnung"
+msgid "Flat"
 msgstr ""
 
 #: includes/class-mv-admin.php:298
-msgid "Gewerbe"
+msgid "Commercial"
 msgstr ""
 
 #: includes/class-mv-admin.php:299 includes/class-mv-assistent.php:372 includes/class-mv-mietvertrag.php:483
-msgid "Stellplatz"
+msgid "Parking space"
 msgstr ""
 
 #: includes/class-mv-admin.php:300 includes/class-mv-assistent.php:371 includes/class-mv-mietvertrag.php:482
@@ -458,559 +458,555 @@ msgid "Garage"
 msgstr ""
 
 #: includes/class-mv-admin.php:301
-msgid "Keller / Lager"
+msgid "Cellar / storage"
 msgstr ""
 
 #: includes/class-mv-admin.php:314 includes/class-mv-assistent.php:386 includes/class-mv-assistent.php:395
-msgid "Anrede"
+msgid "Salutation"
 msgstr ""
 
 #: includes/class-mv-admin.php:318 includes/class-mv-admin.php:359 includes/class-mv-assistent.php:383
-msgid "Frau"
+msgid "Ms"
 msgstr ""
 
 #: includes/class-mv-admin.php:319 includes/class-mv-admin.php:360 includes/class-mv-assistent.php:384
-msgid "Herr"
+msgid "Mr"
 msgstr ""
 
 #: includes/class-mv-admin.php:320 includes/class-mv-assistent.php:386
-msgid "Firma"
+msgid "Company"
 msgstr ""
 
 #: includes/class-mv-admin.php:324 includes/class-mv-assistent.php:387 includes/class-mv-assistent.php:396
-msgid "Vorname"
+msgid "First name"
 msgstr ""
 
 #: includes/class-mv-admin.php:329 includes/class-mv-assistent.php:388 includes/class-mv-assistent.php:397
-msgid "Nachname"
+msgid "Last name"
 msgstr ""
 
 #: includes/class-mv-admin.php:335 includes/class-mv-assistent.php:330 includes/class-mv-assistent.php:390
-msgid "E-Mail"
+msgid "Email"
 msgstr ""
 
 #: includes/class-mv-admin.php:340 includes/class-mv-assistent.php:331 includes/class-mv-assistent.php:391
-msgid "Telefon"
+msgid "Phone"
 msgstr ""
 
 #: includes/class-mv-admin.php:345 includes/class-mv-assistent.php:389 includes/class-mv-assistent.php:398
-msgid "Geburtsdatum"
+msgid "Date of birth"
 msgstr ""
 
 #: includes/class-mv-admin.php:347
-msgid "Für den Mietvertrag (Identifizierung der Vertragspartei)."
+msgid "For the tenancy agreement (identification of the contracting party)."
 msgstr ""
 
 #: includes/class-mv-admin.php:350 includes/class-mv-assistent.php:392
-msgid "Bisherige Anschrift"
+msgid "Previous address"
 msgstr ""
 
 #: includes/class-mv-admin.php:352
-msgid "Anschrift bei Vertragsschluss (vor Einzug) – erscheint im Vertrag."
+msgid "Address at the time of signing (before moving in) – appears in the agreement."
 msgstr ""
 
 #: includes/class-mv-admin.php:355
-msgid "Mitmieter/in – Anrede"
+msgid "Co-tenant – salutation"
 msgstr ""
 
 #: includes/class-mv-admin.php:362
-msgid "Ehe-/Lebenspartner als zweite Vertragspartei (optional). Erscheint automatisch in Mietvertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll; haftet gesamtschuldnerisch."
+msgid "Spouse/partner as second contracting party (optional). Appears automatically in the tenancy agreement, letters, SEPA mandate and handover protocol; jointly and severally liable."
 msgstr ""
 
 #: includes/class-mv-admin.php:365
-msgid "Mitmieter/in – Vorname"
+msgid "Co-tenant – first name"
 msgstr ""
 
 #: includes/class-mv-admin.php:369
-msgid "Mitmieter/in – Nachname"
+msgid "Co-tenant – last name"
 msgstr ""
 
 #: includes/class-mv-admin.php:374
-msgid "Mitmieter/in – Geburtsdatum"
+msgid "Co-tenant – date of birth"
 msgstr ""
 
 #: includes/class-mv-admin.php:378
-msgid "Mitmieter/in – E-Mail"
+msgid "Co-tenant – email"
 msgstr ""
 
 #: includes/class-mv-admin.php:380
-msgid "Erhält Mahnungen und Schreiben in Kopie, wenn angegeben."
+msgid "Receives reminders and letters in copy if provided."
 msgstr ""
 
 #: includes/class-mv-admin.php:383
-msgid "IBAN (für Bankimport-Zuordnung)"
+msgid "IBAN (for bank import matching)"
 msgstr ""
 
 #: includes/class-mv-admin.php:387
-msgid "Portalzugang (WP-Benutzer)"
+msgid "Portal access (WP user)"
 msgstr ""
 
 #: includes/class-mv-admin.php:391
-msgid "Benutzer anlegen unter „Benutzer“, Rolle „Abonnent“ genügt."
+msgid "Create the user under “Users”; the “Subscriber” role is sufficient."
 msgstr ""
 
 #: includes/class-mv-admin.php:400 includes/class-mv-hilfe.php:87
-msgid "Mietverhältnisse"
+msgid "Tenancies"
 msgstr ""
 
 #: includes/class-mv-admin.php:401 includes/class-mv-admin.php:464 includes/class-mv-admin.php:501
-msgid "Mietverhältnis"
+msgid "Tenancy"
 msgstr ""
 
 #: includes/class-mv-admin.php:420 includes/class-mv-assistent.php:408 includes/class-mv-portal.php:192
-msgid "Mietbeginn"
+msgid "Start of tenancy"
 msgstr ""
 
 #: includes/class-mv-admin.php:426
-msgid "Mietende"
+msgid "End of tenancy"
 msgstr ""
 
 #: includes/class-mv-admin.php:429
-msgid "leer = unbefristet"
+msgid "empty = open-ended"
 msgstr ""
 
 #: includes/class-mv-admin.php:432 includes/class-mv-assistent.php:412
-msgid "Kaution (€)"
+msgid "Deposit (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:437 includes/class-mv-assistent.php:413
-msgid "Personen im Haushalt"
+msgid "Persons in household"
 msgstr ""
 
 #: includes/class-mv-admin.php:439
-msgid "für Umlageschlüssel nach Personen"
+msgid "for allocation by number of persons"
 msgstr ""
 
 #: includes/class-mv-admin.php:442 includes/class-mv-assistent.php:414
-msgid "Zahltag (Tag im Monat)"
+msgid "Payment day (day of month)"
 msgstr ""
 
 #: includes/class-mv-admin.php:446
-msgid "Weitere Einheiten im selben Vertrag"
+msgid "Additional units in the same agreement"
 msgstr ""
 
 #: includes/class-mv-admin.php:449
-msgid "Garage, Stellplatz, Keller, die zusammen mit der Wohnung vermietet sind. Der Mietanteil ist in der Kaltmiete der Konditionen bereits enthalten und dient nur der Ausweisung im Vertrag."
+msgid "Garage, parking space or cellar let together with the flat. The rent share is already included in the base rent of the rent conditions and is only shown separately in the agreement."
 msgstr ""
 
 #: includes/class-mv-admin.php:456
-msgid "Konditionen (Kaltmiete, Vorauszahlungen) werden unter „Konditionen“ mit Gültigkeitsdatum erfasst – als Gesamtmiete inkl. Garage/Stellplatz. Jede Erhöhung = neuer Eintrag."
+msgid "Rent conditions (base rent, advance payments) are entered under “Rent conditions” with a valid-from date – as the total rent incl. garage/parking. Each increase = new entry."
 msgstr ""
 
 #: includes/class-mv-admin.php:459 includes/class-mv-hilfe.php:93
-msgid "Konditionen"
+msgid "Rent conditions"
 msgstr ""
 
 #: includes/class-mv-admin.php:460
-msgid "Kondition"
+msgid "Rent condition"
 msgstr ""
 
 #: includes/class-mv-admin.php:471 includes/class-mv-erhoehung.php:236
-msgid "Gültig ab"
+msgid "Valid from"
 msgstr ""
 
 #: includes/class-mv-admin.php:475
-msgid "In der Regel der 1. eines Monats"
+msgid "Usually the 1st of a month"
 msgstr ""
 
 #: includes/class-mv-admin.php:478
-msgid "Kaltmiete (€)"
+msgid "Base rent (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:484
-msgid "Betriebskosten-VZ (€)"
+#: includes/class-mv-admin.php:484 includes/class-mv-assistent.php:410
+msgid "Service charge advance (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:489
-msgid "Heizkosten-VZ (€)"
+#: includes/class-mv-admin.php:489 includes/class-mv-assistent.php:411
+msgid "Heating advance (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:496 includes/class-mv-hilfe.php:38
-msgid "Zahlungen"
+msgid "Payments"
 msgstr ""
 
 #: includes/class-mv-admin.php:497
-msgid "Zahlung"
+msgid "Payment"
 msgstr ""
 
 #: includes/class-mv-admin.php:508 includes/class-mv-admin.php:565
-msgid "Zahlungsdatum"
+msgid "Payment date"
 msgstr ""
 
 #: includes/class-mv-admin.php:514
-msgid "Betrag (€)"
+msgid "Amount (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:520
-msgid "Zuordnung Monat"
+msgid "Assigned month"
 msgstr ""
 
 #: includes/class-mv-admin.php:526
-msgid "Verwendungszweck"
+msgid "Reference"
 msgstr ""
 
 #: includes/class-mv-admin.php:531 includes/class-mv-admin.php:709 includes/class-mv-darlehen.php:312
-msgid "Quelle"
+msgid "Source"
 msgstr ""
 
 #: includes/class-mv-admin.php:535
-msgid "manuell"
+msgid "manual"
 msgstr ""
 
 #: includes/class-mv-admin.php:536 includes/class-mv-admin.php:1316 includes/class-mv-admin.php:2105
-msgid "Bankimport"
+msgid "Bank import"
 msgstr ""
 
 #: includes/class-mv-admin.php:537
-msgid "Übersicht (abgehakt)"
+msgid "Overview (ticked)"
 msgstr ""
 
 #: includes/class-mv-admin.php:543 includes/class-mv-hilfe.php:44 includes/class-mv-steuer.php:370
-msgid "Belege"
+msgid "Receipts"
 msgstr ""
 
 #: includes/class-mv-admin.php:544 includes/class-mv-bank.php:404
-msgid "Beleg"
+msgid "Receipt"
 msgstr ""
 
 #: includes/class-mv-admin.php:569
-msgid "Abflussdatum – maßgeblich für das Steuerjahr (§ 11 EStG). Bei Lastschrift: Tag der Abbuchung."
+msgid "Payment date – decisive for the tax year (§ 11 EStG). For direct debits: date of debit."
 msgstr ""
 
 #: includes/class-mv-admin.php:572
-msgid "Steuerjahr"
+msgid "Tax year"
 msgstr ""
 
 #: includes/class-mv-admin.php:575
-msgid "leer = Jahr des Zahlungsdatums. Abweichend nur bei regelmäßig wiederkehrenden Zahlungen um den Jahreswechsel (10-Tage-Regel)."
+msgid "empty = year of the payment date. Differs only for regularly recurring payments around the turn of the year (10-day rule)."
 msgstr ""
 
 #: includes/class-mv-admin.php:578
-msgid "Betrag brutto (€)"
+msgid "Gross amount (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:584
-msgid "Rechnungssteller"
+msgid "Issuer"
 msgstr ""
 
 #: includes/class-mv-admin.php:589
-msgid "Rechnungs-/Belegnummer"
+msgid "Invoice / receipt number"
 msgstr ""
 
 #: includes/class-mv-admin.php:593
-msgid "Leistungszeitraum von"
+msgid "Service period from"
 msgstr ""
 
 #: includes/class-mv-admin.php:595
-msgid "Für die Betriebskostenabrechnung (z. B. Versicherung 01.01.–31.12.). Leer = Zahlungsdatum."
+msgid "For the service charge statement (e.g. insurance 01.01.–31.12.). Empty = payment date."
 msgstr ""
 
 #: includes/class-mv-admin.php:598
-msgid "Leistungszeitraum bis"
+msgid "Service period to"
 msgstr ""
 
 #: includes/class-mv-admin.php:602
-msgid "Verteilung (§ 82b EStDV)"
+msgid "Spreading (§ 82b EStDV)"
 msgstr ""
 
 #: includes/class-mv-admin.php:605
-msgid "nein – voll im Zahlungsjahr"
+msgid "no – fully in the year of payment"
 msgstr ""
 
 #: includes/class-mv-admin.php:606
-msgid "auf 2 Jahre"
+msgid "over 2 years"
 msgstr ""
 
 #: includes/class-mv-admin.php:607
-msgid "auf 3 Jahre"
+msgid "over 3 years"
 msgstr ""
 
 #: includes/class-mv-admin.php:608
-msgid "auf 4 Jahre"
+msgid "over 4 years"
 msgstr ""
 
 #: includes/class-mv-admin.php:609
-msgid "auf 5 Jahre"
+msgid "over 5 years"
 msgstr ""
 
 #: includes/class-mv-admin.php:611
-msgid "Nur für größeren Erhaltungsaufwand an Wohngebäuden. Gleichmäßige Verteilung ab dem Steuerjahr."
+msgid "Only for larger maintenance expenses on residential buildings. Spread evenly from the tax year."
 msgstr ""
 
 #: includes/class-mv-admin.php:614
-msgid "§ 35a EStG (für Mieter)"
+msgid "§ 35a EStG (for tenants)"
 msgstr ""
 
 #: includes/class-mv-admin.php:617
-msgid "– nein –"
+msgid "– no –"
 msgstr ""
 
 #: includes/class-mv-admin.php:618
-msgid "Handwerkerleistung (20 %, max. 1.200 €)"
+msgid "Tradesmen's services (20 %, max. €1,200)"
 msgstr ""
 
 #: includes/class-mv-admin.php:619
-msgid "Haushaltsnahe Dienstleistung (20 %, max. 4.000 €)"
+msgid "Household-related services (20 %, max. €4,000)"
 msgstr ""
 
 #: includes/class-mv-admin.php:621
-msgid "Hausmeister, Gartenpflege, Schornsteinfeger, Wartung Heizung … Der Lohnanteil wird in der Betriebskostenabrechnung für den Mieter ausgewiesen."
+msgid "Caretaker, gardening, chimney sweep, heating maintenance … The labour share is shown for the tenant in the service charge statement."
 msgstr ""
 
 #: includes/class-mv-admin.php:624
-msgid "davon Lohn-/Arbeitskosten brutto (€)"
+msgid "of which gross labour costs (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:626
-msgid "Laut Rechnung; ohne Material."
+msgid "As per invoice; excluding materials."
 msgstr ""
 
 #: includes/class-mv-admin.php:629 includes/class-mv-admin.php:1156 includes/class-mv-portal.php:299
-msgid "Beschreibung"
+msgid "Description"
 msgstr ""
 
 #: includes/class-mv-admin.php:633
-msgid "Belegdatei (PDF/Foto)"
+msgid "Receipt file (PDF/photo)"
 msgstr ""
 
 #: includes/class-mv-admin.php:640 includes/class-mv-admin.php:641 includes/class-mv-admin.php:689
-msgid "Zähler"
+msgid "Meters"
 msgstr ""
 
 #: includes/class-mv-admin.php:657
-msgid "Leer = Hauptzähler des Hauses (nur zur Info, nicht für die Verteilung)."
-msgstr ""
-
-#: includes/class-mv-admin.php:660 includes/class-mv-admin.php:797 includes/class-mv-admin.php:986
-msgid "Art"
+msgid "Empty = main meter of the building (info only, not used for allocation)."
 msgstr ""
 
 #: includes/class-mv-admin.php:665 includes/class-mv-mietvertrag.php:807 includes/class-mv-portal.php:280
-msgid "Kaltwasser (m³)"
+msgid "Cold water (m³)"
 msgstr ""
 
 #: includes/class-mv-admin.php:666 includes/class-mv-mietvertrag.php:808 includes/class-mv-portal.php:281
-msgid "Warmwasser (m³)"
+msgid "Hot water (m³)"
 msgstr ""
 
 #: includes/class-mv-admin.php:667
-msgid "Heizung (kWh / Einheiten)"
+msgid "Heating (kWh / units)"
 msgstr ""
 
 #: includes/class-mv-admin.php:668 includes/class-mv-mietvertrag.php:810 includes/class-mv-portal.php:283
-msgid "Strom (kWh)"
+msgid "Electricity (kWh)"
 msgstr ""
 
 #: includes/class-mv-admin.php:672
-msgid "Zählernummer"
+msgid "Meter number"
 msgstr ""
 
 #: includes/class-mv-admin.php:683 includes/class-mv-hilfe.php:130
-msgid "Zählerstände"
+msgid "Meter readings"
 msgstr ""
 
 #: includes/class-mv-admin.php:684 includes/class-mv-admin.php:703 includes/class-mv-admin.php:2106
-msgid "Zählerstand"
+msgid "Meter reading"
 msgstr ""
 
 #: includes/class-mv-admin.php:696
-msgid "Ablesedatum"
+msgid "Reading date"
 msgstr ""
 
 #: includes/class-mv-admin.php:700
-msgid "Für die Abrechnung: Stand zum Beginn und zum Ende des Zeitraums (z. B. 01.01. und 31.12.)."
+msgid "For the statement: reading at the start and end of the period (e.g. 01.01. and 31.12.)."
 msgstr ""
 
 #: includes/class-mv-admin.php:713
-msgid "Vermieter/Ablesung"
+msgid "Landlord / reading"
 msgstr ""
 
 #: includes/class-mv-admin.php:714
-msgid "Mieter (Portal)"
+msgid "Tenant (portal)"
 msgstr ""
 
 #: includes/class-mv-admin.php:715
-msgid "Versorger/Ablesedienst"
+msgid "Supplier / meter reading service"
 msgstr ""
 
 #: includes/class-mv-admin.php:719
-msgid "Foto"
+msgid "Photo"
 msgstr ""
 
 #: includes/class-mv-admin.php:726
-msgid "Bankimport-Regeln"
+msgid "Bank import rules"
 msgstr ""
 
 #: includes/class-mv-admin.php:727
-msgid "Regel"
+msgid "Rule"
 msgstr ""
 
 #: includes/class-mv-admin.php:732
-msgid "Suchtext"
+msgid "Search text"
 msgstr ""
 
 #: includes/class-mv-admin.php:736
-msgid "Wird in Name und Verwendungszweck gesucht (Groß-/Kleinschreibung egal), z. B. „Stadtwerke“ oder „N-ERGIE“."
+msgid "Searched in name and reference (case-insensitive), e.g. “Stadtwerke” or “N-ERGIE”."
 msgstr ""
 
 #: includes/class-mv-admin.php:739 includes/class-mv-bank.php:397
-msgid "Anlegen als"
+msgid "Create as"
 msgstr ""
 
 #: includes/class-mv-admin.php:743
-msgid "Beleg (Ausgabe)"
+msgid "Receipt (expense)"
 msgstr ""
 
 #: includes/class-mv-admin.php:744
-msgid "Mietzahlung (Eingang)"
+msgid "Rent payment (income)"
 msgstr ""
 
 #: includes/class-mv-admin.php:745
-msgid "Ignorieren"
+msgid "Ignore"
 msgstr ""
 
 #: includes/class-mv-admin.php:755
-msgid "Kostenart (bei Beleg)"
+msgid "Cost type (for receipts)"
 msgstr ""
 
 #: includes/class-mv-admin.php:761
-msgid "Mietverhältnis (bei Zahlung)"
+msgid "Tenancy (for payments)"
 msgstr ""
 
 #: includes/class-mv-admin.php:769 includes/class-mv-steuer.php:409
-msgid "Abschreibung (AfA)"
+msgid "Depreciation"
 msgstr ""
 
 #: includes/class-mv-admin.php:770 includes/class-mv-steuer.php:411
-msgid "Anlagegut"
+msgid "Asset"
 msgstr ""
 
 #: includes/class-mv-admin.php:776
-msgid "Kaufvertrag (PDF)"
+msgid "Purchase contract (PDF)"
 msgstr ""
 
 #: includes/class-mv-admin.php:780
-msgid "Nach Auswahl wird der Vertrag im Browser ausgelesen; erkannte Werte erscheinen unten als Vorschläge. Nichts wird hochgeladen, bevor du speicherst."
+msgid "After selection the contract is read in the browser; detected values appear below as suggestions. Nothing is uploaded until you save."
 msgstr ""
 
 #: includes/class-mv-admin.php:794
-msgid "z. B. „Gebäude Musterstraße 1“ oder „Einbauküche“"
+msgid "e.g. “Building, 1 Sample Street” or “Fitted kitchen”"
 msgstr ""
 
 #: includes/class-mv-admin.php:801
-msgid "Gebäude"
+msgid "Building"
 msgstr ""
 
 #: includes/class-mv-admin.php:802
-msgid "Bewegliches Wirtschaftsgut (Einbauküche, Möbel …)"
+msgid "Movable asset (fitted kitchen, furniture …)"
 msgstr ""
 
 #: includes/class-mv-admin.php:806
-msgid "Anschaffung / Fertigstellung"
+msgid "Acquisition / completion"
 msgstr ""
 
 #: includes/class-mv-admin.php:810
-msgid "Beim Kauf: Übergang von Nutzen und Lasten. AfA beginnt zeitanteilig ab diesem Monat."
+msgid "On purchase: transfer of possession. Depreciation starts pro rata from this month."
 msgstr ""
 
 #: includes/class-mv-admin.php:813
-msgid "Kaufpreis / Herstellungskosten (€)"
+msgid "Purchase price / construction costs (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:819
-msgid "Grunderwerbsteuer (€)"
+msgid "Real estate transfer tax (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:821
-msgid "Bayern 3,5 % des Kaufpreises (Bescheid des Finanzamts)."
+msgid "Bavaria: 3.5 % of the purchase price (tax office assessment)."
 msgstr ""
 
 #: includes/class-mv-admin.php:824
-msgid "Notar – Kaufvertrag (€)"
+msgid "Notary – purchase contract (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:826
-msgid "Nur der Teil für Beurkundung des Kaufvertrags. Der Teil für die Grundschuld gehört unten zu „Finanzierung“."
+msgid "Only the part for notarising the purchase contract. The part for the land charge belongs under “Financing” below."
 msgstr ""
 
 #: includes/class-mv-admin.php:829
-msgid "Grundbuch – Auflassung/Eigentumsumschreibung (€)"
+msgid "Land registry – conveyance / transfer of title (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:831
-msgid "Kostenrechnung des Grundbuchamts für Vormerkung und Eigentumsumschreibung."
+msgid "Land registry invoice for priority notice and transfer of title."
 msgstr ""
 
 #: includes/class-mv-admin.php:834
-msgid "Maklerprovision (€)"
+msgid "Estate agent's commission (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:838
-msgid "Sonstige Anschaffungsnebenkosten (€)"
+msgid "Other acquisition costs (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:840
-msgid "z. B. Gutachter vor Kauf, Fahrtkosten zur Besichtigung, Übersetzer."
+msgid "e.g. surveyor before purchase, travel costs for viewings, translator."
 msgstr ""
 
 #: includes/class-mv-admin.php:843
-msgid "Summe Anschaffungsnebenkosten (€)"
+msgid "Total acquisition costs (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:846
-msgid "Wird aus den Einzelpositionen berechnet, sobald dort etwas eingetragen ist; sonst manuell."
+msgid "Calculated from the individual items as soon as any are entered; otherwise manual."
 msgstr ""
 
 #: includes/class-mv-admin.php:849
-msgid "Finanzierungskosten – Notar/Grundbuch Grundschuld (€)"
+msgid "Financing costs – notary / land registry for land charge (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:851
-msgid "Keine Anschaffungskosten! Sofort abziehbare Werbungskosten (Geldbeschaffungskosten). Beim Speichern wird automatisch ein Beleg der Kostenart „Geldbeschaffungskosten“ angelegt, falls noch keiner mit diesem Betrag existiert."
+msgid "Not acquisition costs! Immediately deductible expenses (financing costs). On saving, a receipt of cost type “Financing costs” is created automatically unless one with this amount already exists."
 msgstr ""
 
 #: includes/class-mv-admin.php:854
-msgid "Anteil Grund und Boden (%)"
+msgid "Land share (%)"
 msgstr ""
 
 #: includes/class-mv-admin.php:857
-msgid "Nur Gebäude; der Bodenanteil ist nicht abschreibbar. Aufteilung laut Kaufvertrag oder BMF-Arbeitshilfe zur Kaufpreisaufteilung. Auch Eigentumswohnungen haben einen Miteigentumsanteil am Grund (häufig 15–30 %). 0 % akzeptiert das Finanzamt in der Regel nicht."
+msgid "Building only; the land share is not depreciable. Split as per purchase contract or the BMF purchase price allocation tool. Condominiums also have a co-ownership share of the land (often 15–30 %). The tax office generally does not accept 0 %."
 msgstr ""
 
 #: includes/class-mv-admin.php:860
-msgid "Methode"
+msgid "Method"
 msgstr ""
 
 #: includes/class-mv-admin.php:864
-msgid "Linear (§ 7 Abs. 4 EStG)"
+msgid "Straight-line (§ 7 (4) EStG)"
 msgstr ""
 
 #: includes/class-mv-admin.php:865
-msgid "Degressiv vom Restwert (§ 7 Abs. 5a EStG, Neubau Baubeginn 10/2023–09/2029)"
+msgid "Declining balance (§ 7 (5a) EStG, new build started 10/2023–09/2029)"
 msgstr ""
 
 #: includes/class-mv-admin.php:869
-msgid "AfA-Satz (% p. a.)"
+msgid "Depreciation rate (% p.a.)"
 msgstr ""
 
 #: includes/class-mv-admin.php:872
-msgid "Leer = automatisch: Gebäude nach Baujahr des Objekts (vor 1925: 2,5 %, ab 2023: 3 %, sonst 2 %), bewegliche Güter 100 / Nutzungsdauer. Degressiv: 5 %. Nur eintragen, wenn abweichend (z. B. 4 % bei nachgewiesener kürzerer Restnutzungsdauer)."
+msgid "Empty = automatic: buildings by year built of the property (before 1925: 2.5 %, from 2023: 3 %, otherwise 2 %), movable assets 100 / useful life. Declining balance: 5 %. Enter only if different (e.g. 4 % with proven shorter remaining useful life)."
 msgstr ""
 
 #: includes/class-mv-admin.php:875
-msgid "Nutzungsdauer (Jahre)"
+msgid "Useful life (years)"
 msgstr ""
 
 #: includes/class-mv-admin.php:877
-msgid "Nur bewegliche Wirtschaftsgüter, z. B. Einbauküche 10 Jahre. GWG bis 800 € netto: Nutzungsdauer 1 = Sofortabzug."
+msgid "Movable assets only, e.g. fitted kitchen 10 years. Low-value assets up to €800 net: useful life 1 = immediate deduction."
 msgstr ""
 
 #: includes/class-mv-admin.php:880
-msgid "Ausscheiden (Verkauf/Entnahme)"
+msgid "Disposal (sale/withdrawal)"
 msgstr ""
 
 #: includes/class-mv-admin.php:890 includes/class-mv-admin.php:891 includes/class-mv-admin.php:1042
-msgid "Darlehen"
+msgid "Loans"
 msgstr ""
 
 #: includes/class-mv-admin.php:905 includes/class-mv-assistent.php:333 includes/class-mv-einstellungen.php:103
@@ -1018,239 +1014,235 @@ msgid "Bank"
 msgstr ""
 
 #: includes/class-mv-admin.php:911
-msgid "Bezeichnung / Konto-Nr."
+msgid "Name / account no."
 msgstr ""
 
 #: includes/class-mv-admin.php:916
-msgid "Darlehensbetrag (€)"
+msgid "Loan amount (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:922
-msgid "Auszahlung"
+msgid "Disbursement"
 msgstr ""
 
 #: includes/class-mv-admin.php:927
-msgid "Sollzins (% p. a.)"
+msgid "Interest rate (% p.a.)"
 msgstr ""
 
 #: includes/class-mv-admin.php:932 includes/class-mv-steuer.php:451
-msgid "Zinsbindung bis"
+msgid "Fixed-rate period until"
 msgstr ""
 
 #: includes/class-mv-admin.php:937
-msgid "Monatsrate (€)"
+msgid "Monthly instalment (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:941
-msgid "Anfängliche Tilgung (% p. a.)"
+msgid "Initial repayment (% p.a.)"
 msgstr ""
 
 #: includes/class-mv-admin.php:949
-msgid "Aktiv"
+msgid "Active"
 msgstr ""
 
 #: includes/class-mv-admin.php:950
-msgid "Abgelöst"
+msgid "Redeemed"
 msgstr ""
 
 #: includes/class-mv-admin.php:954
-msgid "Darlehensvertrag (PDF)"
+msgid "Loan agreement (PDF)"
 msgstr ""
 
 #: includes/class-mv-admin.php:965 includes/class-mv-hilfe.php:63 includes/class-mv-portal.php:268
-msgid "Dokumente"
+msgid "Documents"
 msgstr ""
 
 #: includes/class-mv-admin.php:966 includes/class-mv-portal.php:268
-msgid "Dokument"
+msgid "Document"
 msgstr ""
 
 #: includes/class-mv-admin.php:983
-msgid "Nur bei mieterbezogenen Dokumenten (Mietvertrag, Übergabeprotokoll, Abrechnung)."
+msgid "Only for tenant-related documents (tenancy agreement, handover protocol, statement)."
 msgstr ""
 
 #: includes/class-mv-admin.php:990
-msgid "Kaufvertrag"
+msgid "Purchase contract"
 msgstr ""
 
 #: includes/class-mv-admin.php:991
-msgid "Grundbuchauszug"
+msgid "Land register extract"
 msgstr ""
 
 #: includes/class-mv-admin.php:992
-msgid "Teilungserklärung / WEG"
+msgid "Declaration of division / HOA"
 msgstr ""
 
 #: includes/class-mv-admin.php:993 includes/class-mv-admin.php:1309 includes/class-mv-admin.php:2108
-msgid "Mietvertrag"
+msgid "Tenancy agreement"
 msgstr ""
 
 #: includes/class-mv-admin.php:994
-msgid "Übergabeprotokoll"
+msgid "Handover protocol"
 msgstr ""
 
 #: includes/class-mv-admin.php:996
-msgid "Versicherungsschein"
+msgid "Insurance policy"
 msgstr ""
 
 #: includes/class-mv-admin.php:997 includes/class-mv-mietvertrag.php:253
-msgid "Energieausweis"
+msgid "Energy certificate"
 msgstr ""
 
-#: includes/class-mv-admin.php:998
-msgid "Sonstiges"
+#: includes/class-mv-admin.php:998 includes/class-mv-steuer.php:420
+msgid "Other"
 msgstr ""
 
 #: includes/class-mv-admin.php:1008 includes/class-mv-admin.php:1144 includes/class-mv-bank.php:397
-msgid "Datum"
+msgid "Date"
 msgstr ""
 
 #: includes/class-mv-admin.php:1013
-msgid "Im Mieterportal sichtbar"
+msgid "Visible in tenant portal"
 msgstr ""
 
 #: includes/class-mv-admin.php:1017
-msgid "Nein"
+msgid "No"
 msgstr ""
 
 #: includes/class-mv-admin.php:1018
-msgid "Ja"
+msgid "Yes"
 msgstr ""
 
 #: includes/class-mv-admin.php:1020
-msgid "Nur wirksam mit zugeordnetem Mietverhältnis."
+msgid "Only effective with an assigned tenancy."
 msgstr ""
 
 #: includes/class-mv-admin.php:1023
-msgid "Datei (PDF)"
+msgid "File (PDF)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1035
-msgid "Zinsbescheinigungen"
+msgid "Interest certificates"
 msgstr ""
 
 #: includes/class-mv-admin.php:1036
-msgid "Jahreswert Darlehen"
+msgid "Annual loan figures"
 msgstr ""
 
 #: includes/class-mv-admin.php:1049 includes/class-mv-darlehen.php:312
-msgid "Jahr"
+msgid "Year"
 msgstr ""
 
 #: includes/class-mv-admin.php:1055
-msgid "Gezahlte Zinsen (€)"
+msgid "Interest paid (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1059
-msgid "Laut Jahreszinsbescheinigung der Bank – das ist der Werbungskostenbetrag."
+msgid "As per the bank's annual interest certificate – this is the deductible amount."
 msgstr ""
 
 #: includes/class-mv-admin.php:1062
-msgid "Tilgung (€)"
+msgid "Repayment (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1065
-msgid "Nicht abziehbar, nur zur Info."
+msgid "Not deductible, info only."
 msgstr ""
 
 #: includes/class-mv-admin.php:1068
-msgid "Restschuld 31.12. (€)"
+msgid "Outstanding balance 31 Dec (€)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1073
-msgid "Zinsbescheinigung (PDF)"
+msgid "Interest certificate (PDF)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1080 includes/class-mv-hilfe.php:143
-msgid "Kostenarten"
+msgid "Cost types"
 msgstr ""
 
 #: includes/class-mv-admin.php:1093
-msgid "Anlage V – Gruppe"
+msgid "Anlage V – group"
 msgstr ""
 
 #: includes/class-mv-admin.php:1100
-msgid "Umlagefähig (BetrKV)"
+msgid "Recoverable (BetrKV)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1104
-msgid "Nein – trägt der Vermieter"
+msgid "No – borne by the landlord"
 msgstr ""
 
 #: includes/class-mv-admin.php:1105
-msgid "Ja – geht in die Betriebskostenabrechnung"
-msgstr ""
-
-#: includes/class-mv-admin.php:1109
-msgid "Umlageschlüssel"
+msgid "Yes – included in the service charge statement"
 msgstr ""
 
 #: includes/class-mv-admin.php:1114
-msgid "Wohnfläche"
+msgid "Living area"
 msgstr ""
 
 #: includes/class-mv-admin.php:1115
-msgid "Personen"
+msgid "Persons"
 msgstr ""
 
 #: includes/class-mv-admin.php:1116
-msgid "Verbrauch (Zähler)"
+msgid "Consumption (meter)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1117
-msgid "je Einheit"
+msgid "per unit"
 msgstr ""
 
 #: includes/class-mv-admin.php:1121
-msgid "Rechtsgrundlage"
+msgid "Legal basis"
 msgstr ""
 
 #: includes/class-mv-admin.php:1123
-msgid "z. B. § 2 Nr. 1 BetrKV"
+msgid "e.g. § 2 no. 1 BetrKV"
 msgstr ""
 
 #: includes/class-mv-admin.php:1126
-msgid "Sortierung"
+msgid "Sort order"
 msgstr ""
 
 #: includes/class-mv-admin.php:1132 includes/class-mv-hilfe.php:57 includes/class-mv-portal.php:223
-msgid "Meldungen"
+msgid "Reports"
 msgstr ""
 
 #: includes/class-mv-admin.php:1133
-msgid "Meldung"
+msgid "Report"
 msgstr ""
 
 #: includes/class-mv-admin.php:1150 includes/class-mv-portal.php:230 includes/class-mv-portal.php:298
-msgid "Betreff"
+msgid "Subject"
 msgstr ""
 
 #: includes/class-mv-admin.php:1164 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:226
-msgid "Offen"
+msgid "Outstanding"
 msgstr ""
 
 #: includes/class-mv-admin.php:1165 includes/class-mv-portal.php:227
-msgid "In Bearbeitung"
+msgid "In progress"
 msgstr ""
 
 #: includes/class-mv-admin.php:1166 includes/class-mv-portal.php:228
-msgid "Erledigt"
+msgid "Done"
 msgstr ""
 
 #: includes/class-mv-admin.php:1268 includes/class-mv-admin.php:1268 includes/class-mv-hilfe.php:31
-msgid "Übersicht"
+msgid "Overview"
 msgstr ""
 
 #: includes/class-mv-admin.php:1271
-msgid "Alltag"
+msgid "Daily"
 msgstr ""
 
 #: includes/class-mv-admin.php:1277
-msgid "Verwaltung"
+msgid "Administration"
 msgstr ""
 
 #: includes/class-mv-admin.php:1287
-msgid "Jahresabschluss"
+msgid "Year end"
 msgstr ""
 
 #: includes/class-mv-admin.php:1297
@@ -1258,1087 +1250,1071 @@ msgid "System"
 msgstr ""
 
 #: includes/class-mv-admin.php:1306
-msgid "Assistent"
+msgid "Wizard"
 msgstr ""
 
 #: includes/class-mv-admin.php:1307 includes/class-mv-admin.php:2107
-msgid "BK-Abrechnung"
+msgid "Statement"
 msgstr ""
 
 #: includes/class-mv-admin.php:1308 includes/class-mv-datenschutz.php:143 includes/class-mv-hilfe.php:18
-msgid "Einstellungen"
+msgid "Settings"
 msgstr ""
 
 #: includes/class-mv-admin.php:1310 includes/class-mv-darlehen.php:319 includes/class-mv-hilfe.php:168
-msgid "Zinsbescheinigung"
+msgid "Interest certificate"
 msgstr ""
 
 #: includes/class-mv-admin.php:1311 includes/class-mv-hilfe.php:180
-msgid "Bankregeln"
+msgid "Bank rules"
 msgstr ""
 
 #: includes/class-mv-admin.php:1315 includes/class-mv-hilfe.php:99
-msgid "Mietvertrag & Übergabe"
+msgid "Agreement & handover"
 msgstr ""
 
 #: includes/class-mv-admin.php:1317 includes/class-mv-hilfe.php:118 includes/class-mv-mahnung.php:27
-msgid "Mahnwesen"
+msgid "Dunning"
 msgstr ""
 
 #: includes/class-mv-admin.php:1318 includes/class-mv-erhoehung.php:183 includes/class-mv-hilfe.php:112
-msgid "Mieterhöhung"
+msgid "Rent increase"
 msgstr ""
 
 #: includes/class-mv-admin.php:1319 includes/class-mv-hilfe.php:106 includes/class-mv-portal.php:196
-msgid "Kaution"
+msgid "Deposit"
 msgstr ""
 
 #: includes/class-mv-admin.php:1320 includes/class-mv-darlehen.php:212 includes/class-mv-hilfe.php:162
-msgid "Darlehenskonto"
+msgid "Loan account"
 msgstr ""
 
 #: includes/class-mv-admin.php:1322 includes/class-mv-hilfe.php:174
-msgid "Steuer (Anlage V)"
+msgid "Tax (Anlage V)"
 msgstr ""
 
 #: includes/class-mv-admin.php:1323 includes/class-mv-datenschutz.php:139 includes/class-mv-einstellungen.php:139
-msgid "Datenschutz"
+msgid "Data protection"
 msgstr ""
 
 #: includes/class-mv-admin.php:1324 includes/class-mv-einstellungen.php:89 includes/class-mv-hilfe.php:198
-msgid "Einstellungen & Backup"
+msgid "Settings & backup"
 msgstr ""
 
 #: includes/class-mv-admin.php:1325 includes/class-mv-hilfe.php:214
-msgid "Hilfe"
+msgid "Help"
 msgstr ""
 
 #: includes/class-mv-admin.php:1326 includes/class-mv-assistent.php:285 includes/class-mv-hilfe.php:192
-msgid "Einrichtungsassistent"
+msgid "Setup wizard"
 msgstr ""
 
 #: includes/class-mv-admin.php:1435 includes/class-mv-admin.php:1442
-msgid "%s ist ein Pflichtfeld."
+msgid "%s is required."
 msgstr ""
 
 #: includes/class-mv-admin.php:1522
-msgid "Speichern fehlgeschlagen: %s"
+msgid "Saving failed: %s"
 msgstr ""
 
 #: includes/class-mv-admin.php:1522
-msgid "unbekannter Datenbankfehler"
+msgid "unknown database error"
 msgstr ""
 
 #: includes/class-mv-admin.php:1657
-msgid "Mietende liegt vor dem Mietbeginn."
+msgid "End of tenancy is before the start."
 msgstr ""
 
 #: includes/class-mv-admin.php:1663
-msgid "Für diese Einheit besteht im Zeitraum bereits ein anderes Mietverhältnis."
+msgid "Another tenancy already exists for this unit in the period."
 msgstr ""
 
 #: includes/class-mv-admin.php:1667
-msgid "Zahltag muss zwischen 1 und 28 liegen."
+msgid "Payment day must be between 1 and 28."
 msgstr ""
 
 #: includes/class-mv-admin.php:1671
-msgid "Die Haupteinheit kann nicht zugleich weitere Einheit sein."
+msgid "The main unit cannot also be an additional unit."
 msgstr ""
 
 #: includes/class-mv-admin.php:1678
-msgid "Weitere Einheit „%s“ ist im Zeitraum bereits anderweitig vermietet."
+msgid "Additional unit “%s” is already let to someone else in the period."
 msgstr ""
 
 #: includes/class-mv-admin.php:1693
-msgid "Kaltmiete muss größer als 0 sein."
+msgid "Base rent must be greater than 0."
 msgstr ""
 
 #: includes/class-mv-admin.php:1698
-msgid "Betrag darf nicht 0 sein."
+msgid "Amount must not be 0."
 msgstr ""
 
 #: includes/class-mv-admin.php:1701
-msgid "Zahlungsdatum liegt in der Zukunft."
+msgid "Payment date is in the future."
 msgstr ""
 
 #: includes/class-mv-admin.php:1706
-msgid "Zuordnungsmonat liegt vor dem Mietbeginn."
+msgid "Assigned month is before the start of tenancy."
 msgstr ""
 
 #: includes/class-mv-admin.php:1712
-msgid "Leistungszeitraum: „bis“ liegt vor „von“."
+msgid "Service period: “to” is before “from”."
 msgstr ""
 
 #: includes/class-mv-admin.php:1715
-msgid "Betrag muss größer als 0 sein (Gutschriften als negativen Beleg mit Beschreibung erfassen ist nicht vorgesehen – bitte mit dem Originalbeleg verrechnen)."
+msgid "Amount must be greater than 0 (credit notes as negative receipts are not supported – please offset against the original receipt)."
 msgstr ""
 
 #: includes/class-mv-admin.php:1718
-msgid "Lohnanteil kann nicht größer als der Rechnungsbetrag sein."
+msgid "Labour share cannot exceed the invoice amount."
 msgstr ""
 
 #: includes/class-mv-admin.php:1721
-msgid "Steuerjahr weicht um mehr als ein Jahr vom Zahlungsdatum ab."
+msgid "Tax year differs from the payment date by more than one year."
 msgstr ""
 
 #: includes/class-mv-admin.php:1726
-msgid "Wohnfläche muss größer als 0 sein (wird für die Betriebskostenabrechnung benötigt)."
+msgid "Living area must be greater than 0 (needed for the service charge statement)."
 msgstr ""
 
 #: includes/class-mv-admin.php:1739
-msgid "Anteil Grund und Boden muss unter 100 % liegen."
+msgid "Land share must be below 100 %."
 msgstr ""
 
 #: includes/class-mv-admin.php:1742
-msgid "Bewegliches Wirtschaftsgut: Nutzungsdauer oder AfA-Satz angeben."
+msgid "Movable asset: enter useful life or depreciation rate."
 msgstr ""
 
 #: includes/class-mv-admin.php:1747
-msgid "Jahr ungültig."
+msgid "Invalid year."
 msgstr ""
 
 #: includes/class-mv-admin.php:1754
-msgid "IBAN ungültig (Prüfziffer)."
+msgid "Invalid IBAN (check digit)."
 msgstr ""
 
 #: includes/class-mv-admin.php:1811
-msgid "Gespeichert."
+msgid "Saved."
 msgstr ""
 
 #: includes/class-mv-admin.php:1812
-msgid "Gelöscht."
+msgid "Deleted."
 msgstr ""
 
 #: includes/class-mv-admin.php:1813
-msgid "Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden."
+msgid "Cannot delete: dependent records still exist."
 msgstr ""
 
 #: includes/class-mv-admin.php:1814
-msgid "%d Mieteingang/-eingänge gebucht."
+msgid "%d rent payment(s) booked."
 msgstr ""
 
 #: includes/class-mv-admin.php:1846
-msgid "%s hinzufügen"
+msgid "Add %s"
 msgstr ""
 
 #: includes/class-mv-admin.php:1862
-msgid "alle"
+msgid "all"
 msgstr ""
 
 #: includes/class-mv-admin.php:1884
-msgid "Aktionen"
+msgid "Actions"
 msgstr ""
 
 #: includes/class-mv-admin.php:1921
-msgid "Bearbeiten"
+msgid "Edit"
 msgstr ""
 
 #: includes/class-mv-admin.php:1921
-msgid "Wirklich löschen?"
+msgid "Really delete?"
 msgstr ""
 
 #: includes/class-mv-admin.php:1954
-msgid "Bearbeiten:"
+msgid "Edit:"
 msgstr ""
 
 #: includes/class-mv-admin.php:1954
-msgid "Neu:"
+msgid "New:"
 msgstr ""
 
 #: includes/class-mv-admin.php:1976
-msgid "Noch keine Einheiten angelegt."
+msgid "No units created yet."
 msgstr ""
 
 #: includes/class-mv-admin.php:1989
-msgid "Mietanteil"
+msgid "Rent share"
 msgstr ""
 
 #: includes/class-mv-admin.php:1999
-msgid "Aktuelle Datei öffnen"
+msgid "Open current file"
 msgstr ""
 
 #: includes/class-mv-admin.php:1999
-msgid "– neue Datei wählen, um sie zu ersetzen."
+msgid "– choose a new file to replace it."
 msgstr ""
 
 #: includes/class-mv-admin.php:2004
-msgid "📷 Foto aufnehmen"
+msgid "📷 Take photo"
 msgstr ""
 
 #: includes/class-mv-admin.php:2017
-msgid "– bitte wählen –"
+msgid "– please select –"
 msgstr ""
 
 #: includes/class-mv-admin.php:2052
-msgid "Abbrechen"
+msgid "Cancel"
 msgstr ""
 
 #: includes/class-mv-admin.php:2083
-msgid "Objekte / Einheiten"
+msgid "Properties / units"
 msgstr ""
 
 #: includes/class-mv-admin.php:2083
-msgid "aktive Mietverhältnisse"
+msgid "active tenancies"
 msgstr ""
 
 #: includes/class-mv-admin.php:2084
-msgid "Monatliches Soll"
+msgid "Monthly rent due"
 msgstr ""
 
 #: includes/class-mv-admin.php:2084
-msgid "Kaltmiete + Vorauszahlungen"
+msgid "Base rent + advance payments"
 msgstr ""
 
 #: includes/class-mv-admin.php:2085
-msgid "Offene Mietforderungen"
+msgid "Open rent claims"
 msgstr ""
 
 #: includes/class-mv-admin.php:2085
-msgid "Rückstand – unten abhaken oder mahnen"
+msgid "Arrears – tick below or send a reminder"
 msgstr ""
 
 #: includes/class-mv-admin.php:2085
-msgid "Alle Mietkonten ausgeglichen"
+msgid "All rent accounts balanced"
 msgstr ""
 
 #: includes/class-mv-admin.php:2086
-msgid "Einnahmen %d"
+msgid "Income %d"
 msgstr ""
 
 #: includes/class-mv-admin.php:2086
-msgid "Werbungskosten bisher %s"
+msgid "Expenses so far %s"
 msgstr ""
 
 #: includes/class-mv-admin.php:2103 includes/class-mv-admin.php:2154
-msgid "Zahlung erfassen"
+msgid "Record payment"
 msgstr ""
 
 #: includes/class-mv-admin.php:2104
-msgid "Beleg erfassen"
+msgid "Record receipt"
 msgstr ""
 
 #: includes/class-mv-admin.php:2117
-msgid "Hinweise"
+msgid "Notices"
 msgstr ""
 
 #: includes/class-mv-admin.php:2119
-msgid "%d offene Meldung(en) aus dem Mieterportal"
+msgid "%d open report(s) from the tenant portal"
 msgstr ""
 
 #: includes/class-mv-admin.php:2130
-msgid "Mietfux – Übersicht"
+msgid "Mietfux – Overview"
 msgstr ""
 
 #: includes/class-mv-admin.php:2131
-msgid "WordPress-Menü einblenden"
+msgid "Show WordPress menu"
 msgstr ""
 
 #: includes/class-mv-admin.php:2131
-msgid "WordPress-Menü ausblenden"
+msgid "Hide WordPress menu"
 msgstr ""
 
 #: includes/class-mv-admin.php:2136
-msgid "Noch kein aktives Mietverhältnis. Reihenfolge zum Start:"
+msgid "No active tenancy yet. Order to get started:"
 msgstr ""
 
 #: includes/class-mv-admin.php:2136
-msgid "Objekt → Einheit → Mieter → Mietverhältnis → Konditionen"
+msgid "Property → Unit → Tenant → Tenancy → Rent conditions"
 msgstr ""
 
 #: includes/class-mv-admin.php:2136
-msgid "oder den Einrichtungsassistenten nutzen"
+msgid "or use the setup wizard"
 msgstr ""
 
 #: includes/class-mv-admin.php:2146
-msgid "Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar)."
+msgid "Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments)."
 msgstr ""
 
 #: includes/class-mv-admin.php:2146
-msgid "Bitte mindestens einen Monat anhaken."
+msgid "Please tick at least one month."
 msgstr ""
 
 #: includes/class-mv-admin.php:2146 includes/class-mv-admin.php:2196
-msgid "Markierte als bezahlt buchen"
+msgid "Book selected as paid"
 msgstr ""
 
 #: includes/class-mv-admin.php:2152
-msgid "Mietbeginn %1$s · Kaution %2$s"
+msgid "Start %1$s · Deposit %2$s"
 msgstr ""
 
 #: includes/class-mv-admin.php:2154 includes/class-mv-mahnung.php:30
-msgid "Saldo"
+msgid "Balance"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163
-msgid "alle offenen Monate dieses Mietverhältnisses"
+msgid "all open months of this tenancy"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163 includes/class-mv-darlehen.php:275 includes/class-mv-mahnung.php:100
-msgid "Monat"
+msgid "Month"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163 includes/class-mv-portal.php:193
-msgid "Kaltmiete"
+msgid "Base rent"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163
-msgid "BK-VZ"
+msgid "SC advance"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163
-msgid "HK-VZ"
+msgid "Heating advance"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:207
-msgid "Soll"
+msgid "Due"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163
-msgid "Ist"
+msgid "Actual"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163 includes/class-mv-portal.php:207
-msgid "Differenz"
+msgid "Difference"
 msgstr ""
 
 #: includes/class-mv-admin.php:2163
-msgid "Saldo kumuliert"
+msgid "Cumulative balance"
 msgstr ""
 
 #: includes/class-mv-admin.php:2172
-msgid "%s als bezahlt buchen"
+msgid "Book %s as paid"
 msgstr ""
 
 #: includes/class-mv-afa.php:65
-msgid "aus Nutzungsdauer %d Jahre"
+msgid "from useful life of %d years"
 msgstr ""
 
 #: includes/class-mv-afa.php:68
-msgid "gesetzlich nach Baujahr (§ 7 Abs. 4 EStG)"
+msgid "statutory by year built (§ 7 (4) EStG)"
 msgstr ""
 
 #: includes/class-mv-afa.php:70
-msgid "kein Satz – bitte eintragen"
+msgid "no rate – please enter"
 msgstr ""
 
 #: includes/class-mv-assistent.php:66
-msgid "Willkommen bei Mietfux."
+msgid "Welcome to Mietfux."
 msgstr ""
 
 #: includes/class-mv-assistent.php:67
-msgid "Der Einrichtungsassistent legt in fünf Schritten Vermieter, Objekt, Einheit, Mieter und Mietverhältnis an."
+msgid "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps."
 msgstr ""
 
 #: includes/class-mv-assistent.php:69
-msgid "Assistent starten"
+msgid "Start wizard"
 msgstr ""
 
 #: includes/class-mv-assistent.php:75 includes/class-mv-db.php:89 includes/class-mv-mietvertrag.php:388
-msgid "Vermieter"
+msgid "Landlord"
 msgstr ""
 
 #: includes/class-mv-assistent.php:107
-msgid "Name des Vermieters fehlt."
+msgid "Landlord name is missing."
 msgstr ""
 
 #: includes/class-mv-assistent.php:119
-msgid "Bezeichnung und Straße sind Pflicht."
+msgid "Name and street are required."
 msgstr ""
 
 #: includes/class-mv-assistent.php:143
-msgid "Bitte zuerst das Objekt anlegen."
+msgid "Please create the property first."
 msgstr ""
 
 #: includes/class-mv-assistent.php:147
-msgid "Bezeichnung und Wohnfläche der Wohnung sind Pflicht."
+msgid "Name and living area of the flat are required."
 msgstr ""
 
 #: includes/class-mv-assistent.php:185
-msgid "Nachname des Mieters fehlt."
+msgid "Tenant's last name is missing."
 msgstr ""
 
 #: includes/class-mv-assistent.php:214
-msgid "Einheit und Mieter müssen vorher angelegt sein."
+msgid "Unit and tenant must be created first."
 msgstr ""
 
 #: includes/class-mv-assistent.php:220
-msgid "Mietbeginn und Kaltmiete (größer 0) sind Pflicht."
+msgid "Start of tenancy and base rent (greater than 0) are required."
 msgstr ""
 
 #: includes/class-mv-assistent.php:327
-msgid "Diese Angaben erscheinen als Absender auf Mietvertrag, Abrechnungen und Schreiben."
-msgstr ""
-
-#: includes/class-mv-assistent.php:328 includes/class-mv-einstellungen.php:98
-msgid "Name"
+msgid "These details appear as sender on the tenancy agreement, statements and letters."
 msgstr ""
 
 #: includes/class-mv-assistent.php:329 includes/class-mv-einstellungen.php:99
-msgid "Anschrift"
+msgid "Address"
 msgstr ""
 
 #: includes/class-mv-assistent.php:329
-msgid "Straße und Ort in zwei Zeilen."
+msgid "Street and town on two lines."
 msgstr ""
 
 #: includes/class-mv-assistent.php:332
-msgid "IBAN (Mietkonto)"
+msgid "IBAN (rent account)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:332
-msgid "Für Zahlungsaufforderungen und SEPA-Mandat."
+msgid "For payment requests and SEPA mandate."
 msgstr ""
 
 #: includes/class-mv-assistent.php:334
-msgid "Steuernummer (optional)"
+msgid "Tax number (optional)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:339
-msgid "Ein Objekt ist das Haus oder die Eigentumswohnung. Das Baujahr bestimmt den AfA-Satz, die Heizungsart die Heizkostenverteilung."
+msgid "A property is the house or condominium. The year built determines the depreciation rate, the heating type the heating cost allocation."
 msgstr ""
 
 #: includes/class-mv-assistent.php:340
-msgid "z. B. „ETW Musterstraße 1“"
+msgid "e.g. “Condo, 1 Sample Street”"
 msgstr ""
 
 #: includes/class-mv-assistent.php:344
-msgid "Vor 1925: 2,5 % AfA, ab 2023: 3 %, sonst 2 %."
+msgid "Before 1925: 2.5 % depreciation, from 2023: 3 %, otherwise 2 %."
 msgstr ""
 
 #: includes/class-mv-assistent.php:360
-msgid "Die Wohnung ist die Haupteinheit. Garage oder Stellplatz können gleich mit angelegt und im nächsten Schritt demselben Vertrag zugeordnet werden."
+msgid "The flat is the main unit. A garage or parking space can be created at the same time and assigned to the same agreement in the next step."
 msgstr ""
 
 #: includes/class-mv-assistent.php:361
-msgid "Wohnung – Bezeichnung"
+msgid "Flat – name"
 msgstr ""
 
 #: includes/class-mv-assistent.php:363
-msgid "Wird für die Betriebskostenabrechnung benötigt."
+msgid "Needed for the service charge statement."
 msgstr ""
 
 #: includes/class-mv-assistent.php:365
-msgid "Garage / Stellplatz (optional)"
+msgid "Garage / parking space (optional)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:366
-msgid "Leer lassen, wenn keine Garage mitvermietet wird."
+msgid "Leave empty if no garage is let with the flat."
 msgstr ""
 
 #: includes/class-mv-assistent.php:376
-msgid "Mietanteil Garage (€)"
+msgid "Garage rent share (€)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:376
-msgid "Nur zur Ausweisung im Vertrag; die Gesamtmiete wird im nächsten Schritt erfasst."
+msgid "Shown in the agreement only; the total rent is entered in the next step."
 msgstr ""
 
 #: includes/class-mv-assistent.php:389
-msgid "Für den Mietvertrag."
+msgid "For the tenancy agreement."
 msgstr ""
 
 #: includes/class-mv-assistent.php:392
-msgid "Anschrift vor Einzug – erscheint im Vertrag."
+msgid "Address before moving in – appears in the agreement."
 msgstr ""
 
 #: includes/class-mv-assistent.php:393 includes/class-mv-bank.php:250
-msgid "IBAN des Mieters"
+msgid "Tenant's IBAN"
 msgstr ""
 
 #: includes/class-mv-assistent.php:393
-msgid "Für die automatische Zuordnung beim Bankimport."
+msgid "For automatic matching in the bank import."
 msgstr ""
 
 #: includes/class-mv-assistent.php:394
-msgid "Ehe-/Lebenspartner als Mitmieter (optional)"
+msgid "Spouse/partner as co-tenant (optional)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:394
-msgid "Erscheint automatisch als zweite Vertragspartei in Vertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll."
+msgid "Appears automatically as second contracting party in the agreement, letters, SEPA mandate and handover protocol."
 msgstr ""
 
 #: includes/class-mv-assistent.php:407
-msgid "Mietverhältnis:"
+msgid "Tenancy:"
 msgstr ""
 
 #: includes/class-mv-assistent.php:409
-msgid "Kaltmiete gesamt (€)"
+msgid "Total base rent (€)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:409
-msgid "Inklusive Garage/Stellplatz, falls mitvermietet."
-msgstr ""
-
-#: includes/class-mv-assistent.php:410
-msgid "Betriebskosten-Vorauszahlung (€)"
+msgid "Including garage/parking space, if let together."
 msgstr ""
 
 #: includes/class-mv-assistent.php:411
-msgid "Heizkosten-Vorauszahlung (€)"
-msgstr ""
-
-#: includes/class-mv-assistent.php:411
-msgid "Bei dezentraler Heizung 0."
+msgid "0 for decentralised heating."
 msgstr ""
 
 #: includes/class-mv-assistent.php:412
-msgid "Höchstens drei Kaltmieten (§ 551 BGB)."
+msgid "At most three months' base rent (§ 551 BGB)."
 msgstr ""
 
 #: includes/class-mv-assistent.php:417
-msgid "Zusatzeinheit"
+msgid "Additional unit"
 msgstr ""
 
 #: includes/class-mv-assistent.php:417
-msgid "„%s“ gehört zu diesem Vertrag (eine Gesamtmiete, eine Buchung)"
+msgid "“%s” belongs to this agreement (one total rent, one booking)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:425
-msgid "Zurück"
+msgid "Back"
 msgstr ""
 
 #: includes/class-mv-assistent.php:427
-msgid "Abschließen"
+msgid "Finish"
 msgstr ""
 
 #: includes/class-mv-assistent.php:427
-msgid "Speichern und weiter"
+msgid "Save and continue"
 msgstr ""
 
 #: includes/class-mv-assistent.php:428
-msgid "Assistent beenden, ich lege die Daten selbst an"
+msgid "Close the wizard, I'll enter the data myself"
 msgstr ""
 
 #: includes/class-mv-assistent.php:452
-msgid "Einrichtung abgeschlossen"
+msgid "Setup complete"
 msgstr ""
 
 #: includes/class-mv-assistent.php:455
-msgid "Angelegt wurde das Mietverhältnis"
+msgid "The following tenancy was created:"
 msgstr ""
 
 #: includes/class-mv-assistent.php:457
-msgid "Sinnvolle nächste Schritte:"
+msgid "Useful next steps:"
 msgstr ""
 
 #: includes/class-mv-assistent.php:459
-msgid "Gebäude als Anlagegut mit Kaufpreis, Nebenkosten und Grundanteil erfassen (AfA) – Kaufvertrag-PDF auslesen lassen"
+msgid "Enter the building as an asset with purchase price, incidental costs and land share (depreciation) – let the purchase contract PDF be parsed"
 msgstr ""
 
 #: includes/class-mv-assistent.php:460
-msgid "Finanzierungsdarlehen anlegen (Zins, Tilgung, Rate)"
+msgid "Create financing loan (interest, repayment, instalment)"
 msgstr ""
 
 #: includes/class-mv-assistent.php:461
-msgid "Zähler der Wohnung anlegen und Anfangsstände erfassen"
+msgid "Create the flat's meters and record initial readings"
 msgstr ""
 
 #: includes/class-mv-assistent.php:462
-msgid "Mietvertrag, SEPA-Mandat und Übergabeprotokoll erzeugen"
+msgid "Generate tenancy agreement, SEPA mandate and handover protocol"
 msgstr ""
 
 #: includes/class-mv-assistent.php:463
-msgid "Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen"
+msgid "Tick rent receipts in the overview or import them from the bank"
 msgstr ""
 
 #: includes/class-mv-assistent.php:464
-msgid "Hilfe mit Kurzbeschreibung aller Module"
+msgid "Help with a short description of all modules"
 msgstr ""
 
 #: includes/class-mv-assistent.php:470
-msgid "Zur Übersicht"
+msgid "Go to overview"
 msgstr ""
 
 #: includes/class-mv-assistent.php:470
-msgid "Angaben noch einmal durchgehen"
+msgid "Review the entries again"
 msgstr ""
 
 #: includes/class-mv-bank.php:250
-msgid "Name des Mieters"
+msgid "Tenant's name"
 msgstr ""
 
 #: includes/class-mv-bank.php:374
-msgid "%d Buchungen übernommen."
+msgid "%d transactions imported."
 msgstr ""
 
 #: includes/class-mv-bank.php:376
-msgid "Keine Buchungen erkannt. Unterstützt: CSV mit Kopfzeile (Buchungstag, Betrag, Verwendungszweck …) oder CAMT.053-XML."
+msgid "No transactions detected. Supported: CSV with header row (booking date, amount, reference …) or CAMT.053 XML."
 msgstr ""
 
 #: includes/class-mv-bank.php:384
-msgid "Einlesen"
+msgid "Import"
 msgstr ""
 
 #: includes/class-mv-bank.php:385
-msgid "Kontoauszug als CSV (Online-Banking-Export) oder CAMT.053-XML. Bereits importierte Buchungen werden erkannt und nicht doppelt angelegt. Mieteingänge werden über IBAN oder Nachname des Mieters zugeordnet, Ausgaben über"
+msgid "Bank statement as CSV (online banking export) or CAMT.053 XML. Previously imported transactions are detected and not duplicated. Rent payments are matched by the tenant's IBAN or last name, expenses via"
 msgstr ""
 
 #: includes/class-mv-bank.php:396 includes/class-mv-bank.php:425
-msgid "Markierte Buchungen übernehmen"
+msgid "Import selected transactions"
 msgstr ""
 
 #: includes/class-mv-bank.php:397
-msgid "Name / Verwendungszweck"
+msgid "Name / reference"
 msgstr ""
 
 #: includes/class-mv-bank.php:397
-msgid "Zuordnung"
+msgid "Assignment"
 msgstr ""
 
 #: includes/class-mv-bank.php:397
-msgid "Regel merken"
+msgid "Remember rule"
 msgstr ""
 
 #: includes/class-mv-bank.php:403
-msgid "bereits importiert"
+msgid "already imported"
 msgstr ""
 
 #: includes/class-mv-bank.php:404
-msgid "Mietzahlung"
+msgid "Rent payment"
 msgstr ""
 
 #: includes/class-mv-bank.php:407
-msgid "– Mietverhältnis –"
+msgid "– tenancy –"
 msgstr ""
 
 #: includes/class-mv-bank.php:417
-msgid "– Kostenart –"
+msgid "– cost type –"
 msgstr ""
 
 #: includes/class-mv-brief.php:31 includes/class-mv-brief.php:44
-msgid "Sehr geehrte Damen und Herren,"
+msgid "Dear Sir or Madam,"
 msgstr ""
 
 #: includes/class-mv-brief.php:35
-msgid "sehr geehrte Frau %s"
+msgid "dear Ms %s"
 msgstr ""
 
 #: includes/class-mv-brief.php:38
-msgid "sehr geehrter Herr %s"
+msgid "dear Mr %s"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:215
-msgid "%d Buchung(en) angelegt."
+msgid "%d entry/entries created."
 msgstr ""
 
 #: includes/class-mv-darlehen.php:218
-msgid "Noch kein Darlehen angelegt –"
+msgid "No loan created yet –"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:218
-msgid "Darlehen anlegen"
+msgid "Create loan"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:231
-msgid "Für den Tilgungsplan müssen Auszahlungsdatum, Sollzins und Monatsrate beim Darlehen hinterlegt sein."
+msgid "The repayment schedule requires disbursement date, interest rate and monthly instalment on the loan."
 msgstr ""
 
 #: includes/class-mv-darlehen.php:231
-msgid "Darlehen bearbeiten"
+msgid "Edit loan"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:250
-msgid "Darlehensbetrag"
+msgid "Loan amount"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:252
-msgid "ausgezahlt"
+msgid "disbursed"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:254
-msgid "Restschuld heute"
+msgid "Outstanding balance today"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:256
-msgid "Gezahlte Zinsen"
+msgid "Interest paid"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:259 includes/class-mv-kaution.php:159
-msgid "Buchungen"
+msgid "Entries"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:260
-msgid "Getilgt"
+msgid "Repaid"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:262
-msgid "Rate / Sollzins"
+msgid "Instalment / interest rate"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:264
-msgid "Restlaufzeit ca. %d Monate"
+msgid "Remaining term approx. %d months"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:267
-msgid "Offene Monate abhaken und buchen: Zins = Restschuld × Sollzins / 12, Tilgung = Rate − Zins. Die Jahressummen fließen als Schuldzinsen in die Anlage V, solange keine Zinsbescheinigung der Bank für das Jahr erfasst ist – diese hat Vorrang (taggenaue Bankrechnung)."
+msgid "Tick and book open months: interest = balance × rate / 12, repayment = instalment − interest. The annual totals flow into Anlage V as loan interest unless a bank interest certificate is entered for the year – that takes precedence (exact bank calculation)."
 msgstr ""
 
 #: includes/class-mv-darlehen.php:273 includes/class-mv-darlehen.php:296
-msgid "Markierte Raten buchen"
+msgid "Book selected instalments"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:275 includes/class-mv-darlehen.php:277
-msgid "Rate"
+msgid "Instalment"
 msgstr ""
 
-#: includes/class-mv-darlehen.php:275
-msgid "Zins"
+#: includes/class-mv-darlehen.php:275 includes/class-mv-darlehen.php:312 includes/class-mv-steuer.php:220
+msgid "Interest"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:275 includes/class-mv-darlehen.php:312
-msgid "Tilgung"
+msgid "Repayment"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:275
-msgid "Restschuld"
+msgid "Outstanding balance"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:277
-msgid "Sondertilgung"
+msgid "Extra repayment"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:277
-msgid "Rate (offen)"
+msgid "Instalment (open)"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:288
-msgid "Buchung löschen? Nachfolgende Restschulden werden neu berechnet."
+msgid "Delete entry? Subsequent balances will be recalculated."
 msgstr ""
 
 #: includes/class-mv-darlehen.php:292
-msgid "Noch keine Raten im Zeitraum."
+msgid "No instalments in the period yet."
 msgstr ""
 
 #: includes/class-mv-darlehen.php:300
-msgid "Sondertilgung buchen"
+msgid "Book extra repayment"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:307 includes/class-mv-kaution.php:185
-msgid "Buchen"
+msgid "Book"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:308
-msgid "Reduziert die Restschuld; die Folgeraten werden mit der niedrigeren Restschuld berechnet."
+msgid "Reduces the outstanding balance; subsequent instalments are calculated on the lower balance."
 msgstr ""
 
 #: includes/class-mv-darlehen.php:312
-msgid "Jahreswerte"
-msgstr ""
-
-#: includes/class-mv-darlehen.php:312 includes/class-mv-steuer.php:220
-msgid "Zinsen"
+msgid "Annual figures"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:312
-msgid "Restschuld 31.12."
+msgid "Balance 31 Dec"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:319
-msgid "Berechnet: %s"
+msgid "Calculated: %s"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:321
-msgid "berechnet aus Raten"
+msgid "calculated from instalments"
 msgstr ""
 
 #: includes/class-mv-darlehen.php:324
-msgid "Liegt die Zinsbescheinigung der Bank vor, unter „Zinsbescheinigungen“ erfassen – sie ersetzt die berechneten Werte in der Steuer-Auswertung."
+msgid "Once the bank's interest certificate is available, enter it under “Interest certificates” – it replaces the calculated values in the tax report."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:112
-msgid "Art. 15 DSGVO"
+msgid "Art. 15 GDPR"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:115
-msgid "Durchführung des Mietverhältnisses (Art. 6 Abs. 1 lit. b DSGVO), Erfüllung steuer- und handelsrechtlicher Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO)"
+msgid "Performance of the tenancy agreement (Art. 6 (1) (b) GDPR), compliance with tax and commercial retention obligations (Art. 6 (1) (c) GDPR in conjunction with § 147 AO)"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:116
-msgid "%d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete"
+msgid "%d years after the end of the calendar year in which the tenancy ended"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:117
-msgid "Finanzamt (Anlage V), Steuerberater (sofern beauftragt), Bank (Zahlungsverkehr)"
+msgid "Tax office (Anlage V), tax adviser (if engaged), bank (payments)"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:141
-msgid "Mieterdaten anonymisiert. Zahlungs- und Abrechnungsdaten bleiben ohne Personenbezug erhalten."
+msgid "Tenant data anonymised. Payment and statement data are retained without personal reference."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:143
-msgid "Rechtsgrundlage der Verarbeitung: Art. 6 Abs. 1 lit. b DSGVO (Mietvertrag) und lit. c (Aufbewahrungspflichten, § 147 AO). Aufbewahrungsfrist: %d Jahre nach Ende des Kalenderjahres, in dem das Mietverhältnis endete ("
+msgid "Legal basis for processing: Art. 6 (1) (b) GDPR (tenancy agreement) and (c) (retention obligations, § 147 AO). Retention period: %d years after the end of the calendar year in which the tenancy ended ("
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:143
-msgid "). Nach Ablauf wird der Personenbezug entfernt; Beträge bleiben für die Steuer erhalten."
+msgid "). After expiry the personal reference is removed; amounts are retained for tax purposes."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:145
-msgid "Löschkonzept – beendete Mietverhältnisse"
+msgid "Deletion concept – ended tenancies"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:145
-msgid "Ende"
+msgid "End"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:145
-msgid "Löschfrist"
+msgid "Deletion deadline"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:145 includes/class-mv-mahnung.php:30
-msgid "Aktion"
+msgid "Action"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:150
-msgid "anonymisiert"
+msgid "anonymised"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:152
-msgid "Mieter hat weiteres aktives Mietverhältnis"
+msgid "Tenant has another active tenancy"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:154
-msgid "Frist abgelaufen"
+msgid "Deadline expired"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:156
-msgid "in Aufbewahrung"
+msgid "in retention"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:165
-msgid "Anonymisieren"
+msgid "Anonymise"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:165
-msgid "Personenbezug unwiderruflich entfernen?"
+msgid "Irreversibly remove personal data?"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:165
-msgid "Die Aufbewahrungsfrist ist noch nicht abgelaufen!"
+msgid "The retention period has not expired yet!"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:169
-msgid "Keine beendeten Mietverhältnisse."
+msgid "No ended tenancies."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:173
-msgid "Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)"
+msgid "Access (Art. 15 GDPR) / data portability (Art. 20)"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:173
-msgid "Erzeugt eine vollständige Datenübersicht des Mieters als JSON – Frist für die Beantwortung: ein Monat (Art. 12 Abs. 3 DSGVO)."
+msgid "Generates a complete data overview of the tenant as JSON – response deadline: one month (Art. 12 (3) GDPR)."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:175
-msgid "Auskunft exportieren"
+msgid "Export access report"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:179
-msgid "Hinweise für das Verarbeitungsverzeichnis"
+msgid "Notes for the record of processing activities"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:180
-msgid "Verarbeitungstätigkeit:"
+msgid "Processing activity:"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:180
-msgid "Verwaltung von Mietverhältnissen (Stammdaten, Zahlungen, Abrechnungen, Mängelmeldungen, Schriftverkehr)."
+msgid "Management of tenancies (master data, payments, statements, defect reports, correspondence)."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:181
-msgid "Betroffene:"
+msgid "Data subjects:"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:181
-msgid "Mieter, Mitbewohner (Personenzahl ohne Namen), Rechnungssteller."
+msgid "Tenants, household members (number only, no names), invoice issuers."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:182
-msgid "Datenkategorien:"
+msgid "Data categories:"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:182
-msgid "Name, Anschrift, Kontaktdaten, Bankverbindung, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zähler), Meldungen."
+msgid "Name, address, contact details, bank details, contract and payment data, consumption data (meters), reports."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:183
-msgid "Technisch-organisatorische Maßnahmen:"
+msgid "Technical and organisational measures:"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:183
-msgid "Zugriff nur für Administrator (WordPress-Rolle), Mieterportal nur mit eigenem Login und Zuordnung, HTTPS, regelmäßiges Backup, Anonymisierung nach Fristablauf, Kaufvertrags-Auslesen lokal im Browser ohne Drittdienst."
+msgid "Access for administrators only (WordPress role), tenant portal only with own login and assignment, HTTPS, regular backups, anonymisation after expiry, purchase contract parsing locally in the browser without third-party services."
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:184
-msgid "Auftragsverarbeiter:"
+msgid "Processors:"
 msgstr ""
 
 #: includes/class-mv-datenschutz.php:184
-msgid "Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich)."
+msgid "Hosting provider of the WordPress installation (data processing agreement required)."
 msgstr ""
 
 #: includes/class-mv-db.php:104
-msgid "Einnahmen (nur zur Info, nicht als Beleg buchen)"
+msgid "Income (info only, do not book as receipt)"
 msgstr ""
 
 #: includes/class-mv-db.php:105
-msgid "Absetzung für Abnutzung (AfA)"
+msgid "Depreciation (AfA)"
 msgstr ""
 
 #: includes/class-mv-db.php:106
-msgid "Schuldzinsen und Geldbeschaffungskosten"
+msgid "Loan interest and financing costs"
 msgstr ""
 
 #: includes/class-mv-db.php:107
-msgid "Erhaltungsaufwendungen"
+msgid "Maintenance expenses"
 msgstr ""
 
 #: includes/class-mv-db.php:108
-msgid "Grundsteuer, Straßenreinigung, Müllabfuhr"
+msgid "Property tax, street cleaning, refuse collection"
 msgstr ""
 
 #: includes/class-mv-db.php:109
-msgid "Wasserversorgung, Entwässerung, Hausbeleuchtung"
+msgid "Water supply, drainage, communal lighting"
 msgstr ""
 
 #: includes/class-mv-db.php:110
-msgid "Heizung, Warmwasser"
+msgid "Heating, hot water"
 msgstr ""
 
 #: includes/class-mv-db.php:111
-msgid "Schornsteinreinigung, Hausversicherungen, Hauswart, Treppenreinigung, Fahrstuhl"
+msgid "Chimney sweeping, building insurance, caretaker, stair cleaning, lift"
 msgstr ""
 
 #: includes/class-mv-db.php:112
-msgid "Verwaltungskosten"
+msgid "Administration costs"
 msgstr ""
 
 #: includes/class-mv-db.php:113
-msgid "Sonstige Werbungskosten"
+msgid "Other expenses"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:84
-msgid "Einstellungen gespeichert."
+msgid "Settings saved."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:85
-msgid "Backup eingespielt. Alle Daten wurden ersetzt."
+msgid "Backup restored. All data has been replaced."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:86
-msgid "Backup konnte nicht gelesen werden (kein gültiges Mietverwaltung-JSON)."
+msgid "Backup could not be read (not a valid Rental Management JSON file)."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:87
-msgid "Wiederherstellung abgebrochen: Bestätigung fehlt."
+msgid "Restore cancelled: confirmation missing."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:97
-msgid "Vermieter (für Schreiben und Abrechnungen)"
+msgid "Landlord (for letters and statements)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:102
-msgid "IBAN (für Nachzahlungen)"
+msgid "IBAN (for amounts due)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:104
-msgid "Steuernummer (optional, für den Mietvertrag)"
+msgid "Tax number (optional, for the tenancy agreement)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:105
-msgid "Vertreten durch (optional, z. B. Hausverwaltung)"
+msgid "Represented by (optional, e.g. property manager)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:106
-msgid "SEPA-Gläubiger-Identifikationsnummer"
+msgid "SEPA creditor identifier"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:106
-msgid "Für Lastschriftmandate; bei der Bundesbank beantragen (kostenlos). Leer = kein SEPA-Mandat."
+msgid "For direct debit mandates; apply at the Bundesbank (free of charge). Empty = no SEPA mandate."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:109
-msgid "Erinnerungen"
+msgid "Reminders"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:112
-msgid "Tägliche E-Mail bei Hinweisen"
+msgid "Daily email for notices"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:115
-msgid "Ein"
+msgid "On"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:116
-msgid "Aus"
+msgid "Off"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:118
-msgid "Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-Prozent-Grenze. Nur wenn es etwas zu melden gibt."
+msgid "Missing rent, statement deadline, fixed-rate period, 15 percent limit. Only when there is something to report."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:120
-msgid "Empfänger"
+msgid "Recipient"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:123
-msgid "Mietrecht"
+msgid "Tenancy law"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:126
-msgid "Gebiet mit angespanntem Wohnungsmarkt"
+msgid "Area with a tight housing market"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:129
-msgid "Nein (Kappungsgrenze 20 %)"
+msgid "No (cap 20 %)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:130
-msgid "Ja (Kappungsgrenze 15 %)"
+msgid "Yes (cap 15 %)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:132
-msgid "Bayern: Mieterschutzverordnung – gilt u. a. für Fürth, Nürnberg, Erlangen und einige Umlandgemeinden; Zirndorf/Oberasbach/Stein prüfen."
+msgid "Bavaria: Tenant Protection Ordinance – applies e.g. to Fürth, Nuremberg, Erlangen and some surrounding municipalities; check Zirndorf/Oberasbach/Stein."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:134
-msgid "Zahlungsfrist Zahlungserinnerung (Tage)"
+msgid "Payment deadline, payment reminder (days)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:135
-msgid "Zahlungsfrist 1. Mahnung (Tage)"
+msgid "Payment deadline, 1st dunning letter (days)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:136
-msgid "Zahlungsfrist letzte Mahnung (Tage)"
+msgid "Payment deadline, final dunning letter (days)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:140
-msgid "Aufbewahrungsfrist nach Mietende (Jahre)"
+msgid "Retention period after end of tenancy (years)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:140
-msgid "10 Jahre für steuerrelevante Unterlagen (§ 147 AO), gerechnet ab Ende des Kalenderjahres."
+msgid "10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:143
-msgid "Deinstallation"
+msgid "Uninstall"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:146
-msgid "Beim Löschen des Plugins"
+msgid "When deleting the plugin"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:149
-msgid "Alle Daten behalten (Standard)"
+msgid "Keep all data (default)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:150
-msgid "Alle Tabellen und Einstellungen löschen"
+msgid "Delete all tables and settings"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:152
-msgid "Gilt nur für „Löschen“ auf der Plugin-Seite, nicht für „Deaktivieren“. Mediathek-Dateien bleiben in jedem Fall."
+msgid "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:158
@@ -2346,455 +2322,451 @@ msgid "Backup"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:159
-msgid "Alle Daten als JSON exportieren"
+msgid "Export all data as JSON"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:160
-msgid "Enthält alle Tabellen der Mietverwaltung und die Einstellungen – nicht die Dateien der Mediathek (diese über das normale WordPress-Backup sichern)."
+msgid "Contains all Rental Management tables and settings – not the media library files (back those up with your regular WordPress backup)."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:161
-msgid "Wiederherstellen"
+msgid "Restore"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:161
-msgid "Ich weiß, dass"
+msgid "I understand that"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:161
-msgid "alle vorhandenen Daten ersetzt"
+msgid "all existing data will be replaced"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:161
-msgid "werden."
+msgid "."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:81
-msgid "Keine Erhöhung möglich: Die ortsübliche Vergleichsmiete bzw. die Kappungsgrenze liegt nicht über der aktuellen Miete."
+msgid "No increase possible: the local reference rent or the cap is not above the current rent."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:83
-msgid "Ortsübliche Vergleichsmiete: %1$s €/m² × %2$s m² = %3$s. Kappungsgrenze (%4$d %% auf Miete vor 3 Jahren %5$s): %6$s. Zulässiges Maximum: %7$s."
+msgid "Local reference rent: %1$s €/m² × %2$s m² = %3$s. Cap (%4$d %% on rent 3 years ago %5$s): %6$s. Permitted maximum: %7$s."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:91
-msgid "Bitte beide Indexstände (VPI, Basis 2020 = 100) angeben."
+msgid "Please enter both index values (CPI, base 2020 = 100)."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:96
-msgid "Indexmiete: Die Miete muss mindestens ein Jahr unverändert gewesen sein (§ 557b Abs. 2 BGB)."
+msgid "Index-linked rent: the rent must have been unchanged for at least one year (§ 557b (2) BGB)."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:98
-msgid "VPI %1$s → %2$s = %3$+.2f %%. Neue Kaltmiete %4$s (bisher %5$s). Wirksam ab Beginn des übernächsten Monats nach Zugang: %6$s."
+msgid "CPI %1$s → %2$s = %3$+.2f %%. New base rent %4$s (previously %5$s). Effective from the start of the second month after receipt: %6$s."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:105
-msgid "Neue Kaltmiete angeben."
+msgid "Enter new base rent."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:107
-msgid "Einvernehmliche Änderung (§ 557 Abs. 1 BGB) bzw. vereinbarte Staffel (§ 557a BGB) – bedarf der Zustimmung des Mieters bzw. der Vereinbarung im Vertrag."
+msgid "Mutual amendment (§ 557 (1) BGB) or agreed stepped rent (§ 557a BGB) – requires the tenant's consent or an agreement in the contract."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:188
-msgid "Erhöhung gespeichert und neue Kondition angelegt."
+msgid "Increase saved and new rent condition created."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:188
-msgid "PDF öffnen"
+msgid "Open PDF"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:213
-msgid "Aktuelle Kaltmiete %1$s, Wohnfläche %2$s m², Mietbeginn %3$s%4$s"
+msgid "Current base rent %1$s, living area %2$s m², start of tenancy %3$s%4$s"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:218
-msgid "Ortsübliche Vergleichsmiete (§ 558 BGB)"
+msgid "Local reference rent (§ 558 BGB)"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:219
-msgid "Indexmiete (§ 557b BGB)"
+msgid "Index-linked rent (§ 557b BGB)"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:220
-msgid "Vereinbarung / Staffel"
+msgid "Agreement / stepped rent"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:225
-msgid "Zugang des Schreibens beim Mieter"
+msgid "Receipt of the letter by the tenant"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:228
-msgid "Ortsübliche Vergleichsmiete (€/m²)"
+msgid "Local reference rent (€/m²)"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:228
-msgid "Mietspiegel (Fürth/Nürnberg qualifiziert), drei Vergleichswohnungen oder Gutachten"
+msgid "Rent index (qualified for Fürth/Nuremberg), three comparable flats or expert opinion"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:229
-msgid "Gewünschte neue Kaltmiete (€)"
+msgid "Desired new base rent (€)"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:229
-msgid "leer = zulässiges Maximum"
+msgid "empty = permitted maximum"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:230 includes/class-mv-erhoehung.php:237
-msgid "Begründung"
+msgid "Justification"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:230
-msgid "z. B. „Mietspiegel der Stadt Fürth 2025, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“"
+msgid "e.g. “Fürth rent index 2025, field C3: €8.90–10.40/m², mean €9.60/m²”"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:232
-msgid "VPI bei letzter Mietfestsetzung"
+msgid "CPI at last rent setting"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:232
-msgid "Verbraucherpreisindex Deutschland, Basis 2020 = 100 (destatis)"
+msgid "Consumer price index Germany, base 2020 = 100 (Destatis)"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:233
-msgid "VPI aktuell"
+msgid "Current CPI"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:235
-msgid "Neue Kaltmiete (€)"
+msgid "New base rent (€)"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:240
-msgid "Prüfen"
+msgid "Check"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:251
-msgid "Bisher"
+msgid "Previously"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:251
-msgid "Neu ab %s"
+msgid "New from %s"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:251
-msgid "Erhöhung"
+msgid "Increase"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:252
-msgid "Kondition anlegen und Erhöhung speichern?"
+msgid "Create rent condition and save the increase?"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:252
-msgid "Erhöhung speichern, Kondition anlegen, Schreiben erzeugen"
+msgid "Save increase, create rent condition, generate letter"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:259
-msgid "Bisherige Erhöhungen"
+msgid "Previous increases"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:259
-msgid "Zugang"
+msgid "Received"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:259
-msgid "Alt"
+msgid "Old"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:259
-msgid "Neu"
+msgid "New"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:259
-msgid "Wirksam ab"
+msgid "Effective from"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:261
-msgid "Schreiben"
+msgid "Letter"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:285
-msgid "die Nettokaltmiete für die von Ihnen gemietete Wohnung beträgt derzeit"
+msgid "the net base rent for the flat you rent is currently"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:285
-msgid "monatlich. Hiermit verlange ich Ihre Zustimmung zur Erhöhung der Nettokaltmiete auf"
+msgid "per month. I hereby request your consent to an increase of the net base rent to"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:285
-msgid "monatlich mit Wirkung"
+msgid "per month with effect"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:285 includes/class-mv-erhoehung.php:295 includes/class-mv-erhoehung.php:303
-msgid "ab dem %s"
+msgid "from %s"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:286
-msgid "Begründung:"
+msgid "Justification:"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:290
-msgid "Die Miete ist seit mindestens 15 Monaten unverändert; die Kappungsgrenze (§ 558 Abs. 3 BGB) ist eingehalten. Die Vorauszahlungen bleiben unverändert, sodass die monatliche Gesamtmiete ab dem %s"
+msgid "The rent has been unchanged for at least 15 months; the cap (§ 558 (3) BGB) is observed. The advance payments remain unchanged, so the total monthly rent from %s"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:290
-msgid "beträgt."
+msgid "will be."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:291
-msgid "Bitte erteilen Sie Ihre Zustimmung bis zum Ablauf des zweiten Kalendermonats nach Zugang dieses Schreibens (§ 558b Abs. 2 BGB), indem Sie die beiliegende Kopie unterschrieben zurücksenden oder den erhöhten Betrag ab dem %s überweisen."
+msgid "Please give your consent by the end of the second calendar month after receipt of this letter (§ 558b (2) BGB) by returning the enclosed copy signed or by transferring the increased amount from %s."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:292
-msgid "Zustimmungserklärung"
+msgid "Declaration of consent"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:295
-msgid "gemäß der im Mietvertrag vereinbarten Indexmiete passe ich die Nettokaltmiete entsprechend der Entwicklung des Verbraucherpreisindex für Deutschland an. %s."
+msgid "in accordance with the index-linked rent agreed in the tenancy agreement, I am adjusting the net base rent in line with the consumer price index for Germany. %s."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:295
-msgid "Die Nettokaltmiete erhöht sich von"
+msgid "The net base rent increases from"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:295
-msgid "auf"
+msgid "per month"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:295
-msgid "monatlich"
-msgstr ""
-
-#: includes/class-mv-erhoehung.php:295
-msgid ". Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %s."
+msgid ". The total rent including advance payments will then be %s."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:299
-msgid "Einer Zustimmung bedarf es nicht; die Anpassung wird mit Beginn des übernächsten Monats nach Zugang dieses Schreibens wirksam (§ 557b Abs. 3 BGB). Bitte passen Sie Ihren Dauerauftrag entsprechend an."
+msgid "No consent is required; the adjustment takes effect at the start of the second month after receipt of this letter (§ 557b (3) BGB). Please adjust your standing order accordingly."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:302
-msgid "monatlich (bisher %1$s). Grund: %2$s. Die Gesamtmiete einschließlich Vorauszahlungen beträgt dann %3$s."
+msgid "per month (previously %1$s). Reason: %2$s. The total rent including advance payments will then be %3$s."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:303
-msgid "wie besprochen bzw. vertraglich vereinbart beträgt die Nettokaltmiete"
+msgid "as discussed or contractually agreed, the net base rent is"
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:303
-msgid "Bitte passen Sie Ihren Dauerauftrag entsprechend an."
+msgid "Please adjust your standing order accordingly."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:18
-msgid "Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer und Absender für Schreiben eintragen."
+msgid "Enter landlord details, bank account, creditor ID, tax number and sender for letters."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:19
-msgid "Objekt & Einheiten"
+msgid "Property & units"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:19
-msgid "Haus/Eigentumswohnung als Objekt anlegen (Baujahr, Heizungsart), darunter die Einheiten (Wohnung, Garage, Stellplatz) mit Fläche und Personen."
+msgid "Create the house/condominium as a property (year built, heating type), then the units beneath it (flat, garage, parking space) with area and persons."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:20
-msgid "Mieter erfassen – optional mit Ehe-/Lebenspartner als zweite Vertragspartei. Beide erscheinen automatisch in Vertrag, Schreiben und SEPA-Mandat."
+msgid "Enter tenants – optionally with spouse/partner as second contracting party. Both appear automatically in the agreement, letters and SEPA mandate."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:21
-msgid "Mietverhältnis & Konditionen"
+msgid "Tenancy & rent conditions"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:21
-msgid "Mietverhältnis = Mieter + Einheit + Beginn. Garage/Stellplatz als Zusatzeinheit anhängen, dann gibt es eine Gesamtmiete. Konditionen (Kaltmiete, Vorauszahlungen) mit Gültig-ab-Datum anlegen."
+msgid "Tenancy = tenant + unit + start date. Attach garage/parking as an additional unit to get one total rent. Create rent conditions (base rent, advance payments) with a valid-from date."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:22
-msgid "Anlagegut & Darlehen"
+msgid "Asset & loan"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:22
-msgid "Kaufpreis, Nebenkosten (Notar, Grundbuch, Grunderwerbsteuer, Makler) und Grundanteil erfassen – der Kaufvertrag als PDF kann direkt ausgelesen werden. Darlehen mit Zins, Tilgung und Rate anlegen."
+msgid "Enter purchase price, incidental costs (notary, land registry, transfer tax, agent) and land share – the purchase contract PDF can be parsed directly. Create loans with interest, repayment and instalment."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:23
-msgid "Laufender Betrieb"
+msgid "Day-to-day"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:23
-msgid "Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen, Belege fotografieren, Zählerstände erfassen. Am Jahresende: Betriebskostenabrechnung und Anlage V."
+msgid "Tick rent payments in the overview or import them from the bank, photograph receipts, record meter readings. At year end: service charge statement and Anlage V."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:33
-msgid "Zeigt offene Posten, fällige Aufgaben und Kennzahlen. Offene Mieten lassen sich per Häkchen als bezahlt buchen – die Zahlung wird zum 1. des Monats eingetragen."
+msgid "Shows open items, due tasks and key figures. Open rents can be booked as paid by ticking – the payment is recorded on the 1st of the month."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:34
-msgid "Mit „Fokusmodus“ wird das übrige WordPress-Menü ausgeblendet; die Einstellung gilt pro Benutzer."
+msgid "“Focus mode” hides the rest of the WordPress menu; the setting is per user."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:40
-msgid "Jede Zahlung gehört zu einem Mietverhältnis und einem Monat. Quelle: manuell, Bankimport oder abgehakt. Soll/Ist ergibt sich aus den Konditionen."
+msgid "Each payment belongs to a tenancy and a month. Source: manual, bank import or ticked. Due/paid is derived from the rent conditions."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:46
-msgid "Rechnungen mit Kostenart, Steuerjahr und Datei erfassen (am Handy direkt per Kamera). Die Kostenart entscheidet über Umlagefähigkeit (BetrKV) und die Zeile in Anlage V."
+msgid "Record invoices with cost type, tax year and file (directly via camera on your phone). The cost type determines recoverability (BetrKV) and the line in Anlage V."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:47
-msgid "Erhaltungsaufwand kann nach § 82b EStDV auf 2–5 Jahre verteilt werden; Handwerkerlohn (§ 35a) wird gesondert ausgewiesen."
+msgid "Maintenance expenses can be spread over 2–5 years under § 82b EStDV; tradesmen's labour (§ 35a) is shown separately."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:53
-msgid "CSV- oder CAMT.053-Export der Bank einlesen. Regeln ordnen Buchungen anhand von IBAN oder Verwendungszweck automatisch einem Mietverhältnis oder einer Kostenart zu; Duplikate werden erkannt."
+msgid "Import the bank's CSV or CAMT.053 export. Rules automatically assign transactions to a tenancy or cost type by IBAN or reference; duplicates are detected."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:59
-msgid "Schadens- und Mängelmeldungen der Mieter aus dem Mieterportal mit Status und Verlauf."
+msgid "Damage and defect reports from tenants via the tenant portal, with status and history."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:65
-msgid "Ablage für Verträge, Protokolle, Schreiben und Abrechnungen. Mit „für Mieter sichtbar“ erscheint das Dokument im Mieterportal."
+msgid "Storage for agreements, protocols, letters and statements. With “visible to tenant” the document appears in the tenant portal."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:71
-msgid "Ein Objekt ist ein Haus oder eine Eigentumswohnung. Baujahr bestimmt den gesetzlichen AfA-Satz; Heizungsart und Verbrauchsanteil steuern die Heizkostenverteilung (HeizkostenV 50–70 %)."
+msgid "A property is a house or a condominium. Year built determines the statutory depreciation rate; heating type and consumption share control heating cost allocation (HeizkostenV 50–70 %)."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:77
-msgid "Wohnung, Garage oder Stellplatz innerhalb eines Objekts. Fläche und Personen werden für Umlageschlüssel verwendet."
+msgid "Flat, garage or parking space within a property. Area and persons are used for allocation keys."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:83
-msgid "Stammdaten des Mieters. Ehe-/Lebenspartner optional als Mitmieter – dann haften beide gesamtschuldnerisch und werden überall automatisch genannt. Ein verknüpfter WordPress-Benutzer erhält Zugang zum Mieterportal."
+msgid "Tenant master data. Spouse/partner optionally as co-tenant – both are then jointly and severally liable and named automatically everywhere. A linked WordPress user gets access to the tenant portal."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:89
-msgid "Verbindet Mieter und Einheit mit Beginn, Ende und Kaution. Zusatzeinheiten (Garage, Stellplatz) mit eigenem Mietanteil ergeben eine Gesamtmiete und eine Buchung."
+msgid "Links tenant and unit with start, end and deposit. Additional units (garage, parking) with their own rent share result in one total rent and one booking."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:95
-msgid "Kaltmiete und Vorauszahlungen (Betriebs-/Heizkosten) mit Gültig-ab-Datum. Bei Änderung neue Kondition anlegen, nicht die alte überschreiben – so bleibt die Historie erhalten."
+msgid "Base rent and advance payments (service/heating) with a valid-from date. For changes create a new condition rather than overwriting the old one – this preserves the history."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:101
-msgid "Erzeugt einen vollständigen Wohnraummietvertrag (20 §§) aus den Stammdaten, dazu Hausordnung, Merkblatt, Datenschutzinformation, SEPA-Mandat und Übergabeprotokoll – als PDF oder Druckansicht, auf Wunsch direkt in den Dokumenten abgelegt."
+msgid "Generates a complete residential tenancy agreement (20 sections) from the master data, plus house rules, information sheet, privacy notice, SEPA mandate and handover protocol – as PDF or print view, optionally filed directly under Documents."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:102
-msgid "Die Optionen (Befristung, Staffel/Index, Kleinreparaturen, Tiere, Schönheitsreparaturen …) werden je Mietverhältnis gespeichert."
+msgid "The options (fixed term, stepped/index rent, minor repairs, pets, decorative repairs …) are saved per tenancy."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:108
-msgid "Kautionskonto nach § 551 BGB: Einzahlungen (bis 3 Raten), taggenaue Verzinsung, Abrechnung bei Auszug."
+msgid "Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:114
-msgid "Erhöhung nach § 558 BGB (Vergleichsmiete, Kappungsgrenze 15/20 %, Sperrfrist) oder § 557b (Index). Erzeugt das Schreiben und legt nach Zustimmung die neue Kondition an."
+msgid "Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:120
-msgid "Drei Mahnstufen mit Fristen und Texten. Schreiben als PDF, optional per E-Mail an Mieter und Mitmieter."
+msgid "Three dunning levels with deadlines and texts. Letters as PDF, optionally by email to tenant and co-tenant."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:126
-msgid "Strom-, Gas-, Wasser- und Wärmezähler je Einheit oder Objekt (Allgemeinstrom)."
+msgid "Electricity, gas, water and heat meters per unit or property (communal electricity)."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:132
-msgid "Ablesungen mit Datum. Mieter können Stände selbst im Portal melden (Quelle „Mieter“)."
+msgid "Readings with date. Tenants can submit readings themselves in the portal (source “Tenant”)."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:138
-msgid "Jahresabrechnung nach BetrKV: Belege des Jahres werden nach Schlüssel (Fläche, Personen, Einheiten, Verbrauch) verteilt, zeitanteilig bei Mieterwechsel; Leerstand trägt der Vermieter. Vorauszahlungen werden gegengerechnet, § 35a-Anteile ausgewiesen."
+msgid "Annual statement under BetrKV: the year's receipts are allocated by key (area, persons, units, consumption), pro rata on tenant change; vacancy is borne by the landlord. Advance payments are offset, § 35a shares are shown."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:139
-msgid "Fertige Abrechnung als Schreiben (PDF) erzeugen, in Dokumenten ablegen und im Portal freigeben. Vorauszahlung kann direkt angepasst werden."
+msgid "Generate the finished statement as a letter (PDF), file it under Documents and release it in the portal. The advance payment can be adjusted directly."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:145
-msgid "Katalog nach BetrKV § 2 (vorbelegt) plus eigene Arten. Je Kostenart: umlagefähig ja/nein, Umlageschlüssel, Zeile in Anlage V."
+msgid "Catalogue per BetrKV § 2 (pre-filled) plus your own types. Per cost type: recoverable yes/no, allocation key, line in Anlage V."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:149
-msgid "Anlagegüter (AfA)"
+msgid "Assets (depreciation)"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:151
-msgid "Gebäude mit Anschaffungskosten, einzelnen Nebenkosten (Grunderwerbsteuer, Notar, Grundbuch, Makler, Sonstiges) und Grundanteil. AfA linear nach § 7 Abs. 4 EStG (2 %, 2,5 % vor 1925, 3 % ab 2023) oder degressiv, zeitanteilig im ersten Jahr."
+msgid "Building with acquisition costs, itemised incidental costs (transfer tax, notary, land registry, agent, other) and land share. Depreciation straight-line under § 7 (4) EStG (2 %, 2.5 % before 1925, 3 % from 2023) or declining balance, pro rata in the first year."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:152
-msgid "Der Kaufvertrag kann als PDF hochgeladen werden; Kaufpreis, Datum und Nebenkosten werden daraus vorgeschlagen. Der 15-%-Wächter warnt vor anschaffungsnahem Herstellungsaufwand (§ 6 Abs. 1 Nr. 1a EStG)."
+msgid "The purchase contract can be uploaded as PDF; purchase price, date and incidental costs are suggested from it. The 15 % guard warns of acquisition-related construction costs (§ 6 (1) no. 1a EStG)."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:158
-msgid "Finanzierungsdarlehen mit Zinssatz, Tilgung, Rate und Zinsbindung. Daraus entsteht der Tilgungsplan."
+msgid "Financing loans with interest rate, repayment, instalment and fixed-rate period. The repayment schedule is derived from these."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:164
-msgid "Tilgungsplan mit Raten zum Abhaken, Sondertilgungen und Restschuld. Abgehakte Raten liefern die Jahreszinsen für Anlage V, sofern keine Zinsbescheinigung eingetragen ist."
+msgid "Repayment schedule with instalments to tick off, extra repayments and outstanding balance. Ticked instalments provide the annual interest for Anlage V unless an interest certificate is entered."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:170
-msgid "Jahreswerte laut Bankbescheinigung (Zinsen, Tilgung, Restschuld). Haben Vorrang vor den berechneten Werten."
+msgid "Annual figures per bank certificate (interest, repayment, balance). Take precedence over calculated values."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:176
-msgid "Jahresauswertung je Objekt: Einnahmen, Werbungskosten nach Zeilen der Anlage V, AfA, Schuldzinsen, Vorjahresvergleich. Export als CSV; Zeilenzuordnung anpassbar."
+msgid "Annual report per property: income, expenses by Anlage V line, depreciation, loan interest, prior-year comparison. CSV export; line mapping adjustable."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:182
-msgid "Zuordnungsregeln für den Bankimport: Suchbegriff oder IBAN → Mietverhältnis oder Kostenart."
+msgid "Matching rules for the bank import: search term or IBAN → tenancy or cost type."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:188
-msgid "Beendete Mietverhältnisse nach Ablauf der Aufbewahrungsfristen anonymisieren, Auskunft nach Art. 15 DSGVO exportieren. Löschkonzept und Fristen im Überblick."
+msgid "Anonymise ended tenancies after the retention periods expire, export access reports under Art. 15 GDPR. Overview of deletion concept and deadlines."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:194
-msgid "Legt in fünf Schritten Vermieter, Objekt, Einheiten (Wohnung + Garage), Mieter und Mietverhältnis mit Konditionen an. Jeder Schritt speichert sofort; der Assistent kann jederzeit erneut aufgerufen werden, um die Angaben zu ergänzen."
+msgid "Creates landlord, property, units (flat + garage), tenant and tenancy with rent conditions in five steps. Each step saves immediately; the wizard can be reopened at any time to complete the entries."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:200
-msgid "Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer, Mahn- und Portaloptionen. Backup aller Plugin-Tabellen als JSON, Wiederherstellung, Option „Daten bei Deinstallation löschen“."
+msgid "Landlord details, bank account, creditor ID, tax number, dunning and portal options. Backup of all plugin tables as JSON, restore, option “delete data on uninstall”."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:204
-msgid "Mieterportal"
+msgid "Tenant portal"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:206
-msgid "Shortcode [mietfux_portal] auf einer Seite einfügen. Angemeldete Mieter (verknüpfter WordPress-Benutzer) sehen Abrechnungen und freigegebene Dokumente, melden Schäden und Zählerstände."
+msgid "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:215
-msgid "Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag und Mieterportal in einem Plugin. Auf jeder Seite finden Sie oben rechts unter „Hilfe“ eine Kurzbeschreibung."
+msgid "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:217
-msgid "Schnellstart"
+msgid "Quick start"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:217
-msgid "Einrichtungsassistent starten"
+msgid "Start setup wizard"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:217
-msgid "– führt durch die Schritte 1 bis 4 und legt das erste Mietverhältnis an."
+msgid "– guides through steps 1 to 4 and creates the first tenancy."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:223
-msgid "Module"
+msgid "Modules"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:234
-msgid "Rechtliche Hinweise"
+msgid "Legal notes"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:235
-msgid "Das Plugin ersetzt keine Rechts- oder Steuerberatung. Vertragsmuster, Berechnungen und Fristen beruhen auf der Rechtslage in Deutschland (BGB, BetrKV, HeizkostenV, EStG) und sind vor Verwendung zu prüfen. Alle Daten bleiben in Ihrer WordPress-Datenbank; es werden keine Daten an Dritte übertragen."
+msgid "The plugin does not replace legal or tax advice. Contract templates, calculations and deadlines are based on German law (BGB, BetrKV, HeizkostenV, EStG) and must be checked before use. All data stays in your WordPress database; no data is transmitted to third parties."
 msgstr ""
 
 #: includes/class-mv-hilfe.php:236
@@ -2802,363 +2774,363 @@ msgid "Version"
 msgstr ""
 
 #: includes/class-mv-hilfe.php:259
-msgid "Alle Hilfethemen"
+msgid "All help topics"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:42
-msgid "Keine Konditionen für "
+msgid "No rent conditions for "
 msgstr ""
 
 #: includes/class-mv-hinweise.php:52
-msgid "Miete %1$s fehlt oder unvollständig: %2$s (Soll %3$s, Ist %4$s)"
+msgid "Rent %1$s missing or incomplete: %2$s (due %3$s, paid %4$s)"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:60
-msgid "Rückstand %1$s bei %2$s"
+msgid "Arrears %1$s for %2$s"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:78
-msgid "Betriebskostenabrechnung %1$d für %2$s noch nicht fertiggestellt – Frist 31.12.%3$d (§ 556 Abs. 3 BGB), noch %4$d Tage"
+msgid "Service charge statement %1$d for %2$s not yet finalised – deadline 31 Dec %3$d (§ 556 (3) BGB), %4$d days left"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:90
-msgid "Zinsbindung %1$s endet am %2$s (%3$d Tage) – Anschlussfinanzierung prüfen"
+msgid "Fixed-rate period %1$s ends on %2$s (%3$d days) – check follow-up financing"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:99
-msgid "Zinsbescheinigung %1$d für Darlehen %2$s noch nicht erfasst"
+msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:111
-msgid "Anschaffungsnahe Herstellungskosten überschritten bei %1$s (%2$s netto > %3$s)"
+msgid "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:117
-msgid "15-%%-Grenze bei %1$s zu %2$s %% ausgeschöpft (Frist bis %3$s)"
+msgid "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:139
-msgid "Aufbewahrungsfrist abgelaufen: Mieterdaten „"
+msgid "Retention period expired: tenant data “"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:152
-msgid "Mietverhältnis %1$s endet am %2$s – Übergabe, Kaution, Zählerstände vorbereiten"
+msgid "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:173
-msgid ": Saldo"
+msgid ": balance"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:178
-msgid "✅ Keine offenen Hinweise."
+msgid "✅ No open notices."
 msgstr ""
 
 #: includes/class-mv-hinweise.php:191
-msgid "Zu Mietfux"
+msgid "Go to Mietfux"
 msgstr ""
 
 #: includes/class-mv-kaution.php:20
-msgid "Einzahlung Mieter"
+msgid "Payment by tenant"
 msgstr ""
 
 #: includes/class-mv-kaution.php:21
-msgid "Zinsgutschrift"
+msgid "Interest credit"
 msgstr ""
 
 #: includes/class-mv-kaution.php:22
-msgid "Verrechnung mit Forderung"
+msgid "Offset against claim"
 msgstr ""
 
 #: includes/class-mv-kaution.php:23
-msgid "Auszahlung an Mieter"
+msgid "Payout to tenant"
 msgstr ""
 
 #: includes/class-mv-kaution.php:131
-msgid "Kautionskonto"
+msgid "Deposit account"
 msgstr ""
 
 #: includes/class-mv-kaution.php:132
-msgid "Die Kaution ist getrennt vom Vermögen des Vermieters zum üblichen Zinssatz für Spareinlagen mit dreimonatiger Kündigungsfrist anzulegen; die Zinsen stehen dem Mieter zu (§ 551 Abs. 3 BGB). Rückzahlung nach Mietende und angemessener Prüffrist (i. d. R. 3–6 Monate), abzüglich berechtigter Forderungen."
+msgid "The deposit must be invested separately from the landlord's assets at the usual rate for savings deposits with three months' notice; the interest belongs to the tenant (§ 551 (3) BGB). Repayment after the end of the tenancy and a reasonable review period (usually 3–6 months), less justified claims."
 msgstr ""
 
 #: includes/class-mv-kaution.php:147
-msgid "Vereinbart (§ 551)"
+msgid "Agreed (§ 551)"
 msgstr ""
 
 #: includes/class-mv-kaution.php:147
-msgid "Eingezahlt"
+msgid "Paid in"
 msgstr ""
 
 #: includes/class-mv-kaution.php:147
-msgid "Zinsen gutgeschrieben"
+msgid "Interest credited"
 msgstr ""
 
 #: includes/class-mv-kaution.php:147 includes/class-mv-portal.php:199
-msgid "Kontostand"
+msgid "Account balance"
 msgstr ""
 
 #: includes/class-mv-kaution.php:147
-msgid "Mietkonto-Saldo"
+msgid "Rent account balance"
 msgstr ""
 
 #: includes/class-mv-kaution.php:162
-msgid "Buchung löschen?"
+msgid "Delete booking?"
 msgstr ""
 
 #: includes/class-mv-kaution.php:175
-msgid "Noch keine Buchung."
+msgid "No entries yet."
 msgstr ""
 
 #: includes/class-mv-kaution.php:179
-msgid "Buchung erfassen"
+msgid "Record entry"
 msgstr ""
 
 #: includes/class-mv-kaution.php:187
-msgid "Zinsen gutschreiben"
+msgid "Credit interest"
 msgstr ""
 
 #: includes/class-mv-kaution.php:189
-msgid "Zinssatz"
+msgid "Interest rate"
 msgstr ""
 
 #: includes/class-mv-kaution.php:189
-msgid "%% p. a. bis Stichtag"
+msgid "%% p.a. up to reference date"
 msgstr ""
 
 #: includes/class-mv-kaution.php:189
-msgid "Taggenau berechnen und buchen"
+msgid "Calculate daily and book"
 msgstr ""
 
 #: includes/class-mv-kaution.php:189
-msgid "Zinssatz laut Kautionskonto/Sparbuch der Bank. Berechnung seit der letzten Zinsgutschrift auf den jeweiligen Kontostand (act/365)."
+msgid "Interest rate per the bank's deposit account/savings book. Calculated since the last interest credit on the respective balance (act/365)."
 msgstr ""
 
 #: includes/class-mv-kaution.php:193
-msgid "Rückzahlungsabrechnung"
+msgid "Repayment settlement"
 msgstr ""
 
 #: includes/class-mv-kaution.php:197
-msgid "Kontostand %1$s − offener Mietrückstand %2$s ="
+msgid "Balance %1$s − open rent arrears %2$s ="
 msgstr ""
 
 #: includes/class-mv-kaution.php:198
-msgid "%1$s. Weitere Abzüge (Schäden, nicht ausgeführte Schönheitsreparaturen, Nachzahlung aus der letzten Betriebskostenabrechnung – bisher freigegeben %2$s) als „Verrechnung“ buchen, dann Abrechnung erzeugen."
+msgid "%1$s. Book further deductions (damage, decorative repairs not carried out, amount due from the last service charge statement – released so far %2$s) as “Offset”, then generate the settlement."
 msgstr ""
 
 #: includes/class-mv-kaution.php:198
-msgid " (Restforderung gegen den Mieter)"
+msgid " (remaining claim against the tenant)"
 msgstr ""
 
 #: includes/class-mv-kaution.php:198
-msgid " Auszahlungsbetrag"
+msgid " Payout amount"
 msgstr ""
 
 #: includes/class-mv-kaution.php:208
-msgid "Kautionsabrechnung (PDF)"
+msgid "Deposit settlement (PDF)"
 msgstr ""
 
 #: includes/class-mv-kaution.php:208 includes/class-mv-mietvertrag.php:158 includes/class-mv-mietvertrag.php:158
-msgid "… ablegen"
+msgid "… file"
 msgstr ""
 
 #: includes/class-mv-kaution.php:208
-msgid "Mietverhältnis läuft noch – Abrechnung erst nach Rückgabe."
+msgid "Tenancy still running – settlement only after return of the flat."
 msgstr ""
 
 #: includes/class-mv-kaution.php:235
-msgid "das Mietverhältnis über die Wohnung %1$s / %2$s %3$s. Hiermit rechne ich die von Ihnen geleistete Mietsicherheit ab:"
+msgid "the tenancy of the flat %1$s / %2$s %3$s. I hereby settle the deposit you provided:"
 msgstr ""
 
 #: includes/class-mv-kaution.php:236
-msgid "Buchung"
+msgid "Entry"
 msgstr ""
 
 #: includes/class-mv-kaution.php:240
-msgid "Kontostand einschließlich Zinsen"
+msgid "Balance including interest"
 msgstr ""
 
 #: includes/class-mv-kaution.php:242
-msgid "abzüglich offener Mietforderungen laut Mietkonto"
+msgid "less open rent claims per rent account"
 msgstr ""
 
 #: includes/class-mv-kaution.php:244
-msgid "Auszahlungsbetrag"
+msgid "Payout amount"
 msgstr ""
 
 #: includes/class-mv-kaution.php:244
-msgid "Verbleibende Forderung gegen Sie"
+msgid "Remaining claim against you"
 msgstr ""
 
 #: includes/class-mv-kaution.php:246
-msgid "Der Betrag wird innerhalb von 14 Tagen auf das mir mitgeteilte Konto überwiesen. Sollte mir noch keine Bankverbindung vorliegen, bitte ich um Mitteilung."
+msgid "The amount will be transferred within 14 days to the account you have given me. If I do not yet have your bank details, please let me know."
 msgstr ""
 
 #: includes/class-mv-kaution.php:248
-msgid "Bitte überweisen Sie den verbleibenden Betrag von %s innerhalb von 14 Tagen."
+msgid "Please transfer the remaining amount of %s within 14 days."
 msgstr ""
 
 #: includes/class-mv-kaution.php:250
-msgid "Mit dieser Abrechnung sind alle Ansprüche aus der Mietsicherheit abgegolten. Eine ausstehende Betriebskostenabrechnung für das letzte Nutzungsjahr bleibt vorbehalten, soweit nicht bereits berücksichtigt."
+msgid "This settlement discharges all claims arising from the deposit. An outstanding service charge statement for the last year of use remains reserved unless already taken into account."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:19
-msgid "Zahlungserinnerung"
+msgid "Payment reminder"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:20
-msgid "1. Mahnung"
+msgid "1st dunning letter"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:21 includes/class-mv-mahnung.php:30
-msgid "Letzte Mahnung"
+msgid "Final dunning letter"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:28
-msgid "Verzug tritt ohne Mahnung ein, wenn die Miete zum vereinbarten Zahltag nicht eingeht (§ 286 Abs. 2 Nr. 1 BGB). Eine Zahlungserinnerung ist dennoch üblich. Fristlose Kündigung ist bei Rückstand von zwei Monatsmieten möglich (§ 543 Abs. 2 Nr. 3 BGB) – vorher anwaltlich prüfen lassen."
+msgid "Default occurs without a reminder if the rent is not received by the agreed payment day (§ 286 (2) no. 1 BGB). A payment reminder is nevertheless customary. Termination without notice is possible with arrears of two months' rent (§ 543 (2) no. 3 BGB) – have this checked by a lawyer first."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:30
-msgid "Monatsmiete"
+msgid "Monthly rent"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:30
-msgid "Rückstand in Monaten"
+msgid "Arrears in months"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:48
-msgid "⚠ ≥ 2 Monatsmieten"
+msgid "⚠ ≥ 2 months' rent"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:54
-msgid "%s jetzt per E-Mail senden?"
+msgid "Send %s by e-mail now?"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:59
-msgid "Keine Rückstände – alle Mietkonten ausgeglichen."
+msgid "No arrears – all rent accounts balanced."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:65
-msgid "Verlauf"
+msgid "History"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:65
-msgid "Stufe"
+msgid "Level"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:65
-msgid "Frist"
+msgid "Deadline"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:89 includes/class-mv-mietvertrag.php:476
-msgid "Mietverhältnis nicht gefunden."
+msgid "Tenancy not found."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:207
-msgid "Gezahlt"
+msgid "Paid"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:104
-msgid "Gesamtrückstand"
+msgid "Total arrears"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:112
-msgid "Sicher handelt es sich um ein Versehen. Bitte überweisen Sie den offenen Betrag von"
+msgid "This is surely an oversight. Please transfer the outstanding amount of"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:112
-msgid ". Sollte die Zahlung bereits erfolgt sein, betrachten Sie dieses Schreiben als gegenstandslos."
+msgid ". If payment has already been made, please disregard this letter."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:117
-msgid "Ich fordere Sie auf, den Betrag von"
+msgid "I request that you transfer the amount of"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:117
-msgid "bis spätestens"
+msgid "by no later than"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:117
-msgid "zu überweisen. Sie befinden sich mit den Zahlungen in Verzug (§ 286 Abs. 2 Nr. 1 BGB); ab Fälligkeit sind Verzugszinsen geschuldet (§ 288 BGB)."
+msgid ". You are in default with your payments (§ 286 (2) no. 1 BGB); default interest is owed from the due date (§ 288 BGB)."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:122
-msgid "Der Rückstand beträgt inzwischen mehr als zwei Monatsmieten. Ich weise Sie darauf hin, dass ich in diesem Fall berechtigt bin, das Mietverhältnis fristlos zu kündigen (§ 543 Abs. 2 Satz 1 Nr. 3 BGB)."
+msgid "The arrears now exceed two months' rent. I would point out that in this case I am entitled to terminate the tenancy without notice (§ 543 (2) sentence 1 no. 3 BGB)."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:123
-msgid "Nach fruchtlosem Ablauf der Frist werde ich den Rückstand gerichtlich geltend machen (Mahnbescheid). Die dadurch entstehenden Kosten gehen zu Ihren Lasten."
+msgid "If the deadline passes without payment, I will pursue the arrears through the courts (order for payment). The resulting costs will be charged to you."
 msgstr ""
 
 #: includes/class-mv-mahnung.php:125
-msgid "Ich setze Ihnen eine"
+msgid "I am setting you a"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:125
-msgid "letzte Frist bis zum %s"
+msgid "final deadline of %s"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:125
-msgid ", den Betrag von"
+msgid " to pay the amount of"
 msgstr ""
 
 #: includes/class-mv-mahnung.php:125
-msgid "vollständig zu zahlen."
+msgid "in full."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:39
-msgid "SEPA-Basislastschriftmandat"
+msgid "SEPA core direct debit mandate"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:40
-msgid "Zahlungsempfänger (Gläubiger):"
+msgid "Payee (creditor):"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:40
-msgid "Gläubiger-Identifikationsnummer:"
+msgid "Creditor identifier:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:40
-msgid "Mandatsreferenz:"
+msgid "Mandate reference:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:40
-msgid "Art der Zahlung:"
+msgid "Type of payment:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:40
-msgid "wiederkehrende Zahlung"
+msgid "recurring payment"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:41
-msgid "Ich ermächtige %1$s, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von %2$s auf mein Konto gezogenen Lastschriften einzulösen."
+msgid "I authorise %1$s to collect payments from my account by direct debit. At the same time I instruct my bank to honour the direct debits drawn on my account by %2$s."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:42
-msgid "Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen."
+msgid "Note: I may request a refund of the debited amount within eight weeks from the debit date. The terms agreed with my bank apply."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:43
-msgid "Verwendungszweck:"
+msgid "Purpose:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:43
-msgid "Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt."
+msgid "Monthly rent including advance payments for the flat %1$s, %2$s, %3$s %4$s – currently %5$s, due on the %6$d. working day of the month. Changes to the amount (rent adjustment, new advance payments) will be notified at least 14 days before collection."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:45
-msgid "Kontoinhaber"
+msgid "Account holder"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:45
-msgid "Straße, Hausnummer"
+msgid "Street, house number"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:45
-msgid "PLZ, Ort"
+msgid "Postcode, town"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:45
-msgid "Kreditinstitut"
+msgid "Credit institution"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:45
@@ -3170,667 +3142,663 @@ msgid "BIC"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:62
-msgid "Kellerabteil"
+msgid "Cellar compartment"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:64
-msgid "2 Haustürschlüssel, 2 Wohnungsschlüssel, 1 Briefkastenschlüssel"
+msgid "2 front door keys, 2 flat keys, 1 letterbox key"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:142
-msgid "Vertragsoptionen gespeichert."
+msgid "Contract options saved."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:144
-msgid "Hinweis:"
+msgid "Note:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:144
-msgid "Der Vertrag wird aus den Daten des Mietverhältnisses (Parteien, Wohnung, Miete, Kaution, Beginn, Ende) und den Optionen unten erzeugt. Die Klauseln folgen dem BGB und der BGH-Rechtsprechung (Stand 2026). Vor Verwendung bei besonderen Konstellationen (Gewerbe, WG, möbliert, Mietpreisbremse) rechtlich prüfen lassen."
+msgid "The agreement is generated from the tenancy data (parties, flat, rent, deposit, start, end) and the options below. The clauses follow the BGB and Federal Court of Justice case law (as of 2026). Have it checked legally before use in special situations (commercial, shared flat, furnished, rent cap)."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:158
-msgid "Mietvertrag (PDF)"
+msgid "Tenancy agreement (PDF)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:158
-msgid "Übergabeprotokoll Einzug"
+msgid "Handover protocol move-in"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:158
-msgid "Übergabeprotokoll Auszug"
+msgid "Handover protocol move-out"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:158
-msgid "Datenschutzinformation"
+msgid "Privacy notice"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:158
-msgid "SEPA-Lastschriftmandat"
+msgid "SEPA direct debit mandate"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:158
-msgid "HTML-Ansicht"
+msgid "HTML view"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:163
-msgid "Vertragsoptionen"
+msgid "Contract options"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:180
-msgid "Weitere Mieter (Name, Geburtsdatum)"
+msgid "Additional tenants (name, date of birth)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:180
-msgid "Nur für dritte Personen – der beim Mieter hinterlegte Ehe-/Lebenspartner wird automatisch aufgenommen. Alle Mieter haften gesamtschuldnerisch."
+msgid "For third parties only – the spouse/partner stored with the tenant is included automatically. All tenants are jointly and severally liable."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:181
-msgid "Räume"
-msgstr ""
-
-#: includes/class-mv-mietvertrag.php:181
-msgid "z. B. 3 Zimmer, Küche, Bad mit WC, Flur, Balkon"
+msgid "e.g. 3 rooms, kitchen, bathroom with WC, hallway, balcony"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:182
-msgid "Nebenräume / Stellplatz"
+msgid "Ancillary rooms / parking"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:183
-msgid "Mitvermietete Ausstattung"
+msgid "Fixtures included"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:183
-msgid "z. B. Einbauküche (Hersteller, Baujahr), Waschmaschinenanschluss"
+msgid "e.g. fitted kitchen (manufacturer, year), washing machine connection"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:184
-msgid "Übergebene Schlüssel"
+msgid "Keys handed over"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:185
-msgid "Befristungsgrund (nur bei Mietende)"
+msgid "Reason for fixed term (only with end date)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:185
-msgid "Zeitmietvertrag nur mit Grund nach § 575 BGB: Eigenbedarf, Abriss/Umbau, Werkswohnung. Ohne Grund gilt der Vertrag als unbefristet."
+msgid "Fixed-term agreement only with a reason under § 575 BGB: own use, demolition/conversion, company flat. Without a reason the agreement is deemed open-ended."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:188
-msgid "Mietart"
+msgid "Rent type"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:190
-msgid "Vergleichsmiete (Erhöhung nach § 558)"
+msgid "Reference rent (increase under § 558)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:191
-msgid "Staffelmiete (§ 557a)"
+msgid "Stepped rent (§ 557a)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:192
-msgid "Indexmiete (§ 557b)"
+msgid "Index-linked rent (§ 557b)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:195
-msgid "Staffeln (bei Staffelmiete)"
+msgid "Steps (for stepped rent)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:195
-msgid "Je Zeile: Datum;Kaltmiete – z. B. 2027-01-01;650,00. Zwischen den Staffeln mindestens ein Jahr."
+msgid "One per line: date;base rent – e.g. 2027-01-01;650.00. At least one year between steps."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:198
-msgid "Kaution zahlbar in"
+msgid "Deposit payable in"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:200
-msgid "einer Summe"
+msgid "one sum"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:201
-msgid "drei Monatsraten (§ 551 Abs. 2)"
+msgid "three monthly instalments (§ 551 (2))"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:203
-msgid "Höchstens drei Nettokaltmieten; Betrag aus dem Mietverhältnis."
+msgid "Maximum three months' net base rent; amount from the tenancy."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:205
-msgid "Kleinreparaturen: Höchstbetrag je Fall (€)"
+msgid "Minor repairs: maximum per case (€)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:205
-msgid "Rechtsprechung: ca. 100–150 €. Nur Teile mit häufigem direktem Zugriff des Mieters."
+msgid "Case law: approx. €100–150. Only parts frequently accessed directly by the tenant."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:206
-msgid "Kleinreparaturen: Höchstbetrag je Jahr (% der Jahreskaltmiete)"
+msgid "Minor repairs: maximum per year (% of annual base rent)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:206
-msgid "Üblich 6–8 %, oft zusätzlich gedeckelt (hier: und maximal 8 Fälle × Einzelbetrag)."
+msgid "Usually 6–8 %, often additionally capped (here: and at most 8 cases × single amount)."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:209
-msgid "Zustand bei Übergabe"
+msgid "Condition at handover"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:211
-msgid "renoviert – Schönheitsreparaturen trägt der Mieter nach Bedarf"
+msgid "renovated – tenant bears decorative repairs as needed"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:212
-msgid "unrenoviert"
+msgid "unrenovated"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:212
-msgid "unrenoviert – keine Schönheitsreparaturklausel (BGH VIII ZR 185/14)"
+msgid "unrenovated – no decorative repairs clause (BGH VIII ZR 185/14)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:217
-msgid "Tierhaltung"
+msgid "Pets"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:219
-msgid "Kleintiere frei, sonst Zustimmung (Standard)"
+msgid "Small animals allowed, otherwise consent (default)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:220
-msgid "Haustiere gestattet"
+msgid "Pets permitted"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:222
-msgid "Ein generelles Verbot ist unwirksam (BGH VIII ZR 168/12)."
+msgid "A blanket ban is invalid (BGH VIII ZR 168/12)."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:224
-msgid "Untervermietung"
+msgid "Subletting"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:224
-msgid "nur mit Zustimmung (§ 540), berechtigtes Interesse § 553 bleibt"
+msgid "only with consent (§ 540), legitimate interest under § 553 remains"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:227
-msgid "Beiderseitiger Kündigungsverzicht"
+msgid "Mutual waiver of termination"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:229
-msgid "keiner"
+msgid "none"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:230
-msgid "1 Jahr"
+msgid "1 year"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:231
-msgid "2 Jahre"
+msgid "2 years"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:232
-msgid "3 Jahre"
+msgid "3 years"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:233
-msgid "4 Jahre (Maximum)"
+msgid "4 years (maximum)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:235
-msgid "Formularvertraglich höchstens 4 Jahre ab Vertragsschluss (BGH VIII ZR 86/10)."
+msgid "In standard-form contracts at most 4 years from signing (BGH VIII ZR 86/10)."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:239
-msgid "Rauchen in der Wohnung"
+msgid "Smoking in the flat"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:241
-msgid "Bitte unterlassen (nicht verbindlich untersagbar)"
+msgid "Please refrain (cannot be bindingly prohibited)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:242
-msgid "keine Regelung"
+msgid "no provision"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:247
-msgid "Hausordnung als Anlage"
+msgid "House rules as annex"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:249 includes/class-mv-mietvertrag.php:311
-msgid "ja"
+msgid "yes"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:250 includes/class-mv-mietvertrag.php:261 includes/class-mv-mietvertrag.php:312
-msgid "nein"
+msgid "no"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:253
-msgid "Art (Bedarf/Verbrauch), Kennwert kWh/(m²·a), Effizienzklasse, Ausstellungsdatum – Vorlagepflicht § 80 GEG."
+msgid "Type (demand/consumption), value kWh/(m²·a), efficiency class, issue date – must be presented under § 80 GEG."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:254
-msgid "Vormiete (nur bei Mietpreisbremse, § 556g Abs. 1a)"
+msgid "Previous rent (rent cap areas only, § 556g (1a))"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:254
-msgid "Nur in Gebieten der bayerischen Mieterschutzverordnung: Auskunft über die Vormiete, wenn die Miete über Vergleichsmiete + 10 % liegt."
+msgid "Only in areas covered by the Bavarian Tenant Protection Ordinance: disclosure of the previous rent if the rent exceeds the reference rent + 10 %."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:255
-msgid "Mitbenutzungsrechte (Gemeinschaftsräume)"
+msgid "Shared use rights (communal rooms)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:255
-msgid "Waschküche, Trockenraum, Fahrradkeller, Garten – nach Hausordnung."
+msgid "Laundry room, drying room, bicycle cellar, garden – per house rules."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:256
-msgid "Mietereigentum / nicht mitvermietet"
+msgid "Tenant's property / not included"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:256
-msgid "Gegenstände, die der Mieter vom Vormieter übernommen hat oder die ihm gehören."
+msgid "Items the tenant took over from the previous tenant or that belong to them."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:259
-msgid "Möblierungszuschlag"
+msgid "Furnishing surcharge"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:262
-msgid "ja – in der Kaltmiete enthalten, Betrag in „Sonstige Vereinbarungen“ nennen"
+msgid "yes – included in base rent, state amount under “Other agreements”"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:269
-msgid "Vorauszahlung mit jährlicher Abrechnung (Standard)"
+msgid "Advance payment with annual statement (default)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:270
-msgid "Pauschale ohne Abrechnung (§ 556 Abs. 2 BGB)"
+msgid "Flat rate without statement (§ 556 (2) BGB)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:272
-msgid "Bei Pauschale keine Abrechnung und keine Nachforderung; Erhöhung nur bei gestiegenen Kosten durch Erklärung in Textform (§ 560 Abs. 1)."
+msgid "With a flat rate there is no statement and no additional claim; increase only for increased costs by declaration in text form (§ 560 (1))."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:276
-msgid "Mietpreisbremse – Ausnahme (nur angespannter Markt)"
+msgid "Rent cap – exception (tight market only)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:278
-msgid "keine / nicht betroffen"
+msgid "none / not affected"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:279
-msgid "Vormiete war bereits höher (§ 556e Abs. 1)"
+msgid "Previous rent was already higher (§ 556e (1))"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:280
-msgid "Modernisierung in den letzten 3 Jahren (§ 556e Abs. 2)"
+msgid "Modernisation within the last 3 years (§ 556e (2))"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:281
-msgid "Erste Vermietung nach umfassender Modernisierung (§ 556f S. 2)"
+msgid "First letting after comprehensive modernisation (§ 556f sentence 2)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:282
-msgid "Neubau, erstmals nach 1.10.2014 vermietet (§ 556f S. 1)"
+msgid "New build, first let after 1 Oct 2014 (§ 556f sentence 1)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:284
-msgid "Die Auskunft muss vor Vertragsschluss unaufgefordert in Textform erfolgen (§ 556g Abs. 1a BGB), sonst kann sich der Vermieter nicht auf die Ausnahme berufen."
+msgid "The disclosure must be made unprompted in text form before signing (§ 556g (1a) BGB); otherwise the landlord cannot rely on the exception."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:288
-msgid "Zahlungsweise"
+msgid "Payment method"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:290
-msgid "Dauerauftrag"
+msgid "Standing order"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:291
-msgid "SEPA-Lastschriftmandat (Anlage)"
+msgid "SEPA direct debit mandate (annex)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:294
-msgid "Zustand bei Übergabe / bekannte Mängel"
+msgid "Condition at handover / known defects"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:294
-msgid "Kurz; Details ins Übergabeprotokoll."
+msgid "Brief; details in the handover protocol."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:295
-msgid "Vom Vermieter noch auszuführende Arbeiten"
+msgid "Work still to be carried out by the landlord"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:296 includes/class-mv-mietvertrag.php:298
-msgid "… bis spätestens (Datum)"
+msgid "… by no later than (date)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:297
-msgid "Vom Mieter auf eigene Kosten auszuführende Arbeiten"
+msgid "Work to be carried out by the tenant at own expense"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:297
-msgid "Gegenleistung ggf. in „Sonstige Vereinbarungen“ (z. B. Mietfreiheit)."
+msgid "Consideration, if any, under “Other agreements” (e.g. rent-free period)."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:301
-msgid "Gartenpflege durch den Mieter"
+msgid "Garden maintenance by the tenant"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:303
-msgid "nein / durch Vermieter bzw. Dienstleister (Betriebskosten)"
+msgid "no / by landlord or contractor (service charges)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:304
-msgid "ja – Mieter pflegt den ihm zugewiesenen Gartenteil"
+msgid "yes – tenant maintains the garden area assigned to them"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:309
-msgid "Merkblatt Heizen und Lüften als Anlage"
+msgid "Heating and ventilation leaflet as annex"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:315
-msgid "Sonstige Vereinbarungen"
+msgid "Other agreements"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:391
-msgid "Mieter/in"
+msgid "Tenant"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:394
-msgid "Mieter (alle)"
+msgid "Tenant(s)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:484
-msgid "Keller/Lager"
+msgid "Cellar/storage"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:485
-msgid "Gewerbefläche"
+msgid "Commercial space"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:523
-msgid "Mietvertrag über Wohnraum"
+msgid "Residential tenancy agreement"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:581
-msgid "Grundmiete"
+msgid "Basic rent"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:582
-msgid "Betriebskostenpauschale (ohne Heizung/Warmwasser)"
+msgid "Service charge flat rate (excl. heating/hot water)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:582
-msgid "Vorauszahlung Betriebskosten (ohne Heizung/Warmwasser)"
+msgid "Advance payment service charges (excl. heating/hot water)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:584
-msgid "Vorauszahlung Heizung und Warmwasser"
+msgid "Advance payment heating and hot water"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:586
-msgid "Gesamtmiete monatlich"
+msgid "Total monthly rent"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:759
-msgid "Datenschutzinformation nach Art. 13 DSGVO"
+msgid "Privacy notice under Art. 13 GDPR"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:760
-msgid "Verantwortlicher:"
+msgid "Controller:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:782
-msgid "Auszug"
+msgid "Move-out"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:782
-msgid "Einzug"
+msgid "Move-in"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:794
-msgid "Übergabeprotokoll – %s"
+msgid "Handover protocol – %s"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:794
-msgid "Vermieter: %s"
+msgid "Landlord: %s"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:794
-msgid "Mieter: %s"
+msgid "Tenant: %s"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:794
-msgid "Datum der Übergabe:"
+msgid "Date of handover:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:794
-msgid "Uhrzeit:"
+msgid "Time:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:804
-msgid "1. Zählerstände"
+msgid "1. Meter readings"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:804
-msgid "Nummer"
+msgid "Number"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:804 includes/class-mv-portal.php:292
-msgid "Stand"
+msgid "Reading"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:804
-msgid "Stand laut System"
+msgid "Reading per system"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:809
-msgid "Heizung (kWh/Einh.)"
+msgid "Heating (kWh/units)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:820
-msgid "2. Schlüssel"
+msgid "2. Keys"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "3. Zustand der Räume"
+msgid "3. Condition of rooms"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "Bewertung: 1 = neuwertig, 2 = gut, 3 = gebraucht/normale Abnutzung, 4 = mangelhaft (Mängel beschreiben). Fotos als Anlage."
+msgid "Rating: 1 = as new, 2 = good, 3 = used/normal wear, 4 = defective (describe defects). Photos as annex."
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "Raum"
+msgid "Room"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "Boden"
+msgid "Floor"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "Wände/Decke"
+msgid "Walls/ceiling"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "Fenster/Türen"
+msgid "Windows/doors"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "Elektrik/Sanitär"
+msgid "Electrics/plumbing"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:822
-msgid "Bemerkungen / Mängel"
+msgid "Remarks / defects"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:829
-msgid "4. Ausstattung und Funktionsprüfung"
+msgid "4. Fixtures and function check"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:829
-msgid "Gegenstand"
+msgid "Item"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:829
-msgid "vorhanden"
+msgid "present"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:829
-msgid "funktioniert"
+msgid "works"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:829
-msgid "Bemerkung"
+msgid "Remark"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:831 includes/class-mv-mietvertrag.php:831
-msgid "☐ ja ☐ nein"
+msgid "☐ yes ☐ no"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:836
-msgid "5. Rückgabe"
+msgid "5. Return"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:836
-msgid "☐ Wohnung vollständig geräumt und besenrein"
+msgid "☐ Flat completely cleared and broom-clean"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:836
-msgid "☐ Alle Schlüssel zurückgegeben"
+msgid "☐ All keys returned"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:836
-msgid "☐ Schönheitsreparaturen fällig/ausgeführt:"
+msgid "☐ Decorative repairs due/carried out:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:836
-msgid "Vereinbarte Nacharbeiten durch den Mieter bis"
+msgid "Agreed follow-up work by the tenant by"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:836
-msgid "Neue Anschrift des Mieters (für Kautionsabrechnung und Betriebskostenabrechnung):"
+msgid "Tenant's new address (for deposit and service charge settlement):"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:836
-msgid "Kautionsrückzahlung auf IBAN:"
+msgid "Deposit refund to IBAN:"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:838
-msgid "5. Vereinbarungen"
+msgid "5. Agreements"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:838
-msgid "Vom Vermieter noch zu erledigen bis"
+msgid "Still to be done by the landlord by"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:838
-msgid "Dem Mieter übergeben: ☐ Energieausweis ☐ Hausordnung ☐ Datenschutzinformation ☐ Bedienungsanleitungen (Heizung, Küche)"
+msgid "Handed to the tenant: ☐ Energy certificate ☐ House rules ☐ Privacy notice ☐ Operating instructions (heating, kitchen)"
 msgstr ""
 
 #: includes/class-mv-mietvertrag.php:840
-msgid "Die Parteien bestätigen die Richtigkeit der Angaben. Nicht vermerkte Mängel gelten als bei Übergabe nicht vorhanden, soweit sie bei der Besichtigung erkennbar waren."
+msgid "The parties confirm the accuracy of the details. Defects not noted are deemed not to have existed at handover insofar as they were discernible on inspection."
 msgstr ""
 
 #: includes/class-mv-portal.php:32 includes/class-mv-portal.php:81 includes/class-mv-portal.php:88
-msgid "Kein Zugriff."
+msgid "No access."
 msgstr ""
 
 #: includes/class-mv-portal.php:61
-msgid "[Mietfux] Zählerstand gemeldet"
+msgid "[Mietfux] Meter reading submitted"
 msgstr ""
 
 #: includes/class-mv-portal.php:145
-msgid "[Mietfux] Neue Meldung: "
+msgid "[Mietfux] New report: "
 msgstr ""
 
 #: includes/class-mv-portal.php:157
-msgid "Bitte melden Sie sich an, um Ihr Mieterportal zu sehen."
+msgid "Please log in to see your tenant portal."
 msgstr ""
 
 #: includes/class-mv-portal.php:162
-msgid "Ihrem Benutzerkonto ist noch kein Mietverhältnis zugeordnet. Bitte wenden Sie sich an Ihren Vermieter."
+msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr ""
 
 #: includes/class-mv-portal.php:173
-msgid "Zählerstand gespeichert. Vielen Dank."
+msgid "Meter reading saved. Thank you."
 msgstr ""
 
 #: includes/class-mv-portal.php:175
-msgid "Der Stand ist kleiner als der zuletzt erfasste – bitte prüfen."
+msgid "The reading is lower than the last one recorded – please check."
 msgstr ""
 
 #: includes/class-mv-portal.php:177
-msgid "Zählerstand konnte nicht gespeichert werden."
+msgid "Meter reading could not be saved."
 msgstr ""
 
 #: includes/class-mv-portal.php:181
-msgid "Ihre Meldung wurde übermittelt. Vielen Dank."
+msgid "Your report has been submitted. Thank you."
 msgstr ""
 
 #: includes/class-mv-portal.php:183
-msgid "Die Meldung konnte nicht gespeichert werden. Bitte Betreff angeben."
+msgid "The report could not be saved. Please enter a subject."
 msgstr ""
 
 #: includes/class-mv-portal.php:194
-msgid "Vorauszahlungen BK / HK"
+msgid "Advances SC / heating"
 msgstr ""
 
 #: includes/class-mv-portal.php:195
-msgid "Gesamtmiete / Monat"
+msgid "Total rent / month"
 msgstr ""
 
 #: includes/class-mv-portal.php:202
-msgid "Rückstand"
+msgid "Arrears"
 msgstr ""
 
 #: includes/class-mv-portal.php:202
-msgid "ausgeglichen / Guthaben"
+msgid "balanced / credit"
 msgstr ""
 
 #: includes/class-mv-portal.php:207
-msgid "Mietkonto (letzte 12 Monate)"
+msgid "Rent account (last 12 months)"
 msgstr ""
 
 #: includes/class-mv-portal.php:242
-msgid "Keine Meldungen."
+msgid "No reports."
 msgstr ""
 
 #: includes/class-mv-portal.php:248
-msgid "Betriebskostenabrechnungen"
+msgid "Service charge statements"
 msgstr ""
 
 #: includes/class-mv-portal.php:248
-msgid "Kosten"
+msgid "Costs"
 msgstr ""
 
 #: includes/class-mv-portal.php:251
-msgid "Abrechnung öffnen"
+msgid "Open statement"
 msgstr ""
 
 #: includes/class-mv-portal.php:285
-msgid "Zählerstand melden"
+msgid "Submit meter reading"
 msgstr ""
 
 #: includes/class-mv-portal.php:292
-msgid "Foto (optional)"
+msgid "Photo (optional)"
 msgstr ""
 
 #: includes/class-mv-portal.php:292
-msgid "Zählerstand senden"
+msgid "Send meter reading"
 msgstr ""
 
 #: includes/class-mv-portal.php:295
-msgid "Schaden oder Mangel melden"
+msgid "Report damage or defect"
 msgstr ""
 
 #: includes/class-mv-portal.php:300
-msgid "Meldung absenden"
+msgid "Submit report"
 msgstr ""
 
 #: includes/class-mv-steuer.php:205
@@ -3838,169 +3806,165 @@ msgid "AfA"
 msgstr ""
 
 #: includes/class-mv-steuer.php:313
-msgid "Steuerjahr:"
+msgid "Tax year:"
 msgstr ""
 
 #: includes/class-mv-steuer.php:320
-msgid "Zeilennummern gespeichert."
+msgid "Line numbers saved."
 msgstr ""
 
 #: includes/class-mv-steuer.php:324
-msgid "Entwicklung"
+msgid "Trend"
 msgstr ""
 
 #: includes/class-mv-steuer.php:326
-msgid "Zufluss-/Abflussprinzip (§ 11 EStG): Einnahmen nach Zahlungseingang, Werbungskosten nach Zahlungsdatum des Belegs. Mieteingänge werden anteilig nach den Konditionen des jeweiligen Monats in Miete und Umlagen getrennt. AfA und Darlehenszinsen fließen automatisch aus „Abschreibung“ und „Zinsbescheinigungen“ ein. Zeilennummern der Anlage V ändern sich jährlich – bitte das aktuelle Formular beachten."
+msgid "Cash basis (§ 11 EStG): income by date received, expenses by payment date of the receipt. Rent receipts are split into rent and recoverable charges in proportion to the rent conditions of the respective month. Depreciation and loan interest flow in automatically from “Depreciation” and “Interest certificates”. Anlage V line numbers change every year – please refer to the current form."
 msgstr ""
 
 #: includes/class-mv-steuer.php:342
-msgid "Vorjahr %1$s (%2$+.1f %%)"
+msgid "Prior year %1$s (%2$+.1f %%)"
 msgstr ""
 
 #: includes/class-mv-steuer.php:348
-msgid "Einnahmen gesamt"
+msgid "Total income"
 msgstr ""
 
 #: includes/class-mv-steuer.php:348
-msgid "Werbungskosten gesamt"
+msgid "Total expenses"
 msgstr ""
 
 #: includes/class-mv-steuer.php:348
-msgid "Überschuss / Verlust"
+msgid "Surplus / loss"
 msgstr ""
 
 #: includes/class-mv-steuer.php:359
-msgid "Einnahmen"
+msgid "Income"
 msgstr ""
 
 #: includes/class-mv-steuer.php:359 includes/class-mv-steuer.php:394
-msgid "Mieteinnahmen (ohne Umlagen)"
+msgid "Rental income (excl. recoverable charges)"
 msgstr ""
 
 #: includes/class-mv-steuer.php:359 includes/class-mv-steuer.php:395
-msgid "Vereinnahmte Umlagen"
+msgid "Recoverable charges received"
 msgstr ""
 
 #: includes/class-mv-steuer.php:361
-msgid "Keine Zahlungseingänge in diesem Jahr."
+msgid "No payments received in this year."
 msgstr ""
 
 #: includes/class-mv-steuer.php:366
-msgid "Summe"
+msgid "Sum"
 msgstr ""
 
 #: includes/class-mv-steuer.php:370
-msgid "Werbungskosten"
+msgid "Expenses"
 msgstr ""
 
 #: includes/class-mv-steuer.php:370
-msgid "Anlage-V-Gruppe / Position"
+msgid "Anlage V group / item"
 msgstr ""
 
 #: includes/class-mv-steuer.php:370
-msgid "Zeile Anlage V"
+msgid "Anlage V line"
 msgstr ""
 
 #: includes/class-mv-steuer.php:370
-msgid "davon umlagefähig"
+msgid "of which recoverable"
 msgstr ""
 
 #: includes/class-mv-steuer.php:385
-msgid "Keine Werbungskosten in diesem Jahr."
+msgid "No expenses in this year."
 msgstr ""
 
 #: includes/class-mv-steuer.php:387
-msgid "Summe Werbungskosten"
+msgid "Sum of expenses"
 msgstr ""
 
 #: includes/class-mv-steuer.php:405
-msgid "Die Zeilennummern stehen auf dem amtlichen Formular „Anlage V“ des jeweiligen Jahres (ELSTER). Einmal eingetragen, werden sie für Folgejahre vorbelegt, bis sich das Formular ändert."
+msgid "The line numbers are on the official “Anlage V” form of the respective year (ELSTER). Once entered, they are pre-filled for subsequent years until the form changes."
 msgstr ""
 
 #: includes/class-mv-steuer.php:411
-msgid "Anschaffung"
+msgid "Acquisition"
 msgstr ""
 
 #: includes/class-mv-steuer.php:411
-msgid "Bemessungsgrundlage"
+msgid "Depreciation base"
 msgstr ""
 
 #: includes/class-mv-steuer.php:411
-msgid "Methode / Satz"
+msgid "Method / rate"
 msgstr ""
 
 #: includes/class-mv-steuer.php:411
-msgid "Monate"
+msgid "Months"
 msgstr ""
 
 #: includes/class-mv-steuer.php:416
-msgid "Grunderwerbsteuer"
+msgid "Transfer tax"
 msgstr ""
 
 #: includes/class-mv-steuer.php:417
-msgid "Notar"
+msgid "Notary"
 msgstr ""
 
 #: includes/class-mv-steuer.php:418
-msgid "Grundbuch"
+msgid "Land registry"
 msgstr ""
 
 #: includes/class-mv-steuer.php:419
-msgid "Makler"
-msgstr ""
-
-#: includes/class-mv-steuer.php:420
-msgid "Sonstige"
+msgid "Agent"
 msgstr ""
 
 #: includes/class-mv-steuer.php:425
-msgid "→ Anschaffungskosten"
+msgid "→ Acquisition costs"
 msgstr ""
 
 #: includes/class-mv-steuer.php:428
-msgid "%s: Anteil Grund und Boden ist 0 %% – das Finanzamt verlangt eine Aufteilung (Kaufvertrag oder BMF-Arbeitshilfe)."
+msgid "%s: land share is 0 %% – the tax office requires a split (purchase contract or BMF tool)."
 msgstr ""
 
 #: includes/class-mv-steuer.php:435
-msgid "degressiv"
+msgid "declining balance"
 msgstr ""
 
 #: includes/class-mv-steuer.php:435
-msgid "linear"
+msgid "straight-line"
 msgstr ""
 
 #: includes/class-mv-steuer.php:444
-msgid "Keine Anlagegüter erfasst. Gebäude und Anschaffungsnebenkosten unter"
+msgid "No assets recorded. Enter building and acquisition costs under"
 msgstr ""
 
 #: includes/class-mv-steuer.php:449
-msgid "Finanzierung"
+msgid "Financing"
 msgstr ""
 
 #: includes/class-mv-steuer.php:451
-msgid "Sollzins"
+msgid "Nominal interest rate"
 msgstr ""
 
 #: includes/class-mv-steuer.php:488
-msgid "Keine Belege."
+msgid "No receipts."
 msgstr ""
 
 #: includes/class-mv-steuer.php:500
-msgid "Anschaffungsnahe Herstellungskosten (§ 6 Abs. 1 Nr. 1a EStG) – %1$s: Erhaltungsaufwand %2$s bis %3$s bisher %4$s netto, Grenze 15 %% = %5$s (%6$s %%)."
+msgid "Acquisition-related construction costs (§ 6 (1) no. 1a EStG) – %1$s: maintenance expenses %2$s to %3$s so far %4$s net, 15 %% limit = %5$s (%6$s %%)."
 msgstr ""
 
 #: includes/class-mv-steuer.php:509
-msgid "Grenze überschritten!"
+msgid "Limit exceeded!"
 msgstr ""
 
 #: includes/class-mv-steuer.php:509
-msgid "%s Die Aufwendungen gelten als Herstellungskosten und sind nur über die AfA abziehbar – bitte mit dem Steuerberater klären."
+msgid "%s The expenses are deemed construction costs and are only deductible via depreciation – please clarify with your tax adviser."
 msgstr ""
 
 #: includes/class-mv-steuer.php:511
-msgid "Achtung:"
+msgid "Attention:"
 msgstr ""
 
 #: includes/class-mv-steuer.php:511
-msgid "%s Weitere Renovierungen in der Frist könnten die Grenze reißen."
+msgid "%s Further renovations within the period could breach the limit."
 msgstr ""

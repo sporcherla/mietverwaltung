@@ -86,7 +86,7 @@ class Mietv_DB {
 		if ( ! get_role( 'mietv_vermieter' ) ) {
 			add_role(
 				'mietv_vermieter',
-				__( 'Vermieter', 'mietfux' ),
+				__( 'Landlord', 'mietfux' ),
 				[
 					'read'            => true,
 					'upload_files'    => true,
@@ -101,16 +101,16 @@ class Mietv_DB {
 	/** Anlage-V-Gruppen (Zeilennummern ändern sich jährlich, daher nur Bezeichnungen). */
 	public static function anlage_v_gruppen(): array {
 		return [
-			'einnahmen'    => esc_html__( 'Einnahmen (nur zur Info, nicht als Beleg buchen)', 'mietfux' ),
-			'afa'          => esc_html__( 'Absetzung für Abnutzung (AfA)', 'mietfux' ),
-			'schuldzinsen' => esc_html__( 'Schuldzinsen und Geldbeschaffungskosten', 'mietfux' ),
-			'erhaltung'    => esc_html__( 'Erhaltungsaufwendungen', 'mietfux' ),
-			'grundsteuer'  => esc_html__( 'Grundsteuer, Straßenreinigung, Müllabfuhr', 'mietfux' ),
-			'wasser'       => esc_html__( 'Wasserversorgung, Entwässerung, Hausbeleuchtung', 'mietfux' ),
-			'heizung'      => esc_html__( 'Heizung, Warmwasser', 'mietfux' ),
-			'versicherung' => esc_html__( 'Schornsteinreinigung, Hausversicherungen, Hauswart, Treppenreinigung, Fahrstuhl', 'mietfux' ),
-			'verwaltung'   => esc_html__( 'Verwaltungskosten', 'mietfux' ),
-			'sonstiges'    => esc_html__( 'Sonstige Werbungskosten', 'mietfux' ),
+			'einnahmen'    => esc_html__( 'Income (info only, do not book as receipt)', 'mietfux' ),
+			'afa'          => esc_html__( 'Depreciation (AfA)', 'mietfux' ),
+			'schuldzinsen' => esc_html__( 'Loan interest and financing costs', 'mietfux' ),
+			'erhaltung'    => esc_html__( 'Maintenance expenses', 'mietfux' ),
+			'grundsteuer'  => esc_html__( 'Property tax, street cleaning, refuse collection', 'mietfux' ),
+			'wasser'       => esc_html__( 'Water supply, drainage, communal lighting', 'mietfux' ),
+			'heizung'      => esc_html__( 'Heating, hot water', 'mietfux' ),
+			'versicherung' => esc_html__( 'Chimney sweeping, building insurance, caretaker, stair cleaning, lift', 'mietfux' ),
+			'verwaltung'   => esc_html__( 'Administration costs', 'mietfux' ),
+			'sonstiges'    => esc_html__( 'Other expenses', 'mietfux' ),
 		];
 	}
 

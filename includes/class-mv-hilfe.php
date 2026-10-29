@@ -15,12 +15,12 @@ class Mietv_Hilfe {
 	/** Schnellstart in 6 Schritten. */
 	public static function schnellstart(): array {
 		return [
-			[ __( 'Einstellungen', 'mietfux' ), __( 'Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer und Absender für Schreiben eintragen.', 'mietfux' ), 'mietv_einstellungen' ],
-			[ __( 'Objekt & Einheiten', 'mietfux' ), __( 'Haus/Eigentumswohnung als Objekt anlegen (Baujahr, Heizungsart), darunter die Einheiten (Wohnung, Garage, Stellplatz) mit Fläche und Personen.', 'mietfux' ), 'mietv_objekte' ],
-			[ __( 'Mieter', 'mietfux' ), __( 'Mieter erfassen – optional mit Ehe-/Lebenspartner als zweite Vertragspartei. Beide erscheinen automatisch in Vertrag, Schreiben und SEPA-Mandat.', 'mietfux' ), 'mietv_mieter' ],
-			[ __( 'Mietverhältnis & Konditionen', 'mietfux' ), __( 'Mietverhältnis = Mieter + Einheit + Beginn. Garage/Stellplatz als Zusatzeinheit anhängen, dann gibt es eine Gesamtmiete. Konditionen (Kaltmiete, Vorauszahlungen) mit Gültig-ab-Datum anlegen.', 'mietfux' ), 'mietv_mietverhaeltnisse' ],
-			[ __( 'Anlagegut & Darlehen', 'mietfux' ), __( 'Kaufpreis, Nebenkosten (Notar, Grundbuch, Grunderwerbsteuer, Makler) und Grundanteil erfassen – der Kaufvertrag als PDF kann direkt ausgelesen werden. Darlehen mit Zins, Tilgung und Rate anlegen.', 'mietfux' ), 'mietv_anlagegueter' ],
-			[ __( 'Laufender Betrieb', 'mietfux' ), __( 'Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen, Belege fotografieren, Zählerstände erfassen. Am Jahresende: Betriebskostenabrechnung und Anlage V.', 'mietfux' ), 'mietv_uebersicht' ],
+			[ __( 'Settings', 'mietfux' ), __( 'Enter landlord details, bank account, creditor ID, tax number and sender for letters.', 'mietfux' ), 'mietv_einstellungen' ],
+			[ __( 'Property & units', 'mietfux' ), __( 'Create the house/condominium as a property (year built, heating type), then the units beneath it (flat, garage, parking space) with area and persons.', 'mietfux' ), 'mietv_objekte' ],
+			[ __( 'Tenants', 'mietfux' ), __( 'Enter tenants – optionally with spouse/partner as second contracting party. Both appear automatically in the agreement, letters and SEPA mandate.', 'mietfux' ), 'mietv_mieter' ],
+			[ __( 'Tenancy & rent conditions', 'mietfux' ), __( 'Tenancy = tenant + unit + start date. Attach garage/parking as an additional unit to get one total rent. Create rent conditions (base rent, advance payments) with a valid-from date.', 'mietfux' ), 'mietv_mietverhaeltnisse' ],
+			[ __( 'Asset & loan', 'mietfux' ), __( 'Enter purchase price, incidental costs (notary, land registry, transfer tax, agent) and land share – the purchase contract PDF can be parsed directly. Create loans with interest, repayment and instalment.', 'mietfux' ), 'mietv_anlagegueter' ],
+			[ __( 'Day-to-day', 'mietfux' ), __( 'Tick rent payments in the overview or import them from the bank, photograph receipts, record meter readings. At year end: service charge statement and Anlage V.', 'mietfux' ), 'mietv_uebersicht' ],
 		];
 	}
 
@@ -28,182 +28,182 @@ class Mietv_Hilfe {
 	public static function themen(): array {
 		return [
 			'uebersicht'        => [
-				__( 'Übersicht', 'mietfux' ),
+				__( 'Overview', 'mietfux' ),
 				[
-					__( 'Zeigt offene Posten, fällige Aufgaben und Kennzahlen. Offene Mieten lassen sich per Häkchen als bezahlt buchen – die Zahlung wird zum 1. des Monats eingetragen.', 'mietfux' ),
-					__( 'Mit „Fokusmodus“ wird das übrige WordPress-Menü ausgeblendet; die Einstellung gilt pro Benutzer.', 'mietfux' ),
+					__( 'Shows open items, due tasks and key figures. Open rents can be booked as paid by ticking – the payment is recorded on the 1st of the month.', 'mietfux' ),
+					__( '“Focus mode” hides the rest of the WordPress menu; the setting is per user.', 'mietfux' ),
 				],
 			],
 			'zahlungen'         => [
-				__( 'Zahlungen', 'mietfux' ),
+				__( 'Payments', 'mietfux' ),
 				[
-					__( 'Jede Zahlung gehört zu einem Mietverhältnis und einem Monat. Quelle: manuell, Bankimport oder abgehakt. Soll/Ist ergibt sich aus den Konditionen.', 'mietfux' ),
+					__( 'Each payment belongs to a tenancy and a month. Source: manual, bank import or ticked. Due/paid is derived from the rent conditions.', 'mietfux' ),
 				],
 			],
 			'belege'            => [
-				__( 'Belege', 'mietfux' ),
+				__( 'Receipts', 'mietfux' ),
 				[
-					__( 'Rechnungen mit Kostenart, Steuerjahr und Datei erfassen (am Handy direkt per Kamera). Die Kostenart entscheidet über Umlagefähigkeit (BetrKV) und die Zeile in Anlage V.', 'mietfux' ),
-					__( 'Erhaltungsaufwand kann nach § 82b EStDV auf 2–5 Jahre verteilt werden; Handwerkerlohn (§ 35a) wird gesondert ausgewiesen.', 'mietfux' ),
+					__( 'Record invoices with cost type, tax year and file (directly via camera on your phone). The cost type determines recoverability (BetrKV) and the line in Anlage V.', 'mietfux' ),
+					__( 'Maintenance expenses can be spread over 2–5 years under § 82b EStDV; tradesmen\'s labour (§ 35a) is shown separately.', 'mietfux' ),
 				],
 			],
 			'bank'              => [
-				__( 'Bankimport', 'mietfux' ),
+				__( 'Bank import', 'mietfux' ),
 				[
-					__( 'CSV- oder CAMT.053-Export der Bank einlesen. Regeln ordnen Buchungen anhand von IBAN oder Verwendungszweck automatisch einem Mietverhältnis oder einer Kostenart zu; Duplikate werden erkannt.', 'mietfux' ),
+					__( 'Import the bank\'s CSV or CAMT.053 export. Rules automatically assign transactions to a tenancy or cost type by IBAN or reference; duplicates are detected.', 'mietfux' ),
 				],
 			],
 			'meldungen'         => [
-				__( 'Meldungen', 'mietfux' ),
+				__( 'Reports', 'mietfux' ),
 				[
-					__( 'Schadens- und Mängelmeldungen der Mieter aus dem Mieterportal mit Status und Verlauf.', 'mietfux' ),
+					__( 'Damage and defect reports from tenants via the tenant portal, with status and history.', 'mietfux' ),
 				],
 			],
 			'dokumente'         => [
-				__( 'Dokumente', 'mietfux' ),
+				__( 'Documents', 'mietfux' ),
 				[
-					__( 'Ablage für Verträge, Protokolle, Schreiben und Abrechnungen. Mit „für Mieter sichtbar“ erscheint das Dokument im Mieterportal.', 'mietfux' ),
+					__( 'Storage for agreements, protocols, letters and statements. With “visible to tenant” the document appears in the tenant portal.', 'mietfux' ),
 				],
 			],
 			'objekte'           => [
-				__( 'Objekte', 'mietfux' ),
+				__( 'Properties', 'mietfux' ),
 				[
-					__( 'Ein Objekt ist ein Haus oder eine Eigentumswohnung. Baujahr bestimmt den gesetzlichen AfA-Satz; Heizungsart und Verbrauchsanteil steuern die Heizkostenverteilung (HeizkostenV 50–70 %).', 'mietfux' ),
+					__( 'A property is a house or a condominium. Year built determines the statutory depreciation rate; heating type and consumption share control heating cost allocation (HeizkostenV 50–70 %).', 'mietfux' ),
 				],
 			],
 			'einheiten'         => [
-				__( 'Einheiten', 'mietfux' ),
+				__( 'Units', 'mietfux' ),
 				[
-					__( 'Wohnung, Garage oder Stellplatz innerhalb eines Objekts. Fläche und Personen werden für Umlageschlüssel verwendet.', 'mietfux' ),
+					__( 'Flat, garage or parking space within a property. Area and persons are used for allocation keys.', 'mietfux' ),
 				],
 			],
 			'mieter'            => [
-				__( 'Mieter', 'mietfux' ),
+				__( 'Tenants', 'mietfux' ),
 				[
-					__( 'Stammdaten des Mieters. Ehe-/Lebenspartner optional als Mitmieter – dann haften beide gesamtschuldnerisch und werden überall automatisch genannt. Ein verknüpfter WordPress-Benutzer erhält Zugang zum Mieterportal.', 'mietfux' ),
+					__( 'Tenant master data. Spouse/partner optionally as co-tenant – both are then jointly and severally liable and named automatically everywhere. A linked WordPress user gets access to the tenant portal.', 'mietfux' ),
 				],
 			],
 			'mietverhaeltnisse' => [
-				__( 'Mietverhältnisse', 'mietfux' ),
+				__( 'Tenancies', 'mietfux' ),
 				[
-					__( 'Verbindet Mieter und Einheit mit Beginn, Ende und Kaution. Zusatzeinheiten (Garage, Stellplatz) mit eigenem Mietanteil ergeben eine Gesamtmiete und eine Buchung.', 'mietfux' ),
+					__( 'Links tenant and unit with start, end and deposit. Additional units (garage, parking) with their own rent share result in one total rent and one booking.', 'mietfux' ),
 				],
 			],
 			'konditionen'       => [
-				__( 'Konditionen', 'mietfux' ),
+				__( 'Rent conditions', 'mietfux' ),
 				[
-					__( 'Kaltmiete und Vorauszahlungen (Betriebs-/Heizkosten) mit Gültig-ab-Datum. Bei Änderung neue Kondition anlegen, nicht die alte überschreiben – so bleibt die Historie erhalten.', 'mietfux' ),
+					__( 'Base rent and advance payments (service/heating) with a valid-from date. For changes create a new condition rather than overwriting the old one – this preserves the history.', 'mietfux' ),
 				],
 			],
 			'mietvertrag'       => [
-				__( 'Mietvertrag & Übergabe', 'mietfux' ),
+				__( 'Agreement & handover', 'mietfux' ),
 				[
-					__( 'Erzeugt einen vollständigen Wohnraummietvertrag (20 §§) aus den Stammdaten, dazu Hausordnung, Merkblatt, Datenschutzinformation, SEPA-Mandat und Übergabeprotokoll – als PDF oder Druckansicht, auf Wunsch direkt in den Dokumenten abgelegt.', 'mietfux' ),
-					__( 'Die Optionen (Befristung, Staffel/Index, Kleinreparaturen, Tiere, Schönheitsreparaturen …) werden je Mietverhältnis gespeichert.', 'mietfux' ),
+					__( 'Generates a complete residential tenancy agreement (20 sections) from the master data, plus house rules, information sheet, privacy notice, SEPA mandate and handover protocol – as PDF or print view, optionally filed directly under Documents.', 'mietfux' ),
+					__( 'The options (fixed term, stepped/index rent, minor repairs, pets, decorative repairs …) are saved per tenancy.', 'mietfux' ),
 				],
 			],
 			'kaution'           => [
-				__( 'Kaution', 'mietfux' ),
+				__( 'Deposit', 'mietfux' ),
 				[
-					__( 'Kautionskonto nach § 551 BGB: Einzahlungen (bis 3 Raten), taggenaue Verzinsung, Abrechnung bei Auszug.', 'mietfux' ),
+					__( 'Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out.', 'mietfux' ),
 				],
 			],
 			'erhoehung'         => [
-				__( 'Mieterhöhung', 'mietfux' ),
+				__( 'Rent increase', 'mietfux' ),
 				[
-					__( 'Erhöhung nach § 558 BGB (Vergleichsmiete, Kappungsgrenze 15/20 %, Sperrfrist) oder § 557b (Index). Erzeugt das Schreiben und legt nach Zustimmung die neue Kondition an.', 'mietfux' ),
+					__( 'Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent.', 'mietfux' ),
 				],
 			],
 			'mahnung'           => [
-				__( 'Mahnwesen', 'mietfux' ),
+				__( 'Dunning', 'mietfux' ),
 				[
-					__( 'Drei Mahnstufen mit Fristen und Texten. Schreiben als PDF, optional per E-Mail an Mieter und Mitmieter.', 'mietfux' ),
+					__( 'Three dunning levels with deadlines and texts. Letters as PDF, optionally by email to tenant and co-tenant.', 'mietfux' ),
 				],
 			],
 			'zaehler'           => [
-				__( 'Zähler', 'mietfux' ),
+				__( 'Meters', 'mietfux' ),
 				[
-					__( 'Strom-, Gas-, Wasser- und Wärmezähler je Einheit oder Objekt (Allgemeinstrom).', 'mietfux' ),
+					__( 'Electricity, gas, water and heat meters per unit or property (communal electricity).', 'mietfux' ),
 				],
 			],
 			'zaehlerstaende'    => [
-				__( 'Zählerstände', 'mietfux' ),
+				__( 'Meter readings', 'mietfux' ),
 				[
-					__( 'Ablesungen mit Datum. Mieter können Stände selbst im Portal melden (Quelle „Mieter“).', 'mietfux' ),
+					__( 'Readings with date. Tenants can submit readings themselves in the portal (source “Tenant”).', 'mietfux' ),
 				],
 			],
 			'abrechnung'        => [
-				__( 'Betriebskostenabrechnung', 'mietfux' ),
+				__( 'Service charge statement', 'mietfux' ),
 				[
-					__( 'Jahresabrechnung nach BetrKV: Belege des Jahres werden nach Schlüssel (Fläche, Personen, Einheiten, Verbrauch) verteilt, zeitanteilig bei Mieterwechsel; Leerstand trägt der Vermieter. Vorauszahlungen werden gegengerechnet, § 35a-Anteile ausgewiesen.', 'mietfux' ),
-					__( 'Fertige Abrechnung als Schreiben (PDF) erzeugen, in Dokumenten ablegen und im Portal freigeben. Vorauszahlung kann direkt angepasst werden.', 'mietfux' ),
+					__( 'Annual statement under BetrKV: the year\'s receipts are allocated by key (area, persons, units, consumption), pro rata on tenant change; vacancy is borne by the landlord. Advance payments are offset, § 35a shares are shown.', 'mietfux' ),
+					__( 'Generate the finished statement as a letter (PDF), file it under Documents and release it in the portal. The advance payment can be adjusted directly.', 'mietfux' ),
 				],
 			],
 			'kostenarten'       => [
-				__( 'Kostenarten', 'mietfux' ),
+				__( 'Cost types', 'mietfux' ),
 				[
-					__( 'Katalog nach BetrKV § 2 (vorbelegt) plus eigene Arten. Je Kostenart: umlagefähig ja/nein, Umlageschlüssel, Zeile in Anlage V.', 'mietfux' ),
+					__( 'Catalogue per BetrKV § 2 (pre-filled) plus your own types. Per cost type: recoverable yes/no, allocation key, line in Anlage V.', 'mietfux' ),
 				],
 			],
 			'anlagegueter'      => [
-				__( 'Anlagegüter (AfA)', 'mietfux' ),
+				__( 'Assets (depreciation)', 'mietfux' ),
 				[
-					__( 'Gebäude mit Anschaffungskosten, einzelnen Nebenkosten (Grunderwerbsteuer, Notar, Grundbuch, Makler, Sonstiges) und Grundanteil. AfA linear nach § 7 Abs. 4 EStG (2 %, 2,5 % vor 1925, 3 % ab 2023) oder degressiv, zeitanteilig im ersten Jahr.', 'mietfux' ),
-					__( 'Der Kaufvertrag kann als PDF hochgeladen werden; Kaufpreis, Datum und Nebenkosten werden daraus vorgeschlagen. Der 15-%-Wächter warnt vor anschaffungsnahem Herstellungsaufwand (§ 6 Abs. 1 Nr. 1a EStG).', 'mietfux' ),
+					__( 'Building with acquisition costs, itemised incidental costs (transfer tax, notary, land registry, agent, other) and land share. Depreciation straight-line under § 7 (4) EStG (2 %, 2.5 % before 1925, 3 % from 2023) or declining balance, pro rata in the first year.', 'mietfux' ),
+					__( 'The purchase contract can be uploaded as PDF; purchase price, date and incidental costs are suggested from it. The 15 % guard warns of acquisition-related construction costs (§ 6 (1) no. 1a EStG).', 'mietfux' ),
 				],
 			],
 			'darlehen'          => [
-				__( 'Darlehen', 'mietfux' ),
+				__( 'Loans', 'mietfux' ),
 				[
-					__( 'Finanzierungsdarlehen mit Zinssatz, Tilgung, Rate und Zinsbindung. Daraus entsteht der Tilgungsplan.', 'mietfux' ),
+					__( 'Financing loans with interest rate, repayment, instalment and fixed-rate period. The repayment schedule is derived from these.', 'mietfux' ),
 				],
 			],
 			'darlehenskonto'    => [
-				__( 'Darlehenskonto', 'mietfux' ),
+				__( 'Loan account', 'mietfux' ),
 				[
-					__( 'Tilgungsplan mit Raten zum Abhaken, Sondertilgungen und Restschuld. Abgehakte Raten liefern die Jahreszinsen für Anlage V, sofern keine Zinsbescheinigung eingetragen ist.', 'mietfux' ),
+					__( 'Repayment schedule with instalments to tick off, extra repayments and outstanding balance. Ticked instalments provide the annual interest for Anlage V unless an interest certificate is entered.', 'mietfux' ),
 				],
 			],
 			'darlehen_jahre'    => [
-				__( 'Zinsbescheinigung', 'mietfux' ),
+				__( 'Interest certificate', 'mietfux' ),
 				[
-					__( 'Jahreswerte laut Bankbescheinigung (Zinsen, Tilgung, Restschuld). Haben Vorrang vor den berechneten Werten.', 'mietfux' ),
+					__( 'Annual figures per bank certificate (interest, repayment, balance). Take precedence over calculated values.', 'mietfux' ),
 				],
 			],
 			'steuer'            => [
-				__( 'Steuer (Anlage V)', 'mietfux' ),
+				__( 'Tax (Anlage V)', 'mietfux' ),
 				[
-					__( 'Jahresauswertung je Objekt: Einnahmen, Werbungskosten nach Zeilen der Anlage V, AfA, Schuldzinsen, Vorjahresvergleich. Export als CSV; Zeilenzuordnung anpassbar.', 'mietfux' ),
+					__( 'Annual report per property: income, expenses by Anlage V line, depreciation, loan interest, prior-year comparison. CSV export; line mapping adjustable.', 'mietfux' ),
 				],
 			],
 			'bank_regeln'       => [
-				__( 'Bankregeln', 'mietfux' ),
+				__( 'Bank rules', 'mietfux' ),
 				[
-					__( 'Zuordnungsregeln für den Bankimport: Suchbegriff oder IBAN → Mietverhältnis oder Kostenart.', 'mietfux' ),
+					__( 'Matching rules for the bank import: search term or IBAN → tenancy or cost type.', 'mietfux' ),
 				],
 			],
 			'datenschutz'       => [
-				__( 'Datenschutz', 'mietfux' ),
+				__( 'Data protection', 'mietfux' ),
 				[
-					__( 'Beendete Mietverhältnisse nach Ablauf der Aufbewahrungsfristen anonymisieren, Auskunft nach Art. 15 DSGVO exportieren. Löschkonzept und Fristen im Überblick.', 'mietfux' ),
+					__( 'Anonymise ended tenancies after the retention periods expire, export access reports under Art. 15 GDPR. Overview of deletion concept and deadlines.', 'mietfux' ),
 				],
 			],
 			'assistent'         => [
-				__( 'Einrichtungsassistent', 'mietfux' ),
+				__( 'Setup wizard', 'mietfux' ),
 				[
-					__( 'Legt in fünf Schritten Vermieter, Objekt, Einheiten (Wohnung + Garage), Mieter und Mietverhältnis mit Konditionen an. Jeder Schritt speichert sofort; der Assistent kann jederzeit erneut aufgerufen werden, um die Angaben zu ergänzen.', 'mietfux' ),
+					__( 'Creates landlord, property, units (flat + garage), tenant and tenancy with rent conditions in five steps. Each step saves immediately; the wizard can be reopened at any time to complete the entries.', 'mietfux' ),
 				],
 			],
 			'einstellungen'     => [
-				__( 'Einstellungen & Backup', 'mietfux' ),
+				__( 'Settings & backup', 'mietfux' ),
 				[
-					__( 'Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer, Mahn- und Portaloptionen. Backup aller Plugin-Tabellen als JSON, Wiederherstellung, Option „Daten bei Deinstallation löschen“.', 'mietfux' ),
+					__( 'Landlord details, bank account, creditor ID, tax number, dunning and portal options. Backup of all plugin tables as JSON, restore, option “delete data on uninstall”.', 'mietfux' ),
 				],
 			],
 			'portal'            => [
-				__( 'Mieterportal', 'mietfux' ),
+				__( 'Tenant portal', 'mietfux' ),
 				[
-					__( 'Shortcode [mietfux_portal] auf einer Seite einfügen. Angemeldete Mieter (verknüpfter WordPress-Benutzer) sehen Abrechnungen und freigegebene Dokumente, melden Schäden und Zählerstände.', 'mietfux' ),
+					__( 'Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings.', 'mietfux' ),
 				],
 			],
 		];
@@ -211,16 +211,16 @@ class Mietv_Hilfe {
 
 	/** Eigene Hilfeseite. */
 	public static function page(): void {
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Hilfe', 'mietfux' ) . '</h1>';
-		echo '<p>' . esc_html__( 'Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag und Mieterportal in einem Plugin. Auf jeder Seite finden Sie oben rechts unter „Hilfe“ eine Kurzbeschreibung.', 'mietfux' ) . '</p>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Help', 'mietfux' ) . '</h1>';
+		echo '<p>' . esc_html__( 'Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right.', 'mietfux' ) . '</p>';
 
-		printf( '<h2>%s</h2><p><a class="button button-primary" href="%s">%s</a> %s</p><ol class="mv-hilfe-schritte">', esc_html__( 'Schnellstart', 'mietfux' ), esc_url( admin_url( 'admin.php?page=mietv_assistent' ) ), esc_html__( 'Einrichtungsassistent starten', 'mietfux' ), esc_html__( '– führt durch die Schritte 1 bis 4 und legt das erste Mietverhältnis an.', 'mietfux' ) );
+		printf( '<h2>%s</h2><p><a class="button button-primary" href="%s">%s</a> %s</p><ol class="mv-hilfe-schritte">', esc_html__( 'Quick start', 'mietfux' ), esc_url( admin_url( 'admin.php?page=mietv_assistent' ) ), esc_html__( 'Start setup wizard', 'mietfux' ), esc_html__( '– guides through steps 1 to 4 and creates the first tenancy.', 'mietfux' ) );
 		foreach ( self::schnellstart() as [ $titel, $text, $slug ] ) {
 			printf( '<li><strong><a href="%s">%s</a></strong><br>%s</li>', esc_url( admin_url( 'admin.php?page=' . $slug ) ), esc_html( $titel ), esc_html( $text ) );
 		}
 		echo '</ol>';
 
-		echo '<h2>' . esc_html__( 'Module', 'mietfux' ) . '</h2><div class="mv-hilfe-grid">';
+		echo '<h2>' . esc_html__( 'Modules', 'mietfux' ) . '</h2><div class="mv-hilfe-grid">';
 		foreach ( self::themen() as $slug => [ $titel, $abs ] ) {
 			$link = $slug === 'portal' ? '' : admin_url( 'admin.php?page=mietv_' . $slug );
 			echo '<div class="mv-hilfe-karte"><h3>' . ( $link ? '<a href="' . esc_url( $link ) . '">' . esc_html( $titel ) . '</a>' : esc_html( $titel ) ) . '</h3>';
@@ -231,8 +231,8 @@ class Mietv_Hilfe {
 		}
 		echo '</div>';
 
-		echo '<h2>' . esc_html__( 'Rechtliche Hinweise', 'mietfux' ) . '</h2>';
-		echo '<p>' . esc_html__( 'Das Plugin ersetzt keine Rechts- oder Steuerberatung. Vertragsmuster, Berechnungen und Fristen beruhen auf der Rechtslage in Deutschland (BGB, BetrKV, HeizkostenV, EStG) und sind vor Verwendung zu prüfen. Alle Daten bleiben in Ihrer WordPress-Datenbank; es werden keine Daten an Dritte übertragen.', 'mietfux' ) . '</p>';
+		echo '<h2>' . esc_html__( 'Legal notes', 'mietfux' ) . '</h2>';
+		echo '<p>' . esc_html__( 'The plugin does not replace legal or tax advice. Contract templates, calculations and deadlines are based on German law (BGB, BetrKV, HeizkostenV, EStG) and must be checked before use. All data stays in your WordPress database; no data is transmitted to third parties.', 'mietfux' ) . '</p>';
 		printf( '<p class="description">%s %s · <a href="https://github.com/sporcherla/mietverwaltung" target="_blank" rel="noopener">GitHub</a></p>', esc_html__( 'Version', 'mietfux' ), esc_html( MIETV_VERSION ) );
 		echo '</div>';
 	}
@@ -256,7 +256,7 @@ class Mietv_Hilfe {
 		foreach ( $abs as $a ) {
 			$html .= '<p>' . esc_html( $a ) . '</p>';
 		}
-		$html .= '<p><a href="' . esc_url( admin_url( 'admin.php?page=mietv_hilfe' ) ) . '">' . esc_html__( 'Alle Hilfethemen', 'mietfux' ) . ' →</a></p>';
+		$html .= '<p><a href="' . esc_url( admin_url( 'admin.php?page=mietv_hilfe' ) ) . '">' . esc_html__( 'All help topics', 'mietfux' ) . ' →</a></p>';
 		$screen->add_help_tab(
 			[
 				'id'      => 'mietv_hilfe_' . $slug,

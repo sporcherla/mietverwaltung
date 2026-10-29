@@ -63,20 +63,20 @@ class Mietv_Assistent {
 		}
 		printf(
 			'<div class="notice notice-info"><p><strong>%s</strong> %s <a class="button button-primary" href="%s">%s</a></p></div>',
-			esc_html__( 'Willkommen bei Mietfux.', 'mietfux' ),
-			esc_html__( 'Der Einrichtungsassistent legt in fünf Schritten Vermieter, Objekt, Einheit, Mieter und Mietverhältnis an.', 'mietfux' ),
+			esc_html__( 'Welcome to Mietfux.', 'mietfux' ),
+			esc_html__( 'The setup wizard creates landlord, property, unit, tenant and tenancy in five steps.', 'mietfux' ),
 			esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ),
-			esc_html__( 'Assistent starten', 'mietfux' )
+			esc_html__( 'Start wizard', 'mietfux' )
 		);
 	}
 
 	public static function schritte(): array {
 		return [
-			1 => __( 'Vermieter', 'mietfux' ),
-			2 => __( 'Objekt', 'mietfux' ),
-			3 => __( 'Einheiten', 'mietfux' ),
-			4 => __( 'Mieter', 'mietfux' ),
-			5 => __( 'Mietverhältnis', 'mietfux' ),
+			1 => __( 'Landlord', 'mietfux' ),
+			2 => __( 'Property', 'mietfux' ),
+			3 => __( 'Units', 'mietfux' ),
+			4 => __( 'Tenants', 'mietfux' ),
+			5 => __( 'Tenancy', 'mietfux' ),
 		];
 	}
 
@@ -104,7 +104,7 @@ class Mietv_Assistent {
 		switch ( $schritt ) {
 			case 1:
 				if ( $t( 'vermieter_name' ) === '' ) {
-					$fehler[] = __( 'Name des Vermieters fehlt.', 'mietfux' );
+					$fehler[] = __( 'Landlord name is missing.', 'mietfux' );
 					break;
 				}
 				$o = array_merge( Mietv_Einstellungen::defaults(), get_option( Mietv_Einstellungen::OPTION, [] ) );
@@ -116,7 +116,7 @@ class Mietv_Assistent {
 
 			case 2:
 				if ( $t( 'bezeichnung' ) === '' || $t( 'strasse' ) === '' ) {
-					$fehler[] = __( 'Bezeichnung und Straße sind Pflicht.', 'mietfux' );
+					$fehler[] = __( 'Name and street are required.', 'mietfux' );
 					break;
 				}
 				$daten = [
@@ -140,11 +140,11 @@ class Mietv_Assistent {
 
 			case 3:
 				if ( empty( $stand['objekt_id'] ) ) {
-					$fehler[] = __( 'Bitte zuerst das Objekt anlegen.', 'mietfux' );
+					$fehler[] = __( 'Please create the property first.', 'mietfux' );
 					break;
 				}
 				if ( $t( 'einheit' ) === '' || mietv_to_float( $t( 'flaeche' ) ) <= 0 ) {
-					$fehler[] = __( 'Bezeichnung und Wohnfläche der Wohnung sind Pflicht.', 'mietfux' );
+					$fehler[] = __( 'Name and living area of the flat are required.', 'mietfux' );
 					break;
 				}
 				$wohnung = [
@@ -182,7 +182,7 @@ class Mietv_Assistent {
 
 			case 4:
 				if ( $t( 'nachname' ) === '' ) {
-					$fehler[] = __( 'Nachname des Mieters fehlt.', 'mietfux' );
+					$fehler[] = __( 'Tenant\'s last name is missing.', 'mietfux' );
 					break;
 				}
 				$m = [
@@ -211,13 +211,13 @@ class Mietv_Assistent {
 
 			case 5:
 				if ( empty( $stand['einheit_id'] ) || empty( $stand['mieter_id'] ) ) {
-					$fehler[] = __( 'Einheit und Mieter müssen vorher angelegt sein.', 'mietfux' );
+					$fehler[] = __( 'Unit and tenant must be created first.', 'mietfux' );
 					break;
 				}
 				$beginn = $t( 'beginn' );
 				$kalt   = mietv_to_float( $t( 'kaltmiete' ) );
 				if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $beginn ) || $kalt <= 0 ) {
-					$fehler[] = __( 'Mietbeginn und Kaltmiete (größer 0) sind Pflicht.', 'mietfux' );
+					$fehler[] = __( 'Start of tenancy and base rent (greater than 0) are required.', 'mietfux' );
 					break;
 				}
 				$zahltag = max( 1, min( 28, (int) $t( 'zahltag' ) ?: 3 ) );
@@ -282,7 +282,7 @@ class Mietv_Assistent {
 		$fehler  = get_transient( 'mietv_assistent_fehler_' . get_current_user_id() );
 		delete_transient( 'mietv_assistent_fehler_' . get_current_user_id() );
 
-		echo '<div class="wrap mv-wrap mv-assistent"><h1>' . esc_html__( 'Einrichtungsassistent', 'mietfux' ) . '</h1>';
+		echo '<div class="wrap mv-wrap mv-assistent"><h1>' . esc_html__( 'Setup wizard', 'mietfux' ) . '</h1>';
 		echo '<ol class="mv-schritte">';
 		foreach ( self::schritte() as $n => $label ) {
 			$cls = $n < $schritt ? 'erledigt' : ( $n === $schritt ? 'aktiv' : '' );
@@ -324,31 +324,31 @@ class Mietv_Assistent {
 		switch ( $schritt ) {
 			case 1:
 				$o = array_merge( Mietv_Einstellungen::defaults(), get_option( Mietv_Einstellungen::OPTION, [] ) );
-				echo '<tr><td colspan="2"><p>' . esc_html__( 'Diese Angaben erscheinen als Absender auf Mietvertrag, Abrechnungen und Schreiben.', 'mietfux' ) . '</p></td></tr>';
+				echo '<tr><td colspan="2"><p>' . esc_html__( 'These details appear as sender on the tenancy agreement, statements and letters.', 'mietfux' ) . '</p></td></tr>';
 				$f( 'vermieter_name', __( 'Name', 'mietfux' ), $o['vermieter_name'], 'text', '', true );
-				printf( '<tr><th><label for="mietv_vermieter_adresse">%s</label></th><td><textarea id="mietv_vermieter_adresse" name="vermieter_adresse" rows="3" class="regular-text">%s</textarea><p class="description">%s</p></td></tr>', esc_html__( 'Anschrift', 'mietfux' ), esc_textarea( $o['vermieter_adresse'] ), esc_html__( 'Straße und Ort in zwei Zeilen.', 'mietfux' ) );
-				$f( 'vermieter_email', __( 'E-Mail', 'mietfux' ), $o['vermieter_email'], 'email' );
-				$f( 'vermieter_telefon', __( 'Telefon', 'mietfux' ), $o['vermieter_telefon'] );
-				$f( 'vermieter_iban', __( 'IBAN (Mietkonto)', 'mietfux' ), $o['vermieter_iban'], 'text', __( 'Für Zahlungsaufforderungen und SEPA-Mandat.', 'mietfux' ) );
+				printf( '<tr><th><label for="mietv_vermieter_adresse">%s</label></th><td><textarea id="mietv_vermieter_adresse" name="vermieter_adresse" rows="3" class="regular-text">%s</textarea><p class="description">%s</p></td></tr>', esc_html__( 'Address', 'mietfux' ), esc_textarea( $o['vermieter_adresse'] ), esc_html__( 'Street and town on two lines.', 'mietfux' ) );
+				$f( 'vermieter_email', __( 'Email', 'mietfux' ), $o['vermieter_email'], 'email' );
+				$f( 'vermieter_telefon', __( 'Phone', 'mietfux' ), $o['vermieter_telefon'] );
+				$f( 'vermieter_iban', __( 'IBAN (rent account)', 'mietfux' ), $o['vermieter_iban'], 'text', __( 'For payment requests and SEPA mandate.', 'mietfux' ) );
 				$f( 'vermieter_bank', __( 'Bank', 'mietfux' ), $o['vermieter_bank'] );
-				$f( 'vermieter_steuernr', __( 'Steuernummer (optional)', 'mietfux' ), $o['vermieter_steuernr'] );
+				$f( 'vermieter_steuernr', __( 'Tax number (optional)', 'mietfux' ), $o['vermieter_steuernr'] );
 				break;
 
 			case 2:
 				$ob = ! empty( $stand['objekt_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_objekte WHERE id = %d', $stand['objekt_id'] ) ) : null;
-				echo '<tr><td colspan="2"><p>' . esc_html__( 'Ein Objekt ist das Haus oder die Eigentumswohnung. Das Baujahr bestimmt den AfA-Satz, die Heizungsart die Heizkostenverteilung.', 'mietfux' ) . '</p></td></tr>';
-				$f( 'bezeichnung', __( 'Bezeichnung', 'mietfux' ), $ob->bezeichnung ?? '', 'text', __( 'z. B. „ETW Musterstraße 1“', 'mietfux' ), true );
-				$f( 'strasse', __( 'Straße / Nr.', 'mietfux' ), $ob->strasse ?? '', 'text', '', true );
-				$f( 'plz', __( 'PLZ', 'mietfux' ), $ob->plz ?? '' );
-				$f( 'ort', __( 'Ort', 'mietfux' ), $ob->ort ?? '' );
-				$f( 'baujahr', __( 'Baujahr', 'mietfux' ), (string) ( $ob->baujahr ?? '' ), 'number', __( 'Vor 1925: 2,5 % AfA, ab 2023: 3 %, sonst 2 %.', 'mietfux' ) );
+				echo '<tr><td colspan="2"><p>' . esc_html__( 'A property is the house or condominium. The year built determines the depreciation rate, the heating type the heating cost allocation.', 'mietfux' ) . '</p></td></tr>';
+				$f( 'bezeichnung', __( 'Name', 'mietfux' ), $ob->bezeichnung ?? '', 'text', __( 'e.g. “Condo, 1 Sample Street”', 'mietfux' ), true );
+				$f( 'strasse', __( 'Street / no.', 'mietfux' ), $ob->strasse ?? '', 'text', '', true );
+				$f( 'plz', __( 'Postcode', 'mietfux' ), $ob->plz ?? '' );
+				$f( 'ort', __( 'Town', 'mietfux' ), $ob->ort ?? '' );
+				$f( 'baujahr', __( 'Year built', 'mietfux' ), (string) ( $ob->baujahr ?? '' ), 'number', __( 'Before 1925: 2.5 % depreciation, from 2023: 3 %, otherwise 2 %.', 'mietfux' ) );
 				$sel(
 					'heizung',
-					__( 'Heizung', 'mietfux' ),
+					__( 'Heating', 'mietfux' ),
 					[
-						'zentral'    => esc_html__( 'Zentralheizung (HeizkostenV, verbrauchsabhängig)', 'mietfux' ),
-						'fernwaerme' => esc_html__( 'Fernwärme (HeizkostenV)', 'mietfux' ),
-						'dezentral'  => esc_html__( 'Dezentral / Etagenheizung (Mieter rechnet selbst ab)', 'mietfux' ),
+						'zentral'    => esc_html__( 'Central heating (HeizkostenV, consumption-based)', 'mietfux' ),
+						'fernwaerme' => esc_html__( 'District heating (HeizkostenV)', 'mietfux' ),
+						'dezentral'  => esc_html__( 'Decentralised / per-flat heating (tenant settles directly)', 'mietfux' ),
 					],
 					$ob->heizung ?? 'zentral'
 				);
@@ -357,46 +357,46 @@ class Mietv_Assistent {
 			case 3:
 				$e = ! empty( $stand['einheit_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['einheit_id'] ) ) : null;
 				$g = ! empty( $stand['garage_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['garage_id'] ) ) : null;
-				echo '<tr><td colspan="2"><p>' . esc_html__( 'Die Wohnung ist die Haupteinheit. Garage oder Stellplatz können gleich mit angelegt und im nächsten Schritt demselben Vertrag zugeordnet werden.', 'mietfux' ) . '</p></td></tr>';
-				$f( 'einheit', __( 'Wohnung – Bezeichnung', 'mietfux' ), $e->bezeichnung ?? __( 'Wohnung', 'mietfux' ), 'text', __( 'z. B. „Wohnung EG links“', 'mietfux' ), true );
-				$f( 'lage', __( 'Lage', 'mietfux' ), $e->lage ?? '', 'text', __( 'z. B. „1. OG“', 'mietfux' ) );
-				$f( 'flaeche', __( 'Wohnfläche (m²)', 'mietfux' ), isset( $e->flaeche ) ? number_format( (float) $e->flaeche, 2, ',', '' ) : '', 'text', __( 'Wird für die Betriebskostenabrechnung benötigt.', 'mietfux' ), true );
-				$f( 'zimmer', __( 'Zimmer', 'mietfux' ), isset( $e->zimmer ) ? number_format( (float) $e->zimmer, 1, ',', '' ) : '' );
-				echo '<tr><th colspan="2" style="padding-bottom:0"><h3 style="margin:10px 0 0">' . esc_html__( 'Garage / Stellplatz (optional)', 'mietfux' ) . '</h3></th></tr>';
-				$f( 'garage', __( 'Bezeichnung', 'mietfux' ), $g->bezeichnung ?? '', 'text', __( 'Leer lassen, wenn keine Garage mitvermietet wird.', 'mietfux' ) );
+				echo '<tr><td colspan="2"><p>' . esc_html__( 'The flat is the main unit. A garage or parking space can be created at the same time and assigned to the same agreement in the next step.', 'mietfux' ) . '</p></td></tr>';
+				$f( 'einheit', __( 'Flat – name', 'mietfux' ), $e->bezeichnung ?? __( 'Flat', 'mietfux' ), 'text', __( 'e.g. “Ground floor flat, left”', 'mietfux' ), true );
+				$f( 'lage', __( 'Location', 'mietfux' ), $e->lage ?? '', 'text', __( 'e.g. “1st floor”', 'mietfux' ) );
+				$f( 'flaeche', __( 'Living area (m²)', 'mietfux' ), isset( $e->flaeche ) ? number_format( (float) $e->flaeche, 2, ',', '' ) : '', 'text', __( 'Needed for the service charge statement.', 'mietfux' ), true );
+				$f( 'zimmer', __( 'Rooms', 'mietfux' ), isset( $e->zimmer ) ? number_format( (float) $e->zimmer, 1, ',', '' ) : '' );
+				echo '<tr><th colspan="2" style="padding-bottom:0"><h3 style="margin:10px 0 0">' . esc_html__( 'Garage / parking space (optional)', 'mietfux' ) . '</h3></th></tr>';
+				$f( 'garage', __( 'Name', 'mietfux' ), $g->bezeichnung ?? '', 'text', __( 'Leave empty if no garage is let with the flat.', 'mietfux' ) );
 				$sel(
 					'garage_typ',
-					__( 'Typ', 'mietfux' ),
+					__( 'Type', 'mietfux' ),
 					[
 						'garage'     => esc_html__( 'Garage', 'mietfux' ),
-						'stellplatz' => esc_html__( 'Stellplatz', 'mietfux' ),
+						'stellplatz' => esc_html__( 'Parking space', 'mietfux' ),
 					],
 					$g->typ ?? 'garage'
 				);
-				$f( 'garage_anteil', __( 'Mietanteil Garage (€)', 'mietfux' ), isset( $stand['garage_anteil'] ) ? number_format( (float) $stand['garage_anteil'], 2, ',', '' ) : '', 'text', __( 'Nur zur Ausweisung im Vertrag; die Gesamtmiete wird im nächsten Schritt erfasst.', 'mietfux' ) );
+				$f( 'garage_anteil', __( 'Garage rent share (€)', 'mietfux' ), isset( $stand['garage_anteil'] ) ? number_format( (float) $stand['garage_anteil'], 2, ',', '' ) : '', 'text', __( 'Shown in the agreement only; the total rent is entered in the next step.', 'mietfux' ) );
 				break;
 
 			case 4:
 				$m       = ! empty( $stand['mieter_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $stand['mieter_id'] ) ) : null;
 				$anreden = [
 					''     => '–',
-					'Frau' => esc_html__( 'Frau', 'mietfux' ),
-					'Herr' => esc_html__( 'Herr', 'mietfux' ),
+					'Frau' => esc_html__( 'Ms', 'mietfux' ),
+					'Herr' => esc_html__( 'Mr', 'mietfux' ),
 				];
-				$sel( 'anrede', __( 'Anrede', 'mietfux' ), $anreden + [ 'Firma' => __( 'Firma', 'mietfux' ) ], $m->anrede ?? '' );
-				$f( 'vorname', __( 'Vorname', 'mietfux' ), $m->vorname ?? '' );
-				$f( 'nachname', __( 'Nachname', 'mietfux' ), $m->nachname ?? '', 'text', '', true );
-				$f( 'geburtsdatum', __( 'Geburtsdatum', 'mietfux' ), $m->geburtsdatum ?? '', 'date', __( 'Für den Mietvertrag.', 'mietfux' ) );
-				$f( 'email', __( 'E-Mail', 'mietfux' ), $m->email ?? '', 'email' );
-				$f( 'telefon', __( 'Telefon', 'mietfux' ), $m->telefon ?? '' );
-				$f( 'anschrift_alt', __( 'Bisherige Anschrift', 'mietfux' ), $m->anschrift_alt ?? '', 'text', __( 'Anschrift vor Einzug – erscheint im Vertrag.', 'mietfux' ) );
-				$f( 'iban', __( 'IBAN des Mieters', 'mietfux' ), $m->iban ?? '', 'text', __( 'Für die automatische Zuordnung beim Bankimport.', 'mietfux' ) );
-				echo '<tr><th colspan="2" style="padding-bottom:0"><h3 style="margin:10px 0 0">' . esc_html__( 'Ehe-/Lebenspartner als Mitmieter (optional)', 'mietfux' ) . '</h3><p class="description" style="font-weight:normal">' . esc_html__( 'Erscheint automatisch als zweite Vertragspartei in Vertrag, Schreiben, SEPA-Mandat und Übergabeprotokoll.', 'mietfux' ) . '</p></th></tr>';
-				$sel( 'p_anrede', __( 'Anrede', 'mietfux' ), $anreden, $m->p_anrede ?? '' );
-				$f( 'p_vorname', __( 'Vorname', 'mietfux' ), $m->p_vorname ?? '' );
-				$f( 'p_nachname', __( 'Nachname', 'mietfux' ), $m->p_nachname ?? '' );
-				$f( 'p_geburtsdatum', __( 'Geburtsdatum', 'mietfux' ), $m->p_geburtsdatum ?? '', 'date' );
-				$f( 'p_email', __( 'E-Mail', 'mietfux' ), $m->p_email ?? '', 'email' );
+				$sel( 'anrede', __( 'Salutation', 'mietfux' ), $anreden + [ 'Firma' => __( 'Company', 'mietfux' ) ], $m->anrede ?? '' );
+				$f( 'vorname', __( 'First name', 'mietfux' ), $m->vorname ?? '' );
+				$f( 'nachname', __( 'Last name', 'mietfux' ), $m->nachname ?? '', 'text', '', true );
+				$f( 'geburtsdatum', __( 'Date of birth', 'mietfux' ), $m->geburtsdatum ?? '', 'date', __( 'For the tenancy agreement.', 'mietfux' ) );
+				$f( 'email', __( 'Email', 'mietfux' ), $m->email ?? '', 'email' );
+				$f( 'telefon', __( 'Phone', 'mietfux' ), $m->telefon ?? '' );
+				$f( 'anschrift_alt', __( 'Previous address', 'mietfux' ), $m->anschrift_alt ?? '', 'text', __( 'Address before moving in – appears in the agreement.', 'mietfux' ) );
+				$f( 'iban', __( 'Tenant\'s IBAN', 'mietfux' ), $m->iban ?? '', 'text', __( 'For automatic matching in the bank import.', 'mietfux' ) );
+				echo '<tr><th colspan="2" style="padding-bottom:0"><h3 style="margin:10px 0 0">' . esc_html__( 'Spouse/partner as co-tenant (optional)', 'mietfux' ) . '</h3><p class="description" style="font-weight:normal">' . esc_html__( 'Appears automatically as second contracting party in the agreement, letters, SEPA mandate and handover protocol.', 'mietfux' ) . '</p></th></tr>';
+				$sel( 'p_anrede', __( 'Salutation', 'mietfux' ), $anreden, $m->p_anrede ?? '' );
+				$f( 'p_vorname', __( 'First name', 'mietfux' ), $m->p_vorname ?? '' );
+				$f( 'p_nachname', __( 'Last name', 'mietfux' ), $m->p_nachname ?? '' );
+				$f( 'p_geburtsdatum', __( 'Date of birth', 'mietfux' ), $m->p_geburtsdatum ?? '', 'date' );
+				$f( 'p_email', __( 'Email', 'mietfux' ), $m->p_email ?? '', 'email' );
 				break;
 
 			case 5:
@@ -404,17 +404,17 @@ class Mietv_Assistent {
 				$k       = $mv ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_konditionen WHERE mv_id = %d ORDER BY gueltig_ab DESC LIMIT 1', $mv->id ) ) : null;
 				$mieter  = ! empty( $stand['mieter_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $stand['mieter_id'] ) ) : null;
 				$einheit = ! empty( $stand['einheit_id'] ) ? $wpdb->get_row( $wpdb->prepare( 'SELECT bezeichnung FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['einheit_id'] ) ) : null;
-				printf( '<tr><td colspan="2"><p>%s <strong>%s</strong> → <strong>%s</strong></p></td></tr>', esc_html__( 'Mietverhältnis:', 'mietfux' ), esc_html( mietv_mieter_name( $mieter ) ), esc_html( $einheit->bezeichnung ?? '–' ) );
-				$f( 'beginn', __( 'Mietbeginn', 'mietfux' ), $mv->beginn ?? '', 'date', '', true );
-				$f( 'kaltmiete', __( 'Kaltmiete gesamt (€)', 'mietfux' ), isset( $k->kaltmiete ) ? number_format( (float) $k->kaltmiete, 2, ',', '' ) : '', 'text', __( 'Inklusive Garage/Stellplatz, falls mitvermietet.', 'mietfux' ), true );
-				$f( 'bk_vz', __( 'Betriebskosten-Vorauszahlung (€)', 'mietfux' ), isset( $k->bk_vz ) ? number_format( (float) $k->bk_vz, 2, ',', '' ) : '' );
-				$f( 'hk_vz', __( 'Heizkosten-Vorauszahlung (€)', 'mietfux' ), isset( $k->hk_vz ) ? number_format( (float) $k->hk_vz, 2, ',', '' ) : '', 'text', __( 'Bei dezentraler Heizung 0.', 'mietfux' ) );
-				$f( 'kaution', __( 'Kaution (€)', 'mietfux' ), isset( $mv->kaution ) ? number_format( (float) $mv->kaution, 2, ',', '' ) : '', 'text', __( 'Höchstens drei Kaltmieten (§ 551 BGB).', 'mietfux' ) );
-				$f( 'personen', __( 'Personen im Haushalt', 'mietfux' ), (string) ( $mv->personen ?? ( mietv_hat_partner( $mieter ) ? 2 : 1 ) ), 'number' );
-				$f( 'zahltag', __( 'Zahltag (Tag im Monat)', 'mietfux' ), (string) ( $mv->zahltag ?? 3 ), 'number' );
+				printf( '<tr><td colspan="2"><p>%s <strong>%s</strong> → <strong>%s</strong></p></td></tr>', esc_html__( 'Tenancy:', 'mietfux' ), esc_html( mietv_mieter_name( $mieter ) ), esc_html( $einheit->bezeichnung ?? '–' ) );
+				$f( 'beginn', __( 'Start of tenancy', 'mietfux' ), $mv->beginn ?? '', 'date', '', true );
+				$f( 'kaltmiete', __( 'Total base rent (€)', 'mietfux' ), isset( $k->kaltmiete ) ? number_format( (float) $k->kaltmiete, 2, ',', '' ) : '', 'text', __( 'Including garage/parking space, if let together.', 'mietfux' ), true );
+				$f( 'bk_vz', __( 'Service charge advance (€)', 'mietfux' ), isset( $k->bk_vz ) ? number_format( (float) $k->bk_vz, 2, ',', '' ) : '' );
+				$f( 'hk_vz', __( 'Heating advance (€)', 'mietfux' ), isset( $k->hk_vz ) ? number_format( (float) $k->hk_vz, 2, ',', '' ) : '', 'text', __( '0 for decentralised heating.', 'mietfux' ) );
+				$f( 'kaution', __( 'Deposit (€)', 'mietfux' ), isset( $mv->kaution ) ? number_format( (float) $mv->kaution, 2, ',', '' ) : '', 'text', __( 'At most three months\' base rent (§ 551 BGB).', 'mietfux' ) );
+				$f( 'personen', __( 'Persons in household', 'mietfux' ), (string) ( $mv->personen ?? ( mietv_hat_partner( $mieter ) ? 2 : 1 ) ), 'number' );
+				$f( 'zahltag', __( 'Payment day (day of month)', 'mietfux' ), (string) ( $mv->zahltag ?? 3 ), 'number' );
 				if ( ! empty( $stand['garage_id'] ) ) {
 					$g = $wpdb->get_var( $wpdb->prepare( 'SELECT bezeichnung FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $stand['garage_id'] ) );
-					printf( '<tr><th>%s</th><td><label><input type="checkbox" name="mit_garage" value="1" checked> %s</label></td></tr>', esc_html__( 'Zusatzeinheit', 'mietfux' ), esc_html( sprintf( /* translators: %s: Wert */ __( '„%s“ gehört zu diesem Vertrag (eine Gesamtmiete, eine Buchung)', 'mietfux' ), $g ) ) );
+					printf( '<tr><th>%s</th><td><label><input type="checkbox" name="mit_garage" value="1" checked> %s</label></td></tr>', esc_html__( 'Additional unit', 'mietfux' ), esc_html( sprintf( /* translators: %s: Wert */ __( '“%s” belongs to this agreement (one total rent, one booking)', 'mietfux' ), $g ) ) );
 				}
 				break;
 		}
@@ -422,10 +422,10 @@ class Mietv_Assistent {
 
 		echo '<p class="submit">';
 		if ( $schritt > 1 ) {
-			printf( '<a class="button" href="%s">← %s</a> ', esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=' . ( $schritt - 1 ) ) ), esc_html__( 'Zurück', 'mietfux' ) );
+			printf( '<a class="button" href="%s">← %s</a> ', esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=' . ( $schritt - 1 ) ) ), esc_html__( 'Back', 'mietfux' ) );
 		}
-		printf( '<button type="submit" class="button button-primary">%s →</button> ', $schritt === 5 ? esc_html__( 'Abschließen', 'mietfux' ) : esc_html__( 'Speichern und weiter', 'mietfux' ) );
-		printf( '<button type="submit" name="mietv_ueberspringen" value="1" class="button-link" formnovalidate>%s</button>', esc_html__( 'Assistent beenden, ich lege die Daten selbst an', 'mietfux' ) );
+		printf( '<button type="submit" class="button button-primary">%s →</button> ', $schritt === 5 ? esc_html__( 'Finish', 'mietfux' ) : esc_html__( 'Save and continue', 'mietfux' ) );
+		printf( '<button type="submit" name="mietv_ueberspringen" value="1" class="button-link" formnovalidate>%s</button>', esc_html__( 'Close the wizard, I\'ll enter the data myself', 'mietfux' ) );
 		echo '</p></form></div>';
 	}
 
@@ -449,25 +449,25 @@ class Mietv_Assistent {
 		global $wpdb;
 		$mv = ! empty( $stand['mv_id'] ) ? Mietv_Soll::alle_mv()[0] ?? null : null;
 		echo '<div class="mv-hilfe-karte" style="max-width:720px">';
-		echo '<h2>✅ ' . esc_html__( 'Einrichtung abgeschlossen', 'mietfux' ) . '</h2>';
+		echo '<h2>✅ ' . esc_html__( 'Setup complete', 'mietfux' ) . '</h2>';
 		if ( ! empty( $stand['mv_id'] ) ) {
 			$label = $wpdb->get_var( $wpdb->prepare( "SELECT CONCAT(m.nachname, ', ', m.vorname) FROM " . $wpdb->prefix . 'mv_mietverhaeltnisse mv JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id WHERE mv.id = %d', $stand['mv_id'] ) );
-			printf( '<p>%s <strong>%s</strong>.</p>', esc_html__( 'Angelegt wurde das Mietverhältnis', 'mietfux' ), esc_html( (string) $label ) );
+			printf( '<p>%s <strong>%s</strong>.</p>', esc_html__( 'The following tenancy was created:', 'mietfux' ), esc_html( (string) $label ) );
 		}
-		echo '<p>' . esc_html__( 'Sinnvolle nächste Schritte:', 'mietfux' ) . '</p><ul style="list-style:disc;margin-left:20px">';
+		echo '<p>' . esc_html__( 'Useful next steps:', 'mietfux' ) . '</p><ul style="list-style:disc;margin-left:20px">';
 		$links = [
-			[ 'mietv_anlagegueter', __( 'Gebäude als Anlagegut mit Kaufpreis, Nebenkosten und Grundanteil erfassen (AfA) – Kaufvertrag-PDF auslesen lassen', 'mietfux' ) ],
-			[ 'mietv_darlehen', __( 'Finanzierungsdarlehen anlegen (Zins, Tilgung, Rate)', 'mietfux' ) ],
-			[ 'mietv_zaehler', __( 'Zähler der Wohnung anlegen und Anfangsstände erfassen', 'mietfux' ) ],
-			[ 'mietv_mietvertrag', __( 'Mietvertrag, SEPA-Mandat und Übergabeprotokoll erzeugen', 'mietfux' ) ],
-			[ 'mietv_uebersicht', __( 'Mieteingänge in der Übersicht abhaken oder per Bankimport einlesen', 'mietfux' ) ],
-			[ 'mietv_hilfe', __( 'Hilfe mit Kurzbeschreibung aller Module', 'mietfux' ) ],
+			[ 'mietv_anlagegueter', __( 'Enter the building as an asset with purchase price, incidental costs and land share (depreciation) – let the purchase contract PDF be parsed', 'mietfux' ) ],
+			[ 'mietv_darlehen', __( 'Create financing loan (interest, repayment, instalment)', 'mietfux' ) ],
+			[ 'mietv_zaehler', __( 'Create the flat\'s meters and record initial readings', 'mietfux' ) ],
+			[ 'mietv_mietvertrag', __( 'Generate tenancy agreement, SEPA mandate and handover protocol', 'mietfux' ) ],
+			[ 'mietv_uebersicht', __( 'Tick rent receipts in the overview or import them from the bank', 'mietfux' ) ],
+			[ 'mietv_hilfe', __( 'Help with a short description of all modules', 'mietfux' ) ],
 		];
 		foreach ( $links as [ $slug, $text ] ) {
 			printf( '<li><a href="%s">%s</a></li>', esc_url( admin_url( 'admin.php?page=' . $slug ) ), esc_html( $text ) );
 		}
 		echo '</ul>';
-		printf( '<p><a class="button button-primary" href="%s">%s</a> <a class="button" href="%s">%s</a></p>', esc_url( admin_url( 'admin.php?page=mietv_uebersicht' ) ), esc_html__( 'Zur Übersicht', 'mietfux' ), esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=1' ) ), esc_html__( 'Angaben noch einmal durchgehen', 'mietfux' ) );
+		printf( '<p><a class="button button-primary" href="%s">%s</a> <a class="button" href="%s">%s</a></p>', esc_url( admin_url( 'admin.php?page=mietv_uebersicht' ) ), esc_html__( 'Go to overview', 'mietfux' ), esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&schritt=1' ) ), esc_html__( 'Review the entries again', 'mietfux' ) );
 		echo '</div>';
 	}
 }

@@ -123,7 +123,7 @@ class Mietv_Darlehen {
 			return;
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_darlehen_nonce'] ?? '' ) ), 'mietv_darlehen' ) ) {
-			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+			wp_die( esc_html__( 'Invalid request.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$did = ( isset( $_POST['darlehen_id'] ) ? (int) $_POST['darlehen_id'] : 0 );
@@ -209,16 +209,16 @@ class Mietv_Darlehen {
 				$d = $x;
 			}
 		}
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Darlehenskonto', 'mietfux' ) . '</h1>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Loan account', 'mietfux' ) . '</h1>';
 		$flash = mietv_flash_get();
 		if ( ( $flash['code'] ?? '' ) === 'ok' ) {
-			printf( '<div class="notice notice-success is-dismissible"><p>' . /* translators: %d: Wert */ esc_html__( '%d Buchung(en) angelegt.', 'mietfux' ) . '</p></div>', (int) ( $flash['n'] ?? 0 ) );
+			printf( '<div class="notice notice-success is-dismissible"><p>' . /* translators: %d: Wert */ esc_html__( '%d entry/entries created.', 'mietfux' ) . '</p></div>', (int) ( $flash['n'] ?? 0 ) );
 		}
 		if ( ! $alle ) {
-			printf( '<p>' . esc_html__( 'Noch kein Darlehen angelegt –', 'mietfux' ) . ' <a href="%s">' . esc_html__( 'Darlehen anlegen', 'mietfux' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=new' ) ) );
+			printf( '<p>' . esc_html__( 'No loan created yet –', 'mietfux' ) . ' <a href="%s">' . esc_html__( 'Create loan', 'mietfux' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=new' ) ) );
 			return;
 		}
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_darlehenskonto"><label>' . esc_html__( 'Darlehen', 'mietfux' ) . ' <select name="darlehen_id" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_darlehenskonto"><label>' . esc_html__( 'Loans', 'mietfux' ) . ' <select name="darlehen_id" onchange="this.form.submit()">';
 		foreach ( $alle as $x ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $x->id, selected( $did, (int) $x->id, false ), esc_html( $x->bank . ( $x->bezeichnung ? ' – ' . $x->bezeichnung : '' ) . ' (' . mietv_eur( $x->betrag ) . ')' ) );
 		}
@@ -228,7 +228,7 @@ class Mietv_Darlehen {
 			return;
 		}
 		if ( empty( $d->auszahlung ) || $d->auszahlung === '0000-00-00' || (float) $d->rate <= 0 ) {
-			printf( '<div class="notice notice-warning inline"><p>' . esc_html__( 'Für den Tilgungsplan müssen Auszahlungsdatum, Sollzins und Monatsrate beim Darlehen hinterlegt sein.', 'mietfux' ) . ' <a href="%s">' . esc_html__( 'Darlehen bearbeiten', 'mietfux' ) . '</a></p></div></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=edit&id=' . $d->id ) ) );
+			printf( '<div class="notice notice-warning inline"><p>' . esc_html__( 'The repayment schedule requires disbursement date, interest rate and monthly instalment on the loan.', 'mietfux' ) . ' <a href="%s">' . esc_html__( 'Edit loan', 'mietfux' ) . '</a></p></div></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=edit&id=' . $d->id ) ) );
 			return;
 		}
 
@@ -247,34 +247,34 @@ class Mietv_Darlehen {
 		}
 		printf(
 			'<div class="mv-kacheln"><div class="mv-kachel"><span>%s</span><strong>%s</strong><small>%s %s</small></div><div class="mv-kachel"><span>%s</span><strong>%s</strong></div><div class="mv-kachel"><span>%s</span><strong>%s</strong><small>%d %s</small></div><div class="mv-kachel"><span>%s</span><strong>%s</strong></div><div class="mv-kachel"><span>%s</span><strong>%s</strong><small>%s</small></div></div>',
-			esc_html__( 'Darlehensbetrag', 'mietfux' ),
+			esc_html__( 'Loan amount', 'mietfux' ),
 			esc_html( mietv_eur( $d->betrag ) ),
-			esc_html__( 'ausgezahlt', 'mietfux' ),
+			esc_html__( 'disbursed', 'mietfux' ),
 			esc_html( mietv_date( $d->auszahlung ) ),
-			esc_html__( 'Restschuld heute', 'mietfux' ),
+			esc_html__( 'Outstanding balance today', 'mietfux' ),
 			esc_html( mietv_eur( $rest ) ),
-			esc_html__( 'Gezahlte Zinsen', 'mietfux' ),
+			esc_html__( 'Interest paid', 'mietfux' ),
 			esc_html( mietv_eur( $zins_gesamt ) ),
 			count( $gebucht ),
-			esc_html__( 'Buchungen', 'mietfux' ),
-			esc_html__( 'Getilgt', 'mietfux' ),
+			esc_html__( 'Entries', 'mietfux' ),
+			esc_html__( 'Repaid', 'mietfux' ),
 			esc_html( mietv_eur( $tilg_gesamt ) ),
-			esc_html__( 'Rate / Sollzins', 'mietfux' ),
+			esc_html__( 'Instalment / interest rate', 'mietfux' ),
 			esc_html( mietv_eur( $d->rate ) . ' / ' . number_format( (float) $d->zinssatz, 2, ',', '.' ) . ' %' ),
-			$monate_rest ? sprintf( /* translators: %d: Wert */ esc_html__( 'Restlaufzeit ca. %d Monate', 'mietfux' ), (int) $monate_rest ) : ''
+			$monate_rest ? sprintf( /* translators: %d: Wert */ esc_html__( 'Remaining term approx. %d months', 'mietfux' ), (int) $monate_rest ) : ''
 		);
 
-		echo '<p class="description">' . esc_html__( 'Offene Monate abhaken und buchen: Zins = Restschuld × Sollzins / 12, Tilgung = Rate − Zins. Die Jahressummen fließen als Schuldzinsen in die Anlage V, solange keine Zinsbescheinigung der Bank für das Jahr erfasst ist – diese hat Vorrang (taggenaue Bankrechnung).', 'mietfux' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Tick and book open months: interest = balance × rate / 12, repayment = instalment − interest. The annual totals flow into Anlage V as loan interest unless a bank interest certificate is entered for the year – that takes precedence (exact bank calculation).', 'mietfux' ) . '</p>';
 
 		echo '<form method="post" id="mv-dl-form">';
 		wp_nonce_field( 'mietv_darlehen', 'mietv_darlehen_nonce' );
 		printf( '<input type="hidden" name="darlehen_id" value="%d">', (int) $d->id );
 		if ( $offen ) {
-			echo '<p><button class="button button-primary">' . esc_html__( 'Markierte Raten buchen', 'mietfux' ) . '</button></p>';
+			echo '<p><button class="button button-primary">' . esc_html__( 'Book selected instalments', 'mietfux' ) . '</button></p>';
 		}
-		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Monat', 'mietfux' ) . '</th><th>' . esc_html__( 'Art', 'mietfux' ) . '</th><th>' . esc_html__( 'Rate', 'mietfux' ) . '</th><th>' . esc_html__( 'Zins', 'mietfux' ) . '</th><th>' . esc_html__( 'Tilgung', 'mietfux' ) . '</th><th>' . esc_html__( 'Restschuld', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
+		echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Month', 'mietfux' ) . '</th><th>' . esc_html__( 'Type', 'mietfux' ) . '</th><th>' . esc_html__( 'Instalment', 'mietfux' ) . '</th><th>' . esc_html__( 'Interest', 'mietfux' ) . '</th><th>' . esc_html__( 'Repayment', 'mietfux' ) . '</th><th>' . esc_html__( 'Outstanding balance', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 		foreach ( array_reverse( $plan ) as $r ) {
-			$art = $r['art'] === 'sondertilgung' ? __( 'Sondertilgung', 'mietfux' ) : ( $r['gebucht'] ? __( 'Rate', 'mietfux' ) : __( 'Rate (offen)', 'mietfux' ) );
+			$art = $r['art'] === 'sondertilgung' ? __( 'Extra repayment', 'mietfux' ) : ( $r['gebucht'] ? __( 'Instalment', 'mietfux' ) : __( 'Instalment (open)', 'mietfux' ) );
 			printf(
 				'<tr%s><td class="mv-op-check">%s</td><td>%s</td><td style="text-align:left">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
 				$r['gebucht'] ? '' : ' style="opacity:.75"',
@@ -285,42 +285,42 @@ class Mietv_Darlehen {
 				esc_html( mietv_eur( $r['zins'] ) ),
 				esc_html( mietv_eur( $r['tilgung'] ) ),
 				esc_html( mietv_eur( $r['restschuld'] ) ),
-				$r['gebucht'] ? '<button name="loeschen" value="' . (int) $r['id'] . '" class="button-link mv-delete" data-confirm="' . esc_attr__( 'Buchung löschen? Nachfolgende Restschulden werden neu berechnet.', 'mietfux' ) . '">×</button>' : ''
+				$r['gebucht'] ? '<button name="loeschen" value="' . (int) $r['id'] . '" class="button-link mv-delete" data-confirm="' . esc_attr__( 'Delete entry? Subsequent balances will be recalculated.', 'mietfux' ) . '">×</button>' : ''
 			);
 		}
 		if ( ! $plan ) {
-			echo '<tr><td colspan="8">' . esc_html__( 'Noch keine Raten im Zeitraum.', 'mietfux' ) . '</td></tr>';
+			echo '<tr><td colspan="8">' . esc_html__( 'No instalments in the period yet.', 'mietfux' ) . '</td></tr>';
 		}
 		echo '</tbody></table>';
 		if ( $offen ) {
-			echo '<p><button class="button button-primary">' . esc_html__( 'Markierte Raten buchen', 'mietfux' ) . '</button></p>';
+			echo '<p><button class="button button-primary">' . esc_html__( 'Book selected instalments', 'mietfux' ) . '</button></p>';
 		}
 		echo '</form>';
 
-		echo '<div class="mv-kacheln"><div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Sondertilgung buchen', 'mietfux' ) . '</h3><form method="post">';
+		echo '<div class="mv-kacheln"><div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Book extra repayment', 'mietfux' ) . '</h3><form method="post">';
 		wp_nonce_field( 'mietv_darlehen', 'mietv_darlehen_nonce' );
 		printf(
 			'<input type="hidden" name="darlehen_id" value="%d"><p><input type="date" name="st_datum" value="%s"> <input type="text" name="st_betrag" class="mv-num" placeholder="%s" inputmode="decimal"> <button name="sondertilgung" value="1" class="button">%s</button></p><p class="description">%s</p></form></div>',
 			(int) $d->id,
 			esc_attr( current_time( 'Y-m-d' ) ),
-			esc_attr__( 'Betrag', 'mietfux' ),
-			esc_html__( 'Buchen', 'mietfux' ),
-			esc_html__( 'Reduziert die Restschuld; die Folgeraten werden mit der niedrigeren Restschuld berechnet.', 'mietfux' )
+			esc_attr__( 'Amount', 'mietfux' ),
+			esc_html__( 'Book', 'mietfux' ),
+			esc_html__( 'Reduces the outstanding balance; subsequent instalments are calculated on the lower balance.', 'mietfux' )
 		);
 
 		// Jahreswerte
-		echo '<div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Jahreswerte', 'mietfux' ) . '</h3><table class="widefat striped mv-op"><thead><tr><th>' . esc_html__( 'Jahr', 'mietfux' ) . '</th><th>' . esc_html__( 'Zinsen', 'mietfux' ) . '</th><th>' . esc_html__( 'Tilgung', 'mietfux' ) . '</th><th>' . esc_html__( 'Restschuld 31.12.', 'mietfux' ) . '</th><th>' . esc_html__( 'Quelle', 'mietfux' ) . '</th></tr></thead><tbody>';
+		echo '<div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Annual figures', 'mietfux' ) . '</h3><table class="widefat striped mv-op"><thead><tr><th>' . esc_html__( 'Year', 'mietfux' ) . '</th><th>' . esc_html__( 'Interest', 'mietfux' ) . '</th><th>' . esc_html__( 'Repayment', 'mietfux' ) . '</th><th>' . esc_html__( 'Balance 31 Dec', 'mietfux' ) . '</th><th>' . esc_html__( 'Source', 'mietfux' ) . '</th></tr></thead><tbody>';
 		$jahre = array_unique( array_map( fn( $r ) => (int) substr( $r['monat'], 0, 4 ), $gebucht ) );
 		rsort( $jahre );
 		foreach ( $jahre as $j ) {
 			$besch = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_darlehen_jahre WHERE darlehen_id = %d AND jahr = %d', $d->id, $j ) );
 			$jw    = self::jahreswerte( (int) $d->id, $j );
 			if ( $besch ) {
-				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s%s</td></tr>', (int) $j, esc_html( mietv_eur( $besch->zinsen ) ), esc_html( mietv_eur( $besch->tilgung ) ), esc_html( mietv_eur( $besch->restschuld ) ), esc_html__( 'Zinsbescheinigung', 'mietfux' ), $jw && abs( $jw['zinsen'] - (float) $besch->zinsen ) > 5 ? ' <span class="mv-warn" title="' . esc_attr( sprintf( /* translators: %s: Wert */ esc_html__( 'Berechnet: %s', 'mietfux' ), mietv_eur( $jw['zinsen'] ) ) ) . '">⚠</span>' : '' );
+				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s%s</td></tr>', (int) $j, esc_html( mietv_eur( $besch->zinsen ) ), esc_html( mietv_eur( $besch->tilgung ) ), esc_html( mietv_eur( $besch->restschuld ) ), esc_html__( 'Interest certificate', 'mietfux' ), $jw && abs( $jw['zinsen'] - (float) $besch->zinsen ) > 5 ? ' <span class="mv-warn" title="' . esc_attr( sprintf( /* translators: %s: Wert */ esc_html__( 'Calculated: %s', 'mietfux' ), mietv_eur( $jw['zinsen'] ) ) ) . '">⚠</span>' : '' );
 			} elseif ( $jw ) {
-				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s</td></tr>', (int) $j, esc_html( mietv_eur( $jw['zinsen'] ) ), esc_html( mietv_eur( $jw['tilgung'] ) ), esc_html( mietv_eur( $jw['restschuld'] ) ), esc_html__( 'berechnet aus Raten', 'mietfux' ) );
+				printf( '<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td style="text-align:left">%s</td></tr>', (int) $j, esc_html( mietv_eur( $jw['zinsen'] ) ), esc_html( mietv_eur( $jw['tilgung'] ) ), esc_html( mietv_eur( $jw['restschuld'] ) ), esc_html__( 'calculated from instalments', 'mietfux' ) );
 			}
 		}
-		echo '</tbody></table><p class="description">' . esc_html__( 'Liegt die Zinsbescheinigung der Bank vor, unter „Zinsbescheinigungen“ erfassen – sie ersetzt die berechneten Werte in der Steuer-Auswertung.', 'mietfux' ) . '</p></div></div></div>';
+		echo '</tbody></table><p class="description">' . esc_html__( 'Once the bank\'s interest certificate is available, enter it under “Interest certificates” – it replaces the calculated values in the tax report.', 'mietfux' ) . '</p></div></div></div>';
 	}
 }

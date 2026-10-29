@@ -5,7 +5,7 @@
 **Mietfux** bündelt alles, was ein privater Vermieter für eine oder mehrere Wohnungen braucht, in einem WordPress-Plugin: Stammdaten, Mieteingänge, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag mit allen Anlagen, Kaution, Darlehen, Mahnwesen, Mieterhöhung und ein Mieterportal. Alle Daten bleiben in der eigenen WordPress-Datenbank – kein Cloud-Dienst, keine Datenübertragung an Dritte.
 
 - Version: **1.0.1** · Lizenz: GPL-2.0-or-later · WordPress ≥ 6.0 · PHP ≥ 8.0
-- Sprachen: Deutsch (Quellsprache), Englisch
+- Sprachen: Englisch (Quellsprache), Deutsch (vollständig, `languages/mietfux-de_DE`)
 - Zielgruppe: Dauervermietung von Wohnraum in Deutschland (keine Ferienwohnungen)
 
 ---
@@ -121,8 +121,8 @@ Shortcode `[mietfux_portal]` auf einer Seite einfügen. Beim Mieter den WordPres
 
 ## Mehrsprachigkeit
 
-- Text Domain `mietverwaltung`, Quellsprache Deutsch, POT unter `languages/`.
-- **Englisch** vollständig: `mietverwaltung-en_US.po/.mo`. WordPress wählt die Sprache nach Site- bzw. Benutzereinstellung.
+- Text Domain `mietfux`, Quellsprache Englisch (WordPress.org-Konvention), POT unter `languages/`.
+- **Deutsch** vollständig: `mietfux-de_DE.po/.mo` wird mitgeliefert und über `load_plugin_textdomain()` geladen; zusätzlich über translate.wordpress.org. WordPress wählt die Sprache nach Site- bzw. Benutzereinstellung.
 - Mietvertrag, Hausordnung und Merkblatt bleiben bewusst deutsch – sie sind Rechtsdokumente nach deutschem Recht.
 - Weitere Sprachen: POT mit Poedit oder Loco Translate übersetzen und als `mietverwaltung-<locale>.mo` ablegen.
 
@@ -154,7 +154,7 @@ Einstellungen in `wp_options` (`mv_einstellungen`), Fokusmodus in `user_meta`, D
 mietverwaltung.php        Bootstrap, Plugin-Header
 includes/                 eine Klasse je Modul (MV_Admin, MV_Soll, MV_Abrechnung, MV_Steuer, MV_AfA, MV_Darlehen, MV_Mietvertrag, MV_PDF, MV_Brief, MV_Hilfe, …)
 assets/                   admin.css, menu.css, kaufvertrag.js
-languages/                POT, en_US
+languages/                POT, de_DE
 tests/                    Tests ohne WordPress (SQLite-$wpdb-Stub)
 uninstall.php
 ```

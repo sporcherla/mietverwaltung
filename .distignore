@@ -9,5 +9,3 @@ CHANGELOG.md
 *.zip
 .wordpress-org
 EINREICHUNG.md
-languages/*.po
-languages/*.mo

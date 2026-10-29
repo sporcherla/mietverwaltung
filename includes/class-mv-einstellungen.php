@@ -49,7 +49,7 @@ class Mietv_Einstellungen {
 			return;
 		}
 		if ( ! current_user_can( Mietv_Admin::CAP ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_einstellungen_nonce'] ?? '' ) ), 'mietv_einstellungen' ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
+			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 
 		// Restore
@@ -81,12 +81,12 @@ class Mietv_Einstellungen {
 		$o   = array_merge( self::defaults(), get_option( self::OPTION, [] ) );
 		$msg = mietv_flash_get()['code'] ?? '';
 		$map = [
-			'saved'       => [ 'success', esc_html__( 'Einstellungen gespeichert.', 'mietfux' ) ],
-			'restored'    => [ 'success', esc_html__( 'Backup eingespielt. Alle Daten wurden ersetzt.', 'mietfux' ) ],
-			'restorefail' => [ 'error', esc_html__( 'Backup konnte nicht gelesen werden (kein gültiges Mietverwaltung-JSON).', 'mietfux' ) ],
-			'noconfirm'   => [ 'error', esc_html__( 'Wiederherstellung abgebrochen: Bestätigung fehlt.', 'mietfux' ) ],
+			'saved'       => [ 'success', esc_html__( 'Settings saved.', 'mietfux' ) ],
+			'restored'    => [ 'success', esc_html__( 'Backup restored. All data has been replaced.', 'mietfux' ) ],
+			'restorefail' => [ 'error', esc_html__( 'Backup could not be read (not a valid Rental Management JSON file).', 'mietfux' ) ],
+			'noconfirm'   => [ 'error', esc_html__( 'Restore cancelled: confirmation missing.', 'mietfux' ) ],
 		];
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Einstellungen & Backup', 'mietfux' ) . '</h1>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Settings & backup', 'mietfux' ) . '</h1>';
 		if ( isset( $map[ $msg ] ) ) {
 			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $map[ $msg ][0] ), esc_html( $map[ $msg ][1] ) );
 		}
@@ -94,71 +94,71 @@ class Mietv_Einstellungen {
 		echo '<form method="post" enctype="multipart/form-data" class="mv-form">';
 		wp_nonce_field( 'mietv_einstellungen', 'mietv_einstellungen_nonce' );
 
-		echo '<h2>' . esc_html__( 'Vermieter (für Schreiben und Abrechnungen)', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		echo '<h2>' . esc_html__( 'Landlord (for letters and statements)', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		self::text( 'vermieter_name', __( 'Name', 'mietfux' ), $o );
-		self::area( 'vermieter_adresse', __( 'Anschrift', 'mietfux' ), $o );
-		self::text( 'vermieter_telefon', __( 'Telefon', 'mietfux' ), $o );
-		self::text( 'vermieter_email', __( 'E-Mail', 'mietfux' ), $o );
-		self::text( 'vermieter_iban', __( 'IBAN (für Nachzahlungen)', 'mietfux' ), $o );
+		self::area( 'vermieter_adresse', __( 'Address', 'mietfux' ), $o );
+		self::text( 'vermieter_telefon', __( 'Phone', 'mietfux' ), $o );
+		self::text( 'vermieter_email', __( 'Email', 'mietfux' ), $o );
+		self::text( 'vermieter_iban', __( 'IBAN (for amounts due)', 'mietfux' ), $o );
 		self::text( 'vermieter_bank', __( 'Bank', 'mietfux' ), $o );
-		self::text( 'vermieter_steuernr', __( 'Steuernummer (optional, für den Mietvertrag)', 'mietfux' ), $o );
-		self::text( 'vermieter_vertreter', __( 'Vertreten durch (optional, z. B. Hausverwaltung)', 'mietfux' ), $o );
-		self::text( 'glaeubiger_id', __( 'SEPA-Gläubiger-Identifikationsnummer', 'mietfux' ), $o, __( 'Für Lastschriftmandate; bei der Bundesbank beantragen (kostenlos). Leer = kein SEPA-Mandat.', 'mietfux' ) );
+		self::text( 'vermieter_steuernr', __( 'Tax number (optional, for the tenancy agreement)', 'mietfux' ), $o );
+		self::text( 'vermieter_vertreter', __( 'Represented by (optional, e.g. property manager)', 'mietfux' ), $o );
+		self::text( 'glaeubiger_id', __( 'SEPA creditor identifier', 'mietfux' ), $o, __( 'For direct debit mandates; apply at the Bundesbank (free of charge). Empty = no SEPA mandate.', 'mietfux' ) );
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Erinnerungen', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		echo '<h2>' . esc_html__( 'Reminders', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		self::select(
 			'erinnerung_aktiv',
-			__( 'Tägliche E-Mail bei Hinweisen', 'mietfux' ),
+			__( 'Daily email for notices', 'mietfux' ),
 			$o,
 			[
-				'1' => esc_html__( 'Ein', 'mietfux' ),
-				'0' => esc_html__( 'Aus', 'mietfux' ),
+				'1' => esc_html__( 'On', 'mietfux' ),
+				'0' => esc_html__( 'Off', 'mietfux' ),
 			],
-			__( 'Fehlender Mieteingang, Abrechnungsfrist, Zinsbindung, 15-Prozent-Grenze. Nur wenn es etwas zu melden gibt.', 'mietfux' )
+			__( 'Missing rent, statement deadline, fixed-rate period, 15 percent limit. Only when there is something to report.', 'mietfux' )
 		);
-		self::text( 'erinnerung_email', __( 'Empfänger', 'mietfux' ), $o );
+		self::text( 'erinnerung_email', __( 'Recipient', 'mietfux' ), $o );
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Mietrecht', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		echo '<h2>' . esc_html__( 'Tenancy law', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		self::select(
 			'angespannter_markt',
-			__( 'Gebiet mit angespanntem Wohnungsmarkt', 'mietfux' ),
+			__( 'Area with a tight housing market', 'mietfux' ),
 			$o,
 			[
-				'0' => esc_html__( 'Nein (Kappungsgrenze 20 %)', 'mietfux' ),
-				'1' => esc_html__( 'Ja (Kappungsgrenze 15 %)', 'mietfux' ),
+				'0' => esc_html__( 'No (cap 20 %)', 'mietfux' ),
+				'1' => esc_html__( 'Yes (cap 15 %)', 'mietfux' ),
 			],
-			__( 'Bayern: Mieterschutzverordnung – gilt u. a. für Fürth, Nürnberg, Erlangen und einige Umlandgemeinden; Zirndorf/Oberasbach/Stein prüfen.', 'mietfux' )
+			__( 'Bavaria: Tenant Protection Ordinance – applies e.g. to Fürth, Nuremberg, Erlangen and some surrounding municipalities; check Zirndorf/Oberasbach/Stein.', 'mietfux' )
 		);
-		self::text( 'mahn_tage_1', __( 'Zahlungsfrist Zahlungserinnerung (Tage)', 'mietfux' ), $o );
-		self::text( 'mahn_tage_2', __( 'Zahlungsfrist 1. Mahnung (Tage)', 'mietfux' ), $o );
-		self::text( 'mahn_tage_3', __( 'Zahlungsfrist letzte Mahnung (Tage)', 'mietfux' ), $o );
+		self::text( 'mahn_tage_1', __( 'Payment deadline, payment reminder (days)', 'mietfux' ), $o );
+		self::text( 'mahn_tage_2', __( 'Payment deadline, 1st dunning letter (days)', 'mietfux' ), $o );
+		self::text( 'mahn_tage_3', __( 'Payment deadline, final dunning letter (days)', 'mietfux' ), $o );
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Datenschutz', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
-		self::text( 'aufbewahrung_jahre', __( 'Aufbewahrungsfrist nach Mietende (Jahre)', 'mietfux' ), $o, __( '10 Jahre für steuerrelevante Unterlagen (§ 147 AO), gerechnet ab Ende des Kalenderjahres.', 'mietfux' ) );
+		echo '<h2>' . esc_html__( 'Data protection', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		self::text( 'aufbewahrung_jahre', __( 'Retention period after end of tenancy (years)', 'mietfux' ), $o, __( '10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year.', 'mietfux' ) );
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Deinstallation', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		echo '<h2>' . esc_html__( 'Uninstall', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		self::select(
 			'loeschen_bei_deinstallation',
-			__( 'Beim Löschen des Plugins', 'mietfux' ),
+			__( 'When deleting the plugin', 'mietfux' ),
 			$o,
 			[
-				'0' => esc_html__( 'Alle Daten behalten (Standard)', 'mietfux' ),
-				'1' => esc_html__( 'Alle Tabellen und Einstellungen löschen', 'mietfux' ),
+				'0' => esc_html__( 'Keep all data (default)', 'mietfux' ),
+				'1' => esc_html__( 'Delete all tables and settings', 'mietfux' ),
 			],
-			__( 'Gilt nur für „Löschen“ auf der Plugin-Seite, nicht für „Deaktivieren“. Mediathek-Dateien bleiben in jedem Fall.', 'mietfux' )
+			__( 'Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept.', 'mietfux' )
 		);
 		echo '</tbody></table>';
 
 		submit_button( 'Speichern' );
 
 		echo '<hr><h2>' . esc_html__( 'Backup', 'mietfux' ) . '</h2>';
-		printf( '<p><a href="%s" class="button button-secondary">' . esc_html__( 'Alle Daten als JSON exportieren', 'mietfux' ) . '</a></p>', esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_backup' ), 'mietv_backup' ) ) );
-		echo '<p class="description">' . esc_html__( 'Enthält alle Tabellen der Mietverwaltung und die Einstellungen – nicht die Dateien der Mediathek (diese über das normale WordPress-Backup sichern).', 'mietfux' ) . '</p>';
-		echo '<h3>' . esc_html__( 'Wiederherstellen', 'mietfux' ) . '</h3><p><input type="file" name="mietv_restore" accept=".json"> <label><input type="checkbox" name="mietv_restore_confirm" value="1"> ' . esc_html__( 'Ich weiß, dass', 'mietfux' ) . ' <strong>' . esc_html__( 'alle vorhandenen Daten ersetzt', 'mietfux' ) . '</strong> ' . esc_html__( 'werden.', 'mietfux' ) . '</label></p>';
+		printf( '<p><a href="%s" class="button button-secondary">' . esc_html__( 'Export all data as JSON', 'mietfux' ) . '</a></p>', esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_backup' ), 'mietv_backup' ) ) );
+		echo '<p class="description">' . esc_html__( 'Contains all Rental Management tables and settings – not the media library files (back those up with your regular WordPress backup).', 'mietfux' ) . '</p>';
+		echo '<h3>' . esc_html__( 'Restore', 'mietfux' ) . '</h3><p><input type="file" name="mietv_restore" accept=".json"> <label><input type="checkbox" name="mietv_restore_confirm" value="1"> ' . esc_html__( 'I understand that', 'mietfux' ) . ' <strong>' . esc_html__( 'all existing data will be replaced', 'mietfux' ) . '</strong> ' . esc_html__( '.', 'mietfux' ) . '</label></p>';
 		submit_button( 'Backup einspielen', 'delete' );
 		echo '</form></div>';
 	}
@@ -187,7 +187,7 @@ class Mietv_Einstellungen {
 
 	public static function backup(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
+			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_backup' );
 		global $wpdb;

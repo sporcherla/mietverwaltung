@@ -2,6 +2,11 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.0.3 – Quellsprache Englisch, Deutsch als Übersetzung
+
+- Alle übersetzbaren Texte im Code sind jetzt englisch (Konvention von WordPress.org/translate.wordpress.org). Die vollständige deutsche Fassung liegt als `languages/mietfux-de_DE.po/.mo` bei und wird über `load_plugin_textdomain()` geladen – deutsche Installationen sehen exakt die bisherigen Texte. Rechtstexte (Mietvertrag, Hausordnung, Merkblatt, BetrKV-Katalog) bleiben unverändert deutsch.
+- Plugin-Beschreibung im Header englisch.
+
 ## 1.0.2 – Zweite Review-Runde von WordPress.org (Nonces, spätes Escaping)
 
 - **Nonce-Logik durchgängig**: Jeder Handler prüft zuerst die Nonce (`check_admin_referer`/`wp_verify_nonce`) und liest erst danach Eingaben. Admin-post-Endpunkte (PDF, CSV, Backup, Mahnung, Anonymisierung, Auskunft, Kautionsabrechnung, Mieterhöhungs-Schreiben, SEPA, Übergabeprotokoll) haben eigene Nonce-Aktionen; der Abrechnungs-Link im Mieterportal trägt eine Nonce, und `ablegen=1` wirkt nur noch nach Nonce-Prüfung im Admin (`Mietv_PDF::ablegen_aus_request()`).

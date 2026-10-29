@@ -28,20 +28,20 @@ class Mietv_Brief {
 		global $wpdb;
 		$m = $wpdb->get_row( $wpdb->prepare( 'SELECT anrede, nachname, p_anrede, p_nachname FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $mv->mieter_id ) );
 		if ( ! $m ) {
-			return __( 'Sehr geehrte Damen und Herren,', 'mietfux' );
+			return __( 'Dear Sir or Madam,', 'mietfux' );
 		}
 		$teil  = function ( $anrede, $nachname ) {
 			if ( $anrede === 'Frau' ) {
-				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrte Frau %s', 'mietfux' ), $nachname );
+				return sprintf( /* translators: %s: Wert */ __( 'dear Ms %s', 'mietfux' ), $nachname );
 			}
 			if ( $anrede === 'Herr' ) {
-				return sprintf( /* translators: %s: Wert */ __( 'sehr geehrter Herr %s', 'mietfux' ), $nachname );
+				return sprintf( /* translators: %s: Wert */ __( 'dear Mr %s', 'mietfux' ), $nachname );
 			}
 			return null;
 		};
 		$teile = array_filter( [ $teil( $m->anrede, $m->nachname ), mietv_hat_partner( $m ) ? $teil( $m->p_anrede, $m->p_nachname ) : null ] );
 		if ( ! $teile ) {
-			return __( 'Sehr geehrte Damen und Herren,', 'mietfux' );
+			return __( 'Dear Sir or Madam,', 'mietfux' );
 		}
 		$text = implode( ', ', $teile ) . ',';
 		return mb_strtoupper( mb_substr( $text, 0, 1 ) ) . mb_substr( $text, 1 );

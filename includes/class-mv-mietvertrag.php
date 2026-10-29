@@ -21,14 +21,14 @@ class Mietv_Mietvertrag {
 	/** SEPA-Basislastschriftmandat für die Miete. */
 	public static function sepa(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
+			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_sepa' );
 		Mietv_PDF::ablegen_aus_request( 'mietv_sepa' );
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
 		$d     = self::daten( $mv_id );
 		if ( ! $d ) {
-			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
+			wp_die( esc_html__( 'Not found.', 'mietfux' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'k' => $k ] = $d;
 		$einst  = Mietv_Einstellungen::class;
@@ -36,13 +36,13 @@ class Mietv_Mietvertrag {
 		$ref    = 'MIETE-' . str_pad( (string) $mv_id, 6, '0', STR_PAD_LEFT );
 		$gesamt = $k ? (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz : 0;
 		self::kopf( 'SEPA-Mandat ' . $m->nachname, [ $ob->id, $mv->id, 'sonstiges', 'SEPA-Lastschriftmandat', false ] );
-		echo '<h1>' . esc_html__( 'SEPA-Basislastschriftmandat', 'mietfux' ) . '</h1>';
-		printf( '<p><strong>' . esc_html__( 'Zahlungsempfänger (Gläubiger):', 'mietfux' ) . '</strong> %s, %s<br><strong>' . esc_html__( 'Gläubiger-Identifikationsnummer:', 'mietfux' ) . '</strong> %s<br><strong>' . esc_html__( 'Mandatsreferenz:', 'mietfux' ) . '</strong> %s<br><strong>' . esc_html__( 'Art der Zahlung:', 'mietfux' ) . '</strong> ' . esc_html__( 'wiederkehrende Zahlung', 'mietfux' ) . '</p>', esc_html( $einst::get( 'vermieter_name' ) ), esc_html( str_replace( "\n", ', ', $einst::get( 'vermieter_adresse' ) ) ), esc_html( $gl ), esc_html( $ref ) );
-		printf( '<p>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'Ich ermächtige %1$s, Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von %2$s auf mein Konto gezogenen Lastschriften einzulösen.', 'mietfux' ) . '</p>', esc_html( $einst::get( 'vermieter_name' ) ), esc_html( $einst::get( 'vermieter_name' ) ) );
-		echo '<p class="klein">' . esc_html__( 'Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.', 'mietfux' ) . '</p>';
-		printf( '<p><strong>' . esc_html__( 'Verwendungszweck:', 'mietfux' ) . '</strong> ' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert, %5$s: Wert, %6$d: Wert */ esc_html__( 'Monatliche Miete einschließlich Vorauszahlungen für die Wohnung %1$s, %2$s, %3$s %4$s – derzeit %5$s, fällig zum %6$d. Werktag des Monats. Änderungen des Betrags (Mietanpassung, neue Vorauszahlungen) werden mindestens 14 Tage vor Einzug mitgeteilt.', 'mietfux' ) . '</p>', esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( mietv_eur( $gesamt ) ), (int) max( 1, min( 3, (int) $mv->zahltag ) ) );
+		echo '<h1>' . esc_html__( 'SEPA core direct debit mandate', 'mietfux' ) . '</h1>';
+		printf( '<p><strong>' . esc_html__( 'Payee (creditor):', 'mietfux' ) . '</strong> %s, %s<br><strong>' . esc_html__( 'Creditor identifier:', 'mietfux' ) . '</strong> %s<br><strong>' . esc_html__( 'Mandate reference:', 'mietfux' ) . '</strong> %s<br><strong>' . esc_html__( 'Type of payment:', 'mietfux' ) . '</strong> ' . esc_html__( 'recurring payment', 'mietfux' ) . '</p>', esc_html( $einst::get( 'vermieter_name' ) ), esc_html( str_replace( "\n", ', ', $einst::get( 'vermieter_adresse' ) ) ), esc_html( $gl ), esc_html( $ref ) );
+		printf( '<p>' . /* translators: %1$s: Wert, %2$s: Wert */ esc_html__( 'I authorise %1$s to collect payments from my account by direct debit. At the same time I instruct my bank to honour the direct debits drawn on my account by %2$s.', 'mietfux' ) . '</p>', esc_html( $einst::get( 'vermieter_name' ) ), esc_html( $einst::get( 'vermieter_name' ) ) );
+		echo '<p class="klein">' . esc_html__( 'Note: I may request a refund of the debited amount within eight weeks from the debit date. The terms agreed with my bank apply.', 'mietfux' ) . '</p>';
+		printf( '<p><strong>' . esc_html__( 'Purpose:', 'mietfux' ) . '</strong> ' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert, %5$s: Wert, %6$d: Wert */ esc_html__( 'Monthly rent including advance payments for the flat %1$s, %2$s, %3$s %4$s – currently %5$s, due on the %6$d. working day of the month. Changes to the amount (rent adjustment, new advance payments) will be notified at least 14 days before collection.', 'mietfux' ) . '</p>', esc_html( $e->bezeichnung ), esc_html( $ob->strasse ), esc_html( $ob->plz ), esc_html( $ob->ort ), esc_html( mietv_eur( $gesamt ) ), (int) max( 1, min( 3, (int) $mv->zahltag ) ) );
 		printf(
-			'<table><tr><td style="width:35%%">' . esc_html__( 'Kontoinhaber', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'Straße, Hausnummer', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'PLZ, Ort', 'mietfux' ) . '</td><td>%s %s</td></tr><tr><td>' . esc_html__( 'Kreditinstitut', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'IBAN', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'BIC', 'mietfux' ) . '</td><td>%s</td></tr></table>',
+			'<table><tr><td style="width:35%%">' . esc_html__( 'Account holder', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'Street, house number', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'Postcode, town', 'mietfux' ) . '</td><td>%s %s</td></tr><tr><td>' . esc_html__( 'Credit institution', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'IBAN', 'mietfux' ) . '</td><td>%s</td></tr><tr><td>' . esc_html__( 'BIC', 'mietfux' ) . '</td><td>%s</td></tr></table>',
 			esc_html( implode( ' / ', array_map( fn( $z ) => preg_replace( '/^(Frau|Herr) /', '', $z ), mietv_mieter_personen( $m ) ) ) ),
 			esc_html( $ob->strasse ),
 			esc_html( $ob->plz ),
@@ -59,9 +59,9 @@ class Mietv_Mietvertrag {
 		return [
 			'mitmieter'              => '',
 			'raeume'                 => '',
-			'nebenraeume'            => esc_html__( 'Kellerabteil', 'mietfux' ),
+			'nebenraeume'            => esc_html__( 'Cellar compartment', 'mietfux' ),
 			'ausstattung'            => '',
-			'schluessel'             => esc_html__( '2 Haustürschlüssel, 2 Wohnungsschlüssel, 1 Briefkastenschlüssel', 'mietfux' ),
+			'schluessel'             => esc_html__( '2 front door keys, 2 flat keys, 1 letterbox key', 'mietfux' ),
 			'befristung_grund'       => '',
 			'mietart'                => 'standard',   // standard | staffel | index
 			'staffeln'               => '',           // Zeilen: 2027-01-01;650
@@ -105,7 +105,7 @@ class Mietv_Mietvertrag {
 			return;
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_vertrag_nonce'] ?? '' ) ), 'mietv_vertrag' ) ) {
-			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+			wp_die( esc_html__( 'Invalid request.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$mv_id = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : 0 );
@@ -137,13 +137,13 @@ class Mietv_Mietvertrag {
 		$mvs   = Mietv_Soll::alle_mv();
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : (int) ( $mvs[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$o     = self::laden( $mv_id );
-		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Mietvertrag', 'mietfux' ) . '</h1>';
+		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Tenancy agreement', 'mietfux' ) . '</h1>';
 		if ( ( mietv_flash_get()['code'] ?? '' ) === 'saved' ) {
-			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Vertragsoptionen gespeichert.', 'mietfux' ) . '</p></div>';
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Contract options saved.', 'mietfux' ) . '</p></div>';
 		}
-		echo '<div class="notice notice-info inline"><p><strong>' . esc_html__( 'Hinweis:', 'mietfux' ) . '</strong> ' . esc_html__( 'Der Vertrag wird aus den Daten des Mietverhältnisses (Parteien, Wohnung, Miete, Kaution, Beginn, Ende) und den Optionen unten erzeugt. Die Klauseln folgen dem BGB und der BGH-Rechtsprechung (Stand 2026). Vor Verwendung bei besonderen Konstellationen (Gewerbe, WG, möbliert, Mietpreisbremse) rechtlich prüfen lassen.', 'mietfux' ) . '</p></div>';
+		echo '<div class="notice notice-info inline"><p><strong>' . esc_html__( 'Note:', 'mietfux' ) . '</strong> ' . esc_html__( 'The agreement is generated from the tenancy data (parties, flat, rent, deposit, start, end) and the options below. The clauses follow the BGB and Federal Court of Justice case law (as of 2026). Have it checked legally before use in special situations (commercial, shared flat, furnished, rent cap).', 'mietfux' ) . '</p></div>';
 
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_mietvertrag"><label>' . esc_html__( 'Mietverhältnis', 'mietfux' ) . ' <select name="mv_id" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_mietvertrag"><label>' . esc_html__( 'Tenancy', 'mietfux' ) . ' <select name="mv_id" onchange="this.form.submit()">';
 		foreach ( $mvs as $m ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $m->id, selected( (int) $mv_id, (int) $m->id, false ), esc_html( Mietv_Soll::mietv_label( $m ) ) );
 		}
@@ -155,12 +155,12 @@ class Mietv_Mietvertrag {
 
 		$vertrag = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_vertrag&mv_id=' . $mv_id ), 'mietv_vertrag_pdf' );
 		$ueberg  = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_uebergabe&mv_id=' . $mv_id ), 'mietv_uebergabe' );
-		printf( '<p><a href="%1$s" target="_blank" class="button button-primary">' . esc_html__( 'Mietvertrag (PDF)', 'mietfux' ) . '</a> <a href="%1$s&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=einzug" target="_blank" class="button">' . esc_html__( 'Übergabeprotokoll Einzug', 'mietfux' ) . '</a> <a href="%2$s&art=einzug&ablegen=1" target="_blank" class="button">' . esc_html__( '… ablegen', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=auszug" target="_blank" class="button">' . esc_html__( 'Übergabeprotokoll Auszug', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&nur=datenschutz" target="_blank" class="button">' . esc_html__( 'Datenschutzinformation', 'mietfux' ) . '</a> &nbsp; <a href="%3$s" target="_blank" class="button">' . esc_html__( 'SEPA-Lastschriftmandat', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&format=html" target="_blank" class="button-link">' . esc_html__( 'HTML-Ansicht', 'mietfux' ) . '</a></p>', esc_url( $vertrag ), esc_url( $ueberg ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_sepa&mv_id=' . $mv_id ), 'mietv_sepa' ) ) );
+		printf( '<p><a href="%1$s" target="_blank" class="button button-primary">' . esc_html__( 'Tenancy agreement (PDF)', 'mietfux' ) . '</a> <a href="%1$s&ablegen=1" target="_blank" class="button">' . esc_html__( '… file', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=einzug" target="_blank" class="button">' . esc_html__( 'Handover protocol move-in', 'mietfux' ) . '</a> <a href="%2$s&art=einzug&ablegen=1" target="_blank" class="button">' . esc_html__( '… file', 'mietfux' ) . '</a> &nbsp; <a href="%2$s&art=auszug" target="_blank" class="button">' . esc_html__( 'Handover protocol move-out', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&nur=datenschutz" target="_blank" class="button">' . esc_html__( 'Privacy notice', 'mietfux' ) . '</a> &nbsp; <a href="%3$s" target="_blank" class="button">' . esc_html__( 'SEPA direct debit mandate', 'mietfux' ) . '</a> &nbsp; <a href="%1$s&format=html" target="_blank" class="button-link">' . esc_html__( 'HTML view', 'mietfux' ) . '</a></p>', esc_url( $vertrag ), esc_url( $ueberg ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_sepa&mv_id=' . $mv_id ), 'mietv_sepa' ) ) );
 
 		echo '<form method="post" class="mv-form">';
 		wp_nonce_field( 'mietv_vertrag', 'mietv_vertrag_nonce' );
 		printf( '<input type="hidden" name="mv_id" value="%d">', (int) $mv_id );
-		echo '<h2>' . esc_html__( 'Vertragsoptionen', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		echo '<h2>' . esc_html__( 'Contract options', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		$t = function ( $k, $label, $hint = '', $type = 'text' ) use ( $o ) {
 			printf( '<tr><th><label for="%1$s">%2$s</label></th><td>', esc_attr( $k ), esc_html( $label ) );
 			if ( $type === 'area' ) {
@@ -177,142 +177,142 @@ class Mietv_Mietvertrag {
 			}
 			echo '</select>' . ( $hint ? '<p class="description">' . esc_html( $hint ) . '</p>' : '' ) . '</td></tr>';
 		};
-		$t( 'mitmieter', __( 'Weitere Mieter (Name, Geburtsdatum)', 'mietfux' ), __( 'Nur für dritte Personen – der beim Mieter hinterlegte Ehe-/Lebenspartner wird automatisch aufgenommen. Alle Mieter haften gesamtschuldnerisch.', 'mietfux' ) );
-		$t( 'raeume', __( 'Räume', 'mietfux' ), __( 'z. B. 3 Zimmer, Küche, Bad mit WC, Flur, Balkon', 'mietfux' ), 'area' );
-		$t( 'nebenraeume', __( 'Nebenräume / Stellplatz', 'mietfux' ) );
-		$t( 'ausstattung', __( 'Mitvermietete Ausstattung', 'mietfux' ), __( 'z. B. Einbauküche (Hersteller, Baujahr), Waschmaschinenanschluss', 'mietfux' ), 'area' );
-		$t( 'schluessel', __( 'Übergebene Schlüssel', 'mietfux' ), '', 'area' );
-		$t( 'befristung_grund', __( 'Befristungsgrund (nur bei Mietende)', 'mietfux' ), __( 'Zeitmietvertrag nur mit Grund nach § 575 BGB: Eigenbedarf, Abriss/Umbau, Werkswohnung. Ohne Grund gilt der Vertrag als unbefristet.', 'mietfux' ), 'area' );
+		$t( 'mitmieter', __( 'Additional tenants (name, date of birth)', 'mietfux' ), __( 'For third parties only – the spouse/partner stored with the tenant is included automatically. All tenants are jointly and severally liable.', 'mietfux' ) );
+		$t( 'raeume', __( 'Rooms', 'mietfux' ), __( 'e.g. 3 rooms, kitchen, bathroom with WC, hallway, balcony', 'mietfux' ), 'area' );
+		$t( 'nebenraeume', __( 'Ancillary rooms / parking', 'mietfux' ) );
+		$t( 'ausstattung', __( 'Fixtures included', 'mietfux' ), __( 'e.g. fitted kitchen (manufacturer, year), washing machine connection', 'mietfux' ), 'area' );
+		$t( 'schluessel', __( 'Keys handed over', 'mietfux' ), '', 'area' );
+		$t( 'befristung_grund', __( 'Reason for fixed term (only with end date)', 'mietfux' ), __( 'Fixed-term agreement only with a reason under § 575 BGB: own use, demolition/conversion, company flat. Without a reason the agreement is deemed open-ended.', 'mietfux' ), 'area' );
 		$s(
 			'mietart',
-			__( 'Mietart', 'mietfux' ),
+			__( 'Rent type', 'mietfux' ),
 			[
-				'standard' => esc_html__( 'Vergleichsmiete (Erhöhung nach § 558)', 'mietfux' ),
-				'staffel'  => esc_html__( 'Staffelmiete (§ 557a)', 'mietfux' ),
-				'index'    => esc_html__( 'Indexmiete (§ 557b)', 'mietfux' ),
+				'standard' => esc_html__( 'Reference rent (increase under § 558)', 'mietfux' ),
+				'staffel'  => esc_html__( 'Stepped rent (§ 557a)', 'mietfux' ),
+				'index'    => esc_html__( 'Index-linked rent (§ 557b)', 'mietfux' ),
 			]
 		);
-		$t( 'staffeln', __( 'Staffeln (bei Staffelmiete)', 'mietfux' ), __( 'Je Zeile: Datum;Kaltmiete – z. B. 2027-01-01;650,00. Zwischen den Staffeln mindestens ein Jahr.', 'mietfux' ), 'area' );
+		$t( 'staffeln', __( 'Steps (for stepped rent)', 'mietfux' ), __( 'One per line: date;base rent – e.g. 2027-01-01;650.00. At least one year between steps.', 'mietfux' ), 'area' );
 		$s(
 			'kaution_raten',
-			__( 'Kaution zahlbar in', 'mietfux' ),
+			__( 'Deposit payable in', 'mietfux' ),
 			[
-				'1' => esc_html__( 'einer Summe', 'mietfux' ),
-				'3' => esc_html__( 'drei Monatsraten (§ 551 Abs. 2)', 'mietfux' ),
+				'1' => esc_html__( 'one sum', 'mietfux' ),
+				'3' => esc_html__( 'three monthly instalments (§ 551 (2))', 'mietfux' ),
 			],
-			__( 'Höchstens drei Nettokaltmieten; Betrag aus dem Mietverhältnis.', 'mietfux' )
+			__( 'Maximum three months\' net base rent; amount from the tenancy.', 'mietfux' )
 		);
-		$t( 'kleinrep_einzel', __( 'Kleinreparaturen: Höchstbetrag je Fall (€)', 'mietfux' ), __( 'Rechtsprechung: ca. 100–150 €. Nur Teile mit häufigem direktem Zugriff des Mieters.', 'mietfux' ) );
-		$t( 'kleinrep_jahr', __( 'Kleinreparaturen: Höchstbetrag je Jahr (% der Jahreskaltmiete)', 'mietfux' ), __( 'Üblich 6–8 %, oft zusätzlich gedeckelt (hier: und maximal 8 Fälle × Einzelbetrag).', 'mietfux' ) );
+		$t( 'kleinrep_einzel', __( 'Minor repairs: maximum per case (€)', 'mietfux' ), __( 'Case law: approx. €100–150. Only parts frequently accessed directly by the tenant.', 'mietfux' ) );
+		$t( 'kleinrep_jahr', __( 'Minor repairs: maximum per year (% of annual base rent)', 'mietfux' ), __( 'Usually 6–8 %, often additionally capped (here: and at most 8 cases × single amount).', 'mietfux' ) );
 		$s(
 			'schoenheitsrep',
-			__( 'Zustand bei Übergabe', 'mietfux' ),
+			__( 'Condition at handover', 'mietfux' ),
 			[
-				'renoviert'                    => esc_html__( 'renoviert – Schönheitsreparaturen trägt der Mieter nach Bedarf', 'mietfux' ),
-				__( 'unrenoviert', 'mietfux' ) => __( 'unrenoviert – keine Schönheitsreparaturklausel (BGH VIII ZR 185/14)', 'mietfux' ),
+				'renoviert'                    => esc_html__( 'renovated – tenant bears decorative repairs as needed', 'mietfux' ),
+				__( 'unrenovated', 'mietfux' ) => __( 'unrenovated – no decorative repairs clause (BGH VIII ZR 185/14)', 'mietfux' ),
 			]
 		);
 		$s(
 			'tiere',
-			__( 'Tierhaltung', 'mietfux' ),
+			__( 'Pets', 'mietfux' ),
 			[
-				'erlaubnis' => esc_html__( 'Kleintiere frei, sonst Zustimmung (Standard)', 'mietfux' ),
-				'frei'      => esc_html__( 'Haustiere gestattet', 'mietfux' ),
+				'erlaubnis' => esc_html__( 'Small animals allowed, otherwise consent (default)', 'mietfux' ),
+				'frei'      => esc_html__( 'Pets permitted', 'mietfux' ),
 			],
-			__( 'Ein generelles Verbot ist unwirksam (BGH VIII ZR 168/12).', 'mietfux' )
+			__( 'A blanket ban is invalid (BGH VIII ZR 168/12).', 'mietfux' )
 		);
-		$s( 'untervermietung', __( 'Untervermietung', 'mietfux' ), [ 'erlaubnis' => __( 'nur mit Zustimmung (§ 540), berechtigtes Interesse § 553 bleibt', 'mietfux' ) ] );
+		$s( 'untervermietung', __( 'Subletting', 'mietfux' ), [ 'erlaubnis' => __( 'only with consent (§ 540), legitimate interest under § 553 remains', 'mietfux' ) ] );
 		$s(
 			'kuendigungsverzicht',
-			__( 'Beiderseitiger Kündigungsverzicht', 'mietfux' ),
+			__( 'Mutual waiver of termination', 'mietfux' ),
 			[
-				'0' => esc_html__( 'keiner', 'mietfux' ),
-				'1' => esc_html__( '1 Jahr', 'mietfux' ),
-				'2' => esc_html__( '2 Jahre', 'mietfux' ),
-				'3' => esc_html__( '3 Jahre', 'mietfux' ),
-				'4' => esc_html__( '4 Jahre (Maximum)', 'mietfux' ),
+				'0' => esc_html__( 'none', 'mietfux' ),
+				'1' => esc_html__( '1 year', 'mietfux' ),
+				'2' => esc_html__( '2 years', 'mietfux' ),
+				'3' => esc_html__( '3 years', 'mietfux' ),
+				'4' => esc_html__( '4 years (maximum)', 'mietfux' ),
 			],
-			__( 'Formularvertraglich höchstens 4 Jahre ab Vertragsschluss (BGH VIII ZR 86/10).', 'mietfux' )
+			__( 'In standard-form contracts at most 4 years from signing (BGH VIII ZR 86/10).', 'mietfux' )
 		);
 		$s(
 			'rauchen',
-			__( 'Rauchen in der Wohnung', 'mietfux' ),
+			__( 'Smoking in the flat', 'mietfux' ),
 			[
-				'nein' => esc_html__( 'Bitte unterlassen (nicht verbindlich untersagbar)', 'mietfux' ),
-				'ja'   => esc_html__( 'keine Regelung', 'mietfux' ),
+				'nein' => esc_html__( 'Please refrain (cannot be bindingly prohibited)', 'mietfux' ),
+				'ja'   => esc_html__( 'no provision', 'mietfux' ),
 			]
 		);
 		$s(
 			'hausordnung',
-			__( 'Hausordnung als Anlage', 'mietfux' ),
+			__( 'House rules as annex', 'mietfux' ),
 			[
-				'1' => esc_html__( 'ja', 'mietfux' ),
-				'0' => esc_html__( 'nein', 'mietfux' ),
+				'1' => esc_html__( 'yes', 'mietfux' ),
+				'0' => esc_html__( 'no', 'mietfux' ),
 			]
 		);
-		$t( 'energieausweis', __( 'Energieausweis', 'mietfux' ), __( 'Art (Bedarf/Verbrauch), Kennwert kWh/(m²·a), Effizienzklasse, Ausstellungsdatum – Vorlagepflicht § 80 GEG.', 'mietfux' ) );
-		$t( 'vormiete', __( 'Vormiete (nur bei Mietpreisbremse, § 556g Abs. 1a)', 'mietfux' ), __( 'Nur in Gebieten der bayerischen Mieterschutzverordnung: Auskunft über die Vormiete, wenn die Miete über Vergleichsmiete + 10 % liegt.', 'mietfux' ) );
-		$t( 'mitbenutzung', __( 'Mitbenutzungsrechte (Gemeinschaftsräume)', 'mietfux' ), __( 'Waschküche, Trockenraum, Fahrradkeller, Garten – nach Hausordnung.', 'mietfux' ) );
-		$t( 'mietereigentum', __( 'Mietereigentum / nicht mitvermietet', 'mietfux' ), __( 'Gegenstände, die der Mieter vom Vormieter übernommen hat oder die ihm gehören.', 'mietfux' ) );
+		$t( 'energieausweis', __( 'Energy certificate', 'mietfux' ), __( 'Type (demand/consumption), value kWh/(m²·a), efficiency class, issue date – must be presented under § 80 GEG.', 'mietfux' ) );
+		$t( 'vormiete', __( 'Previous rent (rent cap areas only, § 556g (1a))', 'mietfux' ), __( 'Only in areas covered by the Bavarian Tenant Protection Ordinance: disclosure of the previous rent if the rent exceeds the reference rent + 10 %.', 'mietfux' ) );
+		$t( 'mitbenutzung', __( 'Shared use rights (communal rooms)', 'mietfux' ), __( 'Laundry room, drying room, bicycle cellar, garden – per house rules.', 'mietfux' ) );
+		$t( 'mietereigentum', __( 'Tenant\'s property / not included', 'mietfux' ), __( 'Items the tenant took over from the previous tenant or that belong to them.', 'mietfux' ) );
 		$s(
 			'moeblierung',
-			__( 'Möblierungszuschlag', 'mietfux' ),
+			__( 'Furnishing surcharge', 'mietfux' ),
 			[
-				'0' => esc_html__( 'nein', 'mietfux' ),
-				'1' => esc_html__( 'ja – in der Kaltmiete enthalten, Betrag in „Sonstige Vereinbarungen“ nennen', 'mietfux' ),
+				'0' => esc_html__( 'no', 'mietfux' ),
+				'1' => esc_html__( 'yes – included in base rent, state amount under “Other agreements”', 'mietfux' ),
 			]
 		);
 		$s(
 			'bk_art',
-			__( 'Betriebskosten', 'mietfux' ),
+			__( 'Service charges', 'mietfux' ),
 			[
-				'vorauszahlung' => esc_html__( 'Vorauszahlung mit jährlicher Abrechnung (Standard)', 'mietfux' ),
-				'pauschale'     => esc_html__( 'Pauschale ohne Abrechnung (§ 556 Abs. 2 BGB)', 'mietfux' ),
+				'vorauszahlung' => esc_html__( 'Advance payment with annual statement (default)', 'mietfux' ),
+				'pauschale'     => esc_html__( 'Flat rate without statement (§ 556 (2) BGB)', 'mietfux' ),
 			],
-			__( 'Bei Pauschale keine Abrechnung und keine Nachforderung; Erhöhung nur bei gestiegenen Kosten durch Erklärung in Textform (§ 560 Abs. 1).', 'mietfux' )
+			__( 'With a flat rate there is no statement and no additional claim; increase only for increased costs by declaration in text form (§ 560 (1)).', 'mietfux' )
 		);
 		$s(
 			'mpb_ausnahme',
-			__( 'Mietpreisbremse – Ausnahme (nur angespannter Markt)', 'mietfux' ),
+			__( 'Rent cap – exception (tight market only)', 'mietfux' ),
 			[
-				''               => esc_html__( 'keine / nicht betroffen', 'mietfux' ),
-				'vormiete'       => esc_html__( 'Vormiete war bereits höher (§ 556e Abs. 1)', 'mietfux' ),
-				'modernisierung' => esc_html__( 'Modernisierung in den letzten 3 Jahren (§ 556e Abs. 2)', 'mietfux' ),
-				'umfassend'      => esc_html__( 'Erste Vermietung nach umfassender Modernisierung (§ 556f S. 2)', 'mietfux' ),
-				'neubau'         => esc_html__( 'Neubau, erstmals nach 1.10.2014 vermietet (§ 556f S. 1)', 'mietfux' ),
+				''               => esc_html__( 'none / not affected', 'mietfux' ),
+				'vormiete'       => esc_html__( 'Previous rent was already higher (§ 556e (1))', 'mietfux' ),
+				'modernisierung' => esc_html__( 'Modernisation within the last 3 years (§ 556e (2))', 'mietfux' ),
+				'umfassend'      => esc_html__( 'First letting after comprehensive modernisation (§ 556f sentence 2)', 'mietfux' ),
+				'neubau'         => esc_html__( 'New build, first let after 1 Oct 2014 (§ 556f sentence 1)', 'mietfux' ),
 			],
-			__( 'Die Auskunft muss vor Vertragsschluss unaufgefordert in Textform erfolgen (§ 556g Abs. 1a BGB), sonst kann sich der Vermieter nicht auf die Ausnahme berufen.', 'mietfux' )
+			__( 'The disclosure must be made unprompted in text form before signing (§ 556g (1a) BGB); otherwise the landlord cannot rely on the exception.', 'mietfux' )
 		);
 		$s(
 			'zahlungsweise',
-			__( 'Zahlungsweise', 'mietfux' ),
+			__( 'Payment method', 'mietfux' ),
 			[
-				'dauerauftrag' => esc_html__( 'Dauerauftrag', 'mietfux' ),
-				'sepa'         => esc_html__( 'SEPA-Lastschriftmandat (Anlage)', 'mietfux' ),
+				'dauerauftrag' => esc_html__( 'Standing order', 'mietfux' ),
+				'sepa'         => esc_html__( 'SEPA direct debit mandate (annex)', 'mietfux' ),
 			]
 		);
-		$t( 'zustand_maengel', __( 'Zustand bei Übergabe / bekannte Mängel', 'mietfux' ), __( 'Kurz; Details ins Übergabeprotokoll.', 'mietfux' ), 'area' );
-		$t( 'arbeiten_vermieter', __( 'Vom Vermieter noch auszuführende Arbeiten', 'mietfux' ), '', 'area' );
-		$t( 'arbeiten_vermieter_bis', __( '… bis spätestens (Datum)', 'mietfux' ) );
-		$t( 'arbeiten_mieter', __( 'Vom Mieter auf eigene Kosten auszuführende Arbeiten', 'mietfux' ), __( 'Gegenleistung ggf. in „Sonstige Vereinbarungen“ (z. B. Mietfreiheit).', 'mietfux' ), 'area' );
-		$t( 'arbeiten_mieter_bis', __( '… bis spätestens (Datum)', 'mietfux' ) );
+		$t( 'zustand_maengel', __( 'Condition at handover / known defects', 'mietfux' ), __( 'Brief; details in the handover protocol.', 'mietfux' ), 'area' );
+		$t( 'arbeiten_vermieter', __( 'Work still to be carried out by the landlord', 'mietfux' ), '', 'area' );
+		$t( 'arbeiten_vermieter_bis', __( '… by no later than (date)', 'mietfux' ) );
+		$t( 'arbeiten_mieter', __( 'Work to be carried out by the tenant at own expense', 'mietfux' ), __( 'Consideration, if any, under “Other agreements” (e.g. rent-free period).', 'mietfux' ), 'area' );
+		$t( 'arbeiten_mieter_bis', __( '… by no later than (date)', 'mietfux' ) );
 		$s(
 			'gartenpflege',
-			__( 'Gartenpflege durch den Mieter', 'mietfux' ),
+			__( 'Garden maintenance by the tenant', 'mietfux' ),
 			[
-				'0' => esc_html__( 'nein / durch Vermieter bzw. Dienstleister (Betriebskosten)', 'mietfux' ),
-				'1' => esc_html__( 'ja – Mieter pflegt den ihm zugewiesenen Gartenteil', 'mietfux' ),
+				'0' => esc_html__( 'no / by landlord or contractor (service charges)', 'mietfux' ),
+				'1' => esc_html__( 'yes – tenant maintains the garden area assigned to them', 'mietfux' ),
 			]
 		);
 		$s(
 			'merkblatt',
-			__( 'Merkblatt Heizen und Lüften als Anlage', 'mietfux' ),
+			__( 'Heating and ventilation leaflet as annex', 'mietfux' ),
 			[
-				'1' => esc_html__( 'ja', 'mietfux' ),
-				'0' => esc_html__( 'nein', 'mietfux' ),
+				'1' => esc_html__( 'yes', 'mietfux' ),
+				'0' => esc_html__( 'no', 'mietfux' ),
 			]
 		);
-		$t( 'sonstiges', __( 'Sonstige Vereinbarungen', 'mietfux' ), '', 'area' );
+		$t( 'sonstiges', __( 'Other agreements', 'mietfux' ), '', 'area' );
 		echo '</tbody></table>';
 		submit_button( 'Optionen speichern' );
 		echo '</form></div>';
@@ -385,13 +385,13 @@ class Mietv_Mietvertrag {
 	}
 
 	private static function unterschriften( string $ort, $m = null ): string {
-		$h = '<div class="unterschrift"><div>' . esc_html( $ort ) . ', den ____________<br><br><br>' . esc_html__( 'Vermieter', 'mietfux' ) . '</div>';
+		$h = '<div class="unterschrift"><div>' . esc_html( $ort ) . ', den ____________<br><br><br>' . esc_html__( 'Landlord', 'mietfux' ) . '</div>';
 		if ( $m && mietv_hat_partner( $m ) ) {
 			foreach ( mietv_mieter_personen( $m ) as $z ) {
-				$h .= '<div>' . esc_html( $ort ) . ', den ____________<br><br><br>' . esc_html__( 'Mieter/in', 'mietfux' ) . ': ' . esc_html( $z ) . '</div>';
+				$h .= '<div>' . esc_html( $ort ) . ', den ____________<br><br><br>' . esc_html__( 'Tenant', 'mietfux' ) . ': ' . esc_html( $z ) . '</div>';
 			}
 		} else {
-			$h .= '<div>' . esc_html( $ort ) . ', den ____________<br><br><br>' . esc_html__( 'Mieter (alle)', 'mietfux' ) . '</div>';
+			$h .= '<div>' . esc_html( $ort ) . ', den ____________<br><br><br>' . esc_html__( 'Tenant(s)', 'mietfux' ) . '</div>';
 		}
 		return $h . '</div>';
 	}
@@ -466,24 +466,24 @@ class Mietv_Mietvertrag {
 
 	public static function drucken(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
+			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_vertrag_pdf' );
 		Mietv_PDF::ablegen_aus_request( 'mietv_vertrag_pdf' );
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
 		$d     = self::daten( $mv_id );
 		if ( ! $d ) {
-			wp_die( esc_html__( 'Mietverhältnis nicht gefunden.', 'mietfux' ) );
+			wp_die( esc_html__( 'Tenancy not found.', 'mietfux' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'k' => $k, 'opt' => $o, 'zusatz' => $zusatz ] = $d;
 		$einst       = Mietv_Einstellungen::class;
 		$vermieter   = $einst::get( 'vermieter_name' ) . ', ' . str_replace( "\n", ', ', $einst::get( 'vermieter_adresse' ) );
 		$typen_label = [
 			'garage'     => esc_html__( 'Garage', 'mietfux' ),
-			'stellplatz' => esc_html__( 'Stellplatz', 'mietfux' ),
-			'keller'     => esc_html__( 'Keller/Lager', 'mietfux' ),
-			'gewerbe'    => esc_html__( 'Gewerbefläche', 'mietfux' ),
-			'wohnung'    => esc_html__( 'Wohnung', 'mietfux' ),
+			'stellplatz' => esc_html__( 'Parking space', 'mietfux' ),
+			'keller'     => esc_html__( 'Cellar/storage', 'mietfux' ),
+			'gewerbe'    => esc_html__( 'Commercial space', 'mietfux' ),
+			'wohnung'    => esc_html__( 'Flat', 'mietfux' ),
 		];
 		$zusatz_text = implode( ', ', array_map( fn( $z ) => ( $typen_label[ $z->typ ] ?? $z->typ ) . ' ' . $z->bezeichnung, $zusatz ) );
 		$nebenraeume = trim( implode( ', ', array_filter( [ $zusatz_text, $o['nebenraeume'] ] ) ), ', ' );
@@ -520,7 +520,7 @@ class Mietv_Mietvertrag {
 		}
 
 		self::kopf( 'Mietvertrag ' . $m->nachname, [ $ob->id, $mv->id, 'mietvertrag', 'Mietvertrag ' . mietv_date( $mv->beginn ), true ] );
-		echo '<h1>' . esc_html__( 'Mietvertrag über Wohnraum', 'mietfux' ) . '</h1>';
+		echo '<h1>' . esc_html__( 'Residential tenancy agreement', 'mietfux' ) . '</h1>';
 
 		$ueberschrift( '§ 1 Vertragsparteien' );
 		$absatz( 'zwischen<br><strong>' . esc_html( $vermieter ) . '</strong>' . ( $einst::get( 'vermieter_steuernr' ) ? ', Steuer-Nr. ' . esc_html( $einst::get( 'vermieter_steuernr' ) ) : '' ) . ( $einst::get( 'vermieter_vertreter' ) ? ', vertreten durch ' . esc_html( $einst::get( 'vermieter_vertreter' ) ) : '' ) . ' – nachfolgend „Vermieter“ –<br>und<br><strong>' . esc_html( $mieter ) . '</strong> – nachfolgend „Mieter“ –' );
@@ -578,12 +578,12 @@ class Mietv_Mietvertrag {
 			$absatz( 'In der Grundmiete ist ein Zuschlag für die mitvermietete Möblierung enthalten.' );
 		}
 		echo '<table class="liste"><tbody>';
-		printf( '<tr><td>%s</td><td>%s</td></tr>', esc_html__( 'Grundmiete', 'mietfux' ), esc_html( mietv_eur( $kalt ) ) );
-		printf( '<tr><td>%s</td><td>%s</td></tr>', $pauschale ? esc_html__( 'Betriebskostenpauschale (ohne Heizung/Warmwasser)', 'mietfux' ) : esc_html__( 'Vorauszahlung Betriebskosten (ohne Heizung/Warmwasser)', 'mietfux' ), esc_html( mietv_eur( $bk ) ) );
+		printf( '<tr><td>%s</td><td>%s</td></tr>', esc_html__( 'Basic rent', 'mietfux' ), esc_html( mietv_eur( $kalt ) ) );
+		printf( '<tr><td>%s</td><td>%s</td></tr>', $pauschale ? esc_html__( 'Service charge flat rate (excl. heating/hot water)', 'mietfux' ) : esc_html__( 'Advance payment service charges (excl. heating/hot water)', 'mietfux' ), esc_html( mietv_eur( $bk ) ) );
 		if ( $zentral ) {
-			printf( '<tr><td>%s</td><td>%s</td></tr>', esc_html__( 'Vorauszahlung Heizung und Warmwasser', 'mietfux' ), esc_html( mietv_eur( $hk ) ) );
+			printf( '<tr><td>%s</td><td>%s</td></tr>', esc_html__( 'Advance payment heating and hot water', 'mietfux' ), esc_html( mietv_eur( $hk ) ) );
 		}
-		printf( '<tr class="summe"><td>%s</td><td>%s</td></tr></tbody></table>', esc_html__( 'Gesamtmiete monatlich', 'mietfux' ), esc_html( mietv_eur( $gesamt ) ) );
+		printf( '<tr class="summe"><td>%s</td><td>%s</td></tr></tbody></table>', esc_html__( 'Total monthly rent', 'mietfux' ), esc_html( mietv_eur( $gesamt ) ) );
 		if ( $pauschale ) {
 			$absatz( 'Mit der Betriebskostenpauschale sind die Betriebskosten im Sinne des § 2 BetrKV – mit Ausnahme der Heiz- und Warmwasserkosten – abgegolten; eine Abrechnung findet insoweit nicht statt. Erhöhen sich die Betriebskosten, kann der Vermieter die Pauschale durch Erklärung in Textform anteilig anheben (§ 560 Abs. 1 BGB); Ermäßigungen sind weiterzugeben.' );
 		} else {
@@ -756,8 +756,8 @@ class Mietv_Mietvertrag {
 
 	private static function datenschutz_html( string $vermieter ): string {
 		$einst = Mietv_Einstellungen::class;
-		return '<h1>' . esc_html__( 'Datenschutzinformation nach Art. 13 DSGVO', 'mietfux' ) . '</h1>
-<p><strong>' . esc_html__( 'Verantwortlicher:', 'mietfux' ) . '</strong> ' . esc_html( $vermieter ) . ( $einst::get( 'vermieter_email' ) ? ', E-Mail ' . esc_html( $einst::get( 'vermieter_email' ) ) : '' ) . ( $einst::get( 'vermieter_telefon' ) ? ', Telefon ' . esc_html( $einst::get( 'vermieter_telefon' ) ) : '' ) . '. Ein Datenschutzbeauftragter ist nicht bestellt (nicht erforderlich, Art. 37 DSGVO).</p>
+		return '<h1>' . esc_html__( 'Privacy notice under Art. 13 GDPR', 'mietfux' ) . '</h1>
+<p><strong>' . esc_html__( 'Controller:', 'mietfux' ) . '</strong> ' . esc_html( $vermieter ) . ( $einst::get( 'vermieter_email' ) ? ', E-Mail ' . esc_html( $einst::get( 'vermieter_email' ) ) : '' ) . ( $einst::get( 'vermieter_telefon' ) ? ', Telefon ' . esc_html( $einst::get( 'vermieter_telefon' ) ) : '' ) . '. Ein Datenschutzbeauftragter ist nicht bestellt (nicht erforderlich, Art. 37 DSGVO).</p>
 <p><strong>Zwecke und Rechtsgrundlagen:</strong> Anbahnung, Durchführung und Beendigung des Mietverhältnisses einschließlich Mietbuchhaltung, Betriebskostenabrechnung, Mängelbearbeitung und Schriftverkehr (Art. 6 Abs. 1 lit. b DSGVO); Erfüllung gesetzlicher Pflichten, insbesondere steuerliche Aufbewahrung und Abrechnungspflichten (Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO, § 556 BGB); Wahrung berechtigter Interessen wie Geltendmachung von Ansprüchen und Hausverwaltung (Art. 6 Abs. 1 lit. f DSGVO).</p>
 <p><strong>Datenkategorien:</strong> Name, Anschrift, Geburtsdatum, Kontaktdaten, Bankverbindung, Personenzahl im Haushalt, Vertrags- und Zahlungsdaten, Verbrauchsdaten (Zählerstände), Meldungen und Schriftverkehr, Zugangsdaten zum Mieterportal.</p>
 <p><strong>Empfänger:</strong> Soweit für die Durchführung des Mietverhältnisses erforderlich: Finanzamt und Steuerberater (Einkünfte aus Vermietung), Kreditinstitut (Zahlungsverkehr), Energieversorger, Messdienstleister und Abrechnungsunternehmen (Verbrauchsdaten für Heiz- und Betriebskostenabrechnung), bei Eigentumswohnungen die WEG-Verwaltung (Name, Verbrauchsdaten, Umlagerelevantes), Handwerker und Dienstleister (Name und Kontaktdaten zur Terminvereinbarung), Gebäude- und Haftpflichtversicherer bei Schadensfällen, Rechtsanwalt, Gericht oder Inkasso bei Streitigkeiten, Meldebehörde (Wohnungsgeberbestätigung), Hosting-Anbieter der Verwaltungssoftware als Auftragsverarbeiter (Art. 28 DSGVO). Anderen Mietern wird auf Verlangen Einsicht in die Abrechnungsbelege gewährt, soweit dies zur Prüfung ihrer Abrechnung erforderlich ist. Eine Übermittlung in Drittländer findet nicht statt.</p>
@@ -773,16 +773,16 @@ class Mietv_Mietvertrag {
 
 	public static function uebergabe(): void {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
-			wp_die( esc_html__( 'Keine Berechtigung.', 'mietfux' ) );
+			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 		global $wpdb;
 		check_admin_referer( 'mietv_uebergabe' );
 		Mietv_PDF::ablegen_aus_request( 'mietv_uebergabe' );
 		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
-		$art   = ( isset( $_GET['art'] ) ? sanitize_key( $_GET['art'] ) : 'einzug' ) === 'auszug' ? __( 'Auszug', 'mietfux' ) : __( 'Einzug', 'mietfux' );
+		$art   = ( isset( $_GET['art'] ) ? sanitize_key( $_GET['art'] ) : 'einzug' ) === 'auszug' ? __( 'Move-out', 'mietfux' ) : __( 'Move-in', 'mietfux' );
 		$d     = self::daten( $mv_id );
 		if ( ! $d ) {
-			wp_die( esc_html__( 'Nicht gefunden.', 'mietfux' ) );
+			wp_die( esc_html__( 'Not found.', 'mietfux' ) );
 		}
 		[ 'mv' => $mv, 'mieter' => $m, 'einheit' => $e, 'objekt' => $ob, 'opt' => $o, 'zusatz' => $zusatz ] = $d;
 		$zusatz_ids = array_map( fn( $z ) => (int) $z->einheit_id, $zusatz );
@@ -791,7 +791,7 @@ class Mietv_Mietvertrag {
 
 		self::kopf( 'Uebergabeprotokoll ' . $art . ' ' . $m->nachname, [ $ob->id, $mv->id, 'uebergabeprotokoll', 'Übergabeprotokoll ' . $art, true ] );
 		printf(
-			'<h1>' . /* translators: %s: Wert */ esc_html__( 'Übergabeprotokoll – %s', 'mietfux' ) . '</h1><p>' . esc_html__( 'Wohnung', 'mietfux' ) . ' <strong>%s</strong>, %s, %s %s<br>' . /* translators: %s: Wert */ esc_html__( 'Vermieter: %s', 'mietfux' ) . '<br>' . /* translators: %s: Wert */ esc_html__( 'Mieter: %s', 'mietfux' ) . '<br>' . esc_html__( 'Datum der Übergabe:', 'mietfux' ) . ' <span class="feld"></span> &nbsp; ' . esc_html__( 'Uhrzeit:', 'mietfux' ) . ' <span class="feld"></span></p>',
+			'<h1>' . /* translators: %s: Wert */ esc_html__( 'Handover protocol – %s', 'mietfux' ) . '</h1><p>' . esc_html__( 'Flat', 'mietfux' ) . ' <strong>%s</strong>, %s, %s %s<br>' . /* translators: %s: Wert */ esc_html__( 'Landlord: %s', 'mietfux' ) . '<br>' . /* translators: %s: Wert */ esc_html__( 'Tenant: %s', 'mietfux' ) . '<br>' . esc_html__( 'Date of handover:', 'mietfux' ) . ' <span class="feld"></span> &nbsp; ' . esc_html__( 'Time:', 'mietfux' ) . ' <span class="feld"></span></p>',
 			esc_html( $art ),
 			esc_html( $e->bezeichnung ),
 			esc_html( $ob->strasse ),
@@ -801,13 +801,13 @@ class Mietv_Mietvertrag {
 			esc_html( implode( ', ', array_merge( mietv_mieter_personen( $m ), $o['mitmieter'] ? [ $o['mitmieter'] ] : [] ) ) )
 		);
 
-		echo '<h2>' . esc_html__( '1. Zählerstände', 'mietfux' ) . '</h2><table><tr><th>' . esc_html__( 'Zähler', 'mietfux' ) . '</th><th>' . esc_html__( 'Nummer', 'mietfux' ) . '</th><th>' . esc_html__( 'Stand', 'mietfux' ) . '</th><th>' . esc_html__( 'Stand laut System', 'mietfux' ) . '</th></tr>';
+		echo '<h2>' . esc_html__( '1. Meter readings', 'mietfux' ) . '</h2><table><tr><th>' . esc_html__( 'Meters', 'mietfux' ) . '</th><th>' . esc_html__( 'Number', 'mietfux' ) . '</th><th>' . esc_html__( 'Reading', 'mietfux' ) . '</th><th>' . esc_html__( 'Reading per system', 'mietfux' ) . '</th></tr>';
 		$zaehler = $wpdb->get_results( $wpdb->prepare( 'SELECT z.*, (SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter, (SELECT datum FROM ' . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter_datum FROM ' . $wpdb->prefix . 'mv_zaehler z WHERE z.einheit_id IN (' . implode( ',', array_map( 'intval', array_merge( [ $e->id ], $zusatz_ids ) ) ) . ') OR (z.einheit_id IS NULL AND z.objekt_id = %d) ORDER BY z.einheit_id, z.typ', $ob->id ) );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- IN-Platzhalter aus count() erzeugt, IDs sind int.
 		$typen   = [
-			'kaltwasser' => esc_html__( 'Kaltwasser (m³)', 'mietfux' ),
-			'warmwasser' => esc_html__( 'Warmwasser (m³)', 'mietfux' ),
-			'heizung'    => esc_html__( 'Heizung (kWh/Einh.)', 'mietfux' ),
-			'strom'      => esc_html__( 'Strom (kWh)', 'mietfux' ),
+			'kaltwasser' => esc_html__( 'Cold water (m³)', 'mietfux' ),
+			'warmwasser' => esc_html__( 'Hot water (m³)', 'mietfux' ),
+			'heizung'    => esc_html__( 'Heating (kWh/units)', 'mietfux' ),
+			'strom'      => esc_html__( 'Electricity (kWh)', 'mietfux' ),
 		];
 		foreach ( $zaehler as $z ) {
 			printf( '<tr><td>%s%s</td><td>%s</td><td><span class="feld" style="min-width:40mm"></span></td><td class="klein">%s</td></tr>', esc_html( $typen[ $z->typ ] ?? $z->typ ), $z->einheit_id ? '' : ' (Haus)', esc_html( $z->nummer ), $z->letzter !== null ? esc_html( number_format( (float) $z->letzter, 2, ',', '.' ) . ' am ' . mietv_date( $z->letzter_datum ) ) : '–' );
@@ -817,27 +817,27 @@ class Mietv_Mietvertrag {
 		}
 		echo '</table>';
 
-		echo '<h2>' . esc_html__( '2. Schlüssel', 'mietfux' ) . '</h2><p>' . esc_html( $o['schluessel'] ) . '</p><p>Übergeben: <span class="feld" style="min-width:120mm"></span></p>';
+		echo '<h2>' . esc_html__( '2. Keys', 'mietfux' ) . '</h2><p>' . esc_html( $o['schluessel'] ) . '</p><p>Übergeben: <span class="feld" style="min-width:120mm"></span></p>';
 
-		echo '<h2>' . esc_html__( '3. Zustand der Räume', 'mietfux' ) . '</h2><p class="klein">' . esc_html__( 'Bewertung: 1 = neuwertig, 2 = gut, 3 = gebraucht/normale Abnutzung, 4 = mangelhaft (Mängel beschreiben). Fotos als Anlage.', 'mietfux' ) . '</p><table><tr><th style="width:25%">' . esc_html__( 'Raum', 'mietfux' ) . '</th><th>' . esc_html__( 'Boden', 'mietfux' ) . '</th><th>' . esc_html__( 'Wände/Decke', 'mietfux' ) . '</th><th>' . esc_html__( 'Fenster/Türen', 'mietfux' ) . '</th><th>' . esc_html__( 'Elektrik/Sanitär', 'mietfux' ) . '</th><th>' . esc_html__( 'Bemerkungen / Mängel', 'mietfux' ) . '</th></tr>';
+		echo '<h2>' . esc_html__( '3. Condition of rooms', 'mietfux' ) . '</h2><p class="klein">' . esc_html__( 'Rating: 1 = as new, 2 = good, 3 = used/normal wear, 4 = defective (describe defects). Photos as annex.', 'mietfux' ) . '</p><table><tr><th style="width:25%">' . esc_html__( 'Room', 'mietfux' ) . '</th><th>' . esc_html__( 'Floor', 'mietfux' ) . '</th><th>' . esc_html__( 'Walls/ceiling', 'mietfux' ) . '</th><th>' . esc_html__( 'Windows/doors', 'mietfux' ) . '</th><th>' . esc_html__( 'Electrics/plumbing', 'mietfux' ) . '</th><th>' . esc_html__( 'Remarks / defects', 'mietfux' ) . '</th></tr>';
 		$raeume = array_filter( array_map( 'trim', preg_split( '/[,\n]/', $o['raeume'] ?: 'Wohnzimmer, Schlafzimmer, Küche, Bad, Flur, Balkon' ) ) );
 		foreach ( array_merge( $raeume, [ 'Keller / Nebenraum', 'Hausflur / Gemeinschaft' ] ) as $r ) {
 			printf( '<tr><td>%s</td><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>', esc_html( $r ) );
 		}
 		echo '</table>';
 
-		echo '<h2>' . esc_html__( '4. Ausstattung und Funktionsprüfung', 'mietfux' ) . '</h2><table><tr><th>' . esc_html__( 'Gegenstand', 'mietfux' ) . '</th><th>' . esc_html__( 'vorhanden', 'mietfux' ) . '</th><th>' . esc_html__( 'funktioniert', 'mietfux' ) . '</th><th>' . esc_html__( 'Bemerkung', 'mietfux' ) . '</th></tr>';
+		echo '<h2>' . esc_html__( '4. Fixtures and function check', 'mietfux' ) . '</h2><table><tr><th>' . esc_html__( 'Item', 'mietfux' ) . '</th><th>' . esc_html__( 'present', 'mietfux' ) . '</th><th>' . esc_html__( 'works', 'mietfux' ) . '</th><th>' . esc_html__( 'Remark', 'mietfux' ) . '</th></tr>';
 		foreach ( array_merge( [ 'Rauchwarnmelder (alle Schlaf-/Kinderzimmer, Flur)', 'Heizung / Thermostate', 'Warmwasser', 'Herd / Backofen', 'Dunstabzug', 'Spüle / Armaturen', 'WC-Spülung', 'Dusche / Badewanne', 'Steckdosen / Lichtschalter', 'Klingel / Gegensprechanlage', 'Briefkasten (Name)', 'Fenster / Rollläden' ], array_filter( array_map( 'trim', preg_split( '/[,\n]/', $o['ausstattung'] ) ) ) ) as $g ) {
-			printf( '<tr><td>%s</td><td>' . esc_html__( '☐ ja ☐ nein', 'mietfux' ) . '</td><td>' . esc_html__( '☐ ja ☐ nein', 'mietfux' ) . '</td><td></td></tr>', esc_html( $g ) );
+			printf( '<tr><td>%s</td><td>' . esc_html__( '☐ yes ☐ no', 'mietfux' ) . '</td><td>' . esc_html__( '☐ yes ☐ no', 'mietfux' ) . '</td><td></td></tr>', esc_html( $g ) );
 		}
 		echo '</table>';
 
 		if ( $art === 'Auszug' ) {
-			echo '<h2>' . esc_html__( '5. Rückgabe', 'mietfux' ) . '</h2><p>' . esc_html__( '☐ Wohnung vollständig geräumt und besenrein', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ Alle Schlüssel zurückgegeben', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ Schönheitsreparaturen fällig/ausgeführt:', 'mietfux' ) . ' <span class="feld"></span></p><p>' . esc_html__( 'Vereinbarte Nacharbeiten durch den Mieter bis', 'mietfux' ) . ' <span class="feld"></span>: <span class="feld" style="min-width:100mm"></span></p><p>' . esc_html__( 'Neue Anschrift des Mieters (für Kautionsabrechnung und Betriebskostenabrechnung):', 'mietfux' ) . ' <span class="feld" style="min-width:120mm"></span></p><p>' . esc_html__( 'Kautionsrückzahlung auf IBAN:', 'mietfux' ) . ' <span class="feld" style="min-width:80mm"></span></p>';
+			echo '<h2>' . esc_html__( '5. Return', 'mietfux' ) . '</h2><p>' . esc_html__( '☐ Flat completely cleared and broom-clean', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ All keys returned', 'mietfux' ) . ' &nbsp; ' . esc_html__( '☐ Decorative repairs due/carried out:', 'mietfux' ) . ' <span class="feld"></span></p><p>' . esc_html__( 'Agreed follow-up work by the tenant by', 'mietfux' ) . ' <span class="feld"></span>: <span class="feld" style="min-width:100mm"></span></p><p>' . esc_html__( 'Tenant\'s new address (for deposit and service charge settlement):', 'mietfux' ) . ' <span class="feld" style="min-width:120mm"></span></p><p>' . esc_html__( 'Deposit refund to IBAN:', 'mietfux' ) . ' <span class="feld" style="min-width:80mm"></span></p>';
 		} else {
-			echo '<h2>' . esc_html__( '5. Vereinbarungen', 'mietfux' ) . '</h2><p>' . esc_html__( 'Vom Vermieter noch zu erledigen bis', 'mietfux' ) . ' <span class="feld"></span>: <span class="feld" style="min-width:100mm"></span></p><p>' . esc_html__( 'Dem Mieter übergeben: ☐ Energieausweis ☐ Hausordnung ☐ Datenschutzinformation ☐ Bedienungsanleitungen (Heizung, Küche)', 'mietfux' ) . '</p>';
+			echo '<h2>' . esc_html__( '5. Agreements', 'mietfux' ) . '</h2><p>' . esc_html__( 'Still to be done by the landlord by', 'mietfux' ) . ' <span class="feld"></span>: <span class="feld" style="min-width:100mm"></span></p><p>' . esc_html__( 'Handed to the tenant: ☐ Energy certificate ☐ House rules ☐ Privacy notice ☐ Operating instructions (heating, kitchen)', 'mietfux' ) . '</p>';
 		}
-		echo '<p class="klein">' . esc_html__( 'Die Parteien bestätigen die Richtigkeit der Angaben. Nicht vermerkte Mängel gelten als bei Übergabe nicht vorhanden, soweit sie bei der Besichtigung erkennbar waren.', 'mietfux' ) . '</p>';
+		echo '<p class="klein">' . esc_html__( 'The parties confirm the accuracy of the details. Defects not noted are deemed not to have existed at handover insofar as they were discernible on inspection.', 'mietfux' ) . '</p>';
 		echo wp_kses_post( self::unterschriften( $ort, $m ) );
 		self::fuss();
 	}

@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Mietfux – Mietverwaltung für Vermieter
  * Plugin URI: https://github.com/sporcherla/mietverwaltung
- * Description: Verwaltung von Mietobjekten, Mietverhältnissen, Zahlungen (Soll/Ist) und Mieterportal mit Schadensmeldung, Belegerfassung, AfA, Darlehen, Steuer-Auswertung (Anlage V), Betriebskostenabrechnung, Bankimport, Mahnwesen, Mieterhöhung, Mietvertrag/Übergabeprotokoll, Kautionskonto, PDF-Erzeugung, Datenschutz-Löschkonzept und Backup.
- * Version: 1.0.2
+ * Description: Rental management for German landlords: properties, tenancies, payments (target/actual), tenant portal with damage reports, receipts, depreciation, loans, tax report (Anlage V), service charge statements, bank import, dunning, rent increases, tenancy agreement/handover protocol, deposit account, PDF generation, GDPR deletion concept and backup.
+ * Version: 1.0.3
  * Author: Markus Hirn
  * Requires at least: 6.0
  * Requires PHP: 8.0
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MIETV_VERSION', '1.0.2' );
+define( 'MIETV_VERSION', '1.0.3' );
 define( 'MIETV_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MIETV_URL', plugin_dir_url( __FILE__ ) );
 // Vorbereitung Mandantenfähigkeit: vorerst immer 1.
@@ -49,6 +49,13 @@ register_activation_hook( __FILE__, [ 'Mietv_DB', 'install' ] );
 register_deactivation_hook( __FILE__, [ 'Mietv_Hinweise', 'deaktivieren' ] );
 
 // Datenbank-Upgrade erst nach dem Laden der Übersetzungen (Rollenname, Kostenarten-Katalog).
+add_action(
+	'init',
+	function () {
+		load_plugin_textdomain( 'mietfux', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	},
+	5
+);
 add_action( 'init', [ 'Mietv_DB', 'maybe_upgrade' ], 6 );
 
 add_action(

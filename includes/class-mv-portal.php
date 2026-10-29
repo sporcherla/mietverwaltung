@@ -26,10 +26,10 @@ class Mietv_Portal {
 			return;
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_zaehler_nonce'] ) ), 'mietv_zaehler' ) ) {
-			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+			wp_die( esc_html__( 'Invalid request.', 'mietfux' ) );
 		}
 		if ( ! is_user_logged_in() ) {
-			wp_die( esc_html__( 'Kein Zugriff.', 'mietfux' ) );
+			wp_die( esc_html__( 'No access.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->einheit_id, self::eigene_mv() );
@@ -58,7 +58,7 @@ class Mietv_Portal {
 						'attachment_id' => $att,
 					]
 				);
-				wp_mail( get_option( 'admin_email' ), __( '[Mietfux] Zählerstand gemeldet', 'mietfux' ), sprintf( 'Zähler %s (%s): %s am %s', $z->typ, $z->nummer, number_format( $stand, 2, ',', '.' ), mietv_date( $datum ) ) );
+				wp_mail( get_option( 'admin_email' ), __( '[Mietfux] Meter reading submitted', 'mietfux' ), sprintf( 'Zähler %s (%s): %s am %s', $z->typ, $z->nummer, number_format( $stand, 2, ',', '.' ), mietv_date( $datum ) ) );
 				$flag = 'ok';
 			} else {
 				$flag = 'kleiner';
@@ -75,17 +75,17 @@ class Mietv_Portal {
 			return;
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'mietv_portal_abrechnung' ) ) {
-			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+			wp_die( esc_html__( 'Invalid request.', 'mietfux' ) );
 		}
 		if ( ! is_user_logged_in() ) {
-			wp_die( esc_html__( 'Kein Zugriff.', 'mietfux' ) );
+			wp_die( esc_html__( 'No access.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$erg_id  = (int) $_GET['mietv_abrechnung'];
 		$erlaubt = array_map( fn( $mv ) => (int) $mv->id, self::eigene_mv() );
 		$mv_id   = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT mv_id FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis WHERE id = %d AND freigegeben = 1', $erg_id ) );
 		if ( ! $mv_id || ! in_array( $mv_id, $erlaubt, true ) ) {
-			wp_die( esc_html__( 'Kein Zugriff.', 'mietfux' ) );
+			wp_die( esc_html__( 'No access.', 'mietfux' ) );
 		}
 		Mietv_Abrechnung::brief( $erg_id, true );
 	}
@@ -104,10 +104,10 @@ class Mietv_Portal {
 			return;
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_meldung_nonce'] ) ), 'mietv_meldung' ) ) {
-			wp_die( esc_html__( 'Ungültige Anfrage.', 'mietfux' ) );
+			wp_die( esc_html__( 'Invalid request.', 'mietfux' ) );
 		}
 		if ( ! is_user_logged_in() ) {
-			wp_die( esc_html__( 'Kein Zugriff.', 'mietfux' ) );
+			wp_die( esc_html__( 'No access.', 'mietfux' ) );
 		}
 		global $wpdb;
 		$mv_id   = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : 0 );
@@ -142,7 +142,7 @@ class Mietv_Portal {
 		if ( $mv ) {
 			wp_mail(
 				get_option( 'admin_email' ),
-				__( '[Mietfux] Neue Meldung: ', 'mietfux' ) . $betreff,
+				__( '[Mietfux] New report: ', 'mietfux' ) . $betreff,
 				'Mieter: ' . Mietv_Soll::mietv_label( $mv ) . "\n\n" . $text . "\n\nBearbeiten: " . admin_url( 'admin.php?page=mietv_meldungen' )
 			);
 		}
@@ -154,12 +154,12 @@ class Mietv_Portal {
 
 	public static function shortcode(): string {
 		if ( ! is_user_logged_in() ) {
-			return '<div class="mv-portal"><p>' . esc_html__( 'Bitte melden Sie sich an, um Ihr Mieterportal zu sehen.', 'mietfux' ) . '</p><p><a class="mv-btn" href="' . esc_url( wp_login_url( get_permalink() ) ) . '">Anmelden</a></p></div>';
+			return '<div class="mv-portal"><p>' . esc_html__( 'Please log in to see your tenant portal.', 'mietfux' ) . '</p><p><a class="mv-btn" href="' . esc_url( wp_login_url( get_permalink() ) ) . '">Anmelden</a></p></div>';
 		}
 
 		$mvs = self::eigene_mv();
 		if ( ! $mvs ) {
-			return '<div class="mv-portal"><p>' . esc_html__( 'Ihrem Benutzerkonto ist noch kein Mietverhältnis zugeordnet. Bitte wenden Sie sich an Ihren Vermieter.', 'mietfux' ) . '</p></div>';
+			return '<div class="mv-portal"><p>' . esc_html__( 'No tenancy is assigned to your user account yet. Please contact your landlord.', 'mietfux' ) . '</p></div>';
 		}
 
 		global $wpdb;
@@ -170,17 +170,17 @@ class Mietv_Portal {
 		$code = mietv_flash_get()['code'] ?? '';
 		$zf   = str_starts_with( $code, 'zaehler_' ) ? substr( $code, 8 ) : '';
 		if ( $zf === 'ok' ) {
-			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Zählerstand gespeichert. Vielen Dank.', 'mietfux' ) . '</p>';
+			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Meter reading saved. Thank you.', 'mietfux' ) . '</p>';
 		} elseif ( $zf === 'kleiner' ) {
-			echo '<p class="mv-notice mv-err">' . esc_html__( 'Der Stand ist kleiner als der zuletzt erfasste – bitte prüfen.', 'mietfux' ) . '</p>';
+			echo '<p class="mv-notice mv-err">' . esc_html__( 'The reading is lower than the last one recorded – please check.', 'mietfux' ) . '</p>';
 		} elseif ( $zf === 'fehler' ) {
-			echo '<p class="mv-notice mv-err">' . esc_html__( 'Zählerstand konnte nicht gespeichert werden.', 'mietfux' ) . '</p>';
+			echo '<p class="mv-notice mv-err">' . esc_html__( 'Meter reading could not be saved.', 'mietfux' ) . '</p>';
 		}
 		$flag = str_starts_with( $code, 'meldung_' ) ? substr( $code, 8 ) : '';
 		if ( $flag === 'ok' ) {
-			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Ihre Meldung wurde übermittelt. Vielen Dank.', 'mietfux' ) . '</p>';
+			echo '<p class="mv-notice mv-ok">' . esc_html__( 'Your report has been submitted. Thank you.', 'mietfux' ) . '</p>';
 		} elseif ( $flag === 'fehler' ) {
-			echo '<p class="mv-notice mv-err">' . esc_html__( 'Die Meldung konnte nicht gespeichert werden. Bitte Betreff angeben.', 'mietfux' ) . '</p>';
+			echo '<p class="mv-notice mv-err">' . esc_html__( 'The report could not be saved. Please enter a subject.', 'mietfux' ) . '</p>';
 		}
 
 		foreach ( $mvs as $mv ) {
@@ -189,22 +189,22 @@ class Mietv_Portal {
 
 			printf( '<h3>%s – %s</h3>', esc_html( $mv->objekt ), esc_html( $mv->einheit ) );
 			echo '<div class="mv-grid">';
-			printf( '<div class="mv-card"><span>' . esc_html__( 'Mietbeginn', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( mietv_date( $mv->beginn ) ) );
-			printf( '<div class="mv-card"><span>' . esc_html__( 'Kaltmiete', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( $k ? mietv_eur( $k->kaltmiete ) : '–' ) );
-			printf( '<div class="mv-card"><span>' . esc_html__( 'Vorauszahlungen BK / HK', 'mietfux' ) . '</span><strong>%s / %s</strong></div>', esc_html( $k ? mietv_eur( $k->bk_vz ) : '–' ), esc_html( $k ? mietv_eur( $k->hk_vz ) : '–' ) );
-			printf( '<div class="mv-card"><span>' . esc_html__( 'Gesamtmiete / Monat', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( $k ? mietv_eur( (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz ) : '–' ) );
-			printf( '<div class="mv-card"><span>' . esc_html__( 'Kaution', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( mietv_eur( $mv->kaution ) ) );
+			printf( '<div class="mv-card"><span>' . esc_html__( 'Start of tenancy', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( mietv_date( $mv->beginn ) ) );
+			printf( '<div class="mv-card"><span>' . esc_html__( 'Base rent', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( $k ? mietv_eur( $k->kaltmiete ) : '–' ) );
+			printf( '<div class="mv-card"><span>' . esc_html__( 'Advances SC / heating', 'mietfux' ) . '</span><strong>%s / %s</strong></div>', esc_html( $k ? mietv_eur( $k->bk_vz ) : '–' ), esc_html( $k ? mietv_eur( $k->hk_vz ) : '–' ) );
+			printf( '<div class="mv-card"><span>' . esc_html__( 'Total rent / month', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( $k ? mietv_eur( (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz ) : '–' ) );
+			printf( '<div class="mv-card"><span>' . esc_html__( 'Deposit', 'mietfux' ) . '</span><strong>%s</strong></div>', esc_html( mietv_eur( $mv->kaution ) ) );
 			$cls = $op['saldo'] < -0.005 ? 'mv-neg' : 'mv-pos';
 			printf(
-				'<div class="mv-card"><span>' . esc_html__( 'Kontostand', 'mietfux' ) . '</span><strong class="%s">%s</strong><small>%s</small></div>',
+				'<div class="mv-card"><span>' . esc_html__( 'Account balance', 'mietfux' ) . '</span><strong class="%s">%s</strong><small>%s</small></div>',
 				esc_attr( $cls ),
 				esc_html( mietv_eur( $op['saldo'] ) ),
-				$op['saldo'] < -0.005 ? esc_html__( 'Rückstand', 'mietfux' ) : esc_html__( 'ausgeglichen / Guthaben', 'mietfux' )
+				$op['saldo'] < -0.005 ? esc_html__( 'Arrears', 'mietfux' ) : esc_html__( 'balanced / credit', 'mietfux' )
 			);
 			echo '</div>';
 
 			// Letzte 12 Monate
-			echo '<h4>' . esc_html__( 'Mietkonto (letzte 12 Monate)', 'mietfux' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Monat', 'mietfux' ) . '</th><th>' . esc_html__( 'Soll', 'mietfux' ) . '</th><th>' . esc_html__( 'Gezahlt', 'mietfux' ) . '</th><th>' . esc_html__( 'Differenz', 'mietfux' ) . '</th></tr></thead><tbody>';
+			echo '<h4>' . esc_html__( 'Rent account (last 12 months)', 'mietfux' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Month', 'mietfux' ) . '</th><th>' . esc_html__( 'Due', 'mietfux' ) . '</th><th>' . esc_html__( 'Paid', 'mietfux' ) . '</th><th>' . esc_html__( 'Difference', 'mietfux' ) . '</th></tr></thead><tbody>';
 			foreach ( array_slice( array_reverse( $op['rows'] ), 0, 12 ) as $r ) {
 				$c = $r['diff'] < -0.005 ? 'mv-neg' : '';
 				printf(
@@ -220,14 +220,14 @@ class Mietv_Portal {
 
 			// Meldungen
 			$meldungen = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_meldungen WHERE mv_id = %d ORDER BY datum DESC LIMIT 20', $mv->id ) );
-			echo '<h4>' . esc_html__( 'Meldungen', 'mietfux' ) . '</h4>';
+			echo '<h4>' . esc_html__( 'Reports', 'mietfux' ) . '</h4>';
 			if ( $meldungen ) {
 				$status = [
-					'offen'          => esc_html__( 'Offen', 'mietfux' ),
-					'in_bearbeitung' => esc_html__( 'In Bearbeitung', 'mietfux' ),
-					'erledigt'       => esc_html__( 'Erledigt', 'mietfux' ),
+					'offen'          => esc_html__( 'Outstanding', 'mietfux' ),
+					'in_bearbeitung' => esc_html__( 'In progress', 'mietfux' ),
+					'erledigt'       => esc_html__( 'Done', 'mietfux' ),
 				];
-				echo '<table class="mv-table"><thead><tr><th>' . esc_html__( 'Datum', 'mietfux' ) . '</th><th>' . esc_html__( 'Betreff', 'mietfux' ) . '</th><th>' . esc_html__( 'Status', 'mietfux' ) . '</th></tr></thead><tbody>';
+				echo '<table class="mv-table"><thead><tr><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Subject', 'mietfux' ) . '</th><th>' . esc_html__( 'Status', 'mietfux' ) . '</th></tr></thead><tbody>';
 				foreach ( $meldungen as $m ) {
 					printf(
 						'<tr><td>%s</td><td>%s</td><td><span class="mv-status mv-status-%s">%s</span></td></tr>',
@@ -239,22 +239,22 @@ class Mietv_Portal {
 				}
 				echo '</tbody></table>';
 			} else {
-				echo '<p>' . esc_html__( 'Keine Meldungen.', 'mietfux' ) . '</p>';
+				echo '<p>' . esc_html__( 'No reports.', 'mietfux' ) . '</p>';
 			}
 
 			// Freigegebene Abrechnungen
 			$abrs = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, a.von, a.bis FROM ' . $wpdb->prefix . 'mv_abrechnung_ergebnis e JOIN ' . $wpdb->prefix . 'mv_abrechnungen a ON a.id = e.abrechnung_id WHERE e.mv_id = %d AND e.freigegeben = 1 ORDER BY a.bis DESC', $mv->id ) );
 			if ( $abrs ) {
-				echo '<h4>' . esc_html__( 'Betriebskostenabrechnungen', 'mietfux' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Zeitraum', 'mietfux' ) . '</th><th>' . esc_html__( 'Kosten', 'mietfux' ) . '</th><th>' . esc_html__( 'Vorauszahlungen', 'mietfux' ) . '</th><th>' . esc_html__( 'Ergebnis', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
+				echo '<h4>' . esc_html__( 'Service charge statements', 'mietfux' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Period', 'mietfux' ) . '</th><th>' . esc_html__( 'Costs', 'mietfux' ) . '</th><th>' . esc_html__( 'Advance payments', 'mietfux' ) . '</th><th>' . esc_html__( 'Result', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 				foreach ( $abrs as $a ) {
 					printf(
-						'<tr><td>%s – %s</td><td>%s</td><td>%s</td><td class="%s">%s %s</td><td><a href="%s" target="_blank">' . esc_html__( 'Abrechnung öffnen', 'mietfux' ) . '</a></td></tr>',
+						'<tr><td>%s – %s</td><td>%s</td><td>%s</td><td class="%s">%s %s</td><td><a href="%s" target="_blank">' . esc_html__( 'Open statement', 'mietfux' ) . '</a></td></tr>',
 						esc_html( mietv_date( $a->von ) ),
 						esc_html( mietv_date( $a->bis ) ),
 						esc_html( mietv_eur( $a->kosten_bk + $a->kosten_hk ) ),
 						esc_html( mietv_eur( $a->vz_bk + $a->vz_hk ) ),
 						$a->saldo < 0 ? 'mv-neg' : 'mv-pos',
-						$a->saldo < 0 ? esc_html__( 'Nachzahlung', 'mietfux' ) : esc_html__( 'Guthaben', 'mietfux' ),
+						$a->saldo < 0 ? esc_html__( 'Amount due', 'mietfux' ) : esc_html__( 'Credit', 'mietfux' ),
 						esc_html( mietv_eur( abs( $a->saldo ) ) ),
 						esc_url( wp_nonce_url( add_query_arg( 'mietv_abrechnung', (int) $a->id, get_permalink() ), 'mietv_portal_abrechnung' ) )
 					);
@@ -265,7 +265,7 @@ class Mietv_Portal {
 			// Freigegebene Dokumente
 			$docs = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_dokumente WHERE mv_id = %d AND mieter_sichtbar = 1 AND attachment_id IS NOT NULL ORDER BY datum DESC', $mv->id ) );
 			if ( $docs ) {
-				echo '<h4>' . esc_html__( 'Dokumente', 'mietfux' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Datum', 'mietfux' ) . '</th><th>' . esc_html__( 'Dokument', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
+				echo '<h4>' . esc_html__( 'Documents', 'mietfux' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Document', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 				foreach ( $docs as $d ) {
 					$url = wp_get_attachment_url( (int) $d->attachment_id );
 					printf( '<tr><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( mietv_date( $d->datum ) ), esc_html( $d->bezeichnung ), $url ? '<a href="' . esc_url( $url ) . '" target="_blank">öffnen</a>' : '' );
@@ -277,27 +277,27 @@ class Mietv_Portal {
 			$zaehler = $wpdb->get_results( $wpdb->prepare( "SELECT z.*, (SELECT CONCAT(stand, '|', datum) FROM " . $wpdb->prefix . 'mv_zaehlerstaende s WHERE s.zaehler_id = z.id ORDER BY datum DESC LIMIT 1) AS letzter FROM ' . $wpdb->prefix . 'mv_zaehler z WHERE z.einheit_id = %d ORDER BY z.typ', $mv->einheit_id ) );
 			if ( $zaehler ) {
 				$typen = [
-					'kaltwasser' => esc_html__( 'Kaltwasser (m³)', 'mietfux' ),
-					'warmwasser' => esc_html__( 'Warmwasser (m³)', 'mietfux' ),
-					'heizung'    => esc_html__( 'Heizung', 'mietfux' ),
-					'strom'      => esc_html__( 'Strom (kWh)', 'mietfux' ),
+					'kaltwasser' => esc_html__( 'Cold water (m³)', 'mietfux' ),
+					'warmwasser' => esc_html__( 'Hot water (m³)', 'mietfux' ),
+					'heizung'    => esc_html__( 'Heating', 'mietfux' ),
+					'strom'      => esc_html__( 'Electricity (kWh)', 'mietfux' ),
 				];
-				echo '<h4>' . esc_html__( 'Zählerstand melden', 'mietfux' ) . '</h4><form method="post" enctype="multipart/form-data" class="mv-form">';
+				echo '<h4>' . esc_html__( 'Submit meter reading', 'mietfux' ) . '</h4><form method="post" enctype="multipart/form-data" class="mv-form">';
 				wp_nonce_field( 'mietv_zaehler', 'mietv_zaehler_nonce' );
-				echo '<p><label>' . esc_html__( 'Zähler', 'mietfux' ) . '<br><select name="zaehler_id">';
+				echo '<p><label>' . esc_html__( 'Meters', 'mietfux' ) . '<br><select name="zaehler_id">';
 				foreach ( $zaehler as $z ) {
 					[ $ls, $ld ] = $z->letzter ? explode( '|', $z->letzter ) : [ null, null ];
 					printf( '<option value="%d">%s %s%s</option>', (int) $z->id, esc_html( $typen[ $z->typ ] ?? $z->typ ), esc_html( $z->nummer ), $ls !== null ? ' – zuletzt ' . esc_html( number_format( (float) $ls, 2, ',', '.' ) . ' am ' . mietv_date( $ld ) ) : '' );
 				}
-				printf( '</select></label></p><p><label>' . esc_html__( 'Datum', 'mietfux' ) . '<br><input type="date" name="datum" value="%s" max="%s"></label></p><p><label>' . esc_html__( 'Stand', 'mietfux' ) . '<br><input type="text" name="stand" inputmode="decimal" required></label></p><p><label>' . esc_html__( 'Foto (optional)', 'mietfux' ) . '<br><input type="file" name="foto" accept="image/*" capture="environment"></label></p><p><button type="submit" class="mv-btn">' . esc_html__( 'Zählerstand senden', 'mietfux' ) . '</button></p></form>', esc_attr( current_time( 'Y-m-d' ) ), esc_attr( current_time( 'Y-m-d' ) ) );
+				printf( '</select></label></p><p><label>' . esc_html__( 'Date', 'mietfux' ) . '<br><input type="date" name="datum" value="%s" max="%s"></label></p><p><label>' . esc_html__( 'Reading', 'mietfux' ) . '<br><input type="text" name="stand" inputmode="decimal" required></label></p><p><label>' . esc_html__( 'Photo (optional)', 'mietfux' ) . '<br><input type="file" name="foto" accept="image/*" capture="environment"></label></p><p><button type="submit" class="mv-btn">' . esc_html__( 'Send meter reading', 'mietfux' ) . '</button></p></form>', esc_attr( current_time( 'Y-m-d' ) ), esc_attr( current_time( 'Y-m-d' ) ) );
 			}
 
-			echo '<form method="post" class="mv-form"><h4>' . esc_html__( 'Schaden oder Mangel melden', 'mietfux' ) . '</h4>';
+			echo '<form method="post" class="mv-form"><h4>' . esc_html__( 'Report damage or defect', 'mietfux' ) . '</h4>';
 			wp_nonce_field( 'mietv_meldung', 'mietv_meldung_nonce' );
 			printf( '<input type="hidden" name="mv_id" value="%d">', (int) $mv->id );
-			echo '<p><label>' . esc_html__( 'Betreff', 'mietfux' ) . '<br><input type="text" name="betreff" required maxlength="190"></label></p>';
-			echo '<p><label>' . esc_html__( 'Beschreibung', 'mietfux' ) . '<br><textarea name="text" rows="5"></textarea></label></p>';
-			echo '<p><button type="submit" class="mv-btn">' . esc_html__( 'Meldung absenden', 'mietfux' ) . '</button></p></form>';
+			echo '<p><label>' . esc_html__( 'Subject', 'mietfux' ) . '<br><input type="text" name="betreff" required maxlength="190"></label></p>';
+			echo '<p><label>' . esc_html__( 'Description', 'mietfux' ) . '<br><textarea name="text" rows="5"></textarea></label></p>';
+			echo '<p><button type="submit" class="mv-btn">' . esc_html__( 'Submit report', 'mietfux' ) . '</button></p></form>';
 		}
 
 		echo '</div>';

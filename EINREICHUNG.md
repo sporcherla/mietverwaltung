@@ -15,6 +15,8 @@ svn propset svn:mime-type image/png assets/*.png
 svn ci -m "Mietfux 1.0.2" --username hirnmarkus
 ```
 
+Version 1.0.3 (Quellsprache Englisch): `trunk/` ersetzen, `tags/1.0.3` anlegen, committen. Danach `languages/mietfux-de_DE.po` bei translate.wordpress.org/projects/wp-plugins/mietfux/ importieren (PTE-Status für de_DE beim deutschen Polyglots-Team beantragen).
+
 Spätere Versionen: trunk aktualisieren, `Stable tag` in readme.txt erhöhen, `svn cp trunk tags/x.y.z`, committen.
 
 

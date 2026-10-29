@@ -62,12 +62,12 @@ class Mietv_Afa {
 			return '';
 		}
 		if ( ! empty( $a->nutzungsdauer ) ) {
-			return sprintf( /* translators: %d: Wert */ __( 'aus Nutzungsdauer %d Jahre', 'mietfux' ), (int) $a->nutzungsdauer );
+			return sprintf( /* translators: %d: Wert */ __( 'from useful life of %d years', 'mietfux' ), (int) $a->nutzungsdauer );
 		}
 		if ( ( $a->typ ?? '' ) === 'gebaeude' ) {
-			return __( 'gesetzlich nach Baujahr (§ 7 Abs. 4 EStG)', 'mietfux' );
+			return __( 'statutory by year built (§ 7 (4) EStG)', 'mietfux' );
 		}
-		return __( 'kein Satz – bitte eintragen', 'mietfux' );
+		return __( 'no rate – please enter', 'mietfux' );
 	}
 
 	/**
