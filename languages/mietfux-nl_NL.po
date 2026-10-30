@@ -1,0 +1,2983 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mietfux\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: mietfux\n"
+"PO-Revision-Date: 2026-10-30\n"
+
+msgid "No living areas entered for the units – allocation by area is not possible."
+msgstr "Geen woonoppervlakten ingevoerd voor de eenheden – verdeling naar oppervlakte is niet mogelijk."
+
+msgid "No tenancy in the billing period."
+msgstr "Geen huurovereenkomst in de afrekeningsperiode."
+
+msgid "“%1$s” (%2$s) not allocated: property has decentralised heating – tenants settle directly with the supplier."
+msgstr "“%1$s” (%2$s) niet verdeeld: het object heeft decentrale verwarming – huurders rekenen rechtstreeks af met de leverancier."
+
+msgid "“%1$s”: no (complete) meter readings for the period – allocated by living area instead%2$s."
+msgstr "“%1$s”: geen (volledige) meterstanden voor de periode – in plaats daarvan verdeeld naar woonoppervlakte%2$s."
+
+msgid "Permission denied."
+msgstr "Geen toestemming."
+
+msgid "Service charge statement"
+msgstr "Servicekostenafrekening"
+
+msgid "New statement"
+msgstr "Nieuwe afrekening"
+
+msgid "Property"
+msgstr "Object"
+
+msgid "Period from"
+msgstr "Periode van"
+
+msgid "to"
+msgstr "tot"
+
+msgid "Calculate"
+msgstr "Berekenen"
+
+msgid "Requirements: recoverable receipts with service period, living areas on the units, number of persons on the tenancy, and for consumption-based allocation meter readings at the start and end. Deadline: 12 months after the end of the period (§ 556 (3) BGB)."
+msgstr "Vereisten: doorbelastbare bewijsstukken met prestatieperiode, woonoppervlakten bij de eenheden, aantal personen bij de huurovereenkomst en voor verbruiksafhankelijke verdeling meterstanden aan begin en einde. Termijn: 12 maanden na afloop van de periode (§ 556 (3) BGB)."
+
+msgid "Existing statements"
+msgstr "Bestaande afrekeningen"
+
+msgid "Period"
+msgstr "Periode"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Tenants"
+msgstr "Huurders"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
+msgid "Open"
+msgstr "Openen"
+
+msgid "Delete statement?"
+msgstr "Afrekening verwijderen?"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Finalised / released"
+msgstr "Definitief / vrijgegeven"
+
+msgid "No statement yet."
+msgstr "Nog geen afrekening."
+
+msgid "Not found."
+msgstr "Niet gevonden."
+
+msgid "Recalculated."
+msgstr "Opnieuw berekend."
+
+msgid "New advance payment created as a rent condition from next month – please check under “Rent conditions” and notify the tenant (§ 560 (4) BGB)."
+msgstr "Nieuw voorschot aangemaakt als huurconditie vanaf volgende maand – controleer onder “Huurcondities” en informeer de huurder (§ 560 (4) BGB)."
+
+msgid "Service charge statement %1$s – %2$s to %3$s"
+msgstr "Servicekostenafrekening %1$s – %2$s tot %3$s"
+
+msgid "Heating: %1$s%2$s · Status: %3$s"
+msgstr "Verwarming: %1$s%2$s · Status: %3$s"
+
+msgid "Tenant / unit"
+msgstr "Huurder / eenheid"
+
+msgid "Days"
+msgstr "Dagen"
+
+msgid "Service charges"
+msgstr "Servicekosten"
+
+msgid "Heating costs"
+msgstr "Verwarmingskosten"
+
+msgid "Advance payments"
+msgstr "Voorschotten"
+
+msgid "Result"
+msgstr "Resultaat"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "File PDF"
+msgstr "PDF archiveren"
+
+msgid "Create new advance payment from next month?"
+msgstr "Nieuw voorschot vanaf volgende maand aanmaken?"
+
+msgid "Adjust advance"
+msgstr "Voorschot aanpassen"
+
+msgid "Amount due"
+msgstr "Te betalen"
+
+msgid "Credit"
+msgstr "Tegoed"
+
+msgid "Items %s"
+msgstr "Posten %s"
+
+msgid "Cost type"
+msgstr "Kostensoort"
+
+msgid "Total costs"
+msgstr "Totale kosten"
+
+msgid "Key"
+msgstr "Verdeelsleutel"
+
+msgid "Base total"
+msgstr "Basis totaal"
+
+msgid "Base tenant"
+msgstr "Basis huurder"
+
+msgid "Share"
+msgstr "Aandeel"
+
+msgid "%1$s to %2$s"
+msgstr "%1$s tot %2$s"
+
+msgid ". Your period of use: %1$s to %2$s (%3$d days). Living area %4$s m², persons in household: %5$d."
+msgstr ". Uw gebruiksperiode: %1$s tot %2$s (%3$d dagen). Woonoppervlakte %4$s m², personen in het huishouden: %5$d."
+
+msgid "for the flat"
+msgstr "voor de woning"
+
+msgid "please find the statement of service and heating charges for the period"
+msgstr "hierbij ontvangt u de afrekening van de service- en verwarmingskosten over de periode"
+
+msgid "Allocation key"
+msgstr "Verdeelsleutel"
+
+msgid "Total"
+msgstr "Totaal"
+
+msgid "Your share"
+msgstr "Uw aandeel"
+
+msgid "Amount"
+msgstr "Bedrag"
+
+msgid "Total of your costs"
+msgstr "Totaal van uw kosten"
+
+msgid "less advance payments made (service charges %1$s, heating %2$s)"
+msgstr "minus betaalde voorschotten (servicekosten %1$s, verwarming %2$s)"
+
+msgid "Credit in your favour"
+msgstr "Tegoed in uw voordeel"
+
+msgid "Please transfer the amount due of"
+msgstr "Gelieve het te betalen bedrag van"
+
+msgid "by"
+msgstr "over te maken vóór"
+
+msgid "The credit of"
+msgstr "Het tegoed van"
+
+msgid "will be transferred to you within 30 days or offset against the next rent payment."
+msgstr "wordt binnen 30 dagen aan u overgemaakt of verrekend met de volgende huurbetaling."
+
+msgid "Certificate under § 35a EStG"
+msgstr "Verklaring volgens § 35a EStG"
+
+msgid "The costs billed include the following labour cost shares that you may claim in your income tax return:"
+msgstr "De afgerekende kosten bevatten de volgende arbeidskostenaandelen die u in uw aangifte inkomstenbelasting kunt opvoeren:"
+
+msgid "Tradesmen's services (§ 35a (3) EStG) – your share of labour costs"
+msgstr "Vakliedendiensten (§ 35a (3) EStG) – uw aandeel in de arbeidskosten"
+
+msgid "Household-related services (§ 35a (2) EStG) – your share of labour costs"
+msgstr "Huishoudelijke diensten (§ 35a (2) EStG) – uw aandeel in de arbeidskosten"
+
+msgid "Receipts may be inspected by appointment. Objections to the statement must be raised within 12 months of receipt (§ 556 (3) sentence 5 BGB)."
+msgstr "Bewijsstukken kunnen op afspraak worden ingezien. Bezwaren tegen de afrekening moeten binnen 12 maanden na ontvangst worden ingediend (§ 556 (3) zin 5 BGB)."
+
+msgid "Invalid request."
+msgstr "Ongeldig verzoek."
+
+msgid "Rent %s"
+msgstr "Huur %s"
+
+msgid "⌂ Show WordPress menu"
+msgstr "⌂ WordPress-menu tonen"
+
+msgid "▣ Show Mietfux only"
+msgstr "▣ Alleen Mietfux tonen"
+
+msgid "Toggle Mietfux focus mode"
+msgstr "Mietfux-focusmodus omschakelen"
+
+msgid "Mietfux"
+msgstr "Mietfux"
+
+msgid "No text layer found – the PDF is probably a scan. Please enter the values manually (or make the PDF searchable with OCR first)."
+msgstr "Geen tekstlaag gevonden – de PDF is waarschijnlijk een scan. Voer de waarden handmatig in (of maak de PDF eerst doorzoekbaar met OCR)."
+
+msgid "pdf.js could not be loaded. Please enter the values manually."
+msgstr "pdf.js kon niet worden geladen. Voer de waarden handmatig in."
+
+msgid "Reading purchase contract …"
+msgstr "Koopcontract wordt gelezen …"
+
+msgid "PDF could not be read:"
+msgstr "PDF kon niet worden gelezen:"
+
+msgid "Extraction is only possible for PDF files."
+msgstr "Extractie is alleen mogelijk voor PDF-bestanden."
+
+msgid "Detected from the purchase contract"
+msgstr "Herkend uit het koopcontract"
+
+msgid "pages"
+msgstr "pagina's"
+
+msgid "click to apply, then verify:"
+msgstr "klik om over te nemen, controleer daarna:"
+
+msgid "not found"
+msgstr "niet gevonden"
+
+msgid "Purchase price"
+msgstr "Koopprijs"
+
+msgid "Transfer of possession"
+msgstr "Overdracht van bezit"
+
+msgid "Land (amount)"
+msgstr "Grond (bedrag)"
+
+msgid "Land share"
+msgstr "Grondaandeel"
+
+msgid "Contract date (info)"
+msgstr "Contractdatum (info)"
+
+msgid "Living area (info)"
+msgstr "Woonoppervlakte (info)"
+
+msgid "Detection is heuristic. If the contract lacks a land/building split, use the Federal Ministry of Finance (BMF) purchase price allocation tool."
+msgstr "De herkenning is heuristisch. Als het contract geen splitsing grond/gebouw bevat, gebruik dan de koopprijsverdelingstool van het Duitse ministerie van Financiën (BMF)."
+
+msgid "Properties"
+msgstr "Objecten"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Street / no."
+msgstr "Straat / nr."
+
+msgid "Postcode"
+msgstr "Postcode"
+
+msgid "Town"
+msgstr "Plaats"
+
+msgid "Year built"
+msgstr "Bouwjaar"
+
+msgid "Heating"
+msgstr "Verwarming"
+
+msgid "Central heating (HeizkostenV, consumption-based)"
+msgstr "Centrale verwarming (HeizkostenV, verbruiksafhankelijk)"
+
+msgid "District heating (HeizkostenV)"
+msgstr "Stadsverwarming (HeizkostenV)"
+
+msgid "Decentralised / per-flat heating (tenant settles directly)"
+msgstr "Decentrale / individuele verwarming (huurder rekent rechtstreeks af)"
+
+msgid "Heating: consumption share (%)"
+msgstr "Verwarming: verbruiksaandeel (%)"
+
+msgid "50–70 % by consumption, remainder by living area (§ 7 HeizkostenV). Central/district heating only."
+msgstr "50–70 % naar verbruik, rest naar woonoppervlakte (§ 7 HeizkostenV). Alleen centrale/stadsverwarming."
+
+msgid "Note"
+msgstr "Opmerking"
+
+msgid "Units"
+msgstr "Eenheden"
+
+msgid "Unit"
+msgstr "Eenheid"
+
+msgid "e.g. “Ground floor flat, left”"
+msgstr "bijv. “Woning begane grond, links”"
+
+msgid "Location"
+msgstr "Ligging"
+
+msgid "e.g. “1st floor”"
+msgstr "bijv. “1e verdieping”"
+
+msgid "Living area (m²)"
+msgstr "Woonoppervlakte (m²)"
+
+msgid "Rooms"
+msgstr "Kamers"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Flat"
+msgstr "Woning"
+
+msgid "Commercial"
+msgstr "Bedrijfsruimte"
+
+msgid "Parking space"
+msgstr "Parkeerplaats"
+
+msgid "Garage"
+msgstr "Garage"
+
+msgid "Cellar / storage"
+msgstr "Kelder / berging"
+
+msgid "Salutation"
+msgstr "Aanhef"
+
+msgid "Ms"
+msgstr "Mevrouw"
+
+msgid "Mr"
+msgstr "De heer"
+
+msgid "Company"
+msgstr "Bedrijf"
+
+msgid "First name"
+msgstr "Voornaam"
+
+msgid "Last name"
+msgstr "Achternaam"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Phone"
+msgstr "Telefoon"
+
+msgid "Date of birth"
+msgstr "Geboortedatum"
+
+msgid "For the tenancy agreement (identification of the contracting party)."
+msgstr "Voor de huurovereenkomst (identificatie van de contractpartij)."
+
+msgid "Previous address"
+msgstr "Vorig adres"
+
+msgid "Address at the time of signing (before moving in) – appears in the agreement."
+msgstr "Adres op het moment van ondertekening (vóór de verhuizing) – verschijnt in de overeenkomst."
+
+msgid "Co-tenant – salutation"
+msgstr "Medehuurder – aanhef"
+
+msgid "Spouse/partner as second contracting party (optional). Appears automatically in the tenancy agreement, letters, SEPA mandate and handover protocol; jointly and severally liable."
+msgstr "Echtgenoot/partner als tweede contractpartij (optioneel). Verschijnt automatisch in de huurovereenkomst, brieven, SEPA-machtiging en opleveringsrapport; hoofdelijk aansprakelijk."
+
+msgid "Co-tenant – first name"
+msgstr "Medehuurder – voornaam"
+
+msgid "Co-tenant – last name"
+msgstr "Medehuurder – achternaam"
+
+msgid "Co-tenant – date of birth"
+msgstr "Medehuurder – geboortedatum"
+
+msgid "Co-tenant – email"
+msgstr "Medehuurder – e-mail"
+
+msgid "Receives reminders and letters in copy if provided."
+msgstr "Ontvangt aanmaningen en brieven in kopie, indien ingevuld."
+
+msgid "IBAN (for bank import matching)"
+msgstr "IBAN (voor koppeling bij bankimport)"
+
+msgid "Portal access (WP user)"
+msgstr "Portaaltoegang (WP-gebruiker)"
+
+msgid "Create the user under “Users”; the “Subscriber” role is sufficient."
+msgstr "Maak de gebruiker aan onder “Gebruikers”; de rol “Abonnee” volstaat."
+
+msgid "Tenancies"
+msgstr "Huurovereenkomsten"
+
+msgid "Tenancy"
+msgstr "Huurovereenkomst"
+
+msgid "Start of tenancy"
+msgstr "Begin huurovereenkomst"
+
+msgid "End of tenancy"
+msgstr "Einde huurovereenkomst"
+
+msgid "empty = open-ended"
+msgstr "leeg = onbepaalde tijd"
+
+msgid "Deposit (€)"
+msgstr "Waarborgsom (€)"
+
+msgid "Persons in household"
+msgstr "Personen in het huishouden"
+
+msgid "for allocation by number of persons"
+msgstr "voor verdeling naar aantal personen"
+
+msgid "Payment day (day of month)"
+msgstr "Betaaldag (dag van de maand)"
+
+msgid "Additional units in the same agreement"
+msgstr "Extra eenheden in dezelfde overeenkomst"
+
+msgid "Garage, parking space or cellar let together with the flat. The rent share is already included in the base rent of the rent conditions and is only shown separately in the agreement."
+msgstr "Garage, parkeerplaats of kelder die samen met de woning wordt verhuurd. Het huuraandeel is al inbegrepen in de kale huur van de huurcondities en wordt alleen apart vermeld in de overeenkomst."
+
+msgid "Rent conditions (base rent, advance payments) are entered under “Rent conditions” with a valid-from date – as the total rent incl. garage/parking. Each increase = new entry."
+msgstr "Huurcondities (kale huur, voorschotten) worden ingevoerd onder “Huurcondities” met een ingangsdatum – als totale huur incl. garage/parkeerplaats. Elke verhoging = nieuwe invoer."
+
+msgid "Rent conditions"
+msgstr "Huurcondities"
+
+msgid "Rent condition"
+msgstr "Huurconditie"
+
+msgid "Valid from"
+msgstr "Geldig vanaf"
+
+msgid "Usually the 1st of a month"
+msgstr "Meestal de 1e van een maand"
+
+msgid "Base rent (€)"
+msgstr "Kale huur (€)"
+
+msgid "Service charge advance (€)"
+msgstr "Voorschot servicekosten (€)"
+
+msgid "Heating advance (€)"
+msgstr "Voorschot verwarming (€)"
+
+msgid "Payments"
+msgstr "Betalingen"
+
+msgid "Payment"
+msgstr "Betaling"
+
+msgid "Payment date"
+msgstr "Betaaldatum"
+
+msgid "Amount (€)"
+msgstr "Bedrag (€)"
+
+msgid "Assigned month"
+msgstr "Toegewezen maand"
+
+msgid "Reference"
+msgstr "Omschrijving"
+
+msgid "Source"
+msgstr "Bron"
+
+msgid "manual"
+msgstr "handmatig"
+
+msgid "Bank import"
+msgstr "Bankimport"
+
+msgid "Overview (ticked)"
+msgstr "Overzicht (aangevinkt)"
+
+msgid "Receipts"
+msgstr "Bewijsstukken"
+
+msgid "Receipt"
+msgstr "Bewijsstuk"
+
+msgid "Payment date – decisive for the tax year (§ 11 EStG). For direct debits: date of debit."
+msgstr "Betaaldatum – bepalend voor het belastingjaar (§ 11 EStG). Bij automatische incasso: datum van afschrijving."
+
+msgid "Tax year"
+msgstr "Belastingjaar"
+
+msgid "empty = year of the payment date. Differs only for regularly recurring payments around the turn of the year (10-day rule)."
+msgstr "leeg = jaar van de betaaldatum. Wijkt alleen af bij regelmatig terugkerende betalingen rond de jaarwisseling (10-dagenregel)."
+
+msgid "Gross amount (€)"
+msgstr "Brutobedrag (€)"
+
+msgid "Issuer"
+msgstr "Uitgever"
+
+msgid "Invoice / receipt number"
+msgstr "Factuur-/bonnummer"
+
+msgid "Service period from"
+msgstr "Prestatieperiode van"
+
+msgid "For the service charge statement (e.g. insurance 01.01.–31.12.). Empty = payment date."
+msgstr "Voor de servicekostenafrekening (bijv. verzekering 01.01.–31.12.). Leeg = betaaldatum."
+
+msgid "Service period to"
+msgstr "Prestatieperiode tot"
+
+msgid "Spreading (§ 82b EStDV)"
+msgstr "Spreiding (§ 82b EStDV)"
+
+msgid "no – fully in the year of payment"
+msgstr "nee – volledig in het jaar van betaling"
+
+msgid "over 2 years"
+msgstr "over 2 jaar"
+
+msgid "over 3 years"
+msgstr "over 3 jaar"
+
+msgid "over 4 years"
+msgstr "over 4 jaar"
+
+msgid "over 5 years"
+msgstr "over 5 jaar"
+
+msgid "Only for larger maintenance expenses on residential buildings. Spread evenly from the tax year."
+msgstr "Alleen voor grotere onderhoudskosten aan woongebouwen. Gelijkmatig gespreid vanaf het belastingjaar."
+
+msgid "§ 35a EStG (for tenants)"
+msgstr "§ 35a EStG (voor huurders)"
+
+msgid "– no –"
+msgstr "– geen –"
+
+msgid "Tradesmen's services (20 %, max. €1,200)"
+msgstr "Vakliedendiensten (20 %, max. €1.200)"
+
+msgid "Household-related services (20 %, max. €4,000)"
+msgstr "Huishoudelijke diensten (20 %, max. €4.000)"
+
+msgid "Caretaker, gardening, chimney sweep, heating maintenance … The labour share is shown for the tenant in the service charge statement."
+msgstr "Huismeester, tuinonderhoud, schoorsteenveger, cv-onderhoud … Het arbeidsaandeel wordt voor de huurder in de servicekostenafrekening vermeld."
+
+msgid "of which gross labour costs (€)"
+msgstr "waarvan bruto arbeidskosten (€)"
+
+msgid "As per invoice; excluding materials."
+msgstr "Volgens factuur; exclusief materiaal."
+
+msgid "Description"
+msgstr "Omschrijving"
+
+msgid "Receipt file (PDF/photo)"
+msgstr "Bewijsstukbestand (PDF/foto)"
+
+msgid "Meters"
+msgstr "Meters"
+
+msgid "Empty = main meter of the building (info only, not used for allocation)."
+msgstr "Leeg = hoofdmeter van het gebouw (alleen info, niet gebruikt voor verdeling)."
+
+msgid "Cold water (m³)"
+msgstr "Koud water (m³)"
+
+msgid "Hot water (m³)"
+msgstr "Warm water (m³)"
+
+msgid "Heating (kWh / units)"
+msgstr "Verwarming (kWh / eenheden)"
+
+msgid "Electricity (kWh)"
+msgstr "Elektriciteit (kWh)"
+
+msgid "Meter number"
+msgstr "Meternummer"
+
+msgid "Meter readings"
+msgstr "Meterstanden"
+
+msgid "Meter reading"
+msgstr "Meterstand"
+
+msgid "Reading date"
+msgstr "Opnamedatum"
+
+msgid "For the statement: reading at the start and end of the period (e.g. 01.01. and 31.12.)."
+msgstr "Voor de afrekening: stand aan begin en einde van de periode (bijv. 01.01. en 31.12.)."
+
+msgid "Landlord / reading"
+msgstr "Verhuurder / opname"
+
+msgid "Tenant (portal)"
+msgstr "Huurder (portaal)"
+
+msgid "Supplier / meter reading service"
+msgstr "Leverancier / meteropnamedienst"
+
+msgid "Photo"
+msgstr "Foto"
+
+msgid "Bank import rules"
+msgstr "Bankimportregels"
+
+msgid "Rule"
+msgstr "Regel"
+
+msgid "Search text"
+msgstr "Zoektekst"
+
+msgid "Searched in name and reference (case-insensitive), e.g. “Stadtwerke” or “N-ERGIE”."
+msgstr "Gezocht in naam en omschrijving (niet hoofdlettergevoelig), bijv. “Stadtwerke” of “N-ERGIE”."
+
+msgid "Create as"
+msgstr "Aanmaken als"
+
+msgid "Receipt (expense)"
+msgstr "Bewijsstuk (uitgave)"
+
+msgid "Rent payment (income)"
+msgstr "Huurbetaling (inkomsten)"
+
+msgid "Ignore"
+msgstr "Negeren"
+
+msgid "Cost type (for receipts)"
+msgstr "Kostensoort (voor bewijsstukken)"
+
+msgid "Tenancy (for payments)"
+msgstr "Huurovereenkomst (voor betalingen)"
+
+msgid "Depreciation"
+msgstr "Afschrijving"
+
+msgid "Asset"
+msgstr "Activum"
+
+msgid "Purchase contract (PDF)"
+msgstr "Koopcontract (PDF)"
+
+msgid "After selection the contract is read in the browser; detected values appear below as suggestions. Nothing is uploaded until you save."
+msgstr "Na selectie wordt het contract in de browser gelezen; herkende waarden verschijnen hieronder als suggesties. Er wordt niets geüpload totdat u opslaat."
+
+msgid "e.g. “Building, 1 Sample Street” or “Fitted kitchen”"
+msgstr "bijv. “Gebouw, Voorbeeldstraat 1” of “Inbouwkeuken”"
+
+msgid "Building"
+msgstr "Gebouw"
+
+msgid "Movable asset (fitted kitchen, furniture …)"
+msgstr "Roerend goed (inbouwkeuken, meubilair …)"
+
+msgid "Acquisition / completion"
+msgstr "Verwerving / oplevering"
+
+msgid "On purchase: transfer of possession. Depreciation starts pro rata from this month."
+msgstr "Bij koop: overdracht van bezit. De afschrijving begint pro rata vanaf deze maand."
+
+msgid "Purchase price / construction costs (€)"
+msgstr "Koopprijs / bouwkosten (€)"
+
+msgid "Real estate transfer tax (€)"
+msgstr "Overdrachtsbelasting (€)"
+
+msgid "Bavaria: 3.5 % of the purchase price (tax office assessment)."
+msgstr "Beieren: 3,5 % van de koopprijs (aanslag belastingdienst)."
+
+msgid "Notary – purchase contract (€)"
+msgstr "Notaris – koopcontract (€)"
+
+msgid "Only the part for notarising the purchase contract. The part for the land charge belongs under “Financing” below."
+msgstr "Alleen het deel voor het passeren van het koopcontract. Het deel voor de hypotheek hoort onder “Financiering” hieronder."
+
+msgid "Land registry – conveyance / transfer of title (€)"
+msgstr "Kadaster – overdracht / inschrijving eigendom (€)"
+
+msgid "Land registry invoice for priority notice and transfer of title."
+msgstr "Kadasterfactuur voor voorlopige aantekening en eigendomsoverdracht."
+
+msgid "Estate agent's commission (€)"
+msgstr "Makelaarscourtage (€)"
+
+msgid "Other acquisition costs (€)"
+msgstr "Overige verwervingskosten (€)"
+
+msgid "e.g. surveyor before purchase, travel costs for viewings, translator."
+msgstr "bijv. taxateur vóór de koop, reiskosten voor bezichtigingen, vertaler."
+
+msgid "Total acquisition costs (€)"
+msgstr "Totale verwervingskosten (€)"
+
+msgid "Calculated from the individual items as soon as any are entered; otherwise manual."
+msgstr "Wordt berekend uit de afzonderlijke posten zodra er een is ingevoerd; anders handmatig."
+
+msgid "Financing costs – notary / land registry for land charge (€)"
+msgstr "Financieringskosten – notaris / kadaster voor hypotheek (€)"
+
+msgid "Not acquisition costs! Immediately deductible expenses (financing costs). On saving, a receipt of cost type “Financing costs” is created automatically unless one with this amount already exists."
+msgstr "Geen verwervingskosten! Direct aftrekbare uitgaven (financieringskosten). Bij het opslaan wordt automatisch een bewijsstuk van de kostensoort “Financieringskosten” aangemaakt, tenzij er al een met dit bedrag bestaat."
+
+msgid "Land share (%)"
+msgstr "Grondaandeel (%)"
+
+msgid "Building only; the land share is not depreciable. Split as per purchase contract or the BMF purchase price allocation tool. Condominiums also have a co-ownership share of the land (often 15–30 %). The tax office generally does not accept 0 %."
+msgstr "Alleen gebouw; het grondaandeel is niet afschrijfbaar. Splitsing volgens koopcontract of de koopprijsverdelingstool van het BMF. Ook appartementen hebben een mede-eigendomsaandeel in de grond (vaak 15–30 %). De belastingdienst accepteert in de regel geen 0 %."
+
+msgid "Method"
+msgstr "Methode"
+
+msgid "Straight-line (§ 7 (4) EStG)"
+msgstr "Lineair (§ 7 (4) EStG)"
+
+msgid "Declining balance (§ 7 (5a) EStG, new build started 10/2023–09/2029)"
+msgstr "Degressief (§ 7 (5a) EStG, nieuwbouw gestart 10/2023–09/2029)"
+
+msgid "Depreciation rate (% p.a.)"
+msgstr "Afschrijvingspercentage (% p.j.)"
+
+msgid "Empty = automatic: buildings by year built of the property (before 1925: 2.5 %, from 2023: 3 %, otherwise 2 %), movable assets 100 / useful life. Declining balance: 5 %. Enter only if different (e.g. 4 % with proven shorter remaining useful life)."
+msgstr "Leeg = automatisch: gebouwen naar bouwjaar van het object (vóór 1925: 2,5 %, vanaf 2023: 3 %, anders 2 %), roerende goederen 100 / gebruiksduur. Degressief: 5 %. Alleen invullen bij afwijking (bijv. 4 % bij aangetoonde kortere restgebruiksduur)."
+
+msgid "Useful life (years)"
+msgstr "Gebruiksduur (jaren)"
+
+msgid "Movable assets only, e.g. fitted kitchen 10 years. Low-value assets up to €800 net: useful life 1 = immediate deduction."
+msgstr "Alleen roerende goederen, bijv. inbouwkeuken 10 jaar. Geringwaardige goederen tot €800 netto: gebruiksduur 1 = directe aftrek."
+
+msgid "Disposal (sale/withdrawal)"
+msgstr "Afstoting (verkoop/onttrekking)"
+
+msgid "Loans"
+msgstr "Leningen"
+
+msgid "Bank"
+msgstr "Bank"
+
+msgid "Name / account no."
+msgstr "Naam / rekeningnr."
+
+msgid "Loan amount (€)"
+msgstr "Leenbedrag (€)"
+
+msgid "Disbursement"
+msgstr "Uitbetaling"
+
+msgid "Interest rate (% p.a.)"
+msgstr "Rentepercentage (% p.j.)"
+
+msgid "Fixed-rate period until"
+msgstr "Rentevaste periode tot"
+
+msgid "Monthly instalment (€)"
+msgstr "Maandelijkse termijn (€)"
+
+msgid "Initial repayment (% p.a.)"
+msgstr "Aanvankelijke aflossing (% p.j.)"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Redeemed"
+msgstr "Afgelost"
+
+msgid "Loan agreement (PDF)"
+msgstr "Leningsovereenkomst (PDF)"
+
+msgid "Documents"
+msgstr "Documenten"
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Only for tenant-related documents (tenancy agreement, handover protocol, statement)."
+msgstr "Alleen voor huurdergerelateerde documenten (huurovereenkomst, opleveringsrapport, afrekening)."
+
+msgid "Purchase contract"
+msgstr "Koopcontract"
+
+msgid "Land register extract"
+msgstr "Kadastraal uittreksel"
+
+msgid "Declaration of division / HOA"
+msgstr "Splitsingsakte / VvE"
+
+msgid "Tenancy agreement"
+msgstr "Huurovereenkomst"
+
+msgid "Handover protocol"
+msgstr "Opleveringsrapport"
+
+msgid "Insurance policy"
+msgstr "Verzekeringspolis"
+
+msgid "Energy certificate"
+msgstr "Energielabel"
+
+msgid "Other"
+msgstr "Overig"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Visible in tenant portal"
+msgstr "Zichtbaar in huurdersportaal"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "Only effective with an assigned tenancy."
+msgstr "Alleen van toepassing bij een toegewezen huurovereenkomst."
+
+msgid "File (PDF)"
+msgstr "Bestand (PDF)"
+
+msgid "Interest certificates"
+msgstr "Rentecertificaten"
+
+msgid "Annual loan figures"
+msgstr "Jaarcijfers lening"
+
+msgid "Year"
+msgstr "Jaar"
+
+msgid "Interest paid (€)"
+msgstr "Betaalde rente (€)"
+
+msgid "As per the bank's annual interest certificate – this is the deductible amount."
+msgstr "Volgens het jaarlijkse rentecertificaat van de bank – dit is het aftrekbare bedrag."
+
+msgid "Repayment (€)"
+msgstr "Aflossing (€)"
+
+msgid "Not deductible, info only."
+msgstr "Niet aftrekbaar, alleen ter info."
+
+msgid "Outstanding balance 31 Dec (€)"
+msgstr "Restschuld 31 dec. (€)"
+
+msgid "Interest certificate (PDF)"
+msgstr "Rentecertificaat (PDF)"
+
+msgid "Cost types"
+msgstr "Kostensoorten"
+
+msgid "Anlage V – group"
+msgstr "Anlage V – groep"
+
+msgid "Recoverable (BetrKV)"
+msgstr "Doorbelastbaar (BetrKV)"
+
+msgid "No – borne by the landlord"
+msgstr "Nee – ten laste van de verhuurder"
+
+msgid "Yes – included in the service charge statement"
+msgstr "Ja – opgenomen in de servicekostenafrekening"
+
+msgid "Living area"
+msgstr "Woonoppervlakte"
+
+msgid "Persons"
+msgstr "Personen"
+
+msgid "Consumption (meter)"
+msgstr "Verbruik (meter)"
+
+msgid "per unit"
+msgstr "per eenheid"
+
+msgid "Legal basis"
+msgstr "Rechtsgrondslag"
+
+msgid "e.g. § 2 no. 1 BetrKV"
+msgstr "bijv. § 2 nr. 1 BetrKV"
+
+msgid "Sort order"
+msgstr "Sorteervolgorde"
+
+msgid "Reports"
+msgstr "Meldingen"
+
+msgid "Report"
+msgstr "Melding"
+
+msgid "Subject"
+msgstr "Onderwerp"
+
+msgid "Outstanding"
+msgstr "Open"
+
+msgid "In progress"
+msgstr "In behandeling"
+
+msgid "Done"
+msgstr "Afgehandeld"
+
+msgid "Overview"
+msgstr "Overzicht"
+
+msgid "Daily"
+msgstr "Dagelijks"
+
+msgid "Administration"
+msgstr "Beheer"
+
+msgid "Year end"
+msgstr "Jaarafsluiting"
+
+msgid "System"
+msgstr "Systeem"
+
+msgid "Wizard"
+msgstr "Wizard"
+
+msgid "Statement"
+msgstr "Afrekening"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Interest certificate"
+msgstr "Rentecertificaat"
+
+msgid "Bank rules"
+msgstr "Bankregels"
+
+msgid "Agreement & handover"
+msgstr "Overeenkomst & oplevering"
+
+msgid "Dunning"
+msgstr "Aanmaningen"
+
+msgid "Rent increase"
+msgstr "Huurverhoging"
+
+msgid "Deposit"
+msgstr "Waarborgsom"
+
+msgid "Loan account"
+msgstr "Leningrekening"
+
+msgid "Tax (Anlage V)"
+msgstr "Belasting (Anlage V)"
+
+msgid "Data protection"
+msgstr "Gegevensbescherming"
+
+msgid "Settings & backup"
+msgstr "Instellingen & back-up"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Setup wizard"
+msgstr "Installatiewizard"
+
+msgid "%s is required."
+msgstr "%s is verplicht."
+
+msgid "Saving failed: %s"
+msgstr "Opslaan mislukt: %s"
+
+msgid "unknown database error"
+msgstr "onbekende databasefout"
+
+msgid "End of tenancy is before the start."
+msgstr "Einde van de huurovereenkomst ligt vóór het begin."
+
+msgid "Another tenancy already exists for this unit in the period."
+msgstr "Voor deze eenheid bestaat in de periode al een andere huurovereenkomst."
+
+msgid "Payment day must be between 1 and 28."
+msgstr "Betaaldag moet tussen 1 en 28 liggen."
+
+msgid "The main unit cannot also be an additional unit."
+msgstr "De hoofdeenheid kan niet tegelijk een extra eenheid zijn."
+
+msgid "Additional unit “%s” is already let to someone else in the period."
+msgstr "Extra eenheid “%s” is in de periode al aan iemand anders verhuurd."
+
+msgid "Base rent must be greater than 0."
+msgstr "Kale huur moet groter zijn dan 0."
+
+msgid "Amount must not be 0."
+msgstr "Bedrag mag niet 0 zijn."
+
+msgid "Payment date is in the future."
+msgstr "Betaaldatum ligt in de toekomst."
+
+msgid "Assigned month is before the start of tenancy."
+msgstr "Toegewezen maand ligt vóór het begin van de huurovereenkomst."
+
+msgid "Service period: “to” is before “from”."
+msgstr "Prestatieperiode: “tot” ligt vóór “van”."
+
+msgid "Amount must be greater than 0 (credit notes as negative receipts are not supported – please offset against the original receipt)."
+msgstr "Bedrag moet groter zijn dan 0 (creditnota's als negatieve bewijsstukken worden niet ondersteund – verreken ze met het oorspronkelijke bewijsstuk)."
+
+msgid "Labour share cannot exceed the invoice amount."
+msgstr "Arbeidsaandeel kan niet hoger zijn dan het factuurbedrag."
+
+msgid "Tax year differs from the payment date by more than one year."
+msgstr "Belastingjaar wijkt meer dan een jaar af van de betaaldatum."
+
+msgid "Living area must be greater than 0 (needed for the service charge statement)."
+msgstr "Woonoppervlakte moet groter zijn dan 0 (nodig voor de servicekostenafrekening)."
+
+msgid "Land share must be below 100 %."
+msgstr "Grondaandeel moet lager zijn dan 100 %."
+
+msgid "Movable asset: enter useful life or depreciation rate."
+msgstr "Roerend goed: voer gebruiksduur of afschrijvingspercentage in."
+
+msgid "Invalid year."
+msgstr "Ongeldig jaar."
+
+msgid "Invalid IBAN (check digit)."
+msgstr "Ongeldige IBAN (controlegetal)."
+
+msgid "Saved."
+msgstr "Opgeslagen."
+
+msgid "Deleted."
+msgstr "Verwijderd."
+
+msgid "Cannot delete: dependent records still exist."
+msgstr "Verwijderen niet mogelijk: er bestaan nog afhankelijke records."
+
+msgid "%d rent payment(s) booked."
+msgstr "%d huurbetaling(en) geboekt."
+
+msgid "Add %s"
+msgstr "%s toevoegen"
+
+msgid "all"
+msgstr "alle"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Really delete?"
+msgstr "Echt verwijderen?"
+
+msgid "Edit:"
+msgstr "Bewerken:"
+
+msgid "New:"
+msgstr "Nieuw:"
+
+msgid "No units created yet."
+msgstr "Nog geen eenheden aangemaakt."
+
+msgid "Rent share"
+msgstr "Huuraandeel"
+
+msgid "Open current file"
+msgstr "Huidig bestand openen"
+
+msgid "– choose a new file to replace it."
+msgstr "– kies een nieuw bestand om het te vervangen."
+
+msgid "📷 Take photo"
+msgstr "📷 Foto maken"
+
+msgid "– please select –"
+msgstr "– selecteer –"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Properties / units"
+msgstr "Objecten / eenheden"
+
+msgid "active tenancies"
+msgstr "actieve huurovereenkomsten"
+
+msgid "Monthly rent due"
+msgstr "Maandelijks verschuldigde huur"
+
+msgid "Base rent + advance payments"
+msgstr "Kale huur + voorschotten"
+
+msgid "Open rent claims"
+msgstr "Openstaande huurvorderingen"
+
+msgid "Arrears – tick below or send a reminder"
+msgstr "Achterstand – hieronder aanvinken of een aanmaning versturen"
+
+msgid "All rent accounts balanced"
+msgstr "Alle huurrekeningen in evenwicht"
+
+msgid "Income %d"
+msgstr "Inkomsten %d"
+
+msgid "Expenses so far %s"
+msgstr "Uitgaven tot nu toe %s"
+
+msgid "Record payment"
+msgstr "Betaling registreren"
+
+msgid "Record receipt"
+msgstr "Bewijsstuk registreren"
+
+msgid "Notices"
+msgstr "Attenderingen"
+
+msgid "%d open report(s) from the tenant portal"
+msgstr "%d open melding(en) uit het huurdersportaal"
+
+msgid "Mietfux – Overview"
+msgstr "Mietfux – Overzicht"
+
+msgid "Show WordPress menu"
+msgstr "WordPress-menu tonen"
+
+msgid "Hide WordPress menu"
+msgstr "WordPress-menu verbergen"
+
+msgid "No active tenancy yet. Order to get started:"
+msgstr "Nog geen actieve huurovereenkomst. Volgorde om te beginnen:"
+
+msgid "Property → Unit → Tenant → Tenancy → Rent conditions"
+msgstr "Object → Eenheid → Huurder → Huurovereenkomst → Huurcondities"
+
+msgid "or use the setup wizard"
+msgstr "of gebruik de installatiewizard"
+
+msgid "Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments)."
+msgstr "Vink open maanden aan en boek ze met één klik als betaald – het openstaande bedrag wordt geboekt met betaaldatum de 1e van de maand (bron “aangevinkt”, later te bewerken onder Betalingen)."
+
+msgid "Please tick at least one month."
+msgstr "Vink minstens één maand aan."
+
+msgid "Book selected as paid"
+msgstr "Geselecteerde als betaald boeken"
+
+msgid "Start %1$s · Deposit %2$s"
+msgstr "Begin %1$s · Waarborgsom %2$s"
+
+msgid "Balance"
+msgstr "Saldo"
+
+msgid "all open months of this tenancy"
+msgstr "alle open maanden van deze huurovereenkomst"
+
+msgid "Month"
+msgstr "Maand"
+
+msgid "Base rent"
+msgstr "Kale huur"
+
+msgid "SC advance"
+msgstr "Voorschot SK"
+
+msgid "Heating advance"
+msgstr "Voorschot verwarming"
+
+msgid "Due"
+msgstr "Verschuldigd"
+
+msgid "Actual"
+msgstr "Werkelijk"
+
+msgid "Difference"
+msgstr "Verschil"
+
+msgid "Cumulative balance"
+msgstr "Cumulatief saldo"
+
+msgid "Book %s as paid"
+msgstr "%s als betaald boeken"
+
+msgid "from useful life of %d years"
+msgstr "uit gebruiksduur van %d jaar"
+
+msgid "statutory by year built (§ 7 (4) EStG)"
+msgstr "wettelijk naar bouwjaar (§ 7 (4) EStG)"
+
+msgid "no rate – please enter"
+msgstr "geen percentage – voer in"
+
+msgid "Welcome to Mietfux."
+msgstr "Welkom bij Mietfux."
+
+msgid "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps."
+msgstr "De installatiewizard maakt in vijf stappen verhuurder, object, eenheid, huurder en huurovereenkomst aan."
+
+msgid "Start wizard"
+msgstr "Wizard starten"
+
+msgid "Landlord"
+msgstr "Verhuurder"
+
+msgid "Landlord name is missing."
+msgstr "Naam van de verhuurder ontbreekt."
+
+msgid "Name and street are required."
+msgstr "Naam en straat zijn verplicht."
+
+msgid "Please create the property first."
+msgstr "Maak eerst het object aan."
+
+msgid "Name and living area of the flat are required."
+msgstr "Naam en woonoppervlakte van de woning zijn verplicht."
+
+msgid "Tenant's last name is missing."
+msgstr "Achternaam van de huurder ontbreekt."
+
+msgid "Unit and tenant must be created first."
+msgstr "Eenheid en huurder moeten eerst worden aangemaakt."
+
+msgid "Start of tenancy and base rent (greater than 0) are required."
+msgstr "Begin van de huurovereenkomst en kale huur (groter dan 0) zijn verplicht."
+
+msgid "These details appear as sender on the tenancy agreement, statements and letters."
+msgstr "Deze gegevens verschijnen als afzender op de huurovereenkomst, afrekeningen en brieven."
+
+msgid "Address"
+msgstr "Adres"
+
+msgid "Street and town on two lines."
+msgstr "Straat en plaats op twee regels."
+
+msgid "IBAN (rent account)"
+msgstr "IBAN (huurrekening)"
+
+msgid "For payment requests and SEPA mandate."
+msgstr "Voor betalingsverzoeken en SEPA-machtiging."
+
+msgid "Tax number (optional)"
+msgstr "Fiscaal nummer (optioneel)"
+
+msgid "A property is the house or condominium. The year built determines the depreciation rate, the heating type the heating cost allocation."
+msgstr "Een object is het huis of het appartement. Het bouwjaar bepaalt het afschrijvingspercentage, het verwarmingstype de verdeling van de verwarmingskosten."
+
+msgid "e.g. “Condo, 1 Sample Street”"
+msgstr "bijv. “Appartement, Voorbeeldstraat 1”"
+
+msgid "Before 1925: 2.5 % depreciation, from 2023: 3 %, otherwise 2 %."
+msgstr "Vóór 1925: 2,5 % afschrijving, vanaf 2023: 3 %, anders 2 %."
+
+msgid "The flat is the main unit. A garage or parking space can be created at the same time and assigned to the same agreement in the next step."
+msgstr "De woning is de hoofdeenheid. Een garage of parkeerplaats kan tegelijk worden aangemaakt en in de volgende stap aan dezelfde overeenkomst worden toegewezen."
+
+msgid "Flat – name"
+msgstr "Woning – naam"
+
+msgid "Needed for the service charge statement."
+msgstr "Nodig voor de servicekostenafrekening."
+
+msgid "Garage / parking space (optional)"
+msgstr "Garage / parkeerplaats (optioneel)"
+
+msgid "Leave empty if no garage is let with the flat."
+msgstr "Leeg laten als er geen garage met de woning wordt verhuurd."
+
+msgid "Garage rent share (€)"
+msgstr "Huuraandeel garage (€)"
+
+msgid "Shown in the agreement only; the total rent is entered in the next step."
+msgstr "Alleen vermeld in de overeenkomst; de totale huur wordt in de volgende stap ingevoerd."
+
+msgid "For the tenancy agreement."
+msgstr "Voor de huurovereenkomst."
+
+msgid "Address before moving in – appears in the agreement."
+msgstr "Adres vóór de verhuizing – verschijnt in de overeenkomst."
+
+msgid "Tenant's IBAN"
+msgstr "IBAN van de huurder"
+
+msgid "For automatic matching in the bank import."
+msgstr "Voor automatische koppeling bij de bankimport."
+
+msgid "Spouse/partner as co-tenant (optional)"
+msgstr "Echtgenoot/partner als medehuurder (optioneel)"
+
+msgid "Appears automatically as second contracting party in the agreement, letters, SEPA mandate and handover protocol."
+msgstr "Verschijnt automatisch als tweede contractpartij in de overeenkomst, brieven, SEPA-machtiging en opleveringsrapport."
+
+msgid "Tenancy:"
+msgstr "Huurovereenkomst:"
+
+msgid "Total base rent (€)"
+msgstr "Totale kale huur (€)"
+
+msgid "Including garage/parking space, if let together."
+msgstr "Inclusief garage/parkeerplaats, indien samen verhuurd."
+
+msgid "0 for decentralised heating."
+msgstr "0 bij decentrale verwarming."
+
+msgid "At most three months' base rent (§ 551 BGB)."
+msgstr "Maximaal drie maanden kale huur (§ 551 BGB)."
+
+msgid "Additional unit"
+msgstr "Extra eenheid"
+
+msgid "“%s” belongs to this agreement (one total rent, one booking)"
+msgstr "“%s” hoort bij deze overeenkomst (één totale huur, één boeking)"
+
+msgid "Back"
+msgstr "Terug"
+
+msgid "Finish"
+msgstr "Voltooien"
+
+msgid "Save and continue"
+msgstr "Opslaan en doorgaan"
+
+msgid "Close the wizard, I'll enter the data myself"
+msgstr "Wizard sluiten, ik voer de gegevens zelf in"
+
+msgid "Setup complete"
+msgstr "Installatie voltooid"
+
+msgid "The following tenancy was created:"
+msgstr "De volgende huurovereenkomst is aangemaakt:"
+
+msgid "Useful next steps:"
+msgstr "Nuttige volgende stappen:"
+
+msgid "Enter the building as an asset with purchase price, incidental costs and land share (depreciation) – let the purchase contract PDF be parsed"
+msgstr "Het gebouw als activum invoeren met koopprijs, bijkomende kosten en grondaandeel (afschrijving) – laat de koopcontract-PDF uitlezen"
+
+msgid "Create financing loan (interest, repayment, instalment)"
+msgstr "Financieringslening aanmaken (rente, aflossing, termijn)"
+
+msgid "Create the flat's meters and record initial readings"
+msgstr "De meters van de woning aanmaken en beginstanden registreren"
+
+msgid "Generate tenancy agreement, SEPA mandate and handover protocol"
+msgstr "Huurovereenkomst, SEPA-machtiging en opleveringsrapport genereren"
+
+msgid "Tick rent receipts in the overview or import them from the bank"
+msgstr "Huurontvangsten in het overzicht aanvinken of uit de bank importeren"
+
+msgid "Help with a short description of all modules"
+msgstr "Help met een korte beschrijving van alle modules"
+
+msgid "Go to overview"
+msgstr "Naar het overzicht"
+
+msgid "Review the entries again"
+msgstr "De invoer nogmaals controleren"
+
+msgid "Tenant's name"
+msgstr "Naam van de huurder"
+
+msgid "%d transactions imported."
+msgstr "%d transacties geïmporteerd."
+
+msgid "No transactions detected. Supported: CSV with header row (booking date, amount, reference …) or CAMT.053 XML."
+msgstr "Geen transacties herkend. Ondersteund: CSV met koprij (boekingsdatum, bedrag, omschrijving …) of CAMT.053 XML."
+
+msgid "Import"
+msgstr "Importeren"
+
+msgid "Bank statement as CSV (online banking export) or CAMT.053 XML. Previously imported transactions are detected and not duplicated. Rent payments are matched by the tenant's IBAN or last name, expenses via"
+msgstr "Bankafschrift als CSV (export internetbankieren) of CAMT.053 XML. Eerder geïmporteerde transacties worden herkend en niet gedupliceerd. Huurbetalingen worden gekoppeld via de IBAN of achternaam van de huurder, uitgaven via"
+
+msgid "Import selected transactions"
+msgstr "Geselecteerde transacties importeren"
+
+msgid "Name / reference"
+msgstr "Naam / omschrijving"
+
+msgid "Assignment"
+msgstr "Toewijzing"
+
+msgid "Remember rule"
+msgstr "Regel onthouden"
+
+msgid "already imported"
+msgstr "al geïmporteerd"
+
+msgid "Rent payment"
+msgstr "Huurbetaling"
+
+msgid "– tenancy –"
+msgstr "– huurovereenkomst –"
+
+msgid "– cost type –"
+msgstr "– kostensoort –"
+
+msgid "Dear Sir or Madam,"
+msgstr "Geachte heer, mevrouw,"
+
+msgid "dear Ms %s"
+msgstr "geachte mevrouw %s"
+
+msgid "dear Mr %s"
+msgstr "geachte heer %s"
+
+msgid "%d entry/entries created."
+msgstr "%d invoer(en) aangemaakt."
+
+msgid "No loan created yet –"
+msgstr "Nog geen lening aangemaakt –"
+
+msgid "Create loan"
+msgstr "Lening aanmaken"
+
+msgid "The repayment schedule requires disbursement date, interest rate and monthly instalment on the loan."
+msgstr "Het aflossingsschema vereist uitbetalingsdatum, rentepercentage en maandelijkse termijn bij de lening."
+
+msgid "Edit loan"
+msgstr "Lening bewerken"
+
+msgid "Loan amount"
+msgstr "Leenbedrag"
+
+msgid "disbursed"
+msgstr "uitbetaald"
+
+msgid "Outstanding balance today"
+msgstr "Restschuld vandaag"
+
+msgid "Interest paid"
+msgstr "Betaalde rente"
+
+msgid "Entries"
+msgstr "Boekingen"
+
+msgid "Repaid"
+msgstr "Afgelost"
+
+msgid "Instalment / interest rate"
+msgstr "Termijn / rentepercentage"
+
+msgid "Remaining term approx. %d months"
+msgstr "Resterende looptijd ca. %d maanden"
+
+msgid "Tick and book open months: interest = balance × rate / 12, repayment = instalment − interest. The annual totals flow into Anlage V as loan interest unless a bank interest certificate is entered for the year – that takes precedence (exact bank calculation)."
+msgstr "Open maanden aanvinken en boeken: rente = saldo × percentage / 12, aflossing = termijn − rente. De jaartotalen gaan als leningrente naar Anlage V, tenzij voor het jaar een rentecertificaat van de bank is ingevoerd – dat heeft voorrang (exacte bankberekening)."
+
+msgid "Book selected instalments"
+msgstr "Geselecteerde termijnen boeken"
+
+msgid "Instalment"
+msgstr "Termijn"
+
+msgid "Interest"
+msgstr "Rente"
+
+msgid "Repayment"
+msgstr "Aflossing"
+
+msgid "Outstanding balance"
+msgstr "Restschuld"
+
+msgid "Extra repayment"
+msgstr "Extra aflossing"
+
+msgid "Instalment (open)"
+msgstr "Termijn (open)"
+
+msgid "Delete entry? Subsequent balances will be recalculated."
+msgstr "Boeking verwijderen? Volgende saldi worden opnieuw berekend."
+
+msgid "No instalments in the period yet."
+msgstr "Nog geen termijnen in de periode."
+
+msgid "Book extra repayment"
+msgstr "Extra aflossing boeken"
+
+msgid "Book"
+msgstr "Boeken"
+
+msgid "Reduces the outstanding balance; subsequent instalments are calculated on the lower balance."
+msgstr "Verlaagt de restschuld; volgende termijnen worden berekend op het lagere saldo."
+
+msgid "Annual figures"
+msgstr "Jaarcijfers"
+
+msgid "Balance 31 Dec"
+msgstr "Saldo 31 dec."
+
+msgid "Calculated: %s"
+msgstr "Berekend: %s"
+
+msgid "calculated from instalments"
+msgstr "berekend uit termijnen"
+
+msgid "Once the bank's interest certificate is available, enter it under “Interest certificates” – it replaces the calculated values in the tax report."
+msgstr "Zodra het rentecertificaat van de bank beschikbaar is, voert u het in onder “Rentecertificaten” – het vervangt de berekende waarden in het belastingrapport."
+
+msgid "Art. 15 GDPR"
+msgstr "Art. 15 AVG"
+
+msgid "Performance of the tenancy agreement (Art. 6 (1) (b) GDPR), compliance with tax and commercial retention obligations (Art. 6 (1) (c) GDPR in conjunction with § 147 AO)"
+msgstr "Uitvoering van de huurovereenkomst (art. 6 (1) (b) AVG), naleving van fiscale en commerciële bewaarplichten (art. 6 (1) (c) AVG juncto § 147 AO)"
+
+msgid "%d years after the end of the calendar year in which the tenancy ended"
+msgstr "%d jaar na afloop van het kalenderjaar waarin de huurovereenkomst is geëindigd"
+
+msgid "Tax office (Anlage V), tax adviser (if engaged), bank (payments)"
+msgstr "Belastingdienst (Anlage V), belastingadviseur (indien ingeschakeld), bank (betalingen)"
+
+msgid "Tenant data anonymised. Payment and statement data are retained without personal reference."
+msgstr "Huurdergegevens geanonimiseerd. Betalings- en afrekeningsgegevens worden zonder persoonsgegevens bewaard."
+
+msgid "Legal basis for processing: Art. 6 (1) (b) GDPR (tenancy agreement) and (c) (retention obligations, § 147 AO). Retention period: %d years after the end of the calendar year in which the tenancy ended ("
+msgstr "Rechtsgrondslag voor de verwerking: art. 6 (1) (b) AVG (huurovereenkomst) en (c) (bewaarplichten, § 147 AO). Bewaartermijn: %d jaar na afloop van het kalenderjaar waarin de huurovereenkomst is geëindigd ("
+
+msgid "). After expiry the personal reference is removed; amounts are retained for tax purposes."
+msgstr "). Na afloop wordt de persoonsverwijzing verwijderd; bedragen worden voor fiscale doeleinden bewaard."
+
+msgid "Deletion concept – ended tenancies"
+msgstr "Verwijderconcept – beëindigde huurovereenkomsten"
+
+msgid "End"
+msgstr "Einde"
+
+msgid "Deletion deadline"
+msgstr "Verwijdertermijn"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "anonymised"
+msgstr "geanonimiseerd"
+
+msgid "Tenant has another active tenancy"
+msgstr "Huurder heeft nog een actieve huurovereenkomst"
+
+msgid "Deadline expired"
+msgstr "Termijn verstreken"
+
+msgid "in retention"
+msgstr "in bewaring"
+
+msgid "Anonymise"
+msgstr "Anonimiseren"
+
+msgid "Irreversibly remove personal data?"
+msgstr "Persoonsgegevens onherroepelijk verwijderen?"
+
+msgid "The retention period has not expired yet!"
+msgstr "De bewaartermijn is nog niet verstreken!"
+
+msgid "No ended tenancies."
+msgstr "Geen beëindigde huurovereenkomsten."
+
+msgid "Access (Art. 15 GDPR) / data portability (Art. 20)"
+msgstr "Inzage (art. 15 AVG) / overdraagbaarheid (art. 20)"
+
+msgid "Generates a complete data overview of the tenant as JSON – response deadline: one month (Art. 12 (3) GDPR)."
+msgstr "Genereert een volledig gegevensoverzicht van de huurder als JSON – antwoordtermijn: één maand (art. 12 (3) AVG)."
+
+msgid "Export access report"
+msgstr "Inzagerapport exporteren"
+
+msgid "Notes for the record of processing activities"
+msgstr "Aantekeningen voor het verwerkingsregister"
+
+msgid "Processing activity:"
+msgstr "Verwerkingsactiviteit:"
+
+msgid "Management of tenancies (master data, payments, statements, defect reports, correspondence)."
+msgstr "Beheer van huurovereenkomsten (stamgegevens, betalingen, afrekeningen, gebrekmeldingen, correspondentie)."
+
+msgid "Data subjects:"
+msgstr "Betrokkenen:"
+
+msgid "Tenants, household members (number only, no names), invoice issuers."
+msgstr "Huurders, leden van het huishouden (alleen aantal, geen namen), factuuruitgevers."
+
+msgid "Data categories:"
+msgstr "Gegevenscategorieën:"
+
+msgid "Name, address, contact details, bank details, contract and payment data, consumption data (meters), reports."
+msgstr "Naam, adres, contactgegevens, bankgegevens, contract- en betalingsgegevens, verbruiksgegevens (meters), meldingen."
+
+msgid "Technical and organisational measures:"
+msgstr "Technische en organisatorische maatregelen:"
+
+msgid "Access for administrators only (WordPress role), tenant portal only with own login and assignment, HTTPS, regular backups, anonymisation after expiry, purchase contract parsing locally in the browser without third-party services."
+msgstr "Toegang alleen voor beheerders (WordPress-rol), huurdersportaal alleen met eigen login en toewijzing, HTTPS, regelmatige back-ups, anonimisering na afloop, uitlezen van het koopcontract lokaal in de browser zonder diensten van derden."
+
+msgid "Processors:"
+msgstr "Verwerkers:"
+
+msgid "Hosting provider of the WordPress installation (data processing agreement required)."
+msgstr "Hostingprovider van de WordPress-installatie (verwerkersovereenkomst vereist)."
+
+msgid "Income (info only, do not book as receipt)"
+msgstr "Inkomsten (alleen info, niet als bewijsstuk boeken)"
+
+msgid "Depreciation (AfA)"
+msgstr "Afschrijving (AfA)"
+
+msgid "Loan interest and financing costs"
+msgstr "Leningrente en financieringskosten"
+
+msgid "Maintenance expenses"
+msgstr "Onderhoudskosten"
+
+msgid "Property tax, street cleaning, refuse collection"
+msgstr "Onroerendezaakbelasting, straatreiniging, afvalinzameling"
+
+msgid "Water supply, drainage, communal lighting"
+msgstr "Watervoorziening, afvoer, gemeenschappelijke verlichting"
+
+msgid "Heating, hot water"
+msgstr "Verwarming, warm water"
+
+msgid "Chimney sweeping, building insurance, caretaker, stair cleaning, lift"
+msgstr "Schoorsteenvegen, opstalverzekering, huismeester, trappenhuisreiniging, lift"
+
+msgid "Administration costs"
+msgstr "Beheerkosten"
+
+msgid "Other expenses"
+msgstr "Overige uitgaven"
+
+msgid "Settings saved."
+msgstr "Instellingen opgeslagen."
+
+msgid "Backup restored. All data has been replaced."
+msgstr "Back-up hersteld. Alle gegevens zijn vervangen."
+
+msgid "Backup could not be read (not a valid Rental Management JSON file)."
+msgstr "Back-up kon niet worden gelezen (geen geldig JSON-bestand van de huurbeheer-plugin)."
+
+msgid "Restore cancelled: confirmation missing."
+msgstr "Herstel geannuleerd: bevestiging ontbreekt."
+
+msgid "Landlord (for letters and statements)"
+msgstr "Verhuurder (voor brieven en afrekeningen)"
+
+msgid "IBAN (for amounts due)"
+msgstr "IBAN (voor te betalen bedragen)"
+
+msgid "Tax number (optional, for the tenancy agreement)"
+msgstr "Fiscaal nummer (optioneel, voor de huurovereenkomst)"
+
+msgid "Represented by (optional, e.g. property manager)"
+msgstr "Vertegenwoordigd door (optioneel, bijv. vastgoedbeheerder)"
+
+msgid "SEPA creditor identifier"
+msgstr "SEPA-incassant-ID"
+
+msgid "For direct debit mandates; apply at the Bundesbank (free of charge). Empty = no SEPA mandate."
+msgstr "Voor incassomachtigingen; aan te vragen bij de Bundesbank (gratis). Leeg = geen SEPA-machtiging."
+
+msgid "Reminders"
+msgstr "Herinneringen"
+
+msgid "Daily email for notices"
+msgstr "Dagelijkse e-mail voor attenderingen"
+
+msgid "On"
+msgstr "Aan"
+
+msgid "Off"
+msgstr "Uit"
+
+msgid "Missing rent, statement deadline, fixed-rate period, 15 percent limit. Only when there is something to report."
+msgstr "Ontbrekende huur, afrekeningstermijn, rentevaste periode, 15-procentgrens. Alleen als er iets te melden is."
+
+msgid "Recipient"
+msgstr "Ontvanger"
+
+msgid "Tenancy law"
+msgstr "Huurrecht"
+
+msgid "Area with a tight housing market"
+msgstr "Gebied met krappe woningmarkt"
+
+msgid "No (cap 20 %)"
+msgstr "Nee (plafond 20 %)"
+
+msgid "Yes (cap 15 %)"
+msgstr "Ja (plafond 15 %)"
+
+msgid "Bavaria: Tenant Protection Ordinance – applies e.g. to Fürth, Nuremberg, Erlangen and some surrounding municipalities; check Zirndorf/Oberasbach/Stein."
+msgstr "Beieren: Mieterschutzverordnung – geldt bijv. voor Fürth, Neurenberg, Erlangen en enkele omliggende gemeenten; controleer Zirndorf/Oberasbach/Stein."
+
+msgid "Payment deadline, payment reminder (days)"
+msgstr "Betaaltermijn betalingsherinnering (dagen)"
+
+msgid "Payment deadline, 1st dunning letter (days)"
+msgstr "Betaaltermijn 1e aanmaning (dagen)"
+
+msgid "Payment deadline, final dunning letter (days)"
+msgstr "Betaaltermijn laatste aanmaning (dagen)"
+
+msgid "Retention period after end of tenancy (years)"
+msgstr "Bewaartermijn na einde huurovereenkomst (jaren)"
+
+msgid "10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year."
+msgstr "10 jaar voor fiscaal relevante stukken (§ 147 AO), gerekend vanaf het einde van het kalenderjaar."
+
+msgid "Uninstall"
+msgstr "Verwijderen plugin"
+
+msgid "When deleting the plugin"
+msgstr "Bij het verwijderen van de plugin"
+
+msgid "Keep all data (default)"
+msgstr "Alle gegevens bewaren (standaard)"
+
+msgid "Delete all tables and settings"
+msgstr "Alle tabellen en instellingen verwijderen"
+
+msgid "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
+msgstr "Geldt alleen voor “Verwijderen” op de pluginpagina, niet voor “Deactiveren”. Bestanden in de mediabibliotheek blijven altijd bewaard."
+
+msgid "Backup"
+msgstr "Back-up"
+
+msgid "Export all data as JSON"
+msgstr "Alle gegevens als JSON exporteren"
+
+msgid "Contains all Rental Management tables and settings – not the media library files (back those up with your regular WordPress backup)."
+msgstr "Bevat alle tabellen en instellingen van de huurbeheer-plugin – niet de bestanden van de mediabibliotheek (maak daarvan een back-up met uw gewone WordPress-back-up)."
+
+msgid "Restore"
+msgstr "Herstellen"
+
+msgid "I understand that"
+msgstr "Ik begrijp dat"
+
+msgid "all existing data will be replaced"
+msgstr "alle bestaande gegevens worden vervangen"
+
+msgid "."
+msgstr "."
+
+msgid "No increase possible: the local reference rent or the cap is not above the current rent."
+msgstr "Geen verhoging mogelijk: de plaatselijke vergelijkingshuur of het plafond ligt niet boven de huidige huur."
+
+msgid "Local reference rent: %1$s €/m² × %2$s m² = %3$s. Cap (%4$d %% on rent 3 years ago %5$s): %6$s. Permitted maximum: %7$s."
+msgstr "Plaatselijke vergelijkingshuur: %1$s €/m² × %2$s m² = %3$s. Plafond (%4$d %% op de huur van 3 jaar geleden %5$s): %6$s. Toegestaan maximum: %7$s."
+
+msgid "Please enter both index values (CPI, base 2020 = 100)."
+msgstr "Voer beide indexwaarden in (CPI, basis 2020 = 100)."
+
+msgid "Index-linked rent: the rent must have been unchanged for at least one year (§ 557b (2) BGB)."
+msgstr "Indexhuur: de huur moet minstens een jaar ongewijzigd zijn gebleven (§ 557b (2) BGB)."
+
+msgid "CPI %1$s → %2$s = %3$+.2f %%. New base rent %4$s (previously %5$s). Effective from the start of the second month after receipt: %6$s."
+msgstr "CPI %1$s → %2$s = %3$+.2f %%. Nieuwe kale huur %4$s (voorheen %5$s). Ingangsdatum: begin van de tweede maand na ontvangst: %6$s."
+
+msgid "Enter new base rent."
+msgstr "Voer de nieuwe kale huur in."
+
+msgid "Mutual amendment (§ 557 (1) BGB) or agreed stepped rent (§ 557a BGB) – requires the tenant's consent or an agreement in the contract."
+msgstr "Wijziging in onderling overleg (§ 557 (1) BGB) of overeengekomen trapsgewijze huur (§ 557a BGB) – vereist de instemming van de huurder of een afspraak in het contract."
+
+msgid "Increase saved and new rent condition created."
+msgstr "Verhoging opgeslagen en nieuwe huurconditie aangemaakt."
+
+msgid "Open PDF"
+msgstr "PDF openen"
+
+msgid "Current base rent %1$s, living area %2$s m², start of tenancy %3$s%4$s"
+msgstr "Huidige kale huur %1$s, woonoppervlakte %2$s m², begin huurovereenkomst %3$s%4$s"
+
+msgid "Local reference rent (§ 558 BGB)"
+msgstr "Plaatselijke vergelijkingshuur (§ 558 BGB)"
+
+msgid "Index-linked rent (§ 557b BGB)"
+msgstr "Indexhuur (§ 557b BGB)"
+
+msgid "Agreement / stepped rent"
+msgstr "Overeenkomst / trapsgewijze huur"
+
+msgid "Receipt of the letter by the tenant"
+msgstr "Ontvangst van de brief door de huurder"
+
+msgid "Local reference rent (€/m²)"
+msgstr "Plaatselijke vergelijkingshuur (€/m²)"
+
+msgid "Rent index (qualified for Fürth/Nuremberg), three comparable flats or expert opinion"
+msgstr "Huurprijsoverzicht (gekwalificeerd voor Fürth/Neurenberg), drie vergelijkbare woningen of deskundigenrapport"
+
+msgid "Desired new base rent (€)"
+msgstr "Gewenste nieuwe kale huur (€)"
+
+msgid "empty = permitted maximum"
+msgstr "leeg = toegestaan maximum"
+
+msgid "Justification"
+msgstr "Motivering"
+
+msgid "e.g. “Fürth rent index 2025, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "bijv. “Huurprijsoverzicht Fürth 2025, veld C3: €8,90–10,40/m², gemiddeld €9,60/m²”"
+
+msgid "CPI at last rent setting"
+msgstr "CPI bij laatste huurvaststelling"
+
+msgid "Consumer price index Germany, base 2020 = 100 (Destatis)"
+msgstr "Consumentenprijsindex Duitsland, basis 2020 = 100 (Destatis)"
+
+msgid "Current CPI"
+msgstr "Huidige CPI"
+
+msgid "New base rent (€)"
+msgstr "Nieuwe kale huur (€)"
+
+msgid "Check"
+msgstr "Controleren"
+
+msgid "Previously"
+msgstr "Voorheen"
+
+msgid "New from %s"
+msgstr "Nieuw vanaf %s"
+
+msgid "Increase"
+msgstr "Verhoging"
+
+msgid "Create rent condition and save the increase?"
+msgstr "Huurconditie aanmaken en de verhoging opslaan?"
+
+msgid "Save increase, create rent condition, generate letter"
+msgstr "Verhoging opslaan, huurconditie aanmaken, brief genereren"
+
+msgid "Previous increases"
+msgstr "Eerdere verhogingen"
+
+msgid "Received"
+msgstr "Ontvangen"
+
+msgid "Old"
+msgstr "Oud"
+
+msgid "New"
+msgstr "Nieuw"
+
+msgid "Effective from"
+msgstr "Ingangsdatum"
+
+msgid "Letter"
+msgstr "Brief"
+
+msgid "the net base rent for the flat you rent is currently"
+msgstr "de netto kale huur voor de door u gehuurde woning bedraagt momenteel"
+
+msgid "per month. I hereby request your consent to an increase of the net base rent to"
+msgstr "per maand. Hierbij verzoek ik u om uw instemming met een verhoging van de netto kale huur naar"
+
+msgid "per month with effect"
+msgstr "per maand met ingang"
+
+msgid "from %s"
+msgstr "van %s"
+
+msgid "Justification:"
+msgstr "Motivering:"
+
+msgid "The rent has been unchanged for at least 15 months; the cap (§ 558 (3) BGB) is observed. The advance payments remain unchanged, so the total monthly rent from %s"
+msgstr "De huur is minstens 15 maanden ongewijzigd gebleven; het plafond (§ 558 (3) BGB) wordt in acht genomen. De voorschotten blijven ongewijzigd, zodat de totale maandhuur vanaf %s"
+
+msgid "will be."
+msgstr "zal bedragen."
+
+msgid "Please give your consent by the end of the second calendar month after receipt of this letter (§ 558b (2) BGB) by returning the enclosed copy signed or by transferring the increased amount from %s."
+msgstr "Gelieve uw instemming te geven vóór het einde van de tweede kalendermaand na ontvangst van deze brief (§ 558b (2) BGB), door de bijgevoegde kopie ondertekend terug te sturen of door het verhoogde bedrag vanaf %s over te maken."
+
+msgid "Declaration of consent"
+msgstr "Instemmingsverklaring"
+
+msgid "in accordance with the index-linked rent agreed in the tenancy agreement, I am adjusting the net base rent in line with the consumer price index for Germany. %s."
+msgstr "overeenkomstig de in de huurovereenkomst overeengekomen indexhuur pas ik de netto kale huur aan op basis van de consumentenprijsindex voor Duitsland. %s."
+
+msgid "The net base rent increases from"
+msgstr "De netto kale huur stijgt van"
+
+msgid "per month"
+msgstr "per maand"
+
+msgid ". The total rent including advance payments will then be %s."
+msgstr ". De totale huur inclusief voorschotten bedraagt dan %s."
+
+msgid "No consent is required; the adjustment takes effect at the start of the second month after receipt of this letter (§ 557b (3) BGB). Please adjust your standing order accordingly."
+msgstr "Uw instemming is niet vereist; de aanpassing gaat in aan het begin van de tweede maand na ontvangst van deze brief (§ 557b (3) BGB). Pas uw periodieke overschrijving dienovereenkomstig aan."
+
+msgid "per month (previously %1$s). Reason: %2$s. The total rent including advance payments will then be %3$s."
+msgstr "per maand (voorheen %1$s). Reden: %2$s. De totale huur inclusief voorschotten bedraagt dan %3$s."
+
+msgid "as discussed or contractually agreed, the net base rent is"
+msgstr "zoals besproken of contractueel overeengekomen bedraagt de netto kale huur"
+
+msgid "Please adjust your standing order accordingly."
+msgstr "Pas uw periodieke overschrijving dienovereenkomstig aan."
+
+msgid "Enter landlord details, bank account, creditor ID, tax number and sender for letters."
+msgstr "Voer verhuurdergegevens, bankrekening, incassant-ID, fiscaal nummer en afzender voor brieven in."
+
+msgid "Property & units"
+msgstr "Object & eenheden"
+
+msgid "Create the house/condominium as a property (year built, heating type), then the units beneath it (flat, garage, parking space) with area and persons."
+msgstr "Maak het huis/appartement aan als object (bouwjaar, verwarmingstype), daarna de eenheden eronder (woning, garage, parkeerplaats) met oppervlakte en personen."
+
+msgid "Enter tenants – optionally with spouse/partner as second contracting party. Both appear automatically in the agreement, letters and SEPA mandate."
+msgstr "Voer huurders in – optioneel met echtgenoot/partner als tweede contractpartij. Beiden verschijnen automatisch in de overeenkomst, brieven en SEPA-machtiging."
+
+msgid "Tenancy & rent conditions"
+msgstr "Huurovereenkomst & huurcondities"
+
+msgid "Tenancy = tenant + unit + start date. Attach garage/parking as an additional unit to get one total rent. Create rent conditions (base rent, advance payments) with a valid-from date."
+msgstr "Huurovereenkomst = huurder + eenheid + begindatum. Koppel garage/parkeerplaats als extra eenheid voor één totale huur. Maak huurcondities (kale huur, voorschotten) aan met een ingangsdatum."
+
+msgid "Asset & loan"
+msgstr "Activum & lening"
+
+msgid "Enter purchase price, incidental costs (notary, land registry, transfer tax, agent) and land share – the purchase contract PDF can be parsed directly. Create loans with interest, repayment and instalment."
+msgstr "Voer koopprijs, bijkomende kosten (notaris, kadaster, overdrachtsbelasting, makelaar) en grondaandeel in – de koopcontract-PDF kan direct worden uitgelezen. Maak leningen aan met rente, aflossing en termijn."
+
+msgid "Day-to-day"
+msgstr "Dagelijks beheer"
+
+msgid "Tick rent payments in the overview or import them from the bank, photograph receipts, record meter readings. At year end: service charge statement and Anlage V."
+msgstr "Vink huurbetalingen in het overzicht aan of importeer ze uit de bank, fotografeer bewijsstukken, registreer meterstanden. Aan het jaareinde: servicekostenafrekening en Anlage V."
+
+msgid "Shows open items, due tasks and key figures. Open rents can be booked as paid by ticking – the payment is recorded on the 1st of the month."
+msgstr "Toont open posten, aanstaande taken en kerncijfers. Open huren kunnen door aanvinken als betaald worden geboekt – de betaling wordt op de 1e van de maand geregistreerd."
+
+msgid "“Focus mode” hides the rest of the WordPress menu; the setting is per user."
+msgstr "De “focusmodus” verbergt de rest van het WordPress-menu; de instelling geldt per gebruiker."
+
+msgid "Each payment belongs to a tenancy and a month. Source: manual, bank import or ticked. Due/paid is derived from the rent conditions."
+msgstr "Elke betaling hoort bij een huurovereenkomst en een maand. Bron: handmatig, bankimport of aangevinkt. Verschuldigd/betaald wordt afgeleid uit de huurcondities."
+
+msgid "Record invoices with cost type, tax year and file (directly via camera on your phone). The cost type determines recoverability (BetrKV) and the line in Anlage V."
+msgstr "Registreer facturen met kostensoort, belastingjaar en bestand (direct via de camera van uw telefoon). De kostensoort bepaalt de doorbelastbaarheid (BetrKV) en de regel in Anlage V."
+
+msgid "Maintenance expenses can be spread over 2–5 years under § 82b EStDV; tradesmen's labour (§ 35a) is shown separately."
+msgstr "Onderhoudskosten kunnen volgens § 82b EStDV over 2–5 jaar worden gespreid; arbeidskosten van vaklieden (§ 35a) worden apart vermeld."
+
+msgid "Import the bank's CSV or CAMT.053 export. Rules automatically assign transactions to a tenancy or cost type by IBAN or reference; duplicates are detected."
+msgstr "Importeer de CSV- of CAMT.053-export van de bank. Regels wijzen transacties automatisch via IBAN of omschrijving toe aan een huurovereenkomst of kostensoort; duplicaten worden herkend."
+
+msgid "Damage and defect reports from tenants via the tenant portal, with status and history."
+msgstr "Schade- en gebrekmeldingen van huurders via het huurdersportaal, met status en historie."
+
+msgid "Storage for agreements, protocols, letters and statements. With “visible to tenant” the document appears in the tenant portal."
+msgstr "Opslag voor overeenkomsten, rapporten, brieven en afrekeningen. Met “zichtbaar voor huurder” verschijnt het document in het huurdersportaal."
+
+msgid "A property is a house or a condominium. Year built determines the statutory depreciation rate; heating type and consumption share control heating cost allocation (HeizkostenV 50–70 %)."
+msgstr "Een object is een huis of een appartement. Het bouwjaar bepaalt het wettelijke afschrijvingspercentage; verwarmingstype en verbruiksaandeel sturen de verdeling van de verwarmingskosten (HeizkostenV 50–70 %)."
+
+msgid "Flat, garage or parking space within a property. Area and persons are used for allocation keys."
+msgstr "Woning, garage of parkeerplaats binnen een object. Oppervlakte en personen worden gebruikt voor de verdeelsleutels."
+
+msgid "Tenant master data. Spouse/partner optionally as co-tenant – both are then jointly and severally liable and named automatically everywhere. A linked WordPress user gets access to the tenant portal."
+msgstr "Stamgegevens van de huurder. Echtgenoot/partner optioneel als medehuurder – beiden zijn dan hoofdelijk aansprakelijk en worden overal automatisch vermeld. Een gekoppelde WordPress-gebruiker krijgt toegang tot het huurdersportaal."
+
+msgid "Links tenant and unit with start, end and deposit. Additional units (garage, parking) with their own rent share result in one total rent and one booking."
+msgstr "Koppelt huurder en eenheid met begin, einde en waarborgsom. Extra eenheden (garage, parkeerplaats) met een eigen huuraandeel leiden tot één totale huur en één boeking."
+
+msgid "Base rent and advance payments (service/heating) with a valid-from date. For changes create a new condition rather than overwriting the old one – this preserves the history."
+msgstr "Kale huur en voorschotten (servicekosten/verwarming) met een ingangsdatum. Maak bij wijzigingen een nieuwe conditie aan in plaats van de oude te overschrijven – zo blijft de historie bewaard."
+
+msgid "Generates a complete residential tenancy agreement (20 sections) from the master data, plus house rules, information sheet, privacy notice, SEPA mandate and handover protocol – as PDF or print view, optionally filed directly under Documents."
+msgstr "Genereert een volledige woninghuurovereenkomst (20 artikelen) uit de stamgegevens, plus huisregels, informatieblad, privacyverklaring, SEPA-machtiging en opleveringsrapport – als PDF of afdrukweergave, optioneel direct gearchiveerd onder Documenten."
+
+msgid "The options (fixed term, stepped/index rent, minor repairs, pets, decorative repairs …) are saved per tenancy."
+msgstr "De opties (bepaalde tijd, trapsgewijze/indexhuur, kleine reparaties, huisdieren, schilderwerk …) worden per huurovereenkomst opgeslagen."
+
+msgid "Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out."
+msgstr "Waarborgsomrekening volgens § 551 BGB: betalingen (tot 3 termijnen), dagelijkse rente, afwikkeling bij vertrek."
+
+msgid "Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent."
+msgstr "Verhoging volgens § 558 BGB (vergelijkingshuur, plafond 15/20 %, wachttermijn) of § 557b (index). Genereert de brief en maakt na instemming de nieuwe huurconditie aan."
+
+msgid "Three dunning levels with deadlines and texts. Letters as PDF, optionally by email to tenant and co-tenant."
+msgstr "Drie aanmaningsniveaus met termijnen en teksten. Brieven als PDF, optioneel per e-mail aan huurder en medehuurder."
+
+msgid "Electricity, gas, water and heat meters per unit or property (communal electricity)."
+msgstr "Elektriciteits-, gas-, water- en warmtemeters per eenheid of object (gemeenschappelijke elektriciteit)."
+
+msgid "Readings with date. Tenants can submit readings themselves in the portal (source “Tenant”)."
+msgstr "Standen met datum. Huurders kunnen zelf standen doorgeven in het portaal (bron “Huurder”)."
+
+msgid "Annual statement under BetrKV: the year's receipts are allocated by key (area, persons, units, consumption), pro rata on tenant change; vacancy is borne by the landlord. Advance payments are offset, § 35a shares are shown."
+msgstr "Jaarafrekening volgens BetrKV: de bewijsstukken van het jaar worden per sleutel verdeeld (oppervlakte, personen, eenheden, verbruik), pro rata bij huurderwisseling; leegstand komt ten laste van de verhuurder. Voorschotten worden verrekend, § 35a-aandelen worden vermeld."
+
+msgid "Generate the finished statement as a letter (PDF), file it under Documents and release it in the portal. The advance payment can be adjusted directly."
+msgstr "Genereer de definitieve afrekening als brief (PDF), archiveer deze onder Documenten en geef hem vrij in het portaal. Het voorschot kan direct worden aangepast."
+
+msgid "Catalogue per BetrKV § 2 (pre-filled) plus your own types. Per cost type: recoverable yes/no, allocation key, line in Anlage V."
+msgstr "Catalogus volgens BetrKV § 2 (vooringevuld) plus eigen soorten. Per kostensoort: doorbelastbaar ja/nee, verdeelsleutel, regel in Anlage V."
+
+msgid "Assets (depreciation)"
+msgstr "Activa (afschrijving)"
+
+msgid "Building with acquisition costs, itemised incidental costs (transfer tax, notary, land registry, agent, other) and land share. Depreciation straight-line under § 7 (4) EStG (2 %, 2.5 % before 1925, 3 % from 2023) or declining balance, pro rata in the first year."
+msgstr "Gebouw met verwervingskosten, gespecificeerde bijkomende kosten (overdrachtsbelasting, notaris, kadaster, makelaar, overig) en grondaandeel. Afschrijving lineair volgens § 7 (4) EStG (2 %, 2,5 % vóór 1925, 3 % vanaf 2023) of degressief, pro rata in het eerste jaar."
+
+msgid "The purchase contract can be uploaded as PDF; purchase price, date and incidental costs are suggested from it. The 15 % guard warns of acquisition-related construction costs (§ 6 (1) no. 1a EStG)."
+msgstr "Het koopcontract kan als PDF worden geüpload; koopprijs, datum en bijkomende kosten worden daaruit voorgesteld. De 15 %-bewaking waarschuwt voor verwervingsgerelateerde bouwkosten (§ 6 (1) nr. 1a EStG)."
+
+msgid "Financing loans with interest rate, repayment, instalment and fixed-rate period. The repayment schedule is derived from these."
+msgstr "Financieringsleningen met rentepercentage, aflossing, termijn en rentevaste periode. Het aflossingsschema wordt hieruit afgeleid."
+
+msgid "Repayment schedule with instalments to tick off, extra repayments and outstanding balance. Ticked instalments provide the annual interest for Anlage V unless an interest certificate is entered."
+msgstr "Aflossingsschema met af te vinken termijnen, extra aflossingen en restschuld. Afgevinkte termijnen leveren de jaarrente voor Anlage V, tenzij een rentecertificaat is ingevoerd."
+
+msgid "Annual figures per bank certificate (interest, repayment, balance). Take precedence over calculated values."
+msgstr "Jaarcijfers volgens bankcertificaat (rente, aflossing, saldo). Hebben voorrang op berekende waarden."
+
+msgid "Annual report per property: income, expenses by Anlage V line, depreciation, loan interest, prior-year comparison. CSV export; line mapping adjustable."
+msgstr "Jaarrapport per object: inkomsten, uitgaven per Anlage V-regel, afschrijving, leningrente, vergelijking met vorig jaar. CSV-export; regeltoewijzing aanpasbaar."
+
+msgid "Matching rules for the bank import: search term or IBAN → tenancy or cost type."
+msgstr "Koppelregels voor de bankimport: zoekterm of IBAN → huurovereenkomst of kostensoort."
+
+msgid "Anonymise ended tenancies after the retention periods expire, export access reports under Art. 15 GDPR. Overview of deletion concept and deadlines."
+msgstr "Beëindigde huurovereenkomsten anonimiseren na afloop van de bewaartermijnen, inzagerapporten exporteren volgens art. 15 AVG. Overzicht van verwijderconcept en termijnen."
+
+msgid "Creates landlord, property, units (flat + garage), tenant and tenancy with rent conditions in five steps. Each step saves immediately; the wizard can be reopened at any time to complete the entries."
+msgstr "Maakt in vijf stappen verhuurder, object, eenheden (woning + garage), huurder en huurovereenkomst met huurcondities aan. Elke stap wordt direct opgeslagen; de wizard kan op elk moment opnieuw worden geopend om de invoer aan te vullen."
+
+msgid "Landlord details, bank account, creditor ID, tax number, dunning and portal options. Backup of all plugin tables as JSON, restore, option “delete data on uninstall”."
+msgstr "Verhuurdergegevens, bankrekening, incassant-ID, fiscaal nummer, aanmanings- en portaalopties. Back-up van alle plugintabellen als JSON, herstel, optie “gegevens verwijderen bij deïnstallatie”."
+
+msgid "Tenant portal"
+msgstr "Huurdersportaal"
+
+msgid "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
+msgstr "Voeg de shortcode [mietfux_portal] in op een pagina. Ingelogde huurders (gekoppelde WordPress-gebruiker) zien afrekeningen en vrijgegeven documenten en melden schade en meterstanden."
+
+msgid "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
+msgstr "Huurbeheer voor particuliere verhuurders: stamgegevens, betalingen, bewijsstukken, servicekostenafrekeningen, belasting (Anlage V), huurovereenkomst en huurdersportaal in één plugin. Op elke pagina vindt u rechtsboven onder “Help” een korte beschrijving."
+
+msgid "Quick start"
+msgstr "Snelstart"
+
+msgid "Start setup wizard"
+msgstr "Installatiewizard starten"
+
+msgid "– guides through steps 1 to 4 and creates the first tenancy."
+msgstr "– leidt u door de stappen 1 tot 4 en maakt de eerste huurovereenkomst aan."
+
+msgid "Modules"
+msgstr "Modules"
+
+msgid "Legal notes"
+msgstr "Juridische opmerkingen"
+
+msgid "The plugin does not replace legal or tax advice. Contract templates, calculations and deadlines are based on German law (BGB, BetrKV, HeizkostenV, EStG) and must be checked before use. All data stays in your WordPress database; no data is transmitted to third parties."
+msgstr "De plugin vervangt geen juridisch of fiscaal advies. Contractsjablonen, berekeningen en termijnen zijn gebaseerd op Duits recht (BGB, BetrKV, HeizkostenV, EStG) en moeten vóór gebruik worden gecontroleerd. Alle gegevens blijven in uw WordPress-database; er worden geen gegevens aan derden doorgegeven."
+
+msgid "Version"
+msgstr "Versie"
+
+msgid "All help topics"
+msgstr "Alle helponderwerpen"
+
+msgid "No rent conditions for "
+msgstr "Geen huurcondities voor "
+
+msgid "Rent %1$s missing or incomplete: %2$s (due %3$s, paid %4$s)"
+msgstr "Huur %1$s ontbreekt of is onvolledig: %2$s (verschuldigd %3$s, betaald %4$s)"
+
+msgid "Arrears %1$s for %2$s"
+msgstr "Achterstand %1$s voor %2$s"
+
+msgid "Service charge statement %1$d for %2$s not yet finalised – deadline 31 Dec %3$d (§ 556 (3) BGB), %4$d days left"
+msgstr "Servicekostenafrekening %1$d voor %2$s nog niet definitief – termijn 31 dec. %3$d (§ 556 (3) BGB), nog %4$d dagen"
+
+msgid "Fixed-rate period %1$s ends on %2$s (%3$d days) – check follow-up financing"
+msgstr "Rentevaste periode %1$s eindigt op %2$s (%3$d dagen) – vervolgfinanciering controleren"
+
+msgid "Interest certificate %1$d for loan %2$s not yet entered"
+msgstr "Rentecertificaat %1$d voor lening %2$s nog niet ingevoerd"
+
+msgid "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
+msgstr "Grens voor verwervingsgerelateerde bouwkosten overschreden voor %1$s (%2$s netto > %3$s)"
+
+msgid "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
+msgstr "15 %%-grens voor %1$s benut tot %2$s %% (termijn %3$s)"
+
+msgid "Retention period expired: tenant data “"
+msgstr "Bewaartermijn verstreken: huurdergegevens “"
+
+msgid "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
+msgstr "Huurovereenkomst %1$s eindigt op %2$s – oplevering, waarborgsom, meterstanden voorbereiden"
+
+msgid ": balance"
+msgstr ": saldo"
+
+msgid "✅ No open notices."
+msgstr "✅ Geen open attenderingen."
+
+msgid "Go to Mietfux"
+msgstr "Naar Mietfux"
+
+msgid "Payment by tenant"
+msgstr "Betaling door huurder"
+
+msgid "Interest credit"
+msgstr "Rentebijschrijving"
+
+msgid "Offset against claim"
+msgstr "Verrekening met vordering"
+
+msgid "Payout to tenant"
+msgstr "Uitbetaling aan huurder"
+
+msgid "Deposit account"
+msgstr "Waarborgsomrekening"
+
+msgid "The deposit must be invested separately from the landlord's assets at the usual rate for savings deposits with three months' notice; the interest belongs to the tenant (§ 551 (3) BGB). Repayment after the end of the tenancy and a reasonable review period (usually 3–6 months), less justified claims."
+msgstr "De waarborgsom moet gescheiden van het vermogen van de verhuurder worden belegd tegen de gebruikelijke rente voor spaartegoeden met een opzegtermijn van drie maanden; de rente komt toe aan de huurder (§ 551 (3) BGB). Terugbetaling na het einde van de huurovereenkomst en een redelijke controletermijn (meestal 3–6 maanden), minus gerechtvaardigde vorderingen."
+
+msgid "Agreed (§ 551)"
+msgstr "Overeengekomen (§ 551)"
+
+msgid "Paid in"
+msgstr "Gestort"
+
+msgid "Interest credited"
+msgstr "Rente bijgeschreven"
+
+msgid "Account balance"
+msgstr "Rekeningsaldo"
+
+msgid "Rent account balance"
+msgstr "Saldo huurrekening"
+
+msgid "Delete booking?"
+msgstr "Boeking verwijderen?"
+
+msgid "No entries yet."
+msgstr "Nog geen boekingen."
+
+msgid "Record entry"
+msgstr "Boeking registreren"
+
+msgid "Credit interest"
+msgstr "Rente bijschrijven"
+
+msgid "Interest rate"
+msgstr "Rentepercentage"
+
+msgid "%% p.a. up to reference date"
+msgstr "%% p.j. tot peildatum"
+
+msgid "Calculate daily and book"
+msgstr "Dagelijks berekenen en boeken"
+
+msgid "Interest rate per the bank's deposit account/savings book. Calculated since the last interest credit on the respective balance (act/365)."
+msgstr "Rentepercentage volgens de waarborgsomrekening/het spaarboekje van de bank. Berekend sinds de laatste rentebijschrijving over het betreffende saldo (act/365)."
+
+msgid "Repayment settlement"
+msgstr "Afwikkeling terugbetaling"
+
+msgid "Balance %1$s − open rent arrears %2$s ="
+msgstr "Saldo %1$s − openstaande huurachterstand %2$s ="
+
+msgid "%1$s. Book further deductions (damage, decorative repairs not carried out, amount due from the last service charge statement – released so far %2$s) as “Offset”, then generate the settlement."
+msgstr "%1$s. Boek verdere inhoudingen (schade, niet uitgevoerd schilderwerk, te betalen bedrag uit de laatste servicekostenafrekening – tot nu toe vrijgegeven %2$s) als “Verrekening”, en genereer daarna de afwikkeling."
+
+msgid " (remaining claim against the tenant)"
+msgstr " (resterende vordering op de huurder)"
+
+msgid " Payout amount"
+msgstr " Uit te betalen bedrag"
+
+msgid "Deposit settlement (PDF)"
+msgstr "Afwikkeling waarborgsom (PDF)"
+
+msgid "… file"
+msgstr "… archiveren"
+
+msgid "Tenancy still running – settlement only after return of the flat."
+msgstr "Huurovereenkomst loopt nog – afwikkeling pas na teruggave van de woning."
+
+msgid "the tenancy of the flat %1$s / %2$s %3$s. I hereby settle the deposit you provided:"
+msgstr "de huurovereenkomst voor de woning %1$s / %2$s %3$s. Hierbij wikkel ik de door u gestelde waarborgsom af:"
+
+msgid "Entry"
+msgstr "Boeking"
+
+msgid "Balance including interest"
+msgstr "Saldo inclusief rente"
+
+msgid "less open rent claims per rent account"
+msgstr "minus openstaande huurvorderingen volgens huurrekening"
+
+msgid "Payout amount"
+msgstr "Uit te betalen bedrag"
+
+msgid "Remaining claim against you"
+msgstr "Resterende vordering op u"
+
+msgid "The amount will be transferred within 14 days to the account you have given me. If I do not yet have your bank details, please let me know."
+msgstr "Het bedrag wordt binnen 14 dagen overgemaakt naar de door u opgegeven rekening. Als ik uw bankgegevens nog niet heb, laat het mij dan weten."
+
+msgid "Please transfer the remaining amount of %s within 14 days."
+msgstr "Gelieve het resterende bedrag van %s binnen 14 dagen over te maken."
+
+msgid "This settlement discharges all claims arising from the deposit. An outstanding service charge statement for the last year of use remains reserved unless already taken into account."
+msgstr "Met deze afwikkeling zijn alle vorderingen uit de waarborgsom afgedaan. Een nog uitstaande servicekostenafrekening over het laatste gebruiksjaar blijft voorbehouden, tenzij al in aanmerking genomen."
+
+msgid "Payment reminder"
+msgstr "Betalingsherinnering"
+
+msgid "1st dunning letter"
+msgstr "1e aanmaning"
+
+msgid "Final dunning letter"
+msgstr "Laatste aanmaning"
+
+msgid "Default occurs without a reminder if the rent is not received by the agreed payment day (§ 286 (2) no. 1 BGB). A payment reminder is nevertheless customary. Termination without notice is possible with arrears of two months' rent (§ 543 (2) no. 3 BGB) – have this checked by a lawyer first."
+msgstr "Verzuim treedt zonder aanmaning in als de huur niet op de overeengekomen betaaldag is ontvangen (§ 286 (2) nr. 1 BGB). Een betalingsherinnering is niettemin gebruikelijk. Opzegging zonder opzegtermijn is mogelijk bij een achterstand van twee maanden huur (§ 543 (2) nr. 3 BGB) – laat dit eerst door een advocaat controleren."
+
+msgid "Monthly rent"
+msgstr "Maandhuur"
+
+msgid "Arrears in months"
+msgstr "Achterstand in maanden"
+
+msgid "⚠ ≥ 2 months' rent"
+msgstr "⚠ ≥ 2 maanden huur"
+
+msgid "Send %s by e-mail now?"
+msgstr "%s nu per e-mail versturen?"
+
+msgid "No arrears – all rent accounts balanced."
+msgstr "Geen achterstand – alle huurrekeningen in evenwicht."
+
+msgid "History"
+msgstr "Historie"
+
+msgid "Level"
+msgstr "Niveau"
+
+msgid "Deadline"
+msgstr "Termijn"
+
+msgid "Tenancy not found."
+msgstr "Huurovereenkomst niet gevonden."
+
+msgid "Paid"
+msgstr "Betaald"
+
+msgid "Total arrears"
+msgstr "Totale achterstand"
+
+msgid "This is surely an oversight. Please transfer the outstanding amount of"
+msgstr "Dit is vast een vergissing. Gelieve het openstaande bedrag van"
+
+msgid ". If payment has already been made, please disregard this letter."
+msgstr ". Als de betaling inmiddels is gedaan, kunt u deze brief als niet verzonden beschouwen."
+
+msgid "I request that you transfer the amount of"
+msgstr "Ik verzoek u het bedrag van"
+
+msgid "by no later than"
+msgstr "uiterlijk op"
+
+msgid ". You are in default with your payments (§ 286 (2) no. 1 BGB); default interest is owed from the due date (§ 288 BGB)."
+msgstr ". U bent in verzuim met uw betalingen (§ 286 (2) nr. 1 BGB); vanaf de vervaldatum is vertragingsrente verschuldigd (§ 288 BGB)."
+
+msgid "The arrears now exceed two months' rent. I would point out that in this case I am entitled to terminate the tenancy without notice (§ 543 (2) sentence 1 no. 3 BGB)."
+msgstr "De achterstand bedraagt inmiddels meer dan twee maanden huur. Ik wijs u erop dat ik in dit geval gerechtigd ben de huurovereenkomst zonder opzegtermijn op te zeggen (§ 543 (2) zin 1 nr. 3 BGB)."
+
+msgid "If the deadline passes without payment, I will pursue the arrears through the courts (order for payment). The resulting costs will be charged to you."
+msgstr "Als de termijn zonder betaling verstrijkt, zal ik de achterstand gerechtelijk invorderen (betalingsbevel). De daaruit voortvloeiende kosten worden aan u in rekening gebracht."
+
+msgid "I am setting you a"
+msgstr "Ik stel u een"
+
+msgid "final deadline of %s"
+msgstr "laatste termijn tot %s"
+
+msgid " to pay the amount of"
+msgstr " om het bedrag van"
+
+msgid "in full."
+msgstr "volledig te betalen."
+
+msgid "SEPA core direct debit mandate"
+msgstr "SEPA-machtiging standaard incasso"
+
+msgid "Payee (creditor):"
+msgstr "Begunstigde (incassant):"
+
+msgid "Creditor identifier:"
+msgstr "Incassant-ID:"
+
+msgid "Mandate reference:"
+msgstr "Machtigingskenmerk:"
+
+msgid "Type of payment:"
+msgstr "Soort betaling:"
+
+msgid "recurring payment"
+msgstr "doorlopende incasso"
+
+msgid "I authorise %1$s to collect payments from my account by direct debit. At the same time I instruct my bank to honour the direct debits drawn on my account by %2$s."
+msgstr "Ik machtig %1$s om betalingen van mijn rekening af te schrijven via incasso. Tegelijk geef ik mijn bank opdracht de door %2$s op mijn rekening afgegeven incasso's te honoreren."
+
+msgid "Note: I may request a refund of the debited amount within eight weeks from the debit date. The terms agreed with my bank apply."
+msgstr "Opmerking: ik kan binnen acht weken na de afschrijvingsdatum terugboeking van het afgeschreven bedrag verlangen. De met mijn bank overeengekomen voorwaarden zijn van toepassing."
+
+msgid "Purpose:"
+msgstr "Doel:"
+
+msgid "Monthly rent including advance payments for the flat %1$s, %2$s, %3$s %4$s – currently %5$s, due on the %6$d. working day of the month. Changes to the amount (rent adjustment, new advance payments) will be notified at least 14 days before collection."
+msgstr "Maandhuur inclusief voorschotten voor de woning %1$s, %2$s, %3$s %4$s – momenteel %5$s, verschuldigd op de %6$de werkdag van de maand. Wijzigingen van het bedrag (huuraanpassing, nieuwe voorschotten) worden minstens 14 dagen vóór de incasso meegedeeld."
+
+msgid "Account holder"
+msgstr "Rekeninghouder"
+
+msgid "Street, house number"
+msgstr "Straat, huisnummer"
+
+msgid "Postcode, town"
+msgstr "Postcode, plaats"
+
+msgid "Credit institution"
+msgstr "Bank"
+
+msgid "IBAN"
+msgstr "IBAN"
+
+msgid "BIC"
+msgstr "BIC"
+
+msgid "Cellar compartment"
+msgstr "Kelderbox"
+
+msgid "2 front door keys, 2 flat keys, 1 letterbox key"
+msgstr "2 voordeursleutels, 2 woningsleutels, 1 brievenbussleutel"
+
+msgid "Contract options saved."
+msgstr "Contractopties opgeslagen."
+
+msgid "Note:"
+msgstr "Opmerking:"
+
+msgid "The agreement is generated from the tenancy data (parties, flat, rent, deposit, start, end) and the options below. The clauses follow the BGB and Federal Court of Justice case law (as of 2026). Have it checked legally before use in special situations (commercial, shared flat, furnished, rent cap)."
+msgstr "De overeenkomst wordt gegenereerd uit de gegevens van de huurovereenkomst (partijen, woning, huur, waarborgsom, begin, einde) en de onderstaande opties. De bepalingen volgen het BGB en de rechtspraak van het Duitse Bundesgerichtshof (stand 2026). Laat de overeenkomst in bijzondere situaties (bedrijfsruimte, woongroep, gemeubileerd, huurprijsplafond) juridisch controleren vóór gebruik."
+
+msgid "Tenancy agreement (PDF)"
+msgstr "Huurovereenkomst (PDF)"
+
+msgid "Handover protocol move-in"
+msgstr "Opleveringsrapport intrek"
+
+msgid "Handover protocol move-out"
+msgstr "Opleveringsrapport vertrek"
+
+msgid "Privacy notice"
+msgstr "Privacyverklaring"
+
+msgid "SEPA direct debit mandate"
+msgstr "SEPA-incassomachtiging"
+
+msgid "HTML view"
+msgstr "HTML-weergave"
+
+msgid "Contract options"
+msgstr "Contractopties"
+
+msgid "Additional tenants (name, date of birth)"
+msgstr "Extra huurders (naam, geboortedatum)"
+
+msgid "For third parties only – the spouse/partner stored with the tenant is included automatically. All tenants are jointly and severally liable."
+msgstr "Alleen voor derden – de bij de huurder opgeslagen echtgenoot/partner wordt automatisch opgenomen. Alle huurders zijn hoofdelijk aansprakelijk."
+
+msgid "e.g. 3 rooms, kitchen, bathroom with WC, hallway, balcony"
+msgstr "bijv. 3 kamers, keuken, badkamer met wc, hal, balkon"
+
+msgid "Ancillary rooms / parking"
+msgstr "Bijruimten / parkeren"
+
+msgid "Fixtures included"
+msgstr "Inbegrepen inrichting"
+
+msgid "e.g. fitted kitchen (manufacturer, year), washing machine connection"
+msgstr "bijv. inbouwkeuken (fabrikant, bouwjaar), wasmachineaansluiting"
+
+msgid "Keys handed over"
+msgstr "Overhandigde sleutels"
+
+msgid "Reason for fixed term (only with end date)"
+msgstr "Reden voor bepaalde tijd (alleen met einddatum)"
+
+msgid "Fixed-term agreement only with a reason under § 575 BGB: own use, demolition/conversion, company flat. Without a reason the agreement is deemed open-ended."
+msgstr "Overeenkomst voor bepaalde tijd alleen met een reden volgens § 575 BGB: eigen gebruik, sloop/verbouwing, dienstwoning. Zonder reden geldt de overeenkomst als voor onbepaalde tijd."
+
+msgid "Rent type"
+msgstr "Huurtype"
+
+msgid "Reference rent (increase under § 558)"
+msgstr "Vergelijkingshuur (verhoging volgens § 558)"
+
+msgid "Stepped rent (§ 557a)"
+msgstr "Trapsgewijze huur (§ 557a)"
+
+msgid "Index-linked rent (§ 557b)"
+msgstr "Indexhuur (§ 557b)"
+
+msgid "Steps (for stepped rent)"
+msgstr "Trappen (bij trapsgewijze huur)"
+
+msgid "One per line: date;base rent – e.g. 2027-01-01;650.00. At least one year between steps."
+msgstr "Eén per regel: datum;kale huur – bijv. 2027-01-01;650.00. Minstens een jaar tussen de trappen."
+
+msgid "Deposit payable in"
+msgstr "Waarborgsom te betalen in"
+
+msgid "one sum"
+msgstr "één bedrag"
+
+msgid "three monthly instalments (§ 551 (2))"
+msgstr "drie maandelijkse termijnen (§ 551 (2))"
+
+msgid "Maximum three months' net base rent; amount from the tenancy."
+msgstr "Maximaal drie maanden netto kale huur; bedrag uit de huurovereenkomst."
+
+msgid "Minor repairs: maximum per case (€)"
+msgstr "Kleine reparaties: maximum per geval (€)"
+
+msgid "Case law: approx. €100–150. Only parts frequently accessed directly by the tenant."
+msgstr "Rechtspraak: ca. €100–150. Alleen onderdelen die de huurder vaak rechtstreeks gebruikt."
+
+msgid "Minor repairs: maximum per year (% of annual base rent)"
+msgstr "Kleine reparaties: maximum per jaar (% van de jaarlijkse kale huur)"
+
+msgid "Usually 6–8 %, often additionally capped (here: and at most 8 cases × single amount)."
+msgstr "Meestal 6–8 %, vaak aanvullend begrensd (hier: en maximaal 8 gevallen × bedrag per geval)."
+
+msgid "Condition at handover"
+msgstr "Staat bij oplevering"
+
+msgid "renovated – tenant bears decorative repairs as needed"
+msgstr "gerenoveerd – huurder draagt schilderwerk naar behoefte"
+
+msgid "unrenovated"
+msgstr "niet gerenoveerd"
+
+msgid "unrenovated – no decorative repairs clause (BGH VIII ZR 185/14)"
+msgstr "niet gerenoveerd – geen schilderwerkclausule (BGH VIII ZR 185/14)"
+
+msgid "Pets"
+msgstr "Huisdieren"
+
+msgid "Small animals allowed, otherwise consent (default)"
+msgstr "Kleine dieren toegestaan, anders toestemming (standaard)"
+
+msgid "Pets permitted"
+msgstr "Huisdieren toegestaan"
+
+msgid "A blanket ban is invalid (BGH VIII ZR 168/12)."
+msgstr "Een algeheel verbod is ongeldig (BGH VIII ZR 168/12)."
+
+msgid "Subletting"
+msgstr "Onderverhuur"
+
+msgid "only with consent (§ 540), legitimate interest under § 553 remains"
+msgstr "alleen met toestemming (§ 540), gerechtvaardigd belang volgens § 553 blijft bestaan"
+
+msgid "Mutual waiver of termination"
+msgstr "Wederzijdse uitsluiting van opzegging"
+
+msgid "none"
+msgstr "geen"
+
+msgid "1 year"
+msgstr "1 jaar"
+
+msgid "2 years"
+msgstr "2 jaar"
+
+msgid "3 years"
+msgstr "3 jaar"
+
+msgid "4 years (maximum)"
+msgstr "4 jaar (maximum)"
+
+msgid "In standard-form contracts at most 4 years from signing (BGH VIII ZR 86/10)."
+msgstr "In standaardcontracten maximaal 4 jaar vanaf ondertekening (BGH VIII ZR 86/10)."
+
+msgid "Smoking in the flat"
+msgstr "Roken in de woning"
+
+msgid "Please refrain (cannot be bindingly prohibited)"
+msgstr "Gelieve na te laten (kan niet bindend worden verboden)"
+
+msgid "no provision"
+msgstr "geen bepaling"
+
+msgid "House rules as annex"
+msgstr "Huisregels als bijlage"
+
+msgid "yes"
+msgstr "ja"
+
+msgid "no"
+msgstr "nee"
+
+msgid "Type (demand/consumption), value kWh/(m²·a), efficiency class, issue date – must be presented under § 80 GEG."
+msgstr "Type (behoefte/verbruik), waarde kWh/(m²·a), energieklasse, afgiftedatum – moet worden getoond volgens § 80 GEG."
+
+msgid "Previous rent (rent cap areas only, § 556g (1a))"
+msgstr "Vorige huur (alleen gebieden met huurprijsplafond, § 556g (1a))"
+
+msgid "Only in areas covered by the Bavarian Tenant Protection Ordinance: disclosure of the previous rent if the rent exceeds the reference rent + 10 %."
+msgstr "Alleen in gebieden onder de Beierse Mieterschutzverordnung: vermelding van de vorige huur als de huur de vergelijkingshuur + 10 % overschrijdt."
+
+msgid "Shared use rights (communal rooms)"
+msgstr "Medegebruiksrechten (gemeenschappelijke ruimten)"
+
+msgid "Laundry room, drying room, bicycle cellar, garden – per house rules."
+msgstr "Wasruimte, droogruimte, fietsenkelder, tuin – volgens huisregels."
+
+msgid "Tenant's property / not included"
+msgstr "Eigendom van de huurder / niet inbegrepen"
+
+msgid "Items the tenant took over from the previous tenant or that belong to them."
+msgstr "Zaken die de huurder van de vorige huurder heeft overgenomen of die van hem zijn."
+
+msgid "Furnishing surcharge"
+msgstr "Meubileringstoeslag"
+
+msgid "yes – included in base rent, state amount under “Other agreements”"
+msgstr "ja – inbegrepen in de kale huur, bedrag vermelden onder “Overige afspraken”"
+
+msgid "Advance payment with annual statement (default)"
+msgstr "Voorschot met jaarafrekening (standaard)"
+
+msgid "Flat rate without statement (§ 556 (2) BGB)"
+msgstr "Vast bedrag zonder afrekening (§ 556 (2) BGB)"
+
+msgid "With a flat rate there is no statement and no additional claim; increase only for increased costs by declaration in text form (§ 560 (1))."
+msgstr "Bij een vast bedrag is er geen afrekening en geen nabetaling; verhoging alleen bij gestegen kosten door verklaring in tekstvorm (§ 560 (1))."
+
+msgid "Rent cap – exception (tight market only)"
+msgstr "Huurprijsplafond – uitzondering (alleen krappe markt)"
+
+msgid "none / not affected"
+msgstr "geen / niet van toepassing"
+
+msgid "Previous rent was already higher (§ 556e (1))"
+msgstr "Vorige huur was al hoger (§ 556e (1))"
+
+msgid "Modernisation within the last 3 years (§ 556e (2))"
+msgstr "Modernisering binnen de laatste 3 jaar (§ 556e (2))"
+
+msgid "First letting after comprehensive modernisation (§ 556f sentence 2)"
+msgstr "Eerste verhuur na ingrijpende modernisering (§ 556f zin 2)"
+
+msgid "New build, first let after 1 Oct 2014 (§ 556f sentence 1)"
+msgstr "Nieuwbouw, eerste verhuur na 1 okt. 2014 (§ 556f zin 1)"
+
+msgid "The disclosure must be made unprompted in text form before signing (§ 556g (1a) BGB); otherwise the landlord cannot rely on the exception."
+msgstr "De mededeling moet ongevraagd in tekstvorm vóór ondertekening worden gedaan (§ 556g (1a) BGB); anders kan de verhuurder zich niet op de uitzondering beroepen."
+
+msgid "Payment method"
+msgstr "Betaalwijze"
+
+msgid "Standing order"
+msgstr "Periodieke overschrijving"
+
+msgid "SEPA direct debit mandate (annex)"
+msgstr "SEPA-incassomachtiging (bijlage)"
+
+msgid "Condition at handover / known defects"
+msgstr "Staat bij oplevering / bekende gebreken"
+
+msgid "Brief; details in the handover protocol."
+msgstr "Kort; details in het opleveringsrapport."
+
+msgid "Work still to be carried out by the landlord"
+msgstr "Nog door de verhuurder uit te voeren werkzaamheden"
+
+msgid "… by no later than (date)"
+msgstr "… uiterlijk op (datum)"
+
+msgid "Work to be carried out by the tenant at own expense"
+msgstr "Door de huurder op eigen kosten uit te voeren werkzaamheden"
+
+msgid "Consideration, if any, under “Other agreements” (e.g. rent-free period)."
+msgstr "Eventuele tegenprestatie onder “Overige afspraken” (bijv. huurvrije periode)."
+
+msgid "Garden maintenance by the tenant"
+msgstr "Tuinonderhoud door de huurder"
+
+msgid "no / by landlord or contractor (service charges)"
+msgstr "nee / door verhuurder of bedrijf (servicekosten)"
+
+msgid "yes – tenant maintains the garden area assigned to them"
+msgstr "ja – huurder onderhoudt het aan hem toegewezen tuingedeelte"
+
+msgid "Heating and ventilation leaflet as annex"
+msgstr "Folder verwarmen en ventileren als bijlage"
+
+msgid "Other agreements"
+msgstr "Overige afspraken"
+
+msgid "Tenant"
+msgstr "Huurder"
+
+msgid "Tenant(s)"
+msgstr "Huurder(s)"
+
+msgid "Cellar/storage"
+msgstr "Kelder/berging"
+
+msgid "Commercial space"
+msgstr "Bedrijfsruimte"
+
+msgid "Residential tenancy agreement"
+msgstr "Woninghuurovereenkomst"
+
+msgid "Basic rent"
+msgstr "Kale huur"
+
+msgid "Service charge flat rate (excl. heating/hot water)"
+msgstr "Vast bedrag servicekosten (excl. verwarming/warm water)"
+
+msgid "Advance payment service charges (excl. heating/hot water)"
+msgstr "Voorschot servicekosten (excl. verwarming/warm water)"
+
+msgid "Advance payment heating and hot water"
+msgstr "Voorschot verwarming en warm water"
+
+msgid "Total monthly rent"
+msgstr "Totale maandhuur"
+
+msgid "Privacy notice under Art. 13 GDPR"
+msgstr "Privacyverklaring volgens art. 13 AVG"
+
+msgid "Controller:"
+msgstr "Verwerkingsverantwoordelijke:"
+
+msgid "Move-out"
+msgstr "Vertrek"
+
+msgid "Move-in"
+msgstr "Intrek"
+
+msgid "Handover protocol – %s"
+msgstr "Opleveringsrapport – %s"
+
+msgid "Landlord: %s"
+msgstr "Verhuurder: %s"
+
+msgid "Tenant: %s"
+msgstr "Huurder: %s"
+
+msgid "Date of handover:"
+msgstr "Datum van oplevering:"
+
+msgid "Time:"
+msgstr "Tijd:"
+
+msgid "1. Meter readings"
+msgstr "1. Meterstanden"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "Reading"
+msgstr "Stand"
+
+msgid "Reading per system"
+msgstr "Stand per installatie"
+
+msgid "Heating (kWh/units)"
+msgstr "Verwarming (kWh/eenheden)"
+
+msgid "2. Keys"
+msgstr "2. Sleutels"
+
+msgid "3. Condition of rooms"
+msgstr "3. Staat van de ruimten"
+
+msgid "Rating: 1 = as new, 2 = good, 3 = used/normal wear, 4 = defective (describe defects). Photos as annex."
+msgstr "Beoordeling: 1 = als nieuw, 2 = goed, 3 = gebruikt/normale slijtage, 4 = gebrekkig (gebreken beschrijven). Foto's als bijlage."
+
+msgid "Room"
+msgstr "Ruimte"
+
+msgid "Floor"
+msgstr "Vloer"
+
+msgid "Walls/ceiling"
+msgstr "Wanden/plafond"
+
+msgid "Windows/doors"
+msgstr "Ramen/deuren"
+
+msgid "Electrics/plumbing"
+msgstr "Elektra/sanitair"
+
+msgid "Remarks / defects"
+msgstr "Opmerkingen / gebreken"
+
+msgid "4. Fixtures and function check"
+msgstr "4. Inrichting en functiecontrole"
+
+msgid "Item"
+msgstr "Onderdeel"
+
+msgid "present"
+msgstr "aanwezig"
+
+msgid "works"
+msgstr "werkt"
+
+msgid "Remark"
+msgstr "Opmerking"
+
+msgid "☐ yes ☐ no"
+msgstr "☐ ja ☐ nee"
+
+msgid "5. Return"
+msgstr "5. Teruggave"
+
+msgid "☐ Flat completely cleared and broom-clean"
+msgstr "☐ Woning volledig ontruimd en bezemschoon"
+
+msgid "☐ All keys returned"
+msgstr "☐ Alle sleutels teruggegeven"
+
+msgid "☐ Decorative repairs due/carried out:"
+msgstr "☐ Schilderwerk verschuldigd/uitgevoerd:"
+
+msgid "Agreed follow-up work by the tenant by"
+msgstr "Afgesproken nawerk door de huurder vóór"
+
+msgid "Tenant's new address (for deposit and service charge settlement):"
+msgstr "Nieuw adres van de huurder (voor afwikkeling waarborgsom en servicekosten):"
+
+msgid "Deposit refund to IBAN:"
+msgstr "Terugbetaling waarborgsom naar IBAN:"
+
+msgid "5. Agreements"
+msgstr "5. Afspraken"
+
+msgid "Still to be done by the landlord by"
+msgstr "Nog door de verhuurder te doen vóór"
+
+msgid "Handed to the tenant: ☐ Energy certificate ☐ House rules ☐ Privacy notice ☐ Operating instructions (heating, kitchen)"
+msgstr "Aan de huurder overhandigd: ☐ Energielabel ☐ Huisregels ☐ Privacyverklaring ☐ Gebruiksaanwijzingen (verwarming, keuken)"
+
+msgid "The parties confirm the accuracy of the details. Defects not noted are deemed not to have existed at handover insofar as they were discernible on inspection."
+msgstr "De partijen bevestigen de juistheid van de gegevens. Niet genoteerde gebreken worden geacht bij de oplevering niet te hebben bestaan, voor zover ze bij inspectie zichtbaar waren."
+
+msgid "No access."
+msgstr "Geen toegang."
+
+msgid "[Mietfux] Meter reading submitted"
+msgstr "[Mietfux] Meterstand doorgegeven"
+
+msgid "[Mietfux] New report: "
+msgstr "[Mietfux] Nieuwe melding: "
+
+msgid "Please log in to see your tenant portal."
+msgstr "Log in om uw huurdersportaal te zien."
+
+msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
+msgstr "Aan uw gebruikersaccount is nog geen huurovereenkomst toegewezen. Neem contact op met uw verhuurder."
+
+msgid "Meter reading saved. Thank you."
+msgstr "Meterstand opgeslagen. Dank u."
+
+msgid "The reading is lower than the last one recorded – please check."
+msgstr "De stand is lager dan de laatst geregistreerde – controleer dit."
+
+msgid "Meter reading could not be saved."
+msgstr "Meterstand kon niet worden opgeslagen."
+
+msgid "Your report has been submitted. Thank you."
+msgstr "Uw melding is verzonden. Dank u."
+
+msgid "The report could not be saved. Please enter a subject."
+msgstr "De melding kon niet worden opgeslagen. Voer een onderwerp in."
+
+msgid "Advances SC / heating"
+msgstr "Voorschotten SK / verwarming"
+
+msgid "Total rent / month"
+msgstr "Totale huur / maand"
+
+msgid "Arrears"
+msgstr "Achterstand"
+
+msgid "balanced / credit"
+msgstr "in evenwicht / tegoed"
+
+msgid "Rent account (last 12 months)"
+msgstr "Huurrekening (laatste 12 maanden)"
+
+msgid "No reports."
+msgstr "Geen meldingen."
+
+msgid "Service charge statements"
+msgstr "Servicekostenafrekeningen"
+
+msgid "Costs"
+msgstr "Kosten"
+
+msgid "Open statement"
+msgstr "Afrekening openen"
+
+msgid "Submit meter reading"
+msgstr "Meterstand doorgeven"
+
+msgid "Photo (optional)"
+msgstr "Foto (optioneel)"
+
+msgid "Send meter reading"
+msgstr "Meterstand versturen"
+
+msgid "Report damage or defect"
+msgstr "Schade of gebrek melden"
+
+msgid "Submit report"
+msgstr "Melding versturen"
+
+msgid "AfA"
+msgstr "AfA"
+
+msgid "Tax year:"
+msgstr "Belastingjaar:"
+
+msgid "Line numbers saved."
+msgstr "Regelnummers opgeslagen."
+
+msgid "Trend"
+msgstr "Trend"
+
+msgid "Cash basis (§ 11 EStG): income by date received, expenses by payment date of the receipt. Rent receipts are split into rent and recoverable charges in proportion to the rent conditions of the respective month. Depreciation and loan interest flow in automatically from “Depreciation” and “Interest certificates”. Anlage V line numbers change every year – please refer to the current form."
+msgstr "Kasstelsel (§ 11 EStG): inkomsten naar ontvangstdatum, uitgaven naar betaaldatum van het bewijsstuk. Huurontvangsten worden naar verhouding van de huurcondities van de betreffende maand gesplitst in huur en doorbelastbare kosten. Afschrijving en leningrente stromen automatisch in vanuit “Afschrijving” en “Rentecertificaten”. De regelnummers van Anlage V veranderen elk jaar – raadpleeg het actuele formulier."
+
+msgid "Prior year %1$s (%2$+.1f %%)"
+msgstr "Vorig jaar %1$s (%2$+.1f %%)"
+
+msgid "Total income"
+msgstr "Totale inkomsten"
+
+msgid "Total expenses"
+msgstr "Totale uitgaven"
+
+msgid "Surplus / loss"
+msgstr "Overschot / verlies"
+
+msgid "Income"
+msgstr "Inkomsten"
+
+msgid "Rental income (excl. recoverable charges)"
+msgstr "Huurinkomsten (excl. doorbelastbare kosten)"
+
+msgid "Recoverable charges received"
+msgstr "Ontvangen doorbelastbare kosten"
+
+msgid "No payments received in this year."
+msgstr "Geen betalingen ontvangen in dit jaar."
+
+msgid "Sum"
+msgstr "Som"
+
+msgid "Expenses"
+msgstr "Uitgaven"
+
+msgid "Anlage V group / item"
+msgstr "Anlage V groep / post"
+
+msgid "Anlage V line"
+msgstr "Anlage V regel"
+
+msgid "of which recoverable"
+msgstr "waarvan doorbelastbaar"
+
+msgid "No expenses in this year."
+msgstr "Geen uitgaven in dit jaar."
+
+msgid "Sum of expenses"
+msgstr "Som van de uitgaven"
+
+msgid "The line numbers are on the official “Anlage V” form of the respective year (ELSTER). Once entered, they are pre-filled for subsequent years until the form changes."
+msgstr "De regelnummers staan op het officiële formulier “Anlage V” van het betreffende jaar (ELSTER). Eenmaal ingevoerd worden ze voor volgende jaren vooringevuld totdat het formulier wijzigt."
+
+msgid "Acquisition"
+msgstr "Verwerving"
+
+msgid "Depreciation base"
+msgstr "Afschrijvingsgrondslag"
+
+msgid "Method / rate"
+msgstr "Methode / percentage"
+
+msgid "Months"
+msgstr "Maanden"
+
+msgid "Transfer tax"
+msgstr "Overdrachtsbelasting"
+
+msgid "Notary"
+msgstr "Notaris"
+
+msgid "Land registry"
+msgstr "Kadaster"
+
+msgid "Agent"
+msgstr "Makelaar"
+
+msgid "→ Acquisition costs"
+msgstr "→ Verwervingskosten"
+
+msgid "%s: land share is 0 %% – the tax office requires a split (purchase contract or BMF tool)."
+msgstr "%s: grondaandeel is 0 %% – de belastingdienst vereist een splitsing (koopcontract of BMF-tool)."
+
+msgid "declining balance"
+msgstr "degressief"
+
+msgid "straight-line"
+msgstr "lineair"
+
+msgid "No assets recorded. Enter building and acquisition costs under"
+msgstr "Geen activa geregistreerd. Voer gebouw en verwervingskosten in onder"
+
+msgid "Financing"
+msgstr "Financiering"
+
+msgid "Nominal interest rate"
+msgstr "Nominale rente"
+
+msgid "No receipts."
+msgstr "Geen bewijsstukken."
+
+msgid "Acquisition-related construction costs (§ 6 (1) no. 1a EStG) – %1$s: maintenance expenses %2$s to %3$s so far %4$s net, 15 %% limit = %5$s (%6$s %%)."
+msgstr "Verwervingsgerelateerde bouwkosten (§ 6 (1) nr. 1a EStG) – %1$s: onderhoudskosten %2$s tot %3$s tot nu toe %4$s netto, 15 %%-grens = %5$s (%6$s %%)."
+
+msgid "Limit exceeded!"
+msgstr "Grens overschreden!"
+
+msgid "%s The expenses are deemed construction costs and are only deductible via depreciation – please clarify with your tax adviser."
+msgstr "%s De uitgaven gelden als bouwkosten en zijn alleen via afschrijving aftrekbaar – overleg met uw belastingadviseur."
+
+msgid "Attention:"
+msgstr "Let op:"
+
+msgid "%s Further renovations within the period could breach the limit."
+msgstr "%s Verdere renovaties binnen de periode kunnen de grens overschrijden."
