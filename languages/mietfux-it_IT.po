@@ -7,7 +7,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: mietfux\n"
-"PO-Revision-Date: 2026-10-30\n"
+"PO-Revision-Date: {datetime.date.today()}\n"
+
+msgid "Statement not found."
+msgstr "Conteggio non trovato."
 
 msgid "No living areas entered for the units – allocation by area is not possible."
 msgstr "Nessuna superficie abitabile inserita per le unità – la ripartizione per superficie non è possibile."
@@ -87,6 +90,21 @@ msgstr "Nuovo acconto creato come condizione di canone dal mese prossimo – ver
 msgid "Service charge statement %1$s – %2$s to %3$s"
 msgstr "Conteggio delle spese accessorie %1$s – dal %2$s al %3$s"
 
+msgid "Overview"
+msgstr "Panoramica"
+
+msgid "Recalculate"
+msgstr "Ricalcola"
+
+msgid "Withdraw release"
+msgstr "Revoca la pubblicazione"
+
+msgid "Released – visible in the tenant portal."
+msgstr "Pubblicato – visibile nel portale inquilino."
+
+msgid "Finalise and release in the tenant portal"
+msgstr "Finalizza e pubblica nel portale inquilino"
+
 msgid "Heating: %1$s%2$s · Status: %3$s"
 msgstr "Riscaldamento: %1$s%2$s · Stato: %3$s"
 
@@ -110,6 +128,9 @@ msgstr "Risultato"
 
 msgid "PDF"
 msgstr "PDF"
+
+msgid "Generate PDF and store under Documents (visible to the tenant)"
+msgstr "Genera il PDF e archivialo in Documenti (visibile all’inquilino)"
 
 msgid "File PDF"
 msgstr "Archivia PDF"
@@ -927,8 +948,11 @@ msgstr "In lavorazione"
 msgid "Done"
 msgstr "Completata"
 
-msgid "Overview"
-msgstr "Panoramica"
+msgid "recoverable"
+msgstr "ripartibile"
+
+msgid "Main meter"
+msgstr "Contatore principale"
 
 msgid "Daily"
 msgstr "Quotidiano"
@@ -1011,6 +1035,12 @@ msgstr "L'unità principale non può essere anche un'unità aggiuntiva."
 msgid "Additional unit “%s” is already let to someone else in the period."
 msgstr "L'unità aggiuntiva «%s» è già locata a un'altra persona nel periodo."
 
+msgid "Valid from (%1$s) is before the start of tenancy (%2$s)."
+msgstr "La data «valido dal» (%1$s) è precedente all’inizio della locazione (%2$s)."
+
+msgid "Note: the deposit (%s) exceeds three months’ base rent (§ 551 BGB) – please check the tenancy."
+msgstr "Nota: il deposito cauzionale (%s) supera tre mensilità di canone base (§ 551 BGB) – verificare la locazione."
+
 msgid "Base rent must be greater than 0."
 msgstr "Il canone base deve essere maggiore di 0."
 
@@ -1037,6 +1067,9 @@ msgstr "L'anno fiscale differisce dalla data di pagamento di più di un anno."
 
 msgid "Living area must be greater than 0 (needed for the service charge statement)."
 msgstr "La superficie abitabile deve essere maggiore di 0 (necessaria per il conteggio delle spese accessorie)."
+
+msgid "Meter reading (%1$s) is lower than the previous reading (%2$s) – meter replaced? Then create a new meter."
+msgstr "La lettura (%1$s) è inferiore alla precedente (%2$s) – contatore sostituito? Creare allora un nuovo contatore."
 
 msgid "Land share must be below 100 %."
 msgstr "La quota terreno deve essere inferiore al 100 %."
@@ -1070,6 +1103,12 @@ msgstr "tutti"
 
 msgid "Actions"
 msgstr "Azioni"
+
+msgid "No entries yet."
+msgstr "Nessuna voce ancora."
+
+msgid "Open receipt"
+msgstr "Apri giustificativo"
 
 msgid "Edit"
 msgstr "Modifica"
@@ -1205,6 +1244,9 @@ msgstr "Saldo cumulativo"
 
 msgid "Book %s as paid"
 msgstr "Registra %s come pagato"
+
+msgid "No rent conditions entered"
+msgstr "Nessuna condizione di canone inserita"
 
 msgid "from useful life of %d years"
 msgstr "da vita utile di %d anni"
@@ -1382,6 +1424,9 @@ msgstr "Rivedi le voci"
 
 msgid "Tenant's name"
 msgstr "Nome dell'inquilino"
+
+msgid "Expense – choose a cost type or skip"
+msgstr "Spesa – scegliere un tipo di costo o saltare"
 
 msgid "%d transactions imported."
 msgstr "%d movimenti importati."
@@ -2088,8 +2133,8 @@ msgstr "Versione"
 msgid "All help topics"
 msgstr "Tutti gli argomenti dell'aiuto"
 
-msgid "No rent conditions for "
-msgstr "Nessuna condizione di canone per "
+msgid "No rent conditions for %1$s at %2$s"
+msgstr "Nessuna condizione di canone per %1$s presso %2$s"
 
 msgid "Rent %1$s missing or incomplete: %2$s (due %3$s, paid %4$s)"
 msgstr "Canone %1$s mancante o incompleto: %2$s (dovuto %3$s, pagato %4$s)"
@@ -2112,8 +2157,8 @@ msgstr "Limite dei costi di costruzione connessi all'acquisizione superato per %
 msgid "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
 msgstr "Limite del 15 %% per %1$s utilizzato al %2$s %% (termine %3$s)"
 
-msgid "Retention period expired: tenant data “"
-msgstr "Periodo di conservazione scaduto: dati dell'inquilino «"
+msgid "Retention period expired: tenant data “%s” can be anonymised"
+msgstr "Periodo di conservazione scaduto: i dati dell’inquilino «%s» possono essere anonimizzati"
 
 msgid "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
 msgstr "La locazione %1$s termina il %2$s – preparare consegna, deposito cauzionale, letture dei contatori"
@@ -2126,6 +2171,9 @@ msgstr "✅ Nessun avviso aperto."
 
 msgid "Go to Mietfux"
 msgstr "Vai a Mietfux"
+
+msgid "Notices from Mietfux (%s):"
+msgstr "Avvisi da Mietfux (%s):"
 
 msgid "Payment by tenant"
 msgstr "Versamento dell'inquilino"
@@ -2160,11 +2208,14 @@ msgstr "Saldo del conto"
 msgid "Rent account balance"
 msgstr "Saldo del conto canone"
 
+msgid "still outstanding:"
+msgstr "ancora dovuto:"
+
+msgid "complete"
+msgstr "completo"
+
 msgid "Delete booking?"
 msgstr "Eliminare la registrazione?"
-
-msgid "No entries yet."
-msgstr "Nessuna voce ancora."
 
 msgid "Record entry"
 msgstr "Registra voce"
@@ -2841,6 +2892,9 @@ msgstr "Costi"
 msgid "Open statement"
 msgstr "Apri conteggio"
 
+msgid "open"
+msgstr "apri"
+
 msgid "Submit meter reading"
 msgstr "Invia lettura del contatore"
 
@@ -2916,6 +2970,9 @@ msgstr "Nessuna spesa in questo anno."
 msgid "Sum of expenses"
 msgstr "Somma delle spese"
 
+msgid "Line"
+msgstr "Riga"
+
 msgid "The line numbers are on the official “Anlage V” form of the respective year (ELSTER). Once entered, they are pre-filled for subsequent years until the form changes."
 msgstr "I numeri di riga si trovano sul modulo ufficiale «Anlage V» del rispettivo anno (ELSTER). Una volta inseriti, vengono precompilati per gli anni successivi finché il modulo non cambia."
 
@@ -2963,6 +3020,9 @@ msgstr "Finanziamento"
 
 msgid "Nominal interest rate"
 msgstr "Tasso d'interesse nominale"
+
+msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
+msgstr "Nessuna certificazione degli interessi inserita per %1$d. Inserire i valori annuali in %2$s."
 
 msgid "No receipts."
 msgstr "Nessun giustificativo."

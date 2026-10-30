@@ -99,7 +99,7 @@ class Mietv_Abrechnung {
 		if ( ! $abr ) {
 			return [
 				'ergebnisse' => [],
-				'hinweise'   => [ 'Abrechnung nicht gefunden.' ],
+				'hinweise'   => [ __( 'Statement not found.', 'mietfux' ) ],
 				'positionen' => [],
 			];
 		}
@@ -516,11 +516,11 @@ class Mietv_Abrechnung {
 
 		printf( '<h1>' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Service charge statement %1$s – %2$s to %3$s', 'mietfux' ) . '</h1>', esc_html( $abr->objekt ), esc_html( mietv_date( $abr->von ) ), esc_html( mietv_date( $abr->bis ) ) );
 		$u = fn( $a ) => wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=' . $a . '&id=' . $id ), 'mietv_abr' );
-		echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=mietv_abrechnung' ) ) . '" class="button">← Übersicht</a> <a href="' . esc_url( $u( 'neu_berechnen' ) ) . '" class="button">Neu berechnen</a> ';
+		echo '<p><a href="' . esc_url( admin_url( 'admin.php?page=mietv_abrechnung' ) ) . '" class="button">← ' . esc_html__( 'Overview', 'mietfux' ) . '</a> <a href="' . esc_url( $u( 'neu_berechnen' ) ) . '" class="button">' . esc_html__( 'Recalculate', 'mietfux' ) . '</a> ';
 		if ( $abr->status === 'fertig' ) {
-			echo '<a href="' . esc_url( $u( 'entwurf' ) ) . '" class="button">Freigabe zurücknehmen</a> <span class="description">Freigegeben – im Mieterportal sichtbar.</span>';
+			echo '<a href="' . esc_url( $u( 'entwurf' ) ) . '" class="button">' . esc_html__( 'Withdraw release', 'mietfux' ) . '</a> <span class="description">' . esc_html__( 'Released – visible in the tenant portal.', 'mietfux' ) . '</span>';
 		} else {
-			echo '<a href="' . esc_url( $u( 'fertig' ) ) . '" class="button button-primary">Fertigstellen und im Mieterportal freigeben</a>';
+			echo '<a href="' . esc_url( $u( 'fertig' ) ) . '" class="button button-primary">' . esc_html__( 'Finalise and release in the tenant portal', 'mietfux' ) . '</a>';
 		}
 		echo '</p>';
 		printf( '<p class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Heating: %1$s%2$s · Status: %3$s', 'mietfux' ) . '</p>', esc_html( $abr->heizung ), $abr->heizung !== 'dezentral' ? ', Verbrauchsanteil ' . (int) ( $abr->hk_verbrauchsanteil ?: 70 ) . ' %' : '', esc_html( $abr->status ) );
@@ -539,7 +539,7 @@ class Mietv_Abrechnung {
 			$brief = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_abrechnung_brief&erg=' . (int) $e->id ), 'mietv_abr_brief' );
 			$vz    = wp_nonce_url( admin_url( 'admin.php?page=mietv_abrechnung&mietv_abr_action=vz_anpassen&id=' . $id . '&erg=' . $e->id ), 'mietv_abr' );
 			printf(
-				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="PDF erzeugen und unter Dokumente (für den Mieter sichtbar) ablegen">' . esc_html__( 'File PDF', 'mietfux' ) . '</a> <a href="%s" class="button button-small" data-confirm="' . esc_attr__( 'Create new advance payment from next month?', 'mietfux' ) . '">' . esc_html__( 'Adjust advance', 'mietfux' ) . '</a></td></tr>',
+				'<tr><td>%s – %s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td class="%s"><strong>%s</strong><br><small>%s</small></td><td>%s</td><td><a href="%s" target="_blank" class="button button-small">' . esc_html__( 'PDF', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button button-small" title="' . esc_attr__( 'Generate PDF and store under Documents (visible to the tenant)', 'mietfux' ) . '">' . esc_html__( 'File PDF', 'mietfux' ) . '</a> <a href="%s" class="button button-small" data-confirm="' . esc_attr__( 'Create new advance payment from next month?', 'mietfux' ) . '">' . esc_html__( 'Adjust advance', 'mietfux' ) . '</a></td></tr>',
 				esc_html( $e->nachname . ', ' . $e->vorname ),
 				esc_html( $e->einheit ),
 				(int) $e->tage,

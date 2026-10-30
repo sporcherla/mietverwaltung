@@ -1215,13 +1215,13 @@ class Mietv_Admin {
 		global $wpdb;
 		$out = [];
 		foreach ( $wpdb->get_results( 'SELECT id, name, umlagefaehig FROM ' . $wpdb->prefix . 'mv_kostenarten ORDER BY sortierung, name' ) as $r ) {
-			$out[ $r->id ] = $r->name . ( $r->umlagefaehig ? ' [umlagefähig]' : '' );
+			$out[ $r->id ] = $r->name . ( $r->umlagefaehig ? ' [' . __( 'recoverable', 'mietfux' ) . ']' : '' );
 		}
 		return $out;
 	}
 
 	public static function opt_einheiten_optional(): array {
-		return [ '' => '– Hauptzähler –' ] + self::opt_einheiten();
+		return [ '' => '– ' . __( 'Main meter', 'mietfux' ) . ' –' ] + self::opt_einheiten();
 	}
 
 	public static function opt_kostenarten_optional(): array {
@@ -1683,10 +1683,10 @@ class Mietv_Admin {
 				if ( ! empty( $d['mv_id'] ) && ! empty( $d['gueltig_ab'] ) ) {
 					$mv = $wpdb->get_row( $wpdb->prepare( 'SELECT beginn, kaution FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $d['mv_id'] ) );
 					if ( $mv && $d['gueltig_ab'] < $mv->beginn ) {
-						$e[] = 'Gültig ab (' . mietv_date( $d['gueltig_ab'] ) . ') liegt vor dem Mietbeginn (' . mietv_date( $mv->beginn ) . ').';
+						$e[] = sprintf( /* translators: %1$s: Datum, %2$s: Datum */ __( 'Valid from (%1$s) is before the start of tenancy (%2$s).', 'mietfux' ), mietv_date( $d['gueltig_ab'] ), mietv_date( $mv->beginn ) );
 					}
 					if ( $mv && (float) $mv->kaution > 3 * (float) $d['kaltmiete'] + 0.005 && (float) $d['kaltmiete'] > 0 ) {
-						$e[] = 'Hinweis: Die Kaution (' . mietv_eur( $mv->kaution ) . ') übersteigt drei Kaltmieten (§ 551 BGB) – bitte Mietverhältnis prüfen.';
+						$e[] = sprintf( /* translators: %s: Betrag */ __( 'Note: the deposit (%s) exceeds three months’ base rent (§ 551 BGB) – please check the tenancy.', 'mietfux' ), mietv_eur( $mv->kaution ) );
 					}
 				}
 				if ( isset( $d['kaltmiete'] ) && $d['kaltmiete'] <= 0 ) {
@@ -1730,7 +1730,7 @@ class Mietv_Admin {
 				if ( ! empty( $d['zaehler_id'] ) && ! empty( $d['datum'] ) ) {
 					$vorher = $wpdb->get_var( $wpdb->prepare( 'SELECT stand FROM ' . $wpdb->prefix . 'mv_zaehlerstaende WHERE zaehler_id = %d AND datum < %s AND id <> %d ORDER BY datum DESC LIMIT 1', $d['zaehler_id'], $d['datum'], $id ) );
 					if ( $vorher !== null && (float) $d['stand'] < (float) $vorher ) {
-						$e[] = 'Zählerstand (' . $d['stand'] . ') ist kleiner als der vorherige Stand (' . $vorher . ') – Zählerwechsel? Dann neuen Zähler anlegen.';
+						$e[] = sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( 'Meter reading (%1$s) is lower than the previous reading (%2$s) – meter replaced? Then create a new meter.', 'mietfux' ), $d['stand'], $vorher );
 					}
 				}
 				break;
@@ -1858,7 +1858,7 @@ class Mietv_Admin {
 			if ( $jahr > 0 ) {
 				$where = $wpdb->prepare( " WHERE $col = %d", $jahr );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 			}
-			echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_' . esc_attr( $key ) . '"><label>Jahr: <select name="jahr" onchange="this.form.submit()">';
+			echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_' . esc_attr( $key ) . '"><label>' . esc_html__( 'Year', 'mietfux' ) . ': <select name="jahr" data-autosubmit="1">';
 			printf( '<option value="0"%s>' . esc_html__( 'all', 'mietfux' ) . '</option>', selected( $jahr, 0, false ) );
 			foreach ( array_unique( array_merge( $jahre, [ (string) current_time( 'Y' ) ] ) ) as $j ) {
 				printf( '<option value="%1$d"%2$s>%1$d</option>', (int) $j, selected( $jahr, (int) $j, false ) );
@@ -1884,7 +1884,7 @@ class Mietv_Admin {
 		echo '<th class="mv-actions">' . esc_html__( 'Actions', 'mietfux' ) . '</th></tr></thead><tbody>';
 
 		if ( ! $rows ) {
-			echo '<tr><td colspan="' . ( count( $cols ) + 1 ) . '">Noch keine Einträge.</td></tr>';
+			echo '<tr><td colspan="' . ( count( $cols ) + 1 ) . '">' . esc_html__( 'No entries yet.', 'mietfux' ) . '</td></tr>';
 		}
 		foreach ( $rows as $r ) {
 			echo '<tr>';
@@ -1896,7 +1896,7 @@ class Mietv_Admin {
 				}
 				if ( $f['type'] === 'file' ) {
 					$url = $r->$name ? wp_get_attachment_url( (int) $r->$name ) : '';
-					echo '<td>' . ( $url ? '<a href="' . esc_url( $url ) . '" target="_blank">Beleg öffnen</a>' : '–' ) . '</td>';
+					echo '<td>' . ( $url ? '<a href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'Open receipt', 'mietfux' ) . '</a>' : '–' ) . '</td>';
 					continue;
 				}
 				echo '<td>' . esc_html( self::display( $f, $r->$name, $resolved[ $name ] ?? [] ) ) . '</td>';
@@ -2001,7 +2001,7 @@ class Mietv_Admin {
 					}
 					printf( '<input type="file" id="mietv_%1$s" name="%1$s" accept=".pdf,image/*"%2$s>', esc_attr( $name ), ! empty( $f['extract'] ) ? ' data-mv-extract="' . esc_attr( $f['extract'] ) . '"' : '' );
 					if ( wp_is_mobile() ) {
-						printf( ' <label class="button"><input type="file" name="%1$s" accept="image/*" capture="environment" style="display:none" onchange="document.getElementById(\'mietv_%1$s\').disabled=!!this.files.length">' . esc_html__( '📷 Take photo', 'mietfux' ) . '</label>', esc_attr( $name ) );
+						printf( ' <label class="button"><input type="file" name="%1$s" accept="image/*" capture="environment" style="display:none" data-disable-target="mietv_%1$s">' . esc_html__( '📷 Take photo', 'mietfux' ) . '</label>', esc_attr( $name ) );
 					}
 					if ( ! empty( $f['extract'] ) ) {
 						echo '<div id="mv-extract-panel" class="mv-extract" hidden></div>';
@@ -2171,7 +2171,7 @@ class Mietv_Admin {
 					'<tr><td class="mv-op-check">%s</td><td>%s%s</td><td>%s</td><td>%s</td><td>%s</td><td><strong>%s</strong></td><td>%s</td><td class="%s">%s</td><td class="%s">%s</td></tr>',
 					$offen ? '<input type="checkbox" name="op[]" value="' . esc_attr( $mv->id . '|' . $r['monat'] ) . '" title="' . esc_attr( sprintf( /* translators: %s: Wert */ __( 'Book %s as paid', 'mietfux' ), mietv_eur( -$r['diff'] ) ) ) . '">' : ( $r['diff'] < -0.005 ? '' : '✓' ),
 					esc_html( mietv_monat( $r['monat'] ) ),
-					$r['ohne_konditionen'] ? ' <span class="mv-warn" title="Keine Konditionen hinterlegt">⚠</span>' : '',
+					$r['ohne_konditionen'] ? ' <span class="mv-warn" title="' . esc_attr__( 'No rent conditions entered', 'mietfux' ) . '">⚠</span>' : '',
 					esc_html( mietv_eur( $r['kalt'] ) ),
 					esc_html( mietv_eur( $r['bk'] ) ),
 					esc_html( mietv_eur( $r['hk'] ) ),

@@ -3,7 +3,11 @@ msgstr ""
 "Project-Id-Version: Mietfux\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "X-Domain: mietfux\n"
-"POT-Creation-Date: 2026-10-29\n"
+"POT-Creation-Date: 2026-10-30\n"
+
+#: includes/class-mv-abrechnung.php:102
+msgid "Statement not found."
+msgstr ""
 
 #: includes/class-mv-abrechnung.php:120
 msgid "No living areas entered for the units – allocation by area is not possible."
@@ -109,6 +113,26 @@ msgstr ""
 msgid "Service charge statement %1$s – %2$s to %3$s"
 msgstr ""
 
+#: includes/class-mv-abrechnung.php:519 includes/class-mv-admin.php:1268 includes/class-mv-admin.php:1268
+msgid "Overview"
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:519
+msgid "Recalculate"
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:521
+msgid "Withdraw release"
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:521
+msgid "Released – visible in the tenant portal."
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:523
+msgid "Finalise and release in the tenant portal"
+msgstr ""
+
 #: includes/class-mv-abrechnung.php:526
 msgid "Heating: %1$s%2$s · Status: %3$s"
 msgstr ""
@@ -139,6 +163,10 @@ msgstr ""
 
 #: includes/class-mv-abrechnung.php:542
 msgid "PDF"
+msgstr ""
+
+#: includes/class-mv-abrechnung.php:542
+msgid "Generate PDF and store under Documents (visible to the tenant)"
 msgstr ""
 
 #: includes/class-mv-abrechnung.php:542 includes/class-mv-erhoehung.php:188
@@ -1121,7 +1149,7 @@ msgstr ""
 msgid "File (PDF)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1035
+#: includes/class-mv-admin.php:1035 includes/class-mv-steuer.php:467
 msgid "Interest certificates"
 msgstr ""
 
@@ -1129,7 +1157,7 @@ msgstr ""
 msgid "Annual loan figures"
 msgstr ""
 
-#: includes/class-mv-admin.php:1049 includes/class-mv-darlehen.php:312
+#: includes/class-mv-admin.php:1049 includes/class-mv-admin.php:1861 includes/class-mv-darlehen.php:312
 msgid "Year"
 msgstr ""
 
@@ -1229,8 +1257,12 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: includes/class-mv-admin.php:1268 includes/class-mv-admin.php:1268 includes/class-mv-hilfe.php:31
-msgid "Overview"
+#: includes/class-mv-admin.php:1218
+msgid "recoverable"
+msgstr ""
+
+#: includes/class-mv-admin.php:1224
+msgid "Main meter"
 msgstr ""
 
 #: includes/class-mv-admin.php:1271
@@ -1341,6 +1373,14 @@ msgstr ""
 msgid "Additional unit “%s” is already let to someone else in the period."
 msgstr ""
 
+#: includes/class-mv-admin.php:1686
+msgid "Valid from (%1$s) is before the start of tenancy (%2$s)."
+msgstr ""
+
+#: includes/class-mv-admin.php:1689
+msgid "Note: the deposit (%s) exceeds three months’ base rent (§ 551 BGB) – please check the tenancy."
+msgstr ""
+
 #: includes/class-mv-admin.php:1693
 msgid "Base rent must be greater than 0."
 msgstr ""
@@ -1375,6 +1415,10 @@ msgstr ""
 
 #: includes/class-mv-admin.php:1726
 msgid "Living area must be greater than 0 (needed for the service charge statement)."
+msgstr ""
+
+#: includes/class-mv-admin.php:1733
+msgid "Meter reading (%1$s) is lower than the previous reading (%2$s) – meter replaced? Then create a new meter."
 msgstr ""
 
 #: includes/class-mv-admin.php:1739
@@ -1419,6 +1463,14 @@ msgstr ""
 
 #: includes/class-mv-admin.php:1884
 msgid "Actions"
+msgstr ""
+
+#: includes/class-mv-admin.php:1887 includes/class-mv-kaution.php:175
+msgid "No entries yet."
+msgstr ""
+
+#: includes/class-mv-admin.php:1899
+msgid "Open receipt"
 msgstr ""
 
 #: includes/class-mv-admin.php:1921
@@ -1599,6 +1651,10 @@ msgstr ""
 
 #: includes/class-mv-admin.php:2172
 msgid "Book %s as paid"
+msgstr ""
+
+#: includes/class-mv-admin.php:2174
+msgid "No rent conditions entered"
 msgstr ""
 
 #: includes/class-mv-afa.php:65
@@ -1835,6 +1891,10 @@ msgstr ""
 
 #: includes/class-mv-bank.php:250
 msgid "Tenant's name"
+msgstr ""
+
+#: includes/class-mv-bank.php:256
+msgid "Expense – choose a cost type or skip"
 msgstr ""
 
 #: includes/class-mv-bank.php:374
@@ -2778,7 +2838,7 @@ msgid "All help topics"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:42
-msgid "No rent conditions for "
+msgid "No rent conditions for %1$s at %2$s"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:52
@@ -2810,7 +2870,7 @@ msgid "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:139
-msgid "Retention period expired: tenant data “"
+msgid "Retention period expired: tenant data “%s” can be anonymised"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:152
@@ -2827,6 +2887,10 @@ msgstr ""
 
 #: includes/class-mv-hinweise.php:191
 msgid "Go to Mietfux"
+msgstr ""
+
+#: includes/class-mv-hinweise.php:206
+msgid "Notices from Mietfux (%s):"
 msgstr ""
 
 #: includes/class-mv-kaution.php:20
@@ -2873,12 +2937,16 @@ msgstr ""
 msgid "Rent account balance"
 msgstr ""
 
-#: includes/class-mv-kaution.php:162
-msgid "Delete booking?"
+#: includes/class-mv-kaution.php:151
+msgid "still outstanding:"
 msgstr ""
 
-#: includes/class-mv-kaution.php:175
-msgid "No entries yet."
+#: includes/class-mv-kaution.php:151
+msgid "complete"
+msgstr ""
+
+#: includes/class-mv-kaution.php:162
+msgid "Delete booking?"
 msgstr ""
 
 #: includes/class-mv-kaution.php:179
@@ -3781,6 +3849,10 @@ msgstr ""
 msgid "Open statement"
 msgstr ""
 
+#: includes/class-mv-portal.php:271 includes/class-mv-steuer.php:462 includes/class-mv-steuer.php:484
+msgid "open"
+msgstr ""
+
 #: includes/class-mv-portal.php:285
 msgid "Submit meter reading"
 msgstr ""
@@ -3833,7 +3905,7 @@ msgstr ""
 msgid "Total expenses"
 msgstr ""
 
-#: includes/class-mv-steuer.php:348
+#: includes/class-mv-steuer.php:348 includes/class-mv-steuer.php:398
 msgid "Surplus / loss"
 msgstr ""
 
@@ -3877,8 +3949,12 @@ msgstr ""
 msgid "No expenses in this year."
 msgstr ""
 
-#: includes/class-mv-steuer.php:387
+#: includes/class-mv-steuer.php:387 includes/class-mv-steuer.php:397
 msgid "Sum of expenses"
+msgstr ""
+
+#: includes/class-mv-steuer.php:401
+msgid "Line"
 msgstr ""
 
 #: includes/class-mv-steuer.php:405
@@ -3943,6 +4019,10 @@ msgstr ""
 
 #: includes/class-mv-steuer.php:451
 msgid "Nominal interest rate"
+msgstr ""
+
+#: includes/class-mv-steuer.php:467
+msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr ""
 
 #: includes/class-mv-steuer.php:488

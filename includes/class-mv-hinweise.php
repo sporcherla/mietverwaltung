@@ -39,7 +39,7 @@ class Mietv_Hinweise {
 			if ( ! $k ) {
 				$h[] = [
 					'typ'  => 'warn',
-					'text' => esc_html__( 'No rent conditions for ', 'mietfux' ) . mietv_monat( $monat ) . ' bei ' . Mietv_Soll::mietv_label( $mv ),
+					'text' => sprintf( /* translators: %1$s: Monat, %2$s: Mietverhältnis */ __( 'No rent conditions for %1$s at %2$s', 'mietfux' ), mietv_monat( $monat ), Mietv_Soll::mietv_label( $mv ) ),
 					'url'  => admin_url( 'admin.php?page=mietv_konditionen' ),
 				];
 				continue;
@@ -136,7 +136,7 @@ class Mietv_Hinweise {
 			foreach ( Mietv_Datenschutz::faellig() as $f ) {
 				$h[] = [
 					'typ'  => 'info',
-					'text' => esc_html__( 'Retention period expired: tenant data “', 'mietfux' ) . $f['label'] . '“ können anonymisiert werden',
+					'text' => sprintf( /* translators: %s: Mietername */ __( 'Retention period expired: tenant data “%s” can be anonymised', 'mietfux' ), $f['label'] ),
 					'url'  => admin_url( 'admin.php?page=mietv_datenschutz' ),
 				];
 			}
@@ -203,7 +203,7 @@ class Mietv_Hinweise {
 		if ( get_option( 'mietv_hinweis_hash' ) === $hash && get_option( 'mietv_hinweis_datum' ) > gmdate( 'Y-m-d', strtotime( '-7 days' ) ) ) {
 			return; // gleiche Hinweise: höchstens wöchentlich wiederholen
 		}
-		$text = 'Hinweise aus der Mietverwaltung (' . current_time( 'd.m.Y' ) . "):\n\n";
+		$text = sprintf( /* translators: %s: Datum */ __( 'Notices from Mietfux (%s):', 'mietfux' ), current_time( 'd.m.Y' ) ) . "\n\n";
 		foreach ( $h as $x ) {
 			$text .= ( $x['typ'] === 'error' ? '!! ' : ' - ' ) . $x['text'] . "\n   " . $x['url'] . "\n";
 		}

@@ -143,7 +143,7 @@ class Mietv_Mietvertrag {
 		}
 		echo '<div class="notice notice-info inline"><p><strong>' . esc_html__( 'Note:', 'mietfux' ) . '</strong> ' . esc_html__( 'The agreement is generated from the tenancy data (parties, flat, rent, deposit, start, end) and the options below. The clauses follow the BGB and Federal Court of Justice case law (as of 2026). Have it checked legally before use in special situations (commercial, shared flat, furnished, rent cap).', 'mietfux' ) . '</p></div>';
 
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_mietvertrag"><label>' . esc_html__( 'Tenancy', 'mietfux' ) . ' <select name="mv_id" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_mietvertrag"><label>' . esc_html__( 'Tenancy', 'mietfux' ) . ' <select name="mv_id" data-autosubmit="1">';
 		foreach ( $mvs as $m ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $m->id, selected( (int) $mv_id, (int) $m->id, false ), esc_html( Mietv_Soll::mietv_label( $m ) ) );
 		}

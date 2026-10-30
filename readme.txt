@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Rental management for German landlords: tenancies, payments, service charge stat
 
 **Mietfux** ("Miet" = rent, "Fux" = fox) puts everything a private landlord in Germany needs for one or more flats into a single plugin. All data stays in your own WordPress database – no cloud service, no data transfer to third parties, no external scripts.
 
-The user interface is available in German and English. The generated legal documents (tenancy agreement, house rules, information sheets) are in German because they implement German tenancy law (BGB, BetrKV, HeizkostenV, EStG).
+The user interface is available in English, German, French, Spanish, Italian, Dutch, Polish and Portuguese. The generated legal documents (tenancy agreement, house rules, information sheets) are in German because they implement German tenancy law (BGB, BetrKV, HeizkostenV, EStG).
 
 **Features**
 
@@ -59,7 +59,7 @@ The generator follows the German Civil Code (BGB) and Federal Court of Justice c
 
 = Which language is the interface in? =
 
-English (source) and German (bundled, complete). WordPress selects the language from the site or user setting. Legal documents are generated in German only.
+English (source), German, French, Spanish, Italian, Dutch, Polish and Portuguese (all bundled and complete). WordPress selects the language from the site or user setting. Legal documents are generated in German only.
 
 = What happens on uninstall? =
 
@@ -76,6 +76,10 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 7. Tenant portal
 
 == Changelog ==
+
+= 1.0.4 =
+* New interface languages: French, Spanish, Italian, Dutch, Polish, Portuguese (bundled)
+* Remaining hard-coded German interface strings made translatable; last inline event handlers moved to admin.js
 
 = 1.0.3 =
 * Source language switched to English (WordPress.org convention); the complete German translation is bundled as de_DE and loaded via load_plugin_textdomain(), so German sites look exactly as before

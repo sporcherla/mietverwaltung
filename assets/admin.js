@@ -117,4 +117,13 @@
 			if ( ! c.disabled ) { c.checked = el.checked; }
 		} );
 	} );
+	document.addEventListener( 'change', function ( e ) {
+		var el = e.target;
+		if ( ! el.matches ) { return; }
+		if ( el.matches( '[data-autosubmit]' ) && el.form ) { el.form.submit(); }
+		if ( el.matches( '[data-disable-target]' ) ) {
+			var t = document.getElementById( el.getAttribute( 'data-disable-target' ) );
+			if ( t ) { t.disabled = !! ( el.files && el.files.length ); }
+		}
+	} );
 }() );

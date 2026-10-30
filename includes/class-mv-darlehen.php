@@ -218,7 +218,7 @@ class Mietv_Darlehen {
 			printf( '<p>' . esc_html__( 'No loan created yet –', 'mietfux' ) . ' <a href="%s">' . esc_html__( 'Create loan', 'mietfux' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mietv_darlehen&action=new' ) ) );
 			return;
 		}
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_darlehenskonto"><label>' . esc_html__( 'Loans', 'mietfux' ) . ' <select name="darlehen_id" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_darlehenskonto"><label>' . esc_html__( 'Loans', 'mietfux' ) . ' <select name="darlehen_id" data-autosubmit="1">';
 		foreach ( $alle as $x ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $x->id, selected( $did, (int) $x->id, false ), esc_html( $x->bank . ( $x->bezeichnung ? ' – ' . $x->bezeichnung : '' ) . ' (' . mietv_eur( $x->betrag ) . ')' ) );
 		}

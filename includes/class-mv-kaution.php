@@ -130,7 +130,7 @@ class Mietv_Kaution {
 		}
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Deposit account', 'mietfux' ) . '</h1>';
 		echo '<p class="description">' . esc_html__( 'The deposit must be invested separately from the landlord\'s assets at the usual rate for savings deposits with three months\' notice; the interest belongs to the tenant (§ 551 (3) BGB). Repayment after the end of the tenancy and a reasonable review period (usually 3–6 months), less justified claims.', 'mietfux' ) . '</p>';
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_kaution"><label>' . esc_html__( 'Tenancy', 'mietfux' ) . ' <select name="mv_id" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_kaution"><label>' . esc_html__( 'Tenancy', 'mietfux' ) . ' <select name="mv_id" data-autosubmit="1">';
 		foreach ( $mvs as $m ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $m->id, selected( (int) $mv_id, (int) $m->id, false ), esc_html( Mietv_Soll::mietv_label( $m ) ) );
 		}
@@ -148,7 +148,7 @@ class Mietv_Kaution {
 			esc_html( mietv_eur( $soll ) ),
 			esc_attr( $cls ),
 			esc_html( mietv_eur( $k['einzahlung'] ) ),
-			$k['einzahlung'] + 0.005 < $soll ? 'noch offen: ' . esc_html( mietv_eur( $soll - $k['einzahlung'] ) ) : 'vollständig',
+			$k['einzahlung'] + 0.005 < $soll ? esc_html__( 'still outstanding:', 'mietfux' ) . ' ' . esc_html( mietv_eur( $soll - $k['einzahlung'] ) ) : esc_html__( 'complete', 'mietfux' ),
 			esc_html( mietv_eur( $k['zins'] ) ),
 			$k['letzter_zins'] ? 'zuletzt ' . esc_html( mietv_date( $k['letzter_zins'] ) ) : '–',
 			esc_html( mietv_eur( $k['stand'] ) ),
@@ -182,7 +182,7 @@ class Mietv_Kaution {
 		foreach ( self::arten() as $a => $l ) {
 			printf( '<option value="%s">%s</option>', esc_attr( $a ), esc_html( $l ) );
 		}
-		printf( '</select></p><p><input type="text" name="betrag" class="mv-num" placeholder="Betrag" value="%s"> <input type="text" name="notiz" placeholder="Notiz" class="regular-text"></p><p><button class="button button-primary">' . esc_html__( 'Book', 'mietfux' ) . '</button></p></form></div>', $k['einzahlung'] + 0.005 < $soll ? esc_attr( number_format( round( $soll / 3, 2 ), 2, ',', '' ) ) : '' );
+		printf( '</select></p><p><input type="text" name="betrag" class="mv-num" placeholder="' . esc_attr__( 'Amount', 'mietfux' ) . '" value="%s"> <input type="text" name="notiz" placeholder="' . esc_attr__( 'Note', 'mietfux' ) . '" class="regular-text"></p><p><button class="button button-primary">' . esc_html__( 'Book', 'mietfux' ) . '</button></p></form></div>', $k['einzahlung'] + 0.005 < $soll ? esc_attr( number_format( round( $soll / 3, 2 ), 2, ',', '' ) ) : '' );
 
 		echo '<div class="mv-kachel" style="min-width:380px"><h3>' . esc_html__( 'Credit interest', 'mietfux' ) . '</h3><form method="post">';
 		wp_nonce_field( 'mietv_kaution', 'mietv_kaution_nonce' );

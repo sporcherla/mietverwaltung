@@ -253,7 +253,7 @@ class Mietv_Bank {
 				}
 			} else {
 				$r['typ']   = 'beleg';
-				$r['grund'] = 'Ausgabe – Kostenart wählen oder überspringen';
+				$r['grund'] = __( 'Expense – choose a cost type or skip', 'mietfux' );
 			}
 		}
 		return $rows;

@@ -268,7 +268,7 @@ class Mietv_Portal {
 				echo '<h4>' . esc_html__( 'Documents', 'mietfux' ) . '</h4><table class="mv-table"><thead><tr><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Document', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 				foreach ( $docs as $d ) {
 					$url = wp_get_attachment_url( (int) $d->attachment_id );
-					printf( '<tr><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( mietv_date( $d->datum ) ), esc_html( $d->bezeichnung ), $url ? '<a href="' . esc_url( $url ) . '" target="_blank">öffnen</a>' : '' );
+					printf( '<tr><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( mietv_date( $d->datum ) ), esc_html( $d->bezeichnung ), $url ? '<a href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'open', 'mietfux' ) . '</a>' : '' );
 				}
 				echo '</tbody></table>';
 			}

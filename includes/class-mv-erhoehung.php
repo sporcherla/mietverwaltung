@@ -203,7 +203,7 @@ class Mietv_Erhoehung {
 		echo '<form method="post" class="mv-form">';
 		wp_nonce_field( 'mietv_erh', 'mietv_erh_nonce' );
 		echo '<table class="form-table"><tbody>';
-		echo '<tr><th>' . esc_html__( 'Tenancy', 'mietfux' ) . '</th><td><select name="mv_id" onchange="this.form.submit()">';
+		echo '<tr><th>' . esc_html__( 'Tenancy', 'mietfux' ) . '</th><td><select name="mv_id" data-autosubmit="1">';
 		foreach ( $mvs as $m ) {
 			printf( '<option value="%d"%s>%s</option>', (int) $m->id, selected( (int) $mv_id, (int) $m->id, false ), esc_html( Mietv_Soll::mietv_label( $m ) ) );
 		}
@@ -213,7 +213,7 @@ class Mietv_Erhoehung {
 			printf( ' <span class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert, %4$s: Wert */ esc_html__( 'Current base rent %1$s, living area %2$s m², start of tenancy %3$s%4$s', 'mietfux' ) . '</span>', esc_html( mietv_eur( self::kaltmiete_am( $mv_id, current_time( 'Y-m-d' ) ) ) ), esc_html( number_format( $flaeche, 2, ',', '.' ) ), esc_html( mietv_date( $mv->beginn ) ), $letzte ? ', letzte Erhöhung ' . esc_html( mietv_date( $letzte ) ) : '' );
 		}
 		echo '</td></tr>';
-		echo '<tr><th>' . esc_html__( 'Type', 'mietfux' ) . '</th><td><select name="art" onchange="this.form.submit()">';
+		echo '<tr><th>' . esc_html__( 'Type', 'mietfux' ) . '</th><td><select name="art" data-autosubmit="1">';
 		foreach ( [
 			'vergleich'    => esc_html__( 'Local reference rent (§ 558 BGB)', 'mietfux' ),
 			'index'        => esc_html__( 'Index-linked rent (§ 557b BGB)', 'mietfux' ),

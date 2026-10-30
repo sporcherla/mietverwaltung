@@ -7,7 +7,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: mietfux\n"
-"PO-Revision-Date: 2026-10-30\n"
+"PO-Revision-Date: {datetime.date.today()}\n"
+
+msgid "Statement not found."
+msgstr "Afrekening niet gevonden."
 
 msgid "No living areas entered for the units – allocation by area is not possible."
 msgstr "Geen woonoppervlakten ingevoerd voor de eenheden – verdeling naar oppervlakte is niet mogelijk."
@@ -87,6 +90,21 @@ msgstr "Nieuw voorschot aangemaakt als huurconditie vanaf volgende maand – con
 msgid "Service charge statement %1$s – %2$s to %3$s"
 msgstr "Servicekostenafrekening %1$s – %2$s tot %3$s"
 
+msgid "Overview"
+msgstr "Overzicht"
+
+msgid "Recalculate"
+msgstr "Opnieuw berekenen"
+
+msgid "Withdraw release"
+msgstr "Vrijgave intrekken"
+
+msgid "Released – visible in the tenant portal."
+msgstr "Vrijgegeven – zichtbaar in het huurdersportaal."
+
+msgid "Finalise and release in the tenant portal"
+msgstr "Afronden en vrijgeven in het huurdersportaal"
+
 msgid "Heating: %1$s%2$s · Status: %3$s"
 msgstr "Verwarming: %1$s%2$s · Status: %3$s"
 
@@ -110,6 +128,9 @@ msgstr "Resultaat"
 
 msgid "PDF"
 msgstr "PDF"
+
+msgid "Generate PDF and store under Documents (visible to the tenant)"
+msgstr "PDF maken en opslaan onder Documenten (zichtbaar voor de huurder)"
 
 msgid "File PDF"
 msgstr "PDF archiveren"
@@ -927,8 +948,11 @@ msgstr "In behandeling"
 msgid "Done"
 msgstr "Afgehandeld"
 
-msgid "Overview"
-msgstr "Overzicht"
+msgid "recoverable"
+msgstr "doorbelastbaar"
+
+msgid "Main meter"
+msgstr "Hoofdmeter"
 
 msgid "Daily"
 msgstr "Dagelijks"
@@ -1011,6 +1035,12 @@ msgstr "De hoofdeenheid kan niet tegelijk een extra eenheid zijn."
 msgid "Additional unit “%s” is already let to someone else in the period."
 msgstr "Extra eenheid “%s” is in de periode al aan iemand anders verhuurd."
 
+msgid "Valid from (%1$s) is before the start of tenancy (%2$s)."
+msgstr "Geldig vanaf (%1$s) ligt vóór de start van de huurovereenkomst (%2$s)."
+
+msgid "Note: the deposit (%s) exceeds three months’ base rent (§ 551 BGB) – please check the tenancy."
+msgstr "Let op: de waarborgsom (%s) is hoger dan drie maanden kale huur (§ 551 BGB) – controleer de huurovereenkomst."
+
 msgid "Base rent must be greater than 0."
 msgstr "Kale huur moet groter zijn dan 0."
 
@@ -1037,6 +1067,9 @@ msgstr "Belastingjaar wijkt meer dan een jaar af van de betaaldatum."
 
 msgid "Living area must be greater than 0 (needed for the service charge statement)."
 msgstr "Woonoppervlakte moet groter zijn dan 0 (nodig voor de servicekostenafrekening)."
+
+msgid "Meter reading (%1$s) is lower than the previous reading (%2$s) – meter replaced? Then create a new meter."
+msgstr "Meterstand (%1$s) is lager dan de vorige stand (%2$s) – meter vervangen? Maak dan een nieuwe meter aan."
 
 msgid "Land share must be below 100 %."
 msgstr "Grondaandeel moet lager zijn dan 100 %."
@@ -1070,6 +1103,12 @@ msgstr "alle"
 
 msgid "Actions"
 msgstr "Acties"
+
+msgid "No entries yet."
+msgstr "Nog geen boekingen."
+
+msgid "Open receipt"
+msgstr "Bewijsstuk openen"
 
 msgid "Edit"
 msgstr "Bewerken"
@@ -1205,6 +1244,9 @@ msgstr "Cumulatief saldo"
 
 msgid "Book %s as paid"
 msgstr "%s als betaald boeken"
+
+msgid "No rent conditions entered"
+msgstr "Geen huurvoorwaarden ingevoerd"
 
 msgid "from useful life of %d years"
 msgstr "uit gebruiksduur van %d jaar"
@@ -1382,6 +1424,9 @@ msgstr "De invoer nogmaals controleren"
 
 msgid "Tenant's name"
 msgstr "Naam van de huurder"
+
+msgid "Expense – choose a cost type or skip"
+msgstr "Uitgave – kostensoort kiezen of overslaan"
 
 msgid "%d transactions imported."
 msgstr "%d transacties geïmporteerd."
@@ -2088,8 +2133,8 @@ msgstr "Versie"
 msgid "All help topics"
 msgstr "Alle helponderwerpen"
 
-msgid "No rent conditions for "
-msgstr "Geen huurcondities voor "
+msgid "No rent conditions for %1$s at %2$s"
+msgstr "Geen huurvoorwaarden voor %1$s bij %2$s"
 
 msgid "Rent %1$s missing or incomplete: %2$s (due %3$s, paid %4$s)"
 msgstr "Huur %1$s ontbreekt of is onvolledig: %2$s (verschuldigd %3$s, betaald %4$s)"
@@ -2112,8 +2157,8 @@ msgstr "Grens voor verwervingsgerelateerde bouwkosten overschreden voor %1$s (%2
 msgid "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
 msgstr "15 %%-grens voor %1$s benut tot %2$s %% (termijn %3$s)"
 
-msgid "Retention period expired: tenant data “"
-msgstr "Bewaartermijn verstreken: huurdergegevens “"
+msgid "Retention period expired: tenant data “%s” can be anonymised"
+msgstr "Bewaartermijn verstreken: huurdersgegevens ‘%s’ kunnen worden geanonimiseerd"
 
 msgid "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
 msgstr "Huurovereenkomst %1$s eindigt op %2$s – oplevering, waarborgsom, meterstanden voorbereiden"
@@ -2126,6 +2171,9 @@ msgstr "✅ Geen open attenderingen."
 
 msgid "Go to Mietfux"
 msgstr "Naar Mietfux"
+
+msgid "Notices from Mietfux (%s):"
+msgstr "Meldingen van Mietfux (%s):"
 
 msgid "Payment by tenant"
 msgstr "Betaling door huurder"
@@ -2160,11 +2208,14 @@ msgstr "Rekeningsaldo"
 msgid "Rent account balance"
 msgstr "Saldo huurrekening"
 
+msgid "still outstanding:"
+msgstr "nog open:"
+
+msgid "complete"
+msgstr "volledig"
+
 msgid "Delete booking?"
 msgstr "Boeking verwijderen?"
-
-msgid "No entries yet."
-msgstr "Nog geen boekingen."
 
 msgid "Record entry"
 msgstr "Boeking registreren"
@@ -2841,6 +2892,9 @@ msgstr "Kosten"
 msgid "Open statement"
 msgstr "Afrekening openen"
 
+msgid "open"
+msgstr "openen"
+
 msgid "Submit meter reading"
 msgstr "Meterstand doorgeven"
 
@@ -2916,6 +2970,9 @@ msgstr "Geen uitgaven in dit jaar."
 msgid "Sum of expenses"
 msgstr "Som van de uitgaven"
 
+msgid "Line"
+msgstr "Regel"
+
 msgid "The line numbers are on the official “Anlage V” form of the respective year (ELSTER). Once entered, they are pre-filled for subsequent years until the form changes."
 msgstr "De regelnummers staan op het officiële formulier “Anlage V” van het betreffende jaar (ELSTER). Eenmaal ingevoerd worden ze voor volgende jaren vooringevuld totdat het formulier wijzigt."
 
@@ -2963,6 +3020,9 @@ msgstr "Financiering"
 
 msgid "Nominal interest rate"
 msgstr "Nominale rente"
+
+msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
+msgstr "Geen rentecertificaat ingevoerd voor %1$d. Voer de jaarwaarden in onder %2$s."
 
 msgid "No receipts."
 msgstr "Geen bewijsstukken."

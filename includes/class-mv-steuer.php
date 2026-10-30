@@ -310,7 +310,7 @@ class Mietv_Steuer {
 		$csv = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_steuer_csv&jahr=' . $jahr ), 'mietv_steuer_csv' );
 
 		echo '<div class="wrap mv-wrap"><h1>Steuer – Anlage V ' . (int) $jahr . '</h1>';
-		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_steuer"><label>' . esc_html__( 'Tax year:', 'mietfux' ) . ' <select name="jahr" onchange="this.form.submit()">';
+		echo '<form method="get" class="mv-filter"><input type="hidden" name="page" value="mietv_steuer"><label>' . esc_html__( 'Tax year:', 'mietfux' ) . ' <select name="jahr" data-autosubmit="1">';
 		foreach ( self::jahre() as $j ) {
 			printf( '<option value="%1$d"%2$s>%1$d</option>', (int) $j, selected( (int) $jahr, (int) $j, false ) );
 		}
@@ -394,11 +394,11 @@ class Mietv_Steuer {
 			'einnahmen_miete'   => esc_html__( 'Rental income (excl. recoverable charges)', 'mietfux' ),
 			'einnahmen_umlagen' => esc_html__( 'Recoverable charges received', 'mietfux' ),
 		] + array_filter( Mietv_DB::anlage_v_gruppen(), fn( $k ) => $k !== 'einnahmen', ARRAY_FILTER_USE_KEY ) + [
-			'summe_wk' => 'Summe Werbungskosten',
-			'ergebnis' => 'Überschuss / Verlust',
+			'summe_wk' => __( 'Sum of expenses', 'mietfux' ),
+			'ergebnis' => __( 'Surplus / loss', 'mietfux' ),
 		];
 		foreach ( $felder as $g => $label ) {
-			printf( '<tr><th>%s</th><td><input type="text" name="zeile[%s]" value="%s" class="small-text" placeholder="Zeile"></td></tr>', esc_html( $label ), esc_attr( $g ), esc_attr( $zeilen[ $g ] ?? '' ) );
+			printf( '<tr><th>%s</th><td><input type="text" name="zeile[%s]" value="%s" class="small-text" placeholder="' . esc_attr__( 'Line', 'mietfux' ) . '"></td></tr>', esc_html( $label ), esc_attr( $g ), esc_attr( $zeilen[ $g ] ?? '' ) );
 		}
 		echo '</tbody></table>';
 		submit_button( 'Zeilen speichern', 'secondary' );
@@ -459,12 +459,12 @@ class Mietv_Steuer {
 					esc_html( mietv_eur( $d->zinsen ) ),
 					esc_html( mietv_eur( $d->tilgung ) ),
 					esc_html( mietv_eur( $d->restschuld ) ),
-					$url ? '<a href="' . esc_url( $url ) . '" target="_blank">öffnen</a>' : '–'
+					$url ? '<a href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'open', 'mietfux' ) . '</a>' : '–'
 				);
 			}
 			echo '</tbody></table>';
 		} else {
-			echo '<p>Keine Zinsbescheinigung für ' . (int) $jahr . ' erfasst. Jahreswerte unter <a href="' . esc_url( admin_url( 'admin.php?page=mietv_darlehen_jahre' ) ) . '">Zinsbescheinigungen</a> eintragen.</p>';
+			printf( '<p>' . /* translators: %1$d: Jahr, %2$s: Link */ esc_html__( 'No interest certificate entered for %1$d. Enter annual values under %2$s.', 'mietfux' ) . '</p>', (int) $jahr, '<a href="' . esc_url( admin_url( 'admin.php?page=mietv_darlehen_jahre' ) ) . '">' . esc_html__( 'Interest certificates', 'mietfux' ) . '</a>' );
 		}
 
 		// Belegliste
@@ -481,7 +481,7 @@ class Mietv_Steuer {
 				esc_html( mietv_eur( $b->betrag ) ),
 				esc_html( mietv_eur( $b->anteil ) ),
 				$b->verteilt ? ' <small>(' . (int) $b->anteil_nr . '/' . (int) $b->verteilung_jahre . ')</small>' : '',
-				$url ? '<a href="' . esc_url( $url ) . '" target="_blank">öffnen</a>' : '–'
+				$url ? '<a href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'open', 'mietfux' ) . '</a>' : '–'
 			);
 		}
 		if ( ! $belege ) {

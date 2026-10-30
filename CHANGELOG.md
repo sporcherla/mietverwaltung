@@ -2,6 +2,12 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.0.4 – Sechs weitere Sprachen
+
+- Oberfläche zusätzlich auf Französisch, Spanisch, Italienisch, Niederländisch, Polnisch und Portugiesisch (`languages/mietfux-xx_XX.po/.mo`, je 1.010 Texte, Platzhalter maschinell geprüft).
+- Verbliebene fest verdrahtete deutsche Oberflächentexte (Schaltflächen der Abrechnung, Validierungsmeldungen, Kautionskacheln, Hinweise) sind jetzt übersetzbar; letzte `onchange`-Attribute nach `admin.js` verlagert.
+- Unverändert deutsch: Rechtstexte und Schreiben (Mietvertrag, Hausordnung, Mahnungen, Mieterhöhung).
+
 ## 1.0.3 – Quellsprache Englisch, Deutsch als Übersetzung
 
 - Alle übersetzbaren Texte im Code sind jetzt englisch (Konvention von WordPress.org/translate.wordpress.org). Die vollständige deutsche Fassung liegt als `languages/mietfux-de_DE.po/.mo` bei und wird über `load_plugin_textdomain()` geladen – deutsche Installationen sehen exakt die bisherigen Texte. Rechtstexte (Mietvertrag, Hausordnung, Merkblatt, BetrKV-Katalog) bleiben unverändert deutsch.
