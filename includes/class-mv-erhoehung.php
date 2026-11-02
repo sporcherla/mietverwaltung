@@ -190,7 +190,7 @@ class Mietv_Erhoehung {
 
 		$mvs   = Mietv_Soll::alle_mv( true );
 		$in    = isset( $_POST['mietv_erh_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_erh_nonce'] ?? '' ) ), 'mietv_erh' ) ? self::eingaben() : null;
-		$mv_id = ( isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : (int) ( $mvs[0]->id ?? 0 ) );
+		$mv_id = isset( $_POST['mv_id'] ) ? (int) $_POST['mv_id'] : ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : (int) ( $mvs[0]->id ?? 0 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
 		$mv    = null;
 		foreach ( $mvs as $m ) {
 			if ( (int) $m->id === $mv_id ) {
@@ -198,7 +198,14 @@ class Mietv_Erhoehung {
 			}
 		}
 		$flaeche = $mv ? (float) $wpdb->get_var( $wpdb->prepare( 'SELECT flaeche FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) ) : 0;
-		$art     = $in['art'] ?? 'vergleich';
+		$art     = $in['art'] ?? ( isset( $_GET['art'] ) ? sanitize_key( $_GET['art'] ) : 'vergleich' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		if ( ! $in && isset( $_GET['vpi_alt'], $_GET['vpi_neu'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Vorbelegung aus der VPI-Seite, keine Datenänderung.
+			$in = [
+				'art'     => $art,
+				'vpi_alt' => mietv_to_float( sanitize_text_field( wp_unslash( $_GET['vpi_alt'] ) ) ),
+				'vpi_neu' => mietv_to_float( sanitize_text_field( wp_unslash( $_GET['vpi_neu'] ) ) ),
+			];
+		}
 
 		echo '<form method="post" class="mv-form">';
 		wp_nonce_field( 'mietv_erh', 'mietv_erh_nonce' );

@@ -107,6 +107,11 @@ class Mietv_Hinweise {
 			$h = array_merge( $h, Mietv_Dauerbelege::hinweise() );
 		}
 
+		// Indexmieten
+		if ( class_exists( 'Mietv_Vpi' ) ) {
+			$h = array_merge( $h, Mietv_Vpi::hinweise() );
+		}
+
 		// Zwei-Faktor-Anmeldung
 		if ( class_exists( 'Mietv_Zfa' ) ) {
 			$h = array_merge( $h, Mietv_Zfa::hinweise() );

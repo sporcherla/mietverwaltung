@@ -1294,6 +1294,7 @@ class Mietv_Admin {
 			'__hausgeld',
 			'__dauerbelege',
 			'__erhoehung',
+			'__vpi',
 			'__mahnung',
 			'##' . esc_html__( 'Year end', 'mietfux' ),
 			'zaehler',
@@ -1321,6 +1322,7 @@ class Mietv_Admin {
 			'__mietvertrag'   => esc_html__( 'Tenancy agreement', 'mietfux' ),
 			'darlehen_jahre'  => esc_html__( 'Interest certificate', 'mietfux' ),
 			'bank_regeln'     => esc_html__( 'Bank rules', 'mietfux' ),
+			'__vpi'           => esc_html__( 'Index / CPI', 'mietfux' ),
 			'__hausgeld'      => esc_html__( 'Owners’ fee', 'mietfux' ),
 		];
 		$ico         = fn( string $key, string $label ) => '<span class="dashicons dashicons-' . esc_attr( $icons[ $key ] ?? 'marker' ) . '"></span> ' . ( $kurz[ $key ] ?? $label );
@@ -1337,6 +1339,7 @@ class Mietv_Admin {
 			'__steuer'         => [ esc_html__( 'Tax (Anlage V)', 'mietfux' ), [ 'Mietv_Steuer', 'page' ] ],
 			'__datenschutz'    => [ esc_html__( 'Data protection', 'mietfux' ), [ 'Mietv_Datenschutz', 'page' ] ],
 			'__protokoll'      => [ esc_html__( 'Activity log', 'mietfux' ), [ 'Mietv_Protokoll', 'page' ] ],
+			'__vpi'            => [ esc_html__( 'Consumer price index (CPI)', 'mietfux' ), [ 'Mietv_Vpi', 'page' ] ],
 			'__einstellungen'  => [ __( 'Settings & backup', 'mietfux' ), [ 'Mietv_Einstellungen', 'page' ] ],
 			'__hilfe'          => [ esc_html__( 'Help', 'mietfux' ), [ 'Mietv_Hilfe', 'page' ] ],
 			'__assistent'      => [ esc_html__( 'Setup wizard', 'mietfux' ), [ 'Mietv_Assistent', 'page' ] ],
@@ -1374,6 +1377,7 @@ class Mietv_Admin {
 			'__hausgeld'        => 'building',
 			'__dauerbelege'     => 'update',
 			'__protokoll'       => 'backup',
+			'__vpi'             => 'chart-line',
 			'__erhoehung'       => 'chart-line',
 			'__mahnung'         => 'megaphone',
 			'zaehler'           => 'performance',

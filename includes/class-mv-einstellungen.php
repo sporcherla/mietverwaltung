@@ -48,6 +48,8 @@ class Mietv_Einstellungen {
 			'zfa_pflicht'                 => '0',
 			'versand_kopie'               => '1',
 			'versand_signatur'            => '',
+			'vpi_user'                    => '',
+			'vpi_pass'                    => '',
 		];
 	}
 
@@ -201,6 +203,11 @@ class Mietv_Einstellungen {
 			]
 		);
 		self::textarea( 'versand_signatur', __( 'Email signature', 'mietfux' ), $o, __( 'Appended below the greeting; empty = landlord name and address.', 'mietfux' ) );
+		echo '</tbody></table>';
+
+		echo '<h2>' . esc_html__( 'Consumer price index (Destatis)', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		self::text( 'vpi_user', __( 'GENESIS-Online user name', 'mietfux' ), $o, __( 'Optional; without credentials the guest access (GAST) is used.', 'mietfux' ) );
+		self::text( 'vpi_pass', __( 'GENESIS-Online password', 'mietfux' ), $o );
 		echo '</tbody></table>';
 
 		echo '<h2>' . esc_html__( 'Uninstall', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
