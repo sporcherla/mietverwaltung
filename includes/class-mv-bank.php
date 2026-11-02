@@ -222,6 +222,7 @@ class Mietv_Bank {
 			$r['mv_id']        = 0;
 			$r['kostenart_id'] = 0;
 			$r['objekt_id']    = 0;
+			$r['dauerbeleg_id'] = 0;
 			$r['monat']        = self::monat_aus_zweck( $r['zweck'], $r['datum'] );
 			$text              = mb_strtolower( $r['name'] . ' ' . $r['zweck'] );
 
@@ -263,6 +264,16 @@ class Mietv_Bank {
 						$r['objekt_id'] = (int) $p->objekt_id;
 						$r['grund']     = __( 'Property manager (owners’ association fee)', 'mietfux' );
 						break;
+					}
+				}
+				if ( $r['typ'] === 'beleg' && class_exists( 'Mietv_Dauerbelege' ) ) {
+					$db = Mietv_Dauerbelege::erkennen( $r, $text );
+					if ( $db ) {
+						$r['typ']           = 'dauerbeleg';
+						$r['dauerbeleg_id'] = (int) $db->id;
+						$r['objekt_id']     = (int) $db->objekt_id;
+						$r['kostenart_id']  = (int) $db->kostenart_id;
+						$r['grund']         = sprintf( /* translators: %s: Bezeichnung */ __( 'Recurring expense “%s”', 'mietfux' ), $db->bezeichnung );
 					}
 				}
 			}
@@ -318,6 +329,13 @@ class Mietv_Bank {
 						]
 					);
 					$ziel = [ 'zahlung', $wpdb->insert_id ];
+				} elseif ( $typ === 'dauerbeleg' && ! empty( $z['dauerbeleg_id'] ) && $r['betrag'] < 0 ) {
+					$d   = Mietv_Dauerbelege::get( (int) $z['dauerbeleg_id'] );
+					$bid = $d ? Mietv_Dauerbelege::buchen_aus_bank( $d, $r['datum'], abs( (float) $r['betrag'] ) ) : 0;
+					if ( ! $bid ) {
+						continue;
+					}
+					$ziel = [ 'beleg', $bid ];
 				} elseif ( $typ === 'hausgeld' && ! empty( $z['objekt_hg'] ) && $r['betrag'] < 0 ) {
 					$monat = preg_match( '/^\d{4}-\d{2}$/', $z['monat_hg'] ?? '' ) ? $z['monat_hg'] . '-01' : $r['monat'];
 					$bid   = Mietv_Hausgeld::buchen_monat( (int) $z['objekt_hg'], $monat, $r['datum'], abs( (float) $r['betrag'] ) );
@@ -407,6 +425,10 @@ class Mietv_Bank {
 		$opt_mv        = Mietv_Admin::opt_mv();
 		$opt_ka        = Mietv_Admin::opt_kostenarten();
 		$opt_ob        = Mietv_Admin::opt_objekte();
+		$opt_db        = [];
+		foreach ( class_exists( 'Mietv_Dauerbelege' ) ? Mietv_Dauerbelege::alle( true ) : [] as $d ) {
+			$opt_db[ (int) $d->id ] = $d->bezeichnung . ' (' . ( $opt_ob[ $d->objekt_id ] ?? '#' . $d->objekt_id ) . ')';
+		}
 		$erstes_objekt = array_key_first( $opt_ob );
 
 		echo '<form method="post">';
@@ -415,11 +437,11 @@ class Mietv_Bank {
 		echo '<table class="wp-list-table widefat striped mv-bank"><thead><tr><th class="check-column"><input type="checkbox" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Amount', 'mietfux' ) . '</th><th>' . esc_html__( 'Name / reference', 'mietfux' ) . '</th><th>' . esc_html__( 'Create as', 'mietfux' ) . '</th><th>' . esc_html__( 'Assignment', 'mietfux' ) . '</th><th>' . esc_html__( 'Remember rule', 'mietfux' ) . '</th></tr></thead><tbody>';
 		foreach ( $rows as $i => $r ) {
 			$dis     = $r['bereits'] ? ' disabled' : '';
-			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] || $r['typ'] === 'hausgeld' ) ? ' checked' : '';
+			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] || $r['typ'] === 'hausgeld' || $r['typ'] === 'dauerbeleg' ) ? ' checked' : '';
 			echo '<tr' . ( $r['bereits'] ? ' style="opacity:.5"' : '' ) . '>';
 			printf( '<td><input type="checkbox" name="zeile[%d][ok]" value="1"%s%s></td>', (int) $i, esc_attr( $checked ), esc_attr( $dis ) );
 			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mietv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mietv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br><em>' . esc_html__( 'already imported', 'mietfux' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
-			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Rent payment', 'mietfux' ) . '</option><option value="beleg"%s>' . esc_html__( 'Receipt', 'mietfux' ) . '</option><option value="hausgeld"%s>' . esc_html__( 'Owners’ fee', 'mietfux' ) . '</option><option value="ignorieren"%s>–</option></select></td>', (int) $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'hausgeld', false ), selected( $r['typ'], 'ignorieren', false ) );
+			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Rent payment', 'mietfux' ) . '</option><option value="beleg"%s>' . esc_html__( 'Receipt', 'mietfux' ) . '</option><option value="hausgeld"%s>' . esc_html__( 'Owners’ fee', 'mietfux' ) . '</option><option value="dauerbeleg"%s>' . esc_html__( 'Recurring expense', 'mietfux' ) . '</option><option value="ignorieren"%s>–</option></select></td>', (int) $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'hausgeld', false ), selected( $r['typ'], 'dauerbeleg', false ), selected( $r['typ'], 'ignorieren', false ) );
 			echo '<td>';
 			// Zahlung
 			printf( '<div class="mv-z-zahlung"><select name="zeile[%d][mv_id]"><option value="">' . esc_html__( '– tenancy –', 'mietfux' ) . '</option>', (int) $i );
@@ -443,6 +465,12 @@ class Mietv_Bank {
 				printf( '<option value="%d"%s>%s</option>', (int) $k, selected( $r['objekt_id'] ?: $erstes_objekt, (int) $k, false ), esc_html( $v ) );
 			}
 			printf( '</select> <input type="month" name="zeile[%d][monat_hg]" value="%s"></div>', (int) $i, esc_attr( substr( $r['monat'], 0, 7 ) ) );
+			// Dauerbeleg
+			printf( '<div class="mv-z-dauerbeleg"><select name="zeile[%d][dauerbeleg_id]"><option value="">' . esc_html__( '– recurring expense –', 'mietfux' ) . '</option>', (int) $i );
+			foreach ( $opt_db as $k => $v ) {
+				printf( '<option value="%d"%s>%s</option>', (int) $k, selected( $r['dauerbeleg_id'] ?? 0, (int) $k, false ), esc_html( $v ) );
+			}
+			echo '</select></div>';
 			echo '</td>';
 			printf( '<td><label><input type="checkbox" name="zeile[%d][regel]" value="1"> „%s“</label></td>', (int) $i, esc_html( mb_substr( $r['name'], 0, 25 ) ) );
 			echo '</tr>';

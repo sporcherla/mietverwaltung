@@ -102,6 +102,11 @@ class Mietv_Hinweise {
 			}
 		}
 
+		// Dauerbelege: fällige, nicht gebuchte Termine
+		if ( class_exists( 'Mietv_Dauerbelege' ) ) {
+			$h = array_merge( $h, Mietv_Dauerbelege::hinweise() );
+		}
+
 		// Zwei-Faktor-Anmeldung
 		if ( class_exists( 'Mietv_Zfa' ) ) {
 			$h = array_merge( $h, Mietv_Zfa::hinweise() );

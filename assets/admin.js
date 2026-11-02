@@ -76,10 +76,11 @@
 			var row = sel.closest( 'tr' );
 			if ( ! row ) { return; }
 			var sync = function () {
-				var z = row.querySelector( '.mv-z-zahlung' ), b = row.querySelector( '.mv-z-beleg' ), h = row.querySelector( '.mv-z-hausgeld' );
+				var z = row.querySelector( '.mv-z-zahlung' ), b = row.querySelector( '.mv-z-beleg' ), h = row.querySelector( '.mv-z-hausgeld' ), d = row.querySelector( '.mv-z-dauerbeleg' );
 				if ( z ) { z.style.display = sel.value === 'zahlung' ? '' : 'none'; }
 				if ( b ) { b.style.display = sel.value === 'beleg' ? '' : 'none'; }
 				if ( h ) { h.style.display = sel.value === 'hausgeld' ? '' : 'none'; }
+				if ( d ) { d.style.display = sel.value === 'dauerbeleg' ? '' : 'none'; }
 			};
 			sel.addEventListener( 'change', sync );
 			sync();

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Mietv_DB {
 
-	const DB_VERSION = '14';
+	const DB_VERSION = '15';
 
 	public static function install(): void {
 		self::create_tables();
@@ -326,11 +326,13 @@ class Mietv_DB {
   par35a varchar(20) NOT NULL DEFAULT '',
   lohnanteil decimal(10,2) NOT NULL DEFAULT 0,
   hausgeld_id bigint(20) unsigned DEFAULT NULL,
+  dauerbeleg_id bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY  (id),
   KEY objekt_id (objekt_id),
   KEY kostenart_id (kostenart_id),
   KEY steuerjahr (steuerjahr),
-  KEY hausgeld_id (hausgeld_id)
+  KEY hausgeld_id (hausgeld_id),
+  KEY dauerbeleg_id (dauerbeleg_id)
 ) $charset;";
 
 		// Anlagegüter: Gebäude (mit Grund-und-Boden-Anteil) und bewegliche Wirtschaftsgüter
@@ -587,6 +589,12 @@ class Mietv_DB {
   KEY objekt_id (objekt_id),
   KEY jahr (jahr)
 ) $charset;";
+
+		foreach ( [ 'Mietv_Dauerbelege', 'Mietv_Protokoll', 'Mietv_Versand', 'Mietv_Vpi' ] as $klasse ) {
+			if ( class_exists( $klasse ) && method_exists( $klasse, 'tabellen' ) ) {
+				$sql = array_merge( $sql, $klasse::tabellen( $charset ) );
+			}
+		}
 
 		foreach ( $sql as $statement ) {
 			dbDelta( $statement );
