@@ -265,7 +265,7 @@ class Mietv_Erhoehung {
 		if ( $hist ) {
 			echo '<h2>' . esc_html__( 'Previous increases', 'mietfux' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Received', 'mietfux' ) . '</th><th>' . esc_html__( 'Tenants', 'mietfux' ) . '</th><th>' . esc_html__( 'Type', 'mietfux' ) . '</th><th>' . esc_html__( 'Old', 'mietfux' ) . '</th><th>' . esc_html__( 'New', 'mietfux' ) . '</th><th>' . esc_html__( 'Effective from', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 			foreach ( $hist as $h ) {
-				printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a href="%s" target="_blank">' . esc_html__( 'Letter', 'mietfux' ) . '</a></td></tr>', esc_html( mietv_date( $h->zugang ) ), esc_html( $h->nachname ), esc_html( $h->art ), esc_html( mietv_eur( $h->alt ) ), esc_html( mietv_eur( $h->neu ) ), esc_html( mietv_date( $h->wirksam_ab ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_erhoehung_brief&id=' . $h->id ), 'mietv_erh_brief_' . $h->id ) ) );
+				printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a href="%s" target="_blank">' . esc_html__( 'Letter', 'mietfux' ) . '</a> %s</td></tr>', esc_html( mietv_date( $h->zugang ) ), esc_html( $h->nachname ), esc_html( $h->art ), esc_html( mietv_eur( $h->alt ) ), esc_html( mietv_eur( $h->neu ) ), esc_html( mietv_date( $h->wirksam_ab ) ), esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_erhoehung_brief&id=' . $h->id ), 'mietv_erh_brief' ) ), wp_kses( Mietv_Versand::button( 'erhoehung', (int) $h->id, (int) $h->mv_id ), mietv_kses_html_tags() ) );
 			}
 			echo '</tbody></table>';
 		}
@@ -276,12 +276,27 @@ class Mietv_Erhoehung {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
-		global $wpdb;
 		check_admin_referer( 'mietv_erh_brief' );
 		Mietv_PDF::ablegen_aus_request( 'mietv_erh_brief' );
-		$id     = ( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 );
-		$e      = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_erhoehungen WHERE id = %d', $id ) );
-		$mv     = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $e->mv_id ) );
+		$b = self::body( isset( $_GET['id'] ) ? (int) $_GET['id'] : 0 );
+		if ( is_wp_error( $b ) ) {
+			wp_die( esc_html( $b->get_error_message() ) );
+		}
+		Mietv_Brief::ausgeben( $b['titel'], $b['empfaenger'], $b['betreff'], $b['body'], $b['datum'], true, [ $b['objekt_id'], $b['mv_id'], 'sonstiges', 'Mieterhöhung ' . $b['datum'], false ] );
+	}
+
+	/**
+	 * Brieftext der Mieterhöhung für Ausgabe und E-Mail-Versand (Mietv_Versand).
+	 *
+	 * @return array|WP_Error [ betreff, body, empfaenger, titel, datum, mv_id, objekt_id, mieter_sichtbar ]
+	 */
+	public static function body( int $id ) {
+		global $wpdb;
+		$e  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_erhoehungen WHERE id = %d', $id ) );
+		$mv = $e ? $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse WHERE id = %d', $e->mv_id ) ) : null;
+		if ( ! $e || ! $mv ) {
+			return new WP_Error( 'mietv_not_found', __( 'Not found.', 'mietfux' ) );
+		}
 		$k      = Mietv_Soll::konditionen( (int) $mv->id, $e->wirksam_ab );
 		$gesamt = $e->neu + ( $k ? (float) $k->bk_vz + (float) $k->hk_vz : 0 );
 		$begr   = explode( "\n", $e->begruendung );
@@ -310,6 +325,15 @@ class Mietv_Erhoehung {
 			$b      .= '<p>' . esc_html__( 'as discussed or contractually agreed, the net base rent is', 'mietfux' ) . ' <strong>' . esc_html( sprintf( /* translators: %s: Datum */ __( 'from %s', 'mietfux' ), mietv_date( $e->wirksam_ab ) ) ) . '</strong> <strong>' . esc_html( mietv_eur( $e->neu ) ) . '</strong> ' . esc_html( $rest ) . '</p><p>' . esc_html__( 'Please adjust your standing order accordingly.', 'mietfux' ) . '</p>';
 		}
 		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
-		Mietv_Brief::ausgeben( 'Mieterhoehung ' . $e->zugang, Mietv_Brief::empfaenger( $mv ), $betreff, $b, mietv_date( $e->zugang ), true, [ $objekt_id, $mv->id, 'sonstiges', 'Mieterhöhung ' . mietv_date( $e->zugang ), false ] );
+		return [
+			'betreff'         => $betreff,
+			'body'            => $b,
+			'empfaenger'      => Mietv_Brief::empfaenger( $mv ),
+			'titel'           => 'Mieterhoehung ' . $e->zugang,
+			'datum'           => mietv_date( $e->zugang ),
+			'mv_id'           => (int) $mv->id,
+			'objekt_id'       => $objekt_id,
+			'mieter_sichtbar' => false,
+		];
 	}
 }

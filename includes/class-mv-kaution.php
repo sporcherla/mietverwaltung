@@ -205,7 +205,7 @@ class Mietv_Kaution {
 		);
 
 		$u = wp_nonce_url( admin_url( 'admin-post.php?action=mietv_kaution_abrechnung&mv_id=' . $mv_id ), 'mietv_kaution_abr' );
-		printf( '<p><a href="%s" target="_blank" class="button%s">' . esc_html__( 'Deposit settlement (PDF)', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( '… file', 'mietfux' ) . '</a>%s</p>', esc_url( $u ), $beendet ? ' button-primary' : '', esc_url( $u ), $beendet ? '' : ' <span class="description">' . esc_html__( 'Tenancy still running – settlement only after return of the flat.', 'mietfux' ) . '</span>' );
+		printf( '<p><a href="%s" target="_blank" class="button%s">' . esc_html__( 'Deposit settlement (PDF)', 'mietfux' ) . '</a> <a href="%s&ablegen=1" target="_blank" class="button">' . esc_html__( '… file', 'mietfux' ) . '</a>%s</p>', esc_url( $u ), $beendet ? ' button-primary' : '', esc_url( $u ), $beendet ? ' ' . wp_kses( Mietv_Versand::button( 'kaution', $mv_id, $mv_id ), mietv_kses_html_tags() ) : ' <span class="description">' . esc_html__( 'Tenancy still running – settlement only after return of the flat.', 'mietfux' ) . '</span>' );
 		echo '</div>';
 	}
 
@@ -213,18 +213,30 @@ class Mietv_Kaution {
 		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
-		global $wpdb;
 		check_admin_referer( 'mietv_kaution_abr' );
 		Mietv_PDF::ablegen_aus_request( 'mietv_kaution_abr' );
-		$mv_id = ( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
-		$mv    = null;
+		$b = self::body( isset( $_GET['mv_id'] ) ? (int) $_GET['mv_id'] : 0 );
+		if ( is_wp_error( $b ) ) {
+			wp_die( esc_html( $b->get_error_message() ) );
+		}
+		Mietv_Brief::ausgeben( $b['titel'], $b['empfaenger'], $b['betreff'], $b['body'], null, true, [ $b['objekt_id'], $b['mv_id'], 'sonstiges', 'Kautionsabrechnung', true ] );
+	}
+
+	/**
+	 * Brieftext der Kautionsabrechnung für Ausgabe und E-Mail-Versand (Mietv_Versand).
+	 *
+	 * @return array|WP_Error [ betreff, body, empfaenger, titel, datum, mv_id, objekt_id, mieter_sichtbar ]
+	 */
+	public static function body( int $mv_id ) {
+		global $wpdb;
+		$mv = null;
 		foreach ( Mietv_Soll::alle_mv() as $m ) {
 			if ( (int) $m->id === $mv_id ) {
 				$mv = $m;
 			}
 		}
 		if ( ! $mv ) {
-			wp_die( esc_html__( 'Not found.', 'mietfux' ) );
+			return new WP_Error( 'mietv_not_found', __( 'Not found.', 'mietfux' ) );
 		}
 		$k          = self::konto( $mv_id );
 		$op         = Mietv_Soll::op_liste( $mv );
@@ -249,6 +261,15 @@ class Mietv_Kaution {
 		}
 		$b        .= '<p class="hinweis">' . esc_html__( 'This settlement discharges all claims arising from the deposit. An outstanding service charge statement for the last year of use remains reserved unless already taken into account.', 'mietfux' ) . '</p>';
 		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
-		Mietv_Brief::ausgeben( 'Kautionsabrechnung ' . $mv->nachname, Mietv_Brief::empfaenger( $mv ), 'Abrechnung der Mietkaution', $b, null, true, [ $objekt_id, $mv_id, 'sonstiges', 'Kautionsabrechnung', true ] );
+		return [
+			'betreff'         => 'Abrechnung der Mietkaution',
+			'body'            => $b,
+			'empfaenger'      => Mietv_Brief::empfaenger( $mv ),
+			'titel'           => 'Kautionsabrechnung ' . $mv->nachname,
+			'datum'           => null,
+			'mv_id'           => $mv_id,
+			'objekt_id'       => $objekt_id,
+			'mieter_sichtbar' => true,
+		];
 	}
 }

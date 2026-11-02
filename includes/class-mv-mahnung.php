@@ -62,9 +62,9 @@ class Mietv_Mahnung {
 
 		$hist = $wpdb->get_results( 'SELECT h.*, m.nachname, m.vorname FROM ' . $wpdb->prefix . 'mv_mahnungen h JOIN ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv ON mv.id = h.mv_id JOIN ' . $wpdb->prefix . 'mv_mieter m ON m.id = mv.mieter_id ORDER BY h.datum DESC LIMIT 50' );
 		if ( $hist ) {
-			echo '<h2>' . esc_html__( 'History', 'mietfux' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Tenants', 'mietfux' ) . '</th><th>' . esc_html__( 'Level', 'mietfux' ) . '</th><th>' . esc_html__( 'Amount', 'mietfux' ) . '</th><th>' . esc_html__( 'Deadline', 'mietfux' ) . '</th><th>' . esc_html__( 'Email', 'mietfux' ) . '</th></tr></thead><tbody>';
+			echo '<h2>' . esc_html__( 'History', 'mietfux' ) . '</h2><table class="wp-list-table widefat striped"><thead><tr><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Tenants', 'mietfux' ) . '</th><th>' . esc_html__( 'Level', 'mietfux' ) . '</th><th>' . esc_html__( 'Amount', 'mietfux' ) . '</th><th>' . esc_html__( 'Deadline', 'mietfux' ) . '</th><th>' . esc_html__( 'Email', 'mietfux' ) . '</th><th></th></tr></thead><tbody>';
 			foreach ( $hist as $h ) {
-				printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( mietv_date( $h->datum ) ), esc_html( $h->nachname . ', ' . $h->vorname ), esc_html( self::stufen()[ $h->stufe ] ?? $h->stufe ), esc_html( mietv_eur( $h->betrag ) ), esc_html( mietv_date( $h->frist ) ), $h->per_email ? 'ja' : '–' );
+				printf( '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( mietv_date( $h->datum ) ), esc_html( $h->nachname . ', ' . $h->vorname ), esc_html( self::stufen()[ $h->stufe ] ?? $h->stufe ), esc_html( mietv_eur( $h->betrag ) ), esc_html( mietv_date( $h->frist ) ), $h->per_email ? 'ja' : '–', wp_kses( Mietv_Versand::button( 'mahnung', (int) $h->id, (int) $h->mv_id ), mietv_kses_html_tags() ) );
 			}
 			echo '</tbody></table>';
 		}
@@ -77,22 +77,71 @@ class Mietv_Mahnung {
 		}
 		global $wpdb;
 		check_admin_referer( 'mietv_mahnung' );
-		$mv_id = ( isset( $_GET['mv'] ) ? (int) $_GET['mv'] : 0 );
-		$stufe = max( 1, min( 3, ( isset( $_GET['stufe'] ) ? (int) $_GET['stufe'] : 0 ) ) );
-		$mv    = null;
-		foreach ( Mietv_Soll::alle_mv() as $m ) {
-			if ( (int) $m->id === $mv_id ) {
-				$mv = $m;
-			}
-		}
+		$mv_id     = ( isset( $_GET['mv'] ) ? (int) $_GET['mv'] : 0 );
+		$stufe     = max( 1, min( 3, ( isset( $_GET['stufe'] ) ? (int) $_GET['stufe'] : 0 ) ) );
+		$per_email = ! empty( $_GET['email'] );
+		$mv        = self::mv( $mv_id );
 		if ( ! $mv ) {
 			wp_die( esc_html__( 'Tenancy not found.', 'mietfux' ) );
 		}
+		$op    = Mietv_Soll::op_liste( $mv );
+		$tage  = (int) Mietv_Einstellungen::get( 'mahn_tage_' . $stufe, 7 );
+		$frist = gmdate( 'Y-m-d', strtotime( '+' . $tage . ' days' ) );
+		$wpdb->insert(
+			mietv_table( 'mahnungen' ),
+			[
+				'mv_id'     => $mv_id,
+				'stufe'     => $stufe,
+				'datum'     => current_time( 'Y-m-d' ),
+				'betrag'    => -$op['saldo'],
+				'frist'     => $frist,
+				'per_email' => $per_email ? 1 : 0,
+			]
+		);
+		$id = (int) $wpdb->insert_id;
+
+		$b = self::body( $id );
+		if ( is_wp_error( $b ) ) {
+			wp_die( esc_html( $b->get_error_message() ) );
+		}
+		$pdf = Mietv_Brief::pdf( $b['empfaenger'], $b['betreff'], $b['body'], $b['datum'] );
+		$att = Mietv_PDF::ablegen( $pdf, $b['titel'] . '.pdf', $b['objekt_id'], $mv_id, 'sonstiges', $b['titel'] . ' – ' . $mv->nachname, false );
+
+		if ( $per_email ) {
+			Mietv_Versand::senden( $mv_id, 'mahnung', $id, $b['betreff'], Mietv_Versand::standardtext( 'mahnung', $b['betreff'] ), $pdf, $b['titel'] . '.pdf', Mietv_Versand::dokument_id( $att ) );
+		}
+
+		Mietv_Brief::ausgeben( self::stufen()[ $stufe ], $b['empfaenger'], $b['betreff'], $b['body'], $b['datum'] );
+	}
+
+	/** Mietverhältnis (mit Mieter-/Objektdaten) aus Mietv_Soll::alle_mv(). */
+	private static function mv( int $mv_id ): ?object {
+		foreach ( Mietv_Soll::alle_mv() as $m ) {
+			if ( (int) $m->id === $mv_id ) {
+				return $m;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Brieftext einer gespeicherten Mahnung für Ausgabe und E-Mail-Versand (Mietv_Versand).
+	 * Die Rückstandstabelle wird aus dem aktuellen Mietkonto gebildet.
+	 *
+	 * @return array|WP_Error [ betreff, body, empfaenger, titel, datum, mv_id, objekt_id, mieter_sichtbar ]
+	 */
+	public static function body( int $id ) {
+		global $wpdb;
+		$m  = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mahnungen WHERE id = %d', $id ) );
+		$mv = $m ? self::mv( (int) $m->mv_id ) : null;
+		if ( ! $m || ! $mv ) {
+			return new WP_Error( 'mietv_not_found', __( 'Not found.', 'mietfux' ) );
+		}
+		$stufe      = max( 1, min( 3, (int) $m->stufe ) );
+		$frist      = (string) $m->frist;
 		$op         = Mietv_Soll::op_liste( $mv );
 		$rueckstand = -$op['saldo'];
-		$tage       = (int) Mietv_Einstellungen::get( 'mahn_tage_' . $stufe, 7 );
-		$frist      = gmdate( 'Y-m-d', strtotime( '+' . $tage . ' days' ) );
-		$k          = Mietv_Soll::konditionen( $mv_id, current_time( 'Y-m-01' ) );
+		$k          = Mietv_Soll::konditionen( (int) $mv->id, current_time( 'Y-m-01' ) );
 		$miete      = $k ? (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz : 0;
 
 		// Offene Monate
@@ -127,39 +176,16 @@ class Mietv_Mahnung {
 		}
 		$text .= Mietv_Brief::bankverbindung();
 
-		$per_email = ! empty( $_GET['email'] );
-		$wpdb->insert(
-			mietv_table( 'mahnungen' ),
-			[
-				'mv_id'     => $mv_id,
-				'stufe'     => $stufe,
-				'datum'     => current_time( 'Y-m-d' ),
-				'betrag'    => $rueckstand,
-				'frist'     => $frist,
-				'per_email' => $per_email ? 1 : 0,
-			]
-		);
-
 		$objekt_id = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT objekt_id FROM ' . $wpdb->prefix . 'mv_einheiten WHERE id = %d', $mv->einheit_id ) );
-		$titel     = self::stufen()[ $stufe ] . ' ' . current_time( 'Y-m-d' );
-		$pdf       = Mietv_Brief::pdf( Mietv_Brief::empfaenger( $mv ), $betreff, $text );
-		Mietv_PDF::ablegen( $pdf, $titel . '.pdf', $objekt_id, $mv_id, 'sonstiges', $titel . ' – ' . $mv->nachname, false );
-
-		if ( $per_email ) {
-			$mrow  = $wpdb->get_row( $wpdb->prepare( 'SELECT email, p_email FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', $mv->mieter_id ) );
-			$email = $mrow ? array_filter( [ $mrow->email, $mrow->p_email ] ) : [];
-			if ( $email ) {
-				$tmp = wp_tempnam( $titel . '.pdf' );
-				$fs  = Mietv_PDF::filesystem();
-				if ( $fs ) {
-					$fs->put_contents( $tmp, $pdf, FS_CHMOD_FILE );
-				}
-				$plain = wp_strip_all_tags( str_replace( [ '</p>', '</tr>' ], [ "\n\n", "\n" ], $text ) );
-				wp_mail( $email, $betreff, $plain . "\n\n" . Mietv_Einstellungen::get( 'vermieter_name' ) . "\n" . Mietv_Einstellungen::get( 'vermieter_adresse' ), [ 'Reply-To: ' . Mietv_Einstellungen::get( 'vermieter_email' ) ], [ $tmp ] );
-				wp_delete_file( $tmp );
-			}
-		}
-
-		Mietv_Brief::ausgeben( self::stufen()[ $stufe ], Mietv_Brief::empfaenger( $mv ), $betreff, $text );
+		return [
+			'betreff'         => $betreff,
+			'body'            => $text,
+			'empfaenger'      => Mietv_Brief::empfaenger( $mv ),
+			'titel'           => self::stufen()[ $stufe ] . ' ' . $m->datum,
+			'datum'           => mietv_date( $m->datum ),
+			'mv_id'           => (int) $mv->id,
+			'objekt_id'       => $objekt_id,
+			'mieter_sichtbar' => false,
+		];
 	}
 }

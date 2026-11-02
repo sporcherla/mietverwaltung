@@ -1845,6 +1845,8 @@ class Mietv_Admin {
 		$map   = [
 			'saved'       => [ 'success', esc_html__( 'Saved.', 'mietfux' ) ],
 			'deleted'     => [ 'success', esc_html__( 'Deleted.', 'mietfux' ) ],
+			'demo_ok'     => [ 'success', esc_html__( 'Demo data created – have a look around. Delete everything later under Settings & backup → Restore, or start fresh via Uninstall.', 'mietfux' ) ],
+			'demo_fehler' => [ 'error', esc_html__( 'Demo data are only possible on an empty installation.', 'mietfux' ) ],
 			'haschildren' => [ 'error', esc_html__( 'Cannot delete: dependent records still exist.', 'mietfux' ) ],
 			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d rent payment(s) booked.', 'mietfux' ), (int) ( $flash['n'] ?? 0 ) ) ],
 		];

@@ -62,11 +62,14 @@ class Mietv_Assistent {
 			return;
 		}
 		printf(
-			'<div class="notice notice-info"><p><strong>%s</strong> %s <a class="button button-primary" href="%s">%s</a></p></div>',
+			'<div class="notice notice-info"><p><strong>%s</strong> %s <a class="button button-primary" href="%s">%s</a> <a class="button" href="%s" data-confirm="%s">%s</a></p></div>',
 			esc_html__( 'Welcome to Mietfux.', 'mietfux' ),
-			esc_html__( 'The setup wizard creates landlord, property, unit, tenant and tenancy in five steps.', 'mietfux' ),
+			esc_html__( 'The setup wizard creates landlord, property, unit, tenant and tenancy in five steps – or load demo data to explore the plugin.', 'mietfux' ),
 			esc_url( admin_url( 'admin.php?page=' . self::SLUG ) ),
-			esc_html__( 'Start wizard', 'mietfux' )
+			esc_html__( 'Start wizard', 'mietfux' ),
+			esc_url( Mietv_Demo::link() ),
+			esc_attr__( 'Create demo data (a condominium with tenant, one year of payments, receipts, loan and owners’ fee)? Only possible on an empty installation.', 'mietfux' ),
+			esc_html__( 'Load demo data', 'mietfux' )
 		);
 	}
 
