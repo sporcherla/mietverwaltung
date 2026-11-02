@@ -213,6 +213,7 @@ class Mietv_Bank {
 		$mieter = $wpdb->get_results( 'SELECT id, nachname, iban FROM ' . $wpdb->prefix . 'mv_mieter', OBJECT_K );
 		$hashes = $wpdb->get_col( 'SELECT hash FROM ' . $wpdb->prefix . 'mv_bank_import' );
 		$hashes = array_flip( $hashes );
+		$hg     = class_exists( 'Mietv_Hausgeld' ) ? Mietv_Hausgeld::alle_plaene() : [];
 
 		foreach ( $rows as &$r ) {
 			$r['hash']         = self::hash( $r );
@@ -254,6 +255,16 @@ class Mietv_Bank {
 			} else {
 				$r['typ']   = 'beleg';
 				$r['grund'] = __( 'Expense – choose a cost type or skip', 'mietfux' );
+				foreach ( $hg as $p ) {
+					$iban_ok = $p->iban && $r['iban'] && strcasecmp( preg_replace( '/\s+/', '', $p->iban ), $r['iban'] ) === 0;
+					$name_ok = mb_strlen( $p->verwalter ) > 3 && mb_strpos( $text, mb_strtolower( $p->verwalter ) ) !== false;
+					if ( $iban_ok || $name_ok ) {
+						$r['typ']       = 'hausgeld';
+						$r['objekt_id'] = (int) $p->objekt_id;
+						$r['grund']     = __( 'Property manager (owners’ association fee)', 'mietfux' );
+						break;
+					}
+				}
 			}
 		}
 		return $rows;
@@ -307,6 +318,13 @@ class Mietv_Bank {
 						]
 					);
 					$ziel = [ 'zahlung', $wpdb->insert_id ];
+				} elseif ( $typ === 'hausgeld' && ! empty( $z['objekt_hg'] ) && $r['betrag'] < 0 ) {
+					$monat = preg_match( '/^\d{4}-\d{2}$/', $z['monat_hg'] ?? '' ) ? $z['monat_hg'] . '-01' : $r['monat'];
+					$bid   = Mietv_Hausgeld::buchen_monat( (int) $z['objekt_hg'], $monat, $r['datum'], abs( (float) $r['betrag'] ) );
+					if ( ! $bid ) {
+						continue;
+					}
+					$ziel = [ 'hausgeld', $bid ];
 				} elseif ( $typ === 'beleg' && ! empty( $z['kostenart_id'] ) && ! empty( $z['objekt_id'] ) ) {
 					$wpdb->insert(
 						mietv_table( 'belege' ),
@@ -397,11 +415,11 @@ class Mietv_Bank {
 		echo '<table class="wp-list-table widefat striped mv-bank"><thead><tr><th class="check-column"><input type="checkbox" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Amount', 'mietfux' ) . '</th><th>' . esc_html__( 'Name / reference', 'mietfux' ) . '</th><th>' . esc_html__( 'Create as', 'mietfux' ) . '</th><th>' . esc_html__( 'Assignment', 'mietfux' ) . '</th><th>' . esc_html__( 'Remember rule', 'mietfux' ) . '</th></tr></thead><tbody>';
 		foreach ( $rows as $i => $r ) {
 			$dis     = $r['bereits'] ? ' disabled' : '';
-			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] ) ? ' checked' : '';
+			$checked = ! $r['bereits'] && $r['typ'] !== 'ignorieren' && ( $r['mv_id'] || $r['kostenart_id'] || $r['typ'] === 'hausgeld' ) ? ' checked' : '';
 			echo '<tr' . ( $r['bereits'] ? ' style="opacity:.5"' : '' ) . '>';
 			printf( '<td><input type="checkbox" name="zeile[%d][ok]" value="1"%s%s></td>', (int) $i, esc_attr( $checked ), esc_attr( $dis ) );
 			printf( '<td>%s</td><td class="%s">%s</td><td><strong>%s</strong><br><small>%s</small>%s</td>', esc_html( mietv_date( $r['datum'] ) ), $r['betrag'] < 0 ? 'mv-neg' : 'mv-pos', esc_html( mietv_eur( $r['betrag'] ) ), esc_html( $r['name'] ), esc_html( $r['zweck'] ), $r['bereits'] ? '<br><em>' . esc_html__( 'already imported', 'mietfux' ) . '</em>' : ( ! empty( $r['grund'] ) ? '<br><em>' . esc_html( $r['grund'] ) . '</em>' : '' ) );
-			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Rent payment', 'mietfux' ) . '</option><option value="beleg"%s>' . esc_html__( 'Receipt', 'mietfux' ) . '</option><option value="ignorieren"%s>–</option></select></td>', (int) $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'ignorieren', false ) );
+			printf( '<td><select name="zeile[%d][typ]"><option value="zahlung"%s>' . esc_html__( 'Rent payment', 'mietfux' ) . '</option><option value="beleg"%s>' . esc_html__( 'Receipt', 'mietfux' ) . '</option><option value="hausgeld"%s>' . esc_html__( 'Owners’ fee', 'mietfux' ) . '</option><option value="ignorieren"%s>–</option></select></td>', (int) $i, selected( $r['typ'], 'zahlung', false ), selected( $r['typ'], 'beleg', false ), selected( $r['typ'], 'hausgeld', false ), selected( $r['typ'], 'ignorieren', false ) );
 			echo '<td>';
 			// Zahlung
 			printf( '<div class="mv-z-zahlung"><select name="zeile[%d][mv_id]"><option value="">' . esc_html__( '– tenancy –', 'mietfux' ) . '</option>', (int) $i );
@@ -418,7 +436,14 @@ class Mietv_Bank {
 			foreach ( $opt_ka as $k => $v ) {
 				printf( '<option value="%d"%s>%s</option>', (int) $k, selected( $r['kostenart_id'], (int) $k, false ), esc_html( $v ) );
 			}
-			echo '</select></div></td>';
+			echo '</select></div>';
+			// Hausgeld
+			printf( '<div class="mv-z-hausgeld"><select name="zeile[%d][objekt_hg]">', (int) $i );
+			foreach ( $opt_ob as $k => $v ) {
+				printf( '<option value="%d"%s>%s</option>', (int) $k, selected( $r['objekt_id'] ?: $erstes_objekt, (int) $k, false ), esc_html( $v ) );
+			}
+			printf( '</select> <input type="month" name="zeile[%d][monat_hg]" value="%s"></div>', (int) $i, esc_attr( substr( $r['monat'], 0, 7 ) ) );
+			echo '</td>';
 			printf( '<td><label><input type="checkbox" name="zeile[%d][regel]" value="1"> „%s“</label></td>', (int) $i, esc_html( mb_substr( $r['name'], 0, 25 ) ) );
 			echo '</tr>';
 		}

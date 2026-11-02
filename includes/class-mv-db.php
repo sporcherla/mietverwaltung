@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Mietv_DB {
 
-	const DB_VERSION = '13';
+	const DB_VERSION = '14';
 
 	public static function install(): void {
 		self::create_tables();
@@ -111,6 +111,7 @@ class Mietv_DB {
 			'versicherung' => esc_html__( 'Chimney sweeping, building insurance, caretaker, stair cleaning, lift', 'mietfux' ),
 			'verwaltung'   => esc_html__( 'Administration costs', 'mietfux' ),
 			'sonstiges'    => esc_html__( 'Other expenses', 'mietfux' ),
+			'ruecklage'    => esc_html__( 'Maintenance reserve contribution (not deductible)', 'mietfux' ),
 		];
 	}
 
@@ -118,6 +119,21 @@ class Mietv_DB {
 		global $wpdb;
 		$table = mietv_table( 'kostenarten' );
 		if ( (int) $wpdb->get_var( "SELECT COUNT(*) FROM $table" ) > 0 ) {  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellenname intern.
+			// Bestehende Installation: Kostenart für die Erhaltungsrücklage nachziehen (seit 1.1.0).
+			if ( ! (int) $wpdb->get_var( "SELECT COUNT(*) FROM $table WHERE anlage_v = 'ruecklage'" ) ) { // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellenname intern.
+				$wpdb->insert(
+					$table,
+					[
+						'owner_id'     => MIETV_OWNER_ID,
+						'name'         => 'Zuführung Erhaltungsrücklage (WEG, nicht abziehbar)',
+						'anlage_v'     => 'ruecklage',
+						'umlagefaehig' => 0,
+						'schluessel'   => '',
+						'betrkv'       => '',
+						'sortierung'   => 99,
+					]
+				);
+			}
 			return;
 		}
 		// name, anlage_v, umlagefaehig, schluessel, betrkv
@@ -138,6 +154,7 @@ class Mietv_DB {
 			[ 'Kontoführung', 'verwaltung', 0, '', '' ],
 			[ 'Sonstige umlagefähige Betriebskosten', 'sonstiges', 1, 'flaeche', '§ 2 Nr. 17 BetrKV' ],
 			[ 'Sonstige Werbungskosten (Fahrten, Porto, Software, Steuerberater)', 'sonstiges', 0, '', '' ],
+			[ 'Zuführung Erhaltungsrücklage (WEG, nicht abziehbar)', 'ruecklage', 0, '', '' ],
 		];
 		foreach ( $seed as $i => $s ) {
 			$wpdb->insert(
@@ -295,10 +312,12 @@ class Mietv_DB {
   verteilung_jahre tinyint(3) unsigned NOT NULL DEFAULT 1,
   par35a varchar(20) NOT NULL DEFAULT '',
   lohnanteil decimal(10,2) NOT NULL DEFAULT 0,
+  hausgeld_id bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY  (id),
   KEY objekt_id (objekt_id),
   KEY kostenart_id (kostenart_id),
-  KEY steuerjahr (steuerjahr)
+  KEY steuerjahr (steuerjahr),
+  KEY hausgeld_id (hausgeld_id)
 ) $charset;";
 
 		// Anlagegüter: Gebäude (mit Grund-und-Boden-Anteil) und bewegliche Wirtschaftsgüter
@@ -525,6 +544,35 @@ class Mietv_DB {
   PRIMARY KEY  (id),
   KEY darlehen_id (darlehen_id),
   KEY datum (datum)
+) $charset;";
+
+		// Hausgeld (WEG): Wirtschaftsplan je Objekt mit Aufteilung auf Kostenarten
+		$sql[] = 'CREATE TABLE ' . $wpdb->prefix . "mv_hausgeld (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  owner_id bigint(20) unsigned NOT NULL DEFAULT 1,
+  objekt_id bigint(20) unsigned NOT NULL,
+  verwalter varchar(190) NOT NULL DEFAULT '',
+  iban varchar(40) NOT NULL DEFAULT '',
+  betrag decimal(10,2) NOT NULL DEFAULT 0,
+  gueltig_ab date NOT NULL,
+  verteilung text,
+  PRIMARY KEY  (id),
+  KEY objekt_id (objekt_id)
+) $charset;";
+
+		// Hausgeld-Buchungen: Monatszahlungen (plan) und Jahresabrechnung (abrechnung); Belege verweisen über hausgeld_id
+		$sql[] = 'CREATE TABLE ' . $wpdb->prefix . "mv_hausgeld_buchungen (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  objekt_id bigint(20) unsigned NOT NULL,
+  plan_id bigint(20) unsigned NOT NULL DEFAULT 0,
+  monat date NOT NULL,
+  datum date NOT NULL,
+  betrag decimal(10,2) NOT NULL DEFAULT 0,
+  art varchar(20) NOT NULL DEFAULT 'plan',
+  jahr smallint(5) unsigned NOT NULL,
+  PRIMARY KEY  (id),
+  KEY objekt_id (objekt_id),
+  KEY jahr (jahr)
 ) $charset;";
 
 		foreach ( $sql as $statement ) {

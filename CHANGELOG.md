@@ -2,6 +2,15 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.1.0 – Hausgeld (WEG)
+
+- **Neues Modul „Hausgeld“** (Verwaltung → Hausgeld) für Eigentumswohnungen: Wirtschaftsplan je Objekt (Hausverwaltung, IBAN, Monatsbetrag, „gültig ab“, Aufteilung auf Kostenarten). Jede gebuchte Monatszahlung erzeugt je Kostenart einen Beleg mit Leistungszeitraum = Monat und Abflussdatum = Zahltag: umlagefähige Anteile laufen in die Betriebskostenabrechnung, Verwaltung/Instandhaltung als Werbungskosten in die Anlage V.
+- **Erhaltungsrücklage**: neue Kostenart und Anlage-V-Gruppe „Zuführung Erhaltungsrücklage (nicht abziehbar)“ – wird erfasst und in der Steuerauswertung ausgewiesen, aber nicht abgezogen (BFH IX R 19/24: Abzug erst bei Verausgabung durch die WEG).
+- **WEG-Jahresabrechnung**: tatsächliche Jahresbeträge je Kostenart eintragen; Differenzen zu den Vorauszahlungen werden als Korrekturbelege (Nachzahlung/Guthaben) mit Zahlungsdatum gebucht, Leistungszeitraum = Abrechnungsjahr – damit stimmen BK-Abrechnung (Ist-Kosten) und Anlage V (Abflussprinzip) gleichzeitig.
+- **Bankimport** erkennt Hausgeldzahlungen an IBAN/Name der Hausverwaltung (neuer Typ „Hausgeld“, auch in Bankregeln) und bucht den Monat direkt; abweichende Beträge werden anteilig verteilt.
+- Hinweise auf der Übersicht bei nicht gebuchten Hausgeld-Monaten; Hilfetext; Belegliste in der Steuerauswertung übersetzbar.
+- Datenbank-Version 14 (Tabellen `mv_hausgeld`, `mv_hausgeld_buchungen`, Spalte `belege.hausgeld_id`).
+
 ## 1.0.4 – Sechs weitere Sprachen
 
 - Oberfläche zusätzlich auf Französisch, Spanisch, Italienisch, Niederländisch, Polnisch und Portugiesisch (`languages/mietfux-xx_XX.po/.mo`, je 1.010 Texte, Platzhalter maschinell geprüft).

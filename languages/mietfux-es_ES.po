@@ -672,6 +672,9 @@ msgstr "Justificante (gasto)"
 msgid "Rent payment (income)"
 msgstr "Pago de renta (ingreso)"
 
+msgid "Owners’ association fee (expense)"
+msgstr "Cuota de comunidad (gasto)"
+
 msgid "Ignore"
 msgstr "Ignorar"
 
@@ -981,6 +984,9 @@ msgstr "Certificado de intereses"
 msgid "Bank rules"
 msgstr "Reglas bancarias"
 
+msgid "Owners’ fee"
+msgstr "Cuota de comunidad"
+
 msgid "Agreement & handover"
 msgstr "Contrato y entrega"
 
@@ -992,6 +998,9 @@ msgstr "Incremento de renta"
 
 msgid "Deposit"
 msgstr "Fianza"
+
+msgid "Owners’ association fee"
+msgstr "Cuota de comunidad"
 
 msgid "Loan account"
 msgstr "Cuenta del préstamo"
@@ -1428,6 +1437,9 @@ msgstr "Nombre del inquilino"
 msgid "Expense – choose a cost type or skip"
 msgstr "Gasto – elija un tipo de coste u omita"
 
+msgid "Property manager (owners’ association fee)"
+msgstr "Administrador de fincas (cuota de comunidad)"
+
 msgid "%d transactions imported."
 msgstr "%d movimientos importados."
 
@@ -1694,6 +1706,9 @@ msgstr "Costes de administración"
 
 msgid "Other expenses"
 msgstr "Otros gastos"
+
+msgid "Maintenance reserve contribution (not deductible)"
+msgstr "Aportación al fondo de reserva (no deducible)"
 
 msgid "Settings saved."
 msgstr "Ajustes guardados."
@@ -1968,6 +1983,153 @@ msgstr "según lo acordado o pactado contractualmente, la renta base neta es de"
 msgid "Please adjust your standing order accordingly."
 msgstr "Le ruego adapte su orden de pago permanente en consecuencia."
 
+msgid "Owners’ association fee %s"
+msgstr "Cuota de comunidad %s"
+
+msgid "Owners’ association annual statement %d – adjustment"
+msgstr "Liquidación anual de la comunidad %d – regularización"
+
+msgid "Budget plan saved."
+msgstr "Presupuesto guardado."
+
+msgid "Annual statement booked – adjustment receipts created per cost type."
+msgstr "Liquidación anual contabilizada – justificantes de regularización creados por tipo de gasto."
+
+msgid "Nothing to book: no differences to the advance payments, or a statement for this year already exists."
+msgstr "Nada que contabilizar: no hay diferencias respecto a las provisiones o ya existe una liquidación para este año."
+
+msgid "No property created yet –"
+msgstr "Aún no se ha creado ningún inmueble –"
+
+msgid "Create property"
+msgstr "Crear inmueble"
+
+msgid "For condominiums: the monthly fee paid to the property manager is split according to the budget plan into recoverable service charges (passed on in the service charge statement), non-recoverable expenses (management, maintenance – deductible in Anlage V) and the contribution to the maintenance reserve (not deductible until spent). Each booked month creates one receipt per cost type; the annual statement of the owners’ association books the differences."
+msgstr "Para comunidades de propietarios: la cuota mensual pagada al administrador de fincas se reparte según el presupuesto en gastos repercutibles (trasladados en la liquidación de gastos), gastos no repercutibles (administración, mantenimiento – deducibles en el Anlage V) y la aportación al fondo de reserva (no deducible hasta que se gaste). Cada mes contabilizado crea un justificante por tipo de gasto; la liquidación anual de la comunidad contabiliza las diferencias."
+
+msgid "Monthly fee"
+msgstr "Cuota mensual"
+
+msgid "valid from"
+msgstr "válido desde"
+
+msgid "Recoverable"
+msgstr "Repercutible"
+
+msgid "passed on to tenants"
+msgstr "trasladado a los inquilinos"
+
+msgid "Deductible expenses"
+msgstr "Gastos deducibles"
+
+msgid "management, maintenance"
+msgstr "administración, mantenimiento"
+
+msgid "Maintenance reserve"
+msgstr "Fondo de reserva"
+
+msgid "not deductible"
+msgstr "no deducible"
+
+msgid "Payments %d"
+msgstr "Pagos %d"
+
+msgid "booked"
+msgstr "contabilizado"
+
+msgid "open"
+msgstr "abrir"
+
+msgid "future"
+msgstr "futuro"
+
+msgid "Delete payment and its receipts?"
+msgstr "¿Eliminar el pago y sus justificantes?"
+
+msgid "Annual statement %d"
+msgstr "Liquidación anual %d"
+
+msgid "additional payment"
+msgstr "pago adicional"
+
+msgid "refund"
+msgstr "devolución"
+
+msgid "Delete annual statement and its adjustment receipts?"
+msgstr "¿Eliminar la liquidación anual y sus justificantes de regularización?"
+
+msgid "Payment day"
+msgstr "Día de pago"
+
+msgid "Book selected months"
+msgstr "Contabilizar los meses seleccionados"
+
+msgid "Budget plan (monthly split)"
+msgstr "Presupuesto (reparto mensual)"
+
+msgid "Property manager"
+msgstr "Administrador de fincas"
+
+msgid "Manager’s IBAN"
+msgstr "IBAN del administrador"
+
+msgid "Used by the bank import to recognise fee payments automatically."
+msgstr "La importación bancaria lo utiliza para reconocer automáticamente los pagos de la cuota."
+
+msgid "Monthly fee (€)"
+msgstr "Cuota mensual (€)"
+
+msgid "Treatment"
+msgstr "Tratamiento"
+
+msgid "Monthly (€)"
+msgstr "Mensual (€)"
+
+msgid "reserve – not deductible"
+msgstr "fondo de reserva – no deducible"
+
+msgid "expenses (Anlage V)"
+msgstr "gastos (Anlage V)"
+
+msgid "The split (%1$s) does not match the monthly fee (%2$s). Payments are split proportionally."
+msgstr "El reparto (%1$s) no coincide con la cuota mensual (%2$s). Los pagos se reparten proporcionalmente."
+
+msgid "Save budget plan"
+msgstr "Guardar presupuesto"
+
+msgid "Delete this budget plan? Booked payments remain."
+msgstr "¿Eliminar este presupuesto? Los pagos contabilizados se conservan."
+
+msgid "Delete plan"
+msgstr "Eliminar presupuesto"
+
+msgid "A changed fee from a new budget plan: enter the new amounts with “valid from” – the previous plan stays in effect for earlier months."
+msgstr "Cuota modificada por un nuevo presupuesto: introduzca los nuevos importes con «válido desde» – el presupuesto anterior sigue vigente para los meses anteriores."
+
+msgid "Earlier plans:"
+msgstr "Presupuestos anteriores:"
+
+msgid "Owners’ association annual statement %d"
+msgstr "Liquidación anual de la comunidad %d"
+
+msgid "Booked:"
+msgstr "Contabilizado:"
+
+msgid "Enter the actual annual amounts per cost type from the individual statement. The difference to the advance payments is booked as an adjustment receipt (additional payment or refund) with the payment date, allocated to the statement year."
+msgstr "Introduzca los importes anuales reales por tipo de gasto según la liquidación individual. La diferencia respecto a las provisiones se contabiliza como justificante de regularización (pago adicional o devolución) con la fecha de pago, asignado al año de la liquidación."
+
+msgid "Per statement (€)"
+msgstr "Según liquidación (€)"
+
+msgid "Book the annual statement? Adjustment receipts are created per cost type."
+msgstr "¿Contabilizar la liquidación anual? Se crearán justificantes de regularización por tipo de gasto."
+
+msgid "Book annual statement"
+msgstr "Contabilizar liquidación anual"
+
+msgid "Empty fields keep the advance payments unchanged. Amounts spent from the maintenance reserve (e.g. repairs) belong to “Maintenance expenses” – they become deductible when spent."
+msgstr "Los campos vacíos mantienen las provisiones sin cambios. Los importes gastados del fondo de reserva (p. ej. reparaciones) corresponden a «Gastos de mantenimiento» – pasan a ser deducibles cuando se gastan."
+
 msgid "Enter landlord details, bank account, creditor ID, tax number and sender for letters."
 msgstr "Introduzca los datos del arrendador, la cuenta bancaria, el identificador de acreedor, el número de identificación fiscal y el remitente de las cartas."
 
@@ -2045,6 +2207,12 @@ msgstr "Las opciones (duración determinada, renta escalonada/indexada, pequeña
 
 msgid "Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out."
 msgstr "Cuenta de fianza según § 551 BGB: pagos (hasta 3 plazos), intereses diarios, liquidación a la salida."
+
+msgid "For condominiums: budget plan per property (manager, IBAN, monthly fee, split by cost type). Booking a month creates one receipt per cost type – recoverable parts flow into the service charge statement, management and maintenance into Anlage V, the maintenance reserve contribution is recorded but not deducted."
+msgstr "Para comunidades de propietarios: presupuesto por inmueble (administrador, IBAN, cuota mensual, reparto por tipo de gasto). Al contabilizar un mes se crea un justificante por tipo de gasto – las partes repercutibles van a la liquidación de gastos, administración y mantenimiento al Anlage V; la aportación al fondo de reserva se registra pero no se deduce."
+
+msgid "The owners’ association annual statement books the differences to the advance payments as adjustment receipts (additional payment or refund), allocated to the statement year. The bank import recognises fee payments by the manager’s IBAN or name."
+msgstr "La liquidación anual de la comunidad contabiliza las diferencias respecto a las provisiones como justificantes de regularización (pago adicional o devolución), asignados al año de la liquidación. La importación bancaria reconoce los pagos de la cuota por el IBAN o el nombre del administrador."
 
 msgid "Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent."
 msgstr "Incremento según § 558 BGB (renta de referencia, tope 15/20 %, periodo de espera) o § 557b (índice). Genera la carta y crea la nueva condición de renta tras el consentimiento."
@@ -2150,6 +2318,9 @@ msgstr "El periodo de tipo fijo %1$s termina el %2$s (%3$d días); compruebe la 
 
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Certificado de intereses %1$d del préstamo %2$s aún no introducido"
+
+msgid "Owners’ association fee for %1$s not yet booked: %2$s"
+msgstr "Cuota de comunidad de %1$s aún no contabilizada: %2$s"
 
 msgid "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
 msgstr "Límite de costes de construcción asimilados a la adquisición superado en %1$s (%2$s netos > %3$s)"
@@ -2892,9 +3063,6 @@ msgstr "Costes"
 msgid "Open statement"
 msgstr "Abrir liquidación"
 
-msgid "open"
-msgstr "abrir"
-
 msgid "Submit meter reading"
 msgstr "Enviar lectura del contador"
 
@@ -3023,6 +3191,18 @@ msgstr "Tipo de interés nominal"
 
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr "No se ha registrado certificado de intereses para %1$d. Introduzca los valores anuales en %2$s."
+
+msgid "Supplier"
+msgstr "Proveedor"
+
+msgid "Receipt no."
+msgstr "N.º de justificante"
+
+msgid "File"
+msgstr "Archivo"
+
+msgid "Not included: contributions to the maintenance reserve of %s – they become deductible only when the association spends them (then book them as maintenance expenses from the annual statement)."
+msgstr "No incluido: aportaciones al fondo de reserva por %s – solo pasan a ser deducibles cuando la comunidad las gasta (contabilícelas entonces como gastos de mantenimiento a partir de la liquidación anual)."
 
 msgid "No receipts."
 msgstr "No hay justificantes."

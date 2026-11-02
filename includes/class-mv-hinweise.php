@@ -102,6 +102,18 @@ class Mietv_Hinweise {
 			}
 		}
 
+		// Hausgeld: offene Monate
+		if ( class_exists( 'Mietv_Hausgeld' ) ) {
+			$objekte = $wpdb->get_results( 'SELECT id, bezeichnung FROM ' . $wpdb->prefix . 'mv_objekte', OBJECT_K );
+			foreach ( Mietv_Hausgeld::offene_monate() as $oid => $monate ) {
+				$h[] = [
+					'typ'  => 'warn',
+					'text' => sprintf( /* translators: %1$s: Objekt, %2$s: Monate */ __( 'Owners’ association fee for %1$s not yet booked: %2$s', 'mietfux' ), $objekte[ $oid ]->bezeichnung ?? '#' . $oid, implode( ', ', array_map( 'mietv_monat', $monate ) ) ),
+					'url'  => admin_url( 'admin.php?page=mietv_hausgeld&objekt_id=' . (int) $oid ),
+				];
+			}
+		}
+
 		// 15-%-Grenze
 		if ( class_exists( 'Mietv_Afa' ) ) {
 			foreach ( Mietv_Afa::pruefung_15_prozent() as $p ) {

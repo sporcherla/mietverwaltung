@@ -137,8 +137,8 @@ class Mietv_Steuer {
 		return $out;
 	}
 
-	/** Belege, die im Jahr wirksam sind: direkt (steuerjahr) oder als Verteilungsanteil (§ 82b EStDV). */
-	public static function belege( int $jahr ): array {
+	/** Belege, die im Jahr wirksam sind: direkt (steuerjahr) oder als Verteilungsanteil (§ 82b EStDV). Ohne Rücklagen-Zuführungen (nicht abziehbar). */
+	public static function belege( int $jahr, bool $mit_ruecklage = false ): array {
 		global $wpdb;
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
@@ -152,6 +152,9 @@ class Mietv_Steuer {
 				$jahr
 			)
 		);
+		if ( ! $mit_ruecklage ) {
+			$rows = array_values( array_filter( $rows, fn( $r ) => $r->anlage_v !== 'ruecklage' ) );
+		}
 		foreach ( $rows as $r ) {
 			$n            = max( 1, (int) $r->verteilung_jahre );
 			$r->anteil    = round( (float) $r->betrag / $n, 2 );
@@ -165,7 +168,7 @@ class Mietv_Steuer {
 	public static function werbungskosten( int $jahr ): array {
 		$gruppen = [];
 		foreach ( Mietv_DB::anlage_v_gruppen() as $g => $label ) {
-			if ( $g === 'einnahmen' ) {
+			if ( $g === 'einnahmen' || $g === 'ruecklage' ) {
 				continue;
 			}
 			$gruppen[ $g ] = [
@@ -393,7 +396,7 @@ class Mietv_Steuer {
 		$felder = [
 			'einnahmen_miete'   => esc_html__( 'Rental income (excl. recoverable charges)', 'mietfux' ),
 			'einnahmen_umlagen' => esc_html__( 'Recoverable charges received', 'mietfux' ),
-		] + array_filter( Mietv_DB::anlage_v_gruppen(), fn( $k ) => $k !== 'einnahmen', ARRAY_FILTER_USE_KEY ) + [
+		] + array_filter( Mietv_DB::anlage_v_gruppen(), fn( $k ) => $k !== 'einnahmen' && $k !== 'ruecklage', ARRAY_FILTER_USE_KEY ) + [
 			'summe_wk' => __( 'Sum of expenses', 'mietfux' ),
 			'ergebnis' => __( 'Surplus / loss', 'mietfux' ),
 		];
@@ -469,7 +472,16 @@ class Mietv_Steuer {
 
 		// Belegliste
 		$belege = self::belege( $jahr );
-		echo '<h2>Belegliste ' . (int) $jahr . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>Datum</th><th>Kostenart</th><th>Rechnungssteller</th><th>Beleg-Nr.</th><th>Betrag</th><th>Anteil ' . (int) $jahr . '</th><th>Datei</th></tr></thead><tbody>';
+		echo '<h2>' . esc_html__( 'Receipts', 'mietfux' ) . ' ' . (int) $jahr . '</h2><table class="wp-list-table widefat fixed striped"><thead><tr><th>' . esc_html__( 'Date', 'mietfux' ) . '</th><th>' . esc_html__( 'Cost type', 'mietfux' ) . '</th><th>' . esc_html__( 'Supplier', 'mietfux' ) . '</th><th>' . esc_html__( 'Receipt no.', 'mietfux' ) . '</th><th>' . esc_html__( 'Amount', 'mietfux' ) . '</th><th>' . esc_html__( 'Share', 'mietfux' ) . ' ' . (int) $jahr . '</th><th>' . esc_html__( 'File', 'mietfux' ) . '</th></tr></thead><tbody>';
+		$ruecklage = 0.0;
+		foreach ( self::belege( $jahr, true ) as $b ) {
+			if ( $b->anlage_v === 'ruecklage' ) {
+				$ruecklage += $b->anteil;
+			}
+		}
+		if ( $ruecklage > 0.005 ) {
+			printf( '<p class="description">' . /* translators: %s: Betrag */ esc_html__( 'Not included: contributions to the maintenance reserve of %s – they become deductible only when the association spends them (then book them as maintenance expenses from the annual statement).', 'mietfux' ) . '</p>', esc_html( mietv_eur( $ruecklage ) ) );
+		}
 		foreach ( $belege as $b ) {
 			$url = $b->attachment_id ? wp_get_attachment_url( (int) $b->attachment_id ) : '';
 			printf(

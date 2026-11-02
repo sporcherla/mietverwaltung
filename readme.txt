@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,7 @@ The user interface is available in English, German, French, Spanish, Italian, Du
 * **Loans** – repayment schedule, instalments to tick off, extra repayments, bank interest certificates
 * **Tenancy agreement** – complete residential agreement with annexes: house rules, heating/ventilation leaflet, privacy notice, SEPA direct debit mandate, move-in/move-out handover protocol
 * **Deposit account** (§ 551 BGB), **dunning** (three levels), **rent increases** (§ 558 / § 557b BGB)
+* **Owners’ association fee** for condominiums: budget plan split by cost type, monthly bookings, annual statement adjustments, bank import recognition
 * **Tenant portal** via shortcode `[mietfux_portal]` – rent account, statements, released documents, damage reports, meter readings
 * **Data protection** – deletion concept with retention periods, anonymisation, Art. 15 GDPR access report
 * **Setup wizard**, in-app help, focus mode, backup/restore as JSON, clean uninstall
@@ -76,6 +77,11 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 7. Tenant portal
 
 == Changelog ==
+
+= 1.1.0 =
+* New module "Owners’ association fee" (Hausgeld) for condominiums: budget plan per property with split by cost type, monthly bookings create one receipt per cost type (recoverable → service charge statement, management/maintenance → Anlage V, maintenance reserve recorded but not deducted), annual statement books the differences as adjustment receipts
+* Bank import recognises fee payments by the manager’s IBAN or name and books them directly
+* Notices for unbooked fee months; new cost type and tax group "Maintenance reserve contribution (not deductible)"
 
 = 1.0.4 =
 * New interface languages: French, Spanish, Italian, Dutch, Polish, Portuguese (bundled)

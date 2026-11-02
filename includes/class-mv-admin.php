@@ -742,6 +742,7 @@ class Mietv_Admin {
 						'options' => [
 							'beleg'      => esc_html__( 'Receipt (expense)', 'mietfux' ),
 							'zahlung'    => esc_html__( 'Rent payment (income)', 'mietfux' ),
+							'hausgeld'   => esc_html__( 'Owners’ association fee (expense)', 'mietfux' ),
 							'ignorieren' => esc_html__( 'Ignore', 'mietfux' ),
 						],
 					],
@@ -1282,6 +1283,7 @@ class Mietv_Admin {
 			'konditionen',
 			'__mietvertrag',
 			'__kaution',
+			'__hausgeld',
 			'__erhoehung',
 			'__mahnung',
 			'##' . esc_html__( 'Year end', 'mietfux' ),
@@ -1309,6 +1311,7 @@ class Mietv_Admin {
 			'__mietvertrag'   => esc_html__( 'Tenancy agreement', 'mietfux' ),
 			'darlehen_jahre'  => esc_html__( 'Interest certificate', 'mietfux' ),
 			'bank_regeln'     => esc_html__( 'Bank rules', 'mietfux' ),
+			'__hausgeld'      => esc_html__( 'Owners’ fee', 'mietfux' ),
 		];
 		$ico         = fn( string $key, string $label ) => '<span class="dashicons dashicons-' . esc_attr( $icons[ $key ] ?? 'marker' ) . '"></span> ' . ( $kurz[ $key ] ?? $label );
 		$seiten      = [
@@ -1317,6 +1320,7 @@ class Mietv_Admin {
 			'__mahnung'        => [ esc_html__( 'Dunning', 'mietfux' ), [ 'Mietv_Mahnung', 'page' ] ],
 			'__erhoehung'      => [ esc_html__( 'Rent increase', 'mietfux' ), [ 'Mietv_Erhoehung', 'page' ] ],
 			'__kaution'        => [ esc_html__( 'Deposit', 'mietfux' ), [ 'Mietv_Kaution', 'page' ] ],
+			'__hausgeld'       => [ esc_html__( 'Owners’ association fee', 'mietfux' ), [ 'Mietv_Hausgeld', 'page' ] ],
 			'__darlehenskonto' => [ esc_html__( 'Loan account', 'mietfux' ), [ 'Mietv_Darlehen', 'page' ] ],
 			'__abrechnung'     => [ esc_html__( 'Service charge statement', 'mietfux' ), [ 'Mietv_Abrechnung', 'page' ] ],
 			'__steuer'         => [ esc_html__( 'Tax (Anlage V)', 'mietfux' ), [ 'Mietv_Steuer', 'page' ] ],
@@ -1355,6 +1359,7 @@ class Mietv_Admin {
 			'konditionen'       => 'tag',
 			'__mietvertrag'     => 'media-document',
 			'__kaution'         => 'lock',
+			'__hausgeld'        => 'building',
 			'__erhoehung'       => 'chart-line',
 			'__mahnung'         => 'megaphone',
 			'zaehler'           => 'performance',

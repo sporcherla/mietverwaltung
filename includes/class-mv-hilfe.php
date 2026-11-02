@@ -108,6 +108,13 @@ class Mietv_Hilfe {
 					__( 'Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out.', 'mietfux' ),
 				],
 			],
+			'hausgeld'          => [
+				__( 'Owners’ association fee', 'mietfux' ),
+				[
+					__( 'For condominiums: budget plan per property (manager, IBAN, monthly fee, split by cost type). Booking a month creates one receipt per cost type – recoverable parts flow into the service charge statement, management and maintenance into Anlage V, the maintenance reserve contribution is recorded but not deducted.', 'mietfux' ),
+					__( 'The owners’ association annual statement books the differences to the advance payments as adjustment receipts (additional payment or refund), allocated to the statement year. The bank import recognises fee payments by the manager’s IBAN or name.', 'mietfux' ),
+				],
+			],
 			'erhoehung'         => [
 				__( 'Rent increase', 'mietfux' ),
 				[

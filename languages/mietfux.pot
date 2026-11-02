@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Mietfux\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "X-Domain: mietfux\n"
-"POT-Creation-Date: 2026-10-30\n"
+"POT-Creation-Date: 2026-11-02\n"
 
 #: includes/class-mv-abrechnung.php:102
 msgid "Statement not found."
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Permission denied."
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:467 includes/class-mv-admin.php:995 includes/class-mv-admin.php:1321
+#: includes/class-mv-abrechnung.php:467 includes/class-mv-admin.php:996 includes/class-mv-admin.php:1325
 msgid "Service charge statement"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Period"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:480 includes/class-mv-admin.php:945 includes/class-mv-admin.php:1160
+#: includes/class-mv-abrechnung.php:480 includes/class-mv-admin.php:946 includes/class-mv-admin.php:1161
 msgid "Status"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Delete statement?"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:484 includes/class-mv-admin.php:1921
+#: includes/class-mv-abrechnung.php:484 includes/class-mv-admin.php:1926
 msgid "Delete"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Service charge statement %1$s – %2$s to %3$s"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:519 includes/class-mv-admin.php:1268 includes/class-mv-admin.php:1268
+#: includes/class-mv-abrechnung.php:519 includes/class-mv-admin.php:1269 includes/class-mv-admin.php:1269
 msgid "Overview"
 msgstr ""
 
@@ -153,7 +153,7 @@ msgstr ""
 msgid "Heating costs"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:537 includes/class-mv-portal.php:248
+#: includes/class-mv-abrechnung.php:537 includes/class-mv-hausgeld.php:567 includes/class-mv-portal.php:248
 msgid "Advance payments"
 msgstr ""
 
@@ -213,7 +213,7 @@ msgstr ""
 msgid "Base tenant"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:563
+#: includes/class-mv-abrechnung.php:563 includes/class-mv-steuer.php:475
 msgid "Share"
 msgstr ""
 
@@ -233,11 +233,11 @@ msgstr ""
 msgid "please find the statement of service and heating charges for the period"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:600 includes/class-mv-admin.php:1109
+#: includes/class-mv-abrechnung.php:600 includes/class-mv-admin.php:1110
 msgid "Allocation key"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:600 includes/class-mv-admin.php:2187 includes/class-mv-steuer.php:359
+#: includes/class-mv-abrechnung.php:600 includes/class-mv-admin.php:2192 includes/class-mv-hausgeld.php:488
 msgid "Total"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgstr ""
 msgid "Your share"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:600 includes/class-mv-bank.php:397 includes/class-mv-darlehen.php:306
+#: includes/class-mv-abrechnung.php:600 includes/class-mv-bank.php:415 includes/class-mv-darlehen.php:306
 msgid "Amount"
 msgstr ""
 
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Receipts may be inspected by appointment. Objections to the statement must be raised within 12 months of receipt (§ 556 (3) sentence 5 BGB)."
 msgstr ""
 
-#: includes/class-mv-admin.php:39 includes/class-mv-admin.php:1403 includes/class-mv-bank.php:271
+#: includes/class-mv-admin.php:39 includes/class-mv-admin.php:1408 includes/class-mv-bank.php:282
 msgid "Invalid request."
 msgstr ""
 
@@ -317,7 +317,7 @@ msgstr ""
 msgid "Toggle Mietfux focus mode"
 msgstr ""
 
-#: includes/class-mv-admin.php:162 includes/class-mv-admin.php:1267 includes/class-mv-admin.php:1267
+#: includes/class-mv-admin.php:162 includes/class-mv-admin.php:1268 includes/class-mv-admin.php:1268
 msgid "Mietfux"
 msgstr ""
 
@@ -357,7 +357,7 @@ msgstr ""
 msgid "not found"
 msgstr ""
 
-#: includes/class-mv-admin.php:182 includes/class-mv-steuer.php:425
+#: includes/class-mv-admin.php:182 includes/class-mv-steuer.php:428
 msgid "Purchase price"
 msgstr ""
 
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
-#: includes/class-mv-admin.php:212 includes/class-mv-admin.php:271 includes/class-mv-admin.php:790
+#: includes/class-mv-admin.php:212 includes/class-mv-admin.php:271 includes/class-mv-admin.php:791
 msgid "Name"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Rooms"
 msgstr ""
 
-#: includes/class-mv-admin.php:293 includes/class-mv-admin.php:660 includes/class-mv-admin.php:797
+#: includes/class-mv-admin.php:293 includes/class-mv-admin.php:660 includes/class-mv-admin.php:798
 msgid "Type"
 msgstr ""
 
@@ -633,7 +633,7 @@ msgstr ""
 msgid "Rent condition"
 msgstr ""
 
-#: includes/class-mv-admin.php:471 includes/class-mv-erhoehung.php:236
+#: includes/class-mv-admin.php:471 includes/class-mv-erhoehung.php:236 includes/class-mv-hausgeld.php:512
 msgid "Valid from"
 msgstr ""
 
@@ -661,7 +661,7 @@ msgstr ""
 msgid "Payment"
 msgstr ""
 
-#: includes/class-mv-admin.php:508 includes/class-mv-admin.php:565
+#: includes/class-mv-admin.php:508 includes/class-mv-admin.php:565 includes/class-mv-hausgeld.php:447
 msgid "Payment date"
 msgstr ""
 
@@ -685,7 +685,7 @@ msgstr ""
 msgid "manual"
 msgstr ""
 
-#: includes/class-mv-admin.php:536 includes/class-mv-admin.php:1316 includes/class-mv-admin.php:2105
+#: includes/class-mv-admin.php:536 includes/class-mv-admin.php:1319 includes/class-mv-admin.php:2110
 msgid "Bank import"
 msgstr ""
 
@@ -693,11 +693,11 @@ msgstr ""
 msgid "Overview (ticked)"
 msgstr ""
 
-#: includes/class-mv-admin.php:543 includes/class-mv-hilfe.php:44 includes/class-mv-steuer.php:370
+#: includes/class-mv-admin.php:543 includes/class-mv-hilfe.php:44 includes/class-mv-steuer.php:373
 msgid "Receipts"
 msgstr ""
 
-#: includes/class-mv-admin.php:544 includes/class-mv-bank.php:404
+#: includes/class-mv-admin.php:544 includes/class-mv-bank.php:422
 msgid "Receipt"
 msgstr ""
 
@@ -793,7 +793,7 @@ msgstr ""
 msgid "As per invoice; excluding materials."
 msgstr ""
 
-#: includes/class-mv-admin.php:629 includes/class-mv-admin.php:1156 includes/class-mv-portal.php:299
+#: includes/class-mv-admin.php:629 includes/class-mv-admin.php:1157 includes/class-mv-portal.php:299
 msgid "Description"
 msgstr ""
 
@@ -829,11 +829,11 @@ msgstr ""
 msgid "Meter number"
 msgstr ""
 
-#: includes/class-mv-admin.php:683 includes/class-mv-hilfe.php:130
+#: includes/class-mv-admin.php:683 includes/class-mv-hilfe.php:137
 msgid "Meter readings"
 msgstr ""
 
-#: includes/class-mv-admin.php:684 includes/class-mv-admin.php:703 includes/class-mv-admin.php:2106
+#: includes/class-mv-admin.php:684 includes/class-mv-admin.php:703 includes/class-mv-admin.php:2111
 msgid "Meter reading"
 msgstr ""
 
@@ -877,7 +877,7 @@ msgstr ""
 msgid "Searched in name and reference (case-insensitive), e.g. “Stadtwerke” or “N-ERGIE”."
 msgstr ""
 
-#: includes/class-mv-admin.php:739 includes/class-mv-bank.php:397
+#: includes/class-mv-admin.php:739 includes/class-mv-bank.php:415
 msgid "Create as"
 msgstr ""
 
@@ -890,770 +890,782 @@ msgid "Rent payment (income)"
 msgstr ""
 
 #: includes/class-mv-admin.php:745
+msgid "Owners’ association fee (expense)"
+msgstr ""
+
+#: includes/class-mv-admin.php:746
 msgid "Ignore"
 msgstr ""
 
-#: includes/class-mv-admin.php:755
+#: includes/class-mv-admin.php:756
 msgid "Cost type (for receipts)"
 msgstr ""
 
-#: includes/class-mv-admin.php:761
+#: includes/class-mv-admin.php:762
 msgid "Tenancy (for payments)"
 msgstr ""
 
-#: includes/class-mv-admin.php:769 includes/class-mv-steuer.php:409
+#: includes/class-mv-admin.php:770 includes/class-mv-steuer.php:412
 msgid "Depreciation"
 msgstr ""
 
-#: includes/class-mv-admin.php:770 includes/class-mv-steuer.php:411
+#: includes/class-mv-admin.php:771 includes/class-mv-steuer.php:414
 msgid "Asset"
 msgstr ""
 
-#: includes/class-mv-admin.php:776
+#: includes/class-mv-admin.php:777
 msgid "Purchase contract (PDF)"
 msgstr ""
 
-#: includes/class-mv-admin.php:780
+#: includes/class-mv-admin.php:781
 msgid "After selection the contract is read in the browser; detected values appear below as suggestions. Nothing is uploaded until you save."
 msgstr ""
 
-#: includes/class-mv-admin.php:794
+#: includes/class-mv-admin.php:795
 msgid "e.g. “Building, 1 Sample Street” or “Fitted kitchen”"
 msgstr ""
 
-#: includes/class-mv-admin.php:801
+#: includes/class-mv-admin.php:802
 msgid "Building"
 msgstr ""
 
-#: includes/class-mv-admin.php:802
+#: includes/class-mv-admin.php:803
 msgid "Movable asset (fitted kitchen, furniture …)"
 msgstr ""
 
-#: includes/class-mv-admin.php:806
+#: includes/class-mv-admin.php:807
 msgid "Acquisition / completion"
 msgstr ""
 
-#: includes/class-mv-admin.php:810
+#: includes/class-mv-admin.php:811
 msgid "On purchase: transfer of possession. Depreciation starts pro rata from this month."
 msgstr ""
 
-#: includes/class-mv-admin.php:813
+#: includes/class-mv-admin.php:814
 msgid "Purchase price / construction costs (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:819
+#: includes/class-mv-admin.php:820
 msgid "Real estate transfer tax (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:821
+#: includes/class-mv-admin.php:822
 msgid "Bavaria: 3.5 % of the purchase price (tax office assessment)."
 msgstr ""
 
-#: includes/class-mv-admin.php:824
+#: includes/class-mv-admin.php:825
 msgid "Notary – purchase contract (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:826
+#: includes/class-mv-admin.php:827
 msgid "Only the part for notarising the purchase contract. The part for the land charge belongs under “Financing” below."
 msgstr ""
 
-#: includes/class-mv-admin.php:829
+#: includes/class-mv-admin.php:830
 msgid "Land registry – conveyance / transfer of title (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:831
+#: includes/class-mv-admin.php:832
 msgid "Land registry invoice for priority notice and transfer of title."
 msgstr ""
 
-#: includes/class-mv-admin.php:834
+#: includes/class-mv-admin.php:835
 msgid "Estate agent's commission (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:838
+#: includes/class-mv-admin.php:839
 msgid "Other acquisition costs (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:840
+#: includes/class-mv-admin.php:841
 msgid "e.g. surveyor before purchase, travel costs for viewings, translator."
 msgstr ""
 
-#: includes/class-mv-admin.php:843
+#: includes/class-mv-admin.php:844
 msgid "Total acquisition costs (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:846
+#: includes/class-mv-admin.php:847
 msgid "Calculated from the individual items as soon as any are entered; otherwise manual."
 msgstr ""
 
-#: includes/class-mv-admin.php:849
+#: includes/class-mv-admin.php:850
 msgid "Financing costs – notary / land registry for land charge (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:851
+#: includes/class-mv-admin.php:852
 msgid "Not acquisition costs! Immediately deductible expenses (financing costs). On saving, a receipt of cost type “Financing costs” is created automatically unless one with this amount already exists."
 msgstr ""
 
-#: includes/class-mv-admin.php:854
+#: includes/class-mv-admin.php:855
 msgid "Land share (%)"
 msgstr ""
 
-#: includes/class-mv-admin.php:857
+#: includes/class-mv-admin.php:858
 msgid "Building only; the land share is not depreciable. Split as per purchase contract or the BMF purchase price allocation tool. Condominiums also have a co-ownership share of the land (often 15–30 %). The tax office generally does not accept 0 %."
 msgstr ""
 
-#: includes/class-mv-admin.php:860
+#: includes/class-mv-admin.php:861
 msgid "Method"
 msgstr ""
 
-#: includes/class-mv-admin.php:864
+#: includes/class-mv-admin.php:865
 msgid "Straight-line (§ 7 (4) EStG)"
 msgstr ""
 
-#: includes/class-mv-admin.php:865
+#: includes/class-mv-admin.php:866
 msgid "Declining balance (§ 7 (5a) EStG, new build started 10/2023–09/2029)"
 msgstr ""
 
-#: includes/class-mv-admin.php:869
+#: includes/class-mv-admin.php:870
 msgid "Depreciation rate (% p.a.)"
 msgstr ""
 
-#: includes/class-mv-admin.php:872
+#: includes/class-mv-admin.php:873
 msgid "Empty = automatic: buildings by year built of the property (before 1925: 2.5 %, from 2023: 3 %, otherwise 2 %), movable assets 100 / useful life. Declining balance: 5 %. Enter only if different (e.g. 4 % with proven shorter remaining useful life)."
 msgstr ""
 
-#: includes/class-mv-admin.php:875
+#: includes/class-mv-admin.php:876
 msgid "Useful life (years)"
 msgstr ""
 
-#: includes/class-mv-admin.php:877
+#: includes/class-mv-admin.php:878
 msgid "Movable assets only, e.g. fitted kitchen 10 years. Low-value assets up to €800 net: useful life 1 = immediate deduction."
 msgstr ""
 
-#: includes/class-mv-admin.php:880
+#: includes/class-mv-admin.php:881
 msgid "Disposal (sale/withdrawal)"
 msgstr ""
 
-#: includes/class-mv-admin.php:890 includes/class-mv-admin.php:891 includes/class-mv-admin.php:1042
+#: includes/class-mv-admin.php:891 includes/class-mv-admin.php:892 includes/class-mv-admin.php:1043
 msgid "Loans"
 msgstr ""
 
-#: includes/class-mv-admin.php:905 includes/class-mv-assistent.php:333 includes/class-mv-einstellungen.php:103
+#: includes/class-mv-admin.php:906 includes/class-mv-assistent.php:333 includes/class-mv-einstellungen.php:103
 msgid "Bank"
 msgstr ""
 
-#: includes/class-mv-admin.php:911
+#: includes/class-mv-admin.php:912
 msgid "Name / account no."
 msgstr ""
 
-#: includes/class-mv-admin.php:916
+#: includes/class-mv-admin.php:917
 msgid "Loan amount (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:922
+#: includes/class-mv-admin.php:923
 msgid "Disbursement"
 msgstr ""
 
-#: includes/class-mv-admin.php:927
+#: includes/class-mv-admin.php:928
 msgid "Interest rate (% p.a.)"
 msgstr ""
 
-#: includes/class-mv-admin.php:932 includes/class-mv-steuer.php:451
+#: includes/class-mv-admin.php:933 includes/class-mv-steuer.php:454
 msgid "Fixed-rate period until"
 msgstr ""
 
-#: includes/class-mv-admin.php:937
+#: includes/class-mv-admin.php:938
 msgid "Monthly instalment (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:941
+#: includes/class-mv-admin.php:942
 msgid "Initial repayment (% p.a.)"
 msgstr ""
 
-#: includes/class-mv-admin.php:949
+#: includes/class-mv-admin.php:950
 msgid "Active"
 msgstr ""
 
-#: includes/class-mv-admin.php:950
+#: includes/class-mv-admin.php:951
 msgid "Redeemed"
 msgstr ""
 
-#: includes/class-mv-admin.php:954
+#: includes/class-mv-admin.php:955
 msgid "Loan agreement (PDF)"
 msgstr ""
 
-#: includes/class-mv-admin.php:965 includes/class-mv-hilfe.php:63 includes/class-mv-portal.php:268
+#: includes/class-mv-admin.php:966 includes/class-mv-hilfe.php:63 includes/class-mv-portal.php:268
 msgid "Documents"
 msgstr ""
 
-#: includes/class-mv-admin.php:966 includes/class-mv-portal.php:268
+#: includes/class-mv-admin.php:967 includes/class-mv-portal.php:268
 msgid "Document"
 msgstr ""
 
-#: includes/class-mv-admin.php:983
+#: includes/class-mv-admin.php:984
 msgid "Only for tenant-related documents (tenancy agreement, handover protocol, statement)."
 msgstr ""
 
-#: includes/class-mv-admin.php:990
+#: includes/class-mv-admin.php:991
 msgid "Purchase contract"
 msgstr ""
 
-#: includes/class-mv-admin.php:991
+#: includes/class-mv-admin.php:992
 msgid "Land register extract"
 msgstr ""
 
-#: includes/class-mv-admin.php:992
+#: includes/class-mv-admin.php:993
 msgid "Declaration of division / HOA"
 msgstr ""
 
-#: includes/class-mv-admin.php:993 includes/class-mv-admin.php:1309 includes/class-mv-admin.php:2108
+#: includes/class-mv-admin.php:994 includes/class-mv-admin.php:1311 includes/class-mv-admin.php:2113
 msgid "Tenancy agreement"
 msgstr ""
 
-#: includes/class-mv-admin.php:994
+#: includes/class-mv-admin.php:995
 msgid "Handover protocol"
 msgstr ""
 
-#: includes/class-mv-admin.php:996
+#: includes/class-mv-admin.php:997
 msgid "Insurance policy"
 msgstr ""
 
-#: includes/class-mv-admin.php:997 includes/class-mv-mietvertrag.php:253
+#: includes/class-mv-admin.php:998 includes/class-mv-mietvertrag.php:253
 msgid "Energy certificate"
 msgstr ""
 
-#: includes/class-mv-admin.php:998 includes/class-mv-steuer.php:420
+#: includes/class-mv-admin.php:999 includes/class-mv-steuer.php:423
 msgid "Other"
 msgstr ""
 
-#: includes/class-mv-admin.php:1008 includes/class-mv-admin.php:1144 includes/class-mv-bank.php:397
+#: includes/class-mv-admin.php:1009 includes/class-mv-admin.php:1145 includes/class-mv-bank.php:415
 msgid "Date"
 msgstr ""
 
-#: includes/class-mv-admin.php:1013
+#: includes/class-mv-admin.php:1014
 msgid "Visible in tenant portal"
 msgstr ""
 
-#: includes/class-mv-admin.php:1017
+#: includes/class-mv-admin.php:1018
 msgid "No"
 msgstr ""
 
-#: includes/class-mv-admin.php:1018
+#: includes/class-mv-admin.php:1019
 msgid "Yes"
 msgstr ""
 
-#: includes/class-mv-admin.php:1020
+#: includes/class-mv-admin.php:1021
 msgid "Only effective with an assigned tenancy."
 msgstr ""
 
-#: includes/class-mv-admin.php:1023
+#: includes/class-mv-admin.php:1024
 msgid "File (PDF)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1035 includes/class-mv-steuer.php:467
+#: includes/class-mv-admin.php:1036 includes/class-mv-steuer.php:470
 msgid "Interest certificates"
 msgstr ""
 
-#: includes/class-mv-admin.php:1036
+#: includes/class-mv-admin.php:1037
 msgid "Annual loan figures"
 msgstr ""
 
-#: includes/class-mv-admin.php:1049 includes/class-mv-admin.php:1861 includes/class-mv-darlehen.php:312
+#: includes/class-mv-admin.php:1050 includes/class-mv-admin.php:1866 includes/class-mv-darlehen.php:312
 msgid "Year"
 msgstr ""
 
-#: includes/class-mv-admin.php:1055
+#: includes/class-mv-admin.php:1056
 msgid "Interest paid (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1059
+#: includes/class-mv-admin.php:1060
 msgid "As per the bank's annual interest certificate – this is the deductible amount."
 msgstr ""
 
-#: includes/class-mv-admin.php:1062
+#: includes/class-mv-admin.php:1063
 msgid "Repayment (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1065
+#: includes/class-mv-admin.php:1066
 msgid "Not deductible, info only."
 msgstr ""
 
-#: includes/class-mv-admin.php:1068
+#: includes/class-mv-admin.php:1069
 msgid "Outstanding balance 31 Dec (€)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1073
+#: includes/class-mv-admin.php:1074
 msgid "Interest certificate (PDF)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1080 includes/class-mv-hilfe.php:143
+#: includes/class-mv-admin.php:1081 includes/class-mv-hilfe.php:150
 msgid "Cost types"
 msgstr ""
 
-#: includes/class-mv-admin.php:1093
+#: includes/class-mv-admin.php:1094
 msgid "Anlage V – group"
 msgstr ""
 
-#: includes/class-mv-admin.php:1100
+#: includes/class-mv-admin.php:1101
 msgid "Recoverable (BetrKV)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1104
+#: includes/class-mv-admin.php:1105
 msgid "No – borne by the landlord"
 msgstr ""
 
-#: includes/class-mv-admin.php:1105
+#: includes/class-mv-admin.php:1106
 msgid "Yes – included in the service charge statement"
 msgstr ""
 
-#: includes/class-mv-admin.php:1114
+#: includes/class-mv-admin.php:1115
 msgid "Living area"
 msgstr ""
 
-#: includes/class-mv-admin.php:1115
+#: includes/class-mv-admin.php:1116
 msgid "Persons"
 msgstr ""
 
-#: includes/class-mv-admin.php:1116
+#: includes/class-mv-admin.php:1117
 msgid "Consumption (meter)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1117
+#: includes/class-mv-admin.php:1118
 msgid "per unit"
 msgstr ""
 
-#: includes/class-mv-admin.php:1121
+#: includes/class-mv-admin.php:1122
 msgid "Legal basis"
 msgstr ""
 
-#: includes/class-mv-admin.php:1123
+#: includes/class-mv-admin.php:1124
 msgid "e.g. § 2 no. 1 BetrKV"
 msgstr ""
 
-#: includes/class-mv-admin.php:1126
+#: includes/class-mv-admin.php:1127
 msgid "Sort order"
 msgstr ""
 
-#: includes/class-mv-admin.php:1132 includes/class-mv-hilfe.php:57 includes/class-mv-portal.php:223
+#: includes/class-mv-admin.php:1133 includes/class-mv-hilfe.php:57 includes/class-mv-portal.php:223
 msgid "Reports"
 msgstr ""
 
-#: includes/class-mv-admin.php:1133
+#: includes/class-mv-admin.php:1134
 msgid "Report"
 msgstr ""
 
-#: includes/class-mv-admin.php:1150 includes/class-mv-portal.php:230 includes/class-mv-portal.php:298
+#: includes/class-mv-admin.php:1151 includes/class-mv-portal.php:230 includes/class-mv-portal.php:298
 msgid "Subject"
 msgstr ""
 
-#: includes/class-mv-admin.php:1164 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:226
+#: includes/class-mv-admin.php:1165 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:226
 msgid "Outstanding"
 msgstr ""
 
-#: includes/class-mv-admin.php:1165 includes/class-mv-portal.php:227
+#: includes/class-mv-admin.php:1166 includes/class-mv-portal.php:227
 msgid "In progress"
 msgstr ""
 
-#: includes/class-mv-admin.php:1166 includes/class-mv-portal.php:228
+#: includes/class-mv-admin.php:1167 includes/class-mv-portal.php:228
 msgid "Done"
 msgstr ""
 
-#: includes/class-mv-admin.php:1218
+#: includes/class-mv-admin.php:1219 includes/class-mv-hausgeld.php:523
 msgid "recoverable"
 msgstr ""
 
-#: includes/class-mv-admin.php:1224
+#: includes/class-mv-admin.php:1225
 msgid "Main meter"
 msgstr ""
 
-#: includes/class-mv-admin.php:1271
+#: includes/class-mv-admin.php:1272
 msgid "Daily"
 msgstr ""
 
-#: includes/class-mv-admin.php:1277
+#: includes/class-mv-admin.php:1278
 msgid "Administration"
 msgstr ""
 
-#: includes/class-mv-admin.php:1287
+#: includes/class-mv-admin.php:1289
 msgid "Year end"
 msgstr ""
 
-#: includes/class-mv-admin.php:1297
+#: includes/class-mv-admin.php:1299
 msgid "System"
 msgstr ""
 
-#: includes/class-mv-admin.php:1306
+#: includes/class-mv-admin.php:1308
 msgid "Wizard"
 msgstr ""
 
-#: includes/class-mv-admin.php:1307 includes/class-mv-admin.php:2107
+#: includes/class-mv-admin.php:1309 includes/class-mv-admin.php:2112
 msgid "Statement"
 msgstr ""
 
-#: includes/class-mv-admin.php:1308 includes/class-mv-datenschutz.php:143 includes/class-mv-hilfe.php:18
+#: includes/class-mv-admin.php:1310 includes/class-mv-datenschutz.php:143 includes/class-mv-hilfe.php:18
 msgid "Settings"
 msgstr ""
 
-#: includes/class-mv-admin.php:1310 includes/class-mv-darlehen.php:319 includes/class-mv-hilfe.php:168
+#: includes/class-mv-admin.php:1312 includes/class-mv-darlehen.php:319 includes/class-mv-hilfe.php:175
 msgid "Interest certificate"
 msgstr ""
 
-#: includes/class-mv-admin.php:1311 includes/class-mv-hilfe.php:180
+#: includes/class-mv-admin.php:1313 includes/class-mv-hilfe.php:187
 msgid "Bank rules"
 msgstr ""
 
-#: includes/class-mv-admin.php:1315 includes/class-mv-hilfe.php:99
+#: includes/class-mv-admin.php:1314 includes/class-mv-bank.php:422
+msgid "Owners’ fee"
+msgstr ""
+
+#: includes/class-mv-admin.php:1318 includes/class-mv-hilfe.php:99
 msgid "Agreement & handover"
 msgstr ""
 
-#: includes/class-mv-admin.php:1317 includes/class-mv-hilfe.php:118 includes/class-mv-mahnung.php:27
+#: includes/class-mv-admin.php:1320 includes/class-mv-hilfe.php:125 includes/class-mv-mahnung.php:27
 msgid "Dunning"
 msgstr ""
 
-#: includes/class-mv-admin.php:1318 includes/class-mv-erhoehung.php:183 includes/class-mv-hilfe.php:112
+#: includes/class-mv-admin.php:1321 includes/class-mv-erhoehung.php:183 includes/class-mv-hilfe.php:119
 msgid "Rent increase"
 msgstr ""
 
-#: includes/class-mv-admin.php:1319 includes/class-mv-hilfe.php:106 includes/class-mv-portal.php:196
+#: includes/class-mv-admin.php:1322 includes/class-mv-hilfe.php:106 includes/class-mv-portal.php:196
 msgid "Deposit"
 msgstr ""
 
-#: includes/class-mv-admin.php:1320 includes/class-mv-darlehen.php:212 includes/class-mv-hilfe.php:162
+#: includes/class-mv-admin.php:1323 includes/class-mv-hausgeld.php:382 includes/class-mv-hilfe.php:112
+msgid "Owners’ association fee"
+msgstr ""
+
+#: includes/class-mv-admin.php:1324 includes/class-mv-darlehen.php:212 includes/class-mv-hilfe.php:169
 msgid "Loan account"
 msgstr ""
 
-#: includes/class-mv-admin.php:1322 includes/class-mv-hilfe.php:174
+#: includes/class-mv-admin.php:1326 includes/class-mv-hilfe.php:181
 msgid "Tax (Anlage V)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1323 includes/class-mv-datenschutz.php:139 includes/class-mv-einstellungen.php:139
+#: includes/class-mv-admin.php:1327 includes/class-mv-datenschutz.php:139 includes/class-mv-einstellungen.php:139
 msgid "Data protection"
 msgstr ""
 
-#: includes/class-mv-admin.php:1324 includes/class-mv-einstellungen.php:89 includes/class-mv-hilfe.php:198
+#: includes/class-mv-admin.php:1328 includes/class-mv-einstellungen.php:89 includes/class-mv-hilfe.php:205
 msgid "Settings & backup"
 msgstr ""
 
-#: includes/class-mv-admin.php:1325 includes/class-mv-hilfe.php:214
+#: includes/class-mv-admin.php:1329 includes/class-mv-hilfe.php:221
 msgid "Help"
 msgstr ""
 
-#: includes/class-mv-admin.php:1326 includes/class-mv-assistent.php:285 includes/class-mv-hilfe.php:192
+#: includes/class-mv-admin.php:1330 includes/class-mv-assistent.php:285 includes/class-mv-hilfe.php:199
 msgid "Setup wizard"
 msgstr ""
 
-#: includes/class-mv-admin.php:1435 includes/class-mv-admin.php:1442
+#: includes/class-mv-admin.php:1440 includes/class-mv-admin.php:1447
 msgid "%s is required."
 msgstr ""
 
-#: includes/class-mv-admin.php:1522
+#: includes/class-mv-admin.php:1527
 msgid "Saving failed: %s"
 msgstr ""
 
-#: includes/class-mv-admin.php:1522
+#: includes/class-mv-admin.php:1527
 msgid "unknown database error"
 msgstr ""
 
-#: includes/class-mv-admin.php:1657
+#: includes/class-mv-admin.php:1662
 msgid "End of tenancy is before the start."
 msgstr ""
 
-#: includes/class-mv-admin.php:1663
+#: includes/class-mv-admin.php:1668
 msgid "Another tenancy already exists for this unit in the period."
 msgstr ""
 
-#: includes/class-mv-admin.php:1667
+#: includes/class-mv-admin.php:1672
 msgid "Payment day must be between 1 and 28."
 msgstr ""
 
-#: includes/class-mv-admin.php:1671
+#: includes/class-mv-admin.php:1676
 msgid "The main unit cannot also be an additional unit."
 msgstr ""
 
-#: includes/class-mv-admin.php:1678
+#: includes/class-mv-admin.php:1683
 msgid "Additional unit “%s” is already let to someone else in the period."
 msgstr ""
 
-#: includes/class-mv-admin.php:1686
+#: includes/class-mv-admin.php:1691
 msgid "Valid from (%1$s) is before the start of tenancy (%2$s)."
 msgstr ""
 
-#: includes/class-mv-admin.php:1689
+#: includes/class-mv-admin.php:1694
 msgid "Note: the deposit (%s) exceeds three months’ base rent (§ 551 BGB) – please check the tenancy."
 msgstr ""
 
-#: includes/class-mv-admin.php:1693
+#: includes/class-mv-admin.php:1698
 msgid "Base rent must be greater than 0."
 msgstr ""
 
-#: includes/class-mv-admin.php:1698
+#: includes/class-mv-admin.php:1703
 msgid "Amount must not be 0."
 msgstr ""
 
-#: includes/class-mv-admin.php:1701
+#: includes/class-mv-admin.php:1706
 msgid "Payment date is in the future."
 msgstr ""
 
-#: includes/class-mv-admin.php:1706
+#: includes/class-mv-admin.php:1711
 msgid "Assigned month is before the start of tenancy."
 msgstr ""
 
-#: includes/class-mv-admin.php:1712
+#: includes/class-mv-admin.php:1717
 msgid "Service period: “to” is before “from”."
 msgstr ""
 
-#: includes/class-mv-admin.php:1715
+#: includes/class-mv-admin.php:1720
 msgid "Amount must be greater than 0 (credit notes as negative receipts are not supported – please offset against the original receipt)."
 msgstr ""
 
-#: includes/class-mv-admin.php:1718
+#: includes/class-mv-admin.php:1723
 msgid "Labour share cannot exceed the invoice amount."
 msgstr ""
 
-#: includes/class-mv-admin.php:1721
+#: includes/class-mv-admin.php:1726
 msgid "Tax year differs from the payment date by more than one year."
 msgstr ""
 
-#: includes/class-mv-admin.php:1726
+#: includes/class-mv-admin.php:1731
 msgid "Living area must be greater than 0 (needed for the service charge statement)."
 msgstr ""
 
-#: includes/class-mv-admin.php:1733
+#: includes/class-mv-admin.php:1738
 msgid "Meter reading (%1$s) is lower than the previous reading (%2$s) – meter replaced? Then create a new meter."
 msgstr ""
 
-#: includes/class-mv-admin.php:1739
+#: includes/class-mv-admin.php:1744
 msgid "Land share must be below 100 %."
 msgstr ""
 
-#: includes/class-mv-admin.php:1742
+#: includes/class-mv-admin.php:1747
 msgid "Movable asset: enter useful life or depreciation rate."
 msgstr ""
 
-#: includes/class-mv-admin.php:1747
+#: includes/class-mv-admin.php:1752
 msgid "Invalid year."
 msgstr ""
 
-#: includes/class-mv-admin.php:1754
+#: includes/class-mv-admin.php:1759
 msgid "Invalid IBAN (check digit)."
 msgstr ""
 
-#: includes/class-mv-admin.php:1811
+#: includes/class-mv-admin.php:1816
 msgid "Saved."
 msgstr ""
 
-#: includes/class-mv-admin.php:1812
+#: includes/class-mv-admin.php:1817
 msgid "Deleted."
 msgstr ""
 
-#: includes/class-mv-admin.php:1813
+#: includes/class-mv-admin.php:1818
 msgid "Cannot delete: dependent records still exist."
 msgstr ""
 
-#: includes/class-mv-admin.php:1814
+#: includes/class-mv-admin.php:1819
 msgid "%d rent payment(s) booked."
 msgstr ""
 
-#: includes/class-mv-admin.php:1846
+#: includes/class-mv-admin.php:1851
 msgid "Add %s"
 msgstr ""
 
-#: includes/class-mv-admin.php:1862
+#: includes/class-mv-admin.php:1867
 msgid "all"
 msgstr ""
 
-#: includes/class-mv-admin.php:1884
+#: includes/class-mv-admin.php:1889
 msgid "Actions"
 msgstr ""
 
-#: includes/class-mv-admin.php:1887 includes/class-mv-kaution.php:175
+#: includes/class-mv-admin.php:1892 includes/class-mv-kaution.php:175
 msgid "No entries yet."
 msgstr ""
 
-#: includes/class-mv-admin.php:1899
+#: includes/class-mv-admin.php:1904
 msgid "Open receipt"
 msgstr ""
 
-#: includes/class-mv-admin.php:1921
+#: includes/class-mv-admin.php:1926
 msgid "Edit"
 msgstr ""
 
-#: includes/class-mv-admin.php:1921
+#: includes/class-mv-admin.php:1926
 msgid "Really delete?"
 msgstr ""
 
-#: includes/class-mv-admin.php:1954
+#: includes/class-mv-admin.php:1959
 msgid "Edit:"
 msgstr ""
 
-#: includes/class-mv-admin.php:1954
+#: includes/class-mv-admin.php:1959
 msgid "New:"
 msgstr ""
 
-#: includes/class-mv-admin.php:1976
+#: includes/class-mv-admin.php:1981
 msgid "No units created yet."
 msgstr ""
 
-#: includes/class-mv-admin.php:1989
+#: includes/class-mv-admin.php:1994
 msgid "Rent share"
 msgstr ""
 
-#: includes/class-mv-admin.php:1999
+#: includes/class-mv-admin.php:2004
 msgid "Open current file"
 msgstr ""
 
-#: includes/class-mv-admin.php:1999
+#: includes/class-mv-admin.php:2004
 msgid "– choose a new file to replace it."
 msgstr ""
 
-#: includes/class-mv-admin.php:2004
+#: includes/class-mv-admin.php:2009
 msgid "📷 Take photo"
 msgstr ""
 
-#: includes/class-mv-admin.php:2017
+#: includes/class-mv-admin.php:2022
 msgid "– please select –"
 msgstr ""
 
-#: includes/class-mv-admin.php:2052
+#: includes/class-mv-admin.php:2057
 msgid "Cancel"
 msgstr ""
 
-#: includes/class-mv-admin.php:2083
+#: includes/class-mv-admin.php:2088
 msgid "Properties / units"
 msgstr ""
 
-#: includes/class-mv-admin.php:2083
+#: includes/class-mv-admin.php:2088
 msgid "active tenancies"
 msgstr ""
 
-#: includes/class-mv-admin.php:2084
+#: includes/class-mv-admin.php:2089
 msgid "Monthly rent due"
 msgstr ""
 
-#: includes/class-mv-admin.php:2084
+#: includes/class-mv-admin.php:2089
 msgid "Base rent + advance payments"
 msgstr ""
 
-#: includes/class-mv-admin.php:2085
+#: includes/class-mv-admin.php:2090
 msgid "Open rent claims"
 msgstr ""
 
-#: includes/class-mv-admin.php:2085
+#: includes/class-mv-admin.php:2090
 msgid "Arrears – tick below or send a reminder"
 msgstr ""
 
-#: includes/class-mv-admin.php:2085
+#: includes/class-mv-admin.php:2090
 msgid "All rent accounts balanced"
 msgstr ""
 
-#: includes/class-mv-admin.php:2086
+#: includes/class-mv-admin.php:2091
 msgid "Income %d"
 msgstr ""
 
-#: includes/class-mv-admin.php:2086
+#: includes/class-mv-admin.php:2091
 msgid "Expenses so far %s"
 msgstr ""
 
-#: includes/class-mv-admin.php:2103 includes/class-mv-admin.php:2154
+#: includes/class-mv-admin.php:2108 includes/class-mv-admin.php:2159
 msgid "Record payment"
 msgstr ""
 
-#: includes/class-mv-admin.php:2104
+#: includes/class-mv-admin.php:2109
 msgid "Record receipt"
 msgstr ""
 
-#: includes/class-mv-admin.php:2117
+#: includes/class-mv-admin.php:2122
 msgid "Notices"
 msgstr ""
 
-#: includes/class-mv-admin.php:2119
+#: includes/class-mv-admin.php:2124
 msgid "%d open report(s) from the tenant portal"
 msgstr ""
 
-#: includes/class-mv-admin.php:2130
+#: includes/class-mv-admin.php:2135
 msgid "Mietfux – Overview"
 msgstr ""
 
-#: includes/class-mv-admin.php:2131
+#: includes/class-mv-admin.php:2136
 msgid "Show WordPress menu"
 msgstr ""
 
-#: includes/class-mv-admin.php:2131
+#: includes/class-mv-admin.php:2136
 msgid "Hide WordPress menu"
 msgstr ""
 
-#: includes/class-mv-admin.php:2136
+#: includes/class-mv-admin.php:2141
 msgid "No active tenancy yet. Order to get started:"
 msgstr ""
 
-#: includes/class-mv-admin.php:2136
+#: includes/class-mv-admin.php:2141
 msgid "Property → Unit → Tenant → Tenancy → Rent conditions"
 msgstr ""
 
-#: includes/class-mv-admin.php:2136
+#: includes/class-mv-admin.php:2141
 msgid "or use the setup wizard"
 msgstr ""
 
-#: includes/class-mv-admin.php:2146
+#: includes/class-mv-admin.php:2151
 msgid "Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments)."
 msgstr ""
 
-#: includes/class-mv-admin.php:2146
+#: includes/class-mv-admin.php:2151 includes/class-mv-hausgeld.php:492
 msgid "Please tick at least one month."
 msgstr ""
 
-#: includes/class-mv-admin.php:2146 includes/class-mv-admin.php:2196
+#: includes/class-mv-admin.php:2151 includes/class-mv-admin.php:2201
 msgid "Book selected as paid"
 msgstr ""
 
-#: includes/class-mv-admin.php:2152
+#: includes/class-mv-admin.php:2157
 msgid "Start %1$s · Deposit %2$s"
 msgstr ""
 
-#: includes/class-mv-admin.php:2154 includes/class-mv-mahnung.php:30
+#: includes/class-mv-admin.php:2159 includes/class-mv-mahnung.php:30
 msgid "Balance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163
+#: includes/class-mv-admin.php:2168
 msgid "all open months of this tenancy"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163 includes/class-mv-darlehen.php:275 includes/class-mv-mahnung.php:100
+#: includes/class-mv-admin.php:2168 includes/class-mv-darlehen.php:275 includes/class-mv-hausgeld.php:447
 msgid "Month"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163 includes/class-mv-portal.php:193
+#: includes/class-mv-admin.php:2168 includes/class-mv-portal.php:193
 msgid "Base rent"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163
+#: includes/class-mv-admin.php:2168
 msgid "SC advance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163
+#: includes/class-mv-admin.php:2168
 msgid "Heating advance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:207
+#: includes/class-mv-admin.php:2168 includes/class-mv-mahnung.php:100 includes/class-mv-portal.php:207
 msgid "Due"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163
+#: includes/class-mv-admin.php:2168
 msgid "Actual"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163 includes/class-mv-portal.php:207
+#: includes/class-mv-admin.php:2168 includes/class-mv-portal.php:207
 msgid "Difference"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163
+#: includes/class-mv-admin.php:2168
 msgid "Cumulative balance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2172
+#: includes/class-mv-admin.php:2177
 msgid "Book %s as paid"
 msgstr ""
 
-#: includes/class-mv-admin.php:2174
+#: includes/class-mv-admin.php:2179
 msgid "No rent conditions entered"
 msgstr ""
 
@@ -1785,7 +1797,7 @@ msgstr ""
 msgid "Address before moving in – appears in the agreement."
 msgstr ""
 
-#: includes/class-mv-assistent.php:393 includes/class-mv-bank.php:250
+#: includes/class-mv-assistent.php:393 includes/class-mv-bank.php:251
 msgid "Tenant's IBAN"
 msgstr ""
 
@@ -1889,59 +1901,63 @@ msgstr ""
 msgid "Review the entries again"
 msgstr ""
 
-#: includes/class-mv-bank.php:250
+#: includes/class-mv-bank.php:251
 msgid "Tenant's name"
 msgstr ""
 
-#: includes/class-mv-bank.php:256
+#: includes/class-mv-bank.php:257
 msgid "Expense – choose a cost type or skip"
 msgstr ""
 
-#: includes/class-mv-bank.php:374
+#: includes/class-mv-bank.php:264
+msgid "Property manager (owners’ association fee)"
+msgstr ""
+
+#: includes/class-mv-bank.php:392
 msgid "%d transactions imported."
 msgstr ""
 
-#: includes/class-mv-bank.php:376
+#: includes/class-mv-bank.php:394
 msgid "No transactions detected. Supported: CSV with header row (booking date, amount, reference …) or CAMT.053 XML."
 msgstr ""
 
-#: includes/class-mv-bank.php:384
+#: includes/class-mv-bank.php:402
 msgid "Import"
 msgstr ""
 
-#: includes/class-mv-bank.php:385
+#: includes/class-mv-bank.php:403
 msgid "Bank statement as CSV (online banking export) or CAMT.053 XML. Previously imported transactions are detected and not duplicated. Rent payments are matched by the tenant's IBAN or last name, expenses via"
 msgstr ""
 
-#: includes/class-mv-bank.php:396 includes/class-mv-bank.php:425
+#: includes/class-mv-bank.php:414 includes/class-mv-bank.php:450
 msgid "Import selected transactions"
 msgstr ""
 
-#: includes/class-mv-bank.php:397
+#: includes/class-mv-bank.php:415
 msgid "Name / reference"
 msgstr ""
 
-#: includes/class-mv-bank.php:397
+#: includes/class-mv-bank.php:415
 msgid "Assignment"
 msgstr ""
 
-#: includes/class-mv-bank.php:397
+#: includes/class-mv-bank.php:415
 msgid "Remember rule"
 msgstr ""
 
-#: includes/class-mv-bank.php:403
+#: includes/class-mv-bank.php:421
 msgid "already imported"
 msgstr ""
 
-#: includes/class-mv-bank.php:404
+#: includes/class-mv-bank.php:422
 msgid "Rent payment"
 msgstr ""
 
-#: includes/class-mv-bank.php:407
+#: includes/class-mv-bank.php:425
 msgid "– tenancy –"
 msgstr ""
 
-#: includes/class-mv-bank.php:417
+#: includes/class-mv-bank.php:435
 msgid "– cost type –"
 msgstr ""
 
@@ -1957,7 +1973,7 @@ msgstr ""
 msgid "dear Mr %s"
 msgstr ""
 
-#: includes/class-mv-darlehen.php:215
+#: includes/class-mv-darlehen.php:215 includes/class-mv-hausgeld.php:386
 msgid "%d entry/entries created."
 msgstr ""
 
@@ -2021,7 +2037,7 @@ msgstr ""
 msgid "Instalment"
 msgstr ""
 
-#: includes/class-mv-darlehen.php:275 includes/class-mv-darlehen.php:312 includes/class-mv-steuer.php:220
+#: includes/class-mv-darlehen.php:275 includes/class-mv-darlehen.php:312 includes/class-mv-steuer.php:223
 msgid "Interest"
 msgstr ""
 
@@ -2251,6 +2267,10 @@ msgstr ""
 
 #: includes/class-mv-db.php:113
 msgid "Other expenses"
+msgstr ""
+
+#: includes/class-mv-db.php:114
+msgid "Maintenance reserve contribution (not deductible)"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:84
@@ -2617,6 +2637,202 @@ msgstr ""
 msgid "Please adjust your standing order accordingly."
 msgstr ""
 
+#: includes/class-mv-hausgeld.php:172
+msgid "Owners’ association fee %s"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:233
+msgid "Owners’ association annual statement %d – adjustment"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:388
+msgid "Budget plan saved."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:390
+msgid "Annual statement booked – adjustment receipts created per cost type."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:392
+msgid "Nothing to book: no differences to the advance payments, or a statement for this year already exists."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:395
+msgid "No property created yet –"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:395
+msgid "Create property"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:398
+msgid "For condominiums: the monthly fee paid to the property manager is split according to the budget plan into recoverable service charges (passed on in the service charge statement), non-recoverable expenses (management, maintenance – deductible in Anlage V) and the contribution to the maintenance reserve (not deductible until spent). Each booked month creates one receipt per cost type; the annual statement of the owners’ association books the differences."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:424
+msgid "Monthly fee"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:426
+msgid "valid from"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:428
+msgid "Recoverable"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:430
+msgid "passed on to tenants"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:431
+msgid "Deductible expenses"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:433
+msgid "management, maintenance"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:434
+msgid "Maintenance reserve"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:436
+msgid "not deductible"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:446
+msgid "Payments %d"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:472
+msgid "booked"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:472 includes/class-mv-portal.php:271 includes/class-mv-steuer.php:465
+msgid "open"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:472
+msgid "future"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:473
+msgid "Delete payment and its receipts?"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:480
+msgid "Annual statement %d"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:483
+msgid "additional payment"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:483
+msgid "refund"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:484
+msgid "Delete annual statement and its adjustment receipts?"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:491
+msgid "Payment day"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:493
+msgid "Book selected months"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:500
+msgid "Budget plan (monthly split)"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:505
+msgid "Property manager"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:507
+msgid "Manager’s IBAN"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:509
+msgid "Used by the bank import to recognise fee payments automatically."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:510
+msgid "Monthly fee (€)"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:515
+msgid "Treatment"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:515
+msgid "Monthly (€)"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:521
+msgid "reserve – not deductible"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:527
+msgid "expenses (Anlage V)"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:539
+msgid "The split (%1$s) does not match the monthly fee (%2$s). Payments are split proportionally."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:541
+msgid "Save budget plan"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:543
+msgid "Delete this budget plan? Booked payments remain."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:543
+msgid "Delete plan"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:545
+msgid "A changed fee from a new budget plan: enter the new amounts with “valid from” – the previous plan stays in effect for earlier months."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:547
+msgid "Earlier plans:"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:558
+msgid "Owners’ association annual statement %d"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:560
+msgid "Booked:"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:565
+msgid "Enter the actual annual amounts per cost type from the individual statement. The difference to the advance payments is booked as an adjustment receipt (additional payment or refund) with the payment date, allocated to the statement year."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:567
+msgid "Per statement (€)"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:579
+msgid "Book the annual statement? Adjustment receipts are created per cost type."
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:579
+msgid "Book annual statement"
+msgstr ""
+
+#: includes/class-mv-hausgeld.php:580
+msgid "Empty fields keep the advance payments unchanged. Amounts spent from the maintenance reserve (e.g. repairs) belong to “Maintenance expenses” – they become deductible when spent."
+msgstr ""
+
 #: includes/class-mv-hilfe.php:18
 msgid "Enter landlord details, bank account, creditor ID, tax number and sender for letters."
 msgstr ""
@@ -2722,118 +2938,126 @@ msgid "Deposit account under § 551 BGB: payments (up to 3 instalments), daily i
 msgstr ""
 
 #: includes/class-mv-hilfe.php:114
+msgid "For condominiums: budget plan per property (manager, IBAN, monthly fee, split by cost type). Booking a month creates one receipt per cost type – recoverable parts flow into the service charge statement, management and maintenance into Anlage V, the maintenance reserve contribution is recorded but not deducted."
+msgstr ""
+
+#: includes/class-mv-hilfe.php:115
+msgid "The owners’ association annual statement books the differences to the advance payments as adjustment receipts (additional payment or refund), allocated to the statement year. The bank import recognises fee payments by the manager’s IBAN or name."
+msgstr ""
+
+#: includes/class-mv-hilfe.php:121
 msgid "Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:120
+#: includes/class-mv-hilfe.php:127
 msgid "Three dunning levels with deadlines and texts. Letters as PDF, optionally by email to tenant and co-tenant."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:126
+#: includes/class-mv-hilfe.php:133
 msgid "Electricity, gas, water and heat meters per unit or property (communal electricity)."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:132
+#: includes/class-mv-hilfe.php:139
 msgid "Readings with date. Tenants can submit readings themselves in the portal (source “Tenant”)."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:138
+#: includes/class-mv-hilfe.php:145
 msgid "Annual statement under BetrKV: the year's receipts are allocated by key (area, persons, units, consumption), pro rata on tenant change; vacancy is borne by the landlord. Advance payments are offset, § 35a shares are shown."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:139
+#: includes/class-mv-hilfe.php:146
 msgid "Generate the finished statement as a letter (PDF), file it under Documents and release it in the portal. The advance payment can be adjusted directly."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:145
+#: includes/class-mv-hilfe.php:152
 msgid "Catalogue per BetrKV § 2 (pre-filled) plus your own types. Per cost type: recoverable yes/no, allocation key, line in Anlage V."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:149
+#: includes/class-mv-hilfe.php:156
 msgid "Assets (depreciation)"
 msgstr ""
 
-#: includes/class-mv-hilfe.php:151
+#: includes/class-mv-hilfe.php:158
 msgid "Building with acquisition costs, itemised incidental costs (transfer tax, notary, land registry, agent, other) and land share. Depreciation straight-line under § 7 (4) EStG (2 %, 2.5 % before 1925, 3 % from 2023) or declining balance, pro rata in the first year."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:152
+#: includes/class-mv-hilfe.php:159
 msgid "The purchase contract can be uploaded as PDF; purchase price, date and incidental costs are suggested from it. The 15 % guard warns of acquisition-related construction costs (§ 6 (1) no. 1a EStG)."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:158
+#: includes/class-mv-hilfe.php:165
 msgid "Financing loans with interest rate, repayment, instalment and fixed-rate period. The repayment schedule is derived from these."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:164
+#: includes/class-mv-hilfe.php:171
 msgid "Repayment schedule with instalments to tick off, extra repayments and outstanding balance. Ticked instalments provide the annual interest for Anlage V unless an interest certificate is entered."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:170
+#: includes/class-mv-hilfe.php:177
 msgid "Annual figures per bank certificate (interest, repayment, balance). Take precedence over calculated values."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:176
+#: includes/class-mv-hilfe.php:183
 msgid "Annual report per property: income, expenses by Anlage V line, depreciation, loan interest, prior-year comparison. CSV export; line mapping adjustable."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:182
+#: includes/class-mv-hilfe.php:189
 msgid "Matching rules for the bank import: search term or IBAN → tenancy or cost type."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:188
+#: includes/class-mv-hilfe.php:195
 msgid "Anonymise ended tenancies after the retention periods expire, export access reports under Art. 15 GDPR. Overview of deletion concept and deadlines."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:194
+#: includes/class-mv-hilfe.php:201
 msgid "Creates landlord, property, units (flat + garage), tenant and tenancy with rent conditions in five steps. Each step saves immediately; the wizard can be reopened at any time to complete the entries."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:200
+#: includes/class-mv-hilfe.php:207
 msgid "Landlord details, bank account, creditor ID, tax number, dunning and portal options. Backup of all plugin tables as JSON, restore, option “delete data on uninstall”."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:204
+#: includes/class-mv-hilfe.php:211
 msgid "Tenant portal"
 msgstr ""
 
-#: includes/class-mv-hilfe.php:206
+#: includes/class-mv-hilfe.php:213
 msgid "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:215
+#: includes/class-mv-hilfe.php:222
 msgid "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:217
+#: includes/class-mv-hilfe.php:224
 msgid "Quick start"
 msgstr ""
 
-#: includes/class-mv-hilfe.php:217
+#: includes/class-mv-hilfe.php:224
 msgid "Start setup wizard"
 msgstr ""
 
-#: includes/class-mv-hilfe.php:217
+#: includes/class-mv-hilfe.php:224
 msgid "– guides through steps 1 to 4 and creates the first tenancy."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:223
+#: includes/class-mv-hilfe.php:230
 msgid "Modules"
 msgstr ""
 
-#: includes/class-mv-hilfe.php:234
+#: includes/class-mv-hilfe.php:241
 msgid "Legal notes"
 msgstr ""
 
-#: includes/class-mv-hilfe.php:235
+#: includes/class-mv-hilfe.php:242
 msgid "The plugin does not replace legal or tax advice. Contract templates, calculations and deadlines are based on German law (BGB, BetrKV, HeizkostenV, EStG) and must be checked before use. All data stays in your WordPress database; no data is transmitted to third parties."
 msgstr ""
 
-#: includes/class-mv-hilfe.php:236
+#: includes/class-mv-hilfe.php:243
 msgid "Version"
 msgstr ""
 
-#: includes/class-mv-hilfe.php:259
+#: includes/class-mv-hilfe.php:266
 msgid "All help topics"
 msgstr ""
 
@@ -2862,34 +3086,38 @@ msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:111
+msgid "Owners’ association fee for %1$s not yet booked: %2$s"
+msgstr ""
+
+#: includes/class-mv-hinweise.php:123
 msgid "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:117
+#: includes/class-mv-hinweise.php:129
 msgid "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:139
+#: includes/class-mv-hinweise.php:151
 msgid "Retention period expired: tenant data “%s” can be anonymised"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:152
+#: includes/class-mv-hinweise.php:164
 msgid "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:173
+#: includes/class-mv-hinweise.php:185
 msgid ": balance"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:178
+#: includes/class-mv-hinweise.php:190
 msgid "✅ No open notices."
 msgstr ""
 
-#: includes/class-mv-hinweise.php:191
+#: includes/class-mv-hinweise.php:203
 msgid "Go to Mietfux"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:206
+#: includes/class-mv-hinweise.php:218
 msgid "Notices from Mietfux (%s):"
 msgstr ""
 
@@ -3849,10 +4077,6 @@ msgstr ""
 msgid "Open statement"
 msgstr ""
 
-#: includes/class-mv-portal.php:271 includes/class-mv-steuer.php:462 includes/class-mv-steuer.php:484
-msgid "open"
-msgstr ""
-
 #: includes/class-mv-portal.php:285
 msgid "Submit meter reading"
 msgstr ""
@@ -3873,178 +4097,194 @@ msgstr ""
 msgid "Submit report"
 msgstr ""
 
-#: includes/class-mv-steuer.php:205
+#: includes/class-mv-steuer.php:208
 msgid "AfA"
 msgstr ""
 
-#: includes/class-mv-steuer.php:313
+#: includes/class-mv-steuer.php:316
 msgid "Tax year:"
 msgstr ""
 
-#: includes/class-mv-steuer.php:320
+#: includes/class-mv-steuer.php:323
 msgid "Line numbers saved."
 msgstr ""
 
-#: includes/class-mv-steuer.php:324
+#: includes/class-mv-steuer.php:327
 msgid "Trend"
 msgstr ""
 
-#: includes/class-mv-steuer.php:326
+#: includes/class-mv-steuer.php:329
 msgid "Cash basis (§ 11 EStG): income by date received, expenses by payment date of the receipt. Rent receipts are split into rent and recoverable charges in proportion to the rent conditions of the respective month. Depreciation and loan interest flow in automatically from “Depreciation” and “Interest certificates”. Anlage V line numbers change every year – please refer to the current form."
 msgstr ""
 
-#: includes/class-mv-steuer.php:342
+#: includes/class-mv-steuer.php:345
 msgid "Prior year %1$s (%2$+.1f %%)"
 msgstr ""
 
-#: includes/class-mv-steuer.php:348
+#: includes/class-mv-steuer.php:351
 msgid "Total income"
 msgstr ""
 
-#: includes/class-mv-steuer.php:348
+#: includes/class-mv-steuer.php:351
 msgid "Total expenses"
 msgstr ""
 
-#: includes/class-mv-steuer.php:348 includes/class-mv-steuer.php:398
+#: includes/class-mv-steuer.php:351 includes/class-mv-steuer.php:401
 msgid "Surplus / loss"
 msgstr ""
 
-#: includes/class-mv-steuer.php:359
+#: includes/class-mv-steuer.php:362
 msgid "Income"
 msgstr ""
 
-#: includes/class-mv-steuer.php:359 includes/class-mv-steuer.php:394
+#: includes/class-mv-steuer.php:362 includes/class-mv-steuer.php:397
 msgid "Rental income (excl. recoverable charges)"
 msgstr ""
 
-#: includes/class-mv-steuer.php:359 includes/class-mv-steuer.php:395
+#: includes/class-mv-steuer.php:362 includes/class-mv-steuer.php:398
 msgid "Recoverable charges received"
 msgstr ""
 
-#: includes/class-mv-steuer.php:361
+#: includes/class-mv-steuer.php:364
 msgid "No payments received in this year."
 msgstr ""
 
-#: includes/class-mv-steuer.php:366
+#: includes/class-mv-steuer.php:369
 msgid "Sum"
 msgstr ""
 
-#: includes/class-mv-steuer.php:370
+#: includes/class-mv-steuer.php:373
 msgid "Expenses"
 msgstr ""
 
-#: includes/class-mv-steuer.php:370
+#: includes/class-mv-steuer.php:373
 msgid "Anlage V group / item"
 msgstr ""
 
-#: includes/class-mv-steuer.php:370
+#: includes/class-mv-steuer.php:373
 msgid "Anlage V line"
 msgstr ""
 
-#: includes/class-mv-steuer.php:370
+#: includes/class-mv-steuer.php:373
 msgid "of which recoverable"
 msgstr ""
 
-#: includes/class-mv-steuer.php:385
+#: includes/class-mv-steuer.php:388
 msgid "No expenses in this year."
 msgstr ""
 
-#: includes/class-mv-steuer.php:387 includes/class-mv-steuer.php:397
+#: includes/class-mv-steuer.php:390 includes/class-mv-steuer.php:400
 msgid "Sum of expenses"
 msgstr ""
 
-#: includes/class-mv-steuer.php:401
+#: includes/class-mv-steuer.php:404
 msgid "Line"
 msgstr ""
 
-#: includes/class-mv-steuer.php:405
+#: includes/class-mv-steuer.php:408
 msgid "The line numbers are on the official “Anlage V” form of the respective year (ELSTER). Once entered, they are pre-filled for subsequent years until the form changes."
 msgstr ""
 
-#: includes/class-mv-steuer.php:411
+#: includes/class-mv-steuer.php:414
 msgid "Acquisition"
 msgstr ""
 
-#: includes/class-mv-steuer.php:411
+#: includes/class-mv-steuer.php:414
 msgid "Depreciation base"
 msgstr ""
 
-#: includes/class-mv-steuer.php:411
+#: includes/class-mv-steuer.php:414
 msgid "Method / rate"
 msgstr ""
 
-#: includes/class-mv-steuer.php:411
+#: includes/class-mv-steuer.php:414
 msgid "Months"
 msgstr ""
 
-#: includes/class-mv-steuer.php:416
+#: includes/class-mv-steuer.php:419
 msgid "Transfer tax"
 msgstr ""
 
-#: includes/class-mv-steuer.php:417
+#: includes/class-mv-steuer.php:420
 msgid "Notary"
 msgstr ""
 
-#: includes/class-mv-steuer.php:418
+#: includes/class-mv-steuer.php:421
 msgid "Land registry"
 msgstr ""
 
-#: includes/class-mv-steuer.php:419
+#: includes/class-mv-steuer.php:422
 msgid "Agent"
 msgstr ""
 
-#: includes/class-mv-steuer.php:425
+#: includes/class-mv-steuer.php:428
 msgid "→ Acquisition costs"
 msgstr ""
 
-#: includes/class-mv-steuer.php:428
+#: includes/class-mv-steuer.php:431
 msgid "%s: land share is 0 %% – the tax office requires a split (purchase contract or BMF tool)."
 msgstr ""
 
-#: includes/class-mv-steuer.php:435
+#: includes/class-mv-steuer.php:438
 msgid "declining balance"
 msgstr ""
 
-#: includes/class-mv-steuer.php:435
+#: includes/class-mv-steuer.php:438
 msgid "straight-line"
 msgstr ""
 
-#: includes/class-mv-steuer.php:444
+#: includes/class-mv-steuer.php:447
 msgid "No assets recorded. Enter building and acquisition costs under"
 msgstr ""
 
-#: includes/class-mv-steuer.php:449
+#: includes/class-mv-steuer.php:452
 msgid "Financing"
 msgstr ""
 
-#: includes/class-mv-steuer.php:451
+#: includes/class-mv-steuer.php:454
 msgid "Nominal interest rate"
 msgstr ""
 
-#: includes/class-mv-steuer.php:467
+#: includes/class-mv-steuer.php:470
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr ""
 
-#: includes/class-mv-steuer.php:488
-msgid "No receipts."
+#: includes/class-mv-steuer.php:475
+msgid "Supplier"
+msgstr ""
+
+#: includes/class-mv-steuer.php:475
+msgid "Receipt no."
+msgstr ""
+
+#: includes/class-mv-steuer.php:475
+msgid "File"
+msgstr ""
+
+#: includes/class-mv-steuer.php:483
+msgid "Not included: contributions to the maintenance reserve of %s – they become deductible only when the association spends them (then book them as maintenance expenses from the annual statement)."
 msgstr ""
 
 #: includes/class-mv-steuer.php:500
+msgid "No receipts."
+msgstr ""
+
+#: includes/class-mv-steuer.php:512
 msgid "Acquisition-related construction costs (§ 6 (1) no. 1a EStG) – %1$s: maintenance expenses %2$s to %3$s so far %4$s net, 15 %% limit = %5$s (%6$s %%)."
 msgstr ""
 
-#: includes/class-mv-steuer.php:509
+#: includes/class-mv-steuer.php:521
 msgid "Limit exceeded!"
 msgstr ""
 
-#: includes/class-mv-steuer.php:509
+#: includes/class-mv-steuer.php:521
 msgid "%s The expenses are deemed construction costs and are only deductible via depreciation – please clarify with your tax adviser."
 msgstr ""
 
-#: includes/class-mv-steuer.php:511
+#: includes/class-mv-steuer.php:523
 msgid "Attention:"
 msgstr ""
 
-#: includes/class-mv-steuer.php:511
+#: includes/class-mv-steuer.php:523
 msgid "%s Further renovations within the period could breach the limit."
 msgstr ""
