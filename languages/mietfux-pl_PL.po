@@ -672,6 +672,9 @@ msgstr "Dowód (wydatek)"
 msgid "Rent payment (income)"
 msgstr "Wpłata czynszu (przychód)"
 
+msgid "Owners’ association fee (expense)"
+msgstr "Opłata na wspólnotę (wydatek)"
+
 msgid "Ignore"
 msgstr "Ignoruj"
 
@@ -981,6 +984,9 @@ msgstr "Zaświadczenie o odsetkach"
 msgid "Bank rules"
 msgstr "Reguły bankowe"
 
+msgid "Owners’ fee"
+msgstr "Opłata na wspólnotę"
+
 msgid "Agreement & handover"
 msgstr "Umowa i przekazanie"
 
@@ -992,6 +998,9 @@ msgstr "Podwyżka czynszu"
 
 msgid "Deposit"
 msgstr "Kaucja"
+
+msgid "Owners’ association fee"
+msgstr "Opłata na wspólnotę mieszkaniową"
 
 msgid "Loan account"
 msgstr "Rachunek kredytowy"
@@ -1428,6 +1437,9 @@ msgstr "Nazwisko najemcy"
 msgid "Expense – choose a cost type or skip"
 msgstr "Wydatek – wybierz rodzaj kosztu lub pomiń"
 
+msgid "Property manager (owners’ association fee)"
+msgstr "Zarządca (opłata na wspólnotę)"
+
 msgid "%d transactions imported."
 msgstr "Zaimportowano %d transakcji."
 
@@ -1694,6 +1706,9 @@ msgstr "Koszty zarządzania"
 
 msgid "Other expenses"
 msgstr "Pozostałe wydatki"
+
+msgid "Maintenance reserve contribution (not deductible)"
+msgstr "Wpłata na fundusz remontowy (nie podlega odliczeniu)"
 
 msgid "Settings saved."
 msgstr "Ustawienia zapisano."
@@ -1968,6 +1983,153 @@ msgstr "zgodnie z ustaleniami lub postanowieniami umowy czynsz podstawowy netto 
 msgid "Please adjust your standing order accordingly."
 msgstr "Proszę odpowiednio zmienić zlecenie stałe."
 
+msgid "Owners’ association fee %s"
+msgstr "Opłata na wspólnotę %s"
+
+msgid "Owners’ association annual statement %d – adjustment"
+msgstr "Rozliczenie roczne wspólnoty %d – korekta"
+
+msgid "Budget plan saved."
+msgstr "Plan gospodarczy zapisany."
+
+msgid "Annual statement booked – adjustment receipts created per cost type."
+msgstr "Rozliczenie roczne zaksięgowane – utworzono dokumenty korygujące dla każdego rodzaju kosztów."
+
+msgid "Nothing to book: no differences to the advance payments, or a statement for this year already exists."
+msgstr "Brak pozycji do zaksięgowania: brak różnic względem zaliczek lub rozliczenie za ten rok już istnieje."
+
+msgid "No property created yet –"
+msgstr "Nie utworzono jeszcze nieruchomości –"
+
+msgid "Create property"
+msgstr "Utwórz nieruchomość"
+
+msgid "For condominiums: the monthly fee paid to the property manager is split according to the budget plan into recoverable service charges (passed on in the service charge statement), non-recoverable expenses (management, maintenance – deductible in Anlage V) and the contribution to the maintenance reserve (not deductible until spent). Each booked month creates one receipt per cost type; the annual statement of the owners’ association books the differences."
+msgstr "Dla lokali we wspólnocie: miesięczna opłata wpłacana zarządcy jest dzielona zgodnie z planem gospodarczym na rozliczalne koszty eksploatacyjne (przenoszone w rozliczeniu kosztów eksploatacyjnych), nierozliczalne wydatki (zarządzanie, utrzymanie – do odliczenia w Anlage V) oraz wpłatę na fundusz remontowy (do odliczenia dopiero po wydaniu). Każdy zaksięgowany miesiąc tworzy jeden dokument dla każdego rodzaju kosztów; rozliczenie roczne wspólnoty księguje różnice."
+
+msgid "Monthly fee"
+msgstr "Opłata miesięczna"
+
+msgid "valid from"
+msgstr "obowiązuje od"
+
+msgid "Recoverable"
+msgstr "Rozliczalne"
+
+msgid "passed on to tenants"
+msgstr "przenoszone na najemców"
+
+msgid "Deductible expenses"
+msgstr "Wydatki do odliczenia"
+
+msgid "management, maintenance"
+msgstr "zarządzanie, utrzymanie"
+
+msgid "Maintenance reserve"
+msgstr "Fundusz remontowy"
+
+msgid "not deductible"
+msgstr "nie podlega odliczeniu"
+
+msgid "Payments %d"
+msgstr "Płatności %d"
+
+msgid "booked"
+msgstr "zaksięgowane"
+
+msgid "open"
+msgstr "otwórz"
+
+msgid "future"
+msgstr "przyszłe"
+
+msgid "Delete payment and its receipts?"
+msgstr "Usunąć płatność i jej dokumenty?"
+
+msgid "Annual statement %d"
+msgstr "Rozliczenie roczne %d"
+
+msgid "additional payment"
+msgstr "dopłata"
+
+msgid "refund"
+msgstr "zwrot"
+
+msgid "Delete annual statement and its adjustment receipts?"
+msgstr "Usunąć rozliczenie roczne i jego dokumenty korygujące?"
+
+msgid "Payment day"
+msgstr "Dzień płatności"
+
+msgid "Book selected months"
+msgstr "Zaksięguj wybrane miesiące"
+
+msgid "Budget plan (monthly split)"
+msgstr "Plan gospodarczy (podział miesięczny)"
+
+msgid "Property manager"
+msgstr "Zarządca"
+
+msgid "Manager’s IBAN"
+msgstr "IBAN zarządcy"
+
+msgid "Used by the bank import to recognise fee payments automatically."
+msgstr "Używany przez import bankowy do automatycznego rozpoznawania wpłat na wspólnotę."
+
+msgid "Monthly fee (€)"
+msgstr "Opłata miesięczna (€)"
+
+msgid "Treatment"
+msgstr "Sposób ujęcia"
+
+msgid "Monthly (€)"
+msgstr "Miesięcznie (€)"
+
+msgid "reserve – not deductible"
+msgstr "fundusz remontowy – nie podlega odliczeniu"
+
+msgid "expenses (Anlage V)"
+msgstr "wydatki (Anlage V)"
+
+msgid "The split (%1$s) does not match the monthly fee (%2$s). Payments are split proportionally."
+msgstr "Podział (%1$s) nie zgadza się z opłatą miesięczną (%2$s). Płatności są dzielone proporcjonalnie."
+
+msgid "Save budget plan"
+msgstr "Zapisz plan gospodarczy"
+
+msgid "Delete this budget plan? Booked payments remain."
+msgstr "Usunąć ten plan gospodarczy? Zaksięgowane płatności pozostaną."
+
+msgid "Delete plan"
+msgstr "Usuń plan"
+
+msgid "A changed fee from a new budget plan: enter the new amounts with “valid from” – the previous plan stays in effect for earlier months."
+msgstr "Zmiana opłaty na podstawie nowego planu gospodarczego: wprowadź nowe kwoty z datą „obowiązuje od” – poprzedni plan obowiązuje nadal dla wcześniejszych miesięcy."
+
+msgid "Earlier plans:"
+msgstr "Wcześniejsze plany:"
+
+msgid "Owners’ association annual statement %d"
+msgstr "Rozliczenie roczne wspólnoty %d"
+
+msgid "Booked:"
+msgstr "Zaksięgowano:"
+
+msgid "Enter the actual annual amounts per cost type from the individual statement. The difference to the advance payments is booked as an adjustment receipt (additional payment or refund) with the payment date, allocated to the statement year."
+msgstr "Wprowadź rzeczywiste kwoty roczne dla każdego rodzaju kosztów z rozliczenia indywidualnego. Różnica względem zaliczek jest księgowana jako dokument korygujący (dopłata lub zwrot) z datą płatności, przypisany do roku rozliczenia."
+
+msgid "Per statement (€)"
+msgstr "Wg rozliczenia (€)"
+
+msgid "Book the annual statement? Adjustment receipts are created per cost type."
+msgstr "Zaksięgować rozliczenie roczne? Dokumenty korygujące zostaną utworzone dla każdego rodzaju kosztów."
+
+msgid "Book annual statement"
+msgstr "Zaksięguj rozliczenie roczne"
+
+msgid "Empty fields keep the advance payments unchanged. Amounts spent from the maintenance reserve (e.g. repairs) belong to “Maintenance expenses” – they become deductible when spent."
+msgstr "Puste pola pozostawiają zaliczki bez zmian. Kwoty wydane z funduszu remontowego (np. naprawy) należą do „Kosztów utrzymania” – podlegają odliczeniu w chwili wydania."
+
 msgid "Enter landlord details, bank account, creditor ID, tax number and sender for letters."
 msgstr "Wprowadź dane wynajmującego, rachunek bankowy, identyfikator wierzyciela, numer podatkowy i nadawcę pism."
 
@@ -2045,6 +2207,12 @@ msgstr "Opcje (czas określony, czynsz stopniowany/indeksowany, drobne naprawy, 
 
 msgid "Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out."
 msgstr "Rachunek kaucji zgodnie z § 551 BGB: wpłaty (do 3 rat), odsetki dzienne, rozliczenie przy wyprowadzce."
+
+msgid "For condominiums: budget plan per property (manager, IBAN, monthly fee, split by cost type). Booking a month creates one receipt per cost type – recoverable parts flow into the service charge statement, management and maintenance into Anlage V, the maintenance reserve contribution is recorded but not deducted."
+msgstr "Dla lokali we wspólnocie: plan gospodarczy dla każdej nieruchomości (zarządca, IBAN, opłata miesięczna, podział wg rodzaju kosztów). Zaksięgowanie miesiąca tworzy jeden dokument dla każdego rodzaju kosztów – części rozliczalne trafiają do rozliczenia kosztów eksploatacyjnych, zarządzanie i utrzymanie do Anlage V, wpłata na fundusz remontowy jest rejestrowana, ale nie odliczana."
+
+msgid "The owners’ association annual statement books the differences to the advance payments as adjustment receipts (additional payment or refund), allocated to the statement year. The bank import recognises fee payments by the manager’s IBAN or name."
+msgstr "Rozliczenie roczne wspólnoty księguje różnice względem zaliczek jako dokumenty korygujące (dopłata lub zwrot), przypisane do roku rozliczenia. Import bankowy rozpoznaje wpłaty na wspólnotę po IBAN lub nazwie zarządcy."
 
 msgid "Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent."
 msgstr "Podwyżka zgodnie z § 558 BGB (czynsz porównawczy, limit 15/20 %, okres karencji) lub § 557b (indeks). Generuje pismo i tworzy nowy warunek czynszowy po uzyskaniu zgody."
@@ -2150,6 +2318,9 @@ msgstr "Stałe oprocentowanie %1$s kończy się %2$s (%3$d dni) – sprawdź ref
 
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Zaświadczenie o odsetkach %1$d dla kredytu %2$s jeszcze nie wpisane"
+
+msgid "Owners’ association fee for %1$s not yet booked: %2$s"
+msgstr "Opłata na wspólnotę za %1$s jeszcze nie zaksięgowana: %2$s"
 
 msgid "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
 msgstr "Przekroczono limit nakładów zbliżonych do kosztów nabycia dla %1$s (%2$s netto > %3$s)"
@@ -2892,9 +3063,6 @@ msgstr "Koszty"
 msgid "Open statement"
 msgstr "Otwórz rozliczenie"
 
-msgid "open"
-msgstr "otwórz"
-
 msgid "Submit meter reading"
 msgstr "Przekaż odczyt licznika"
 
@@ -3023,6 +3191,18 @@ msgstr "Nominalna stopa procentowa"
 
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr "Brak zaświadczenia o odsetkach za %1$d. Wprowadź wartości roczne w %2$s."
+
+msgid "Supplier"
+msgstr "Dostawca"
+
+msgid "Receipt no."
+msgstr "Nr dokumentu"
+
+msgid "File"
+msgstr "Plik"
+
+msgid "Not included: contributions to the maintenance reserve of %s – they become deductible only when the association spends them (then book them as maintenance expenses from the annual statement)."
+msgstr "Nie uwzględniono: wpłat na fundusz remontowy w wysokości %s – podlegają odliczeniu dopiero wtedy, gdy wspólnota je wyda (wtedy zaksięguj je jako koszty utrzymania z rozliczenia rocznego)."
 
 msgid "No receipts."
 msgstr "Brak dowodów."

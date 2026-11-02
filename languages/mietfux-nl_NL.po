@@ -672,6 +672,9 @@ msgstr "Bewijsstuk (uitgave)"
 msgid "Rent payment (income)"
 msgstr "Huurbetaling (inkomsten)"
 
+msgid "Owners’ association fee (expense)"
+msgstr "VvE-bijdrage (uitgave)"
+
 msgid "Ignore"
 msgstr "Negeren"
 
@@ -981,6 +984,9 @@ msgstr "Rentecertificaat"
 msgid "Bank rules"
 msgstr "Bankregels"
 
+msgid "Owners’ fee"
+msgstr "VvE-bijdrage"
+
 msgid "Agreement & handover"
 msgstr "Overeenkomst & oplevering"
 
@@ -992,6 +998,9 @@ msgstr "Huurverhoging"
 
 msgid "Deposit"
 msgstr "Waarborgsom"
+
+msgid "Owners’ association fee"
+msgstr "VvE-bijdrage"
 
 msgid "Loan account"
 msgstr "Leningrekening"
@@ -1428,6 +1437,9 @@ msgstr "Naam van de huurder"
 msgid "Expense – choose a cost type or skip"
 msgstr "Uitgave – kostensoort kiezen of overslaan"
 
+msgid "Property manager (owners’ association fee)"
+msgstr "Beheerder (VvE-bijdrage)"
+
 msgid "%d transactions imported."
 msgstr "%d transacties geïmporteerd."
 
@@ -1694,6 +1706,9 @@ msgstr "Beheerkosten"
 
 msgid "Other expenses"
 msgstr "Overige uitgaven"
+
+msgid "Maintenance reserve contribution (not deductible)"
+msgstr "Bijdrage reservefonds (niet aftrekbaar)"
 
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
@@ -1968,6 +1983,153 @@ msgstr "zoals besproken of contractueel overeengekomen bedraagt de netto kale hu
 msgid "Please adjust your standing order accordingly."
 msgstr "Pas uw periodieke overschrijving dienovereenkomstig aan."
 
+msgid "Owners’ association fee %s"
+msgstr "VvE-bijdrage %s"
+
+msgid "Owners’ association annual statement %d – adjustment"
+msgstr "VvE-jaarafrekening %d – correctie"
+
+msgid "Budget plan saved."
+msgstr "Begroting opgeslagen."
+
+msgid "Annual statement booked – adjustment receipts created per cost type."
+msgstr "Jaarafrekening geboekt – correctiebonnen per kostensoort aangemaakt."
+
+msgid "Nothing to book: no differences to the advance payments, or a statement for this year already exists."
+msgstr "Niets te boeken: geen verschillen met de voorschotten, of er bestaat al een afrekening voor dit jaar."
+
+msgid "No property created yet –"
+msgstr "Nog geen object aangemaakt –"
+
+msgid "Create property"
+msgstr "Object aanmaken"
+
+msgid "For condominiums: the monthly fee paid to the property manager is split according to the budget plan into recoverable service charges (passed on in the service charge statement), non-recoverable expenses (management, maintenance – deductible in Anlage V) and the contribution to the maintenance reserve (not deductible until spent). Each booked month creates one receipt per cost type; the annual statement of the owners’ association books the differences."
+msgstr "Voor appartementsrechten: de maandelijkse bijdrage aan de beheerder wordt volgens de begroting gesplitst in doorbelastbare servicekosten (doorberekend in de servicekostenafrekening), niet-doorbelastbare kosten (beheer, onderhoud – aftrekbaar in Anlage V) en de bijdrage aan het reservefonds (pas aftrekbaar bij besteding). Elke geboekte maand maakt één bon per kostensoort aan; de jaarafrekening van de VvE boekt de verschillen."
+
+msgid "Monthly fee"
+msgstr "Maandelijkse bijdrage"
+
+msgid "valid from"
+msgstr "geldig vanaf"
+
+msgid "Recoverable"
+msgstr "Doorbelastbaar"
+
+msgid "passed on to tenants"
+msgstr "doorberekend aan huurders"
+
+msgid "Deductible expenses"
+msgstr "Aftrekbare kosten"
+
+msgid "management, maintenance"
+msgstr "beheer, onderhoud"
+
+msgid "Maintenance reserve"
+msgstr "Reservefonds"
+
+msgid "not deductible"
+msgstr "niet aftrekbaar"
+
+msgid "Payments %d"
+msgstr "Betalingen %d"
+
+msgid "booked"
+msgstr "geboekt"
+
+msgid "open"
+msgstr "openen"
+
+msgid "future"
+msgstr "toekomstig"
+
+msgid "Delete payment and its receipts?"
+msgstr "Betaling en bijbehorende bonnen verwijderen?"
+
+msgid "Annual statement %d"
+msgstr "Jaarafrekening %d"
+
+msgid "additional payment"
+msgstr "bijbetaling"
+
+msgid "refund"
+msgstr "terugbetaling"
+
+msgid "Delete annual statement and its adjustment receipts?"
+msgstr "Jaarafrekening en bijbehorende correctiebonnen verwijderen?"
+
+msgid "Payment day"
+msgstr "Betaaldag"
+
+msgid "Book selected months"
+msgstr "Geselecteerde maanden boeken"
+
+msgid "Budget plan (monthly split)"
+msgstr "Begroting (maandelijkse verdeling)"
+
+msgid "Property manager"
+msgstr "Beheerder"
+
+msgid "Manager’s IBAN"
+msgstr "IBAN van de beheerder"
+
+msgid "Used by the bank import to recognise fee payments automatically."
+msgstr "Wordt door de bankimport gebruikt om bijdragebetalingen automatisch te herkennen."
+
+msgid "Monthly fee (€)"
+msgstr "Maandelijkse bijdrage (€)"
+
+msgid "Treatment"
+msgstr "Behandeling"
+
+msgid "Monthly (€)"
+msgstr "Per maand (€)"
+
+msgid "reserve – not deductible"
+msgstr "reservefonds – niet aftrekbaar"
+
+msgid "expenses (Anlage V)"
+msgstr "kosten (Anlage V)"
+
+msgid "The split (%1$s) does not match the monthly fee (%2$s). Payments are split proportionally."
+msgstr "De verdeling (%1$s) komt niet overeen met de maandelijkse bijdrage (%2$s). Betalingen worden naar verhouding gesplitst."
+
+msgid "Save budget plan"
+msgstr "Begroting opslaan"
+
+msgid "Delete this budget plan? Booked payments remain."
+msgstr "Deze begroting verwijderen? Geboekte betalingen blijven behouden."
+
+msgid "Delete plan"
+msgstr "Begroting verwijderen"
+
+msgid "A changed fee from a new budget plan: enter the new amounts with “valid from” – the previous plan stays in effect for earlier months."
+msgstr "Gewijzigde bijdrage door een nieuwe begroting: voer de nieuwe bedragen in met «geldig vanaf» – de vorige begroting blijft gelden voor eerdere maanden."
+
+msgid "Earlier plans:"
+msgstr "Eerdere begrotingen:"
+
+msgid "Owners’ association annual statement %d"
+msgstr "VvE-jaarafrekening %d"
+
+msgid "Booked:"
+msgstr "Geboekt:"
+
+msgid "Enter the actual annual amounts per cost type from the individual statement. The difference to the advance payments is booked as an adjustment receipt (additional payment or refund) with the payment date, allocated to the statement year."
+msgstr "Voer de werkelijke jaarbedragen per kostensoort in uit de individuele afrekening. Het verschil met de voorschotten wordt als correctiebon (bijbetaling of terugbetaling) geboekt met de betaaldatum, toegerekend aan het afrekeningsjaar."
+
+msgid "Per statement (€)"
+msgstr "Volgens afrekening (€)"
+
+msgid "Book the annual statement? Adjustment receipts are created per cost type."
+msgstr "Jaarafrekening boeken? Er worden correctiebonnen per kostensoort aangemaakt."
+
+msgid "Book annual statement"
+msgstr "Jaarafrekening boeken"
+
+msgid "Empty fields keep the advance payments unchanged. Amounts spent from the maintenance reserve (e.g. repairs) belong to “Maintenance expenses” – they become deductible when spent."
+msgstr "Lege velden laten de voorschotten ongewijzigd. Bedragen die uit het reservefonds zijn besteed (bijv. reparaties) horen bij «Onderhoudskosten» – ze worden aftrekbaar bij besteding."
+
 msgid "Enter landlord details, bank account, creditor ID, tax number and sender for letters."
 msgstr "Voer verhuurdergegevens, bankrekening, incassant-ID, fiscaal nummer en afzender voor brieven in."
 
@@ -2045,6 +2207,12 @@ msgstr "De opties (bepaalde tijd, trapsgewijze/indexhuur, kleine reparaties, hui
 
 msgid "Deposit account under § 551 BGB: payments (up to 3 instalments), daily interest, settlement on move-out."
 msgstr "Waarborgsomrekening volgens § 551 BGB: betalingen (tot 3 termijnen), dagelijkse rente, afwikkeling bij vertrek."
+
+msgid "For condominiums: budget plan per property (manager, IBAN, monthly fee, split by cost type). Booking a month creates one receipt per cost type – recoverable parts flow into the service charge statement, management and maintenance into Anlage V, the maintenance reserve contribution is recorded but not deducted."
+msgstr "Voor appartementsrechten: begroting per object (beheerder, IBAN, maandelijkse bijdrage, verdeling per kostensoort). Het boeken van een maand maakt één bon per kostensoort aan – doorbelastbare delen gaan naar de servicekostenafrekening, beheer en onderhoud naar Anlage V, de bijdrage aan het reservefonds wordt vastgelegd maar niet afgetrokken."
+
+msgid "The owners’ association annual statement books the differences to the advance payments as adjustment receipts (additional payment or refund), allocated to the statement year. The bank import recognises fee payments by the manager’s IBAN or name."
+msgstr "De VvE-jaarafrekening boekt de verschillen met de voorschotten als correctiebonnen (bijbetaling of terugbetaling), toegerekend aan het afrekeningsjaar. De bankimport herkent bijdragebetalingen aan de IBAN of naam van de beheerder."
 
 msgid "Increase under § 558 BGB (reference rent, cap 15/20 %, waiting period) or § 557b (index). Generates the letter and creates the new rent condition after consent."
 msgstr "Verhoging volgens § 558 BGB (vergelijkingshuur, plafond 15/20 %, wachttermijn) of § 557b (index). Genereert de brief en maakt na instemming de nieuwe huurconditie aan."
@@ -2150,6 +2318,9 @@ msgstr "Rentevaste periode %1$s eindigt op %2$s (%3$d dagen) – vervolgfinancie
 
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Rentecertificaat %1$d voor lening %2$s nog niet ingevoerd"
+
+msgid "Owners’ association fee for %1$s not yet booked: %2$s"
+msgstr "VvE-bijdrage voor %1$s nog niet geboekt: %2$s"
 
 msgid "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
 msgstr "Grens voor verwervingsgerelateerde bouwkosten overschreden voor %1$s (%2$s netto > %3$s)"
@@ -2892,9 +3063,6 @@ msgstr "Kosten"
 msgid "Open statement"
 msgstr "Afrekening openen"
 
-msgid "open"
-msgstr "openen"
-
 msgid "Submit meter reading"
 msgstr "Meterstand doorgeven"
 
@@ -3023,6 +3191,18 @@ msgstr "Nominale rente"
 
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr "Geen rentecertificaat ingevoerd voor %1$d. Voer de jaarwaarden in onder %2$s."
+
+msgid "Supplier"
+msgstr "Leverancier"
+
+msgid "Receipt no."
+msgstr "Bonnr."
+
+msgid "File"
+msgstr "Bestand"
+
+msgid "Not included: contributions to the maintenance reserve of %s – they become deductible only when the association spends them (then book them as maintenance expenses from the annual statement)."
+msgstr "Niet opgenomen: bijdragen aan het reservefonds van %s – deze worden pas aftrekbaar wanneer de VvE ze besteedt (boek ze dan als onderhoudskosten uit de jaarafrekening)."
 
 msgid "No receipts."
 msgstr "Geen bewijsstukken."
