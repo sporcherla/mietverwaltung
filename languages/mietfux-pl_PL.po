@@ -3108,6 +3108,99 @@ msgstr "Zgłoś szkodę lub usterkę"
 msgid "Submit report"
 msgstr "Wyślij zgłoszenie"
 
+msgid "created"
+msgstr "utworzono"
+
+msgid "changed"
+msgstr "zmieniono"
+
+msgid "deleted"
+msgstr "usunięto"
+
+msgid "exported"
+msgstr "wyeksportowano"
+
+msgid "imported"
+msgstr "zaimportowano"
+
+msgid "portal login"
+msgstr "logowanie do portalu"
+
+msgid "Activity log"
+msgstr "Dziennik zmian"
+
+msgid "Retention period saved."
+msgstr "Okres przechowywania zapisany."
+
+msgid "%d old log entries deleted."
+msgstr "Usunięto %d starych wpisów dziennika."
+
+msgid "Records who created, changed or deleted which record and when (accountability, Art. 5 (2) GDPR). Only the changed fields are stored; IBANs are masked, passwords are never logged, IP addresses are anonymised."
+msgstr "Rejestruje, kto, kiedy i który rekord utworzył, zmienił lub usunął (rozliczalność, art. 5 ust. 2 RODO). Zapisywane są tylko zmienione pola; numery IBAN są maskowane, hasła nigdy nie są logowane, adresy IP są anonimizowane."
+
+msgid "From"
+msgstr "Od"
+
+msgid "To"
+msgstr "Do"
+
+msgid "Table"
+msgstr "Tabela"
+
+msgid "User"
+msgstr "Użytkownik"
+
+msgid "Search"
+msgstr "Szukaj"
+
+msgid "Filter"
+msgstr "Filtruj"
+
+msgid "Export CSV"
+msgstr "Eksportuj CSV"
+
+msgid "%d entries"
+msgstr "%d wpisów"
+
+msgid "Time"
+msgstr "Czas"
+
+msgid "Record"
+msgstr "Rekord"
+
+msgid "Changes"
+msgstr "Zmiany"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "No entries."
+msgstr "Brak wpisów."
+
+msgid "Retention"
+msgstr "Przechowywanie"
+
+msgid "Keep log entries for (days)"
+msgstr "Przechowuj wpisy dziennika przez (dni)"
+
+msgid "Delete all log entries older than the retention period now?"
+msgstr "Usunąć teraz wszystkie wpisy dziennika starsze niż okres przechowywania?"
+
+msgid "Clean up now"
+msgstr "Wyczyść teraz"
+
+msgid "Older entries are deleted automatically once a day (WP-Cron). Default: 365 days."
+msgstr "Starsze wpisy są usuwane automatycznie raz dziennie (WP-Cron). Domyślnie: 365 dni."
+
+msgid "The activity log records who created, changed or deleted which record and when. This serves the accountability principle (Art. 5 (2) GDPR) and lets you trace changes to tenant and payment data."
+msgstr "Dziennik zmian rejestruje, kto, kiedy i który rekord utworzył, zmienił lub usunął. Służy to zasadzie rozliczalności (art. 5 ust. 2 RODO) i pozwala prześledzić zmiany danych najemców i płatności."
+
+msgid "For changes only the fields that actually changed are stored, with their old and new value. IBANs are reduced to the last four digits, passwords are never stored, and IP addresses are anonymised (last octet removed)."
+msgstr "Przy zmianach zapisywane są tylko faktycznie zmienione pola ze starą i nową wartością. Numery IBAN są skracane do ostatnich czterech znaków, hasła nigdy nie są zapisywane, a adresy IP są anonimizowane (usuwany jest ostatni oktet)."
+
+msgid "Entries are deleted automatically after the retention period (default 365 days). Use the CSV export to archive the log before it is cleaned up, for example at year end."
+msgstr "Wpisy są usuwane automatycznie po upływie okresu przechowywania (domyślnie 365 dni). Użyj eksportu CSV, aby wcześniej zarchiwizować dziennik, np. na koniec roku."
+
 msgid "AfA"
 msgstr "AfA"
 
@@ -3251,3 +3344,486 @@ msgstr "Uwaga:"
 
 msgid "%s Further renovations within the period could breach the limit."
 msgstr "%s Dalsze remonty w tym okresie mogą naruszyć limit."
+
+msgid "monthly"
+msgstr "miesięcznie"
+
+msgid "quarterly"
+msgstr "kwartalnie"
+
+msgid "half-yearly"
+msgstr "półrocznie"
+
+msgid "yearly"
+msgstr "rocznie"
+
+msgid "Recurring expense “%1$s” (%2$s) due but not yet booked: %3$s"
+msgstr "Wydatek cykliczny „%1$s” (%2$s) wymagalny, ale jeszcze nie zaksięgowany: %3$s"
+
+msgid "Recurring expenses"
+msgstr "Wydatki cykliczne"
+
+msgid "Recurring costs with a fixed rhythm – property tax (quarterly), building insurance (yearly), chimney sweep, maintenance contracts, account fees (monthly). Enter supplier, amount per due date, interval and first due date once; the due dates are calculated from there."
+msgstr "Koszty powtarzające się w stałym rytmie – podatek od nieruchomości (kwartalnie), ubezpieczenie budynku (rocznie), kominiarz, umowy serwisowe, opłaty za konto (miesięcznie). Dostawcę, kwotę na termin, interwał i pierwszy termin wprowadza się raz; kolejne terminy są z tego obliczane."
+
+msgid "Booking a due date creates one receipt: payment date = outflow (Anlage V), service period = the interval starting at the due date (service charge statement). Booked receipts stay even if the recurring expense is deactivated or deleted. The bank import recognises payments by the supplier’s IBAN or name and books the next open due date."
+msgstr "Zaksięgowanie terminu tworzy dokładnie jeden dowód: data płatności = wydatek (Anlage V), okres rozliczeniowy = interwał od terminu (rozliczenie kosztów eksploatacyjnych). Zaksięgowane dowody pozostają, nawet gdy wydatek cykliczny zostanie dezaktywowany lub usunięty. Import bankowy rozpoznaje płatności po IBAN lub nazwie dostawcy i księguje następny otwarty termin."
+
+msgid "Recurring expense saved."
+msgstr "Wydatek cykliczny zapisany."
+
+msgid "Recurring expense deleted – booked receipts remain."
+msgstr "Wydatek cykliczny usunięty – zaksięgowane dowody pozostają."
+
+msgid "Please fill in property, cost type and description."
+msgstr "Wypełnij nieruchomość, rodzaj kosztu i opis."
+
+msgid "Recurring costs with a fixed rhythm (property tax, building insurance, chimney sweep, maintenance, account fees). Each booked due date creates one receipt with the payment date as outflow and the interval as service period."
+msgstr "Koszty powtarzające się w stałym rytmie (podatek od nieruchomości, ubezpieczenie budynku, kominiarz, konserwacja, opłaty za konto). Każdy zaksięgowany termin tworzy jeden dowód z datą płatności jako wydatkiem i interwałem jako okresem rozliczeniowym."
+
+msgid "New recurring expense"
+msgstr "Nowy wydatek cykliczny"
+
+msgid "Interval"
+msgstr "Interwał"
+
+msgid "Next due date"
+msgstr "Następny termin"
+
+msgid "Open / booked"
+msgstr "Otwarte / zaksięgowane"
+
+msgid "No recurring expenses yet."
+msgstr "Brak wydatków cyklicznych."
+
+msgid "inactive"
+msgstr "nieaktywny"
+
+msgid "Due dates %1$s – %2$d"
+msgstr "Terminy %1$s – %2$d"
+
+msgid "Due date"
+msgstr "Termin"
+
+msgid "Service period"
+msgstr "Okres rozliczeniowy"
+
+msgid "No due dates in this year."
+msgstr "Brak terminów w tym roku."
+
+msgid "Delete this receipt?"
+msgstr "Usunąć ten dowód?"
+
+msgid "Leave empty to use the due date as payment date."
+msgstr "Pozostaw puste = termin jako data płatności."
+
+msgid "Please tick at least one due date."
+msgstr "Zaznacz co najmniej jeden termin."
+
+msgid "Book selected due dates"
+msgstr "Zaksięguj zaznaczone"
+
+msgid "Edit recurring expense"
+msgstr "Edytuj wydatek cykliczny"
+
+msgid "e.g. Property tax"
+msgstr "np. podatek od nieruchomości"
+
+msgid "Supplier’s IBAN"
+msgstr "IBAN dostawcy"
+
+msgid "Used by the bank import to recognise payments automatically (IBAN or supplier name)."
+msgstr "Używany przez import bankowy do automatycznego rozpoznawania płatności (IBAN lub nazwa dostawcy)."
+
+msgid "Amount per due date (€)"
+msgstr "Kwota na termin (€)"
+
+msgid "First due date"
+msgstr "Pierwszy termin"
+
+msgid "End (optional)"
+msgstr "Koniec (opcjonalnie)"
+
+msgid "Property tax is typically due on 15 Feb, 15 May, 15 Aug and 15 Nov (quarterly) – enter 15 Feb as the first due date. Later due dates follow the same day of month; the interval starting at each due date is used as service period."
+msgstr "Podatek od nieruchomości jest zwykle płatny 15 lutego, 15 maja, 15 sierpnia i 15 listopada (kwartalnie) – jako pierwszy termin wpisz 15 lutego. Kolejne terminy przypadają tego samego dnia miesiąca; okresem rozliczeniowym jest interwał liczony od każdego terminu."
+
+msgid "Save recurring expense"
+msgstr "Zapisz wydatek cykliczny"
+
+msgid "Deactivate"
+msgstr "Dezaktywuj"
+
+msgid "Activate"
+msgstr "Aktywuj"
+
+msgid "Delete this recurring expense? Booked receipts remain."
+msgstr "Usunąć ten wydatek cykliczny? Zaksięgowane dowody pozostają."
+
+msgid "Deposit settlement"
+msgstr "Rozliczenie kaucji"
+
+msgid "Dunning letter"
+msgstr "Wezwanie do zapłaty"
+
+msgid "No valid e-mail address stored for tenant %s. Please add one under Tenants."
+msgstr "Dla najemcy %s nie zapisano prawidłowego adresu e-mail. Dodaj go w sekcji Najemcy."
+
+msgid "The PDF attachment could not be written to a temporary file."
+msgstr "Nie udało się zapisać załącznika PDF jako pliku tymczasowego."
+
+msgid "The mail server rejected the message (wp_mail returned false)."
+msgstr "Serwer pocztowy odrzucił wiadomość (wp_mail zwrócił false)."
+
+msgid "Unknown document type."
+msgstr "Nieznany typ dokumentu."
+
+msgid "E-mail dispatch is not available for this document yet: %s::body() is missing."
+msgstr "Wysyłka e-mail nie jest jeszcze dostępna dla tego dokumentu: brak %s::body()."
+
+msgid "The document could not be generated."
+msgstr "Nie udało się wygenerować dokumentu."
+
+msgid "sent by e-mail"
+msgstr "wysłano e-mailem"
+
+msgid "Send “%s” to the tenant by e-mail now? The PDF is filed under Documents."
+msgstr "Wysłać teraz „%s” e-mailem do najemcy? Plik PDF zostanie zapisany w sekcji Dokumenty."
+
+msgid "Send by e-mail"
+msgstr "Wyślij e-mailem"
+
+msgid "Dispatch log"
+msgstr "Dziennik wysyłki"
+
+msgid "E-mail sent to %s. The PDF has been filed under Documents."
+msgstr "E-mail wysłany do %s. Plik PDF został zapisany w sekcji Dokumenty."
+
+msgid "E-mail could not be sent: %s"
+msgstr "Nie udało się wysłać e-maila: %s"
+
+msgid "Every letter sent by e-mail is recorded here with recipients, status and the filed PDF. Sender and reply address are taken from the landlord settings; a copy goes to you if “Copy to me” is enabled."
+msgstr "Każde pismo wysłane e-mailem jest tu rejestrowane z odbiorcami, statusem i zapisanym plikiem PDF. Nadawca i adres zwrotny pochodzą z ustawień wynajmującego; przy włączonej opcji „Kopia do mnie” otrzymasz kopię."
+
+msgid "All"
+msgstr "Wszystkie"
+
+msgid "Recipients"
+msgstr "Odbiorcy"
+
+msgid "Error"
+msgstr "Błąd"
+
+msgid "No e-mails sent yet. Use “Send by e-mail” on a statement, rent increase, deposit settlement or dunning letter."
+msgstr "Nie wysłano jeszcze żadnych e-maili. Użyj „Wyślij e-mailem” przy rozliczeniu, podwyżce czynszu, rozliczeniu kaucji lub wezwaniu do zapłaty."
+
+msgid "sent"
+msgstr "wysłano"
+
+msgid "failed"
+msgstr "niepowodzenie"
+
+msgid "E-mail dispatch"
+msgstr "Wysyłka e-mail"
+
+msgid "Statements, rent increase letters, deposit settlements and dunning letters can be sent to the tenant by e-mail with the PDF attached. The message goes to all e-mail addresses stored for the tenant (main tenant and partner)."
+msgstr "Rozliczenia, pisma o podwyżce czynszu, rozliczenia kaucji i wezwania do zapłaty można wysyłać najemcy e-mailem z załączonym plikiem PDF. Wiadomość trafia na wszystkie adresy e-mail zapisane dla najemcy (najemca główny i partner)."
+
+msgid "Sender and reply address are the landlord e-mail from the settings. Enable “Copy to me” to receive a copy of every message; the signature under the closing can be set there as well."
+msgstr "Nadawcą i adresem zwrotnym jest e-mail wynajmującego z ustawień. Włącz „Kopia do mnie”, aby otrzymywać kopię każdej wiadomości; tam też można ustawić podpis pod formułą pożegnalną."
+
+msgid "Each dispatch is logged with time, recipients, status and the filed PDF. Failed deliveries are shown with the mail server’s error message. Note: letters that legally require written form (e.g. a rent increase under § 558 BGB) must additionally be sent by post."
+msgstr "Każda wysyłka jest rejestrowana z czasem, odbiorcami, statusem i zapisanym plikiem PDF. Nieudane dostarczenia są wyświetlane z komunikatem błędu serwera pocztowego. Uwaga: pisma wymagające ustawowo formy pisemnej (np. podwyżka czynszu wg § 558 BGB) muszą być dodatkowo wysłane pocztą."
+
+msgid "Destatis could not be reached: %s"
+msgstr "Brak połączenia z Destatis: %s"
+
+msgid "Destatis answered with HTTP status %d."
+msgstr "Destatis odpowiedział statusem HTTP %d."
+
+msgid "Destatis returned an empty response."
+msgstr "Destatis zwrócił pustą odpowiedź."
+
+msgid "unknown error"
+msgstr "nieznany błąd"
+
+msgid "Destatis reported: %s"
+msgstr "Destatis zgłasza: %s"
+
+msgid "The Destatis response could not be interpreted (no monthly index values found)."
+msgstr "Nie udało się zinterpretować odpowiedzi Destatis (nie znaleziono wartości miesięcznych)."
+
+msgid "Please choose a CSV file."
+msgstr "Wybierz plik CSV."
+
+msgid "No monthly index values found in the file. Expected: GENESIS flat CSV (ffcsv) of table 61111-0002."
+msgstr "W pliku nie znaleziono wartości miesięcznych. Oczekiwano: płaski CSV GENESIS (ffcsv) tabeli 61111-0002."
+
+msgid "Consumer price index (CPI)"
+msgstr "Wskaźnik cen konsumpcyjnych (CPI)"
+
+msgid "%d index value(s) saved."
+msgstr "Zapisano wartości indeksu: %d."
+
+msgid "%1$d index value(s) imported (%2$s – %3$s)."
+msgstr "Zaimportowano wartości indeksu: %1$d (%2$s – %3$s)."
+
+msgid "Consumer price index for Germany (Federal Statistical Office, base 2020 = 100). Index-linked rents (§ 557b BGB) may be adjusted in line with the index change, at the earliest one year after the last rent setting. Enter the monthly values here, upload the Destatis CSV or fetch the values directly from GENESIS-Online."
+msgstr "Wskaźnik cen konsumpcyjnych dla Niemiec (Federalny Urząd Statystyczny, baza 2020 = 100). Czynsze indeksowane (§ 557b BGB) można dostosować zgodnie ze zmianą indeksu, najwcześniej rok po ostatnim ustaleniu czynszu. Wprowadź tu wartości miesięczne, wgraj CSV z Destatis lub pobierz wartości bezpośrednio z GENESIS-Online."
+
+msgid "Latest CPI"
+msgstr "Aktualny CPI"
+
+msgid "no values yet"
+msgstr "brak wartości"
+
+msgid "Change vs. previous year"
+msgstr "Zmiana wobec roku poprzedniego"
+
+msgid "Index-linked tenancies"
+msgstr "Czynsze indeksowane"
+
+msgid "active"
+msgstr "aktywny"
+
+msgid "Index-linked rents – adjustment possible?"
+msgstr "Czynsze indeksowane – czy możliwa korekta?"
+
+msgid "No active tenancy with index-linked rent. Set the rent type to “Index-linked rent” in the tenancy agreement options, or record an index adjustment under “Rent increase”."
+msgstr "Brak aktywnej umowy najmu z czynszem indeksowanym. Ustaw rodzaj czynszu na „Czynsz indeksowany” w opcjach umowy lub zarejestruj korektę indeksową w sekcji „Podwyżka czynszu”."
+
+msgid "Last rent setting"
+msgstr "Ostatnie ustalenie"
+
+msgid "CPI then"
+msgstr "CPI wówczas"
+
+msgid "Change"
+msgstr "Zmiana"
+
+msgid "Possible new rent"
+msgstr "Możliwy nowy czynsz"
+
+msgid "Earliest adjustment"
+msgstr "Najwcześniejsza korekta"
+
+msgid "Prepare adjustment"
+msgstr "Przygotuj korektę"
+
+msgid "unknown – enter the CPI of the month of the rent setting"
+msgstr "nieznany – wpisz CPI z miesiąca ustalenia czynszu"
+
+msgid "blocked"
+msgstr "zablokowane"
+
+msgid "New rent = current base rent × current CPI ÷ CPI at the last rent setting. The adjustment must be declared in text form stating the index change and the new rent; it takes effect at the start of the second month after receipt (§ 557b (3) BGB). “Prepare adjustment” opens the rent increase page with the values pre-filled."
+msgstr "Nowy czynsz = aktualny czynsz podstawowy × aktualny CPI ÷ CPI przy ostatnim ustaleniu. Korektę należy oświadczyć w formie tekstowej z podaniem zmiany indeksu i nowego czynszu; obowiązuje od początku drugiego miesiąca po doręczeniu (§ 557b ust. 3 BGB). „Przygotuj korektę” otwiera stronę podwyżki czynszu z wypełnionymi wartościami."
+
+msgid "Monthly index values"
+msgstr "Wartości miesięczne"
+
+msgid "CPI (2020 = 100)"
+msgstr "CPI (2020 = 100)"
+
+msgid "vs. previous year"
+msgstr "wobec roku poprzedniego"
+
+msgid "Changed"
+msgstr "Zmieniono"
+
+msgid "Destatis"
+msgstr "Destatis"
+
+msgid "Delete this index value?"
+msgstr "Usunąć tę wartość indeksu?"
+
+msgid "Add month"
+msgstr "Dodaj miesiąc"
+
+msgid "Value"
+msgstr "Wartość"
+
+msgid "Save values"
+msgstr "Zapisz wartości"
+
+msgid "Fetch from Destatis"
+msgstr "Pobierz z Destatis"
+
+msgid "Loads table %1$s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Access: the credentials from the settings (vpi_user / vpi_pass) or the guest login “%2$s”."
+msgstr "Pobiera tabelę %1$s (CPI Niemcy, miesiące) z ostatnich trzech lat z GENESIS-Online i zapisuje wszystkie wartości miesięczne. Dostęp: dane logowania z ustawień (vpi_user / vpi_pass) lub konto gościa „%2$s”."
+
+msgid "Import CSV file"
+msgstr "Importuj plik CSV"
+
+msgid "Without API access: download table 61111-0002 from GENESIS-Online as “flat CSV” (ffcsv) and upload it here. Existing months are overwritten."
+msgstr "Bez dostępu do API: pobierz tabelę 61111-0002 z GENESIS-Online jako „płaski CSV” (ffcsv) i wgraj ją tutaj. Istniejące miesiące zostaną nadpisane."
+
+msgid "Index-linked rent %1$s: adjustment by %2$s possible (new rent %3$s)"
+msgstr "Czynsz indeksowany %1$s: możliwa korekta o %2$s (nowy czynsz %3$s)"
+
+msgid "Monthly consumer price index for Germany (Destatis, base 2020 = 100). Enter values by hand, upload the GENESIS flat CSV of table 61111-0002 or fetch it directly (guest login works without registration; your own GENESIS credentials can be stored in the settings as vpi_user / vpi_pass)."
+msgstr "Miesięczny wskaźnik cen konsumpcyjnych dla Niemiec (Destatis, baza 2020 = 100). Wartości można wpisać ręcznie, wgrać płaski CSV GENESIS tabeli 61111-0002 lub pobrać bezpośrednio (konto gościa działa bez rejestracji; własne dane logowania GENESIS można zapisać w ustawieniach jako vpi_user / vpi_pass)."
+
+msgid "Index-linked rent (§ 557b BGB): a tenancy counts as index-linked if the agreement option “rent type” is set to index-linked rent or an index adjustment has already been recorded. The table shows the CPI at the last rent setting (from the last index adjustment, otherwise the CPI of the month the rent was set), the current CPI, the change and the possible new base rent."
+msgstr "Czynsz indeksowany (§ 557b BGB): umowa najmu jest traktowana jako indeksowana, gdy opcja umowy „rodzaj czynszu” jest ustawiona na czynsz indeksowany lub zarejestrowano już korektę indeksową. Tabela pokazuje CPI przy ostatnim ustaleniu (z ostatniej korekty indeksowej, w przeciwnym razie CPI z miesiąca ustalenia), aktualny CPI, zmianę i możliwy nowy czynsz podstawowy."
+
+msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
+msgstr "Czynsz można dostosować najwcześniej rok po ostatnim ustaleniu; oświadczenie musi mieć formę tekstową, podawać zmianę indeksu i nowy czynsz i obowiązuje od początku drugiego miesiąca po doręczeniu. „Przygotuj korektę” otwiera stronę podwyżki czynszu z wypełnionymi wartościami indeksu."
+
+msgid "Index / CPI"
+msgstr "Indeks / CPI"
+
+msgid "Demo data created – have a look around. Delete everything later under Settings & backup → Restore, or start fresh via Uninstall."
+msgstr "Dane demonstracyjne utworzone – rozejrzyj się. Później usuń wszystko w Ustawienia i kopia zapasowa → Przywróć lub zacznij od nowa przez Odinstaluj."
+
+msgid "Demo data are only possible on an empty installation."
+msgstr "Dane demonstracyjne są możliwe tylko na pustej instalacji."
+
+msgid "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps – or load demo data to explore the plugin."
+msgstr "Kreator konfiguracji tworzy w pięciu krokach wynajmującego, nieruchomość, lokal, najemcę i umowę najmu – albo wczytaj dane demonstracyjne, aby poznać wtyczkę."
+
+msgid "Create demo data (a condominium with tenant, one year of payments, receipts, loan and owners’ fee)? Only possible on an empty installation."
+msgstr "Utworzyć dane demonstracyjne (mieszkanie własnościowe z najemcą, rok płatności, dowody, kredyt i zaliczka na wspólnotę)? Możliwe tylko na pustej instalacji."
+
+msgid "Load demo data"
+msgstr "Wczytaj dane demonstracyjne"
+
+msgid "Recurring expense “%s”"
+msgstr "Wydatek cykliczny „%s”"
+
+msgid "Bank import: %d transactions"
+msgstr "Import bankowy: %d transakcji"
+
+msgid "Recurring expense"
+msgstr "Wydatek cykliczny"
+
+msgid "– recurring expense –"
+msgstr "– wydatek cykliczny –"
+
+msgid "Tenant #%d"
+msgstr "Najemca nr %d"
+
+msgid "Tax advisor (read-only)"
+msgstr "Doradca podatkowy (tylko odczyt)"
+
+msgid "Demo data created"
+msgstr "Dane demonstracyjne utworzone"
+
+msgid "Backup restored"
+msgstr "Kopia zapasowa przywrócona"
+
+msgid "Backup created."
+msgstr "Kopia zapasowa utworzona."
+
+msgid "Backup could not be written (uploads folder not writable)."
+msgstr "Nie udało się zapisać kopii zapasowej (brak uprawnień do zapisu w folderze uploads)."
+
+msgid "Backup deleted."
+msgstr "Kopia zapasowa usunięta."
+
+msgid "Security"
+msgstr "Bezpieczeństwo"
+
+msgid "Two-factor authentication for landlords"
+msgstr "Uwierzytelnianie dwuskładnikowe dla wynajmujących"
+
+msgid "Recommended only"
+msgstr "Tylko zalecane"
+
+msgid "Required (role Landlord and administrators)"
+msgstr "Wymagane (rola Wynajmujący i administratorzy)"
+
+msgid "Automatic backups"
+msgstr "Automatyczne kopie zapasowe"
+
+msgid "Create backups automatically"
+msgstr "Twórz kopie zapasowe automatycznie"
+
+msgid "Weekly"
+msgstr "Co tydzień"
+
+msgid "JSON export of all tables into the uploads folder (mietfux-backups), run by WP-Cron."
+msgstr "Eksport JSON wszystkich tabel do folderu uploads (mietfux-backups), uruchamiany przez WP-Cron."
+
+msgid "Backups to keep"
+msgstr "Liczba przechowywanych kopii"
+
+msgid "Also send backup by email"
+msgstr "Wyślij kopię zapasową także e-mailem"
+
+msgid "Yes, to the reminder address"
+msgstr "Tak, na adres przypomnień"
+
+msgid "Email to tenants"
+msgstr "E-mail do najemców"
+
+msgid "Copy of every email to me"
+msgstr "Kopia każdego e-maila do mnie"
+
+msgid "Email signature"
+msgstr "Podpis e-mail"
+
+msgid "Appended below the greeting; empty = landlord name and address."
+msgstr "Dodawany pod formułą pożegnalną; puste = nazwa i adres wynajmującego."
+
+msgid "Consumer price index (Destatis)"
+msgstr "Wskaźnik cen konsumpcyjnych (Destatis)"
+
+msgid "GENESIS-Online user name"
+msgstr "Nazwa użytkownika GENESIS-Online"
+
+msgid "Optional; without credentials the guest access (GAST) is used."
+msgstr "Opcjonalnie; bez danych logowania używany jest dostęp gościa (GAST)."
+
+msgid "GENESIS-Online password"
+msgstr "Hasło GENESIS-Online"
+
+msgid "Restore backup"
+msgstr "Przywróć kopię zapasową"
+
+msgid "Backup exported"
+msgstr "Kopia zapasowa wyeksportowana"
+
+msgid "File not found."
+msgstr "Nie znaleziono pliku."
+
+msgid "Last automatic backup: %s"
+msgstr "Ostatnia automatyczna kopia zapasowa: %s"
+
+msgid "No automatic backup yet."
+msgstr "Brak automatycznej kopii zapasowej."
+
+msgid "Create backup now"
+msgstr "Utwórz kopię zapasową teraz"
+
+msgid "Size"
+msgstr "Rozmiar"
+
+msgid "Download"
+msgstr "Pobierz"
+
+msgid "Delete this backup?"
+msgstr "Usunąć tę kopię zapasową?"
+
+msgid "Backups are stored in the uploads folder (mietfux-backups, blocked for direct access) and rotated automatically. To restore, download the file and use “Restore” above."
+msgstr "Kopie zapasowe są przechowywane w folderze uploads (mietfux-backups, zablokowanym dla bezpośredniego dostępu) i automatycznie rotowane. Aby przywrócić, pobierz plik i użyj „Przywróć” powyżej."
+
+msgid "Maintain line numbers of Anlage V %d"
+msgstr "Zarządzaj numerami wierszy Anlage V %d"
+
+msgid "Mietfux requires two-factor authentication for landlords. Please enable a method under “Two-Factor Options” below – the Mietfux pages are available again afterwards."
+msgstr "Mietfux wymaga od wynajmujących uwierzytelniania dwuskładnikowego. Włącz metodę poniżej w sekcji „Two-Factor Options” – potem strony Mietfux będą znów dostępne."
+
+msgid "The free “Two-Factor” plugin (by the WordPress core team) is not installed. Install and activate it under Plugins → Add New; Mietfux then enforces it for landlords when “Required” is selected."
+msgstr "Bezpłatna wtyczka „Two-Factor” (zespołu rdzenia WordPress) nie jest zainstalowana. Zainstaluj i aktywuj ją w Wtyczki → Dodaj nową; przy ustawieniu „Wymagane” Mietfux wymusi ją dla wynajmujących."
+
+msgid "Two-Factor is active and set up for your account."
+msgstr "Two-Factor jest aktywna i skonfigurowana dla Twojego konta."
+
+msgid "Two-Factor is active, but not yet set up for your account – see your profile, “Two-Factor Options”."
+msgstr "Two-Factor jest aktywna, ale nie jest jeszcze skonfigurowana dla Twojego konta – zobacz profil, „Two-Factor Options”."
+
+msgid "Protect the landlord login with two-factor authentication – install the “Two-Factor” plugin (recommended in Settings → Security)"
+msgstr "Zabezpiecz logowanie wynajmującego uwierzytelnianiem dwuskładnikowym – zainstaluj wtyczkę „Two-Factor” (zalecane w Ustawienia → Bezpieczeństwo)"
+
+msgid "Two-factor authentication is not yet set up for your account"
+msgstr "Uwierzytelnianie dwuskładnikowe nie jest jeszcze skonfigurowane dla Twojego konta"

@@ -3108,6 +3108,99 @@ msgstr "Schade of gebrek melden"
 msgid "Submit report"
 msgstr "Melding versturen"
 
+msgid "created"
+msgstr "aangemaakt"
+
+msgid "changed"
+msgstr "gewijzigd"
+
+msgid "deleted"
+msgstr "verwijderd"
+
+msgid "exported"
+msgstr "geëxporteerd"
+
+msgid "imported"
+msgstr "geïmporteerd"
+
+msgid "portal login"
+msgstr "portaalaanmelding"
+
+msgid "Activity log"
+msgstr "Logboek"
+
+msgid "Retention period saved."
+msgstr "Bewaartermijn opgeslagen."
+
+msgid "%d old log entries deleted."
+msgstr "%d oude logboekvermeldingen verwijderd."
+
+msgid "Records who created, changed or deleted which record and when (accountability, Art. 5 (2) GDPR). Only the changed fields are stored; IBANs are masked, passwords are never logged, IP addresses are anonymised."
+msgstr "Legt vast wie wanneer welk record heeft aangemaakt, gewijzigd of verwijderd (verantwoordingsplicht, art. 5 lid 2 AVG). Alleen de gewijzigde velden worden opgeslagen; IBANs worden gemaskeerd, wachtwoorden nooit gelogd, IP-adressen geanonimiseerd."
+
+msgid "From"
+msgstr "Van"
+
+msgid "To"
+msgstr "Tot"
+
+msgid "Table"
+msgstr "Tabel"
+
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Filter"
+msgstr "Filteren"
+
+msgid "Export CSV"
+msgstr "CSV exporteren"
+
+msgid "%d entries"
+msgstr "%d vermeldingen"
+
+msgid "Time"
+msgstr "Tijd"
+
+msgid "Record"
+msgstr "Record"
+
+msgid "Changes"
+msgstr "Wijzigingen"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "No entries."
+msgstr "Geen vermeldingen."
+
+msgid "Retention"
+msgstr "Bewaring"
+
+msgid "Keep log entries for (days)"
+msgstr "Logboekvermeldingen bewaren (dagen)"
+
+msgid "Delete all log entries older than the retention period now?"
+msgstr "Alle logboekvermeldingen die ouder zijn dan de bewaartermijn nu verwijderen?"
+
+msgid "Clean up now"
+msgstr "Nu opschonen"
+
+msgid "Older entries are deleted automatically once a day (WP-Cron). Default: 365 days."
+msgstr "Oudere vermeldingen worden eenmaal per dag automatisch verwijderd (WP-Cron). Standaard: 365 dagen."
+
+msgid "The activity log records who created, changed or deleted which record and when. This serves the accountability principle (Art. 5 (2) GDPR) and lets you trace changes to tenant and payment data."
+msgstr "Het logboek legt vast wie wanneer welk record heeft aangemaakt, gewijzigd of verwijderd. Dit dient de verantwoordingsplicht (art. 5 lid 2 AVG) en maakt wijzigingen in huurders- en betalingsgegevens traceerbaar."
+
+msgid "For changes only the fields that actually changed are stored, with their old and new value. IBANs are reduced to the last four digits, passwords are never stored, and IP addresses are anonymised (last octet removed)."
+msgstr "Bij wijzigingen worden alleen de daadwerkelijk gewijzigde velden opgeslagen, met oude en nieuwe waarde. IBANs worden ingekort tot de laatste vier tekens, wachtwoorden nooit opgeslagen en IP-adressen geanonimiseerd (laatste octet verwijderd)."
+
+msgid "Entries are deleted automatically after the retention period (default 365 days). Use the CSV export to archive the log before it is cleaned up, for example at year end."
+msgstr "Vermeldingen worden na de bewaartermijn (standaard 365 dagen) automatisch verwijderd. Gebruik de CSV-export om het logboek vooraf te archiveren, bijvoorbeeld aan het einde van het jaar."
+
 msgid "AfA"
 msgstr "AfA"
 
@@ -3251,3 +3344,486 @@ msgstr "Let op:"
 
 msgid "%s Further renovations within the period could breach the limit."
 msgstr "%s Verdere renovaties binnen de periode kunnen de grens overschrijden."
+
+msgid "monthly"
+msgstr "maandelijks"
+
+msgid "quarterly"
+msgstr "per kwartaal"
+
+msgid "half-yearly"
+msgstr "halfjaarlijks"
+
+msgid "yearly"
+msgstr "jaarlijks"
+
+msgid "Recurring expense “%1$s” (%2$s) due but not yet booked: %3$s"
+msgstr "Terugkerende uitgave ‘%1$s’ (%2$s) vervallen maar nog niet geboekt: %3$s"
+
+msgid "Recurring expenses"
+msgstr "Terugkerende uitgaven"
+
+msgid "Recurring costs with a fixed rhythm – property tax (quarterly), building insurance (yearly), chimney sweep, maintenance contracts, account fees (monthly). Enter supplier, amount per due date, interval and first due date once; the due dates are calculated from there."
+msgstr "Terugkerende kosten met een vast ritme – onroerendezaakbelasting (per kwartaal), opstalverzekering (jaarlijks), schoorsteenveger, onderhoudscontracten, bankkosten (maandelijks). Leverancier, bedrag per vervaldatum, interval en eerste vervaldatum eenmalig invoeren; de vervaldata worden daaruit berekend."
+
+msgid "Booking a due date creates one receipt: payment date = outflow (Anlage V), service period = the interval starting at the due date (service charge statement). Booked receipts stay even if the recurring expense is deactivated or deleted. The bank import recognises payments by the supplier’s IBAN or name and books the next open due date."
+msgstr "Het boeken van een vervaldatum maakt precies één bon aan: betaaldatum = uitgave (Anlage V), dienstperiode = het interval vanaf de vervaldatum (servicekostenafrekening). Geboekte bonnen blijven bestaan, ook als de terugkerende uitgave wordt gedeactiveerd of verwijderd. De bankimport herkent betalingen aan de IBAN of naam van de leverancier en boekt de volgende open vervaldatum."
+
+msgid "Recurring expense saved."
+msgstr "Terugkerende uitgave opgeslagen."
+
+msgid "Recurring expense deleted – booked receipts remain."
+msgstr "Terugkerende uitgave verwijderd – geboekte bonnen blijven bestaan."
+
+msgid "Please fill in property, cost type and description."
+msgstr "Vul object, kostensoort en omschrijving in."
+
+msgid "Recurring costs with a fixed rhythm (property tax, building insurance, chimney sweep, maintenance, account fees). Each booked due date creates one receipt with the payment date as outflow and the interval as service period."
+msgstr "Terugkerende kosten met een vast ritme (onroerendezaakbelasting, opstalverzekering, schoorsteenveger, onderhoud, bankkosten). Elke geboekte vervaldatum maakt één bon aan met de betaaldatum als uitgave en het interval als dienstperiode."
+
+msgid "New recurring expense"
+msgstr "Nieuwe terugkerende uitgave"
+
+msgid "Interval"
+msgstr "Interval"
+
+msgid "Next due date"
+msgstr "Volgende vervaldatum"
+
+msgid "Open / booked"
+msgstr "Open / geboekt"
+
+msgid "No recurring expenses yet."
+msgstr "Nog geen terugkerende uitgaven."
+
+msgid "inactive"
+msgstr "inactief"
+
+msgid "Due dates %1$s – %2$d"
+msgstr "Vervaldata %1$s – %2$d"
+
+msgid "Due date"
+msgstr "Vervaldatum"
+
+msgid "Service period"
+msgstr "Dienstperiode"
+
+msgid "No due dates in this year."
+msgstr "Geen vervaldata in dit jaar."
+
+msgid "Delete this receipt?"
+msgstr "Deze bon verwijderen?"
+
+msgid "Leave empty to use the due date as payment date."
+msgstr "Leeg laten = vervaldatum als betaaldatum."
+
+msgid "Please tick at least one due date."
+msgstr "Vink minstens één vervaldatum aan."
+
+msgid "Book selected due dates"
+msgstr "Geselecteerde boeken"
+
+msgid "Edit recurring expense"
+msgstr "Terugkerende uitgave bewerken"
+
+msgid "e.g. Property tax"
+msgstr "bijv. onroerendezaakbelasting"
+
+msgid "Supplier’s IBAN"
+msgstr "IBAN van de leverancier"
+
+msgid "Used by the bank import to recognise payments automatically (IBAN or supplier name)."
+msgstr "Wordt door de bankimport gebruikt om betalingen automatisch te herkennen (IBAN of leveranciersnaam)."
+
+msgid "Amount per due date (€)"
+msgstr "Bedrag per vervaldatum (€)"
+
+msgid "First due date"
+msgstr "Eerste vervaldatum"
+
+msgid "End (optional)"
+msgstr "Einde (optioneel)"
+
+msgid "Property tax is typically due on 15 Feb, 15 May, 15 Aug and 15 Nov (quarterly) – enter 15 Feb as the first due date. Later due dates follow the same day of month; the interval starting at each due date is used as service period."
+msgstr "Onroerendezaakbelasting vervalt doorgaans op 15 feb, 15 mei, 15 aug en 15 nov (per kwartaal) – voer 15 feb in als eerste vervaldatum. Latere vervaldata volgen op dezelfde dag van de maand; het interval vanaf elke vervaldatum geldt als dienstperiode."
+
+msgid "Save recurring expense"
+msgstr "Terugkerende uitgave opslaan"
+
+msgid "Deactivate"
+msgstr "Deactiveren"
+
+msgid "Activate"
+msgstr "Activeren"
+
+msgid "Delete this recurring expense? Booked receipts remain."
+msgstr "Deze terugkerende uitgave verwijderen? Geboekte bonnen blijven bestaan."
+
+msgid "Deposit settlement"
+msgstr "Borgafrekening"
+
+msgid "Dunning letter"
+msgstr "Aanmaning"
+
+msgid "No valid e-mail address stored for tenant %s. Please add one under Tenants."
+msgstr "Voor huurder %s is geen geldig e-mailadres opgeslagen. Voeg er een toe onder Huurders."
+
+msgid "The PDF attachment could not be written to a temporary file."
+msgstr "De PDF-bijlage kon niet als tijdelijk bestand worden weggeschreven."
+
+msgid "The mail server rejected the message (wp_mail returned false)."
+msgstr "De mailserver heeft het bericht geweigerd (wp_mail gaf false terug)."
+
+msgid "Unknown document type."
+msgstr "Onbekend documenttype."
+
+msgid "E-mail dispatch is not available for this document yet: %s::body() is missing."
+msgstr "E-mailverzending is voor dit document nog niet beschikbaar: %s::body() ontbreekt."
+
+msgid "The document could not be generated."
+msgstr "Het document kon niet worden gegenereerd."
+
+msgid "sent by e-mail"
+msgstr "per e-mail verzonden"
+
+msgid "Send “%s” to the tenant by e-mail now? The PDF is filed under Documents."
+msgstr "‘%s’ nu per e-mail naar de huurder sturen? De PDF wordt opgeslagen onder Documenten."
+
+msgid "Send by e-mail"
+msgstr "Per e-mail verzenden"
+
+msgid "Dispatch log"
+msgstr "Verzendlogboek"
+
+msgid "E-mail sent to %s. The PDF has been filed under Documents."
+msgstr "E-mail verzonden naar %s. De PDF is opgeslagen onder Documenten."
+
+msgid "E-mail could not be sent: %s"
+msgstr "E-mail kon niet worden verzonden: %s"
+
+msgid "Every letter sent by e-mail is recorded here with recipients, status and the filed PDF. Sender and reply address are taken from the landlord settings; a copy goes to you if “Copy to me” is enabled."
+msgstr "Elke per e-mail verzonden brief wordt hier vastgelegd met ontvangers, status en de opgeslagen PDF. Afzender en antwoordadres komen uit de verhuurderinstellingen; u ontvangt een kopie als ‘Kopie aan mij’ is ingeschakeld."
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Recipients"
+msgstr "Ontvangers"
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "No e-mails sent yet. Use “Send by e-mail” on a statement, rent increase, deposit settlement or dunning letter."
+msgstr "Nog geen e-mails verzonden. Gebruik ‘Per e-mail verzenden’ bij een afrekening, huurverhoging, borgafrekening of aanmaning."
+
+msgid "sent"
+msgstr "verzonden"
+
+msgid "failed"
+msgstr "mislukt"
+
+msgid "E-mail dispatch"
+msgstr "E-mailverzending"
+
+msgid "Statements, rent increase letters, deposit settlements and dunning letters can be sent to the tenant by e-mail with the PDF attached. The message goes to all e-mail addresses stored for the tenant (main tenant and partner)."
+msgstr "Afrekeningen, huurverhogingsbrieven, borgafrekeningen en aanmaningen kunnen met de PDF als bijlage per e-mail naar de huurder worden gestuurd. Het bericht gaat naar alle e-mailadressen die bij de huurder zijn opgeslagen (hoofdhuurder en partner)."
+
+msgid "Sender and reply address are the landlord e-mail from the settings. Enable “Copy to me” to receive a copy of every message; the signature under the closing can be set there as well."
+msgstr "Afzender en antwoordadres zijn het verhuurder-e-mailadres uit de instellingen. Schakel ‘Kopie aan mij’ in om een kopie van elk bericht te ontvangen; de handtekening onder de afsluiting kan daar ook worden ingesteld."
+
+msgid "Each dispatch is logged with time, recipients, status and the filed PDF. Failed deliveries are shown with the mail server’s error message. Note: letters that legally require written form (e.g. a rent increase under § 558 BGB) must additionally be sent by post."
+msgstr "Elke verzending wordt gelogd met tijd, ontvangers, status en de opgeslagen PDF. Mislukte verzendingen worden getoond met de foutmelding van de mailserver. Let op: brieven waarvoor de wet de schriftelijke vorm vereist (bijv. een huurverhoging volgens § 558 BGB) moeten daarnaast per post worden verstuurd."
+
+msgid "Destatis could not be reached: %s"
+msgstr "Destatis is niet bereikbaar: %s"
+
+msgid "Destatis answered with HTTP status %d."
+msgstr "Destatis antwoordde met HTTP-status %d."
+
+msgid "Destatis returned an empty response."
+msgstr "Destatis gaf een leeg antwoord."
+
+msgid "unknown error"
+msgstr "onbekende fout"
+
+msgid "Destatis reported: %s"
+msgstr "Destatis meldt: %s"
+
+msgid "The Destatis response could not be interpreted (no monthly index values found)."
+msgstr "Het antwoord van Destatis kon niet worden verwerkt (geen maandwaarden gevonden)."
+
+msgid "Please choose a CSV file."
+msgstr "Kies een CSV-bestand."
+
+msgid "No monthly index values found in the file. Expected: GENESIS flat CSV (ffcsv) of table 61111-0002."
+msgstr "Geen maandwaarden in het bestand gevonden. Verwacht: GENESIS flat CSV (ffcsv) van tabel 61111-0002."
+
+msgid "Consumer price index (CPI)"
+msgstr "Consumentenprijsindex (CPI)"
+
+msgid "%d index value(s) saved."
+msgstr "%d indexwaarde(n) opgeslagen."
+
+msgid "%1$d index value(s) imported (%2$s – %3$s)."
+msgstr "%1$d indexwaarde(n) geïmporteerd (%2$s – %3$s)."
+
+msgid "Consumer price index for Germany (Federal Statistical Office, base 2020 = 100). Index-linked rents (§ 557b BGB) may be adjusted in line with the index change, at the earliest one year after the last rent setting. Enter the monthly values here, upload the Destatis CSV or fetch the values directly from GENESIS-Online."
+msgstr "Consumentenprijsindex voor Duitsland (Statistisches Bundesamt, basis 2020 = 100). Indexhuren (§ 557b BGB) mogen overeenkomstig de indexwijziging worden aangepast, op zijn vroegst een jaar na de laatste huurvaststelling. Voer hier de maandwaarden in, upload de Destatis-CSV of haal de waarden rechtstreeks op bij GENESIS-Online."
+
+msgid "Latest CPI"
+msgstr "Actuele CPI"
+
+msgid "no values yet"
+msgstr "nog geen waarden"
+
+msgid "Change vs. previous year"
+msgstr "Wijziging t.o.v. vorig jaar"
+
+msgid "Index-linked tenancies"
+msgstr "Indexhuren"
+
+msgid "active"
+msgstr "actief"
+
+msgid "Index-linked rents – adjustment possible?"
+msgstr "Indexhuren – aanpassing mogelijk?"
+
+msgid "No active tenancy with index-linked rent. Set the rent type to “Index-linked rent” in the tenancy agreement options, or record an index adjustment under “Rent increase”."
+msgstr "Geen actieve huurovereenkomst met indexhuur. Zet het huurtype in de contractopties op ‘Indexhuur’ of leg een indexaanpassing vast onder ‘Huurverhoging’."
+
+msgid "Last rent setting"
+msgstr "Laatste vaststelling"
+
+msgid "CPI then"
+msgstr "CPI toen"
+
+msgid "Change"
+msgstr "Wijziging"
+
+msgid "Possible new rent"
+msgstr "Mogelijke nieuwe huur"
+
+msgid "Earliest adjustment"
+msgstr "Vroegste aanpassing"
+
+msgid "Prepare adjustment"
+msgstr "Aanpassing voorbereiden"
+
+msgid "unknown – enter the CPI of the month of the rent setting"
+msgstr "onbekend – voer de CPI van de maand van vaststelling in"
+
+msgid "blocked"
+msgstr "geblokkeerd"
+
+msgid "New rent = current base rent × current CPI ÷ CPI at the last rent setting. The adjustment must be declared in text form stating the index change and the new rent; it takes effect at the start of the second month after receipt (§ 557b (3) BGB). “Prepare adjustment” opens the rent increase page with the values pre-filled."
+msgstr "Nieuwe huur = huidige kale huur × actuele CPI ÷ CPI bij de laatste vaststelling. De aanpassing moet in tekstvorm worden verklaard, met vermelding van de indexwijziging en de nieuwe huur; ze gaat in aan het begin van de tweede maand na ontvangst (§ 557b lid 3 BGB). ‘Aanpassing voorbereiden’ opent de pagina Huurverhoging met vooraf ingevulde waarden."
+
+msgid "Monthly index values"
+msgstr "Maandwaarden"
+
+msgid "CPI (2020 = 100)"
+msgstr "CPI (2020 = 100)"
+
+msgid "vs. previous year"
+msgstr "t.o.v. vorig jaar"
+
+msgid "Changed"
+msgstr "Gewijzigd"
+
+msgid "Destatis"
+msgstr "Destatis"
+
+msgid "Delete this index value?"
+msgstr "Deze indexwaarde verwijderen?"
+
+msgid "Add month"
+msgstr "Maand toevoegen"
+
+msgid "Value"
+msgstr "Waarde"
+
+msgid "Save values"
+msgstr "Waarden opslaan"
+
+msgid "Fetch from Destatis"
+msgstr "Ophalen bij Destatis"
+
+msgid "Loads table %1$s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Access: the credentials from the settings (vpi_user / vpi_pass) or the guest login “%2$s”."
+msgstr "Laadt tabel %1$s (CPI Duitsland, maanden) van de laatste drie jaar van GENESIS-Online en slaat alle maandwaarden op. Toegang: de inloggegevens uit de instellingen (vpi_user / vpi_pass) of de gasttoegang ‘%2$s’."
+
+msgid "Import CSV file"
+msgstr "CSV-bestand importeren"
+
+msgid "Without API access: download table 61111-0002 from GENESIS-Online as “flat CSV” (ffcsv) and upload it here. Existing months are overwritten."
+msgstr "Zonder API-toegang: tabel 61111-0002 bij GENESIS-Online als ‘flat CSV’ (ffcsv) downloaden en hier uploaden. Bestaande maanden worden overschreven."
+
+msgid "Index-linked rent %1$s: adjustment by %2$s possible (new rent %3$s)"
+msgstr "Indexhuur %1$s: aanpassing met %2$s mogelijk (nieuwe huur %3$s)"
+
+msgid "Monthly consumer price index for Germany (Destatis, base 2020 = 100). Enter values by hand, upload the GENESIS flat CSV of table 61111-0002 or fetch it directly (guest login works without registration; your own GENESIS credentials can be stored in the settings as vpi_user / vpi_pass)."
+msgstr "Maandelijkse consumentenprijsindex voor Duitsland (Destatis, basis 2020 = 100). Waarden handmatig invoeren, de GENESIS flat CSV van tabel 61111-0002 uploaden of rechtstreeks ophalen (de gasttoegang werkt zonder registratie; eigen GENESIS-inloggegevens kunnen in de instellingen als vpi_user / vpi_pass worden opgeslagen)."
+
+msgid "Index-linked rent (§ 557b BGB): a tenancy counts as index-linked if the agreement option “rent type” is set to index-linked rent or an index adjustment has already been recorded. The table shows the CPI at the last rent setting (from the last index adjustment, otherwise the CPI of the month the rent was set), the current CPI, the change and the possible new base rent."
+msgstr "Indexhuur (§ 557b BGB): een huurovereenkomst geldt als indexhuur als de contractoptie ‘huurtype’ op indexhuur staat of al een indexaanpassing is vastgelegd. De tabel toont de CPI bij de laatste vaststelling (uit de laatste indexaanpassing, anders de CPI van de maand van vaststelling), de actuele CPI, de wijziging en de mogelijke nieuwe kale huur."
+
+msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
+msgstr "De huur mag op zijn vroegst een jaar na de laatste vaststelling worden aangepast; de verklaring moet in tekstvorm gebeuren, de indexwijziging en de nieuwe huur vermelden en gaat in aan het begin van de tweede maand na ontvangst. ‘Aanpassing voorbereiden’ opent de pagina Huurverhoging met vooraf ingevulde indexwaarden."
+
+msgid "Index / CPI"
+msgstr "Index / CPI"
+
+msgid "Demo data created – have a look around. Delete everything later under Settings & backup → Restore, or start fresh via Uninstall."
+msgstr "Demogegevens aangemaakt – kijk gerust rond. Later alles verwijderen onder Instellingen & back-up → Herstellen, of opnieuw beginnen via Verwijderen."
+
+msgid "Demo data are only possible on an empty installation."
+msgstr "Demogegevens zijn alleen mogelijk op een lege installatie."
+
+msgid "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps – or load demo data to explore the plugin."
+msgstr "De installatiewizard maakt in vijf stappen verhuurder, object, eenheid, huurder en huurovereenkomst aan – of laad demogegevens om de plugin te verkennen."
+
+msgid "Create demo data (a condominium with tenant, one year of payments, receipts, loan and owners’ fee)? Only possible on an empty installation."
+msgstr "Demogegevens aanmaken (een appartement met huurder, een jaar betalingen, bonnen, lening en VvE-bijdrage)? Alleen mogelijk op een lege installatie."
+
+msgid "Load demo data"
+msgstr "Demogegevens laden"
+
+msgid "Recurring expense “%s”"
+msgstr "Terugkerende uitgave ‘%s’"
+
+msgid "Bank import: %d transactions"
+msgstr "Bankimport: %d transacties"
+
+msgid "Recurring expense"
+msgstr "Terugkerende uitgave"
+
+msgid "– recurring expense –"
+msgstr "– terugkerende uitgave –"
+
+msgid "Tenant #%d"
+msgstr "Huurder nr. %d"
+
+msgid "Tax advisor (read-only)"
+msgstr "Belastingadviseur (alleen lezen)"
+
+msgid "Demo data created"
+msgstr "Demogegevens aangemaakt"
+
+msgid "Backup restored"
+msgstr "Back-up hersteld"
+
+msgid "Backup created."
+msgstr "Back-up aangemaakt."
+
+msgid "Backup could not be written (uploads folder not writable)."
+msgstr "Back-up kon niet worden weggeschreven (uploadmap niet beschrijfbaar)."
+
+msgid "Backup deleted."
+msgstr "Back-up verwijderd."
+
+msgid "Security"
+msgstr "Beveiliging"
+
+msgid "Two-factor authentication for landlords"
+msgstr "Tweefactorauthenticatie voor verhuurders"
+
+msgid "Recommended only"
+msgstr "Alleen aanbevelen"
+
+msgid "Required (role Landlord and administrators)"
+msgstr "Verplicht (rol Verhuurder en beheerders)"
+
+msgid "Automatic backups"
+msgstr "Automatische back-ups"
+
+msgid "Create backups automatically"
+msgstr "Back-ups automatisch aanmaken"
+
+msgid "Weekly"
+msgstr "Wekelijks"
+
+msgid "JSON export of all tables into the uploads folder (mietfux-backups), run by WP-Cron."
+msgstr "JSON-export van alle tabellen naar de uploadmap (mietfux-backups), uitgevoerd via WP-Cron."
+
+msgid "Backups to keep"
+msgstr "Te bewaren back-ups"
+
+msgid "Also send backup by email"
+msgstr "Back-up ook per e-mail verzenden"
+
+msgid "Yes, to the reminder address"
+msgstr "Ja, naar het herinneringsadres"
+
+msgid "Email to tenants"
+msgstr "E-mail aan huurders"
+
+msgid "Copy of every email to me"
+msgstr "Kopie van elke e-mail aan mij"
+
+msgid "Email signature"
+msgstr "E-mailhandtekening"
+
+msgid "Appended below the greeting; empty = landlord name and address."
+msgstr "Wordt onder de afsluiting toegevoegd; leeg = naam en adres van de verhuurder."
+
+msgid "Consumer price index (Destatis)"
+msgstr "Consumentenprijsindex (Destatis)"
+
+msgid "GENESIS-Online user name"
+msgstr "GENESIS-Online-gebruikersnaam"
+
+msgid "Optional; without credentials the guest access (GAST) is used."
+msgstr "Optioneel; zonder inloggegevens wordt de gasttoegang (GAST) gebruikt."
+
+msgid "GENESIS-Online password"
+msgstr "GENESIS-Online-wachtwoord"
+
+msgid "Restore backup"
+msgstr "Back-up herstellen"
+
+msgid "Backup exported"
+msgstr "Back-up geëxporteerd"
+
+msgid "File not found."
+msgstr "Bestand niet gevonden."
+
+msgid "Last automatic backup: %s"
+msgstr "Laatste automatische back-up: %s"
+
+msgid "No automatic backup yet."
+msgstr "Nog geen automatische back-up."
+
+msgid "Create backup now"
+msgstr "Back-up nu aanmaken"
+
+msgid "Size"
+msgstr "Grootte"
+
+msgid "Download"
+msgstr "Downloaden"
+
+msgid "Delete this backup?"
+msgstr "Deze back-up verwijderen?"
+
+msgid "Backups are stored in the uploads folder (mietfux-backups, blocked for direct access) and rotated automatically. To restore, download the file and use “Restore” above."
+msgstr "Back-ups staan in de uploadmap (mietfux-backups, afgeschermd tegen directe toegang) en worden automatisch geroteerd. Om te herstellen het bestand downloaden en hierboven onder ‘Herstellen’ inlezen."
+
+msgid "Maintain line numbers of Anlage V %d"
+msgstr "Regelnummers van Anlage V %d beheren"
+
+msgid "Mietfux requires two-factor authentication for landlords. Please enable a method under “Two-Factor Options” below – the Mietfux pages are available again afterwards."
+msgstr "Mietfux vereist tweefactorauthenticatie voor verhuurders. Schakel hieronder onder ‘Two-Factor Options’ een methode in – daarna zijn de Mietfux-pagina’s weer beschikbaar."
+
+msgid "The free “Two-Factor” plugin (by the WordPress core team) is not installed. Install and activate it under Plugins → Add New; Mietfux then enforces it for landlords when “Required” is selected."
+msgstr "De gratis plugin ‘Two-Factor’ (van het WordPress-coreteam) is niet geïnstalleerd. Installeer en activeer deze onder Plugins → Nieuwe plugin; Mietfux dwingt hem bij ‘Verplicht’ dan af voor verhuurders."
+
+msgid "Two-Factor is active and set up for your account."
+msgstr "Two-Factor is actief en ingesteld voor je account."
+
+msgid "Two-Factor is active, but not yet set up for your account – see your profile, “Two-Factor Options”."
+msgstr "Two-Factor is actief, maar nog niet ingesteld voor je account – zie je profiel, ‘Two-Factor Options’."
+
+msgid "Protect the landlord login with two-factor authentication – install the “Two-Factor” plugin (recommended in Settings → Security)"
+msgstr "Beveilig de verhuurderaanmelding met tweefactorauthenticatie – installeer de plugin ‘Two-Factor’ (aanbevolen onder Instellingen → Beveiliging)"
+
+msgid "Two-factor authentication is not yet set up for your account"
+msgstr "Tweefactorauthenticatie is voor je account nog niet ingesteld"
