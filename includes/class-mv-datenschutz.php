@@ -43,6 +43,7 @@ class Mietv_Datenschutz {
 	/** Personenbezug entfernen, Zahlen (steuerlich) bleiben. */
 	public static function anonymisieren( int $mieter_id ): void {
 		global $wpdb;
+		do_action( 'mietv_protokoll', 'anonymisieren', 'mieter', $mieter_id, sprintf( /* translators: %d: ID */ __( 'Tenant #%d', 'mietfux' ), $mieter_id ), [] );
 		$wpdb->update(
 			mietv_table( 'mieter' ),
 			[

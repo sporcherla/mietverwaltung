@@ -17,7 +17,7 @@ foreach ( Mietv_Dauerbelege::tabellen( '' ) as $sql ) {
 	$wpdb->query( "CREATE TABLE {$m[1]} ($body)" );
 }
 // Spalte dauerbeleg_id in mv_belege (wird im Plugin vom Hauptentwickler ergänzt).
-$wpdb->query( 'ALTER TABLE ' . mietv_table( 'belege' ) . ' ADD COLUMN dauerbeleg_id INTEGER DEFAULT NULL' );
+// Spalte dauerbeleg_id ist seit DB-Version 15 Teil des Schemas.
 
 $wpdb->insert( mietv_table( 'objekte' ), [ 'bezeichnung' => 'MFH Test', 'strasse' => 'x', 'ort' => 'y' ] );
 $oid = (int) $wpdb->insert_id;

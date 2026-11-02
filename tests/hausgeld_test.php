@@ -29,10 +29,12 @@ assert( abs( $s2 - 330.0 ) < 0.005, 'anteilige Verteilung 330' );
 $g = Mietv_Hausgeld::gebucht_je_kostenart( $oid, 2025 );
 assert( abs( $g[ $ka['Wasser'] ] - 315.0 ) < 0.01, 'Wasser 150+165' );
 // Jahresabrechnung: Wasser tatsächlich 400 (+85), Verwaltung 200 (−10), Rücklage unverändert
-$a = Mietv_Hausgeld::buchen_abrechnung( $oid, 2025, [ $ka['Wasser'] => 400, $ka['Verwaltung'] => 200, $ka['Rücklage'] => 110 ], '2026-04-10' );
+$a = Mietv_Hausgeld::buchen_abrechnung( $oid, 2025, [ $ka['Wasser'] => 400, $ka['Verwaltung'] => 200, $ka['Rücklage'] => 105 ], '2026-04-10' );
 assert( $a > 0, 'Abrechnung gebucht' );
-$kb = $wpdb->get_results( $wpdb->prepare( 'SELECT kostenart_id, betrag, steuerjahr, zeitraum_von, zeitraum_bis FROM ' . mietv_table( 'belege' ) . ' WHERE hausgeld_id = %d', $a ), OBJECT_K );
-assert( count( $kb ) === 2, 'nur Differenzen gebucht' );
+$kb = $wpdb->get_results( $wpdb->prepare( 'SELECT kostenart_id, betrag, steuerjahr, zeitraum_von, zeitraum_bis FROM ' . mietv_table( 'belege' ) . ' WHERE hausgeld_id = %d', $a ) );
+$kb = array_column( array_map( fn( $x ) => (array) $x, $kb ), null, 'kostenart_id' );
+$kb = array_map( fn( $x ) => (object) $x, $kb );
+assert( count( $kb ) === 2, "nur Differenzen gebucht: " . count( $kb ) . " " . wp_json_encode( array_map( fn( $x ) => $x->betrag, $kb ) ) );
 assert( abs( (float) $kb[ $ka['Wasser'] ]->betrag - 85.0 ) < 0.01 && abs( (float) $kb[ $ka['Verwaltung'] ]->betrag + 10.0 ) < 0.01, 'Differenzen 85 / −10' );
 assert( (int) $kb[ $ka['Wasser'] ]->steuerjahr === 2026 && $kb[ $ka['Wasser'] ]->zeitraum_von === '2025-01-01' && $kb[ $ka['Wasser'] ]->zeitraum_bis === '2025-12-31', 'Abfluss 2026, Leistungszeitraum 2025' );
 assert( Mietv_Hausgeld::buchen_abrechnung( $oid, 2025, [ $ka['Wasser'] => 999 ], '2026-04-10' ) === 0, 'zweite Abrechnung verhindert' );

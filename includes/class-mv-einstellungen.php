@@ -68,6 +68,7 @@ class Mietv_Einstellungen {
 			}
 			$msg = self::restore( (string) file_get_contents( sanitize_text_field( $_FILES['mietv_restore']['tmp_name'] ) ) ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Hochgeladene Datei lokal lesen.
 			? 'restored' : 'restorefail';
+			do_action( 'mietv_protokoll', 'import', 'backup', 0, __( 'Backup restored', 'mietfux' ), [] );
 			mietv_flash_set( $msg );
 			wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen' ) );
 			exit;
@@ -311,6 +312,7 @@ class Mietv_Einstellungen {
 			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_backup' );
+		do_action( 'mietv_protokoll', 'export', 'backup', 0, __( 'Backup exported', 'mietfux' ), [] );
 		$dump = self::dump();
 		header( 'Content-Type: application/json; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="mietfux-backup-' . current_time( 'Y-m-d' ) . '.json"' );

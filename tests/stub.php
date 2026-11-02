@@ -55,3 +55,6 @@ if ( ! function_exists( 'set_transient' ) ) {
 }
 if ( ! function_exists( 'get_current_user_id' ) ) { function get_current_user_id() { return 1; } }
 if ( ! function_exists( 'wp_kses_post' ) ) { function wp_kses_post( $s ) { return $s; } function wp_kses( $s, $a = [] ) { return $s; } }
+if ( ! function_exists( 'do_action' ) ) { function do_action() {} }
+if ( ! function_exists( 'apply_filters' ) ) { function apply_filters( $t, $v ) { return $v; } }
+if ( ! function_exists( 'add_filter' ) ) { function add_filter() {} }

@@ -1307,6 +1307,7 @@ class Mietv_Admin {
 			'__steuer',
 			'##' . esc_html__( 'System', 'mietfux' ),
 			'bank_regeln',
+			'__protokoll',
 			'__datenschutz',
 			'__einstellungen',
 			'__assistent',
@@ -1335,6 +1336,7 @@ class Mietv_Admin {
 			'__abrechnung'     => [ esc_html__( 'Service charge statement', 'mietfux' ), [ 'Mietv_Abrechnung', 'page' ] ],
 			'__steuer'         => [ esc_html__( 'Tax (Anlage V)', 'mietfux' ), [ 'Mietv_Steuer', 'page' ] ],
 			'__datenschutz'    => [ esc_html__( 'Data protection', 'mietfux' ), [ 'Mietv_Datenschutz', 'page' ] ],
+			'__protokoll'      => [ esc_html__( 'Activity log', 'mietfux' ), [ 'Mietv_Protokoll', 'page' ] ],
 			'__einstellungen'  => [ __( 'Settings & backup', 'mietfux' ), [ 'Mietv_Einstellungen', 'page' ] ],
 			'__hilfe'          => [ esc_html__( 'Help', 'mietfux' ), [ 'Mietv_Hilfe', 'page' ] ],
 			'__assistent'      => [ esc_html__( 'Setup wizard', 'mietfux' ), [ 'Mietv_Assistent', 'page' ] ],
@@ -1371,6 +1373,7 @@ class Mietv_Admin {
 			'__kaution'         => 'lock',
 			'__hausgeld'        => 'building',
 			'__dauerbelege'     => 'update',
+			'__protokoll'       => 'backup',
 			'__erhoehung'       => 'chart-line',
 			'__mahnung'         => 'megaphone',
 			'zaehler'           => 'performance',
@@ -1504,6 +1507,7 @@ class Mietv_Admin {
 				exit;
 			}
 
+			$alt   = class_exists( 'Mietv_Protokoll' ) ? Mietv_Protokoll::vor_speichern( $key, $id ) : [];
 			$table = mietv_table( $key );
 			$data  = self::null_bereinigen( $table, $data, (bool) $id );
 			if ( $id ) {
@@ -1517,6 +1521,7 @@ class Mietv_Admin {
 				}
 				$ok = $wpdb->insert( $table, $data );
 			}
+			$protokoll_id = $id ?: (int) $wpdb->insert_id;
 			if ( $ok !== false && $key === 'anlagegueter' && (float) $data['nk_finanzierung'] > 0 ) {
 				self::finanzierungsbeleg( (int) $data['objekt_id'], (float) $data['nk_finanzierung'], $data['anschaffung'], $data['bezeichnung'] );
 			}
@@ -1549,6 +1554,9 @@ class Mietv_Admin {
 				);
 				exit;
 			}
+			if ( class_exists( 'Mietv_Protokoll' ) ) {
+				Mietv_Protokoll::nach_speichern( $key, $protokoll_id, $alt, $data, $ent['singular'] ?? $ent['label'] );
+			}
 			mietv_flash_set( 'saved' );
 			wp_safe_redirect( self::url( $key ) );
 			exit;
@@ -1578,7 +1586,11 @@ class Mietv_Admin {
 				$wpdb->delete( mietv_table( 'konditionen' ), [ 'mv_id' => $id ] );
 				$wpdb->delete( mietv_table( 'meldungen' ), [ 'mv_id' => $id ] );
 			}
+			$alt = class_exists( 'Mietv_Protokoll' ) ? Mietv_Protokoll::vor_speichern( $key, $id ) : [];
 			$wpdb->delete( mietv_table( $key ), [ 'id' => $id ] );
+			if ( class_exists( 'Mietv_Protokoll' ) ) {
+				Mietv_Protokoll::nach_loeschen( $key, $id, $alt, $ent['singular'] ?? $ent['label'] );
+			}
 			mietv_flash_set( 'deleted' );
 			wp_safe_redirect( self::url( $key ) );
 			exit;

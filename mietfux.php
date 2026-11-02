@@ -39,6 +39,7 @@ require_once MIETV_PATH . 'includes/class-mv-hausgeld.php';
 require_once MIETV_PATH . 'includes/class-mv-sicherung.php';
 require_once MIETV_PATH . 'includes/class-mv-zfa.php';
 require_once MIETV_PATH . 'includes/class-mv-dauerbelege.php';
+require_once MIETV_PATH . 'includes/class-mv-protokoll.php';
 require_once MIETV_PATH . 'includes/class-mv-abrechnung.php';
 require_once MIETV_PATH . 'includes/class-mv-bank.php';
 require_once MIETV_PATH . 'includes/class-mv-mahnung.php';
@@ -51,6 +52,8 @@ require_once MIETV_PATH . 'includes/class-mv-assistent.php';
 
 register_activation_hook( __FILE__, [ 'Mietv_DB', 'install' ] );
 register_deactivation_hook( __FILE__, [ 'Mietv_Hinweise', 'deaktivieren' ] );
+register_activation_hook( __FILE__, [ 'Mietv_Protokoll', 'activate' ] );
+register_deactivation_hook( __FILE__, [ 'Mietv_Protokoll', 'deactivate' ] );
 
 // Datenbank-Upgrade erst nach dem Laden der Übersetzungen (Rollenname, Kostenarten-Katalog).
 add_action(
@@ -82,6 +85,7 @@ add_action(
 		Mietv_Sicherung::init();
 		Mietv_Zfa::init();
 		Mietv_Dauerbelege::init();
+		Mietv_Protokoll::init();
 		Mietv_Hilfe::init();
 		Mietv_Assistent::init();
 	}

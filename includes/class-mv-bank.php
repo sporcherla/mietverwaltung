@@ -216,15 +216,15 @@ class Mietv_Bank {
 		$hg     = class_exists( 'Mietv_Hausgeld' ) ? Mietv_Hausgeld::alle_plaene() : [];
 
 		foreach ( $rows as &$r ) {
-			$r['hash']         = self::hash( $r );
-			$r['bereits']      = isset( $hashes[ $r['hash'] ] );
-			$r['typ']          = 'ignorieren';
-			$r['mv_id']        = 0;
-			$r['kostenart_id'] = 0;
-			$r['objekt_id']    = 0;
+			$r['hash']          = self::hash( $r );
+			$r['bereits']       = isset( $hashes[ $r['hash'] ] );
+			$r['typ']           = 'ignorieren';
+			$r['mv_id']         = 0;
+			$r['kostenart_id']  = 0;
+			$r['objekt_id']     = 0;
 			$r['dauerbeleg_id'] = 0;
-			$r['monat']        = self::monat_aus_zweck( $r['zweck'], $r['datum'] );
-			$text              = mb_strtolower( $r['name'] . ' ' . $r['zweck'] );
+			$r['monat']         = self::monat_aus_zweck( $r['zweck'], $r['datum'] );
+			$text               = mb_strtolower( $r['name'] . ' ' . $r['zweck'] );
 
 			// Regeln zuerst
 			foreach ( $regeln as $g ) {
@@ -392,6 +392,7 @@ class Mietv_Bank {
 				}
 			}
 			delete_transient( $key );
+			do_action( 'mietv_protokoll', 'import', 'bank_import', 0, sprintf( /* translators: %d: Anzahl */ __( 'Bank import: %d transactions', 'mietfux' ), $n ), [] );
 			mietv_flash_set( 'ok', [ 'n' => $n ] );
 			wp_safe_redirect( admin_url( 'admin.php?page=mietv_bank' ) );
 			exit;
@@ -422,10 +423,10 @@ class Mietv_Bank {
 			return;
 		}
 
-		$opt_mv        = Mietv_Admin::opt_mv();
-		$opt_ka        = Mietv_Admin::opt_kostenarten();
-		$opt_ob        = Mietv_Admin::opt_objekte();
-		$opt_db        = [];
+		$opt_mv = Mietv_Admin::opt_mv();
+		$opt_ka = Mietv_Admin::opt_kostenarten();
+		$opt_ob = Mietv_Admin::opt_objekte();
+		$opt_db = [];
 		foreach ( class_exists( 'Mietv_Dauerbelege' ) ? Mietv_Dauerbelege::alle( true ) : [] as $d ) {
 			$opt_db[ (int) $d->id ] = $d->bezeichnung . ' (' . ( $opt_ob[ $d->objekt_id ] ?? '#' . $d->objekt_id ) . ')';
 		}
