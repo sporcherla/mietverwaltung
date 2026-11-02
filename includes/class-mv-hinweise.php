@@ -107,6 +107,11 @@ class Mietv_Hinweise {
 			$h = array_merge( $h, Mietv_Dauerbelege::hinweise() );
 		}
 
+		// E-Mail-Versand: Fehlschläge
+		if ( class_exists( 'Mietv_Versand' ) ) {
+			$h = array_merge( $h, Mietv_Versand::hinweise() );
+		}
+
 		// Indexmieten
 		if ( class_exists( 'Mietv_Vpi' ) ) {
 			$h = array_merge( $h, Mietv_Vpi::hinweise() );

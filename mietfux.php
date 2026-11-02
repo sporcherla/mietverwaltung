@@ -41,6 +41,7 @@ require_once MIETV_PATH . 'includes/class-mv-zfa.php';
 require_once MIETV_PATH . 'includes/class-mv-dauerbelege.php';
 require_once MIETV_PATH . 'includes/class-mv-protokoll.php';
 require_once MIETV_PATH . 'includes/class-mv-vpi.php';
+require_once MIETV_PATH . 'includes/class-mv-versand.php';
 require_once MIETV_PATH . 'includes/class-mv-abrechnung.php';
 require_once MIETV_PATH . 'includes/class-mv-bank.php';
 require_once MIETV_PATH . 'includes/class-mv-mahnung.php';
@@ -88,6 +89,7 @@ add_action(
 		Mietv_Dauerbelege::init();
 		Mietv_Protokoll::init();
 		Mietv_Vpi::init();
+		Mietv_Versand::init();
 		Mietv_Hilfe::init();
 		Mietv_Assistent::init();
 	}
