@@ -573,7 +573,12 @@ class Mietv_Abrechnung {
 	/* Schreiben an den Mieter                                            */
 	/* ------------------------------------------------------------------ */
 
-	public static function brief( ?int $erg_id = null, bool $portal = false ): void {
+	/**
+	 * Admin-Zweig (admin_post, $erg_id kommt aus $_GET) oder Portal-Aufruf mit $erg_id und $portal = true.
+	 *
+	 * @param mixed $erg_id Ergebnis-ID (admin_post übergibt hier einen Leerstring, der ignoriert wird).
+	 */
+	public static function brief( $erg_id = null, bool $portal = false ): void {
 		if ( ! $portal ) {
 			if ( ! current_user_can( Mietv_Admin::CAP ) ) {
 				wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
