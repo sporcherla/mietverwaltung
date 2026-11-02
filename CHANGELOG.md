@@ -2,6 +2,19 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.2.0 – Dauerbelege, Protokoll, E-Mail-Versand, VPI, Backups, 2FA, Steuerberater
+
+- **Dauerbelege** (Alltag → Dauerbelege): Fälligkeitspläne (monatlich/vierteljährlich/halbjährlich/jährlich) für Grundsteuer, Versicherung, Schornsteinfeger usw.; Termine abhaken und buchen (Beleg mit Leistungszeitraum des Intervalls), Bankimport erkennt Lieferant/IBAN und bucht die nächste Fälligkeit.
+- **Änderungsprotokoll** (System → Protokoll): wer hat wann welchen Datensatz angelegt, geändert, gelöscht oder anonymisiert – nur geänderte Felder, IBAN maskiert, IP anonymisiert; Filter, CSV-Export, Aufbewahrungsfrist (Standard 365 Tage, täglicher Cron). Rechenschaftspflicht Art. 5 Abs. 2 DSGVO.
+- **E-Mail-Versand** (Alltag → Versandprotokoll): Betriebskostenabrechnung, Mieterhöhung, Kautionsabrechnung und Mahnung per Knopfdruck als PDF an den Mieter; Anschreiben mit Anrede, Signatur, Kopie an den Vermieter, Versandprotokoll mit Status/Fehler. Die Mahn-Mail läuft jetzt ebenfalls darüber. Dafür liefern die Fachmodule ihre Brieftexte über `body()`.
+- **Verbraucherpreisindex** (Jahresabschluss → Index / VPI): Monatswerte manuell, per CSV oder von Destatis (GENESIS-Online, Gastzugang oder eigene Zugangsdaten in den Einstellungen); Übersicht aller Indexmieten mit Sperrfrist, möglicher Anpassung und vorbelegtem Erhöhungsschreiben; Hinweis auf der Übersicht.
+- **Automatische Sicherungen** (Einstellungen): täglich/wöchentlich per WP-Cron als JSON in `uploads/mietfux-backups` (gesperrt für direkten Zugriff), rotierend (Anzahl einstellbar), optional per E-Mail; Liste mit Download/Löschen, „Sicherung jetzt erstellen“.
+- **Zwei-Faktor-Anmeldung**: Erkennung des Plugins „Two-Factor“ (WordPress-Core-Team), Hinweis auf der Übersicht, Einstellung „Pflicht für Vermieter und Administratoren“ (leitet ohne eingerichtete 2FA zum Profil).
+- **Rolle „Steuerberater (nur lesen)“**: eigener Menüeintrag mit Anlage V, Belegliste und CSV-Export, keine Schreibrechte.
+- **Demodaten**: auf leerer Installation per Knopf (Übersicht) – Eigentumswohnung mit Mieter, zwei Jahre Zahlungen, Belege, Darlehen, Hausgeld, Zähler. **Playground-Blueprint** (`.wordpress-org/blueprints/blueprint.json`) für die Live-Vorschau auf WordPress.org.
+- Behoben: Brief-Link in der Erhöhungshistorie (falsche Nonce-Aktion), Abrechnungs-Brief über admin-post (TypeError), Hausgeld-Tabellen fehlten im Backup.
+- Datenbank-Version 15 (Tabellen `mv_dauerbelege`, `mv_protokoll`, `mv_versand`, `mv_vpi`, Spalte `belege.dauerbeleg_id`).
+
 ## 1.1.1 – Update-Prüfung im Plugin
 
 - Einstellungen & Backup → „Version & Updates“: installierte Version, letzte Prüfung, Button „Nach Updates suchen“ (fragt WordPress.org sofort statt alle 12 Stunden) und „Jetzt auf x.y.z aktualisieren“ (startet die normale WordPress-Aktualisierung). Hinweis auf der Übersicht, sobald eine neue Version vorliegt.

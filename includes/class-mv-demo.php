@@ -232,10 +232,6 @@ class Mietv_Demo {
 
 		// Belege im Vorjahr
 		$belege = [
-			[ ( $jahr - 1 ) . '-02-15', 'Grundsteuer', 'Stadt Fürth', 'Grundsteuer 1. Quartal', 84.5 ],
-			[ ( $jahr - 1 ) . '-05-15', 'Grundsteuer', 'Stadt Fürth', 'Grundsteuer 2. Quartal', 84.5 ],
-			[ ( $jahr - 1 ) . '-08-15', 'Grundsteuer', 'Stadt Fürth', 'Grundsteuer 3. Quartal', 84.5 ],
-			[ ( $jahr - 1 ) . '-11-15', 'Grundsteuer', 'Stadt Fürth', 'Grundsteuer 4. Quartal', 84.5 ],
 			[ ( $jahr - 1 ) . '-06-20', 'Erhaltungsaufwand', 'Sanitär Meier', 'Reparatur Armatur Bad', 236.4 ],
 			[ ( $jahr - 1 ) . '-09-02', 'Sonstige Werbungskosten', 'Mietfux', 'Software, Porto', 59.9 ],
 		];
@@ -260,6 +256,32 @@ class Mietv_Demo {
 					'verteilung_jahre' => 1,
 				]
 			);
+		}
+
+		// Dauerbeleg: Grundsteuer vierteljährlich, Vorjahr gebucht
+		if ( class_exists( 'Mietv_Dauerbelege' ) && $id_of( 'Grundsteuer' ) ) {
+			$wpdb->insert(
+				mietv_table( 'dauerbelege' ),
+				[
+					'owner_id'          => MIETV_OWNER_ID,
+					'objekt_id'         => $oid,
+					'kostenart_id'      => $id_of( 'Grundsteuer' ),
+					'bezeichnung'       => 'Grundsteuer',
+					'lieferant'         => 'Stadt Fürth',
+					'iban'              => 'DE12760500000000012345',
+					'betrag'            => 84.5,
+					'intervall'         => 'vierteljaehrlich',
+					'erste_faelligkeit' => ( $jahr - 1 ) . '-02-15',
+					'ende'              => null,
+					'aktiv'             => 1,
+					'notiz'             => '',
+				]
+			);
+			$did = (int) $wpdb->insert_id;
+			foreach ( [ '02', '05', '08', '11' ] as $mm ) {
+				$f = ( $jahr - 1 ) . '-' . $mm . '-15';
+				Mietv_Dauerbelege::buchen( $did, $f, $f );
+			}
 		}
 
 		// Hausgeld: Wirtschaftsplan + Vorjahr gebucht

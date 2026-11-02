@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,9 @@ The user interface is available in English, German, French, Spanish, Italian, Du
 * **Tenancy agreement** – complete residential agreement with annexes: house rules, heating/ventilation leaflet, privacy notice, SEPA direct debit mandate, move-in/move-out handover protocol
 * **Deposit account** (§ 551 BGB), **dunning** (three levels), **rent increases** (§ 558 / § 557b BGB)
 * **Owners’ association fee** for condominiums: budget plan split by cost type, monthly bookings, annual statement adjustments, bank import recognition
+* **Recurring expenses** (property tax, insurance …) with due-date plans and bank import recognition
+* **Email dispatch** of statements, rent increases, deposit settlements and dunning letters with dispatch log
+* **Consumer price index** for index-linked rents (manual, CSV or Destatis), **activity log** (GDPR accountability), **automatic backups**, two-factor integration, read-only tax advisor role
 * **Tenant portal** via shortcode `[mietfux_portal]` – rent account, statements, released documents, damage reports, meter readings
 * **Data protection** – deletion concept with retention periods, anonymisation, Art. 15 GDPR access report
 * **Setup wizard**, in-app help, focus mode, backup/restore as JSON, clean uninstall
@@ -75,8 +78,22 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 5. Tax report (Anlage V)
 6. Loan account with repayment schedule
 7. Tenant portal
+8. Owners’ association fee (budget plan, monthly bookings, annual statement)
+9. Recurring expenses
+10. Activity log
 
 == Changelog ==
+
+= 1.2.0 =
+* Recurring expenses: due-date plans (monthly/quarterly/half-yearly/yearly) for property tax, insurance, chimney sweep etc.; tick and book, bank import recognises the supplier
+* Activity log: who created, changed, deleted or anonymised which record (only changed fields, IBAN masked, IP anonymised), filters, CSV export, retention period
+* Email dispatch of letters to tenants (service charge statement, rent increase, deposit settlement, dunning) with PDF attachment, copy to landlord, signature and dispatch log
+* Consumer price index (CPI): monthly values (manual, CSV or Destatis GENESIS), overview of index-linked tenancies with possible adjustment, pre-filled rent increase
+* Automatic backups (daily/weekly via WP-Cron, rotated, optional by email) with download list
+* Two-factor authentication: detection and recommendation of the "Two-Factor" plugin, optional enforcement for landlords
+* Role "Tax advisor (read-only)": access to Anlage V, receipt list and CSV only
+* Demo data on empty installations and a Playground blueprint for the live preview
+* Fixes: rent increase letter link from history, service charge letter via admin-post
 
 = 1.1.1 =
 * "Version & updates" section in Settings: check for updates on demand and update with one click; notice on the overview when a new version is available

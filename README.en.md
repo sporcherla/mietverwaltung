@@ -42,6 +42,11 @@
 | **Tenancy agreement** | Residential agreement with 20 sections generated from master data (fixed term, stepped/index rent, minor repairs, pets, decorative repairs, rent cap exceptions, § 554 BGB …), house rules, heating/ventilation leaflet, Art. 13 GDPR privacy notice, SEPA direct debit mandate, move-in/move-out handover protocol – as PDF or print view, filed under Documents |
 | **Deposit** | Deposit account under § 551 BGB: payments, daily interest, offsetting, settlement as PDF |
 | **Owners’ association fee** | Budget plan per condominium with split by cost type; monthly payments create receipts (recoverable → service charge statement, management/maintenance → Anlage V, maintenance reserve not deducted); annual statement books differences per cost type; bank import recognises the manager |
+| **Recurring expenses** | Due-date plans for property tax, insurance, chimney sweep … (monthly to yearly), tick and book, bank import recognises the supplier |
+| **Email dispatch** | Statement, rent increase, deposit settlement, dunning as PDF to the tenant, copy to landlord, dispatch log |
+| **Consumer price index** | Monthly CPI values (manual, CSV, Destatis), index-linked tenancies with waiting period and possible adjustment, pre-filled increase letter |
+| **Activity log** | Who created, changed, deleted or anonymised what – filters, CSV, retention period (GDPR accountability) |
+| **Backup & security** | Automatic JSON backups (cron, rotated, optional by email), 2FA integration (“Two-Factor” plugin, mandatory for landlords), role “Tax advisor (read-only)”, demo data, Playground preview |
 | **Dunning** | Payment reminder, 1st and final dunning letter with deadlines, PDF, email to tenant and co-tenant, warning at ≥ 2 months' arrears |
 | **Rent increase** | § 558 (reference rent, cap 15/20 %, waiting period), § 557b (index/CPI), agreement/stepped rent; letter and new rent condition created automatically |
 | **Tenant portal** | Shortcode `[mietfux_portal]`: rent account, statements, released documents, damage reports, meter readings |

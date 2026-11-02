@@ -40,6 +40,11 @@
 | **Mietvertrag** | Wohnraummietvertrag mit 20 §§ aus den Stammdaten (Befristung, Staffel/Index, Kleinreparaturen, Tiere, Schönheitsreparaturen, Mietpreisbremse-Ausnahmen, § 554 BGB …), Hausordnung, Merkblatt Heizen/Lüften, Datenschutzinformation Art. 13, SEPA-Lastschriftmandat, Übergabeprotokoll Einzug/Auszug – als PDF oder Druckansicht, Ablage in den Dokumenten |
 | **Kaution** | Kautionskonto nach § 551 BGB: Einzahlungen, taggenaue Verzinsung, Verrechnung, Rückzahlungsabrechnung als PDF |
 | **Hausgeld (WEG)** | Wirtschaftsplan je Eigentumswohnung mit Aufteilung auf Kostenarten; Monatszahlungen erzeugen Belege (umlagefähig → BK-Abrechnung, Verwaltung/Instandhaltung → Anlage V, Erhaltungsrücklage nicht abziehbar); WEG-Jahresabrechnung bucht Nachzahlung/Guthaben je Kostenart; Bankimport erkennt die Hausverwaltung |
+| **Dauerbelege** | Fälligkeitspläne für Grundsteuer, Versicherung, Schornsteinfeger … (monatlich bis jährlich), abhaken und buchen, Bankimport erkennt den Lieferanten |
+| **E-Mail-Versand** | Abrechnung, Mieterhöhung, Kautionsabrechnung, Mahnung als PDF an den Mieter, Kopie an den Vermieter, Versandprotokoll |
+| **Verbraucherpreisindex** | VPI-Monatswerte (manuell, CSV, Destatis), Indexmieten mit Sperrfrist und möglicher Anpassung, vorbelegtes Erhöhungsschreiben |
+| **Änderungsprotokoll** | Wer hat wann was angelegt, geändert, gelöscht, anonymisiert – Filter, CSV, Aufbewahrungsfrist (Rechenschaftspflicht DSGVO) |
+| **Sicherung & Sicherheit** | Automatische JSON-Backups (Cron, rotierend, optional per E-Mail), 2FA-Anbindung (Plugin „Two-Factor“, Pflicht für Vermieter), Rolle „Steuerberater (nur lesen)“, Demodaten, Playground-Vorschau |
 | **Mahnwesen** | Zahlungserinnerung, 1. und letzte Mahnung mit Fristen, PDF, E-Mail an Mieter und Mitmieter, Warnung bei ≥ 2 Monatsmieten Rückstand |
 | **Mieterhöhung** | § 558 (Vergleichsmiete, Kappungsgrenze 15/20 %, Sperrfrist), § 557b (Index/VPI), Vereinbarung/Staffel; Schreiben und neue Kondition automatisch |
 | **Mieterportal** | Shortcode `[mietfux_portal]`: Mietkonto, Abrechnungen, freigegebene Dokumente, Schadensmeldung, Zählerstand melden |
