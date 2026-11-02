@@ -102,6 +102,11 @@ class Mietv_Hinweise {
 			}
 		}
 
+		// Zwei-Faktor-Anmeldung
+		if ( class_exists( 'Mietv_Zfa' ) ) {
+			$h = array_merge( $h, Mietv_Zfa::hinweise() );
+		}
+
 		// Plugin-Update verfügbar
 		if ( class_exists( 'Mietv_Einstellungen' ) && current_user_can( 'update_plugins' ) ) {
 			$neu = Mietv_Einstellungen::neue_version();

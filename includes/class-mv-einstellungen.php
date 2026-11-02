@@ -42,6 +42,12 @@ class Mietv_Einstellungen {
 			'mahn_tage_3'                 => '7',
 			'glaeubiger_id'               => '',
 			'loeschen_bei_deinstallation' => '0',
+			'backup_auto'                 => '0',
+			'backup_anzahl'               => '8',
+			'backup_email'                => '0',
+			'zfa_pflicht'                 => '0',
+			'versand_kopie'               => '1',
+			'versand_signatur'            => '',
 		];
 	}
 
@@ -70,7 +76,7 @@ class Mietv_Einstellungen {
 		$data = [];
 		foreach ( self::defaults() as $k => $d ) {
 			$raw        = isset( $_POST[ $k ] ) ? wp_unslash( $_POST[ $k ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- in der Folgezeile bereinigt.
-			$data[ $k ] = $k === 'vermieter_adresse' ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
+			$data[ $k ] = in_array( $k, [ 'vermieter_adresse', 'versand_signatur' ], true ) ? sanitize_textarea_field( $raw ) : sanitize_text_field( $raw );
 		}
 		update_option( self::OPTION, $data );
 		mietv_flash_set( 'saved' );
@@ -82,12 +88,15 @@ class Mietv_Einstellungen {
 		$o   = array_merge( self::defaults(), get_option( self::OPTION, [] ) );
 		$msg = mietv_flash_get()['code'] ?? '';
 		$map = [
-			'saved'       => [ 'success', esc_html__( 'Settings saved.', 'mietfux' ) ],
-			'upd_neu'     => [ 'info', esc_html__( 'A new version is available – see “Version & updates” below.', 'mietfux' ) ],
-			'upd_aktuell' => [ 'success', esc_html__( 'Mietfux is up to date.', 'mietfux' ) ],
-			'restored'    => [ 'success', esc_html__( 'Backup restored. All data has been replaced.', 'mietfux' ) ],
-			'restorefail' => [ 'error', esc_html__( 'Backup could not be read (not a valid Rental Management JSON file).', 'mietfux' ) ],
-			'noconfirm'   => [ 'error', esc_html__( 'Restore cancelled: confirmation missing.', 'mietfux' ) ],
+			'saved'            => [ 'success', esc_html__( 'Settings saved.', 'mietfux' ) ],
+			'backup_ok'        => [ 'success', esc_html__( 'Backup created.', 'mietfux' ) ],
+			'backup_fehler'    => [ 'error', esc_html__( 'Backup could not be written (uploads folder not writable).', 'mietfux' ) ],
+			'backup_geloescht' => [ 'success', esc_html__( 'Backup deleted.', 'mietfux' ) ],
+			'upd_neu'          => [ 'info', esc_html__( 'A new version is available – see “Version & updates” below.', 'mietfux' ) ],
+			'upd_aktuell'      => [ 'success', esc_html__( 'Mietfux is up to date.', 'mietfux' ) ],
+			'restored'         => [ 'success', esc_html__( 'Backup restored. All data has been replaced.', 'mietfux' ) ],
+			'restorefail'      => [ 'error', esc_html__( 'Backup could not be read (not a valid Rental Management JSON file).', 'mietfux' ) ],
+			'noconfirm'        => [ 'error', esc_html__( 'Restore cancelled: confirmation missing.', 'mietfux' ) ],
 		];
 		echo '<div class="wrap mv-wrap"><h1>' . esc_html__( 'Settings & backup', 'mietfux' ) . '</h1>';
 		if ( isset( $map[ $msg ] ) ) {
@@ -143,6 +152,56 @@ class Mietv_Einstellungen {
 		self::text( 'aufbewahrung_jahre', __( 'Retention period after end of tenancy (years)', 'mietfux' ), $o, __( '10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year.', 'mietfux' ) );
 		echo '</tbody></table>';
 
+		echo '<h2>' . esc_html__( 'Security', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		self::select(
+			'zfa_pflicht',
+			__( 'Two-factor authentication for landlords', 'mietfux' ),
+			$o,
+			[
+				'0' => esc_html__( 'Recommended only', 'mietfux' ),
+				'1' => esc_html__( 'Required (role Landlord and administrators)', 'mietfux' ),
+			],
+			Mietv_Zfa::status_text()
+		);
+		echo '</tbody></table>';
+
+		echo '<h2>' . esc_html__( 'Automatic backups', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		self::select(
+			'backup_auto',
+			__( 'Create backups automatically', 'mietfux' ),
+			$o,
+			[
+				'0'            => esc_html__( 'Off', 'mietfux' ),
+				'woechentlich' => esc_html__( 'Weekly', 'mietfux' ),
+				'taeglich'     => esc_html__( 'Daily', 'mietfux' ),
+			],
+			__( 'JSON export of all tables into the uploads folder (mietfux-backups), run by WP-Cron.', 'mietfux' )
+		);
+		self::text( 'backup_anzahl', __( 'Backups to keep', 'mietfux' ), $o );
+		self::select(
+			'backup_email',
+			__( 'Also send backup by email', 'mietfux' ),
+			$o,
+			[
+				'0' => esc_html__( 'No', 'mietfux' ),
+				'1' => esc_html__( 'Yes, to the reminder address', 'mietfux' ),
+			]
+		);
+		echo '</tbody></table>';
+
+		echo '<h2>' . esc_html__( 'Email to tenants', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		self::select(
+			'versand_kopie',
+			__( 'Copy of every email to me', 'mietfux' ),
+			$o,
+			[
+				'1' => esc_html__( 'Yes', 'mietfux' ),
+				'0' => esc_html__( 'No', 'mietfux' ),
+			]
+		);
+		self::textarea( 'versand_signatur', __( 'Email signature', 'mietfux' ), $o, __( 'Appended below the greeting; empty = landlord name and address.', 'mietfux' ) );
+		echo '</tbody></table>';
+
 		echo '<h2>' . esc_html__( 'Uninstall', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		self::select(
 			'loeschen_bei_deinstallation',
@@ -163,8 +222,13 @@ class Mietv_Einstellungen {
 		printf( '<p><a href="%s" class="button button-secondary">' . esc_html__( 'Export all data as JSON', 'mietfux' ) . '</a></p>', esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_backup' ), 'mietv_backup' ) ) );
 		echo '<p class="description">' . esc_html__( 'Contains all Rental Management tables and settings – not the media library files (back those up with your regular WordPress backup).', 'mietfux' ) . '</p>';
 		echo '<h3>' . esc_html__( 'Restore', 'mietfux' ) . '</h3><p><input type="file" name="mietv_restore" accept=".json"> <label><input type="checkbox" name="mietv_restore_confirm" value="1"> ' . esc_html__( 'I understand that', 'mietfux' ) . ' <strong>' . esc_html__( 'all existing data will be replaced', 'mietfux' ) . '</strong> ' . esc_html__( '.', 'mietfux' ) . '</label></p>';
-		submit_button( 'Backup einspielen', 'delete' );
+		submit_button( __( 'Restore backup', 'mietfux' ), 'delete' );
+		Mietv_Sicherung::box();
 		echo '</form></div>';
+	}
+
+	private static function textarea( $k, $label, $o, $hint = '' ): void {
+		printf( '<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><textarea id="%1$s" name="%1$s" rows="3" class="large-text">%3$s</textarea>%4$s</td></tr>', esc_attr( $k ), esc_html( $label ), esc_textarea( (string) ( $o[ $k ] ?? '' ) ), $hint ? '<p class="description">' . esc_html( $hint ) . '</p>' : '' );
 	}
 
 	private static function text( $k, $label, $o, $hint = '' ): void {
@@ -186,7 +250,7 @@ class Mietv_Einstellungen {
 	/* ------------------------------------------------------------------ */
 
 	public static function tabellen(): array {
-		return [ 'objekte', 'einheiten', 'mieter', 'mietverhaeltnisse', 'konditionen', 'zahlungen', 'meldungen', 'kostenarten', 'belege', 'anlagegueter', 'darlehen', 'darlehen_jahre', 'dokumente', 'zaehler', 'zaehlerstaende', 'abrechnungen', 'abrechnung_ergebnis', 'bank_regeln', 'bank_import', 'mahnungen', 'erhoehungen', 'vertraege', 'kaution', 'mv_einheiten', 'darlehen_raten' ];
+		return [ 'objekte', 'einheiten', 'mieter', 'mietverhaeltnisse', 'konditionen', 'zahlungen', 'meldungen', 'kostenarten', 'belege', 'anlagegueter', 'darlehen', 'darlehen_jahre', 'dokumente', 'zaehler', 'zaehlerstaende', 'abrechnungen', 'abrechnung_ergebnis', 'bank_regeln', 'bank_import', 'mahnungen', 'erhoehungen', 'vertraege', 'kaution', 'mv_einheiten', 'darlehen_raten', 'hausgeld', 'hausgeld_buchungen' ];
 	}
 
 	/** Plugin-Basename (ordnerabhängig, z. B. mietfux/mietfux.php). */
@@ -247,6 +311,15 @@ class Mietv_Einstellungen {
 			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_backup' );
+		$dump = self::dump();
+		header( 'Content-Type: application/json; charset=utf-8' );
+		header( 'Content-Disposition: attachment; filename="mietfux-backup-' . current_time( 'Y-m-d' ) . '.json"' );
+		echo wp_json_encode( $dump, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+		exit;
+	}
+
+	/** Alle Tabellen und Einstellungen als Array (für Export und automatische Sicherung). */
+	public static function dump(): array {
 		global $wpdb;
 		$dump = [
 			'plugin'        => 'mietfux',
@@ -259,10 +332,7 @@ class Mietv_Einstellungen {
 		foreach ( self::tabellen() as $t ) {
 			$dump['tabellen'][ $t ] = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $t ), ARRAY_A );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellenname aus fester Liste.
 		}
-		header( 'Content-Type: application/json; charset=utf-8' );
-		header( 'Content-Disposition: attachment; filename="mietfux-backup-' . current_time( 'Y-m-d' ) . '.json"' );
-		echo wp_json_encode( $dump, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
-		exit;
+		return $dump;
 	}
 
 	public static function restore( string $json ): bool {

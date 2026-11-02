@@ -82,6 +82,18 @@ class Mietv_DB {
 		$admin = get_role( 'administrator' );
 		if ( $admin ) {
 			$admin->add_cap( 'mietv_verwalten' );
+			$admin->add_cap( 'mietv_steuer_lesen' );
+		}
+		// Steuerberater: nur lesen (Anlage V, Belege, CSV)
+		if ( ! get_role( 'mietv_steuerberater' ) ) {
+			add_role(
+				'mietv_steuerberater',
+				__( 'Tax advisor (read-only)', 'mietfux' ),
+				[
+					'read'               => true,
+					'mietv_steuer_lesen' => true,
+				]
+			);
 		}
 		if ( ! get_role( 'mietv_vermieter' ) ) {
 			add_role(
@@ -96,6 +108,7 @@ class Mietv_DB {
 		} else {
 			get_role( 'mietv_vermieter' )->add_cap( 'mietv_verwalten' );
 		}
+		get_role( 'mietv_vermieter' )->add_cap( 'mietv_steuer_lesen' );
 	}
 
 	/** Anlage-V-Gruppen (Zeilennummern ändern sich jährlich, daher nur Bezeichnungen). */

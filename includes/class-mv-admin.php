@@ -1265,6 +1265,14 @@ class Mietv_Admin {
 	/* ------------------------------------------------------------------ */
 
 	public static function menu(): void {
+		if ( ! current_user_can( self::CAP ) ) {
+			if ( current_user_can( 'mietv_steuer_lesen' ) ) {
+				add_menu_page( __( 'Mietfux', 'mietfux' ), __( 'Mietfux', 'mietfux' ), 'mietv_steuer_lesen', 'mietv_steuer', [ 'Mietv_Steuer', 'page' ], 'dashicons-building', 58 );
+				add_submenu_page( 'mietv_steuer', __( 'Tax (Anlage V)', 'mietfux' ), __( 'Tax (Anlage V)', 'mietfux' ), 'mietv_steuer_lesen', 'mietv_steuer', [ 'Mietv_Steuer', 'page' ] );
+				add_submenu_page( 'mietv_steuer', __( 'Receipts', 'mietfux' ), __( 'Receipts', 'mietfux' ), 'mietv_steuer_lesen', 'mietv_belege', [ __CLASS__, 'page_entity' ] );
+			}
+			return;
+		}
 		add_menu_page( __( 'Mietfux', 'mietfux' ), __( 'Mietfux', 'mietfux' ), self::CAP, 'mietv_uebersicht', [ __CLASS__, 'page_uebersicht' ], 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PHBhdGggZmlsbD0iYmxhY2siIGQ9Ik0xMCAyIDEuNSA5LjJsMS4xIDEuMkw0IDkuM1YxN2g1di00aDJ2NGg1VjkuM2wxLjQgMS4xIDEuMS0xLjJMMTAgMnptMCAyLjQgNC41IDMuOVYxNS41aC0yVjExSDcuNXY0LjVoLTJWOC4zTDEwIDQuNHoiLz48Y2lyY2xlIGZpbGw9ImJsYWNrIiBjeD0iMTQuNiIgY3k9IjUuMiIgcj0iMS4zIi8+PC9zdmc+', 58 );
 		add_submenu_page( 'mietv_uebersicht', __( 'Overview', 'mietfux' ), '<span class="dashicons dashicons-dashboard"></span> ' . __( 'Overview', 'mietfux' ), self::CAP, 'mietv_uebersicht', [ __CLASS__, 'page_uebersicht' ] );
 		// Gruppen (## = Überschrift) und Dashicons
@@ -1835,6 +1843,13 @@ class Mietv_Admin {
 		}
 		$ent    = self::entities()[ $key ];
 		$action = isset( $_GET['action'] ) ? sanitize_key( $_GET['action'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		if ( ! current_user_can( self::CAP ) ) {
+			// Nur-Lese-Zugang (Steuerberater): ausschließlich die Belegliste.
+			if ( $key !== 'belege' || ! current_user_can( 'mietv_steuer_lesen' ) ) {
+				wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
+			}
+			$action = '';
+		}
 
 		echo '<div class="wrap mv-wrap">';
 		if ( $action === 'new' || $action === 'edit' ) {
@@ -1847,12 +1862,17 @@ class Mietv_Admin {
 
 	private static function render_list( string $key, array $ent ): void {
 		global $wpdb;
-		printf(
-			'<h1 class="wp-heading-inline">%s</h1> <a href="%s" class="page-title-action">' . /* translators: %s: Wert */ esc_html__( 'Add %s', 'mietfux' ) . '</a><hr class="wp-header-end">',
-			esc_html( $ent['label'] ),
-			esc_url( self::url( $key, [ 'action' => 'new' ] ) ),
-			esc_html( $ent['singular'] )
-		);
+		$lesen = ! current_user_can( self::CAP );
+		if ( $lesen ) {
+			printf( '<h1 class="wp-heading-inline">%s</h1><hr class="wp-header-end">', esc_html( $ent['label'] ) );
+		} else {
+			printf(
+				'<h1 class="wp-heading-inline">%s</h1> <a href="%s" class="page-title-action">' . /* translators: %s: Wert */ esc_html__( 'Add %s', 'mietfux' ) . '</a><hr class="wp-header-end">',
+				esc_html( $ent['label'] ),
+				esc_url( self::url( $key, [ 'action' => 'new' ] ) ),
+				esc_html( $ent['singular'] )
+			);
+		}
 		self::notices();
 
 		$where = '';
@@ -1923,7 +1943,11 @@ class Mietv_Admin {
 				),
 				'mietv_delete_' . $key . '_' . $r->id
 			);
-			printf( '<td class="mv-actions"><a href="%s">' . esc_html__( 'Edit', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" data-confirm="' . esc_attr__( 'Really delete?', 'mietfux' ) . '">' . esc_html__( 'Delete', 'mietfux' ) . '</a></td>', esc_url( $edit ), esc_url( $del ) );
+			if ( $lesen ) {
+				echo '<td class="mv-actions"></td>';
+			} else {
+				printf( '<td class="mv-actions"><a href="%s">' . esc_html__( 'Edit', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" data-confirm="' . esc_attr__( 'Really delete?', 'mietfux' ) . '">' . esc_html__( 'Delete', 'mietfux' ) . '</a></td>', esc_url( $edit ), esc_url( $del ) );
+			}
 			echo '</tr>';
 		}
 		echo '</tbody></table>';

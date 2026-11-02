@@ -389,8 +389,12 @@ class Mietv_Steuer {
 		}
 		printf( '</tbody><tfoot><tr><th>' . esc_html__( 'Sum of expenses', 'mietfux' ) . '</th><th>%s</th><th></th><th></th><th></th><th>%s</th><th>%s</th></tr></tfoot></table>', esc_html( $zeilen['summe_wk'] ?? '' ), esc_html( mietv_eur( $wk_vj_sum ) ), esc_html( mietv_eur( $wk_sum ) ) );
 
+		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
+			echo '</div>';
+			return;
+		}
 		// Zeilen-Zuordnung pflegen
-		echo '<details class="mv-details"><summary>Zeilennummern der Anlage V ' . (int) $jahr . ' pflegen</summary><form method="post" class="mv-form">';
+		echo '<details class="mv-details"><summary>' . esc_html( sprintf( /* translators: %d: Jahr */ __( 'Maintain line numbers of Anlage V %d', 'mietfux' ), (int) $jahr ) ) . '</summary><form method="post" class="mv-form">';
 		wp_nonce_field( 'mietv_zeilen', 'mietv_zeilen_nonce' );
 		printf( '<input type="hidden" name="jahr" value="%d"><table class="form-table"><tbody>', (int) $jahr );
 		$felder = [
@@ -530,7 +534,7 @@ class Mietv_Steuer {
 	/* ------------------------------------------------------------------ */
 
 	public static function csv(): void {
-		if ( ! current_user_can( Mietv_Admin::CAP ) ) {
+		if ( ! current_user_can( Mietv_Admin::CAP ) && ! current_user_can( 'mietv_steuer_lesen' ) ) {
 			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
 		}
 		check_admin_referer( 'mietv_steuer_csv' );
