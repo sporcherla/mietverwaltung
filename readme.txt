@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,9 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 7. Tenant portal
 
 == Changelog ==
+
+= 1.1.1 =
+* "Version & updates" section in Settings: check for updates on demand and update with one click; notice on the overview when a new version is available
 
 = 1.1.0 =
 * New module "Owners’ association fee" (Hausgeld) for condominiums: budget plan per property with split by cost type, monthly bookings create one receipt per cost type (recoverable → service charge statement, management/maintenance → Anlage V, maintenance reserve recorded but not deducted), annual statement books the differences as adjustment receipts

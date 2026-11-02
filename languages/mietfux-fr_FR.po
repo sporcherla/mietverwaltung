@@ -1713,6 +1713,12 @@ msgstr "Cotisation au fonds de travaux (non déductible)"
 msgid "Settings saved."
 msgstr "Paramètres enregistrés."
 
+msgid "A new version is available – see “Version & updates” below."
+msgstr "Une nouvelle version est disponible – voir « Version et mises à jour » ci-dessous."
+
+msgid "Mietfux is up to date."
+msgstr "Mietfux est à jour."
+
 msgid "Backup restored. All data has been replaced."
 msgstr "Sauvegarde restaurée. Toutes les données ont été remplacées."
 
@@ -1803,6 +1809,9 @@ msgstr "Supprimer toutes les tables et tous les paramètres"
 msgid "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
 msgstr "S'applique uniquement à « Supprimer » sur la page des extensions, pas à « Désactiver ». Les fichiers de la médiathèque sont toujours conservés."
 
+msgid "Save"
+msgstr "Enregistrer"
+
 msgid "Backup"
 msgstr "Sauvegarde"
 
@@ -1823,6 +1832,24 @@ msgstr "toutes les données existantes seront remplacées"
 
 msgid "."
 msgstr "."
+
+msgid "Version & updates"
+msgstr "Version et mises à jour"
+
+msgid "Installed: Mietfux %s"
+msgstr "Installé : Mietfux %s"
+
+msgid "last checked %s"
+msgstr "dernière vérification %s"
+
+msgid "Update to %s now"
+msgstr "Mettre à jour vers %s maintenant"
+
+msgid "Check for updates"
+msgstr "Rechercher des mises à jour"
+
+msgid "Updates come from the WordPress.org plugin directory; WordPress checks twice a day on its own. Before updating, a backup is recommended (below)."
+msgstr "Les mises à jour proviennent du répertoire d’extensions WordPress.org ; WordPress vérifie de lui-même deux fois par jour. Une sauvegarde est recommandée avant la mise à jour (ci-dessous)."
 
 msgid "No increase possible: the local reference rent or the cap is not above the current rent."
 msgstr "Aucune augmentation possible : le loyer de référence local ou le plafond n'est pas supérieur au loyer actuel."
@@ -2318,6 +2345,9 @@ msgstr "La période à taux fixe %1$s se termine le %2$s (%3$d jours) – vérif
 
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Attestation d'intérêts %1$d pour le prêt %2$s pas encore saisie"
+
+msgid "Mietfux %s is available – update now"
+msgstr "Mietfux %s est disponible – mettre à jour maintenant"
 
 msgid "Owners’ association fee for %1$s not yet booked: %2$s"
 msgstr "Charges de copropriété pour %1$s non encore comptabilisées : %2$s"

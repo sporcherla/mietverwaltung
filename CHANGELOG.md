@@ -2,6 +2,10 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.1.1 – Update-Prüfung im Plugin
+
+- Einstellungen & Backup → „Version & Updates“: installierte Version, letzte Prüfung, Button „Nach Updates suchen“ (fragt WordPress.org sofort statt alle 12 Stunden) und „Jetzt auf x.y.z aktualisieren“ (startet die normale WordPress-Aktualisierung). Hinweis auf der Übersicht, sobald eine neue Version vorliegt.
+
 ## 1.1.0 – Hausgeld (WEG)
 
 - **Neues Modul „Hausgeld“** (Verwaltung → Hausgeld) für Eigentumswohnungen: Wirtschaftsplan je Objekt (Hausverwaltung, IBAN, Monatsbetrag, „gültig ab“, Aufteilung auf Kostenarten). Jede gebuchte Monatszahlung erzeugt je Kostenart einen Beleg mit Leistungszeitraum = Monat und Abflussdatum = Zahltag: umlagefähige Anteile laufen in die Betriebskostenabrechnung, Verwaltung/Instandhaltung als Werbungskosten in die Anlage V.

@@ -1041,7 +1041,7 @@ msgstr ""
 msgid "Loans"
 msgstr ""
 
-#: includes/class-mv-admin.php:906 includes/class-mv-assistent.php:333 includes/class-mv-einstellungen.php:103
+#: includes/class-mv-admin.php:906 includes/class-mv-assistent.php:333 includes/class-mv-einstellungen.php:106
 msgid "Bank"
 msgstr ""
 
@@ -1337,11 +1337,11 @@ msgstr ""
 msgid "Tax (Anlage V)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1327 includes/class-mv-datenschutz.php:139 includes/class-mv-einstellungen.php:139
+#: includes/class-mv-admin.php:1327 includes/class-mv-datenschutz.php:139 includes/class-mv-einstellungen.php:142
 msgid "Data protection"
 msgstr ""
 
-#: includes/class-mv-admin.php:1328 includes/class-mv-einstellungen.php:89 includes/class-mv-hilfe.php:205
+#: includes/class-mv-admin.php:1328 includes/class-mv-einstellungen.php:92 includes/class-mv-hilfe.php:205
 msgid "Settings & backup"
 msgstr ""
 
@@ -1729,7 +1729,7 @@ msgstr ""
 msgid "These details appear as sender on the tenancy agreement, statements and letters."
 msgstr ""
 
-#: includes/class-mv-assistent.php:329 includes/class-mv-einstellungen.php:99
+#: includes/class-mv-assistent.php:329 includes/class-mv-einstellungen.php:102
 msgid "Address"
 msgstr ""
 
@@ -2273,156 +2273,192 @@ msgstr ""
 msgid "Maintenance reserve contribution (not deductible)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:84
+#: includes/class-mv-einstellungen.php:85
 msgid "Settings saved."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:85
-msgid "Backup restored. All data has been replaced."
-msgstr ""
-
 #: includes/class-mv-einstellungen.php:86
-msgid "Backup could not be read (not a valid Rental Management JSON file)."
+msgid "A new version is available – see “Version & updates” below."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:87
+msgid "Mietfux is up to date."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:88
+msgid "Backup restored. All data has been replaced."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:89
+msgid "Backup could not be read (not a valid Rental Management JSON file)."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:90
 msgid "Restore cancelled: confirmation missing."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:97
+#: includes/class-mv-einstellungen.php:100
 msgid "Landlord (for letters and statements)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:102
+#: includes/class-mv-einstellungen.php:105
 msgid "IBAN (for amounts due)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:104
+#: includes/class-mv-einstellungen.php:107
 msgid "Tax number (optional, for the tenancy agreement)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:105
+#: includes/class-mv-einstellungen.php:108
 msgid "Represented by (optional, e.g. property manager)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:106
+#: includes/class-mv-einstellungen.php:109
 msgid "SEPA creditor identifier"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:106
+#: includes/class-mv-einstellungen.php:109
 msgid "For direct debit mandates; apply at the Bundesbank (free of charge). Empty = no SEPA mandate."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:109
+#: includes/class-mv-einstellungen.php:112
 msgid "Reminders"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:112
+#: includes/class-mv-einstellungen.php:115
 msgid "Daily email for notices"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:115
+#: includes/class-mv-einstellungen.php:118
 msgid "On"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:116
+#: includes/class-mv-einstellungen.php:119
 msgid "Off"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:118
+#: includes/class-mv-einstellungen.php:121
 msgid "Missing rent, statement deadline, fixed-rate period, 15 percent limit. Only when there is something to report."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:120
+#: includes/class-mv-einstellungen.php:123
 msgid "Recipient"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:123
+#: includes/class-mv-einstellungen.php:126
 msgid "Tenancy law"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:126
+#: includes/class-mv-einstellungen.php:129
 msgid "Area with a tight housing market"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:129
+#: includes/class-mv-einstellungen.php:132
 msgid "No (cap 20 %)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:130
+#: includes/class-mv-einstellungen.php:133
 msgid "Yes (cap 15 %)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:132
+#: includes/class-mv-einstellungen.php:135
 msgid "Bavaria: Tenant Protection Ordinance – applies e.g. to Fürth, Nuremberg, Erlangen and some surrounding municipalities; check Zirndorf/Oberasbach/Stein."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:134
+#: includes/class-mv-einstellungen.php:137
 msgid "Payment deadline, payment reminder (days)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:135
+#: includes/class-mv-einstellungen.php:138
 msgid "Payment deadline, 1st dunning letter (days)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:136
+#: includes/class-mv-einstellungen.php:139
 msgid "Payment deadline, final dunning letter (days)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:140
+#: includes/class-mv-einstellungen.php:143
 msgid "Retention period after end of tenancy (years)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:140
+#: includes/class-mv-einstellungen.php:143
 msgid "10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:143
+#: includes/class-mv-einstellungen.php:146
 msgid "Uninstall"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:146
+#: includes/class-mv-einstellungen.php:149
 msgid "When deleting the plugin"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:149
+#: includes/class-mv-einstellungen.php:152
 msgid "Keep all data (default)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:150
+#: includes/class-mv-einstellungen.php:153
 msgid "Delete all tables and settings"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:152
+#: includes/class-mv-einstellungen.php:155
 msgid "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:158
+#: includes/class-mv-einstellungen.php:159
+msgid "Save"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:162
 msgid "Backup"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:159
+#: includes/class-mv-einstellungen.php:163
 msgid "Export all data as JSON"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:160
+#: includes/class-mv-einstellungen.php:164
 msgid "Contains all Rental Management tables and settings – not the media library files (back those up with your regular WordPress backup)."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:161
+#: includes/class-mv-einstellungen.php:165
 msgid "Restore"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:161
+#: includes/class-mv-einstellungen.php:165
 msgid "I understand that"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:161
+#: includes/class-mv-einstellungen.php:165
 msgid "all existing data will be replaced"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:161
+#: includes/class-mv-einstellungen.php:165
 msgid "."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:230
+msgid "Version & updates"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:231
+msgid "Installed: Mietfux %s"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:233
+msgid "last checked %s"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:237
+msgid "Update to %s now"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:240
+msgid "Check for updates"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:242
+msgid "Updates come from the WordPress.org plugin directory; WordPress checks twice a day on its own. Before updating, a backup is recommended (below)."
 msgstr ""
 
 #: includes/class-mv-erhoehung.php:81
@@ -3086,38 +3122,42 @@ msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:111
-msgid "Owners’ association fee for %1$s not yet booked: %2$s"
+msgid "Mietfux %s is available – update now"
 msgstr ""
 
 #: includes/class-mv-hinweise.php:123
+msgid "Owners’ association fee for %1$s not yet booked: %2$s"
+msgstr ""
+
+#: includes/class-mv-hinweise.php:135
 msgid "Acquisition-related construction cost limit exceeded for %1$s (%2$s net > %3$s)"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:129
+#: includes/class-mv-hinweise.php:141
 msgid "15 %% limit for %1$s used up to %2$s %% (deadline %3$s)"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:151
+#: includes/class-mv-hinweise.php:163
 msgid "Retention period expired: tenant data “%s” can be anonymised"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:164
+#: includes/class-mv-hinweise.php:176
 msgid "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:185
+#: includes/class-mv-hinweise.php:197
 msgid ": balance"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:190
+#: includes/class-mv-hinweise.php:202
 msgid "✅ No open notices."
 msgstr ""
 
-#: includes/class-mv-hinweise.php:203
+#: includes/class-mv-hinweise.php:215
 msgid "Go to Mietfux"
 msgstr ""
 
-#: includes/class-mv-hinweise.php:218
+#: includes/class-mv-hinweise.php:230
 msgid "Notices from Mietfux (%s):"
 msgstr ""
 

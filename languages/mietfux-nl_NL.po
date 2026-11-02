@@ -1713,6 +1713,12 @@ msgstr "Bijdrage reservefonds (niet aftrekbaar)"
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
 
+msgid "A new version is available – see “Version & updates” below."
+msgstr "Er is een nieuwe versie beschikbaar – zie ‘Versie en updates’ hieronder."
+
+msgid "Mietfux is up to date."
+msgstr "Mietfux is up-to-date."
+
 msgid "Backup restored. All data has been replaced."
 msgstr "Back-up hersteld. Alle gegevens zijn vervangen."
 
@@ -1803,6 +1809,9 @@ msgstr "Alle tabellen en instellingen verwijderen"
 msgid "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
 msgstr "Geldt alleen voor “Verwijderen” op de pluginpagina, niet voor “Deactiveren”. Bestanden in de mediabibliotheek blijven altijd bewaard."
 
+msgid "Save"
+msgstr "Opslaan"
+
 msgid "Backup"
 msgstr "Back-up"
 
@@ -1823,6 +1832,24 @@ msgstr "alle bestaande gegevens worden vervangen"
 
 msgid "."
 msgstr "."
+
+msgid "Version & updates"
+msgstr "Versie en updates"
+
+msgid "Installed: Mietfux %s"
+msgstr "Geïnstalleerd: Mietfux %s"
+
+msgid "last checked %s"
+msgstr "laatst gecontroleerd %s"
+
+msgid "Update to %s now"
+msgstr "Nu bijwerken naar %s"
+
+msgid "Check for updates"
+msgstr "Controleren op updates"
+
+msgid "Updates come from the WordPress.org plugin directory; WordPress checks twice a day on its own. Before updating, a backup is recommended (below)."
+msgstr "Updates komen uit de WordPress.org-pluginmap; WordPress controleert zelf tweemaal per dag. Maak vóór het bijwerken een back-up (hieronder)."
 
 msgid "No increase possible: the local reference rent or the cap is not above the current rent."
 msgstr "Geen verhoging mogelijk: de plaatselijke vergelijkingshuur of het plafond ligt niet boven de huidige huur."
@@ -2318,6 +2345,9 @@ msgstr "Rentevaste periode %1$s eindigt op %2$s (%3$d dagen) – vervolgfinancie
 
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Rentecertificaat %1$d voor lening %2$s nog niet ingevoerd"
+
+msgid "Mietfux %s is available – update now"
+msgstr "Mietfux %s is beschikbaar – nu bijwerken"
 
 msgid "Owners’ association fee for %1$s not yet booked: %2$s"
 msgstr "VvE-bijdrage voor %1$s nog niet geboekt: %2$s"

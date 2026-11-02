@@ -102,6 +102,18 @@ class Mietv_Hinweise {
 			}
 		}
 
+		// Plugin-Update verfügbar
+		if ( class_exists( 'Mietv_Einstellungen' ) && current_user_can( 'update_plugins' ) ) {
+			$neu = Mietv_Einstellungen::neue_version();
+			if ( $neu ) {
+				$h[] = [
+					'typ'  => 'info',
+					'text' => sprintf( /* translators: %s: Version */ __( 'Mietfux %s is available – update now', 'mietfux' ), $neu ),
+					'url'  => Mietv_Einstellungen::update_url(),
+				];
+			}
+		}
+
 		// Hausgeld: offene Monate
 		if ( class_exists( 'Mietv_Hausgeld' ) ) {
 			$objekte = $wpdb->get_results( 'SELECT id, bezeichnung FROM ' . $wpdb->prefix . 'mv_objekte', OBJECT_K );

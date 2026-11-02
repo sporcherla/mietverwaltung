@@ -1713,6 +1713,12 @@ msgstr "Contributo al fondo di riserva (non deducibile)"
 msgid "Settings saved."
 msgstr "Impostazioni salvate."
 
+msgid "A new version is available – see “Version & updates” below."
+msgstr "È disponibile una nuova versione – vedi «Versione e aggiornamenti» qui sotto."
+
+msgid "Mietfux is up to date."
+msgstr "Mietfux è aggiornato."
+
 msgid "Backup restored. All data has been replaced."
 msgstr "Backup ripristinato. Tutti i dati sono stati sostituiti."
 
@@ -1803,6 +1809,9 @@ msgstr "Elimina tutte le tabelle e le impostazioni"
 msgid "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
 msgstr "Vale solo per «Elimina» nella pagina dei plugin, non per «Disattiva». I file della libreria media vengono sempre conservati."
 
+msgid "Save"
+msgstr "Salva"
+
 msgid "Backup"
 msgstr "Backup"
 
@@ -1823,6 +1832,24 @@ msgstr "tutti i dati esistenti verranno sostituiti"
 
 msgid "."
 msgstr "."
+
+msgid "Version & updates"
+msgstr "Versione e aggiornamenti"
+
+msgid "Installed: Mietfux %s"
+msgstr "Installato: Mietfux %s"
+
+msgid "last checked %s"
+msgstr "ultimo controllo %s"
+
+msgid "Update to %s now"
+msgstr "Aggiorna a %s adesso"
+
+msgid "Check for updates"
+msgstr "Cerca aggiornamenti"
+
+msgid "Updates come from the WordPress.org plugin directory; WordPress checks twice a day on its own. Before updating, a backup is recommended (below)."
+msgstr "Gli aggiornamenti provengono dalla directory dei plugin di WordPress.org; WordPress controlla da solo due volte al giorno. Prima di aggiornare si consiglia un backup (sotto)."
 
 msgid "No increase possible: the local reference rent or the cap is not above the current rent."
 msgstr "Nessun aumento possibile: il canone di riferimento locale o il tetto non supera il canone attuale."
@@ -2318,6 +2345,9 @@ msgstr "Il periodo a tasso fisso %1$s termina il %2$s (%3$d giorni) – verifica
 
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Certificazione interessi %1$d per il mutuo %2$s non ancora inserita"
+
+msgid "Mietfux %s is available – update now"
+msgstr "Mietfux %s è disponibile – aggiorna adesso"
 
 msgid "Owners’ association fee for %1$s not yet booked: %2$s"
 msgstr "Spese condominiali per %1$s non ancora registrate: %2$s"

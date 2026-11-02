@@ -14,6 +14,7 @@ class Mietv_Einstellungen {
 
 	public static function init(): void {
 		add_action( 'admin_post_mietv_backup', [ __CLASS__, 'backup' ] );
+		add_action( 'admin_post_mietv_update_check', [ __CLASS__, 'update_check' ] );
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
 	}
 
@@ -82,6 +83,8 @@ class Mietv_Einstellungen {
 		$msg = mietv_flash_get()['code'] ?? '';
 		$map = [
 			'saved'       => [ 'success', esc_html__( 'Settings saved.', 'mietfux' ) ],
+			'upd_neu'     => [ 'info', esc_html__( 'A new version is available – see “Version & updates” below.', 'mietfux' ) ],
+			'upd_aktuell' => [ 'success', esc_html__( 'Mietfux is up to date.', 'mietfux' ) ],
 			'restored'    => [ 'success', esc_html__( 'Backup restored. All data has been replaced.', 'mietfux' ) ],
 			'restorefail' => [ 'error', esc_html__( 'Backup could not be read (not a valid Rental Management JSON file).', 'mietfux' ) ],
 			'noconfirm'   => [ 'error', esc_html__( 'Restore cancelled: confirmation missing.', 'mietfux' ) ],
@@ -153,8 +156,9 @@ class Mietv_Einstellungen {
 		);
 		echo '</tbody></table>';
 
-		submit_button( 'Speichern' );
+		submit_button( __( 'Save', 'mietfux' ) );
 
+		self::update_box();
 		echo '<hr><h2>' . esc_html__( 'Backup', 'mietfux' ) . '</h2>';
 		printf( '<p><a href="%s" class="button button-secondary">' . esc_html__( 'Export all data as JSON', 'mietfux' ) . '</a></p>', esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_backup' ), 'mietv_backup' ) ) );
 		echo '<p class="description">' . esc_html__( 'Contains all Rental Management tables and settings – not the media library files (back those up with your regular WordPress backup).', 'mietfux' ) . '</p>';
@@ -183,6 +187,59 @@ class Mietv_Einstellungen {
 
 	public static function tabellen(): array {
 		return [ 'objekte', 'einheiten', 'mieter', 'mietverhaeltnisse', 'konditionen', 'zahlungen', 'meldungen', 'kostenarten', 'belege', 'anlagegueter', 'darlehen', 'darlehen_jahre', 'dokumente', 'zaehler', 'zaehlerstaende', 'abrechnungen', 'abrechnung_ergebnis', 'bank_regeln', 'bank_import', 'mahnungen', 'erhoehungen', 'vertraege', 'kaution', 'mv_einheiten', 'darlehen_raten' ];
+	}
+
+	/** Plugin-Basename (ordnerabhängig, z. B. mietfux/mietfux.php). */
+	private static function basename(): string {
+		return plugin_basename( MIETV_PATH . 'mietfux.php' );
+	}
+
+	/** Verfügbare neue Version laut WordPress.org-Updateprüfung, sonst ''. */
+	public static function neue_version(): string {
+		$t = get_site_transient( 'update_plugins' );
+		$b = self::basename();
+		if ( $t && ! empty( $t->response[ $b ]->new_version ) && version_compare( $t->response[ $b ]->new_version, MIETV_VERSION, '>' ) ) {
+			return (string) $t->response[ $b ]->new_version;
+		}
+		return '';
+	}
+
+	/** Link zur WordPress-Aktualisierung dieses Plugins. */
+	public static function update_url(): string {
+		$b = self::basename();
+		return wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' . rawurlencode( $b ) ), 'upgrade-plugin_' . $b );
+	}
+
+	/** Jetzt bei WordPress.org nach einer neuen Version fragen (statt alle 12 Stunden). */
+	public static function update_check(): void {
+		if ( ! current_user_can( 'update_plugins' ) ) {
+			wp_die( esc_html__( 'Permission denied.', 'mietfux' ) );
+		}
+		check_admin_referer( 'mietv_update_check' );
+		delete_site_transient( 'update_plugins' );
+		wp_update_plugins();
+		mietv_flash_set( self::neue_version() ? 'upd_neu' : 'upd_aktuell' );
+		wp_safe_redirect( admin_url( 'admin.php?page=mietv_einstellungen' ) );
+		exit;
+	}
+
+	/** Abschnitt „Version & Updates“ auf der Einstellungsseite. */
+	private static function update_box(): void {
+		$neu = self::neue_version();
+		$t   = get_site_transient( 'update_plugins' );
+		echo '<hr><h2>' . esc_html__( 'Version & updates', 'mietfux' ) . '</h2><p>';
+		printf( /* translators: %s: Version */ esc_html__( 'Installed: Mietfux %s', 'mietfux' ), esc_html( MIETV_VERSION ) );
+		if ( $t && ! empty( $t->last_checked ) ) {
+			echo ' · ' . esc_html( sprintf( /* translators: %s: Datum/Uhrzeit */ __( 'last checked %s', 'mietfux' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) $t->last_checked ) ) );
+		}
+		echo '</p><p>';
+		if ( $neu ) {
+			printf( '<a href="%s" class="button button-primary">' . /* translators: %s: Version */ esc_html__( 'Update to %s now', 'mietfux' ) . '</a> ', esc_url( self::update_url() ), esc_html( $neu ) );
+		}
+		if ( current_user_can( 'update_plugins' ) ) {
+			printf( '<a href="%s" class="button">' . esc_html__( 'Check for updates', 'mietfux' ) . '</a>', esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=mietv_update_check' ), 'mietv_update_check' ) ) );
+		}
+		echo '</p><p class="description">' . esc_html__( 'Updates come from the WordPress.org plugin directory; WordPress checks twice a day on its own. Before updating, a backup is recommended (below).', 'mietfux' ) . '</p>';
 	}
 
 	public static function backup(): void {

@@ -1713,6 +1713,12 @@ msgstr "Zuführung Erhaltungsrücklage (nicht abziehbar)"
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
+msgid "A new version is available – see “Version & updates” below."
+msgstr "Eine neue Version ist verfügbar – siehe „Version & Updates“ unten."
+
+msgid "Mietfux is up to date."
+msgstr "Mietfux ist aktuell."
+
 msgid "Backup restored. All data has been replaced."
 msgstr "Backup eingespielt. Alle Daten wurden ersetzt."
 
@@ -1803,6 +1809,9 @@ msgstr "Alle Tabellen und Einstellungen löschen"
 msgid "Applies only to “Delete” on the plugins page, not to “Deactivate”. Media library files are always kept."
 msgstr "Gilt nur für „Löschen“ auf der Plugin-Seite, nicht für „Deaktivieren“. Mediathek-Dateien bleiben in jedem Fall."
 
+msgid "Save"
+msgstr "Speichern"
+
 msgid "Backup"
 msgstr "Backup"
 
@@ -1823,6 +1832,24 @@ msgstr "alle vorhandenen Daten ersetzt"
 
 msgid "."
 msgstr "werden."
+
+msgid "Version & updates"
+msgstr "Version & Updates"
+
+msgid "Installed: Mietfux %s"
+msgstr "Installiert: Mietfux %s"
+
+msgid "last checked %s"
+msgstr "zuletzt geprüft %s"
+
+msgid "Update to %s now"
+msgstr "Jetzt auf %s aktualisieren"
+
+msgid "Check for updates"
+msgstr "Nach Updates suchen"
+
+msgid "Updates come from the WordPress.org plugin directory; WordPress checks twice a day on its own. Before updating, a backup is recommended (below)."
+msgstr "Updates kommen aus dem WordPress.org-Pluginverzeichnis; WordPress prüft von sich aus zweimal täglich. Vor dem Update empfiehlt sich ein Backup (unten)."
 
 msgid "No increase possible: the local reference rent or the cap is not above the current rent."
 msgstr "Keine Erhöhung möglich: Die ortsübliche Vergleichsmiete bzw. die Kappungsgrenze liegt nicht über der aktuellen Miete."
@@ -2318,6 +2345,9 @@ msgstr "Zinsbindung %1$s endet am %2$s (%3$d Tage) – Anschlussfinanzierung pr�
 
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Zinsbescheinigung %1$d für Darlehen %2$s noch nicht erfasst"
+
+msgid "Mietfux %s is available – update now"
+msgstr "Mietfux %s ist verfügbar – jetzt aktualisieren"
 
 msgid "Owners’ association fee for %1$s not yet booked: %2$s"
 msgstr "Hausgeld für %1$s noch nicht gebucht: %2$s"
