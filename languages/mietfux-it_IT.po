@@ -3726,17 +3726,29 @@ msgstr "Impossibile scrivere il backup (cartella uploads non scrivibile)."
 msgid "Backup deleted."
 msgstr "Backup eliminato."
 
+msgid "Two-factor login is now active for your account. Your backup codes are shown below – store them safely."
+msgstr "L'accesso a due fattori è ora attivo per il Suo account. I Suoi codici di backup sono riportati qui sotto: li conservi in un luogo sicuro."
+
+msgid "Two-factor login disabled for your account."
+msgstr "Accesso a due fattori disattivato per il Suo account."
+
+msgid "New backup codes created – the old ones are no longer valid."
+msgstr "Nuovi codici di backup creati: quelli precedenti non sono più validi."
+
+msgid "The code did not match. Check the time on your phone and try the current code again."
+msgstr "Il codice non corrisponde. Controlli l'ora sul telefono e riprovi con il codice attuale."
+
 msgid "Security"
 msgstr "Sicurezza"
 
-msgid "Two-factor authentication for landlords"
-msgstr "Autenticazione a due fattori per i locatori"
+msgid "Two-factor login"
+msgstr "Accesso a due fattori"
 
-msgid "Recommended only"
-msgstr "Solo consigliata"
+msgid "Optional – each landlord may set it up"
+msgstr "Facoltativo: ogni locatore può configurarlo"
 
-msgid "Required (role Landlord and administrators)"
-msgstr "Obbligatoria (ruolo Locatore e amministratori)"
+msgid "Required for landlords and administrators"
+msgstr "Obbligatorio per locatori e amministratori"
 
 msgid "Automatic backups"
 msgstr "Backup automatici"
@@ -3843,20 +3855,89 @@ msgstr "Destatis ha restituito una pagina web invece dei dati – verificare le 
 msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
 msgstr "Carica la tabella %s (IPC Germania, mesi) degli ultimi tre anni da GENESIS-Online e salva tutti i valori mensili. Richiede un account GENESIS-Online gratuito (nome utente/password o token API in Impostazioni → Indice dei prezzi al consumo)."
 
-msgid "Mietfux requires two-factor authentication for landlords. Please enable a method under “Two-Factor Options” below – the Mietfux pages are available again afterwards."
-msgstr "Mietfux richiede l’autenticazione a due fattori per i locatori. Attivi un metodo in «Two-Factor Options» qui sotto – dopo le pagine Mietfux saranno di nuovo disponibili."
+msgid "Too many wrong codes – please log in again. If your phone is unavailable, use a backup code."
+msgstr "Troppi codici errati: effettui nuovamente l'accesso. Se il telefono non è disponibile, utilizzi un codice di backup."
 
-msgid "The free “Two-Factor” plugin (by the WordPress core team) is not installed. Install and activate it under Plugins → Add New; Mietfux then enforces it for landlords when “Required” is selected."
-msgstr "Il plugin gratuito «Two-Factor» (del team core di WordPress) non è installato. Lo installi e attivi in Plugin → Aggiungi nuovo; Mietfux lo imporrà ai locatori quando è selezionato «Obbligatoria»."
+msgid "Two-factor authentication enabled"
+msgstr "Autenticazione a due fattori attivata"
 
-msgid "Two-Factor is active and set up for your account."
-msgstr "Two-Factor è attivo e configurato per il Suo account."
+msgid "Two-factor authentication disabled"
+msgstr "Autenticazione a due fattori disattivata"
 
-msgid "Two-Factor is active, but not yet set up for your account – see your profile, “Two-Factor Options”."
-msgstr "Two-Factor è attivo, ma non ancora configurato per il Suo account – veda il Suo profilo, «Two-Factor Options»."
+msgid "My two-factor login"
+msgstr "Il mio accesso a due fattori"
 
-msgid "Protect the landlord login with two-factor authentication – install the “Two-Factor” plugin (recommended in Settings → Security)"
-msgstr "Protegga l’accesso del locatore con l’autenticazione a due fattori – installi il plugin «Two-Factor» (consigliato in Impostazioni → Sicurezza)"
+msgid "The “Two-Factor” plugin is active and handles the second login step; set it up in your profile under “Two-Factor Options”."
+msgstr "Il plugin «Two-Factor» è attivo e gestisce il secondo passaggio di accesso; lo configuri nel Suo profilo sotto «Two-Factor Options»."
 
-msgid "Two-factor authentication is not yet set up for your account"
-msgstr "L’autenticazione a due fattori non è ancora configurata per il Suo account"
+msgid "Two-factor login is switched off above. Set it to “Optional” or “Required” and save – then you can set up your authenticator app here."
+msgstr "L'accesso a due fattori è disattivato qui sopra. Lo imposti su «Facoltativo» o «Obbligatorio» e salvi: potrà poi configurare qui la Sua app di autenticazione."
+
+msgid "Backup codes – shown only once. Store them safely (password manager, printout). Each code works once if your phone is unavailable."
+msgstr "Codici di backup: vengono mostrati una sola volta. Li conservi in un luogo sicuro (gestore di password, stampa). Ogni codice è utilizzabile una volta se il telefono non è disponibile."
+
+msgid "Two-factor login is active for your account."
+msgstr "L'accesso a due fattori è attivo per il Suo account."
+
+msgid "%d backup codes left"
+msgstr "%d codici di backup rimanenti"
+
+msgid "New backup codes"
+msgstr "Nuovi codici di backup"
+
+msgid "Disable two-factor login for your account?"
+msgstr "Disattivare l'accesso a due fattori per il Suo account?"
+
+msgid "Disable"
+msgstr "Disattiva"
+
+msgid "Scan the QR code with an authenticator app (e.g. Aegis, FreeOTP, Microsoft or Google Authenticator, 1Password) or enter the key manually, then confirm with the current 6-digit code."
+msgstr "Scansioni il codice QR con un'app di autenticazione (ad es. Aegis, FreeOTP, Microsoft o Google Authenticator, 1Password) oppure inserisca la chiave manualmente, poi confermi con il codice attuale a 6 cifre."
+
+msgid "Key for manual entry"
+msgstr "Chiave per l'inserimento manuale"
+
+msgid "Code from the app"
+msgstr "Codice dall'app"
+
+msgid "Enable two-factor login"
+msgstr "Attiva l'accesso a due fattori"
+
+msgid "Login with second factor"
+msgstr "Accesso con secondo fattore"
+
+msgid "The code is not valid. Please try again."
+msgstr "Il codice non è valido. Riprovi."
+
+msgid "Second login step"
+msgstr "Secondo passaggio di accesso"
+
+msgid "Enter the 6-digit code from your authenticator app – or one of your backup codes."
+msgstr "Inserisca il codice a 6 cifre della Sua app di autenticazione, oppure uno dei Suoi codici di backup."
+
+msgid "Code"
+msgstr "Codice"
+
+msgid "Log in"
+msgstr "Accedi"
+
+msgid "%d attempts left"
+msgstr "%d tentativi rimanenti"
+
+msgid "Back to login"
+msgstr "Torna all'accesso"
+
+msgid "Mietfux requires two-factor login for landlords. Please set it up below under “My two-factor login” – the other pages are available again afterwards."
+msgstr "Mietfux richiede l'accesso a due fattori per i locatori. Lo configuri qui sotto in «Il mio accesso a due fattori»: le altre pagine saranno poi di nuovo disponibili."
+
+msgid "The “Two-Factor” plugin is active and takes precedence; Mietfux only enforces it for landlords when “Required” is selected."
+msgstr "Il plugin «Two-Factor» è attivo e ha la precedenza; Mietfux lo impone ai locatori solo se è selezionato «Obbligatorio»."
+
+msgid "Built in, no extra plugin: authenticator app (TOTP) plus backup codes. “Optional” lets every landlord set it up; “Required” enforces it for landlords and administrators. Tenants in the portal are not affected."
+msgstr "Integrato, senza plugin aggiuntivi: app di autenticazione (TOTP) più codici di backup. «Facoltativo» consente a ogni locatore di configurarlo; «Obbligatorio» lo impone a locatori e amministratori. Gli inquilini nel portale non sono interessati."
+
+msgid "Protect the landlord login with two-factor authentication – switch it on under Settings → Security"
+msgstr "Protegga l'accesso dei locatori con l'autenticazione a due fattori: la attivi in Impostazioni → Sicurezza"
+
+msgid "Two-factor login is not yet set up for your account"
+msgstr "L'accesso a due fattori non è ancora configurato per il Suo account"

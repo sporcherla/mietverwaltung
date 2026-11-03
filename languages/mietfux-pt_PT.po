@@ -3726,17 +3726,29 @@ msgstr "Não foi possível gravar a cópia de segurança (pasta uploads sem perm
 msgid "Backup deleted."
 msgstr "Cópia de segurança eliminada."
 
+msgid "Two-factor login is now active for your account. Your backup codes are shown below – store them safely."
+msgstr "O início de sessão com dois fatores está agora ativo na sua conta. Os seus códigos de recuperação são apresentados abaixo – guarde-os em segurança."
+
+msgid "Two-factor login disabled for your account."
+msgstr "Início de sessão com dois fatores desativado na sua conta."
+
+msgid "New backup codes created – the old ones are no longer valid."
+msgstr "Novos códigos de recuperação criados – os anteriores já não são válidos."
+
+msgid "The code did not match. Check the time on your phone and try the current code again."
+msgstr "O código não corresponde. Verifique a hora no seu telemóvel e tente novamente com o código atual."
+
 msgid "Security"
 msgstr "Segurança"
 
-msgid "Two-factor authentication for landlords"
-msgstr "Autenticação de dois fatores para senhorios"
+msgid "Two-factor login"
+msgstr "Início de sessão com dois fatores"
 
-msgid "Recommended only"
-msgstr "Apenas recomendar"
+msgid "Optional – each landlord may set it up"
+msgstr "Opcional – cada senhorio pode configurá-lo"
 
-msgid "Required (role Landlord and administrators)"
-msgstr "Obrigatória (perfil Senhorio e administradores)"
+msgid "Required for landlords and administrators"
+msgstr "Obrigatório para senhorios e administradores"
 
 msgid "Automatic backups"
 msgstr "Cópias de segurança automáticas"
@@ -3843,20 +3855,89 @@ msgstr "A Destatis devolveu uma página web em vez de dados – verifique as cre
 msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
 msgstr "Carrega a tabela %s (IPC Alemanha, meses) dos últimos três anos a partir do GENESIS-Online e guarda todos os valores mensais. Requer uma conta GENESIS-Online gratuita (nome de utilizador/palavra-passe ou token API em Definições → Índice de preços no consumidor)."
 
-msgid "Mietfux requires two-factor authentication for landlords. Please enable a method under “Two-Factor Options” below – the Mietfux pages are available again afterwards."
-msgstr "O Mietfux exige autenticação de dois fatores para senhorios. Ative um método abaixo em «Two-Factor Options» – depois as páginas do Mietfux voltam a estar disponíveis."
+msgid "Too many wrong codes – please log in again. If your phone is unavailable, use a backup code."
+msgstr "Demasiados códigos errados – inicie sessão novamente. Se não tiver o telemóvel disponível, use um código de recuperação."
 
-msgid "The free “Two-Factor” plugin (by the WordPress core team) is not installed. Install and activate it under Plugins → Add New; Mietfux then enforces it for landlords when “Required” is selected."
-msgstr "O plugin gratuito «Two-Factor» (da equipa principal do WordPress) não está instalado. Instale-o e ative-o em Plugins → Adicionar novo; com «Obrigatória» selecionado, o Mietfux impõe-no aos senhorios."
+msgid "Two-factor authentication enabled"
+msgstr "Autenticação de dois fatores ativada"
 
-msgid "Two-Factor is active and set up for your account."
-msgstr "O Two-Factor está ativo e configurado para a sua conta."
+msgid "Two-factor authentication disabled"
+msgstr "Autenticação de dois fatores desativada"
 
-msgid "Two-Factor is active, but not yet set up for your account – see your profile, “Two-Factor Options”."
-msgstr "O Two-Factor está ativo, mas ainda não está configurado para a sua conta – veja o seu perfil, «Two-Factor Options»."
+msgid "My two-factor login"
+msgstr "O meu início de sessão com dois fatores"
 
-msgid "Protect the landlord login with two-factor authentication – install the “Two-Factor” plugin (recommended in Settings → Security)"
-msgstr "Proteja o início de sessão do senhorio com autenticação de dois fatores – instale o plugin «Two-Factor» (recomendado em Definições → Segurança)"
+msgid "The “Two-Factor” plugin is active and handles the second login step; set it up in your profile under “Two-Factor Options”."
+msgstr "O plugin «Two-Factor» está ativo e trata do segundo passo do início de sessão; configure-o no seu perfil em «Two-Factor Options»."
 
-msgid "Two-factor authentication is not yet set up for your account"
-msgstr "A autenticação de dois fatores ainda não está configurada para a sua conta"
+msgid "Two-factor login is switched off above. Set it to “Optional” or “Required” and save – then you can set up your authenticator app here."
+msgstr "O início de sessão com dois fatores está desligado acima. Defina «Opcional» ou «Obrigatório» e guarde – depois pode configurar aqui a sua aplicação de autenticação."
+
+msgid "Backup codes – shown only once. Store them safely (password manager, printout). Each code works once if your phone is unavailable."
+msgstr "Códigos de recuperação – apresentados apenas uma vez. Guarde-os em segurança (gestor de palavras-passe, impressão). Cada código funciona uma vez, caso não tenha o telemóvel disponível."
+
+msgid "Two-factor login is active for your account."
+msgstr "O início de sessão com dois fatores está ativo na sua conta."
+
+msgid "%d backup codes left"
+msgstr "%d códigos de recuperação restantes"
+
+msgid "New backup codes"
+msgstr "Novos códigos de recuperação"
+
+msgid "Disable two-factor login for your account?"
+msgstr "Desativar o início de sessão com dois fatores na sua conta?"
+
+msgid "Disable"
+msgstr "Desativar"
+
+msgid "Scan the QR code with an authenticator app (e.g. Aegis, FreeOTP, Microsoft or Google Authenticator, 1Password) or enter the key manually, then confirm with the current 6-digit code."
+msgstr "Leia o código QR com uma aplicação de autenticação (p. ex. Aegis, FreeOTP, Microsoft ou Google Authenticator, 1Password) ou introduza a chave manualmente; depois confirme com o código atual de 6 dígitos."
+
+msgid "Key for manual entry"
+msgstr "Chave para introdução manual"
+
+msgid "Code from the app"
+msgstr "Código da aplicação"
+
+msgid "Enable two-factor login"
+msgstr "Ativar o início de sessão com dois fatores"
+
+msgid "Login with second factor"
+msgstr "Início de sessão com segundo fator"
+
+msgid "The code is not valid. Please try again."
+msgstr "O código não é válido. Tente novamente."
+
+msgid "Second login step"
+msgstr "Segundo passo do início de sessão"
+
+msgid "Enter the 6-digit code from your authenticator app – or one of your backup codes."
+msgstr "Introduza o código de 6 dígitos da sua aplicação de autenticação – ou um dos seus códigos de recuperação."
+
+msgid "Code"
+msgstr "Código"
+
+msgid "Log in"
+msgstr "Iniciar sessão"
+
+msgid "%d attempts left"
+msgstr "%d tentativas restantes"
+
+msgid "Back to login"
+msgstr "Voltar ao início de sessão"
+
+msgid "Mietfux requires two-factor login for landlords. Please set it up below under “My two-factor login” – the other pages are available again afterwards."
+msgstr "O Mietfux exige o início de sessão com dois fatores aos senhorios. Configure-o abaixo em «O meu início de sessão com dois fatores» – depois as restantes páginas voltam a estar disponíveis."
+
+msgid "The “Two-Factor” plugin is active and takes precedence; Mietfux only enforces it for landlords when “Required” is selected."
+msgstr "O plugin «Two-Factor» está ativo e tem prioridade; o Mietfux só o impõe aos senhorios quando «Obrigatório» está selecionado."
+
+msgid "Built in, no extra plugin: authenticator app (TOTP) plus backup codes. “Optional” lets every landlord set it up; “Required” enforces it for landlords and administrators. Tenants in the portal are not affected."
+msgstr "Integrado, sem plugin adicional: aplicação de autenticação (TOTP) mais códigos de recuperação. «Opcional» permite a cada senhorio configurá-lo; «Obrigatório» impõe-no a senhorios e administradores. Os inquilinos no portal não são afetados."
+
+msgid "Protect the landlord login with two-factor authentication – switch it on under Settings → Security"
+msgstr "Proteja o acesso dos senhorios com a autenticação de dois fatores – ative-a em Definições → Segurança"
+
+msgid "Two-factor login is not yet set up for your account"
+msgstr "O início de sessão com dois fatores ainda não está configurado na sua conta"
