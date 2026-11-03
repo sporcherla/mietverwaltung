@@ -141,6 +141,7 @@ class Mietv_Hilfe {
 				__( 'Meters', 'mietfux' ),
 				[
 					__( 'Electricity, gas, water and heat meters per unit or property (communal electricity).', 'mietfux' ),
+					__( '“Read by” decides who enters the readings: only meters read by the tenant appear in the tenant portal. If a reading service (ista, Techem …) reads the heating meters, set this on the property – the tenant portal then hides heating/hot-water meters and the service charge statement takes each tenant’s heating share from the service’s statement. Properties without water meters per unit allocate water by area or persons (setting on the property).', 'mietfux' ),
 				],
 			],
 			'zaehlerstaende'    => [
