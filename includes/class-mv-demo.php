@@ -62,15 +62,17 @@ class Mietv_Demo {
 		$wpdb->insert(
 			mietv_table( 'objekte' ),
 			[
-				'owner_id'    => MIETV_OWNER_ID,
-				'bezeichnung' => 'ETW Rosenstraße 12',
-				'strasse'     => 'Rosenstraße 12',
-				'plz'         => '90762',
-				'ort'         => 'Fürth',
-				'baujahr'     => 1998,
-				'heizung'     => 'zentral',
-				'notiz'       => 'Eigentumswohnung, WEG mit 8 Einheiten',
-				'created_at'  => current_time( 'mysql' ),
+				'owner_id'          => MIETV_OWNER_ID,
+				'bezeichnung'       => 'ETW Rosenstraße 12',
+				'strasse'           => 'Rosenstraße 12',
+				'plz'               => '90762',
+				'ort'               => 'Fürth',
+				'baujahr'           => 1998,
+				'heizung'           => 'zentral',
+				'heizung_ablesung'  => 'ablesedienst',
+				'wasser_verteilung' => 'personen',
+				'notiz'             => 'Eigentumswohnung, WEG mit 8 Einheiten – Heizung wird vom Ablesedienst abgelesen, keine Wohnungswasserzähler',
+				'created_at'        => current_time( 'mysql' ),
 			]
 		);
 		$oid = (int) $wpdb->insert_id;
@@ -319,7 +321,7 @@ class Mietv_Demo {
 		}
 
 		// Zähler mit Anfangs- und Jahresstand
-		foreach ( [ [ 'strom', '1 ENE 0123456', 14210, 16085 ], [ 'kaltwasser', 'WZ-4711', 318, 356 ] ] as $z ) {
+		foreach ( [ [ 'strom', '1 ENE 0123456', 14210, 16085, 'mieter' ], [ 'heizung', 'HKV 88-3', 1240, 2105, 'ablesedienst' ] ] as $z ) {
 			$wpdb->insert(
 				mietv_table( 'zaehler' ),
 				[
@@ -327,6 +329,7 @@ class Mietv_Demo {
 					'einheit_id' => $eid,
 					'typ'        => $z[0],
 					'nummer'     => $z[1],
+					'ablesung'   => $z[4],
 				]
 			);
 			$zid = (int) $wpdb->insert_id;

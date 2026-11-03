@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Mietv_DB {
 
-	const DB_VERSION = '16';
+	const DB_VERSION = '17';
 
 	public static function install(): void {
 		self::create_tables();
@@ -203,6 +203,8 @@ class Mietv_DB {
   heizung varchar(20) NOT NULL DEFAULT 'zentral',
   hk_verbrauchsanteil tinyint(3) unsigned NOT NULL DEFAULT 70,
   mietspiegel_url varchar(255) NOT NULL DEFAULT '',
+  heizung_ablesung varchar(20) NOT NULL DEFAULT 'eigen',
+  wasser_verteilung varchar(20) NOT NULL DEFAULT 'zaehler',
   notiz text,
   created_at datetime DEFAULT NULL,
   PRIMARY KEY  (id),
@@ -419,6 +421,7 @@ class Mietv_DB {
   einheit_id bigint(20) unsigned DEFAULT NULL,
   typ varchar(20) NOT NULL DEFAULT 'kaltwasser',
   nummer varchar(60) NOT NULL DEFAULT '',
+  ablesung varchar(20) NOT NULL DEFAULT 'mieter',
   notiz text,
   PRIMARY KEY  (id),
   KEY objekt_id (objekt_id),
@@ -448,6 +451,16 @@ class Mietv_DB {
   notiz text,
   PRIMARY KEY  (id),
   KEY objekt_id (objekt_id)
+) $charset;";
+
+		$sql[] = 'CREATE TABLE ' . $wpdb->prefix . "mv_abrechnung_ablesedienst (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  abrechnung_id bigint(20) unsigned NOT NULL,
+  mv_id bigint(20) unsigned NOT NULL,
+  heizung decimal(10,2) NOT NULL DEFAULT 0,
+  warmwasser decimal(10,2) NOT NULL DEFAULT 0,
+  PRIMARY KEY  (id),
+  UNIQUE KEY abr_mv (abrechnung_id,mv_id)
 ) $charset;";
 
 		$sql[] = 'CREATE TABLE ' . $wpdb->prefix . "mv_abrechnung_ergebnis (

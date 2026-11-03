@@ -110,6 +110,9 @@ class Mietv_Abrechnung {
 		$hinweise             = [];
 		$zentral              = $objekt->heizung !== 'dezentral';
 		$hk_verbrauch_prozent = max( 50, min( 70, (int) $objekt->hk_verbrauchsanteil ?: 70 ) );
+		$ablesedienst         = $zentral && ( $objekt->heizung_ablesung ?? 'eigen' ) === 'ablesedienst';
+		$wasser_schluessel    = in_array( $objekt->wasser_verteilung ?? 'zaehler', [ 'flaeche', 'personen' ], true ) ? $objekt->wasser_verteilung : '';
+		$hk_belege_gesamt     = 0.0;
 
 		// Einheiten des Objekts
 		$einheiten        = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_einheiten WHERE objekt_id = %d', $abr->objekt_id ), OBJECT_K );
@@ -213,6 +216,11 @@ class Mietv_Abrechnung {
 
 			// Heizkosten
 			if ( $art['heizung'] ) {
+				if ( $ablesedienst ) {
+					// Verteilung übernimmt der Ablesedienst – Beleg nur zur Kontrolle summieren.
+					$hk_belege_gesamt += $gesamt;
+					continue;
+				}
 				if ( ! $zentral ) {
 					$hinweise[] = sprintf( /* translators: %1$s: Wert, %2$s: Wert */ __( '“%1$s” (%2$s) not allocated: property has decentralised heating – tenants settle directly with the supplier.', 'mietfux' ), $art['name'], mietv_eur( $gesamt ) );
 					continue;
@@ -226,6 +234,11 @@ class Mietv_Abrechnung {
 				$basis_label  = '';
 				$basis_gesamt = 0.0;
 				$anteile      = [];
+
+				if ( $schluessel === 'verbrauch' && $wasser_schluessel && ! $art['heizung'] && array_intersect( self::zaehler_typen( $art['name'] ), [ 'kaltwasser', 'warmwasser' ] ) ) {
+					// Keine Wohnungswasserzähler: Verteilung nach dem am Objekt hinterlegten Schlüssel.
+					$schluessel = $wasser_schluessel;
+				}
 
 				if ( $schluessel === 'verbrauch' ) {
 					$typen = self::zaehler_typen( $art['name'] );
@@ -307,6 +320,55 @@ class Mietv_Abrechnung {
 			}
 		}
 
+		// Heizkosten laut Ablesedienst-Abrechnung (je Mietverhältnis erfasst)
+		if ( $ablesedienst ) {
+			$ad       = self::ablesedienst_werte( $abrechnung_id );
+			$ad_summe = 0.0;
+			$fehlend  = [];
+			foreach ( $mvs as $mv ) {
+				$w = $ad[ $mv->id ] ?? null;
+				if ( ! $w || ( (float) $w->heizung + (float) $w->warmwasser ) <= 0 ) {
+					$fehlend[] = trim( $mv->nachname . ' ' . $mv->vorname, ' ' );
+					continue;
+				}
+				foreach ( [
+					'heizung'    => 'Heizkosten laut Ablesedienst',
+					'warmwasser' => 'Warmwasserkosten laut Ablesedienst',
+				] as $feld => $name ) {
+					$betrag = round( (float) $w->$feld, 2 );
+					if ( $betrag <= 0 ) {
+						continue;
+					}
+					$ad_summe                             += $betrag;
+					$ergebnisse[ $mv->id ]['positionen'][] = [
+						'name'         => $name,
+						'gesamt'       => $betrag,
+						'schluessel'   => 'Ablesedienst-Abrechnung',
+						'basis_gesamt' => 1,
+						'basis_mv'     => 1,
+						'anteil'       => $betrag,
+						'betrkv'       => '§ 2 Nr. 4 BetrKV',
+					];
+					$ergebnisse[ $mv->id ]['kosten_hk']   += $betrag;
+				}
+			}
+			if ( $fehlend ) {
+				$hinweise[] = sprintf( /* translators: %s: Namen */ __( 'Heating meters are read by a reading service: enter the heating/hot-water share from the service’s statement for %s (below the overview).', 'mietfux' ), implode( ', ', $fehlend ) );
+			}
+			if ( $hk_belege_gesamt > 0 && abs( $hk_belege_gesamt - $ad_summe ) > 1 ) {
+				$hinweise[] = sprintf( /* translators: %1$s: Betrag, %2$s: Betrag */ __( 'Check: heating receipts in the period total %1$s, the reading-service shares entered total %2$s.', 'mietfux' ), mietv_eur( $hk_belege_gesamt ), mietv_eur( $ad_summe ) );
+			}
+			if ( $hk_belege_gesamt > 0 ) {
+				$positionen[] = [
+					'name'       => 'Heiz- und Warmwasserkosten (Verteilung laut Ablesedienst)',
+					'gesamt'     => round( $hk_belege_gesamt, 2 ),
+					'schluessel' => 'Ablesedienst-Abrechnung',
+					'basis'      => 0,
+					'betrkv'     => '§ 2 Nr. 4 BetrKV',
+				];
+			}
+		}
+
 		// Vorauszahlungen je Monat im Zeitraum
 		foreach ( $ergebnisse as $mv_id => &$e ) {
 			$cursor = new DateTime( substr( $e['mv']->mietv_von, 0, 7 ) . '-01' );
@@ -370,6 +432,12 @@ class Mietv_Abrechnung {
 		];
 	}
 
+	/** Erfasste Ablesedienst-Beträge je Mietverhältnis (mv_id => row). */
+	public static function ablesedienst_werte( int $abrechnung_id ): array {
+		global $wpdb;
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT mv_id, heizung, warmwasser FROM ' . $wpdb->prefix . 'mv_abrechnung_ablesedienst WHERE abrechnung_id = %d', $abrechnung_id ), OBJECT_K ) ?: [];
+	}
+
 	/* ------------------------------------------------------------------ */
 	/* Aktionen                                                           */
 	/* ------------------------------------------------------------------ */
@@ -417,7 +485,31 @@ class Mietv_Abrechnung {
 			wp_safe_redirect( $base . '&id=' . $id );
 			exit;
 		}
+		if ( $a === 'ablesedienst' ) {
+			$hz = map_deep( wp_unslash( (array) ( $_POST['ad_heizung'] ?? [] ) ), 'sanitize_text_field' );
+			$ww = map_deep( wp_unslash( (array) ( $_POST['ad_warmwasser'] ?? [] ) ), 'sanitize_text_field' );
+			foreach ( $hz as $mv_id => $h ) {
+				$mv_id = (int) $mv_id;
+				$row   = [
+					'abrechnung_id' => $id,
+					'mv_id'         => $mv_id,
+					'heizung'       => mietv_to_float( $h ),
+					'warmwasser'    => mietv_to_float( $ww[ $mv_id ] ?? '' ),
+				];
+				$vorh  = $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM ' . $wpdb->prefix . 'mv_abrechnung_ablesedienst WHERE abrechnung_id = %d AND mv_id = %d', $id, $mv_id ) );
+				if ( $vorh ) {
+					$wpdb->update( mietv_table( 'abrechnung_ablesedienst' ), $row, [ 'id' => (int) $vorh ] );
+				} else {
+					$wpdb->insert( mietv_table( 'abrechnung_ablesedienst' ), $row );
+				}
+			}
+			self::berechnen( $id );
+			mietv_flash_set( 'berechnet' );
+			wp_safe_redirect( $base . '&id=' . $id );
+			exit;
+		}
 		if ( $a === 'loeschen' ) {
+			$wpdb->delete( mietv_table( 'abrechnung_ablesedienst' ), [ 'abrechnung_id' => $id ] );
 			$wpdb->delete( mietv_table( 'abrechnung_ergebnis' ), [ 'abrechnung_id' => $id ] );
 			$wpdb->delete( mietv_table( 'abrechnungen' ), [ 'id' => $id ] );
 			wp_safe_redirect( $base );
@@ -500,7 +592,7 @@ class Mietv_Abrechnung {
 
 	private static function detail( int $id ): void {
 		global $wpdb;
-		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT a.*, o.bezeichnung AS objekt, o.heizung, o.hk_verbrauchsanteil FROM ' . $wpdb->prefix . 'mv_abrechnungen a JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id WHERE a.id = %d', $id ) );
+		$abr = $wpdb->get_row( $wpdb->prepare( 'SELECT a.*, o.bezeichnung AS objekt, o.heizung, o.hk_verbrauchsanteil, o.heizung_ablesung FROM ' . $wpdb->prefix . 'mv_abrechnungen a JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = a.objekt_id WHERE a.id = %d', $id ) );
 		if ( ! $abr ) {
 			echo '<p>' . esc_html__( 'Not found.', 'mietfux' ) . '</p>';
 			return;
@@ -557,6 +649,30 @@ class Mietv_Abrechnung {
 			);
 		}
 		echo '</tbody></table>';
+
+		// Heizkosten laut Ablesedienst erfassen
+		if ( $abr->heizung !== 'dezentral' && $abr->heizung_ablesung === 'ablesedienst' && $ergs ) {
+			$ad = self::ablesedienst_werte( $id );
+			echo '<h2>' . esc_html__( 'Heating costs according to the reading service', 'mietfux' ) . '</h2>';
+			echo '<p class="description">' . esc_html__( 'The heating meters of this property are read by a reading service (ista, Techem, Brunata …). Enter each tenant’s share from the service’s statement; these amounts replace the HeizkostenV allocation. Heating receipts are still recorded for Anlage V.', 'mietfux' ) . '</p>';
+			echo '<form method="post" action="' . esc_url( admin_url( 'admin.php?page=mietv_abrechnung&id=' . $id ) ) . '">';
+			wp_nonce_field( 'mietv_abr' );
+			echo '<input type="hidden" name="mietv_abr_action" value="ablesedienst">';
+			echo '<table class="wp-list-table widefat fixed striped mv-op" style="max-width:720px"><thead><tr><th>' . esc_html__( 'Tenant / unit', 'mietfux' ) . '</th><th>' . esc_html__( 'Heating (€)', 'mietfux' ) . '</th><th>' . esc_html__( 'Hot water (€)', 'mietfux' ) . '</th></tr></thead><tbody>';
+			foreach ( $ergs as $e ) {
+				$w = $ad[ $e->mv_id ] ?? null;
+				printf(
+					'<tr><td>%s – %s</td><td><input type="text" name="ad_heizung[%d]" value="%s" class="small-text mv-num" inputmode="decimal"></td><td><input type="text" name="ad_warmwasser[%d]" value="%s" class="small-text mv-num" inputmode="decimal"></td></tr>',
+					esc_html( $e->nachname . ', ' . $e->vorname ),
+					esc_html( $e->einheit ),
+					(int) $e->mv_id,
+					esc_attr( $w && (float) $w->heizung > 0 ? number_format( (float) $w->heizung, 2, ',', '' ) : '' ),
+					(int) $e->mv_id,
+					esc_attr( $w && (float) $w->warmwasser > 0 ? number_format( (float) $w->warmwasser, 2, ',', '' ) : '' )
+				);
+			}
+			echo '</tbody></table><p><button class="button button-primary">' . esc_html__( 'Save and recalculate', 'mietfux' ) . '</button></p></form>';
+		}
 
 		// Detailpositionen
 		foreach ( $ergs as $e ) {

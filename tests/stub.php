@@ -9,7 +9,7 @@ class WPDB {
   private function run($q){ if(is_array($q)){ [$sql,$a]=$q; $sql=str_replace('CURDATE()',"date('now')",$sql); $st=$this->pdo->prepare($sql); $st->execute($a);} else { $q=str_replace('CURDATE()',"date('now')",$q); $st=$this->pdo->query($q);} return $st; }
   function get_results($q,$t=OBJECT){
     if(is_string($q) && preg_match('/^SHOW COLUMNS FROM `?(\w+)`?/',$q,$m)){ $rows=[]; foreach($this->pdo->query("PRAGMA table_info($m[1])") as $c){ $d=$c['dflt_value']; if($d!==null)$d=trim($d,"'"); $rows[]=['Field'=>$c['name'],'Null'=>$c['notnull']?'NO':'YES','Default'=>$d]; } return $rows; }
-    $st=$this->run($q); $rows=$st->fetchAll($t==='ARRAY_A'?PDO::FETCH_ASSOC:PDO::FETCH_OBJ); if($t==='OBJECT_K'){$o=[];foreach($rows as $r)$o[$r->id]=$r;return $o;} return $rows; }
+    $st=$this->run($q); $rows=$st->fetchAll($t==='ARRAY_A'?PDO::FETCH_ASSOC:PDO::FETCH_OBJ); if($t==='OBJECT_K'){$o=[];foreach($rows as $r){$k=array_key_first((array)$r);$o[$r->$k]=$r;}return $o;} return $rows; }
   function get_row($q,$t=OBJECT){ $st=$this->run($q); $r=$st->fetch($t==='ARRAY_A'?PDO::FETCH_ASSOC:PDO::FETCH_OBJ); return $r===false?null:$r; }
   function get_var($q){ $st=$this->run($q); $v=$st->fetchColumn(); return $v===false?null:$v; }
   function get_col($q){ $st=$this->run($q); return $st->fetchAll(PDO::FETCH_COLUMN); }

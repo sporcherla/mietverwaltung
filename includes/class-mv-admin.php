@@ -253,6 +253,25 @@ class Mietv_Admin {
 						'type'  => 'text',
 						'hint'  => esc_html__( 'Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode.', 'mietfux' ),
 					],
+					'heizung_ablesung'    => [
+						'label'   => esc_html__( 'Heating meters read by', 'mietfux' ),
+						'type'    => 'select',
+						'options' => [
+							'eigen'        => esc_html__( 'Landlord / tenant (readings entered in Mietfux, allocated by HeizkostenV)', 'mietfux' ),
+							'ablesedienst' => esc_html__( 'Reading service (ista, Techem, Brunata …) – enter each tenant’s share from the service’s statement', 'mietfux' ),
+						],
+						'hint'    => esc_html__( 'With a reading service, heating and hot-water meters are hidden in the tenant portal and the heating costs are taken from the service’s statement.', 'mietfux' ),
+					],
+					'wasser_verteilung'   => [
+						'label'   => esc_html__( 'Water meters', 'mietfux' ),
+						'type'    => 'select',
+						'options' => [
+							'zaehler'  => esc_html__( 'Water meters per unit – allocated by consumption', 'mietfux' ),
+							'flaeche'  => esc_html__( 'No water meters per unit – allocated by living area', 'mietfux' ),
+							'personen' => esc_html__( 'No water meters per unit – allocated by persons', 'mietfux' ),
+						],
+						'hint'    => esc_html__( 'Without water meters the water/sewage costs are allocated by this key and no water meters are shown in the tenant portal.', 'mietfux' ),
+					],
 					'notiz'               => [
 						'label' => esc_html__( 'Note', 'mietfux' ),
 						'type'  => 'textarea',
@@ -677,6 +696,16 @@ class Mietv_Admin {
 						'label' => esc_html__( 'Meter number', 'mietfux' ),
 						'type'  => 'text',
 						'list'  => true,
+					],
+					'ablesung'   => [
+						'label'   => esc_html__( 'Read by', 'mietfux' ),
+						'type'    => 'select',
+						'list'    => true,
+						'options' => [
+							'mieter'       => esc_html__( 'Tenant (can enter readings in the portal)', 'mietfux' ),
+							'ablesedienst' => esc_html__( 'Reading service', 'mietfux' ),
+							'vermieter'    => esc_html__( 'Landlord', 'mietfux' ),
+						],
 					],
 					'notiz'      => [
 						'label' => esc_html__( 'Note', 'mietfux' ),
