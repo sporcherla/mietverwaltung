@@ -1,4 +1,4 @@
-/* Mietverwaltung – Seitenkopf, Karten und kleine Komfortfunktionen für alle Plugin-Seiten. */
+/* Mietfux – Kopfzeile, Karten und kleine Komfortfunktionen für alle Plugin-Seiten (ohne Abhängigkeiten). */
 ( function () {
 	'use strict';
 	var ui = window.mietvUI || {};
@@ -12,34 +12,18 @@
 		if ( ! wrap ) { return; }
 		wrap.classList.add( 'mv-ui' );
 
-		/* Seitenkopf: Icon + Titel + Aktionen (page-title-action) */
+		var topbar = document.getElementById( 'mv-topbar' );
 		var h1 = wrap.querySelector( ':scope > h1' );
-		if ( h1 ) {
-			var head = document.createElement( 'header' );
-			head.className = 'mv-page-head';
-			var icon = document.createElement( 'div' );
-			icon.className = 'mv-page-icon';
-			icon.innerHTML = '<span class="dashicons dashicons-' + ( ui.icon || 'admin-home' ) + '"></span>';
-			var title = document.createElement( 'div' );
-			title.className = 'mv-page-title';
-			var crumb = document.createElement( 'div' );
-			crumb.className = 'mv-crumb';
-			crumb.innerHTML = '<a href="' + ( ui.uebersicht || '#' ) + '">' + ( ui.plugin || 'Mietverwaltung' ) + '</a>';
-			var actions = document.createElement( 'div' );
-			actions.className = 'mv-page-actions';
-			wrap.insertBefore( head, h1 );
-			head.appendChild( icon );
-			head.appendChild( title );
-			title.appendChild( crumb );
-			title.appendChild( h1 );
-			head.appendChild( actions );
-			// Aktions-Links, die direkt nach dem Titel stehen, in den Kopf verschieben
-			var el = head.nextSibling;
+
+		if ( topbar && h1 ) {
+			/* Seitentitel und Aktions-Links (page-title-action) in die Sticky-Kopfzeile verschieben */
+			var slot = topbar.querySelector( '.mv-topbar-h1' );
+			var actions = topbar.querySelector( '.mv-topbar-actions' );
+			var el = h1.nextSibling;
 			while ( el ) {
 				var next = el.nextSibling;
 				if ( el.nodeType === 1 && el.classList.contains( 'page-title-action' ) ) {
-					el.classList.add( 'button' );
-					actions.appendChild( el );
+					if ( actions ) { actions.appendChild( el ); }
 				} else if ( el.nodeType === 1 && el.classList.contains( 'wp-header-end' ) ) {
 					el.remove();
 				} else if ( el.nodeType === 3 && ! el.textContent.trim() ) {
@@ -49,7 +33,33 @@
 				}
 				el = next;
 			}
-			if ( ! actions.children.length ) { actions.remove(); }
+			if ( slot ) {
+				h1.classList.add( 'mv-topbar-h1' );
+				h1.classList.remove( 'wp-heading-inline' );
+				slot.parentNode.replaceChild( h1, slot );
+			}
+		} else if ( h1 && ! topbar ) {
+			/* Fallback ohne Kopfzeile: Seitenkopf als Karte */
+			var head = document.createElement( 'header' );
+			head.className = 'mv-page-head';
+			var icon = document.createElement( 'div' );
+			icon.className = 'mv-topbar-icon';
+			icon.innerHTML = '<span class="dashicons dashicons-' + ( ui.icon || 'admin-home' ) + '"></span>';
+			wrap.insertBefore( head, h1 );
+			head.appendChild( icon );
+			head.appendChild( h1 );
+		}
+
+		/* Sticky-Zustand der Kopfzeile (Schatten) */
+		if ( topbar ) {
+			var sentinel = document.createElement( 'div' );
+			sentinel.className = 'mv-topbar-sentinel';
+			topbar.parentNode.insertBefore( sentinel, topbar );
+			if ( 'IntersectionObserver' in window ) {
+				new IntersectionObserver( function ( entries ) {
+					topbar.classList.toggle( 'mv-stuck', ! entries[ 0 ].isIntersecting );
+				}, { threshold: [ 1 ] } ).observe( sentinel );
+			}
 		}
 
 		/* Tabellen in scrollbare Karten packen */
@@ -63,8 +73,7 @@
 
 		/* Formulare (form-table) als Karte */
 		wrap.querySelectorAll( 'table.form-table' ).forEach( function ( t ) {
-			var card = t.closest( '.mv-card' );
-			if ( card ) { return; }
+			if ( t.closest( '.mv-card' ) ) { return; }
 			var d = document.createElement( 'div' );
 			d.className = 'mv-card mv-formcard';
 			t.parentNode.insertBefore( d, t );
@@ -90,6 +99,33 @@
 		wrap.querySelectorAll( 'table.widefat td' ).forEach( function ( td ) {
 			if ( /^-?[\d.]+,\d{2}\s?€$/.test( td.textContent.trim() ) ) { td.classList.add( 'mv-td-num' ); }
 		} );
+	} );
+
+	/* Dropdown („+ Neu“): bei Klick außerhalb oder Escape schließen */
+	document.addEventListener( 'click', function ( e ) {
+		document.querySelectorAll( 'details.mv-dropdown[open]' ).forEach( function ( d ) {
+			if ( ! d.contains( e.target ) ) { d.removeAttribute( 'open' ); }
+		} );
+	} );
+	document.addEventListener( 'keydown', function ( e ) {
+		if ( e.key === 'Escape' ) {
+			document.querySelectorAll( 'details.mv-dropdown[open]' ).forEach( function ( d ) {
+				d.removeAttribute( 'open' );
+				var s = d.querySelector( 'summary' );
+				if ( s ) { s.focus(); }
+			} );
+		}
+		/* Tastenkürzel „/“: Suchfeld fokussieren */
+		if ( e.key === '/' && ! e.ctrlKey && ! e.metaKey && ! e.altKey ) {
+			var t = e.target;
+			var tippt = t && ( t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test( t.tagName ) );
+			var s2 = document.getElementById( 'mv-search' );
+			if ( s2 && ! tippt ) {
+				e.preventDefault();
+				s2.focus();
+				s2.select();
+			}
+		}
 	} );
 
 	/* Bestätigungsabfragen, Alle-auswählen-Kästchen, Pflichtauswahl und Drucken (ohne Inline-JS) */

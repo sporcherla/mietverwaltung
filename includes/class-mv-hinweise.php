@@ -170,7 +170,7 @@ class Mietv_Hinweise {
 		if ( $offen ) {
 			$h[] = [
 				'typ'  => 'warn',
-				'text' => $offen . ' offene Meldung(en) aus dem Mieterportal',
+				'text' => sprintf( /* translators: %d: Anzahl */ _n( '%d open report from the tenant portal', '%d open reports from the tenant portal', $offen, 'mietfux' ), $offen ),
 				'url'  => admin_url( 'admin.php?page=mietv_meldungen' ),
 			];
 		}
@@ -211,28 +211,28 @@ class Mietv_Hinweise {
 
 	public static function widget_inhalt(): void {
 		$mvs = Mietv_Soll::alle_mv( true );
-		echo '<ul>';
-		foreach ( $mvs as $mv ) {
-			$op = Mietv_Soll::op_liste( $mv );
-			printf( '<li><strong>%s</strong>' . esc_html__( ': balance', 'mietfux' ) . ' <span style="color:%s">%s</span></li>', esc_html( Mietv_Soll::mietv_label( $mv ) ), $op['saldo'] < -0.005 ? '#b32d2e' : '#1a7f37', esc_html( mietv_eur( $op['saldo'] ) ) );
-		}
-		echo '</ul>';
-		$h = self::alle();
-		if ( ! $h ) {
-			echo '<p>' . esc_html__( '✅ No open notices.', 'mietfux' ) . '</p>';
-		} else {
-			echo '<ul style="margin-left:1em">';
-			foreach ( $h as $x ) {
-				$icon = [
-					'error' => '🔴',
-					'warn'  => '🟡',
-					'info'  => 'ℹ️',
-				][ $x['typ'] ] ?? '';
-				printf( '<li>%s <a href="%s">%s</a></li>', esc_html( $icon ), esc_url( $x['url'] ), esc_html( $x['text'] ) );
+		echo '<div class="mv-widget">';
+		if ( $mvs ) {
+			echo '<ul class="mv-widget-salden">';
+			foreach ( $mvs as $mv ) {
+				$op  = Mietv_Soll::op_liste( $mv );
+				$cls = $op['saldo'] < -0.005 ? 'mv-pill-neg' : ( $op['saldo'] > 0.005 ? 'mv-pill-ok' : 'mv-pill-neutral' );
+				printf( '<li><span>%s</span><span class="mv-pill %s">%s</span></li>', esc_html( Mietv_Soll::mietv_label( $mv ) ), esc_attr( $cls ), esc_html( mietv_eur( $op['saldo'] ) ) );
 			}
 			echo '</ul>';
 		}
-		printf( '<p><a href="%s" class="button">' . esc_html__( 'Go to Mietfux', 'mietfux' ) . '</a></p>', esc_url( admin_url( 'admin.php?page=mietv_uebersicht' ) ) );
+		$h = self::alle();
+		if ( ! $h ) {
+			echo '<p class="mv-widget-ok"><span class="dashicons dashicons-yes-alt"></span> ' . esc_html__( 'No open notices.', 'mietfux' ) . '</p>';
+		} else {
+			echo '<ul class="mv-widget-hinweise">';
+			foreach ( $h as $x ) {
+				$typ = in_array( $x['typ'], [ 'error', 'warn', 'info' ], true ) ? $x['typ'] : 'info';
+				printf( '<li class="mv-notice-%s"><a href="%s">%s</a></li>', esc_attr( $typ ), esc_url( $x['url'] ), esc_html( $x['text'] ) );
+			}
+			echo '</ul>';
+		}
+		printf( '<p><a href="%s" class="button">' . esc_html__( 'Go to Mietfux', 'mietfux' ) . '</a></p></div>', esc_url( admin_url( 'admin.php?page=mietv_uebersicht' ) ) );
 	}
 
 	public static function cron(): void {
