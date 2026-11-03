@@ -3771,8 +3771,8 @@ msgstr "Wskaźnik cen konsumpcyjnych (Destatis)"
 msgid "GENESIS-Online user name"
 msgstr "Nazwa użytkownika GENESIS-Online"
 
-msgid "Optional; without credentials the guest access (GAST) is used."
-msgstr "Opcjonalnie; bez danych logowania używany jest dostęp gościa (GAST)."
+msgid "Free registration at genesis.destatis.de is required for the web service; an API token can be entered as user name (password empty). Without credentials, CSV import remains available."
+msgstr "Usługa sieciowa wymaga bezpłatnej rejestracji na genesis.destatis.de; token API można wpisać jako nazwę użytkownika (hasło puste). Bez danych logowania nadal dostępny jest import CSV."
 
 msgid "GENESIS-Online password"
 msgstr "Hasło GENESIS-Online"
@@ -3809,6 +3809,15 @@ msgstr "Kopie zapasowe są przechowywane w folderze uploads (mietfux-backups, za
 
 msgid "Maintain line numbers of Anlage V %d"
 msgstr "Zarządzaj numerami wierszy Anlage V %d"
+
+msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
+msgstr "Destatis wymaga bezpłatnego konta GENESIS-Online dla usługi sieciowej (dostęp gościa nie jest już akceptowany). Zarejestruj się na genesis.destatis.de, wpisz nazwę użytkownika i hasło (lub token API jako nazwę użytkownika) w Ustawienia → Wskaźnik cen konsumpcyjnych – albo zaimportuj plik CSV ręcznie."
+
+msgid "Destatis returned a web page instead of data – please check the GENESIS-Online credentials under Settings."
+msgstr "Destatis zwrócił stronę internetową zamiast danych – sprawdź dane logowania GENESIS-Online w ustawieniach."
+
+msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
+msgstr "Pobiera tabelę %s (CPI Niemcy, miesiące) z ostatnich trzech lat z GENESIS-Online i zapisuje wszystkie wartości miesięczne. Wymaga bezpłatnego konta GENESIS-Online (nazwa użytkownika/hasło lub token API w Ustawienia → Wskaźnik cen konsumpcyjnych)."
 
 msgid "Mietfux requires two-factor authentication for landlords. Please enable a method under “Two-Factor Options” below – the Mietfux pages are available again afterwards."
 msgstr "Mietfux wymaga od wynajmujących uwierzytelniania dwuskładnikowego. Włącz metodę poniżej w sekcji „Two-Factor Options” – potem strony Mietfux będą znów dostępne."

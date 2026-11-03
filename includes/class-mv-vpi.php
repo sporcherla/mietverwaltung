@@ -16,7 +16,7 @@ class Mietv_Vpi {
 
 	/** GENESIS-Online-Tabelle „Verbraucherpreisindex: Deutschland, Monate“. */
 	const TABELLE = '61111-0002';
-	const API     = 'https://www-genesis.destatis.de/genesisWS/rest/2020/data/tablefile';
+	const API     = 'https://genesis.destatis.de/genesisWS/rest/2020/data/tablefile';
 
 	public static function init(): void {
 		add_action( 'admin_init', [ __CLASS__, 'handle' ] );
@@ -357,26 +357,30 @@ class Mietv_Vpi {
 	 * Liefert [ 'n' => Anzahl, 'von' => erster Monat, 'bis' => letzter Monat ] oder WP_Error.
 	 */
 	public static function abrufen() {
-		$user = (string) Mietv_Einstellungen::get( 'vpi_user', 'GAST' );
-		$pass = (string) Mietv_Einstellungen::get( 'vpi_pass', 'GAST' );
-		$url  = self::API . '?' . http_build_query(
+		$user = trim( (string) Mietv_Einstellungen::get( 'vpi_user', '' ), " \t\n\r\0\x0B" );
+		$pass = (string) Mietv_Einstellungen::get( 'vpi_pass', '' );
+		if ( $user === '' ) {
+			return new WP_Error( 'mietv_vpi_login', __( 'Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually.', 'mietfux' ) );
+		}
+		// GENESIS-Online (seit 2025): POST, Zugangsdaten im HTTP-Header; API-Token = Benutzername ohne Passwort.
+		$r = wp_remote_post(
+			self::API,
 			[
-				'username'  => $user,
-				'password'  => $pass,
-				'name'      => self::TABELLE,
-				'area'      => 'all',
-				'compress'  => 'false',
-				'transpose' => 'false',
-				'startyear' => (int) current_time( 'Y' ) - 2,
-				'format'    => 'ffcsv',
-				'language'  => 'de',
-			]
-		);
-		$r    = wp_remote_get(
-			$url,
-			[
-				'timeout' => 20,
-				'headers' => [ 'Accept' => 'text/csv, application/json' ],
+				'timeout' => 30,
+				'headers' => [
+					'username' => $user,
+					'password' => $pass,
+					'Accept'   => 'text/csv, application/json',
+				],
+				'body'    => [
+					'name'      => self::TABELLE,
+					'area'      => 'all',
+					'compress'  => 'false',
+					'transpose' => 'false',
+					'startyear' => (string) ( (int) current_time( 'Y' ) - 2 ),
+					'format'    => 'ffcsv',
+					'language'  => 'de',
+				],
 			]
 		);
 		if ( is_wp_error( $r ) ) {
@@ -389,6 +393,9 @@ class Mietv_Vpi {
 		}
 		if ( trim( $body, " \t\n\r\0\x0B" ) === '' ) {
 			return new WP_Error( 'mietv_vpi_leer', __( 'Destatis returned an empty response.', 'mietfux' ) );
+		}
+		if ( strpos( ltrim( $body, " \t\n\r\0\x0B" ), '<' ) === 0 ) {
+			return new WP_Error( 'mietv_vpi_html', __( 'Destatis returned a web page instead of data – please check the GENESIS-Online credentials under Settings.', 'mietfux' ) );
 		}
 		if ( strpos( ltrim( $body, " \t\n\r\0\x0B" ), '{' ) === 0 ) {
 			// GENESIS meldet Fehler (Zugangsdaten, Tabelle, Auftrag) als JSON.
@@ -583,7 +590,7 @@ class Mietv_Vpi {
 		echo '<div class="mv-kacheln"><div class="mv-kachel" style="min-width:360px;flex:1"><h3>' . esc_html__( 'Fetch from Destatis', 'mietfux' ) . '</h3><form method="post">';
 		wp_nonce_field( 'mietv_vpi', 'mietv_vpi_nonce' );
 		printf( '<input type="hidden" name="jahr" value="%d">', (int) $jahr );
-		printf( '<p class="description">' . /* translators: %1$s: Tabellennummer, %2$s: Benutzername */ esc_html__( 'Loads table %1$s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Access: the credentials from the settings (vpi_user / vpi_pass) or the guest login “%2$s”.', 'mietfux' ) . '</p>', esc_html( self::TABELLE ), esc_html( (string) Mietv_Einstellungen::get( 'vpi_user', 'GAST' ) ) );
+		printf( '<p class="description">' . /* translators: %s: Tabellennummer */ esc_html__( 'Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index).', 'mietfux' ) . '</p>', esc_html( self::TABELLE ) );
 		echo '<p><button name="abrufen" value="1" class="button button-primary">' . esc_html__( 'Fetch from Destatis', 'mietfux' ) . '</button></p></form></div>';
 		echo '<div class="mv-kachel" style="min-width:360px;flex:1"><h3>' . esc_html__( 'Import CSV file', 'mietfux' ) . '</h3><form method="post" enctype="multipart/form-data">';
 		wp_nonce_field( 'mietv_vpi', 'mietv_vpi_nonce' );

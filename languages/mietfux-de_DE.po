@@ -3771,8 +3771,8 @@ msgstr "Verbraucherpreisindex (Destatis)"
 msgid "GENESIS-Online user name"
 msgstr "GENESIS-Online-Benutzername"
 
-msgid "Optional; without credentials the guest access (GAST) is used."
-msgstr "Optional; ohne Zugangsdaten wird der Gastzugang (GAST) verwendet."
+msgid "Free registration at genesis.destatis.de is required for the web service; an API token can be entered as user name (password empty). Without credentials, CSV import remains available."
+msgstr "Für den Webservice ist eine kostenlose Registrierung bei genesis.destatis.de nötig; ein API-Token kann als Benutzername eingetragen werden (Passwort leer). Ohne Zugangsdaten bleibt der CSV-Import möglich."
 
 msgid "GENESIS-Online password"
 msgstr "GENESIS-Online-Passwort"
@@ -3809,6 +3809,15 @@ msgstr "Sicherungen liegen im Uploads-Ordner (mietfux-backups, gegen direkten Zu
 
 msgid "Maintain line numbers of Anlage V %d"
 msgstr "Zeilennummern der Anlage V %d pflegen"
+
+msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
+msgstr "Destatis verlangt für den Webservice ein kostenloses GENESIS-Online-Konto (Gastzugang wird nicht mehr akzeptiert). Bei genesis.destatis.de registrieren, Benutzername und Passwort (oder einen API-Token als Benutzername) unter Einstellungen → Verbraucherpreisindex eintragen – oder die CSV-Datei manuell importieren."
+
+msgid "Destatis returned a web page instead of data – please check the GENESIS-Online credentials under Settings."
+msgstr "Destatis lieferte eine Webseite statt Daten – bitte die GENESIS-Online-Zugangsdaten in den Einstellungen prüfen."
+
+msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
+msgstr "Lädt Tabelle %s (VPI Deutschland, Monate) der letzten drei Jahre von GENESIS-Online und speichert alle Monatswerte. Erfordert ein kostenloses GENESIS-Online-Konto (Benutzername/Passwort oder API-Token unter Einstellungen → Verbraucherpreisindex)."
 
 msgid "Mietfux requires two-factor authentication for landlords. Please enable a method under “Two-Factor Options” below – the Mietfux pages are available again afterwards."
 msgstr "Mietfux verlangt für Vermieter die Zwei-Faktor-Anmeldung. Bitte unten unter „Two-Factor Options“ ein Verfahren aktivieren – danach sind die Mietfux-Seiten wieder erreichbar."

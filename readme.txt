@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,9 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 10. Activity log
 
 == Changelog ==
+
+= 1.2.1 =
+* Destatis fetch switched to the current GENESIS-Online web service (genesis.destatis.de, POST with header authentication); a free GENESIS account is required, guest access is no longer offered by Destatis – CSV import stays available
 
 = 1.2.0 =
 * Recurring expenses: due-date plans (monthly/quarterly/half-yearly/yearly) for property tax, insurance, chimney sweep etc.; tick and book, bank import recognises the supplier

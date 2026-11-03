@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Mietfux\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "X-Domain: mietfux\n"
-"POT-Creation-Date: 2026-11-02\n"
+"POT-Creation-Date: 2026-11-03\n"
 
 #: .claude/worktrees/agent-a4d8df68b5525cd5e/includes/class-mv-abrechnung.php:102 .claude/worktrees/agent-a99795a34a5a29371/includes/class-mv-abrechnung.php:102 .claude/worktrees/agent-aace5bee55094d801/includes/class-mv-abrechnung.php:102
 msgid "Statement not found."
@@ -4705,35 +4705,35 @@ msgstr ""
 msgid "Each dispatch is logged with time, recipients, status and the filed PDF. Failed deliveries are shown with the mail server’s error message. Note: letters that legally require written form (e.g. a rent increase under § 558 BGB) must additionally be sent by post."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:383 includes/class-mv-vpi.php:383
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:383 includes/class-mv-vpi.php:387
 msgid "Destatis could not be reached: %s"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:388 includes/class-mv-vpi.php:388
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:388 includes/class-mv-vpi.php:392
 msgid "Destatis answered with HTTP status %d."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:391 includes/class-mv-vpi.php:391
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:391 includes/class-mv-vpi.php:395
 msgid "Destatis returned an empty response."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:396 includes/class-mv-vpi.php:396
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:396 includes/class-mv-vpi.php:403
 msgid "unknown error"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:397 includes/class-mv-vpi.php:397
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:397 includes/class-mv-vpi.php:404
 msgid "Destatis reported: %s"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:401 includes/class-mv-vpi.php:401
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:401 includes/class-mv-vpi.php:408
 msgid "The Destatis response could not be interpreted (no monthly index values found)."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:433 includes/class-mv-vpi.php:433
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:433 includes/class-mv-vpi.php:440
 msgid "Please choose a CSV file."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:437 includes/class-mv-vpi.php:437
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:437 includes/class-mv-vpi.php:444
 msgid "No monthly index values found in the file. Expected: GENESIS flat CSV (ffcsv) of table 61111-0002."
 msgstr ""
 
@@ -4741,147 +4741,147 @@ msgstr ""
 msgid "Consumer price index (CPI)"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:483 includes/class-mv-vpi.php:483
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:483 includes/class-mv-vpi.php:490
 msgid "%d index value(s) saved."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:485 includes/class-mv-vpi.php:485
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:485 includes/class-mv-vpi.php:492
 msgid "%1$d index value(s) imported (%2$s – %3$s)."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:489 includes/class-mv-vpi.php:489
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:489 includes/class-mv-vpi.php:496
 msgid "Consumer price index for Germany (Federal Statistical Office, base 2020 = 100). Index-linked rents (§ 557b BGB) may be adjusted in line with the index change, at the earliest one year after the last rent setting. Enter the monthly values here, upload the Destatis CSV or fetch the values directly from GENESIS-Online."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:496 includes/class-mv-vpi.php:496
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:496 includes/class-mv-vpi.php:503
 msgid "Latest CPI"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:498 includes/class-mv-vpi.php:498
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:498 includes/class-mv-vpi.php:505
 msgid "no values yet"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:499 includes/class-mv-vpi.php:499
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:499 includes/class-mv-vpi.php:506
 msgid "Change vs. previous year"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:502 includes/class-mv-vpi.php:502
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:502 includes/class-mv-vpi.php:509
 msgid "Index-linked tenancies"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:504 includes/class-mv-vpi.php:504
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:504 includes/class-mv-vpi.php:511
 msgid "active"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:508 includes/class-mv-vpi.php:508
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:508 includes/class-mv-vpi.php:515
 msgid "Index-linked rents – adjustment possible?"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:511 includes/class-mv-vpi.php:511
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:511 includes/class-mv-vpi.php:518
 msgid "No active tenancy with index-linked rent. Set the rent type to “Index-linked rent” in the tenancy agreement options, or record an index adjustment under “Rent increase”."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:514
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:521
 msgid "Last rent setting"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:514
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:521
 msgid "CPI then"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:514
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:521
 msgid "Change"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:514
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:521
 msgid "Possible new rent"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:514
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:514 includes/class-mv-vpi.php:521
 msgid "Earliest adjustment"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:520 includes/class-mv-vpi.php:520
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:520 includes/class-mv-vpi.php:527
 msgid "Prepare adjustment"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:526 includes/class-mv-vpi.php:526
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:526 includes/class-mv-vpi.php:533
 msgid "unknown – enter the CPI of the month of the rent setting"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:533 includes/class-mv-vpi.php:533
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:533 includes/class-mv-vpi.php:540
 msgid "blocked"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:538 includes/class-mv-vpi.php:538
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:538 includes/class-mv-vpi.php:545
 msgid "New rent = current base rent × current CPI ÷ CPI at the last rent setting. The adjustment must be declared in text form stating the index change and the new rent; it takes effect at the start of the second month after receipt (§ 557b (3) BGB). “Prepare adjustment” opens the rent increase page with the values pre-filled."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:542 includes/class-mv-vpi.php:542
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:542 includes/class-mv-vpi.php:549
 msgid "Monthly index values"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:553 includes/class-mv-vpi.php:553
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:553 includes/class-mv-vpi.php:560
 msgid "CPI (2020 = 100)"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:553 includes/class-mv-vpi.php:553
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:553 includes/class-mv-vpi.php:560
 msgid "vs. previous year"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:553 includes/class-mv-vpi.php:553
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:553 includes/class-mv-vpi.php:560
 msgid "Changed"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:568 includes/class-mv-vpi.php:568
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:568 includes/class-mv-vpi.php:575
 msgid "Destatis"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:570 includes/class-mv-vpi.php:570
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:570 includes/class-mv-vpi.php:577
 msgid "Delete this index value?"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:576 includes/class-mv-vpi.php:576
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:576 includes/class-mv-vpi.php:583
 msgid "Add month"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:577 includes/class-mv-vpi.php:577
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:577 includes/class-mv-vpi.php:584
 msgid "Value"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:578 includes/class-mv-vpi.php:578
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:578 includes/class-mv-vpi.php:585
 msgid "Save values"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:583 .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:587 includes/class-mv-vpi.php:583
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:583 .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:587 includes/class-mv-vpi.php:590
 msgid "Fetch from Destatis"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:586 includes/class-mv-vpi.php:586
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:586
 msgid "Loads table %1$s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Access: the credentials from the settings (vpi_user / vpi_pass) or the guest login “%2$s”."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:588 includes/class-mv-vpi.php:588
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:588 includes/class-mv-vpi.php:595
 msgid "Import CSV file"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:591 includes/class-mv-vpi.php:591
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:591 includes/class-mv-vpi.php:598
 msgid "Without API access: download table 61111-0002 from GENESIS-Online as “flat CSV” (ffcsv) and upload it here. Existing months are overwritten."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:606 includes/class-mv-vpi.php:606
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:606 includes/class-mv-vpi.php:613
 msgid "Index-linked rent %1$s: adjustment by %2$s possible (new rent %3$s)"
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:619 includes/class-mv-vpi.php:619
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:619 includes/class-mv-vpi.php:626
 msgid "Monthly consumer price index for Germany (Destatis, base 2020 = 100). Enter values by hand, upload the GENESIS flat CSV of table 61111-0002 or fetch it directly (guest login works without registration; your own GENESIS credentials can be stored in the settings as vpi_user / vpi_pass)."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:620 includes/class-mv-vpi.php:620
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:620 includes/class-mv-vpi.php:627
 msgid "Index-linked rent (§ 557b BGB): a tenancy counts as index-linked if the agreement option “rent type” is set to index-linked rent or an index adjustment has already been recorded. The table shows the CPI at the last rent setting (from the last index adjustment, otherwise the CPI of the month the rent was set), the current CPI, the change and the possible new base rent."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:621 includes/class-mv-vpi.php:621
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:621 includes/class-mv-vpi.php:628
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr ""
 
@@ -4933,7 +4933,7 @@ msgstr ""
 msgid "Tax advisor (read-only)"
 msgstr ""
 
-#: includes/class-mv-demo.php:326
+#: includes/class-mv-demo.php:348
 msgid "Demo data created"
 msgstr ""
 
@@ -5022,7 +5022,7 @@ msgid "GENESIS-Online user name"
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:209
-msgid "Optional; without credentials the guest access (GAST) is used."
+msgid "Free registration at genesis.destatis.de is required for the web service; an API token can be entered as user name (password empty). Without credentials, CSV import remains available."
 msgstr ""
 
 #: includes/class-mv-einstellungen.php:210
@@ -5071,6 +5071,18 @@ msgstr ""
 
 #: includes/class-mv-steuer.php:397
 msgid "Maintain line numbers of Anlage V %d"
+msgstr ""
+
+#: includes/class-mv-vpi.php:363
+msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
+msgstr ""
+
+#: includes/class-mv-vpi.php:398
+msgid "Destatis returned a web page instead of data – please check the GENESIS-Online credentials under Settings."
+msgstr ""
+
+#: includes/class-mv-vpi.php:593
+msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
 msgstr ""
 
 #: includes/class-mv-zfa.php:62

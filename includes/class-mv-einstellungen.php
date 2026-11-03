@@ -206,7 +206,7 @@ class Mietv_Einstellungen {
 		echo '</tbody></table>';
 
 		echo '<h2>' . esc_html__( 'Consumer price index (Destatis)', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
-		self::text( 'vpi_user', __( 'GENESIS-Online user name', 'mietfux' ), $o, __( 'Optional; without credentials the guest access (GAST) is used.', 'mietfux' ) );
+		self::text( 'vpi_user', __( 'GENESIS-Online user name', 'mietfux' ), $o, __( 'Free registration at genesis.destatis.de is required for the web service; an API token can be entered as user name (password empty). Without credentials, CSV import remains available.', 'mietfux' ) );
 		self::text( 'vpi_pass', __( 'GENESIS-Online password', 'mietfux' ), $o );
 		echo '</tbody></table>';
 

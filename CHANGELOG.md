@@ -2,6 +2,10 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.2.1 – Destatis-Abruf auf neuen Webservice umgestellt
+
+- Destatis hat die alte Schnittstelle (www-genesis.destatis.de/genesisWS) abgeschaltet; der Abruf nutzt jetzt genesis.destatis.de/genesisWS/rest/2020 per POST mit Zugangsdaten im HTTP-Header. Der Gastzugang wird von Destatis für den Webservice nicht mehr akzeptiert – ein kostenloses GENESIS-Online-Konto (oder API-Token) ist nötig; ohne Konto bleibt der CSV-Import. Klarere Fehlermeldungen bei fehlendem Login oder HTML-Antwort.
+
 ## 1.2.0 – Dauerbelege, Protokoll, E-Mail-Versand, VPI, Backups, 2FA, Steuerberater
 
 - **Dauerbelege** (Alltag → Dauerbelege): Fälligkeitspläne (monatlich/vierteljährlich/halbjährlich/jährlich) für Grundsteuer, Versicherung, Schornsteinfeger usw.; Termine abhaken und buchen (Beleg mit Leistungszeitraum des Intervalls), Bankimport erkennt Lieferant/IBAN und bucht die nächste Fälligkeit.
