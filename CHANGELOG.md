@@ -2,6 +2,12 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.3.0 – Eingebaute Zwei-Faktor-Anmeldung
+
+- **TOTP ohne Zusatz-Plugin** (RFC 6238, kompatibel mit Aegis, FreeOTP, Google/Microsoft Authenticator, 1Password): Einstellung „Zwei-Faktor-Anmeldung“ = aus / freiwillig / Pflicht für Vermieter und Administratoren. Einrichtung unter Einstellungen → Sicherheit → „Meine Zwei-Faktor-Anmeldung“ mit QR-Code (lokal erzeugt, qrcode-generator MIT), manuellem Schlüssel und Bestätigungscode; acht Backup-Codes (gehasht, einmalig anzeigbar, erneuerbar).
+- **Anmeldung**: nach Passwort zweiter Schritt auf wp-login.php (Code ±30 s Toleranz oder Backup-Code), Einmal-Token 5 Minuten, Abbruch nach 5 Fehlversuchen, „Angemeldet bleiben“ wird übernommen; Protokolleintrag.
+- Geheimnis verschlüsselt (sodium/AES mit Schlüssel aus wp_salt) in den Benutzer-Metadaten. Pflichtmodus leitet Vermieter ohne Einrichtung auf die Einrichtungsseite. Hinweis auf der Übersicht (aus → Empfehlung, an → bis eingerichtet). Ein installiertes „Two-Factor“-Plugin hat Vorrang.
+
 ## 1.2.2 – Mietspiegel nach Postleitzahl
 
 - Mieterhöhung (Vergleichsmiete): Schaltfläche „Mietspiegel für PLZ Ort suchen“ (Suche nach der Postleitzahl des Objekts) und neues Objektfeld „Mietspiegel (Link)“ – gespeicherter Link öffnet sich direkt. Hinweistexte ohne festen Ortsbezug.

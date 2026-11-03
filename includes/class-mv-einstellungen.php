@@ -95,6 +95,10 @@ class Mietv_Einstellungen {
 			'backup_ok'        => [ 'success', esc_html__( 'Backup created.', 'mietfux' ) ],
 			'backup_fehler'    => [ 'error', esc_html__( 'Backup could not be written (uploads folder not writable).', 'mietfux' ) ],
 			'backup_geloescht' => [ 'success', esc_html__( 'Backup deleted.', 'mietfux' ) ],
+			'zfa_aktiv'        => [ 'success', esc_html__( 'Two-factor login is now active for your account. Your backup codes are shown below – store them safely.', 'mietfux' ) ],
+			'zfa_aus'          => [ 'success', esc_html__( 'Two-factor login disabled for your account.', 'mietfux' ) ],
+			'zfa_codes'        => [ 'success', esc_html__( 'New backup codes created – the old ones are no longer valid.', 'mietfux' ) ],
+			'zfa_code_falsch'  => [ 'error', esc_html__( 'The code did not match. Check the time on your phone and try the current code again.', 'mietfux' ) ],
 			'upd_neu'          => [ 'info', esc_html__( 'A new version is available – see “Version & updates” below.', 'mietfux' ) ],
 			'upd_aktuell'      => [ 'success', esc_html__( 'Mietfux is up to date.', 'mietfux' ) ],
 			'restored'         => [ 'success', esc_html__( 'Backup restored. All data has been replaced.', 'mietfux' ) ],
@@ -158,11 +162,12 @@ class Mietv_Einstellungen {
 		echo '<h2>' . esc_html__( 'Security', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		self::select(
 			'zfa_pflicht',
-			__( 'Two-factor authentication for landlords', 'mietfux' ),
+			__( 'Two-factor login', 'mietfux' ),
 			$o,
 			[
-				'0' => esc_html__( 'Recommended only', 'mietfux' ),
-				'1' => esc_html__( 'Required (role Landlord and administrators)', 'mietfux' ),
+				'0'        => esc_html__( 'Off', 'mietfux' ),
+				'optional' => esc_html__( 'Optional – each landlord may set it up', 'mietfux' ),
+				'pflicht'  => esc_html__( 'Required for landlords and administrators', 'mietfux' ),
 			],
 			Mietv_Zfa::status_text()
 		);
@@ -232,7 +237,10 @@ class Mietv_Einstellungen {
 		echo '<h3>' . esc_html__( 'Restore', 'mietfux' ) . '</h3><p><input type="file" name="mietv_restore" accept=".json"> <label><input type="checkbox" name="mietv_restore_confirm" value="1"> ' . esc_html__( 'I understand that', 'mietfux' ) . ' <strong>' . esc_html__( 'all existing data will be replaced', 'mietfux' ) . '</strong> ' . esc_html__( '.', 'mietfux' ) . '</label></p>';
 		submit_button( __( 'Restore backup', 'mietfux' ), 'delete' );
 		Mietv_Sicherung::box();
-		echo '</form></div>';
+		echo '</form>';
+		echo '<hr><h2>' . esc_html__( 'Security', 'mietfux' ) . '</h2>';
+		Mietv_Zfa::box();
+		echo '</div>';
 	}
 
 	private static function textarea( $k, $label, $o, $hint = '' ): void {

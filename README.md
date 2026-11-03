@@ -44,7 +44,7 @@
 | **E-Mail-Versand** | Abrechnung, Mieterhöhung, Kautionsabrechnung, Mahnung als PDF an den Mieter, Kopie an den Vermieter, Versandprotokoll |
 | **Verbraucherpreisindex** | VPI-Monatswerte (manuell, CSV, Destatis), Indexmieten mit Sperrfrist und möglicher Anpassung, vorbelegtes Erhöhungsschreiben |
 | **Änderungsprotokoll** | Wer hat wann was angelegt, geändert, gelöscht, anonymisiert – Filter, CSV, Aufbewahrungsfrist (Rechenschaftspflicht DSGVO) |
-| **Sicherung & Sicherheit** | Automatische JSON-Backups (Cron, rotierend, optional per E-Mail), 2FA-Anbindung (Plugin „Two-Factor“, Pflicht für Vermieter), Rolle „Steuerberater (nur lesen)“, Demodaten, Playground-Vorschau |
+| **Sicherung & Sicherheit** | Automatische JSON-Backups (Cron, rotierend, optional per E-Mail), eingebaute Zwei-Faktor-Anmeldung (Authenticator-App, Backup-Codes, freiwillig/Pflicht), Rolle „Steuerberater (nur lesen)“, Demodaten, Playground-Vorschau |
 | **Mahnwesen** | Zahlungserinnerung, 1. und letzte Mahnung mit Fristen, PDF, E-Mail an Mieter und Mitmieter, Warnung bei ≥ 2 Monatsmieten Rückstand |
 | **Mieterhöhung** | § 558 (Vergleichsmiete, Kappungsgrenze 15/20 %, Sperrfrist), § 557b (Index/VPI), Vereinbarung/Staffel; Schreiben und neue Kondition automatisch |
 | **Mieterportal** | Shortcode `[mietfux_portal]`: Mietkonto, Abrechnungen, freigegebene Dokumente, Schadensmeldung, Zählerstand melden |

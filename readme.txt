@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,7 @@ The user interface is available in English, German, French, Spanish, Italian, Du
 * **Owners’ association fee** for condominiums: budget plan split by cost type, monthly bookings, annual statement adjustments, bank import recognition
 * **Recurring expenses** (property tax, insurance …) with due-date plans and bank import recognition
 * **Email dispatch** of statements, rent increases, deposit settlements and dunning letters with dispatch log
-* **Consumer price index** for index-linked rents (manual, CSV or Destatis), **activity log** (GDPR accountability), **automatic backups**, two-factor integration, read-only tax advisor role
+* **Consumer price index** for index-linked rents (manual, CSV or Destatis), **activity log** (GDPR accountability), **automatic backups**, built-in two-factor login (TOTP), read-only tax advisor role
 * **Tenant portal** via shortcode `[mietfux_portal]` – rent account, statements, released documents, damage reports, meter readings
 * **Data protection** – deletion concept with retention periods, anonymisation, Art. 15 GDPR access report
 * **Setup wizard**, in-app help, focus mode, backup/restore as JSON, clean uninstall
@@ -83,6 +83,9 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 10. Activity log
 
 == Changelog ==
+
+= 1.3.0 =
+* Built-in two-factor login (TOTP authenticator app + backup codes), no extra plugin: optional or required for landlords/administrators, set up with QR code under Settings; second step on the login page with attempt limit; secrets stored encrypted. A present "Two-Factor" plugin takes precedence.
 
 = 1.2.2 =
 * Rent increase: rent index is searched by the property’s postcode; a rent index link can be saved with the property and opens directly

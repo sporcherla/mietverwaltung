@@ -46,7 +46,7 @@
 | **Email dispatch** | Statement, rent increase, deposit settlement, dunning as PDF to the tenant, copy to landlord, dispatch log |
 | **Consumer price index** | Monthly CPI values (manual, CSV, Destatis), index-linked tenancies with waiting period and possible adjustment, pre-filled increase letter |
 | **Activity log** | Who created, changed, deleted or anonymised what – filters, CSV, retention period (GDPR accountability) |
-| **Backup & security** | Automatic JSON backups (cron, rotated, optional by email), 2FA integration (“Two-Factor” plugin, mandatory for landlords), role “Tax advisor (read-only)”, demo data, Playground preview |
+| **Backup & security** | Automatic JSON backups (cron, rotated, optional by email), built-in two-factor login (authenticator app, backup codes, optional/required), role “Tax advisor (read-only)”, demo data, Playground preview |
 | **Dunning** | Payment reminder, 1st and final dunning letter with deadlines, PDF, email to tenant and co-tenant, warning at ≥ 2 months' arrears |
 | **Rent increase** | § 558 (reference rent, cap 15/20 %, waiting period), § 557b (index/CPI), agreement/stepped rent; letter and new rent condition created automatically |
 | **Tenant portal** | Shortcode `[mietfux_portal]`: rent account, statements, released documents, damage reports, meter readings |

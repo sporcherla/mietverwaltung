@@ -4961,87 +4961,103 @@ msgstr ""
 msgid "Backup deleted."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:158
+#: includes/class-mv-einstellungen.php:98
+msgid "Two-factor login is now active for your account. Your backup codes are shown below – store them safely."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:99
+msgid "Two-factor login disabled for your account."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:100
+msgid "New backup codes created – the old ones are no longer valid."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:101
+msgid "The code did not match. Check the time on your phone and try the current code again."
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:162 includes/class-mv-einstellungen.php:241
 msgid "Security"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:161
-msgid "Two-factor authentication for landlords"
-msgstr ""
-
-#: includes/class-mv-einstellungen.php:164
-msgid "Recommended only"
-msgstr ""
-
 #: includes/class-mv-einstellungen.php:165
-msgid "Required (role Landlord and administrators)"
+msgid "Two-factor login"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:171 includes/class-mv-sicherung.php:150
+#: includes/class-mv-einstellungen.php:169
+msgid "Optional – each landlord may set it up"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:170
+msgid "Required for landlords and administrators"
+msgstr ""
+
+#: includes/class-mv-einstellungen.php:176 includes/class-mv-sicherung.php:150
 msgid "Automatic backups"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:174
+#: includes/class-mv-einstellungen.php:179
 msgid "Create backups automatically"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:178
+#: includes/class-mv-einstellungen.php:183
 msgid "Weekly"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:181
+#: includes/class-mv-einstellungen.php:186
 msgid "JSON export of all tables into the uploads folder (mietfux-backups), run by WP-Cron."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:183
+#: includes/class-mv-einstellungen.php:188
 msgid "Backups to keep"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:186
+#: includes/class-mv-einstellungen.php:191
 msgid "Also send backup by email"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:190
+#: includes/class-mv-einstellungen.php:195
 msgid "Yes, to the reminder address"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:195
+#: includes/class-mv-einstellungen.php:200
 msgid "Email to tenants"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:198
+#: includes/class-mv-einstellungen.php:203
 msgid "Copy of every email to me"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:205
+#: includes/class-mv-einstellungen.php:210
 msgid "Email signature"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:205
+#: includes/class-mv-einstellungen.php:210
 msgid "Appended below the greeting; empty = landlord name and address."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:208
+#: includes/class-mv-einstellungen.php:213
 msgid "Consumer price index (Destatis)"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:209
+#: includes/class-mv-einstellungen.php:214
 msgid "GENESIS-Online user name"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:209
+#: includes/class-mv-einstellungen.php:214
 msgid "Free registration at genesis.destatis.de is required for the web service; an API token can be entered as user name (password empty). Without credentials, CSV import remains available."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:210
+#: includes/class-mv-einstellungen.php:215
 msgid "GENESIS-Online password"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:233
+#: includes/class-mv-einstellungen.php:238
 msgid "Restore backup"
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:322
+#: includes/class-mv-einstellungen.php:330
 msgid "Backup exported"
 msgstr ""
 
@@ -5117,26 +5133,118 @@ msgstr ""
 msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
 msgstr ""
 
-#: includes/class-mv-zfa.php:62
-msgid "Mietfux requires two-factor authentication for landlords. Please enable a method under “Two-Factor Options” below – the Mietfux pages are available again afterwards."
+#: includes/class-mv-zfa.php:35
+msgid "Too many wrong codes – please log in again. If your phone is unavailable, use a backup code."
 msgstr ""
 
-#: includes/class-mv-zfa.php:68
-msgid "The free “Two-Factor” plugin (by the WordPress core team) is not installed. Install and activate it under Plugins → Add New; Mietfux then enforces it for landlords when “Required” is selected."
+#: includes/class-mv-zfa.php:252
+msgid "Two-factor authentication enabled"
 msgstr ""
 
-#: includes/class-mv-zfa.php:72
-msgid "Two-Factor is active and set up for your account."
+#: includes/class-mv-zfa.php:260
+msgid "Two-factor authentication disabled"
 msgstr ""
 
-#: includes/class-mv-zfa.php:73
-msgid "Two-Factor is active, but not yet set up for your account – see your profile, “Two-Factor Options”."
+#: includes/class-mv-zfa.php:273
+msgid "My two-factor login"
 msgstr ""
 
-#: includes/class-mv-zfa.php:86
-msgid "Protect the landlord login with two-factor authentication – install the “Two-Factor” plugin (recommended in Settings → Security)"
+#: includes/class-mv-zfa.php:275
+msgid "The “Two-Factor” plugin is active and handles the second login step; set it up in your profile under “Two-Factor Options”."
 msgstr ""
 
-#: includes/class-mv-zfa.php:95
-msgid "Two-factor authentication is not yet set up for your account"
+#: includes/class-mv-zfa.php:279
+msgid "Two-factor login is switched off above. Set it to “Optional” or “Required” and save – then you can set up your authenticator app here."
+msgstr ""
+
+#: includes/class-mv-zfa.php:285
+msgid "Backup codes – shown only once. Store them safely (password manager, printout). Each code works once if your phone is unavailable."
+msgstr ""
+
+#: includes/class-mv-zfa.php:290
+msgid "Two-factor login is active for your account."
+msgstr ""
+
+#: includes/class-mv-zfa.php:291
+msgid "%d backup codes left"
+msgstr ""
+
+#: includes/class-mv-zfa.php:294
+msgid "New backup codes"
+msgstr ""
+
+#: includes/class-mv-zfa.php:295
+msgid "Disable two-factor login for your account?"
+msgstr ""
+
+#: includes/class-mv-zfa.php:296
+msgid "Disable"
+msgstr ""
+
+#: includes/class-mv-zfa.php:303
+msgid "Scan the QR code with an authenticator app (e.g. Aegis, FreeOTP, Microsoft or Google Authenticator, 1Password) or enter the key manually, then confirm with the current 6-digit code."
+msgstr ""
+
+#: includes/class-mv-zfa.php:305
+msgid "Key for manual entry"
+msgstr ""
+
+#: includes/class-mv-zfa.php:309
+msgid "Code from the app"
+msgstr ""
+
+#: includes/class-mv-zfa.php:310
+msgid "Enable two-factor login"
+msgstr ""
+
+#: includes/class-mv-zfa.php:366
+msgid "Login with second factor"
+msgstr ""
+
+#: includes/class-mv-zfa.php:377
+msgid "The code is not valid. Please try again."
+msgstr ""
+
+#: includes/class-mv-zfa.php:384
+msgid "Second login step"
+msgstr ""
+
+#: includes/class-mv-zfa.php:399
+msgid "Enter the 6-digit code from your authenticator app – or one of your backup codes."
+msgstr ""
+
+#: includes/class-mv-zfa.php:401
+msgid "Code"
+msgstr ""
+
+#: includes/class-mv-zfa.php:405
+msgid "Log in"
+msgstr ""
+
+#: includes/class-mv-zfa.php:407
+msgid "%d attempts left"
+msgstr ""
+
+#: includes/class-mv-zfa.php:410
+msgid "Back to login"
+msgstr ""
+
+#: includes/class-mv-zfa.php:443
+msgid "Mietfux requires two-factor login for landlords. Please set it up below under “My two-factor login” – the other pages are available again afterwards."
+msgstr ""
+
+#: includes/class-mv-zfa.php:449
+msgid "The “Two-Factor” plugin is active and takes precedence; Mietfux only enforces it for landlords when “Required” is selected."
+msgstr ""
+
+#: includes/class-mv-zfa.php:451
+msgid "Built in, no extra plugin: authenticator app (TOTP) plus backup codes. “Optional” lets every landlord set it up; “Required” enforces it for landlords and administrators. Tenants in the portal are not affected."
+msgstr ""
+
+#: includes/class-mv-zfa.php:464
+msgid "Protect the landlord login with two-factor authentication – switch it on under Settings → Security"
+msgstr ""
+
+#: includes/class-mv-zfa.php:473
+msgid "Two-factor login is not yet set up for your account"
 msgstr ""
