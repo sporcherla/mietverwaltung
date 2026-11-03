@@ -3669,6 +3669,12 @@ msgstr "Canone indicizzato (§ 557b BGB): una locazione è considerata indicizza
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "Il canone può essere adeguato al più presto un anno dopo l’ultima determinazione; la dichiarazione deve essere in forma testuale, indicare la variazione dell’indice e il nuovo canone, e ha effetto dall’inizio del secondo mese successivo al ricevimento. «Prepara adeguamento» apre la pagina dell’aumento del canone con i valori dell’indice precompilati."
 
+msgid "Rent index (link)"
+msgstr "Indice degli affitti (link)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Link all’indice degli affitti del comune per questo CAP; mostrato nella pagina di aumento del canone. Vuoto = ricerca per CAP."
+
 msgid "Index / CPI"
 msgstr "Indice / IPC"
 
@@ -3782,6 +3788,24 @@ msgstr "Ripristina backup"
 
 msgid "Backup exported"
 msgstr "Backup esportato"
+
+msgid "Rent index"
+msgstr "Indice degli affitti"
+
+msgid "Open rent index %s"
+msgstr "Apri indice degli affitti %s"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Cerca indice degli affitti per %1$s %2$s"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "La ricerca usa il CAP dell’immobile. Salvare il link nell’immobile per aprirlo direttamente la prossima volta."
+
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Indice degli affitti qualificato del comune, tre alloggi comparabili o perizia"
+
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "es. «Indice degli affitti %1$s %2$d, campo C3: 8,90–10,40 €/m², media 9,60 €/m²»"
 
 msgid "File not found."
 msgstr "File non trovato."

@@ -3669,6 +3669,12 @@ msgstr "Indexmiete (§ 557b BGB): Ein Mietverhältnis gilt als Indexmiete, wenn 
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "Die Miete darf frühestens ein Jahr nach der letzten Festlegung angepasst werden; die Erklärung muss in Textform erfolgen, Indexänderung und neue Miete angeben und wird zu Beginn des übernächsten Monats nach Zugang wirksam. „Anpassung vorbereiten“ öffnet die Seite Mieterhöhung mit vorbelegten Indexwerten."
 
+msgid "Rent index (link)"
+msgstr "Mietspiegel (Link)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Link zum Mietspiegel der Gemeinde für diese Postleitzahl; wird auf der Mieterhöhungsseite angezeigt. Leer = Suche nach Postleitzahl."
+
 msgid "Index / CPI"
 msgstr "Index / VPI"
 
@@ -3782,6 +3788,24 @@ msgstr "Backup einspielen"
 
 msgid "Backup exported"
 msgstr "Backup exportiert"
+
+msgid "Rent index"
+msgstr "Mietspiegel"
+
+msgid "Open rent index %s"
+msgstr "Mietspiegel %s öffnen"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Mietspiegel für %1$s %2$s suchen"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "Gesucht wird nach der Postleitzahl des Objekts. Den Link zum Mietspiegel beim Objekt speichern, dann öffnet er sich beim nächsten Mal direkt."
+
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Qualifizierter Mietspiegel der Gemeinde, drei Vergleichswohnungen oder Gutachten"
+
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "z. B. „Mietspiegel %1$s %2$d, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“"
 
 msgid "File not found."
 msgstr "Datei nicht gefunden."

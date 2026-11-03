@@ -248,6 +248,11 @@ class Mietv_Admin {
 						'type'  => 'int',
 						'hint'  => esc_html__( '50–70 % by consumption, remainder by living area (§ 7 HeizkostenV). Central/district heating only.', 'mietfux' ),
 					],
+					'mietspiegel_url'     => [
+						'label' => esc_html__( 'Rent index (link)', 'mietfux' ),
+						'type'  => 'text',
+						'hint'  => esc_html__( 'Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode.', 'mietfux' ),
+					],
 					'notiz'               => [
 						'label' => esc_html__( 'Note', 'mietfux' ),
 						'type'  => 'textarea',

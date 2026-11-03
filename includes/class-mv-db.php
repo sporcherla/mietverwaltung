@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Mietv_DB {
 
-	const DB_VERSION = '15';
+	const DB_VERSION = '16';
 
 	public static function install(): void {
 		self::create_tables();
@@ -202,6 +202,7 @@ class Mietv_DB {
   baujahr smallint(5) unsigned DEFAULT NULL,
   heizung varchar(20) NOT NULL DEFAULT 'zentral',
   hk_verbrauchsanteil tinyint(3) unsigned NOT NULL DEFAULT 70,
+  mietspiegel_url varchar(255) NOT NULL DEFAULT '',
   notiz text,
   created_at datetime DEFAULT NULL,
   PRIMARY KEY  (id),

@@ -3669,6 +3669,12 @@ msgstr "Renda indexada (§ 557b BGB): um arrendamento conta como indexado se a o
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "A renda pode ser ajustada no mínimo um ano após a última fixação; a declaração tem de ser em forma textual, indicar a variação do índice e a nova renda, e produz efeitos no início do segundo mês após a receção. «Preparar ajuste» abre a página de aumento de renda com os valores do índice pré-preenchidos."
 
+msgid "Rent index (link)"
+msgstr "Índice de rendas (ligação)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Ligação ao índice de rendas do município para este código postal; mostrado na página de aumento de renda. Vazio = pesquisa por código postal."
+
 msgid "Index / CPI"
 msgstr "Índice / IPC"
 
@@ -3782,6 +3788,24 @@ msgstr "Restaurar cópia de segurança"
 
 msgid "Backup exported"
 msgstr "Cópia de segurança exportada"
+
+msgid "Rent index"
+msgstr "Índice de rendas"
+
+msgid "Open rent index %s"
+msgstr "Abrir índice de rendas %s"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Pesquisar índice de rendas para %1$s %2$s"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "A pesquisa usa o código postal do imóvel. Guarde a ligação no imóvel para a abrir diretamente da próxima vez."
+
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Índice de rendas qualificado do município, três habitações comparáveis ou parecer pericial"
+
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "p. ex. «Índice de rendas %1$s %2$d, campo C3: 8,90–10,40 €/m², média 9,60 €/m²»"
 
 msgid "File not found."
 msgstr "Ficheiro não encontrado."

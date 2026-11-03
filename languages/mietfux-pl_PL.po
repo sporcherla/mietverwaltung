@@ -3669,6 +3669,12 @@ msgstr "Czynsz indeksowany (§ 557b BGB): umowa najmu jest traktowana jako indek
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "Czynsz można dostosować najwcześniej rok po ostatnim ustaleniu; oświadczenie musi mieć formę tekstową, podawać zmianę indeksu i nowy czynsz i obowiązuje od początku drugiego miesiąca po doręczeniu. „Przygotuj korektę” otwiera stronę podwyżki czynszu z wypełnionymi wartościami indeksu."
 
+msgid "Rent index (link)"
+msgstr "Zestawienie czynszów (link)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Link do gminnego zestawienia czynszów dla tego kodu pocztowego; wyświetlany na stronie podwyżki czynszu. Puste = wyszukiwanie według kodu pocztowego."
+
 msgid "Index / CPI"
 msgstr "Indeks / CPI"
 
@@ -3782,6 +3788,24 @@ msgstr "Przywróć kopię zapasową"
 
 msgid "Backup exported"
 msgstr "Kopia zapasowa wyeksportowana"
+
+msgid "Rent index"
+msgstr "Zestawienie czynszów"
+
+msgid "Open rent index %s"
+msgstr "Otwórz zestawienie czynszów %s"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Szukaj zestawienia czynszów dla %1$s %2$s"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "Wyszukiwanie według kodu pocztowego nieruchomości. Zapisz link przy nieruchomości, aby następnym razem otworzyć go bezpośrednio."
+
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Kwalifikowane zestawienie czynszów gminy, trzy porównywalne mieszkania lub opinia rzeczoznawcy"
+
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "np. „Zestawienie czynszów %1$s %2$d, pole C3: 8,90–10,40 €/m², średnia 9,60 €/m²”"
 
 msgid "File not found."
 msgstr "Nie znaleziono pliku."

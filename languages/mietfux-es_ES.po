@@ -3669,6 +3669,12 @@ msgstr "Alquiler indexado (§ 557b BGB): un arrendamiento cuenta como indexado s
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "El alquiler puede ajustarse como pronto un año después de la última fijación; la declaración debe hacerse en forma de texto indicando la variación del índice y el nuevo alquiler, y surte efecto al inicio del segundo mes tras la recepción. «Preparar ajuste» abre la página de subida de alquiler con los valores del índice precargados."
 
+msgid "Rent index (link)"
+msgstr "Índice de alquileres (enlace)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Enlace al índice de alquileres del municipio para este código postal; se muestra en la página de subida de renta. Vacío = búsqueda por código postal."
+
 msgid "Index / CPI"
 msgstr "Índice / IPC"
 
@@ -3782,6 +3788,24 @@ msgstr "Restaurar copia de seguridad"
 
 msgid "Backup exported"
 msgstr "Copia de seguridad exportada"
+
+msgid "Rent index"
+msgstr "Índice de alquileres"
+
+msgid "Open rent index %s"
+msgstr "Abrir índice de alquileres %s"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Buscar índice de alquileres para %1$s %2$s"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "Se busca por el código postal del inmueble. Guarde el enlace en el inmueble para abrirlo directamente la próxima vez."
+
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Índice de alquileres cualificado del municipio, tres viviendas comparables o dictamen pericial"
+
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "p. ej. «Índice de alquileres %1$s %2$d, campo C3: 8,90–10,40 €/m², media 9,60 €/m²»"
 
 msgid "File not found."
 msgstr "Archivo no encontrado."

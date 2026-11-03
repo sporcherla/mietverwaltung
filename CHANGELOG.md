@@ -2,6 +2,11 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.2.2 – Mietspiegel nach Postleitzahl
+
+- Mieterhöhung (Vergleichsmiete): Schaltfläche „Mietspiegel für PLZ Ort suchen“ (Suche nach der Postleitzahl des Objekts) und neues Objektfeld „Mietspiegel (Link)“ – gespeicherter Link öffnet sich direkt. Hinweistexte ohne festen Ortsbezug.
+- Datenbank-Version 16 (Spalte `objekte.mietspiegel_url`).
+
 ## 1.2.1 – Destatis-Abruf auf neuen Webservice umgestellt
 
 - Destatis hat die alte Schnittstelle (www-genesis.destatis.de/genesisWS) abgeschaltet; der Abruf nutzt jetzt genesis.destatis.de/genesisWS/rest/2020 per POST mit Zugangsdaten im HTTP-Header. Der Gastzugang wird von Destatis für den Webservice nicht mehr akzeptiert – ein kostenloses GENESIS-Online-Konto (oder API-Token) ist nötig; ohne Konto bleibt der CSV-Import. Klarere Fehlermeldungen bei fehlendem Login oder HTML-Antwort.

@@ -232,9 +232,18 @@ class Mietv_Erhoehung {
 		printf( '<tr><th>' . esc_html__( 'Receipt of the letter by the tenant', 'mietfux' ) . '</th><td><input type="date" name="zugang" value="%s"></td></tr>', esc_attr( $in['zugang'] ?? current_time( 'Y-m-d' ) ) );
 		printf( '<input type="hidden" name="flaeche" value="%s">', esc_attr( $flaeche ) );
 		if ( $art === 'vergleich' ) {
-			printf( '<tr><th>' . esc_html__( 'Local reference rent (€/m²)', 'mietfux' ) . '</th><td><input type="text" name="vergleich_qm" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'Rent index (qualified for Fürth/Nuremberg), three comparable flats or expert opinion', 'mietfux' ) . '</span></td></tr>', esc_attr( $in['vergleich_qm'] ?? '' ) );
+			$ob = $mv ? $wpdb->get_row( $wpdb->prepare( 'SELECT o.* FROM ' . $wpdb->prefix . 'mv_objekte o JOIN ' . $wpdb->prefix . 'mv_einheiten e ON e.objekt_id = o.id WHERE e.id = %d', $mv->einheit_id ) ) : null;
+			if ( $ob ) {
+				$suche = 'https://duckduckgo.com/?q=' . rawurlencode( 'Mietspiegel ' . trim( $ob->plz . ' ' . $ob->ort, " \t\n\r\0\x0B" ) );
+				echo '<tr><th>' . esc_html__( 'Rent index', 'mietfux' ) . '</th><td>';
+				if ( ! empty( $ob->mietspiegel_url ) ) {
+					printf( '<a href="%s" target="_blank" rel="noopener" class="button">%s</a> ', esc_url( $ob->mietspiegel_url ), esc_html( sprintf( /* translators: %s: Ort */ __( 'Open rent index %s', 'mietfux' ), $ob->ort ) ) );
+				}
+				printf( '<a href="%s" target="_blank" rel="noopener" class="button">%s</a> <span class="description">%s</span></td></tr>', esc_url( $suche ), esc_html( sprintf( /* translators: %1$s: PLZ, %2$s: Ort */ __( 'Search rent index for %1$s %2$s', 'mietfux' ), $ob->plz, $ob->ort ) ), esc_html__( 'Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time.', 'mietfux' ) );
+			}
+			printf( '<tr><th>' . esc_html__( 'Local reference rent (€/m²)', 'mietfux' ) . '</th><td><input type="text" name="vergleich_qm" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'Qualified rent index of the municipality, three comparable flats or expert opinion', 'mietfux' ) . '</span></td></tr>', esc_attr( $in['vergleich_qm'] ?? '' ) );
 			printf( '<tr><th>' . esc_html__( 'Desired new base rent (€)', 'mietfux' ) . '</th><td><input type="text" name="neu" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'empty = permitted maximum', 'mietfux' ) . '</span></td></tr>', esc_attr( $in['neu'] ?? '' ) );
-			printf( '<tr><th>' . esc_html__( 'Justification', 'mietfux' ) . '</th><td><textarea name="begruendung" rows="3" class="large-text">%s</textarea><p class="description">' . esc_html__( 'e.g. “Fürth rent index 2025, field C3: €8.90–10.40/m², mean €9.60/m²”', 'mietfux' ) . '</p></td></tr>', esc_textarea( $in['begruendung'] ?? '' ) );
+			printf( '<tr><th>' . esc_html__( 'Justification', 'mietfux' ) . '</th><td><textarea name="begruendung" rows="3" class="large-text">%s</textarea><p class="description">' . esc_html( sprintf( /* translators: %1$s: Ort, %2$d: Jahr */ __( 'e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”', 'mietfux' ), $ob->ort ?? '…', (int) current_time( 'Y' ) ) ) . '</p></td></tr>', esc_textarea( $in['begruendung'] ?? '' ) );
 		} elseif ( $art === 'index' ) {
 			printf( '<tr><th>' . esc_html__( 'CPI at last rent setting', 'mietfux' ) . '</th><td><input type="text" name="vpi_alt" value="%s" class="small-text mv-num"> <span class="description">' . esc_html__( 'Consumer price index Germany, base 2020 = 100 (Destatis)', 'mietfux' ) . '</span></td></tr>', esc_attr( $in['vpi_alt'] ?? '' ) );
 			printf( '<tr><th>' . esc_html__( 'Current CPI', 'mietfux' ) . '</th><td><input type="text" name="vpi_neu" value="%s" class="small-text mv-num"></td></tr>', esc_attr( $in['vpi_neu'] ?? '' ) );

@@ -4161,7 +4161,7 @@ msgstr ""
 msgid "portal login"
 msgstr ""
 
-#: .claude/worktrees/agent-a4d8df68b5525cd5e/includes/class-mv-protokoll.php:430 .claude/worktrees/agent-a4d8df68b5525cd5e/includes/class-mv-protokoll.php:540 includes/class-mv-admin.php:1342
+#: .claude/worktrees/agent-a4d8df68b5525cd5e/includes/class-mv-protokoll.php:430 .claude/worktrees/agent-a4d8df68b5525cd5e/includes/class-mv-protokoll.php:540 includes/class-mv-admin.php:1347
 msgid "Activity log"
 msgstr ""
 
@@ -4473,7 +4473,7 @@ msgstr ""
 msgid "Recurring expense “%1$s” (%2$s) due but not yet booked: %3$s"
 msgstr ""
 
-#: .claude/worktrees/agent-a99795a34a5a29371/includes/class-mv-dauerbelege.php:306 .claude/worktrees/agent-a99795a34a5a29371/includes/class-mv-dauerbelege.php:413 includes/class-mv-admin.php:1337
+#: .claude/worktrees/agent-a99795a34a5a29371/includes/class-mv-dauerbelege.php:306 .claude/worktrees/agent-a99795a34a5a29371/includes/class-mv-dauerbelege.php:413 includes/class-mv-admin.php:1342
 msgid "Recurring expenses"
 msgstr ""
 
@@ -4649,7 +4649,7 @@ msgstr ""
 msgid "Send by e-mail"
 msgstr ""
 
-#: .claude/worktrees/agent-aace5bee55094d801/includes/class-mv-versand.php:374 includes/class-mv-admin.php:1344 includes/class-mv-versand.php:374
+#: .claude/worktrees/agent-aace5bee55094d801/includes/class-mv-versand.php:374 includes/class-mv-admin.php:1349 includes/class-mv-versand.php:374
 msgid "Dispatch log"
 msgstr ""
 
@@ -4737,7 +4737,7 @@ msgstr ""
 msgid "No monthly index values found in the file. Expected: GENESIS flat CSV (ffcsv) of table 61111-0002."
 msgstr ""
 
-#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:479 .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:617 includes/class-mv-admin.php:1343
+#: .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:479 .claude/worktrees/agent-afc2d2a0173535057/includes/class-mv-vpi.php:617 includes/class-mv-admin.php:1348
 msgid "Consumer price index (CPI)"
 msgstr ""
 
@@ -4885,15 +4885,23 @@ msgstr ""
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr ""
 
-#: includes/class-mv-admin.php:1326
+#: includes/class-mv-admin.php:252
+msgid "Rent index (link)"
+msgstr ""
+
+#: includes/class-mv-admin.php:254
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr ""
+
+#: includes/class-mv-admin.php:1331
 msgid "Index / CPI"
 msgstr ""
 
-#: includes/class-mv-admin.php:1848
+#: includes/class-mv-admin.php:1853
 msgid "Demo data created – have a look around. Delete everything later under Settings & backup → Restore, or start fresh via Uninstall."
 msgstr ""
 
-#: includes/class-mv-admin.php:1849
+#: includes/class-mv-admin.php:1854
 msgid "Demo data are only possible on an empty installation."
 msgstr ""
 
@@ -5035,6 +5043,30 @@ msgstr ""
 
 #: includes/class-mv-einstellungen.php:322
 msgid "Backup exported"
+msgstr ""
+
+#: includes/class-mv-erhoehung.php:238
+msgid "Rent index"
+msgstr ""
+
+#: includes/class-mv-erhoehung.php:240
+msgid "Open rent index %s"
+msgstr ""
+
+#: includes/class-mv-erhoehung.php:242
+msgid "Search rent index for %1$s %2$s"
+msgstr ""
+
+#: includes/class-mv-erhoehung.php:242
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr ""
+
+#: includes/class-mv-erhoehung.php:244
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr ""
+
+#: includes/class-mv-erhoehung.php:246
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
 msgstr ""
 
 #: includes/class-mv-sicherung.php:122

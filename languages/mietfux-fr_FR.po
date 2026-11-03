@@ -3669,6 +3669,12 @@ msgstr "Loyer indexé (§ 557b BGB) : un bail est considéré comme indexé si l
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "Le loyer peut être ajusté au plus tôt un an après la dernière fixation ; la déclaration doit être faite sous forme de texte en indiquant la variation de l’indice et le nouveau loyer, et prend effet au début du deuxième mois suivant la réception. « Préparer l’ajustement » ouvre la page d’augmentation de loyer avec les valeurs d’indice préremplies."
 
+msgid "Rent index (link)"
+msgstr "Indice des loyers (lien)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Lien vers l’indice des loyers de la commune pour ce code postal ; affiché sur la page d’augmentation de loyer. Vide = recherche par code postal."
+
 msgid "Index / CPI"
 msgstr "Indice / IPC"
 
@@ -3782,6 +3788,24 @@ msgstr "Restaurer une sauvegarde"
 
 msgid "Backup exported"
 msgstr "Sauvegarde exportée"
+
+msgid "Rent index"
+msgstr "Indice des loyers"
+
+msgid "Open rent index %s"
+msgstr "Ouvrir l’indice des loyers %s"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Rechercher l’indice des loyers pour %1$s %2$s"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "Recherche par le code postal du bien. Enregistrez le lien avec le bien pour l’ouvrir directement la prochaine fois."
+
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Indice des loyers qualifié de la commune, trois logements comparables ou expertise"
+
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "p. ex. « Indice des loyers %1$s %2$d, case C3 : 8,90–10,40 €/m², moyenne 9,60 €/m² »"
 
 msgid "File not found."
 msgstr "Fichier introuvable."

@@ -3669,6 +3669,12 @@ msgstr "Indexhuur (§ 557b BGB): een huurovereenkomst geldt als indexhuur als de
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "De huur mag op zijn vroegst een jaar na de laatste vaststelling worden aangepast; de verklaring moet in tekstvorm gebeuren, de indexwijziging en de nieuwe huur vermelden en gaat in aan het begin van de tweede maand na ontvangst. ‘Aanpassing voorbereiden’ opent de pagina Huurverhoging met vooraf ingevulde indexwaarden."
 
+msgid "Rent index (link)"
+msgstr "Huurprijsindex (link)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Link naar de huurprijsindex van de gemeente voor deze postcode; wordt op de pagina huurverhoging getoond. Leeg = zoeken op postcode."
+
 msgid "Index / CPI"
 msgstr "Index / CPI"
 
@@ -3782,6 +3788,24 @@ msgstr "Back-up herstellen"
 
 msgid "Backup exported"
 msgstr "Back-up geëxporteerd"
+
+msgid "Rent index"
+msgstr "Huurprijsindex"
+
+msgid "Open rent index %s"
+msgstr "Huurprijsindex %s openen"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Huurprijsindex zoeken voor %1$s %2$s"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "Er wordt gezocht op de postcode van het object. Sla de link bij het object op om hem de volgende keer direct te openen."
+
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Gekwalificeerde huurprijsindex van de gemeente, drie vergelijkbare woningen of taxatie"
+
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "bijv. ‘Huurprijsindex %1$s %2$d, veld C3: € 8,90–10,40/m², gemiddeld € 9,60/m²’"
 
 msgid "File not found."
 msgstr "Bestand niet gevonden."
