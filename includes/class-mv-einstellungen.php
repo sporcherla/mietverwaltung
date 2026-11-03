@@ -50,6 +50,7 @@ class Mietv_Einstellungen {
 			'versand_signatur'            => '',
 			'vpi_user'                    => '',
 			'vpi_pass'                    => '',
+			'portal_vollbild'             => '1',
 		];
 	}
 
@@ -157,6 +158,19 @@ class Mietv_Einstellungen {
 
 		echo '<h2>' . esc_html__( 'Data protection', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
 		self::text( 'aufbewahrung_jahre', __( 'Retention period after end of tenancy (years)', 'mietfux' ), $o, __( '10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year.', 'mietfux' ) );
+		echo '</tbody></table>';
+
+		echo '<h2>' . esc_html__( 'Tenant portal', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
+		self::select(
+			'portal_vollbild',
+			__( 'Portal layout', 'mietfux' ),
+			$o,
+			[
+				'1' => esc_html__( 'Own full-page layout (recommended, without theme header/footer)', 'mietfux' ),
+				'0' => esc_html__( 'Embedded in the theme page', 'mietfux' ),
+			],
+			__( 'The portal is shown on the page containing the [mietfux_portal] shortcode.', 'mietfux' )
+		);
 		echo '</tbody></table>';
 
 		echo '<h2>' . esc_html__( 'Security', 'mietfux' ) . '</h2><table class="form-table"><tbody>';
