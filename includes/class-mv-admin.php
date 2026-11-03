@@ -2322,8 +2322,11 @@ class Mietv_Admin {
 	/** Summen je Monat (Y-m) aus einer Tabelle mit datum/betrag im Zeitraum. */
 	private static function monatssummen( string $table, string $von, string $bis ): array {
 		global $wpdb;
-		$out = [];
-		foreach ( $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betrag FROM ' . mietv_table( $table ) . ' WHERE datum BETWEEN %s AND %s', $von, $bis ) ) as $r ) { // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Tabellenname aus interner Konstante.
+		$out  = [];
+		$rows = $table === 'belege'
+			? $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betrag FROM ' . $wpdb->prefix . 'mv_belege WHERE datum BETWEEN %s AND %s', $von, $bis ) )
+			: $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betrag FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE datum BETWEEN %s AND %s', $von, $bis ) );
+		foreach ( $rows as $r ) {
 			$k         = substr( (string) $r->datum, 0, 7 );
 			$out[ $k ] = ( $out[ $k ] ?? 0.0 ) + (float) $r->betrag;
 		}

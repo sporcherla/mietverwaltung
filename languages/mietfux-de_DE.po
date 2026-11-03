@@ -24,6 +24,12 @@ msgstr "„%1$s“ (%2$s) nicht umgelegt: Objekt hat dezentrale Heizung – Miet
 msgid "“%1$s”: no (complete) meter readings for the period – allocated by living area instead%2$s."
 msgstr "„%1$s“: Keine (vollständigen) Zählerstände für den Zeitraum – ersatzweise nach Wohnfläche verteilt%2$s."
 
+msgid "Heating meters are read by a reading service: enter the heating/hot-water share from the service’s statement for %s (below the overview)."
+msgstr "Die Heizungszähler werden vom Ablesedienst abgelesen: Heiz-/Warmwasseranteil aus der Ablesedienst-Abrechnung für %s erfassen (unterhalb der Übersicht)."
+
+msgid "Check: heating receipts in the period total %1$s, the reading-service shares entered total %2$s."
+msgstr "Prüfung: Heizkostenbelege im Zeitraum ergeben %1$s, die erfassten Ablesedienst-Anteile %2$s."
+
 msgid "Permission denied."
 msgstr "Keine Berechtigung."
 
@@ -108,6 +114,9 @@ msgstr "Fertigstellen und im Mieterportal freigeben"
 msgid "Heating: %1$s%2$s · Status: %3$s"
 msgstr "Heizung: %1$s%2$s · Status: %3$s"
 
+msgid "allocation by reading service"
+msgstr "Verteilung laut Ablesedienst"
+
 msgid "Tenant / unit"
 msgstr "Mieter / Einheit"
 
@@ -146,6 +155,21 @@ msgstr "Nachzahlung"
 
 msgid "Credit"
 msgstr "Guthaben"
+
+msgid "Heating costs according to the reading service"
+msgstr "Heizkosten laut Ablesedienst"
+
+msgid "The heating meters of this property are read by a reading service (ista, Techem, Brunata …). Enter each tenant’s share from the service’s statement; these amounts replace the HeizkostenV allocation. Heating receipts are still recorded for Anlage V."
+msgstr "Die Heizungszähler dieses Objekts werden vom Ablesedienst (ista, Techem, Brunata …) abgelesen. Tragen Sie den Anteil je Mieter aus der Ablesedienst-Abrechnung ein; diese Beträge ersetzen die Verteilung nach HeizkostenV. Heizkostenbelege bleiben für die Anlage V erfasst."
+
+msgid "Heating (€)"
+msgstr "Heizung (€)"
+
+msgid "Hot water (€)"
+msgstr "Warmwasser (€)"
+
+msgid "Save and recalculate"
+msgstr "Speichern und neu berechnen"
 
 msgid "Items %s"
 msgstr "Positionen %s"
@@ -227,6 +251,30 @@ msgstr "Haushaltsnahe Dienstleistungen (§ 35a Abs. 2 EStG) – Ihr Anteil Lohnk
 
 msgid "Receipts may be inspected by appointment. Objections to the statement must be raised within 12 months of receipt (§ 556 (3) sentence 5 BGB)."
 msgstr "Die Belege können nach Terminvereinbarung eingesehen werden. Einwendungen gegen die Abrechnung sind innerhalb von 12 Monaten nach Zugang mitzuteilen (§ 556 Abs. 3 Satz 5 BGB)."
+
+msgid "Tenant"
+msgstr "Mieter/in"
+
+msgid "Unit"
+msgstr "Einheit"
+
+msgid "Receipt"
+msgstr "Beleg"
+
+msgid "Payment"
+msgstr "Zahlung"
+
+msgid "Tenancy"
+msgstr "Mietverhältnis"
+
+msgid "Search tenant, property, unit …"
+msgstr "Mieter, Objekt, Einheit suchen …"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "+ New"
+msgstr "+ Neu"
 
 msgid "Invalid request."
 msgstr "Ungültige Anfrage."
@@ -330,14 +378,44 @@ msgstr "Heizkosten: Verbrauchsanteil (%)"
 msgid "50–70 % by consumption, remainder by living area (§ 7 HeizkostenV). Central/district heating only."
 msgstr "50–70 % nach Verbrauch, Rest nach Wohnfläche (§ 7 HeizkostenV). Nur bei Zentralheizung/Fernwärme."
 
+msgid "Rent index (link)"
+msgstr "Mietspiegel (Link)"
+
+msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
+msgstr "Link zum Mietspiegel der Gemeinde für diese Postleitzahl; wird auf der Mieterhöhungsseite angezeigt. Leer = Suche nach Postleitzahl."
+
+msgid "Heating meters read by"
+msgstr "Ablesung der Heizungszähler durch"
+
+msgid "Landlord / tenant (readings entered in Mietfux, allocated by HeizkostenV)"
+msgstr "Vermieter / Mieter (Stände werden in Mietfux erfasst, Verteilung nach HeizkostenV)"
+
+msgid "Reading service (ista, Techem, Brunata …) – enter each tenant’s share from the service’s statement"
+msgstr "Ablesedienst (ista, Techem, Brunata …) – Anteil je Mieter aus der Abrechnung des Ablesedienstes erfassen"
+
+msgid "With a reading service, heating and hot-water meters are hidden in the tenant portal and the heating costs are taken from the service’s statement."
+msgstr "Bei Ablesedienst werden Heizungs- und Warmwasserzähler im Mieterportal ausgeblendet und die Heizkosten aus der Abrechnung des Ablesedienstes übernommen."
+
+msgid "Water meters"
+msgstr "Wasserzähler"
+
+msgid "Water meters per unit – allocated by consumption"
+msgstr "Wohnungswasserzähler vorhanden – Verteilung nach Verbrauch"
+
+msgid "No water meters per unit – allocated by living area"
+msgstr "Keine Wohnungswasserzähler – Verteilung nach Wohnfläche"
+
+msgid "No water meters per unit – allocated by persons"
+msgstr "Keine Wohnungswasserzähler – Verteilung nach Personen"
+
+msgid "Without water meters the water/sewage costs are allocated by this key and no water meters are shown in the tenant portal."
+msgstr "Ohne Wasserzähler werden Wasser-/Abwasserkosten nach diesem Schlüssel verteilt und im Mieterportal keine Wasserzähler angezeigt."
+
 msgid "Note"
 msgstr "Notiz"
 
 msgid "Units"
 msgstr "Einheiten"
-
-msgid "Unit"
-msgstr "Einheit"
 
 msgid "e.g. “Ground floor flat, left”"
 msgstr "z. B. „Wohnung EG links“"
@@ -441,9 +519,6 @@ msgstr "Benutzer anlegen unter „Benutzer“, Rolle „Abonnent“ genügt."
 msgid "Tenancies"
 msgstr "Mietverhältnisse"
 
-msgid "Tenancy"
-msgstr "Mietverhältnis"
-
 msgid "Start of tenancy"
 msgstr "Mietbeginn"
 
@@ -498,9 +573,6 @@ msgstr "Heizkosten-Vorauszahlung (€)"
 msgid "Payments"
 msgstr "Zahlungen"
 
-msgid "Payment"
-msgstr "Zahlung"
-
 msgid "Payment date"
 msgstr "Zahlungsdatum"
 
@@ -527,9 +599,6 @@ msgstr "Übersicht (abgehakt)"
 
 msgid "Receipts"
 msgstr "Belege"
-
-msgid "Receipt"
-msgstr "Beleg"
 
 msgid "Payment date – decisive for the tax year (§ 11 EStG). For direct debits: date of debit."
 msgstr "Abflussdatum – maßgeblich für das Steuerjahr (§ 11 EStG). Bei Lastschrift: Tag der Abbuchung."
@@ -626,6 +695,18 @@ msgstr "Strom (kWh)"
 
 msgid "Meter number"
 msgstr "Zählernummer"
+
+msgid "Read by"
+msgstr "Ablesung durch"
+
+msgid "Tenant (can enter readings in the portal)"
+msgstr "Mieter (kann Stände im Portal melden)"
+
+msgid "Reading service"
+msgstr "Ablesedienst"
+
+msgid "Landlord"
+msgstr "Vermieter"
 
 msgid "Meter readings"
 msgstr "Zählerstände"
@@ -957,6 +1038,9 @@ msgstr "umlagefähig"
 msgid "Main meter"
 msgstr "Hauptzähler"
 
+msgid "Tax (Anlage V)"
+msgstr "Steuer (Anlage V)"
+
 msgid "Daily"
 msgstr "Alltag"
 
@@ -984,6 +1068,9 @@ msgstr "Zinsbescheinigung"
 msgid "Bank rules"
 msgstr "Bankregeln"
 
+msgid "Index / CPI"
+msgstr "Index / VPI"
+
 msgid "Owners’ fee"
 msgstr "Hausgeld"
 
@@ -1002,14 +1089,23 @@ msgstr "Kaution"
 msgid "Owners’ association fee"
 msgstr "Hausgeld (WEG)"
 
+msgid "Recurring expenses"
+msgstr "Dauerbelege"
+
 msgid "Loan account"
 msgstr "Darlehenskonto"
 
-msgid "Tax (Anlage V)"
-msgstr "Steuer (Anlage V)"
-
 msgid "Data protection"
 msgstr "Datenschutz"
+
+msgid "Activity log"
+msgstr "Protokoll"
+
+msgid "Consumer price index (CPI)"
+msgstr "Verbraucherpreisindex (VPI)"
+
+msgid "Dispatch log"
+msgstr "Versandprotokoll"
 
 msgid "Settings & backup"
 msgstr "Einstellungen & Backup"
@@ -1098,6 +1194,12 @@ msgstr "Gespeichert."
 msgid "Deleted."
 msgstr "Gelöscht."
 
+msgid "Demo data created – have a look around. Delete everything later under Settings & backup → Restore, or start fresh via Uninstall."
+msgstr "Demodaten angelegt – schau dich um. Später alles löschen über Einstellungen & Backup → Wiederherstellen oder neu beginnen über Deinstallation."
+
+msgid "Demo data are only possible on an empty installation."
+msgstr "Demodaten sind nur auf einer leeren Installation möglich."
+
 msgid "Cannot delete: dependent records still exist."
 msgstr "Löschen nicht möglich: Es sind noch abhängige Datensätze vorhanden."
 
@@ -1110,14 +1212,20 @@ msgstr "%s hinzufügen"
 msgid "all"
 msgstr "alle"
 
-msgid "Actions"
-msgstr "Aktionen"
+msgid "No entries for this year."
+msgstr "Keine Einträge für dieses Jahr."
 
 msgid "No entries yet."
 msgstr "Noch keine Buchung."
 
+msgid "Actions"
+msgstr "Aktionen"
+
 msgid "Open receipt"
 msgstr "Beleg öffnen"
+
+msgid "Ended"
+msgstr "Beendet"
 
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -1152,17 +1260,47 @@ msgstr "– bitte wählen –"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Dun"
+msgstr "Mahnen"
+
+msgid "Book"
+msgstr "Buchen"
+
+msgid "Assign"
+msgstr "Zuordnen"
+
+msgid "Enter"
+msgstr "Eintragen"
+
+msgid "Check"
+msgstr "Prüfen"
+
+msgid "View"
+msgstr "Ansehen"
+
+msgid "Anonymise"
+msgstr "Anonymisieren"
+
+msgid "Income and expenses per month"
+msgstr "Einnahmen und Ausgaben je Monat"
+
+msgid "Income"
+msgstr "Einnahmen"
+
+msgid "Expenses"
+msgstr "Werbungskosten"
+
+msgid "vs. previous year (same period)"
+msgstr "zum Vorjahr (gleicher Zeitraum)"
+
+msgid "No comparison with the previous year yet"
+msgstr "Noch kein Vergleich mit dem Vorjahr möglich"
+
 msgid "Properties / units"
 msgstr "Objekte / Einheiten"
 
-msgid "active tenancies"
-msgstr "aktive Mietverhältnisse"
-
-msgid "Monthly rent due"
-msgstr "Monatliches Soll"
-
-msgid "Base rent + advance payments"
-msgstr "Kaltmiete + Vorauszahlungen"
+msgid "Rental income %d"
+msgstr "Mieteinnahmen %d"
 
 msgid "Open rent claims"
 msgstr "Offene Mietforderungen"
@@ -1173,11 +1311,11 @@ msgstr "Rückstand – unten abhaken oder mahnen"
 msgid "All rent accounts balanced"
 msgstr "Alle Mietkonten ausgeglichen"
 
-msgid "Income %d"
-msgstr "Einnahmen %d"
+msgid "Result %d (preliminary)"
+msgstr "Ergebnis %d (vorläufig)"
 
-msgid "Expenses so far %s"
-msgstr "Werbungskosten bisher %s"
+msgid "Expenses %s"
+msgstr "Ausgaben %s"
 
 msgid "Record payment"
 msgstr "Zahlung erfassen"
@@ -1185,14 +1323,50 @@ msgstr "Zahlung erfassen"
 msgid "Record receipt"
 msgstr "Beleg erfassen"
 
+msgid "Income & expenses"
+msgstr "Einnahmen & Ausgaben"
+
+msgid "12 months"
+msgstr "12 Monate"
+
+msgid "No payments or receipts in this period yet."
+msgstr "Noch keine Zahlungen oder Belege in diesem Zeitraum."
+
+msgid "Rental income"
+msgstr "Mieteinnahmen"
+
+msgid "Expenses (receipts)"
+msgstr "Ausgaben (Belege)"
+
 msgid "Notices"
 msgstr "Hinweise"
 
-msgid "%d open report(s) from the tenant portal"
-msgstr "%d offene Meldung(en) aus dem Mieterportal"
+msgid "All clear – no open notices."
+msgstr "Alles erledigt – keine offenen Hinweise."
 
-msgid "Mietfux – Overview"
-msgstr "Mietfux – Übersicht"
+msgid "Urgent"
+msgstr "Dringend"
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "… and %d more – see the WordPress dashboard widget."
+msgstr "… und %d weitere – siehe WordPress-Dashboard-Widget."
+
+msgid "Search results for “%s”"
+msgstr "Suchergebnisse für „%s“"
+
+msgid "from %1$s to %2$s"
+msgstr "von %1$s bis %2$s"
+
+msgid "Nothing found for “%s”."
+msgstr "Nichts gefunden für „%s“."
+
+msgid "Back to overview"
+msgstr "Zurück zur Übersicht"
 
 msgid "Show WordPress menu"
 msgstr "WordPress-Menü einblenden"
@@ -1200,14 +1374,20 @@ msgstr "WordPress-Menü einblenden"
 msgid "Hide WordPress menu"
 msgstr "WordPress-Menü ausblenden"
 
-msgid "No active tenancy yet. Order to get started:"
-msgstr "Noch kein aktives Mietverhältnis. Reihenfolge zum Start:"
+msgid "Active (%d)"
+msgstr "Aktiv (%d)"
 
-msgid "Property → Unit → Tenant → Tenancy → Rent conditions"
-msgstr "Objekt → Einheit → Mieter → Mietverhältnis → Konditionen"
+msgid "Ended (%d)"
+msgstr "Beendet (%d)"
 
-msgid "or use the setup wizard"
-msgstr "oder den Einrichtungsassistenten nutzen"
+msgid "No ended tenancies."
+msgstr "Keine beendeten Mietverhältnisse."
+
+msgid "No active tenancy yet. Order to get started: Property → Unit → Tenant → Tenancy → Rent conditions."
+msgstr "Noch kein aktives Mietverhältnis. Reihenfolge zum Start: Objekt → Einheit → Mieter → Mietverhältnis → Mietkonditionen."
+
+msgid "Start setup wizard"
+msgstr "Einrichtungsassistent starten"
 
 msgid "Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments)."
 msgstr "Offene Monate abhaken und mit einem Klick als bezahlt buchen – gebucht wird der offene Betrag mit Zahlungsdatum 1. des Monats (Quelle „abgehakt“, nachträglich unter Zahlungen änderbar)."
@@ -1218,11 +1398,14 @@ msgstr "Bitte mindestens einen Monat anhaken."
 msgid "Book selected as paid"
 msgstr "Markierte als bezahlt buchen"
 
-msgid "Start %1$s · Deposit %2$s"
-msgstr "Mietbeginn %1$s · Kaution %2$s"
+msgid "%1$s · since %2$s · Deposit %3$s"
+msgstr "%1$s · seit %2$s · Kaution %3$s"
 
 msgid "Balance"
 msgstr "Saldo"
+
+msgid "Open tenancy"
+msgstr "Mietverhältnis öffnen"
 
 msgid "all open months of this tenancy"
 msgstr "alle offenen Monate dieses Mietverhältnisses"
@@ -1251,6 +1434,15 @@ msgstr "Differenz"
 msgid "Cumulative balance"
 msgstr "Saldo kumuliert"
 
+msgid "No conditions"
+msgstr "Keine Konditionen"
+
+msgid "Partial"
+msgstr "Teilweise"
+
+msgid "Paid"
+msgstr "Gezahlt"
+
 msgid "Book %s as paid"
 msgstr "%s als bezahlt buchen"
 
@@ -1269,14 +1461,17 @@ msgstr "kein Satz – bitte eintragen"
 msgid "Welcome to Mietfux."
 msgstr "Willkommen bei Mietfux."
 
-msgid "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps."
-msgstr "Der Einrichtungsassistent legt in fünf Schritten Vermieter, Objekt, Einheit, Mieter und Mietverhältnis an."
+msgid "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps – or load demo data to explore the plugin."
+msgstr "Der Einrichtungsassistent legt in fünf Schritten Vermieter, Objekt, Einheit, Mieter und Mietverhältnis an – oder lade Demodaten, um das Plugin kennenzulernen."
 
 msgid "Start wizard"
 msgstr "Assistent starten"
 
-msgid "Landlord"
-msgstr "Vermieter"
+msgid "Create demo data (a condominium with tenant, one year of payments, receipts, loan and owners’ fee)? Only possible on an empty installation."
+msgstr "Demodaten anlegen (eine Eigentumswohnung mit Mieter, ein Jahr Zahlungen, Belege, Darlehen und Hausgeld)? Nur auf einer leeren Installation möglich."
+
+msgid "Load demo data"
+msgstr "Demodaten laden"
 
 msgid "Landlord name is missing."
 msgstr "Name des Vermieters fehlt."
@@ -1440,6 +1635,12 @@ msgstr "Ausgabe – Kostenart wählen oder überspringen"
 msgid "Property manager (owners’ association fee)"
 msgstr "Hausverwaltung (Hausgeld)"
 
+msgid "Recurring expense “%s”"
+msgstr "Dauerbeleg „%s“"
+
+msgid "Bank import: %d transactions"
+msgstr "Bankimport: %d Buchungen"
+
 msgid "%d transactions imported."
 msgstr "%d Buchungen übernommen."
 
@@ -1470,11 +1671,17 @@ msgstr "bereits importiert"
 msgid "Rent payment"
 msgstr "Mietzahlung"
 
+msgid "Recurring expense"
+msgstr "Dauerbeleg"
+
 msgid "– tenancy –"
 msgstr "– Mietverhältnis –"
 
 msgid "– cost type –"
 msgstr "– Kostenart –"
+
+msgid "– recurring expense –"
+msgstr "– Dauerbeleg –"
 
 msgid "Dear Sir or Madam,"
 msgstr "Sehr geehrte Damen und Herren,"
@@ -1557,9 +1764,6 @@ msgstr "Noch keine Raten im Zeitraum."
 msgid "Book extra repayment"
 msgstr "Sondertilgung buchen"
 
-msgid "Book"
-msgstr "Buchen"
-
 msgid "Reduces the outstanding balance; subsequent instalments are calculated on the lower balance."
 msgstr "Reduziert die Restschuld; die Folgeraten werden mit der niedrigeren Restschuld berechnet."
 
@@ -1577,6 +1781,9 @@ msgstr "berechnet aus Raten"
 
 msgid "Once the bank's interest certificate is available, enter it under “Interest certificates” – it replaces the calculated values in the tax report."
 msgstr "Liegt die Zinsbescheinigung der Bank vor, unter „Zinsbescheinigungen“ erfassen – sie ersetzt die berechneten Werte in der Steuer-Auswertung."
+
+msgid "Tenant #%d"
+msgstr "Mieter Nr. %d"
 
 msgid "Art. 15 GDPR"
 msgstr "Art. 15 DSGVO"
@@ -1623,17 +1830,11 @@ msgstr "Frist abgelaufen"
 msgid "in retention"
 msgstr "in Aufbewahrung"
 
-msgid "Anonymise"
-msgstr "Anonymisieren"
-
 msgid "Irreversibly remove personal data?"
 msgstr "Personenbezug unwiderruflich entfernen?"
 
 msgid "The retention period has not expired yet!"
 msgstr "Die Aufbewahrungsfrist ist noch nicht abgelaufen!"
-
-msgid "No ended tenancies."
-msgstr "Keine beendeten Mietverhältnisse."
 
 msgid "Access (Art. 15 GDPR) / data portability (Art. 20)"
 msgstr "Auskunft (Art. 15 DSGVO) / Datenübertragbarkeit (Art. 20)"
@@ -1677,6 +1878,138 @@ msgstr "Auftragsverarbeiter:"
 msgid "Hosting provider of the WordPress installation (data processing agreement required)."
 msgstr "Hosting-Anbieter der WordPress-Installation (AV-Vertrag erforderlich)."
 
+msgid "monthly"
+msgstr "monatlich"
+
+msgid "quarterly"
+msgstr "vierteljährlich"
+
+msgid "half-yearly"
+msgstr "halbjährlich"
+
+msgid "yearly"
+msgstr "jährlich"
+
+msgid "Recurring expense “%1$s” (%2$s) due but not yet booked: %3$s"
+msgstr "Dauerbeleg „%1$s“ (%2$s) fällig, aber noch nicht gebucht: %3$s"
+
+msgid "Recurring costs with a fixed rhythm – property tax (quarterly), building insurance (yearly), chimney sweep, maintenance contracts, account fees (monthly). Enter supplier, amount per due date, interval and first due date once; the due dates are calculated from there."
+msgstr "Wiederkehrende Kosten mit festem Rhythmus – Grundsteuer (vierteljährlich), Gebäudeversicherung (jährlich), Schornsteinfeger, Wartungsverträge, Kontoführung (monatlich). Lieferant, Betrag je Fälligkeit, Intervall und erste Fälligkeit einmal erfassen; die Fälligkeiten werden daraus berechnet."
+
+msgid "Booking a due date creates one receipt: payment date = outflow (Anlage V), service period = the interval starting at the due date (service charge statement). Booked receipts stay even if the recurring expense is deactivated or deleted. The bank import recognises payments by the supplier’s IBAN or name and books the next open due date."
+msgstr "Das Buchen einer Fälligkeit erzeugt genau einen Beleg: Zahlungsdatum = Abfluss (Anlage V), Leistungszeitraum = das Intervall ab der Fälligkeit (Betriebskostenabrechnung). Gebuchte Belege bleiben erhalten, auch wenn der Dauerbeleg deaktiviert oder gelöscht wird. Der Bankimport erkennt Zahlungen über IBAN oder Namen des Lieferanten und bucht die nächste offene Fälligkeit."
+
+msgid "Recurring expense saved."
+msgstr "Dauerbeleg gespeichert."
+
+msgid "Recurring expense deleted – booked receipts remain."
+msgstr "Dauerbeleg gelöscht – gebuchte Belege bleiben erhalten."
+
+msgid "Please fill in property, cost type and description."
+msgstr "Bitte Objekt, Kostenart und Bezeichnung ausfüllen."
+
+msgid "No property created yet –"
+msgstr "Noch kein Objekt angelegt –"
+
+msgid "Create property"
+msgstr "Objekt anlegen"
+
+msgid "Recurring costs with a fixed rhythm (property tax, building insurance, chimney sweep, maintenance, account fees). Each booked due date creates one receipt with the payment date as outflow and the interval as service period."
+msgstr "Wiederkehrende Kosten mit festem Rhythmus (Grundsteuer, Gebäudeversicherung, Schornsteinfeger, Wartung, Kontoführung). Jede gebuchte Fälligkeit erzeugt einen Beleg mit dem Zahlungsdatum als Abfluss und dem Intervall als Leistungszeitraum."
+
+msgid "New recurring expense"
+msgstr "Neuer Dauerbeleg"
+
+msgid "Interval"
+msgstr "Intervall"
+
+msgid "Next due date"
+msgstr "Nächste Fälligkeit"
+
+msgid "Open / booked"
+msgstr "Offen / gebucht"
+
+msgid "No recurring expenses yet."
+msgstr "Noch keine Dauerbelege."
+
+msgid "inactive"
+msgstr "inaktiv"
+
+msgid "Due dates %1$s – %2$d"
+msgstr "Fälligkeiten %1$s – %2$d"
+
+msgid "Due date"
+msgstr "Fälligkeit"
+
+msgid "Service period"
+msgstr "Leistungszeitraum"
+
+msgid "No due dates in this year."
+msgstr "Keine Fälligkeiten in diesem Jahr."
+
+msgid "booked"
+msgstr "gebucht"
+
+msgid "open"
+msgstr "offen"
+
+msgid "future"
+msgstr "zukünftig"
+
+msgid "Delete this receipt?"
+msgstr "Diesen Beleg löschen?"
+
+msgid "Leave empty to use the due date as payment date."
+msgstr "Leer lassen = Fälligkeitsdatum als Zahlungsdatum."
+
+msgid "Please tick at least one due date."
+msgstr "Bitte mindestens eine Fälligkeit markieren."
+
+msgid "Book selected due dates"
+msgstr "Markierte buchen"
+
+msgid "Edit recurring expense"
+msgstr "Dauerbeleg bearbeiten"
+
+msgid "e.g. Property tax"
+msgstr "z. B. Grundsteuer"
+
+msgid "Supplier"
+msgstr "Lieferant"
+
+msgid "Supplier’s IBAN"
+msgstr "IBAN des Lieferanten"
+
+msgid "Used by the bank import to recognise payments automatically (IBAN or supplier name)."
+msgstr "Wird vom Bankimport genutzt, um Zahlungen automatisch zu erkennen (IBAN oder Lieferantenname)."
+
+msgid "Amount per due date (€)"
+msgstr "Betrag je Fälligkeit (€)"
+
+msgid "First due date"
+msgstr "Erste Fälligkeit"
+
+msgid "End (optional)"
+msgstr "Ende (optional)"
+
+msgid "Property tax is typically due on 15 Feb, 15 May, 15 Aug and 15 Nov (quarterly) – enter 15 Feb as the first due date. Later due dates follow the same day of month; the interval starting at each due date is used as service period."
+msgstr "Grundsteuer ist üblicherweise am 15.2., 15.5., 15.8. und 15.11. fällig (vierteljährlich) – als erste Fälligkeit den 15.2. eintragen. Die weiteren Fälligkeiten folgen am gleichen Monatstag; als Leistungszeitraum gilt jeweils das Intervall ab der Fälligkeit."
+
+msgid "Save recurring expense"
+msgstr "Dauerbeleg speichern"
+
+msgid "Deactivate"
+msgstr "Deaktivieren"
+
+msgid "Activate"
+msgstr "Aktivieren"
+
+msgid "Delete this recurring expense? Booked receipts remain."
+msgstr "Diesen Dauerbeleg löschen? Gebuchte Belege bleiben erhalten."
+
+msgid "Tax advisor (read-only)"
+msgstr "Steuerberater (nur lesen)"
+
 msgid "Income (info only, do not book as receipt)"
 msgstr "Einnahmen (nur zur Info, nicht als Beleg buchen)"
 
@@ -1710,8 +2043,35 @@ msgstr "Sonstige Werbungskosten"
 msgid "Maintenance reserve contribution (not deductible)"
 msgstr "Zuführung Erhaltungsrücklage (nicht abziehbar)"
 
+msgid "Demo data created"
+msgstr "Demodaten angelegt"
+
+msgid "Backup restored"
+msgstr "Backup eingespielt"
+
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
+
+msgid "Backup created."
+msgstr "Sicherung erstellt."
+
+msgid "Backup could not be written (uploads folder not writable)."
+msgstr "Sicherung konnte nicht geschrieben werden (Uploads-Ordner nicht beschreibbar)."
+
+msgid "Backup deleted."
+msgstr "Sicherung gelöscht."
+
+msgid "Two-factor login is now active for your account. Your backup codes are shown below – store them safely."
+msgstr "Zwei-Faktor-Anmeldung ist jetzt für dein Konto aktiv. Deine Backup-Codes stehen unten – bewahre sie sicher auf."
+
+msgid "Two-factor login disabled for your account."
+msgstr "Zwei-Faktor-Anmeldung für dein Konto deaktiviert."
+
+msgid "New backup codes created – the old ones are no longer valid."
+msgstr "Neue Backup-Codes erstellt – die alten gelten nicht mehr."
+
+msgid "The code did not match. Check the time on your phone and try the current code again."
+msgstr "Der Code hat nicht gepasst. Prüfe die Uhrzeit auf dem Telefon und versuche es mit dem aktuellen Code erneut."
 
 msgid "A new version is available – see “Version & updates” below."
 msgstr "Eine neue Version ist verfügbar – siehe „Version & Updates“ unten."
@@ -1794,6 +2154,78 @@ msgstr "Aufbewahrungsfrist nach Mietende (Jahre)"
 msgid "10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year."
 msgstr "10 Jahre für steuerrelevante Unterlagen (§ 147 AO), gerechnet ab Ende des Kalenderjahres."
 
+msgid "Tenant portal"
+msgstr "Mieterportal"
+
+msgid "Portal layout"
+msgstr "Portal-Layout"
+
+msgid "Own full-page layout (recommended, without theme header/footer)"
+msgstr "Eigenes Vollbild-Layout (empfohlen, ohne Kopf-/Fußzeile des Themes)"
+
+msgid "Embedded in the theme page"
+msgstr "In die Theme-Seite eingebettet"
+
+msgid "The portal is shown on the page containing the [mietfux_portal] shortcode."
+msgstr "Das Portal erscheint auf der Seite mit dem Shortcode [mietfux_portal]."
+
+msgid "Security"
+msgstr "Sicherheit"
+
+msgid "Two-factor login"
+msgstr "Zwei-Faktor-Anmeldung"
+
+msgid "Optional – each landlord may set it up"
+msgstr "Freiwillig – jeder Vermieter kann sie einrichten"
+
+msgid "Required for landlords and administrators"
+msgstr "Pflicht für Vermieter und Administratoren"
+
+msgid "Automatic backups"
+msgstr "Automatische Sicherungen"
+
+msgid "Create backups automatically"
+msgstr "Sicherungen automatisch erstellen"
+
+msgid "Weekly"
+msgstr "Wöchentlich"
+
+msgid "JSON export of all tables into the uploads folder (mietfux-backups), run by WP-Cron."
+msgstr "JSON-Export aller Tabellen in den Uploads-Ordner (mietfux-backups), ausgeführt per WP-Cron."
+
+msgid "Backups to keep"
+msgstr "Aufzubewahrende Sicherungen"
+
+msgid "Also send backup by email"
+msgstr "Sicherung zusätzlich per E-Mail senden"
+
+msgid "Yes, to the reminder address"
+msgstr "Ja, an die Erinnerungsadresse"
+
+msgid "Email to tenants"
+msgstr "E-Mail an Mieter"
+
+msgid "Copy of every email to me"
+msgstr "Kopie jeder E-Mail an mich"
+
+msgid "Email signature"
+msgstr "E-Mail-Signatur"
+
+msgid "Appended below the greeting; empty = landlord name and address."
+msgstr "Wird unter der Grußformel angefügt; leer = Name und Anschrift des Vermieters."
+
+msgid "Consumer price index (Destatis)"
+msgstr "Verbraucherpreisindex (Destatis)"
+
+msgid "GENESIS-Online user name"
+msgstr "GENESIS-Online-Benutzername"
+
+msgid "Free registration at genesis.destatis.de is required for the web service; an API token can be entered as user name (password empty). Without credentials, CSV import remains available."
+msgstr "Für den Webservice ist eine kostenlose Registrierung bei genesis.destatis.de nötig; ein API-Token kann als Benutzername eingetragen werden (Passwort leer). Ohne Zugangsdaten bleibt der CSV-Import möglich."
+
+msgid "GENESIS-Online password"
+msgstr "GENESIS-Online-Passwort"
+
 msgid "Uninstall"
 msgstr "Deinstallation"
 
@@ -1833,6 +2265,9 @@ msgstr "alle vorhandenen Daten ersetzt"
 msgid "."
 msgstr "werden."
 
+msgid "Restore backup"
+msgstr "Backup einspielen"
+
 msgid "Version & updates"
 msgstr "Version & Updates"
 
@@ -1850,6 +2285,9 @@ msgstr "Nach Updates suchen"
 
 msgid "Updates come from the WordPress.org plugin directory; WordPress checks twice a day on its own. Before updating, a backup is recommended (below)."
 msgstr "Updates kommen aus dem WordPress.org-Pluginverzeichnis; WordPress prüft von sich aus zweimal täglich. Vor dem Update empfiehlt sich ein Backup (unten)."
+
+msgid "Backup exported"
+msgstr "Backup exportiert"
 
 msgid "No increase possible: the local reference rent or the cap is not above the current rent."
 msgstr "Keine Erhöhung möglich: Die ortsübliche Vergleichsmiete bzw. die Kappungsgrenze liegt nicht über der aktuellen Miete."
@@ -1893,11 +2331,23 @@ msgstr "Vereinbarung / Staffel"
 msgid "Receipt of the letter by the tenant"
 msgstr "Zugang des Schreibens beim Mieter"
 
+msgid "Rent index"
+msgstr "Mietspiegel"
+
+msgid "Open rent index %s"
+msgstr "Mietspiegel %s öffnen"
+
+msgid "Search rent index for %1$s %2$s"
+msgstr "Mietspiegel für %1$s %2$s suchen"
+
+msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
+msgstr "Gesucht wird nach der Postleitzahl des Objekts. Den Link zum Mietspiegel beim Objekt speichern, dann öffnet er sich beim nächsten Mal direkt."
+
 msgid "Local reference rent (€/m²)"
 msgstr "Ortsübliche Vergleichsmiete (€/m²)"
 
-msgid "Rent index (qualified for Fürth/Nuremberg), three comparable flats or expert opinion"
-msgstr "Mietspiegel (Fürth/Nürnberg qualifiziert), drei Vergleichswohnungen oder Gutachten"
+msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
+msgstr "Qualifizierter Mietspiegel der Gemeinde, drei Vergleichswohnungen oder Gutachten"
 
 msgid "Desired new base rent (€)"
 msgstr "Gewünschte neue Kaltmiete (€)"
@@ -1908,8 +2358,8 @@ msgstr "leer = zulässiges Maximum"
 msgid "Justification"
 msgstr "Begründung"
 
-msgid "e.g. “Fürth rent index 2025, field C3: €8.90–10.40/m², mean €9.60/m²”"
-msgstr "z. B. „Mietspiegel der Stadt Fürth 2025, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“"
+msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
+msgstr "z. B. „Mietspiegel %1$s %2$d, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“"
 
 msgid "CPI at last rent setting"
 msgstr "VPI bei letzter Mietfestsetzung"
@@ -1922,9 +2372,6 @@ msgstr "Aktueller VPI"
 
 msgid "New base rent (€)"
 msgstr "Neue Kaltmiete (€)"
-
-msgid "Check"
-msgstr "Prüfen"
 
 msgid "Previously"
 msgstr "Bisher"
@@ -2025,12 +2472,6 @@ msgstr "Jahresabrechnung gebucht – Korrekturbelege je Kostenart angelegt."
 msgid "Nothing to book: no differences to the advance payments, or a statement for this year already exists."
 msgstr "Nichts zu buchen: keine Abweichung zu den Vorauszahlungen, oder für dieses Jahr ist bereits eine Abrechnung gebucht."
 
-msgid "No property created yet –"
-msgstr "Noch kein Objekt angelegt –"
-
-msgid "Create property"
-msgstr "Objekt anlegen"
-
 msgid "For condominiums: the monthly fee paid to the property manager is split according to the budget plan into recoverable service charges (passed on in the service charge statement), non-recoverable expenses (management, maintenance – deductible in Anlage V) and the contribution to the maintenance reserve (not deductible until spent). Each booked month creates one receipt per cost type; the annual statement of the owners’ association books the differences."
 msgstr "Für Eigentumswohnungen: Das monatliche Hausgeld an die Hausverwaltung wird nach Wirtschaftsplan aufgeteilt in umlagefähige Betriebskosten (gehen in die Betriebskostenabrechnung), nicht umlagefähige Kosten (Verwaltung, Instandhaltung – Werbungskosten in der Anlage V) und die Zuführung zur Erhaltungsrücklage (erst bei Verausgabung abziehbar). Jeder gebuchte Monat erzeugt je Kostenart einen Beleg; die WEG-Jahresabrechnung bucht die Differenzen."
 
@@ -2060,15 +2501,6 @@ msgstr "nicht abziehbar"
 
 msgid "Payments %d"
 msgstr "Zahlungen %d"
-
-msgid "booked"
-msgstr "gebucht"
-
-msgid "open"
-msgstr "öffnen"
-
-msgid "future"
-msgstr "zukünftig"
 
 msgid "Delete payment and its receipts?"
 msgstr "Zahlung samt Belegen löschen?"
@@ -2250,6 +2682,9 @@ msgstr "Drei Mahnstufen mit Fristen und Texten. Schreiben als PDF, optional per 
 msgid "Electricity, gas, water and heat meters per unit or property (communal electricity)."
 msgstr "Strom-, Gas-, Wasser- und Wärmezähler je Einheit oder Objekt (Allgemeinstrom)."
 
+msgid "“Read by” decides who enters the readings: only meters read by the tenant appear in the tenant portal. If a reading service (ista, Techem …) reads the heating meters, set this on the property – the tenant portal then hides heating/hot-water meters and the service charge statement takes each tenant’s heating share from the service’s statement. Properties without water meters per unit allocate water by area or persons (setting on the property)."
+msgstr "„Ablesung durch“ legt fest, wer die Stände erfasst: Im Mieterportal erscheinen nur Zähler, die der Mieter selbst abliest. Liest ein Ablesedienst (ista, Techem …) die Heizungszähler ab, stellen Sie das am Objekt ein – das Mieterportal blendet dann Heizungs-/Warmwasserzähler aus und die Betriebskostenabrechnung übernimmt den Heizkostenanteil je Mieter aus der Ablesedienst-Abrechnung. Objekte ohne Wohnungswasserzähler verteilen Wasser nach Fläche oder Personen (Einstellung am Objekt)."
+
 msgid "Readings with date. Tenants can submit readings themselves in the portal (source “Tenant”)."
 msgstr "Ablesungen mit Datum. Mieter können Stände selbst im Portal melden (Quelle „Mieter“)."
 
@@ -2295,9 +2730,6 @@ msgstr "Legt in fünf Schritten Vermieter, Objekt, Einheiten (Wohnung + Garage),
 msgid "Landlord details, bank account, creditor ID, tax number, dunning and portal options. Backup of all plugin tables as JSON, restore, option “delete data on uninstall”."
 msgstr "Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer, Mahn- und Portaloptionen. Backup aller Plugin-Tabellen als JSON, Wiederherstellung, Option „Daten bei Deinstallation löschen“."
 
-msgid "Tenant portal"
-msgstr "Mieterportal"
-
 msgid "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
 msgstr "Shortcode [mietfux_portal] auf einer Seite einfügen. Angemeldete Mieter (verknüpfter WordPress-Benutzer) sehen Abrechnungen und freigegebene Dokumente, melden Schäden und Zählerstände."
 
@@ -2306,9 +2738,6 @@ msgstr "Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Be
 
 msgid "Quick start"
 msgstr "Schnellstart"
-
-msgid "Start setup wizard"
-msgstr "Einrichtungsassistent starten"
 
 msgid "– guides through steps 1 to 4 and creates the first tenancy."
 msgstr "– führt durch die Schritte 1 bis 4 und legt das erste Mietverhältnis an."
@@ -2364,11 +2793,8 @@ msgstr "Aufbewahrungsfrist abgelaufen: Mieterdaten „%s“ können anonymisiert
 msgid "Tenancy %1$s ends on %2$s – prepare handover, deposit, meter readings"
 msgstr "Mietverhältnis %1$s endet am %2$s – Übergabe, Kaution, Zählerstände vorbereiten"
 
-msgid ": balance"
-msgstr ": Saldo"
-
-msgid "✅ No open notices."
-msgstr "✅ Keine offenen Hinweise."
+msgid "No open notices."
+msgstr "Keine offenen Hinweise."
 
 msgid "Go to Mietfux"
 msgstr "Zu Mietfux"
@@ -2525,9 +2951,6 @@ msgstr "Frist"
 
 msgid "Tenancy not found."
 msgstr "Mietverhältnis nicht gefunden."
-
-msgid "Paid"
-msgstr "Gezahlt"
 
 msgid "Total arrears"
 msgstr "Gesamtrückstand"
@@ -2886,9 +3309,6 @@ msgstr "Merkblatt Heizen und Lüften als Anlage"
 msgid "Other agreements"
 msgstr "Sonstige Vereinbarungen"
 
-msgid "Tenant"
-msgstr "Mieter/in"
-
 msgid "Tenant(s)"
 msgstr "Mieter (alle)"
 
@@ -3045,11 +3465,47 @@ msgstr "[Mietfux] Zählerstand gemeldet"
 msgid "[Mietfux] New report: "
 msgstr "[Mietfux] Neue Meldung: "
 
-msgid "Please log in to see your tenant portal."
-msgstr "Bitte melden Sie sich an, um Ihr Mieterportal zu sehen."
+msgid "Cold water"
+msgstr "Kaltwasser"
+
+msgid "Hot water"
+msgstr "Warmwasser"
+
+msgid "Electricity"
+msgstr "Strom"
 
 msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr "Ihrem Benutzerkonto ist noch kein Mietverhältnis zugeordnet. Bitte wenden Sie sich an Ihren Vermieter."
+
+msgid "Sign in"
+msgstr "Anmelden"
+
+msgid "Please log in to see your tenant portal."
+msgstr "Bitte melden Sie sich an, um Ihr Mieterportal zu sehen."
+
+msgid "Username or e-mail"
+msgstr "Benutzername oder E-Mail"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Stay signed in"
+msgstr "Angemeldet bleiben"
+
+msgid "Forgotten your password?"
+msgstr "Passwort vergessen?"
+
+msgid "Log out"
+msgstr "Abmelden"
+
+msgid "Hello %s"
+msgstr "Hallo %s"
+
+msgid "since %s"
+msgstr "seit %s"
+
+msgid "Rent account, documents, meter readings and reports – all in one place."
+msgstr "Mietkonto, Dokumente, Zählerstände und Meldungen – alles an einem Ort."
 
 msgid "Meter reading saved. Thank you."
 msgstr "Zählerstand gespeichert. Vielen Dank."
@@ -3066,47 +3522,122 @@ msgstr "Ihre Meldung wurde übermittelt. Vielen Dank."
 msgid "The report could not be saved. Please enter a subject."
 msgstr "Die Meldung konnte nicht gespeichert werden. Bitte Betreff angeben."
 
-msgid "Advances SC / heating"
-msgstr "Vorauszahlungen BK / HK"
+msgid "Rent %1$s %2$s"
+msgstr "Miete %1$s %2$s"
 
-msgid "Total rent / month"
-msgstr "Gesamtmiete / Monat"
+msgid "Open: %s"
+msgstr "Offen: %s"
 
-msgid "Arrears"
-msgstr "Rückstand"
+msgid "Reference “%s”"
+msgstr "Verwendungszweck „%s“"
 
-msgid "balanced / credit"
-msgstr "ausgeglichen / Guthaben"
+msgid "Copied"
+msgstr "Kopiert"
 
-msgid "Rent account (last 12 months)"
-msgstr "Mietkonto (letzte 12 Monate)"
+msgid "Copy IBAN"
+msgstr "IBAN kopieren"
 
-msgid "No reports."
-msgstr "Keine Meldungen."
+msgid "Everything paid"
+msgstr "Alles bezahlt"
 
-msgid "Service charge statements"
-msgstr "Betriebskostenabrechnungen"
+msgid "Credit: %s"
+msgstr "Guthaben: %s"
 
-msgid "Costs"
-msgstr "Kosten"
+msgid "Your rent account is balanced."
+msgstr "Ihr Mietkonto ist ausgeglichen."
 
-msgid "Open statement"
-msgstr "Abrechnung öffnen"
+msgid "Current rent / month"
+msgstr "Miete aktuell / Monat"
+
+msgid "%1$s base + %2$s SC + %3$s heating"
+msgstr "%1$s kalt + %2$s BK + %3$s HK"
+
+msgid "No rent conditions recorded"
+msgstr "Keine Mietkonditionen hinterlegt"
+
+msgid "paid in full"
+msgstr "vollständig eingezahlt"
+
+msgid "of %s agreed"
+msgstr "von %s vereinbart"
+
+msgid "rent %s"
+msgstr "Miete %s"
+
+msgid "tenancy ended"
+msgstr "Mietverhältnis beendet"
+
+msgid "Rent account – last 12 months"
+msgstr "Mietkonto – letzte 12 Monate"
+
+msgid "show fewer"
+msgstr "weniger anzeigen"
+
+msgid "show all"
+msgstr "alle anzeigen"
+
+msgid "No months recorded yet."
+msgstr "Noch keine Monate erfasst."
+
+msgid "Partly paid"
+msgstr "Teilweise bezahlt"
+
+msgid "My reports"
+msgstr "Meine Meldungen"
+
+msgid "new report"
+msgstr "neue Meldung"
+
+msgid "No reports yet."
+msgstr "Noch keine Meldungen."
+
+msgid "reported %s"
+msgstr "gemeldet %s"
 
 msgid "Submit meter reading"
 msgstr "Zählerstand melden"
 
-msgid "Photo (optional)"
-msgstr "Foto (optional)"
+msgid "Meter"
+msgstr "Zähler"
+
+msgid "Last reading"
+msgstr "Letzter Stand"
+
+msgid "New reading"
+msgstr "Neuer Stand"
 
 msgid "Send meter reading"
 msgstr "Zählerstand senden"
 
-msgid "Report damage or defect"
-msgstr "Schaden oder Mangel melden"
+msgid "Report damage or request"
+msgstr "Schaden / Anliegen melden"
+
+msgid "Details"
+msgstr "Beschreibung"
 
 msgid "Submit report"
 msgstr "Meldung absenden"
+
+msgid "The meters are read by the meter reading service or the landlord."
+msgstr "Die Zähler werden vom Ablesedienst/Vermieter abgelesen."
+
+msgid "No documents released yet."
+msgstr "Noch keine Dokumente freigegeben."
+
+msgid "Service charge statement %s"
+msgstr "Betriebskostenabrechnung %s"
+
+msgid "Amount due %s"
+msgstr "Nachzahlung %s"
+
+msgid "Credit %s"
+msgstr "Guthaben %s"
+
+msgid "Your landlord"
+msgstr "Ihr Vermieter"
+
+msgid "Privacy policy"
+msgstr "Datenschutz"
 
 msgid "created"
 msgstr "angelegt"
@@ -3125,9 +3656,6 @@ msgstr "importiert"
 
 msgid "portal login"
 msgstr "Portal-Anmeldung"
-
-msgid "Activity log"
-msgstr "Protokoll"
 
 msgid "Retention period saved."
 msgstr "Aufbewahrungsfrist gespeichert."
@@ -3149,9 +3677,6 @@ msgstr "Tabelle"
 
 msgid "User"
 msgstr "Benutzer"
-
-msgid "Search"
-msgstr "Suche"
 
 msgid "Filter"
 msgstr "Filtern"
@@ -3201,6 +3726,30 @@ msgstr "Bei Änderungen werden nur die tatsächlich geänderten Felder mit altem
 msgid "Entries are deleted automatically after the retention period (default 365 days). Use the CSV export to archive the log before it is cleaned up, for example at year end."
 msgstr "Einträge werden nach Ablauf der Aufbewahrungsfrist (Standard 365 Tage) automatisch gelöscht. Mit dem CSV-Export lässt sich das Protokoll vorher archivieren, z. B. zum Jahresende."
 
+msgid "File not found."
+msgstr "Datei nicht gefunden."
+
+msgid "Last automatic backup: %s"
+msgstr "Letzte automatische Sicherung: %s"
+
+msgid "No automatic backup yet."
+msgstr "Noch keine automatische Sicherung."
+
+msgid "Create backup now"
+msgstr "Sicherung jetzt erstellen"
+
+msgid "Size"
+msgstr "Größe"
+
+msgid "Download"
+msgstr "Herunterladen"
+
+msgid "Delete this backup?"
+msgstr "Diese Sicherung löschen?"
+
+msgid "Backups are stored in the uploads folder (mietfux-backups, blocked for direct access) and rotated automatically. To restore, download the file and use “Restore” above."
+msgstr "Sicherungen liegen im Uploads-Ordner (mietfux-backups, gegen direkten Zugriff gesperrt) und werden automatisch rotiert. Zum Wiederherstellen die Datei herunterladen und oben unter „Wiederherstellen“ einspielen."
+
 msgid "AfA"
 msgstr "AfA"
 
@@ -3228,9 +3777,6 @@ msgstr "Werbungskosten gesamt"
 msgid "Surplus / loss"
 msgstr "Überschuss / Verlust"
 
-msgid "Income"
-msgstr "Einnahmen"
-
 msgid "Rental income (excl. recoverable charges)"
 msgstr "Mieteinnahmen (ohne Umlagen)"
 
@@ -3242,9 +3788,6 @@ msgstr "Keine Zahlungseingänge in diesem Jahr."
 
 msgid "Sum"
 msgstr "Summe"
-
-msgid "Expenses"
-msgstr "Werbungskosten"
 
 msgid "Anlage V group / item"
 msgstr "Anlage-V-Gruppe / Position"
@@ -3260,6 +3803,9 @@ msgstr "Keine Werbungskosten in diesem Jahr."
 
 msgid "Sum of expenses"
 msgstr "Summe Werbungskosten"
+
+msgid "Maintain line numbers of Anlage V %d"
+msgstr "Zeilennummern der Anlage V %d pflegen"
 
 msgid "Line"
 msgstr "Zeile"
@@ -3315,9 +3861,6 @@ msgstr "Sollzins"
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr "Keine Zinsbescheinigung für %1$d erfasst. Jahreswerte unter %2$s eintragen."
 
-msgid "Supplier"
-msgstr "Rechnungssteller"
-
 msgid "Receipt no."
 msgstr "Beleg-Nr."
 
@@ -3344,120 +3887,6 @@ msgstr "Achtung:"
 
 msgid "%s Further renovations within the period could breach the limit."
 msgstr "%s Weitere Renovierungen in der Frist könnten die Grenze reißen."
-
-msgid "monthly"
-msgstr "monatlich"
-
-msgid "quarterly"
-msgstr "vierteljährlich"
-
-msgid "half-yearly"
-msgstr "halbjährlich"
-
-msgid "yearly"
-msgstr "jährlich"
-
-msgid "Recurring expense “%1$s” (%2$s) due but not yet booked: %3$s"
-msgstr "Dauerbeleg „%1$s“ (%2$s) fällig, aber noch nicht gebucht: %3$s"
-
-msgid "Recurring expenses"
-msgstr "Dauerbelege"
-
-msgid "Recurring costs with a fixed rhythm – property tax (quarterly), building insurance (yearly), chimney sweep, maintenance contracts, account fees (monthly). Enter supplier, amount per due date, interval and first due date once; the due dates are calculated from there."
-msgstr "Wiederkehrende Kosten mit festem Rhythmus – Grundsteuer (vierteljährlich), Gebäudeversicherung (jährlich), Schornsteinfeger, Wartungsverträge, Kontoführung (monatlich). Lieferant, Betrag je Fälligkeit, Intervall und erste Fälligkeit einmal erfassen; die Fälligkeiten werden daraus berechnet."
-
-msgid "Booking a due date creates one receipt: payment date = outflow (Anlage V), service period = the interval starting at the due date (service charge statement). Booked receipts stay even if the recurring expense is deactivated or deleted. The bank import recognises payments by the supplier’s IBAN or name and books the next open due date."
-msgstr "Das Buchen einer Fälligkeit erzeugt genau einen Beleg: Zahlungsdatum = Abfluss (Anlage V), Leistungszeitraum = das Intervall ab der Fälligkeit (Betriebskostenabrechnung). Gebuchte Belege bleiben erhalten, auch wenn der Dauerbeleg deaktiviert oder gelöscht wird. Der Bankimport erkennt Zahlungen über IBAN oder Namen des Lieferanten und bucht die nächste offene Fälligkeit."
-
-msgid "Recurring expense saved."
-msgstr "Dauerbeleg gespeichert."
-
-msgid "Recurring expense deleted – booked receipts remain."
-msgstr "Dauerbeleg gelöscht – gebuchte Belege bleiben erhalten."
-
-msgid "Please fill in property, cost type and description."
-msgstr "Bitte Objekt, Kostenart und Bezeichnung ausfüllen."
-
-msgid "Recurring costs with a fixed rhythm (property tax, building insurance, chimney sweep, maintenance, account fees). Each booked due date creates one receipt with the payment date as outflow and the interval as service period."
-msgstr "Wiederkehrende Kosten mit festem Rhythmus (Grundsteuer, Gebäudeversicherung, Schornsteinfeger, Wartung, Kontoführung). Jede gebuchte Fälligkeit erzeugt einen Beleg mit dem Zahlungsdatum als Abfluss und dem Intervall als Leistungszeitraum."
-
-msgid "New recurring expense"
-msgstr "Neuer Dauerbeleg"
-
-msgid "Interval"
-msgstr "Intervall"
-
-msgid "Next due date"
-msgstr "Nächste Fälligkeit"
-
-msgid "Open / booked"
-msgstr "Offen / gebucht"
-
-msgid "No recurring expenses yet."
-msgstr "Noch keine Dauerbelege."
-
-msgid "inactive"
-msgstr "inaktiv"
-
-msgid "Due dates %1$s – %2$d"
-msgstr "Fälligkeiten %1$s – %2$d"
-
-msgid "Due date"
-msgstr "Fälligkeit"
-
-msgid "Service period"
-msgstr "Leistungszeitraum"
-
-msgid "No due dates in this year."
-msgstr "Keine Fälligkeiten in diesem Jahr."
-
-msgid "Delete this receipt?"
-msgstr "Diesen Beleg löschen?"
-
-msgid "Leave empty to use the due date as payment date."
-msgstr "Leer lassen = Fälligkeitsdatum als Zahlungsdatum."
-
-msgid "Please tick at least one due date."
-msgstr "Bitte mindestens eine Fälligkeit markieren."
-
-msgid "Book selected due dates"
-msgstr "Markierte buchen"
-
-msgid "Edit recurring expense"
-msgstr "Dauerbeleg bearbeiten"
-
-msgid "e.g. Property tax"
-msgstr "z. B. Grundsteuer"
-
-msgid "Supplier’s IBAN"
-msgstr "IBAN des Lieferanten"
-
-msgid "Used by the bank import to recognise payments automatically (IBAN or supplier name)."
-msgstr "Wird vom Bankimport genutzt, um Zahlungen automatisch zu erkennen (IBAN oder Lieferantenname)."
-
-msgid "Amount per due date (€)"
-msgstr "Betrag je Fälligkeit (€)"
-
-msgid "First due date"
-msgstr "Erste Fälligkeit"
-
-msgid "End (optional)"
-msgstr "Ende (optional)"
-
-msgid "Property tax is typically due on 15 Feb, 15 May, 15 Aug and 15 Nov (quarterly) – enter 15 Feb as the first due date. Later due dates follow the same day of month; the interval starting at each due date is used as service period."
-msgstr "Grundsteuer ist üblicherweise am 15.2., 15.5., 15.8. und 15.11. fällig (vierteljährlich) – als erste Fälligkeit den 15.2. eintragen. Die weiteren Fälligkeiten folgen am gleichen Monatstag; als Leistungszeitraum gilt jeweils das Intervall ab der Fälligkeit."
-
-msgid "Save recurring expense"
-msgstr "Dauerbeleg speichern"
-
-msgid "Deactivate"
-msgstr "Deaktivieren"
-
-msgid "Activate"
-msgstr "Aktivieren"
-
-msgid "Delete this recurring expense? Booked receipts remain."
-msgstr "Diesen Dauerbeleg löschen? Gebuchte Belege bleiben erhalten."
 
 msgid "Deposit settlement"
 msgstr "Kautionsabrechnung"
@@ -3491,9 +3920,6 @@ msgstr "„%s“ jetzt per E-Mail an den Mieter senden? Die PDF-Datei wird unter
 
 msgid "Send by e-mail"
 msgstr "Per E-Mail senden"
-
-msgid "Dispatch log"
-msgstr "Versandprotokoll"
 
 msgid "E-mail sent to %s. The PDF has been filed under Documents."
 msgstr "E-Mail an %s gesendet. Die PDF-Datei wurde unter Dokumente abgelegt."
@@ -3534,6 +3960,9 @@ msgstr "Absender und Antwortadresse sind die Vermieter-E-Mail aus den Einstellun
 msgid "Each dispatch is logged with time, recipients, status and the filed PDF. Failed deliveries are shown with the mail server’s error message. Note: letters that legally require written form (e.g. a rent increase under § 558 BGB) must additionally be sent by post."
 msgstr "Jeder Versand wird mit Zeit, Empfängern, Status und der abgelegten PDF-Datei protokolliert. Fehlgeschlagene Sendungen erscheinen mit der Fehlermeldung des Mailservers. Hinweis: Schreiben, für die das Gesetz die Schriftform verlangt (z. B. ein Mieterhöhungsverlangen nach § 558 BGB), müssen zusätzlich per Post zugehen."
 
+msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
+msgstr "Destatis verlangt für den Webservice ein kostenloses GENESIS-Online-Konto (Gastzugang wird nicht mehr akzeptiert). Bei genesis.destatis.de registrieren, Benutzername und Passwort (oder einen API-Token als Benutzername) unter Einstellungen → Verbraucherpreisindex eintragen – oder die CSV-Datei manuell importieren."
+
 msgid "Destatis could not be reached: %s"
 msgstr "Destatis ist nicht erreichbar: %s"
 
@@ -3542,6 +3971,9 @@ msgstr "Destatis hat mit HTTP-Status %d geantwortet."
 
 msgid "Destatis returned an empty response."
 msgstr "Destatis hat eine leere Antwort geliefert."
+
+msgid "Destatis returned a web page instead of data – please check the GENESIS-Online credentials under Settings."
+msgstr "Destatis lieferte eine Webseite statt Daten – bitte die GENESIS-Online-Zugangsdaten in den Einstellungen prüfen."
 
 msgid "unknown error"
 msgstr "unbekannter Fehler"
@@ -3557,9 +3989,6 @@ msgstr "Bitte eine CSV-Datei auswählen."
 
 msgid "No monthly index values found in the file. Expected: GENESIS flat CSV (ffcsv) of table 61111-0002."
 msgstr "In der Datei wurden keine Monatswerte gefunden. Erwartet: GENESIS-Flat-CSV (ffcsv) der Tabelle 61111-0002."
-
-msgid "Consumer price index (CPI)"
-msgstr "Verbraucherpreisindex (VPI)"
 
 msgid "%d index value(s) saved."
 msgstr "%d Indexwert(e) gespeichert."
@@ -3648,8 +4077,8 @@ msgstr "Werte speichern"
 msgid "Fetch from Destatis"
 msgstr "Von Destatis abrufen"
 
-msgid "Loads table %1$s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Access: the credentials from the settings (vpi_user / vpi_pass) or the guest login “%2$s”."
-msgstr "Lädt die Tabelle %1$s (VPI Deutschland, Monate) der letzten drei Jahre von GENESIS-Online und speichert alle Monatswerte. Zugang: die Zugangsdaten aus den Einstellungen (vpi_user / vpi_pass) oder der Gastzugang „%2$s“."
+msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
+msgstr "Lädt Tabelle %s (VPI Deutschland, Monate) der letzten drei Jahre von GENESIS-Online und speichert alle Monatswerte. Erfordert ein kostenloses GENESIS-Online-Konto (Benutzername/Passwort oder API-Token unter Einstellungen → Verbraucherpreisindex)."
 
 msgid "Import CSV file"
 msgstr "CSV-Datei importieren"
@@ -3668,192 +4097,6 @@ msgstr "Indexmiete (§ 557b BGB): Ein Mietverhältnis gilt als Indexmiete, wenn 
 
 msgid "The rent may be adjusted at the earliest one year after the last setting; the declaration must be in text form stating the index change and the new rent and takes effect at the start of the second month after receipt. “Prepare adjustment” opens the rent increase page with the index values pre-filled."
 msgstr "Die Miete darf frühestens ein Jahr nach der letzten Festlegung angepasst werden; die Erklärung muss in Textform erfolgen, Indexänderung und neue Miete angeben und wird zu Beginn des übernächsten Monats nach Zugang wirksam. „Anpassung vorbereiten“ öffnet die Seite Mieterhöhung mit vorbelegten Indexwerten."
-
-msgid "Rent index (link)"
-msgstr "Mietspiegel (Link)"
-
-msgid "Link to the municipality’s rent index for this postcode; shown on the rent increase page. Empty = search by postcode."
-msgstr "Link zum Mietspiegel der Gemeinde für diese Postleitzahl; wird auf der Mieterhöhungsseite angezeigt. Leer = Suche nach Postleitzahl."
-
-msgid "Index / CPI"
-msgstr "Index / VPI"
-
-msgid "Demo data created – have a look around. Delete everything later under Settings & backup → Restore, or start fresh via Uninstall."
-msgstr "Demodaten angelegt – schau dich um. Später alles löschen über Einstellungen & Backup → Wiederherstellen oder neu beginnen über Deinstallation."
-
-msgid "Demo data are only possible on an empty installation."
-msgstr "Demodaten sind nur auf einer leeren Installation möglich."
-
-msgid "The setup wizard creates landlord, property, unit, tenant and tenancy in five steps – or load demo data to explore the plugin."
-msgstr "Der Einrichtungsassistent legt in fünf Schritten Vermieter, Objekt, Einheit, Mieter und Mietverhältnis an – oder lade Demodaten, um das Plugin kennenzulernen."
-
-msgid "Create demo data (a condominium with tenant, one year of payments, receipts, loan and owners’ fee)? Only possible on an empty installation."
-msgstr "Demodaten anlegen (eine Eigentumswohnung mit Mieter, ein Jahr Zahlungen, Belege, Darlehen und Hausgeld)? Nur auf einer leeren Installation möglich."
-
-msgid "Load demo data"
-msgstr "Demodaten laden"
-
-msgid "Recurring expense “%s”"
-msgstr "Dauerbeleg „%s“"
-
-msgid "Bank import: %d transactions"
-msgstr "Bankimport: %d Buchungen"
-
-msgid "Recurring expense"
-msgstr "Dauerbeleg"
-
-msgid "– recurring expense –"
-msgstr "– Dauerbeleg –"
-
-msgid "Tenant #%d"
-msgstr "Mieter Nr. %d"
-
-msgid "Tax advisor (read-only)"
-msgstr "Steuerberater (nur lesen)"
-
-msgid "Demo data created"
-msgstr "Demodaten angelegt"
-
-msgid "Backup restored"
-msgstr "Backup eingespielt"
-
-msgid "Backup created."
-msgstr "Sicherung erstellt."
-
-msgid "Backup could not be written (uploads folder not writable)."
-msgstr "Sicherung konnte nicht geschrieben werden (Uploads-Ordner nicht beschreibbar)."
-
-msgid "Backup deleted."
-msgstr "Sicherung gelöscht."
-
-msgid "Two-factor login is now active for your account. Your backup codes are shown below – store them safely."
-msgstr "Zwei-Faktor-Anmeldung ist jetzt für dein Konto aktiv. Deine Backup-Codes stehen unten – bewahre sie sicher auf."
-
-msgid "Two-factor login disabled for your account."
-msgstr "Zwei-Faktor-Anmeldung für dein Konto deaktiviert."
-
-msgid "New backup codes created – the old ones are no longer valid."
-msgstr "Neue Backup-Codes erstellt – die alten gelten nicht mehr."
-
-msgid "The code did not match. Check the time on your phone and try the current code again."
-msgstr "Der Code hat nicht gepasst. Prüfe die Uhrzeit auf dem Telefon und versuche es mit dem aktuellen Code erneut."
-
-msgid "Security"
-msgstr "Sicherheit"
-
-msgid "Two-factor login"
-msgstr "Zwei-Faktor-Anmeldung"
-
-msgid "Optional – each landlord may set it up"
-msgstr "Freiwillig – jeder Vermieter kann sie einrichten"
-
-msgid "Required for landlords and administrators"
-msgstr "Pflicht für Vermieter und Administratoren"
-
-msgid "Automatic backups"
-msgstr "Automatische Sicherungen"
-
-msgid "Create backups automatically"
-msgstr "Sicherungen automatisch erstellen"
-
-msgid "Weekly"
-msgstr "Wöchentlich"
-
-msgid "JSON export of all tables into the uploads folder (mietfux-backups), run by WP-Cron."
-msgstr "JSON-Export aller Tabellen in den Uploads-Ordner (mietfux-backups), ausgeführt per WP-Cron."
-
-msgid "Backups to keep"
-msgstr "Aufzubewahrende Sicherungen"
-
-msgid "Also send backup by email"
-msgstr "Sicherung zusätzlich per E-Mail senden"
-
-msgid "Yes, to the reminder address"
-msgstr "Ja, an die Erinnerungsadresse"
-
-msgid "Email to tenants"
-msgstr "E-Mail an Mieter"
-
-msgid "Copy of every email to me"
-msgstr "Kopie jeder E-Mail an mich"
-
-msgid "Email signature"
-msgstr "E-Mail-Signatur"
-
-msgid "Appended below the greeting; empty = landlord name and address."
-msgstr "Wird unter der Grußformel angefügt; leer = Name und Anschrift des Vermieters."
-
-msgid "Consumer price index (Destatis)"
-msgstr "Verbraucherpreisindex (Destatis)"
-
-msgid "GENESIS-Online user name"
-msgstr "GENESIS-Online-Benutzername"
-
-msgid "Free registration at genesis.destatis.de is required for the web service; an API token can be entered as user name (password empty). Without credentials, CSV import remains available."
-msgstr "Für den Webservice ist eine kostenlose Registrierung bei genesis.destatis.de nötig; ein API-Token kann als Benutzername eingetragen werden (Passwort leer). Ohne Zugangsdaten bleibt der CSV-Import möglich."
-
-msgid "GENESIS-Online password"
-msgstr "GENESIS-Online-Passwort"
-
-msgid "Restore backup"
-msgstr "Backup einspielen"
-
-msgid "Backup exported"
-msgstr "Backup exportiert"
-
-msgid "Rent index"
-msgstr "Mietspiegel"
-
-msgid "Open rent index %s"
-msgstr "Mietspiegel %s öffnen"
-
-msgid "Search rent index for %1$s %2$s"
-msgstr "Mietspiegel für %1$s %2$s suchen"
-
-msgid "Searched by the property’s postcode. Save the link to the rent index with the property to open it directly next time."
-msgstr "Gesucht wird nach der Postleitzahl des Objekts. Den Link zum Mietspiegel beim Objekt speichern, dann öffnet er sich beim nächsten Mal direkt."
-
-msgid "Qualified rent index of the municipality, three comparable flats or expert opinion"
-msgstr "Qualifizierter Mietspiegel der Gemeinde, drei Vergleichswohnungen oder Gutachten"
-
-msgid "e.g. “%1$s rent index %2$d, field C3: €8.90–10.40/m², mean €9.60/m²”"
-msgstr "z. B. „Mietspiegel %1$s %2$d, Feld C3: 8,90–10,40 €/m², Mittelwert 9,60 €/m²“"
-
-msgid "File not found."
-msgstr "Datei nicht gefunden."
-
-msgid "Last automatic backup: %s"
-msgstr "Letzte automatische Sicherung: %s"
-
-msgid "No automatic backup yet."
-msgstr "Noch keine automatische Sicherung."
-
-msgid "Create backup now"
-msgstr "Sicherung jetzt erstellen"
-
-msgid "Size"
-msgstr "Größe"
-
-msgid "Download"
-msgstr "Herunterladen"
-
-msgid "Delete this backup?"
-msgstr "Diese Sicherung löschen?"
-
-msgid "Backups are stored in the uploads folder (mietfux-backups, blocked for direct access) and rotated automatically. To restore, download the file and use “Restore” above."
-msgstr "Sicherungen liegen im Uploads-Ordner (mietfux-backups, gegen direkten Zugriff gesperrt) und werden automatisch rotiert. Zum Wiederherstellen die Datei herunterladen und oben unter „Wiederherstellen“ einspielen."
-
-msgid "Maintain line numbers of Anlage V %d"
-msgstr "Zeilennummern der Anlage V %d pflegen"
-
-msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
-msgstr "Destatis verlangt für den Webservice ein kostenloses GENESIS-Online-Konto (Gastzugang wird nicht mehr akzeptiert). Bei genesis.destatis.de registrieren, Benutzername und Passwort (oder einen API-Token als Benutzername) unter Einstellungen → Verbraucherpreisindex eintragen – oder die CSV-Datei manuell importieren."
-
-msgid "Destatis returned a web page instead of data – please check the GENESIS-Online credentials under Settings."
-msgstr "Destatis lieferte eine Webseite statt Daten – bitte die GENESIS-Online-Zugangsdaten in den Einstellungen prüfen."
-
-msgid "Loads table %s (CPI Germany, months) of the last three years from GENESIS-Online and stores all monthly values. Requires a free GENESIS-Online account (user name/password or API token under Settings → Consumer price index)."
-msgstr "Lädt Tabelle %s (VPI Deutschland, Monate) der letzten drei Jahre von GENESIS-Online und speichert alle Monatswerte. Erfordert ein kostenloses GENESIS-Online-Konto (Benutzername/Passwort oder API-Token unter Einstellungen → Verbraucherpreisindex)."
 
 msgid "Too many wrong codes – please log in again. If your phone is unavailable, use a backup code."
 msgstr "Zu viele falsche Codes – bitte erneut anmelden. Wenn das Telefon nicht verfügbar ist, einen Backup-Code verwenden."

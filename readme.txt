@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,11 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 10. Activity log
 
 == Changelog ==
+
+= 1.4.0 =
+* New tenant portal layout: own full-page template (switchable in Settings), status banner with amount due and copy-IBAN button, tiles for rent, tenancy, deposit and next due date, 12-month rent account with bars and status pills, collapsible forms for meter readings and reports, released documents, reports with status, landlord contact; mobile-first, dark mode.
+* New backend layout: sticky header with global search (tenants, properties, units, tenancies) and "+ New" menu, KPI tiles with trend and sparklines, income/expenses chart (12 months, year, previous year), notices sorted by urgency with action buttons, menu badges (open reports, due recurring expenses, bank import), tenancy cards with balance pill, status pills in lists, empty states, dark mode.
+* Meter reading per property: heating meters read by a reading service (ista, Techem …) – each tenant's heating/hot-water share is entered from the service's statement in the service charge statement and replaces the HeizkostenV allocation (with a plausibility check against the heating receipts); properties without water meters per unit allocate water by area or persons; each meter has "Read by" (tenant / reading service / landlord) – only tenant-read meters appear in the portal.
 
 = 1.3.0 =
 * Built-in two-factor login (TOTP authenticator app + backup codes), no extra plugin: optional or required for landlords/administrators, set up with QR code under Settings; second step on the login page with attempt limit; secrets stored encrypted. A present "Two-Factor" plugin takes precedence.

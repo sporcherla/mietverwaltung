@@ -2,6 +2,13 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.4.0 – Neues Portal- und Backend-Layout, Zählerablesung je Objekt
+
+- **Mieterportal neu**: eigene Vollbild-Seitenvorlage ohne Theme-Kopf/-Fuß (Einstellung „Portal-Layout“, abschaltbar), Status-Banner „Offen: X €“ mit IBAN und „IBAN kopieren“ bzw. „Alles bezahlt“, Kacheln (Miete aktuell, Mietverhältnis, Kaution, nächste Fälligkeit), Mietkonto der letzten 12 Monate mit Balken und Status-Pills, aufklappbare Formulare für Zählerstand und Schaden/Anliegen, freigegebene Dokumente mit Icon je Typ, eigene Meldungen mit Status, Kontaktkarte des Vermieters; mobil-first, Dark Mode, ohne externe Ressourcen (neue Dateien `assets/portal.css`, `assets/portal.js`, `includes/class-mv-portal-template.php`).
+- **Backend neu**: Sticky-Kopfzeile mit Seitentitel, globaler Suche (Mieter, Objekte, Einheiten, Mietverhältnisse, Shortcut „/“) und „+ Neu“-Menü; Übersicht mit KPI-Kacheln (Trend zum Vorjahr, Sparklines), SVG-Diagramm Einnahmen/Ausgaben (12 Monate | Jahr | Vorjahr), Hinweise nach Dringlichkeit mit Aktionsknopf, Mietverhältnis-Karten mit Saldo-Pill und Aktionen, Tabs Aktiv/Beendet; Menü-Badges (offene Meldungen, fällige Dauerbelege, Bankimport); Status-Pills und Icon-Aktionen in Listen, leere Zustände, Formular-Karten, Dark Mode.
+- **Zählerablesung je Objekt**: Objektfeld „Ablesung der Heizungszähler durch“ (Vermieter/Mieter | Ablesedienst) – bei Ablesedienst erfasst die Betriebskostenabrechnung den Heiz- und Warmwasseranteil je Mieter aus der Ablesedienst-Abrechnung (ersetzt die HeizkostenV-Verteilung, Prüfhinweis gegen die Heizkostenbelege, Belege bleiben für die Anlage V erfasst); Objektfeld „Wasserzähler“ (vorhanden | keine → nach Wohnfläche | keine → nach Personen) ohne Zähler-Warnung; Zählerfeld „Ablesung durch“ (Mieter | Ablesedienst | Vermieter) – im Portal erscheinen nur vom Mieter abgelesene Zähler, Heizungs-/Warmwasserzähler bei Ablesedienst und Wasserzähler ohne Wohnungszähler werden ausgeblendet.
+- Datenbank-Version 17 (Spalten `objekte.heizung_ablesung`, `objekte.wasser_verteilung`, `zaehler.ablesung`, Tabelle `mv_abrechnung_ablesedienst`), Demodaten angepasst, Hilfetexte, Übersetzungen in 7 Sprachen (1392 Strings).
+
 ## 1.3.0 – Eingebaute Zwei-Faktor-Anmeldung
 
 - **TOTP ohne Zusatz-Plugin** (RFC 6238, kompatibel mit Aegis, FreeOTP, Google/Microsoft Authenticator, 1Password): Einstellung „Zwei-Faktor-Anmeldung“ = aus / freiwillig / Pflicht für Vermieter und Administratoren. Einrichtung unter Einstellungen → Sicherheit → „Meine Zwei-Faktor-Anmeldung“ mit QR-Code (lokal erzeugt, qrcode-generator MIT), manuellem Schlüssel und Bestätigungscode; acht Backup-Codes (gehasht, einmalig anzeigbar, erneuerbar).
