@@ -25,6 +25,107 @@ class Mietv_Admin {
 		add_action( 'admin_init', [ __CLASS__, 'handle_op_buchen' ] );
 		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'assets' ] );
 		add_action( 'admin_bar_menu', [ __CLASS__, 'admin_bar' ], 100 );
+		add_action( 'in_admin_header', [ __CLASS__, 'kopf_ausgeben' ] );
+		add_action( 'admin_init', [ __CLASS__, 'badges_reset' ], 1 );
+	}
+
+	/* ------------------------------------------------------------------ */
+	/* Gemeinsamer Seitenkopf (Titel, Suche, „+ Neu“) auf allen Plugin-Seiten */
+	/* ------------------------------------------------------------------ */
+
+	/** Ist der Screen eine Plugin-Seite (toplevel_page_mietv… / …_page_mietv_…)? */
+	private static function ist_plugin_screen( string $id ): bool {
+		return strpos( $id, 'toplevel_page_mietv' ) === 0 || strpos( $id, '_page_mietv_' ) !== false;
+	}
+
+	/** Hook in_admin_header: Kopfzeile nur auf Plugin-Seiten ausgeben. */
+	public static function kopf_ausgeben(): void {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || ! self::ist_plugin_screen( (string) $screen->id ) || ! current_user_can( self::CAP ) ) {
+			return;
+		}
+		$slug  = preg_replace( '/^.*_page_mietv_?/', '', (string) $screen->id );
+		$icons = self::icons();
+		$key   = isset( $icons[ $slug ] ) ? $slug : '__' . $slug;
+		self::kopf( (string) get_admin_page_title(), $icons[ $key ] ?? 'admin-home', $slug === 'uebersicht' ? date_i18n( 'F Y' ) : '' );
+	}
+
+	/** Sticky-Kopfzeile: Icon, Seitentitel, globale Suche, Aktionen, „+ Neu“. */
+	private static function kopf( string $titel, string $icon = 'admin-home', string $sub = '' ): void {
+		$q   = isset( $_GET['mv_s'] ) ? sanitize_text_field( wp_unslash( $_GET['mv_s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Suchparameter, keine Datenänderung.
+		$neu = [
+			[ 'groups', __( 'Tenant', 'mietfux' ), self::url( 'mieter', [ 'action' => 'new' ] ) ],
+			[ 'building', __( 'Property', 'mietfux' ), self::url( 'objekte', [ 'action' => 'new' ] ) ],
+			[ 'admin-home', __( 'Unit', 'mietfux' ), self::url( 'einheiten', [ 'action' => 'new' ] ) ],
+			[ 'clipboard', __( 'Receipt', 'mietfux' ), self::url( 'belege', [ 'action' => 'new' ] ) ],
+			[ 'money-alt', __( 'Payment', 'mietfux' ), self::url( 'zahlungen', [ 'action' => 'new' ] ) ],
+			[ 'id-alt', __( 'Tenancy', 'mietfux' ), self::url( 'mietverhaeltnisse', [ 'action' => 'new' ] ) ],
+		];
+		echo '<div class="mv-topbar" id="mv-topbar">';
+		printf(
+			'<div class="mv-topbar-title"><span class="mv-topbar-icon"><span class="dashicons dashicons-%s"></span></span><h1 class="mv-topbar-h1">%s</h1><span class="mv-topbar-sub">%s</span></div>',
+			esc_attr( $icon ),
+			esc_html( $titel ),
+			esc_html( $sub )
+		);
+		echo '<div class="mv-topbar-tools">';
+		printf(
+			'<form method="get" action="%s" class="mv-search" role="search"><input type="hidden" name="page" value="mietv_uebersicht"><span class="dashicons dashicons-search"></span><input type="search" name="mv_s" id="mv-search" value="%s" placeholder="%s" aria-label="%s" autocomplete="off"><kbd>/</kbd></form>',
+			esc_url( admin_url( 'admin.php' ) ),
+			esc_attr( $q ),
+			esc_attr__( 'Search tenant, property, unit …', 'mietfux' ),
+			esc_attr__( 'Search', 'mietfux' )
+		);
+		echo '<div class="mv-topbar-actions"></div>';
+		echo '<details class="mv-dropdown mv-neu"><summary class="button button-primary">' . esc_html__( '+ New', 'mietfux' ) . ' <span class="dashicons dashicons-arrow-down-alt2"></span></summary><ul class="mv-dropdown-menu">';
+		foreach ( $neu as [ $ico, $label, $url ] ) {
+			printf( '<li><a href="%s"><span class="dashicons dashicons-%s"></span>%s</a></li>', esc_url( $url ), esc_attr( $ico ), esc_html( $label ) );
+		}
+		echo '</ul></details></div></div>';
+	}
+
+	/* ------------------------------------------------------------------ */
+	/* Menü-Badges (offene Zähler), 60 s gecacht                           */
+	/* ------------------------------------------------------------------ */
+
+	/** Zähler je Menü-Key: meldungen (offen), __bank (nicht zugeordnet, je Benutzer), __dauerbelege (fällig). */
+	private static function badges(): array {
+		global $wpdb;
+		$b = get_transient( 'mietv_badges' );
+		if ( ! is_array( $b ) ) {
+			$b = [
+				'meldungen'     => (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_meldungen WHERE status = 'offen'" ),
+				'__dauerbelege' => 0,
+			];
+			if ( class_exists( 'Mietv_Dauerbelege' ) && method_exists( 'Mietv_Dauerbelege', 'offene' ) ) {
+				foreach ( Mietv_Dauerbelege::offene() as $termine ) {
+					$b['__dauerbelege'] += count( $termine );
+				}
+			}
+			set_transient( 'mietv_badges', $b, 60 ); // 60 s
+		}
+		$rows = get_transient( 'mietv_bank_' . get_current_user_id() );
+		if ( is_array( $rows ) ) {
+			$b['__bank'] = count( array_filter( $rows, fn( $r ) => empty( $r['bereits'] ) ) );
+		}
+		return array_filter( array_map( 'intval', $b ) );
+	}
+
+	/** Badge-Cache nach schreibenden Anfragen verwerfen (vor handle_actions). */
+	public static function badges_reset(): void {
+		$methode = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_key( $_SERVER['REQUEST_METHOD'] ) : '';
+		$aktion  = isset( $_GET['action'] ) ? sanitize_key( $_GET['action'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nur Cache-Invalidierung, keine Datenänderung.
+		if ( $methode === 'post' || $aktion === 'delete' ) {
+			delete_transient( 'mietv_badges' );
+		}
+	}
+
+	/** Badge-Markup für Menütitel. */
+	private static function badge_html( int $n, bool $warn = false ): string {
+		if ( $n <= 0 ) {
+			return '';
+		}
+		return ' <span class="awaiting-mod mv-menu-badge' . ( $warn ? ' mv-menu-badge-warn' : '' ) . '">' . (int) $n . '</span>';
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -1307,7 +1408,8 @@ class Mietv_Admin {
 			}
 			return;
 		}
-		add_menu_page( __( 'Mietfux', 'mietfux' ), __( 'Mietfux', 'mietfux' ), self::CAP, 'mietv_uebersicht', [ __CLASS__, 'page_uebersicht' ], 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PHBhdGggZmlsbD0iYmxhY2siIGQ9Ik0xMCAyIDEuNSA5LjJsMS4xIDEuMkw0IDkuM1YxN2g1di00aDJ2NGg1VjkuM2wxLjQgMS4xIDEuMS0xLjJMMTAgMnptMCAyLjQgNC41IDMuOVYxNS41aC0yVjExSDcuNXY0LjVoLTJWOC4zTDEwIDQuNHoiLz48Y2lyY2xlIGZpbGw9ImJsYWNrIiBjeD0iMTQuNiIgY3k9IjUuMiIgcj0iMS4zIi8+PC9zdmc+', 58 );
+		$gesamt = array_sum( self::badges() );
+		add_menu_page( __( 'Mietfux', 'mietfux' ), __( 'Mietfux', 'mietfux' ) . self::badge_html( $gesamt ), self::CAP, 'mietv_uebersicht', [ __CLASS__, 'page_uebersicht' ], 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PHBhdGggZmlsbD0iYmxhY2siIGQ9Ik0xMCAyIDEuNSA5LjJsMS4xIDEuMkw0IDkuM1YxN2g1di00aDJ2NGg1VjkuM2wxLjQgMS4xIDEuMS0xLjJMMTAgMnptMCAyLjQgNC41IDMuOVYxNS41aC0yVjExSDcuNXY0LjVoLTJWOC4zTDEwIDQuNHoiLz48Y2lyY2xlIGZpbGw9ImJsYWNrIiBjeD0iMTQuNiIgY3k9IjUuMiIgcj0iMS4zIi8+PC9zdmc+', 58 );
 		add_submenu_page( 'mietv_uebersicht', __( 'Overview', 'mietfux' ), '<span class="dashicons dashicons-dashboard"></span> ' . __( 'Overview', 'mietfux' ), self::CAP, 'mietv_uebersicht', [ __CLASS__, 'page_uebersicht' ] );
 		// Gruppen (## = Überschrift) und Dashicons
 		$reihenfolge = [
@@ -1360,7 +1462,8 @@ class Mietv_Admin {
 			'__vpi'           => esc_html__( 'Index / CPI', 'mietfux' ),
 			'__hausgeld'      => esc_html__( 'Owners’ fee', 'mietfux' ),
 		];
-		$ico         = fn( string $key, string $label ) => '<span class="dashicons dashicons-' . esc_attr( $icons[ $key ] ?? 'marker' ) . '"></span> ' . ( $kurz[ $key ] ?? $label );
+		$badges      = self::badges();
+		$ico         = fn( string $key, string $label ) => '<span class="dashicons dashicons-' . esc_attr( $icons[ $key ] ?? 'marker' ) . '"></span> ' . ( $kurz[ $key ] ?? $label ) . self::badge_html( $badges[ $key ] ?? 0, $key !== 'meldungen' );
 		$seiten      = [
 			'__mietvertrag'    => [ __( 'Agreement & handover', 'mietfux' ), [ 'Mietv_Mietvertrag', 'page' ] ],
 			'__bank'           => [ esc_html__( 'Bank import', 'mietfux' ), [ 'Mietv_Bank', 'page' ] ],
@@ -1918,16 +2021,41 @@ class Mietv_Admin {
 		echo '</div>';
 	}
 
+	/** Status-Pill für bekannte Statuswerte (Meldungen, Darlehen, Mietverhältnis). */
+	private static function pill( string $wert, string $label ): string {
+		$map = [
+			'offen'          => 'neg',
+			'in_bearbeitung' => 'warn',
+			'erledigt'       => 'ok',
+			'aktiv'          => 'ok',
+			'abgeloest'      => 'neutral',
+			'beendet'        => 'neutral',
+			'bezahlt'        => 'ok',
+			'teilweise'      => 'warn',
+		];
+		return '<span class="mv-pill mv-pill-' . esc_attr( $map[ $wert ] ?? 'neutral' ) . '">' . esc_html( $label ) . '</span>';
+	}
+
+	/** Leerer Zustand als Karte mit Hinweistext und optionalem Button. */
+	private static function leer( string $icon, string $text, string $url = '', string $button = '' ): void {
+		printf( '<div class="mv-card mv-empty"><span class="dashicons dashicons-%s"></span><p>%s</p>', esc_attr( $icon ), esc_html( $text ) );
+		if ( $url && $button ) {
+			printf( '<a href="%s" class="button button-primary">%s</a>', esc_url( $url ), esc_html( $button ) );
+		}
+		echo '</div>';
+	}
+
 	private static function render_list( string $key, array $ent ): void {
 		global $wpdb;
 		$lesen = ! current_user_can( self::CAP );
+		$neu   = self::url( $key, [ 'action' => 'new' ] );
 		if ( $lesen ) {
 			printf( '<h1 class="wp-heading-inline">%s</h1><hr class="wp-header-end">', esc_html( $ent['label'] ) );
 		} else {
 			printf(
 				'<h1 class="wp-heading-inline">%s</h1> <a href="%s" class="page-title-action">' . /* translators: %s: Wert */ esc_html__( 'Add %s', 'mietfux' ) . '</a><hr class="wp-header-end">',
 				esc_html( $ent['label'] ),
-				esc_url( self::url( $key, [ 'action' => 'new' ] ) ),
+				esc_url( $neu ),
 				esc_html( $ent['singular'] )
 			);
 		}
@@ -1952,6 +2080,17 @@ class Mietv_Admin {
 		$rows = $wpdb->get_results( 'SELECT * FROM ' . mietv_table( $key ) . $where . ' ORDER BY ' . $ent['order'] );  // phpcs:ignore WordPress.DB.PreparedSQL, PluginCheck.Security.DirectDB -- Tabellen- und Spaltennamen stammen aus der internen Entitätsdefinition, nicht aus Nutzereingaben.
 		$cols = array_filter( $ent['fields'], fn( $f ) => ! empty( $f['list'] ) );
 
+		if ( ! $rows ) {
+			$icons = self::icons();
+			self::leer(
+				$icons[ $key ] ?? 'portfolio',
+				$where ? __( 'No entries for this year.', 'mietfux' ) : __( 'No entries yet.', 'mietfux' ),
+				$lesen ? '' : $neu,
+				$lesen ? '' : sprintf( /* translators: %s: Wert */ __( 'Add %s', 'mietfux' ), $ent['singular'] )
+			);
+			return;
+		}
+
 		// Options einmalig auflösen
 		$resolved = [];
 		foreach ( $cols as $name => $f ) {
@@ -1959,16 +2098,19 @@ class Mietv_Admin {
 				$resolved[ $name ] = is_callable( $f['options'] ) ? call_user_func( $f['options'] ) : $f['options'];
 			}
 		}
+		$mv_status = $key === 'mietverhaeltnisse';
+		$heute     = current_time( 'Y-m-d' );
 
-		echo '<table class="wp-list-table widefat fixed striped"><thead><tr>';
+		printf( '<p class="mv-list-count">%s</p>', esc_html( sprintf( /* translators: %d: Anzahl */ _n( '%d entry', '%d entries', count( $rows ), 'mietfux' ), count( $rows ) ) ) );
+		echo '<div class="mv-tablewrap"><table class="wp-list-table widefat fixed striped mv-list"><thead><tr>';
 		foreach ( $cols as $f ) {
 			echo '<th>' . esc_html( $f['label'] ) . '</th>';
 		}
+		if ( $mv_status ) {
+			echo '<th>' . esc_html__( 'Status', 'mietfux' ) . '</th>';
+		}
 		echo '<th class="mv-actions">' . esc_html__( 'Actions', 'mietfux' ) . '</th></tr></thead><tbody>';
 
-		if ( ! $rows ) {
-			echo '<tr><td colspan="' . ( count( $cols ) + 1 ) . '">' . esc_html__( 'No entries yet.', 'mietfux' ) . '</td></tr>';
-		}
 		foreach ( $rows as $r ) {
 			echo '<tr>';
 			foreach ( $cols as $name => $f ) {
@@ -1979,10 +2121,18 @@ class Mietv_Admin {
 				}
 				if ( $f['type'] === 'file' ) {
 					$url = $r->$name ? wp_get_attachment_url( (int) $r->$name ) : '';
-					echo '<td>' . ( $url ? '<a href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'Open receipt', 'mietfux' ) . '</a>' : '–' ) . '</td>';
+					echo '<td>' . ( $url ? '<a href="' . esc_url( $url ) . '" target="_blank" class="mv-icon-btn" title="' . esc_attr__( 'Open receipt', 'mietfux' ) . '"><span class="dashicons dashicons-media-document"></span><span class="screen-reader-text">' . esc_html__( 'Open receipt', 'mietfux' ) . '</span></a>' : '–' ) . '</td>';
+					continue;
+				}
+				if ( $name === 'status' && $f['type'] === 'select' ) {
+					echo '<td>' . wp_kses_post( self::pill( (string) $r->status, self::display( $f, $r->$name, $resolved[ $name ] ?? [] ) ) ) . '</td>';
 					continue;
 				}
 				echo '<td>' . esc_html( self::display( $f, $r->$name, $resolved[ $name ] ?? [] ) ) . '</td>';
+			}
+			if ( $mv_status ) {
+				$aktiv = empty( $r->ende ) || $r->ende === '0000-00-00' || $r->ende >= $heute;
+				echo '<td>' . wp_kses_post( $aktiv ? self::pill( 'aktiv', __( 'Active', 'mietfux' ) ) : self::pill( 'beendet', __( 'Ended', 'mietfux' ) ) ) . '</td>';
 			}
 			$edit = self::url(
 				$key,
@@ -2004,11 +2154,18 @@ class Mietv_Admin {
 			if ( $lesen ) {
 				echo '<td class="mv-actions"></td>';
 			} else {
-				printf( '<td class="mv-actions"><a href="%s">' . esc_html__( 'Edit', 'mietfux' ) . '</a> | <a href="%s" class="mv-delete" data-confirm="' . esc_attr__( 'Really delete?', 'mietfux' ) . '">' . esc_html__( 'Delete', 'mietfux' ) . '</a></td>', esc_url( $edit ), esc_url( $del ) );
+				printf(
+					'<td class="mv-actions"><a href="%1$s" class="mv-icon-btn" title="%2$s"><span class="dashicons dashicons-edit"></span><span class="screen-reader-text">%2$s</span></a><a href="%3$s" class="mv-icon-btn mv-delete" title="%4$s" data-confirm="%5$s"><span class="dashicons dashicons-trash"></span><span class="screen-reader-text">%4$s</span></a></td>',
+					esc_url( $edit ),
+					esc_attr__( 'Edit', 'mietfux' ),
+					esc_url( $del ),
+					esc_attr__( 'Delete', 'mietfux' ),
+					esc_attr__( 'Really delete?', 'mietfux' )
+				);
 			}
 			echo '</tr>';
 		}
-		echo '</tbody></table>';
+		echo '</tbody></table></div>';
 	}
 
 	private static function display( array $f, $value, array $options ): string {
@@ -2144,44 +2301,169 @@ class Mietv_Admin {
 	/* Übersicht: Offene Posten                                           */
 	/* ------------------------------------------------------------------ */
 
-	/** Kennzahlen, Schnellzugriff und Hinweise oberhalb der offenen Posten. */
-	private static function dashboard( array $mvs, int $offene_meldungen ): void {
+	/** Monatsreihe: 12 Monate (Y-m-01) – letzte 12 Monate (jahr = 0) oder Jan–Dez eines Jahres. */
+	private static function monatsreihe( int $jahr ): array {
+		$out = [];
+		if ( $jahr > 0 ) {
+			for ( $m = 1; $m <= 12; $m++ ) {
+				$out[] = sprintf( '%04d-%02d-01', $jahr, $m );
+			}
+			return $out;
+		}
+		$cursor = new DateTime( current_time( 'Y-m' ) . '-01' );
+		$cursor->modify( '-11 months' );
+		for ( $i = 0; $i < 12; $i++ ) {
+			$out[] = $cursor->format( 'Y-m-01' );
+			$cursor->modify( '+1 month' );
+		}
+		return $out;
+	}
+
+	/** Summen je Monat (Y-m) aus einer Tabelle mit datum/betrag im Zeitraum. */
+	private static function monatssummen( string $table, string $von, string $bis ): array {
 		global $wpdb;
-		$jahr       = (int) current_time( 'Y' );
-		$objekte    = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_objekte' );
-		$einheiten  = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_einheiten' );
-		$einnahmen  = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE datum BETWEEN %s AND %s', $jahr . '-01-01', $jahr . '-12-31' ) );
-		$kosten     = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_belege WHERE steuerjahr = %d', $jahr ) );
+		$out = [];
+		foreach ( $wpdb->get_results( $wpdb->prepare( 'SELECT datum, betrag FROM ' . mietv_table( $table ) . ' WHERE datum BETWEEN %s AND %s', $von, $bis ) ) as $r ) { // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Tabellenname aus interner Konstante.
+			$k         = substr( (string) $r->datum, 0, 7 );
+			$out[ $k ] = ( $out[ $k ] ?? 0.0 ) + (float) $r->betrag;
+		}
+		return $out;
+	}
+
+	/** Mini-Sparkline (inline SVG) über eine Werteliste. */
+	private static function sparkline( array $werte, string $cls = '' ): string {
+		$n = count( $werte );
+		if ( $n < 2 ) {
+			return '';
+		}
+		$max = max( max( $werte ), 0.01 );
+		$pts = [];
+		foreach ( array_values( $werte ) as $i => $v ) {
+			$x     = round( $i * 90 / ( $n - 1 ), 1 );
+			$y     = round( 20 - ( max( 0.0, (float) $v ) / $max ) * 18, 1 );
+			$pts[] = $x . ',' . $y;
+		}
+		return '<svg class="mv-spark ' . esc_attr( $cls ) . '" viewBox="0 0 90 22" aria-hidden="true" focusable="false"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="' . esc_attr( implode( ' ', $pts ) ) . '"/></svg>';
+	}
+
+	/** Beschriftung des Aktions-Buttons eines Hinweises, abgeleitet aus der Ziel-URL. */
+	private static function hinweis_aktion( string $url ): string {
+		$map  = [
+			'mietv_mahnung'        => __( 'Dun', 'mietfux' ),
+			'mietv_abrechnung'     => __( 'Calculate', 'mietfux' ),
+			'mietv_hausgeld'       => __( 'Book', 'mietfux' ),
+			'mietv_dauerbelege'    => __( 'Book', 'mietfux' ),
+			'mietv_bank'           => __( 'Assign', 'mietfux' ),
+			'mietv_darlehen_jahre' => __( 'Enter', 'mietfux' ),
+			'mietv_konditionen'    => __( 'Enter', 'mietfux' ),
+			'mietv_vpi'            => __( 'Check', 'mietfux' ),
+			'mietv_erhoehung'      => __( 'Check', 'mietfux' ),
+			'mietv_meldungen'      => __( 'View', 'mietfux' ),
+			'mietv_versand'        => __( 'View', 'mietfux' ),
+			'mietv_steuer'         => __( 'Check', 'mietfux' ),
+			'mietv_datenschutz'    => __( 'Anonymise', 'mietfux' ),
+			'mietv_uebersicht'     => __( 'Book', 'mietfux' ),
+		];
+		$page = '';
+		if ( preg_match( '/[?&]page=([a-z_]+)/', $url, $m ) ) {
+			$page = $m[1];
+		}
+		return $map[ $page ] ?? __( 'Open', 'mietfux' );
+	}
+
+	/** Balkendiagramm Einnahmen vs. Ausgaben je Monat als inline SVG. */
+	private static function chart( array $monate, array $einnahmen, array $ausgaben ): string {
+		$w    = 720;
+		$h    = 200;
+		$top  = 12;
+		$base = 168;
+		$max  = 0.01;
+		foreach ( $monate as $m ) {
+			$k   = substr( $m, 0, 7 );
+			$max = max( $max, $einnahmen[ $k ] ?? 0, $ausgaben[ $k ] ?? 0 );
+		}
+		$gut  = 44;
+		$slot = ( $w - $gut ) / 12;
+		$bw   = ( $slot - 14 ) / 2;
+		$svg  = '<svg class="mv-chart" viewBox="0 0 ' . $w . ' ' . $h . '" role="img" aria-label="' . esc_attr__( 'Income and expenses per month', 'mietfux' ) . '">';
+		foreach ( [ 0.25, 0.5, 0.75, 1 ] as $g ) {
+			$y    = round( $base - ( $base - $top ) * $g, 1 );
+			$svg .= '<line class="mv-chart-grid" x1="' . $gut . '" x2="' . $w . '" y1="' . $y . '" y2="' . $y . '"/>';
+			$svg .= '<text class="mv-chart-y" x="' . ( $gut - 6 ) . '" y="' . ( $y + 3 ) . '" text-anchor="end">' . esc_html( number_format( $max * $g, 0, ',', '.' ) ) . '</text>';
+		}
+		$svg .= '<line class="mv-chart-axis" x1="' . $gut . '" x2="' . $w . '" y1="' . $base . '" y2="' . $base . '"/>';
+		foreach ( $monate as $i => $m ) {
+			$k    = substr( $m, 0, 7 );
+			$e    = (float) ( $einnahmen[ $k ] ?? 0 );
+			$a    = (float) ( $ausgaben[ $k ] ?? 0 );
+			$x0   = $gut + $i * $slot + 7;
+			$he   = round( ( $base - $top ) * $e / $max, 1 );
+			$ha   = round( ( $base - $top ) * $a / $max, 1 );
+			$t    = date_i18n( 'M Y', strtotime( $m ) );
+			$svg .= '<rect class="mv-chart-e" x="' . round( $x0, 1 ) . '" y="' . round( $base - $he, 1 ) . '" width="' . round( $bw, 1 ) . '" height="' . $he . '" rx="3"><title>' . esc_html( $t . ' – ' . __( 'Income', 'mietfux' ) . ': ' . mietv_eur( $e ) ) . '</title></rect>';
+			$svg .= '<rect class="mv-chart-a" x="' . round( $x0 + $bw + 2, 1 ) . '" y="' . round( $base - $ha, 1 ) . '" width="' . round( $bw, 1 ) . '" height="' . $ha . '" rx="3"><title>' . esc_html( $t . ' – ' . __( 'Expenses', 'mietfux' ) . ': ' . mietv_eur( $a ) ) . '</title></rect>';
+			$svg .= '<text class="mv-chart-x" x="' . round( $gut + $i * $slot + $slot / 2, 1 ) . '" y="' . ( $base + 18 ) . '" text-anchor="middle">' . esc_html( date_i18n( 'M', strtotime( $m ) ) ) . '</text>';
+		}
+		return $svg . '</svg>';
+	}
+
+	/** Kennzahlen, Schnellzugriff, Diagramm und Hinweise oberhalb der Mietverhältnisse. */
+	private static function dashboard( array $mvs, array $hinweise ): void {
+		global $wpdb;
+		$jahr_akt  = (int) current_time( 'Y' );
+		$jahr      = isset( $_GET['mv_jahr'] ) ? (int) $_GET['mv_jahr'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$monate    = self::monatsreihe( $jahr );
+		$von       = $monate[0];
+		$bis       = gmdate( 'Y-m-t', strtotime( end( $monate ) ) );
+		$einnahmen = self::monatssummen( 'zahlungen', $von, $bis );
+		$ausgaben  = self::monatssummen( 'belege', $von, $bis );
+		$reihe_e   = [];
+		$reihe_a   = [];
+		foreach ( $monate as $m ) {
+			$reihe_e[] = $einnahmen[ substr( $m, 0, 7 ) ] ?? 0.0;
+			$reihe_a[] = $ausgaben[ substr( $m, 0, 7 ) ] ?? 0.0;
+		}
+		$objekte     = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_objekte' );
+		$einheiten   = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_einheiten' );
+		$jahr_wert   = $jahr > 0 ? $jahr : $jahr_akt;
+		$einn_jahr   = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE datum BETWEEN %s AND %s', $jahr_wert . '-01-01', $jahr_wert . '-12-31' ) );
+		$kosten_jahr = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_belege WHERE steuerjahr = %d', $jahr_wert ) );
+		// Trend: gleicher Zeitraum (1.1. bis heute) des Vorjahres
+		$bis_tag    = $jahr_wert === $jahr_akt ? current_time( 'm-d' ) : '12-31';
+		$e_akt      = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE datum BETWEEN %s AND %s', $jahr_wert . '-01-01', $jahr_wert . '-' . $bis_tag ) );
+		$e_vor      = (float) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(betrag),0) FROM ' . $wpdb->prefix . 'mv_zahlungen WHERE datum BETWEEN %s AND %s', ( $jahr_wert - 1 ) . '-01-01', ( $jahr_wert - 1 ) . '-' . $bis_tag ) );
 		$rueckstand = 0.0;
-		$soll_monat = 0.0;
 		foreach ( $mvs as $mv ) {
 			$op = Mietv_Soll::op_liste( $mv );
 			if ( $op['saldo'] < -0.005 ) {
 				$rueckstand += -$op['saldo'];
 			}
-			$k = Mietv_Soll::konditionen( (int) $mv->id, current_time( 'Y-m-01' ) );
-			if ( $k ) {
-				$soll_monat += (float) $k->kaltmiete + (float) $k->bk_vz + (float) $k->hk_vz;
-			}
 		}
-		$hinweise = class_exists( 'Mietv_Hinweise' ) ? Mietv_Hinweise::alle() : [];
+		$ergebnis = $einn_jahr - $kosten_jahr;
 
+		if ( $e_vor > 0.005 ) {
+			$pct   = ( $e_akt - $e_vor ) / $e_vor * 100;
+			$trend = '<span class="mv-trend ' . ( $pct < -0.05 ? 'mv-trend-neg' : 'mv-trend-pos' ) . '">' . ( $pct < -0.05 ? '▼' : '▲' ) . ' ' . esc_html( number_format( abs( $pct ), 1, ',', '.' ) ) . ' %</span> ' . esc_html__( 'vs. previous year (same period)', 'mietfux' );
+		} else {
+			$trend = esc_html__( 'No comparison with the previous year yet', 'mietfux' );
+		}
 		$kpi = [
-			[ 'admin-home', __( 'Properties / units', 'mietfux' ), $objekte . ' / ' . $einheiten, count( $mvs ) . ' ' . __( 'active tenancies', 'mietfux' ), self::url( 'objekte' ), '' ],
-			[ 'money-alt', __( 'Monthly rent due', 'mietfux' ), mietv_eur( $soll_monat ), __( 'Base rent + advance payments', 'mietfux' ), self::url( 'konditionen' ), '' ],
-			[ 'warning', __( 'Open rent claims', 'mietfux' ), mietv_eur( $rueckstand ), $rueckstand > 0.005 ? __( 'Arrears – tick below or send a reminder', 'mietfux' ) : __( 'All rent accounts balanced', 'mietfux' ), admin_url( 'admin.php?page=mietv_mahnung' ), $rueckstand > 0.005 ? 'mv-kpi-neg' : 'mv-kpi-pos' ],
-			[ 'chart-pie', sprintf( /* translators: %d: Jahr */ __( 'Income %d', 'mietfux' ), $jahr ), mietv_eur( $einnahmen ), sprintf( /* translators: %s: Betrag */ __( 'Expenses so far %s', 'mietfux' ), mietv_eur( $kosten ) ), admin_url( 'admin.php?page=mietv_steuer&jahr=' . $jahr ), '' ],
+			[ 'building', __( 'Properties / units', 'mietfux' ), $objekte . ' / ' . $einheiten, esc_html( sprintf( /* translators: %d: Anzahl */ _n( '%d active tenancy', '%d active tenancies', count( $mvs ), 'mietfux' ), count( $mvs ) ) ), self::url( 'objekte' ), '', '' ],
+			[ 'money-alt', sprintf( /* translators: %d: Jahr */ __( 'Rental income %d', 'mietfux' ), $jahr_wert ), mietv_eur( $einn_jahr ), $trend, self::url( 'zahlungen' ), '', self::sparkline( $reihe_e, 'mv-spark-pos' ) ],
+			[ 'warning', __( 'Open rent claims', 'mietfux' ), mietv_eur( $rueckstand ), esc_html( $rueckstand > 0.005 ? __( 'Arrears – tick below or send a reminder', 'mietfux' ) : __( 'All rent accounts balanced', 'mietfux' ) ), admin_url( 'admin.php?page=mietv_mahnung' ), $rueckstand > 0.005 ? 'mv-kpi-neg' : 'mv-kpi-pos', '' ],
+			[ 'chart-pie', sprintf( /* translators: %d: Jahr */ __( 'Result %d (preliminary)', 'mietfux' ), $jahr_wert ), ( $ergebnis > 0.005 ? '+' : '' ) . mietv_eur( $ergebnis ), esc_html( sprintf( /* translators: %s: Betrag */ __( 'Expenses %s', 'mietfux' ), mietv_eur( $kosten_jahr ) ) ), admin_url( 'admin.php?page=mietv_steuer&jahr=' . $jahr_wert ), $ergebnis < -0.005 ? 'mv-kpi-neg' : '', self::sparkline( $reihe_a, 'mv-spark-acc' ) ],
 		];
 		echo '<div class="mv-kpis">';
-		foreach ( $kpi as [ $icon, $label, $wert, $sub, $url, $cls ] ) {
+		foreach ( $kpi as [ $icon, $label, $wert, $sub, $url, $cls, $spark ] ) {
 			printf(
-				'<a class="mv-kpi %s" href="%s"><span class="mv-kpi-icon dashicons dashicons-%s"></span><span class="mv-kpi-label">%s</span><strong class="mv-kpi-wert">%s</strong><span class="mv-kpi-sub">%s</span></a>',
+				'<a class="mv-kpi %s" href="%s"><span class="mv-kpi-icon dashicons dashicons-%s"></span><span class="mv-kpi-body"><span class="mv-kpi-label">%s</span><strong class="mv-kpi-wert">%s</strong><span class="mv-kpi-sub">%s</span></span>%s</a>',
 				esc_attr( $cls ),
 				esc_url( $url ),
 				esc_attr( $icon ),
 				esc_html( $label ),
 				esc_html( $wert ),
-				esc_html( $sub )
+				wp_kses( $sub, [ 'span' => [ 'class' => true ] ] ),
+				wp_kses( $spark, self::kses_spark() )
 			);
 		}
 		echo '</div>';
@@ -2200,63 +2482,289 @@ class Mietv_Admin {
 		}
 		echo '</div>';
 
-		if ( $hinweise || $offene_meldungen ) {
-			echo '<section class="mv-card mv-hinweise"><header class="mv-card-head"><h2>' . esc_html__( 'Notices', 'mietfux' ) . '</h2></header><ul>';
-			if ( $offene_meldungen ) {
-				printf( '<li class="warn"><span class="dashicons dashicons-warning"></span><a href="%s">' . /* translators: %d: Anzahl */ esc_html__( '%d open report(s) from the tenant portal', 'mietfux' ) . '</a></li>', esc_url( self::url( 'meldungen' ) ), (int) $offene_meldungen );
+		// Diagramm + Hinweise nebeneinander
+		echo '<div class="mv-row">';
+		echo '<section class="mv-card mv-chartcard"><header class="mv-card-head"><h2>' . esc_html__( 'Income & expenses', 'mietfux' ) . '</h2><nav class="mv-tabs">';
+		$tabs = [
+			0             => __( '12 months', 'mietfux' ),
+			$jahr_akt     => (string) $jahr_akt,
+			$jahr_akt - 1 => (string) ( $jahr_akt - 1 ),
+		];
+		foreach ( $tabs as $j => $label ) {
+			printf( '<a href="%s" class="%s">%s</a>', esc_url( add_query_arg( 'mv_jahr', $j, admin_url( 'admin.php?page=mietv_uebersicht' ) ) ), $jahr === $j ? 'mv-tab-on' : '', esc_html( $label ) );
+		}
+		echo '</nav></header>';
+		if ( array_sum( $reihe_e ) + array_sum( $reihe_a ) < 0.005 ) {
+			echo '<p class="mv-muted">' . esc_html__( 'No payments or receipts in this period yet.', 'mietfux' ) . '</p>';
+		} else {
+			echo wp_kses( self::chart( $monate, $einnahmen, $ausgaben ), self::kses_chart() );
+		}
+		echo '<p class="mv-legend"><span class="mv-legend-e"></span>' . esc_html__( 'Rental income', 'mietfux' ) . ' <span class="mv-legend-a"></span>' . esc_html__( 'Expenses (receipts)', 'mietfux' ) . '</p></section>';
+
+		$dringend = count( array_filter( $hinweise, fn( $h ) => $h['typ'] === 'error' ) );
+		echo '<section class="mv-card mv-hinweise"><header class="mv-card-head"><h2>' . esc_html__( 'Notices', 'mietfux' ) . ' <span class="mv-count">' . count( $hinweise ) . '</span></h2>';
+		if ( $dringend ) {
+			printf( '<span class="mv-pill mv-pill-neg">%s</span>', esc_html( sprintf( /* translators: %d: Anzahl */ _n( '%d urgent', '%d urgent', $dringend, 'mietfux' ), $dringend ) ) );
+		}
+		echo '</header>';
+		if ( ! $hinweise ) {
+			echo '<div class="mv-empty mv-empty-ok"><span class="dashicons dashicons-yes-alt"></span><p>' . esc_html__( 'All clear – no open notices.', 'mietfux' ) . '</p></div>';
+		} else {
+			$labels = [
+				'error' => __( 'Urgent', 'mietfux' ),
+				'warn'  => __( 'Warning', 'mietfux' ),
+				'info'  => __( 'Info', 'mietfux' ),
+			];
+			$sort   = [
+				'error' => 0,
+				'warn'  => 1,
+				'info'  => 2,
+			];
+			usort( $hinweise, fn( $a, $b ) => ( $sort[ $a['typ'] ] ?? 3 ) <=> ( $sort[ $b['typ'] ] ?? 3 ) );
+			echo '<ul class="mv-notices">';
+			foreach ( array_slice( $hinweise, 0, 10 ) as $h ) {
+				$typ = in_array( $h['typ'], [ 'error', 'warn', 'info' ], true ) ? $h['typ'] : 'info';
+				printf(
+					'<li class="mv-notice mv-notice-%1$s"><span class="mv-pill mv-pill-%1$s">%2$s</span><span class="mv-notice-text">%3$s</span><a href="%4$s" class="button button-small">%5$s</a></li>',
+					esc_attr( $typ ),
+					esc_html( $labels[ $typ ] ),
+					esc_html( $h['text'] ),
+					esc_url( $h['url'] ),
+					esc_html( self::hinweis_aktion( (string) $h['url'] ) )
+				);
 			}
-			foreach ( array_slice( $hinweise, 0, 8 ) as $h ) {
-				printf( '<li class="%s"><span class="dashicons dashicons-%s"></span><a href="%s">%s</a></li>', esc_attr( $h['typ'] ), esc_attr( $h['typ'] === 'error' ? 'dismiss' : ( $h['typ'] === 'warn' ? 'warning' : 'info' ) ), esc_url( $h['url'] ), esc_html( $h['text'] ) );
+			echo '</ul>';
+			if ( count( $hinweise ) > 10 ) {
+				printf( '<p class="mv-muted">%s</p>', esc_html( sprintf( /* translators: %d: Anzahl */ __( '… and %d more – see the WordPress dashboard widget.', 'mietfux' ), count( $hinweise ) - 10 ) ) );
+			}
+		}
+		echo '</section></div>';
+	}
+
+	/** Erlaubte Tags für die Sparkline. */
+	private static function kses_spark(): array {
+		$a = [
+			'class'           => true,
+			'viewbox'         => true,
+			'aria-hidden'     => true,
+			'focusable'       => true,
+			'fill'            => true,
+			'stroke'          => true,
+			'stroke-width'    => true,
+			'stroke-linejoin' => true,
+			'stroke-linecap'  => true,
+			'points'          => true,
+		];
+		return [
+			'svg'      => $a,
+			'polyline' => $a,
+		];
+	}
+
+	/** Erlaubte Tags für das Balkendiagramm. */
+	private static function kses_chart(): array {
+		$a = [
+			'class'       => true,
+			'viewbox'     => true,
+			'role'        => true,
+			'aria-label'  => true,
+			'x'           => true,
+			'y'           => true,
+			'x1'          => true,
+			'x2'          => true,
+			'y1'          => true,
+			'y2'          => true,
+			'width'       => true,
+			'height'      => true,
+			'rx'          => true,
+			'text-anchor' => true,
+		];
+		return [
+			'svg'   => $a,
+			'line'  => $a,
+			'rect'  => $a,
+			'text'  => $a,
+			'title' => [],
+		];
+	}
+
+	/** Globale Suche: Mieter, Objekte, Einheiten, Mietverhältnisse. */
+	private static function suche( string $q ): void {
+		global $wpdb;
+		$like = '%' . $wpdb->esc_like( $q ) . '%';
+		printf( '<h1 class="wp-heading-inline">%s</h1><hr class="wp-header-end">', esc_html( sprintf( /* translators: %s: Suchbegriff */ __( 'Search results for “%s”', 'mietfux' ), $q ) ) );
+		$gruppen = [];
+
+		$mieter = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_mieter WHERE vorname LIKE %s OR nachname LIKE %s OR email LIKE %s OR p_vorname LIKE %s OR p_nachname LIKE %s OR p_email LIKE %s ORDER BY nachname, vorname LIMIT 50', $like, $like, $like, $like, $like, $like ) );
+		foreach ( $mieter as $m ) {
+			$gruppen['mieter'][] = [
+				mietv_mieter_name( $m ),
+				$m->email,
+				self::url(
+					'mieter',
+					[
+						'action' => 'edit',
+						'id'     => (int) $m->id,
+					]
+				),
+			];
+		}
+		$objekte = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'mv_objekte WHERE bezeichnung LIKE %s OR strasse LIKE %s OR plz LIKE %s OR ort LIKE %s ORDER BY bezeichnung LIMIT 50', $like, $like, $like, $like ) );
+		foreach ( $objekte as $o ) {
+			$gruppen['objekte'][] = [
+				$o->bezeichnung,
+				trim( $o->strasse . ', ' . $o->plz . ' ' . $o->ort, ', ' ),
+				self::url(
+					'objekte',
+					[
+						'action' => 'edit',
+						'id'     => (int) $o->id,
+					]
+				),
+			];
+		}
+		$einheiten = $wpdb->get_results( $wpdb->prepare( 'SELECT e.*, o.bezeichnung AS objekt FROM ' . $wpdb->prefix . 'mv_einheiten e JOIN ' . $wpdb->prefix . 'mv_objekte o ON o.id = e.objekt_id WHERE e.bezeichnung LIKE %s OR e.lage LIKE %s ORDER BY o.bezeichnung, e.bezeichnung LIMIT 50', $like, $like ) );
+		foreach ( $einheiten as $e ) {
+			$gruppen['einheiten'][] = [
+				$e->bezeichnung,
+				$e->objekt . ( $e->lage ? ' · ' . $e->lage : '' ),
+				self::url(
+					'einheiten',
+					[
+						'action' => 'edit',
+						'id'     => (int) $e->id,
+					]
+				),
+			];
+		}
+		foreach ( Mietv_Soll::alle_mv() as $mv ) {
+			$label = Mietv_Soll::mietv_label( $mv );
+			if ( mb_stripos( $label, $q ) === false ) {
+				continue;
+			}
+			$gruppen['mietverhaeltnisse'][] = [
+				$label,
+				sprintf( /* translators: %1$s: Datum, %2$s: Datum */ __( 'from %1$s to %2$s', 'mietfux' ), mietv_date( $mv->beginn ), mietv_date( $mv->ende ) ),
+				self::url(
+					'mietverhaeltnisse',
+					[
+						'action' => 'edit',
+						'id'     => (int) $mv->id,
+					]
+				),
+			];
+		}
+
+		if ( ! $gruppen ) {
+			self::leer( 'search', sprintf( /* translators: %s: Suchbegriff */ __( 'Nothing found for “%s”.', 'mietfux' ), $q ), admin_url( 'admin.php?page=mietv_uebersicht' ), __( 'Back to overview', 'mietfux' ) );
+			return;
+		}
+		$ents  = self::entities();
+		$icons = self::icons();
+		echo '<div class="mv-search-results">';
+		foreach ( $gruppen as $key => $treffer ) {
+			printf( '<section class="mv-card"><header class="mv-card-head"><h2><span class="dashicons dashicons-%s"></span> %s <span class="mv-count">%d</span></h2></header><ul class="mv-hits">', esc_attr( $icons[ $key ] ?? 'marker' ), esc_html( $ents[ $key ]['label'] ?? $key ), count( $treffer ) );
+			foreach ( $treffer as [ $titel, $sub, $url ] ) {
+				printf( '<li><a href="%s"><strong>%s</strong><small>%s</small></a></li>', esc_url( $url ), esc_html( $titel ), esc_html( $sub ) );
 			}
 			echo '</ul></section>';
 		}
+		echo '</div>';
 	}
 
 	public static function page_uebersicht(): void {
-		global $wpdb;
-		echo '<div class="wrap mv-wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Mietfux – Overview', 'mietfux' ) . '</h1> ';
+		$q = isset( $_GET['mv_s'] ) ? sanitize_text_field( wp_unslash( $_GET['mv_s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Suchparameter, keine Datenänderung.
+		echo '<div class="wrap mv-wrap">';
+		if ( $q !== '' ) {
+			self::suche( $q );
+			echo '</div>';
+			return;
+		}
+		echo '<h1 class="wp-heading-inline">' . esc_html__( 'Overview', 'mietfux' ) . '</h1> ';
 		printf( '<a href="%s" class="page-title-action">%s</a><hr class="wp-header-end">', esc_url( self::fokus_url() ), self::fokus_aktiv() ? esc_html__( 'Show WordPress menu', 'mietfux' ) : esc_html__( 'Hide WordPress menu', 'mietfux' ) );
 		self::notices();
 
-		$mvs = Mietv_Soll::alle_mv( true );
+		$beendet  = isset( $_GET['mv_status'] ) && sanitize_key( $_GET['mv_status'] ) === 'beendet'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Lesender Anzeigeparameter, keine Datenänderung.
+		$alle     = Mietv_Soll::alle_mv();
+		$heute    = current_time( 'Y-m-d' );
+		$aktiv    = array_values( array_filter( $alle, fn( $mv ) => empty( $mv->ende ) || $mv->ende === '0000-00-00' || $mv->ende >= $heute ) );
+		$inaktiv  = array_values( array_filter( $alle, fn( $mv ) => ! ( empty( $mv->ende ) || $mv->ende === '0000-00-00' || $mv->ende >= $heute ) ) );
+		$mvs      = $beendet ? $inaktiv : $aktiv;
+		$hinweise = class_exists( 'Mietv_Hinweise' ) ? Mietv_Hinweise::alle() : [];
+
+		self::dashboard( $aktiv, $hinweise );
+
+		$basis = admin_url( 'admin.php?page=mietv_uebersicht' );
+		printf(
+			'<header class="mv-section-head"><h2>%s</h2><nav class="mv-tabs"><a href="%s" class="%s">%s</a><a href="%s" class="%s">%s</a></nav></header>',
+			esc_html__( 'Tenancies', 'mietfux' ),
+			esc_url( $basis ),
+			$beendet ? '' : 'mv-tab-on',
+			esc_html( sprintf( /* translators: %d: Anzahl */ __( 'Active (%d)', 'mietfux' ), count( $aktiv ) ) ),
+			esc_url( add_query_arg( 'mv_status', 'beendet', $basis ) ),
+			$beendet ? 'mv-tab-on' : '',
+			esc_html( sprintf( /* translators: %d: Anzahl */ __( 'Ended (%d)', 'mietfux' ), count( $inaktiv ) ) )
+		);
+
 		if ( ! $mvs ) {
-			echo '<p>' . esc_html__( 'No active tenancy yet. Order to get started:', 'mietfux' ) . ' <strong>' . esc_html__( 'Property → Unit → Tenant → Tenancy → Rent conditions', 'mietfux' ) . '</strong> – ' . sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=mietv_assistent' ) ), esc_html__( 'or use the setup wizard', 'mietfux' ) ) . '.</p></div>';
+			if ( $beendet ) {
+				self::leer( 'id-alt', __( 'No ended tenancies.', 'mietfux' ) );
+			} else {
+				self::leer( 'id-alt', __( 'No active tenancy yet. Order to get started: Property → Unit → Tenant → Tenancy → Rent conditions.', 'mietfux' ), admin_url( 'admin.php?page=mietv_assistent' ), __( 'Start setup wizard', 'mietfux' ) );
+			}
+			echo '</div>';
 			return;
 		}
 
-		$offene = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . "mv_meldungen WHERE status <> 'erledigt'" );
-
-		self::dashboard( $mvs, $offene );
-
 		echo '<form method="post" id="mv-op-form">';
 		wp_nonce_field( 'mietv_op_buchen', 'mietv_op_nonce' );
-		echo '<p class="description mv-op-hinweis">' . esc_html__( 'Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments).', 'mietfux' ) . ' <button class="button button-primary" data-require-checked="input[name=\'op[]\']" data-require-msg="' . esc_attr__( 'Please tick at least one month.', 'mietfux' ) . '">' . esc_html__( 'Book selected as paid', 'mietfux' ) . '</button></p>';
+		if ( ! $beendet ) {
+			echo '<p class="description mv-op-hinweis">' . esc_html__( 'Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments).', 'mietfux' ) . ' <button class="button button-primary" data-require-checked="input[name=\'op[]\']" data-require-msg="' . esc_attr__( 'Please tick at least one month.', 'mietfux' ) . '">' . esc_html__( 'Book selected as paid', 'mietfux' ) . '</button></p>';
+		}
 		$offen_gesamt = 0;
 		foreach ( $mvs as $mv ) {
 			$op          = Mietv_Soll::op_liste( $mv );
-			$saldo_class = $op['saldo'] < -0.005 ? 'mv-neg' : ( $op['saldo'] > 0.005 ? 'mv-pos' : '' );
+			$saldo_class = $op['saldo'] < -0.005 ? 'neg' : ( $op['saldo'] > 0.005 ? 'ok' : 'neutral' );
 
-			$meta = sprintf( /* translators: %1$s: Datum, %2$s: Betrag */ __( 'Start %1$s · Deposit %2$s', 'mietfux' ), mietv_date( $mv->beginn ), mietv_eur( $mv->kaution ) );
+			$meta = sprintf( /* translators: %1$s: Objekt / Einheit, %2$s: Datum, %3$s: Betrag */ __( '%1$s · since %2$s · Deposit %3$s', 'mietfux' ), $mv->objekt . ' / ' . $mv->einheit . ( ! empty( $mv->zusatz ) ? ' + ' . str_replace( ',', ', ', $mv->zusatz ) : '' ), mietv_date( $mv->beginn ), mietv_eur( $mv->kaution ) );
+			$name = trim( $mv->nachname . ', ' . $mv->vorname, ', ' ) . ( ! empty( $mv->p_nachname ) ? ' & ' . trim( $mv->p_vorname . ' ' . $mv->p_nachname, " \t\n\r\0\x0B" ) : '' );
 			printf(
-				'<section class="mv-card mv-mvcard"><header class="mv-card-head"><div><h2>%s</h2><p class="mv-muted">%s</p></div><div class="mv-card-tools"><span class="mv-badge %s">' . esc_html__( 'Balance', 'mietfux' ) . ' %s</span> <a href="%s" class="button">' . esc_html__( 'Record payment', 'mietfux' ) . '</a> <a href="%s" class="button">' . esc_html__( 'Tenancy agreement', 'mietfux' ) . '</a></div></header>',
-				esc_html( Mietv_Soll::mietv_label( $mv ) ),
+				'<section class="mv-card mv-mvcard"><header class="mv-card-head"><div><h2>%s</h2><p class="mv-muted">%s</p></div><div class="mv-card-tools"><span class="mv-pill mv-pill-%s">' . esc_html__( 'Balance', 'mietfux' ) . ' %s</span> <a href="%s" class="button">' . esc_html__( 'Record payment', 'mietfux' ) . '</a> %s<a href="%s" class="button">' . esc_html__( 'Tenancy agreement', 'mietfux' ) . '</a> <a href="%s" class="button mv-icon-btn" title="' . esc_attr__( 'Open tenancy', 'mietfux' ) . '"><span class="dashicons dashicons-external"></span><span class="screen-reader-text">' . esc_html__( 'Open tenancy', 'mietfux' ) . '</span></a></div></header>',
+				esc_html( $name ),
 				esc_html( $meta ),
-				esc_attr( $saldo_class ?: 'mv-neutral' ),
+				esc_attr( $saldo_class ),
 				esc_html( mietv_eur( $op['saldo'] ) ),
 				esc_url( self::url( 'zahlungen', [ 'action' => 'new' ] ) ),
-				esc_url( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . (int) $mv->id ) )
+				$op['saldo'] < -0.005 ? '<a href="' . esc_url( admin_url( 'admin.php?page=mietv_mahnung&mv_id=' . (int) $mv->id ) ) . '" class="button mv-btn-warn">' . esc_html__( 'Dunning', 'mietfux' ) . '</a> ' : '',
+				esc_url( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . (int) $mv->id ) ),
+				esc_url(
+					self::url(
+						'mietverhaeltnisse',
+						[
+							'action' => 'edit',
+							'id'     => (int) $mv->id,
+						]
+					)
+				)
 			);
 
-			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" title="' . esc_attr__( 'all open months of this tenancy', 'mietfux' ) . '" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Month', 'mietfux' ) . '</th><th>' . esc_html__( 'Base rent', 'mietfux' ) . '</th><th>' . esc_html__( 'SC advance', 'mietfux' ) . '</th><th>' . esc_html__( 'Heating advance', 'mietfux' ) . '</th><th>' . esc_html__( 'Due', 'mietfux' ) . '</th><th>' . esc_html__( 'Actual', 'mietfux' ) . '</th><th>' . esc_html__( 'Difference', 'mietfux' ) . '</th><th>' . esc_html__( 'Cumulative balance', 'mietfux' ) . '</th></tr></thead><tbody>';
+			echo '<div class="mv-tablewrap"><table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th class="mv-op-check"><input type="checkbox" title="' . esc_attr__( 'all open months of this tenancy', 'mietfux' ) . '" data-check-all="tbody input[type=checkbox]"></th><th>' . esc_html__( 'Month', 'mietfux' ) . '</th><th>' . esc_html__( 'Base rent', 'mietfux' ) . '</th><th>' . esc_html__( 'SC advance', 'mietfux' ) . '</th><th>' . esc_html__( 'Heating advance', 'mietfux' ) . '</th><th>' . esc_html__( 'Due', 'mietfux' ) . '</th><th>' . esc_html__( 'Actual', 'mietfux' ) . '</th><th>' . esc_html__( 'Difference', 'mietfux' ) . '</th><th>' . esc_html__( 'Cumulative balance', 'mietfux' ) . '</th><th>' . esc_html__( 'Status', 'mietfux' ) . '</th></tr></thead><tbody>';
 			foreach ( array_reverse( $op['rows'] ) as $r ) {
 				$cls   = $r['diff'] < -0.005 ? 'mv-neg' : ( $r['diff'] > 0.005 ? 'mv-pos' : '' );
 				$offen = $r['diff'] < -0.005 && ! $r['ohne_konditionen'];
 				if ( $offen ) {
 					++$offen_gesamt;
 				}
+				if ( $r['ohne_konditionen'] ) {
+					$status = self::pill( 'teilweise', __( 'No conditions', 'mietfux' ) );
+				} elseif ( $r['diff'] < -0.005 ) {
+					$status = self::pill( $r['ist'] > 0.005 ? 'teilweise' : 'offen', $r['ist'] > 0.005 ? __( 'Partial', 'mietfux' ) : __( 'Outstanding', 'mietfux' ) );
+				} else {
+					$status = self::pill( 'bezahlt', __( 'Paid', 'mietfux' ) );
+				}
 				printf(
-					'<tr><td class="mv-op-check">%s</td><td>%s%s</td><td>%s</td><td>%s</td><td>%s</td><td><strong>%s</strong></td><td>%s</td><td class="%s">%s</td><td class="%s">%s</td></tr>',
-					$offen ? '<input type="checkbox" name="op[]" value="' . esc_attr( $mv->id . '|' . $r['monat'] ) . '" title="' . esc_attr( sprintf( /* translators: %s: Wert */ __( 'Book %s as paid', 'mietfux' ), mietv_eur( -$r['diff'] ) ) ) . '">' : ( $r['diff'] < -0.005 ? '' : '✓' ),
+					'<tr><td class="mv-op-check">%s</td><td>%s%s</td><td>%s</td><td>%s</td><td>%s</td><td><strong>%s</strong></td><td>%s</td><td class="%s">%s</td><td class="%s">%s</td><td class="mv-td-status">%s</td></tr>',
+					$offen ? '<input type="checkbox" name="op[]" value="' . esc_attr( $mv->id . '|' . $r['monat'] ) . '" title="' . esc_attr( sprintf( /* translators: %s: Wert */ __( 'Book %s as paid', 'mietfux' ), mietv_eur( -$r['diff'] ) ) ) . '">' : ( $r['diff'] < -0.005 ? '' : '<span class="dashicons dashicons-yes mv-ok-icon"></span>' ),
 					esc_html( mietv_monat( $r['monat'] ) ),
 					$r['ohne_konditionen'] ? ' <span class="mv-warn" title="' . esc_attr__( 'No rent conditions entered', 'mietfux' ) . '">⚠</span>' : '',
 					esc_html( mietv_eur( $r['kalt'] ) ),
@@ -2267,14 +2775,15 @@ class Mietv_Admin {
 					esc_attr( $cls ),
 					esc_html( mietv_eur( $r['diff'] ) ),
 					esc_attr( $r['kum'] < -0.005 ? 'mv-neg' : '' ),
-					esc_html( mietv_eur( $r['kum'] ) )
+					esc_html( mietv_eur( $r['kum'] ) ),
+					wp_kses_post( $status )
 				);
 			}
 			printf(
-				'</tbody><tfoot><tr><th></th><th>' . esc_html__( 'Total', 'mietfux' ) . '</th><th></th><th></th><th></th><th>%s</th><th>%s</th><th class="%s">%s</th><th></th></tr></tfoot></table>',
+				'</tbody><tfoot><tr><th></th><th>' . esc_html__( 'Total', 'mietfux' ) . '</th><th></th><th></th><th></th><th>%s</th><th>%s</th><th class="%s">%s</th><th></th><th></th></tr></tfoot></table></div>',
 				esc_html( mietv_eur( $op['soll'] ) ),
 				esc_html( mietv_eur( $op['ist'] ) ),
-				esc_attr( $saldo_class ),
+				esc_attr( $saldo_class === 'neg' ? 'mv-neg' : ( $saldo_class === 'ok' ? 'mv-pos' : '' ) ),
 				esc_html( mietv_eur( $op['saldo'] ) )
 			);
 			echo '</section>';
