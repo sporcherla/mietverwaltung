@@ -615,7 +615,7 @@ class Mietv_Abrechnung {
 			echo '<a href="' . esc_url( $u( 'fertig' ) ) . '" class="button button-primary">' . esc_html__( 'Finalise and release in the tenant portal', 'mietfux' ) . '</a>';
 		}
 		echo '</p>';
-		printf( '<p class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Heating: %1$s%2$s · Status: %3$s', 'mietfux' ) . '</p>', esc_html( $abr->heizung ), $abr->heizung !== 'dezentral' ? ', Verbrauchsanteil ' . (int) ( $abr->hk_verbrauchsanteil ?: 70 ) . ' %' : '', esc_html( $abr->status ) );
+		printf( '<p class="description">' . /* translators: %1$s: Wert, %2$s: Wert, %3$s: Wert */ esc_html__( 'Heating: %1$s%2$s · Status: %3$s', 'mietfux' ) . '</p>', esc_html( $abr->heizung ), $abr->heizung !== 'dezentral' ? ( $abr->heizung_ablesung === 'ablesedienst' ? ', ' . esc_html__( 'allocation by reading service', 'mietfux' ) : ', Verbrauchsanteil ' . (int) ( $abr->hk_verbrauchsanteil ?: 70 ) . ' %' ) : '', esc_html( $abr->status ) );
 
 		$hinweise = [];
 		if ( $ergs ) {
@@ -662,7 +662,7 @@ class Mietv_Abrechnung {
 			foreach ( $ergs as $e ) {
 				$w = $ad[ $e->mv_id ] ?? null;
 				printf(
-					'<tr><td>%s – %s</td><td><input type="text" name="ad_heizung[%d]" value="%s" class="small-text mv-num" inputmode="decimal"></td><td><input type="text" name="ad_warmwasser[%d]" value="%s" class="small-text mv-num" inputmode="decimal"></td></tr>',
+					'<tr><td>%s – %s</td><td><input type="text" name="ad_heizung[%d]" value="%s" class="mv-num" inputmode="decimal"></td><td><input type="text" name="ad_warmwasser[%d]" value="%s" class="mv-num" inputmode="decimal"></td></tr>',
 					esc_html( $e->nachname . ', ' . $e->vorname ),
 					esc_html( $e->einheit ),
 					(int) $e->mv_id,
