@@ -432,6 +432,11 @@ class Mietv_Abrechnung {
 		];
 	}
 
+	/** Basiswert einer Position für die Anzeige („–“ bei Ablesedienst-Positionen). */
+	private static function basis_anzeige( array $p, string $feld ): string {
+		return $p['schluessel'] === 'Ablesedienst-Abrechnung' ? '–' : number_format( (float) $p[ $feld ], 2, ',', '.' );
+	}
+
 	/** Erfasste Ablesedienst-Beträge je Mietverhältnis (mv_id => row). */
 	public static function ablesedienst_werte( int $abrechnung_id ): array {
 		global $wpdb;
@@ -679,7 +684,7 @@ class Mietv_Abrechnung {
 			$d = json_decode( $e->details, true );
 			printf( '<h3>' . /* translators: %s: Wert */ esc_html__( 'Items %s', 'mietfux' ) . '</h3><table class="wp-list-table widefat striped mv-op"><thead><tr><th>' . esc_html__( 'Cost type', 'mietfux' ) . '</th><th>' . esc_html__( 'Total costs', 'mietfux' ) . '</th><th>' . esc_html__( 'Key', 'mietfux' ) . '</th><th>' . esc_html__( 'Base total', 'mietfux' ) . '</th><th>' . esc_html__( 'Base tenant', 'mietfux' ) . '</th><th>' . esc_html__( 'Share', 'mietfux' ) . '</th></tr></thead><tbody>', esc_html( $e->nachname ) );
 			foreach ( $d['positionen'] ?? [] as $p ) {
-				printf( '<tr><td>%s <small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $p['name'] ), esc_html( $p['betrkv'] ), esc_html( mietv_eur( $p['gesamt'] ) ), esc_html( $p['schluessel'] ), esc_html( number_format( $p['basis_gesamt'], 2, ',', '.' ) ), esc_html( number_format( $p['basis_mv'], 2, ',', '.' ) ), esc_html( mietv_eur( $p['anteil'] ) ) );
+				printf( '<tr><td>%s <small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $p['name'] ), esc_html( $p['betrkv'] ), esc_html( mietv_eur( $p['gesamt'] ) ), esc_html( $p['schluessel'] ), esc_html( self::basis_anzeige( $p, 'basis_gesamt' ) ), esc_html( self::basis_anzeige( $p, 'basis_mv' ) ), esc_html( mietv_eur( $p['anteil'] ) ) );
 			}
 			echo '</tbody></table>';
 		}
@@ -733,7 +738,7 @@ class Mietv_Abrechnung {
 
 		$b .= '<table class="liste"><thead><tr><th>' . esc_html__( 'Cost type', 'mietfux' ) . '</th><th>' . esc_html__( 'Total costs', 'mietfux' ) . '</th><th>' . esc_html__( 'Allocation key', 'mietfux' ) . '</th><th>' . esc_html__( 'Total', 'mietfux' ) . '</th><th>' . esc_html__( 'Your share', 'mietfux' ) . '</th><th>' . esc_html__( 'Amount', 'mietfux' ) . '</th></tr></thead><tbody>';
 		foreach ( $d['positionen'] as $p ) {
-			$b .= sprintf( '<tr><td>%s<br><small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $p['name'] ), esc_html( $p['betrkv'] ), esc_html( mietv_eur( $p['gesamt'] ) ), esc_html( $p['schluessel'] ), esc_html( number_format( $p['basis_gesamt'], 2, ',', '.' ) ), esc_html( number_format( $p['basis_mv'], 2, ',', '.' ) ), esc_html( mietv_eur( $p['anteil'] ) ) );
+			$b .= sprintf( '<tr><td>%s<br><small>%s</small></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', esc_html( $p['name'] ), esc_html( $p['betrkv'] ), esc_html( mietv_eur( $p['gesamt'] ) ), esc_html( $p['schluessel'] ), esc_html( self::basis_anzeige( $p, 'basis_gesamt' ) ), esc_html( self::basis_anzeige( $p, 'basis_mv' ) ), esc_html( mietv_eur( $p['anteil'] ) ) );
 		}
 		$kosten  = $e->kosten_bk + $e->kosten_hk;
 		$vz      = $e->vz_bk + $e->vz_hk;
