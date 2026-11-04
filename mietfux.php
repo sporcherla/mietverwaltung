@@ -53,6 +53,7 @@ require_once MIETV_PATH . 'includes/class-mv-datenschutz.php';
 require_once MIETV_PATH . 'includes/class-mv-mietvertrag.php';
 require_once MIETV_PATH . 'includes/class-mv-hilfe.php';
 require_once MIETV_PATH . 'includes/class-mv-assistent.php';
+require_once MIETV_PATH . 'includes/class-mv-jahresabschluss.php';
 
 register_activation_hook( __FILE__, [ 'Mietv_DB', 'install' ] );
 register_deactivation_hook( __FILE__, [ 'Mietv_Hinweise', 'deaktivieren' ] );
@@ -96,5 +97,6 @@ add_action(
 		Mietv_Demo::init();
 		Mietv_Hilfe::init();
 		Mietv_Assistent::init();
+		Mietv_Jahresabschluss::init();
 	}
 );
