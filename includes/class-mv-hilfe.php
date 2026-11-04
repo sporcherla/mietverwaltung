@@ -222,6 +222,7 @@ class Mietv_Hilfe {
 				__( 'Tenant portal', 'mietfux' ),
 				[
 					__( 'Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings.', 'mietfux' ),
+					__( 'Portal access in one click: “Invite to portal” on the overview card (or the envelope icon in the tenancy list) creates the WordPress user from the tenant’s e-mail address, links it and e-mails a link to set a password plus the portal address. “Portal preview” shows you the portal exactly as that tenant sees it.', 'mietfux' ),
 				],
 			],
 		];

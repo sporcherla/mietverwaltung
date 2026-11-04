@@ -1452,6 +1452,21 @@ msgstr "%s als bezahlt buchen"
 msgid "No rent conditions entered"
 msgstr "Keine Konditionen hinterlegt"
 
+msgid "%d entry"
+msgid_plural "%d entries"
+msgstr[0] "%d Eintrag"
+msgstr[1] "%d Einträge"
+
+msgid "%d active tenancy"
+msgid_plural "%d active tenancies"
+msgstr[0] "%d aktives Mietverhältnis"
+msgstr[1] "%d aktive Mietverhältnisse"
+
+msgid "%d urgent"
+msgid_plural "%d urgent"
+msgstr[0] "%d dringend"
+msgstr[1] "%d dringend"
+
 msgid "from useful life of %d years"
 msgstr "aus Nutzungsdauer %d Jahre"
 
@@ -2048,6 +2063,33 @@ msgstr "Zuführung Erhaltungsrücklage (nicht abziehbar)"
 
 msgid "Demo data created"
 msgstr "Demodaten angelegt"
+
+msgid "Portal invitation sent. The tenant received a link to set a password."
+msgstr "Portal-Einladung gesendet. Der Mieter hat einen Link zum Setzen des Passworts erhalten."
+
+msgid "No valid e-mail address is stored for this tenant."
+msgstr "Für diesen Mieter ist keine gültige E-Mail-Adresse hinterlegt."
+
+msgid "No published page with the [mietfux_portal] shortcode found."
+msgstr "Keine veröffentlichte Seite mit dem Shortcode [mietfux_portal] gefunden."
+
+msgid "The WordPress user could not be created."
+msgstr "Der WordPress-Benutzer konnte nicht angelegt werden."
+
+msgid "The invitation e-mail could not be sent (check the mail configuration of your site)."
+msgstr "Die Einladungs-E-Mail konnte nicht gesendet werden (Mail-Konfiguration der Website prüfen)."
+
+msgid "Resend portal invitation"
+msgstr "Portal-Einladung erneut senden"
+
+msgid "Invite to portal"
+msgstr "Zum Portal einladen"
+
+msgid "Send the portal invitation again?"
+msgstr "Portal-Einladung erneut senden?"
+
+msgid "Create a WordPress user for this tenant and send the invitation e-mail?"
+msgstr "WordPress-Benutzer für diesen Mieter anlegen und Einladungs-E-Mail senden?"
 
 msgid "Backup restored"
 msgstr "Backup eingespielt"
@@ -2736,6 +2778,9 @@ msgstr "Vermieterdaten, Bankverbindung, Gläubiger-ID, Steuernummer, Mahn- und P
 msgid "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
 msgstr "Shortcode [mietfux_portal] auf einer Seite einfügen. Angemeldete Mieter (verknüpfter WordPress-Benutzer) sehen Abrechnungen und freigegebene Dokumente, melden Schäden und Zählerstände."
 
+msgid "Portal access in one click: “Invite to portal” on the overview card (or the envelope icon in the tenancy list) creates the WordPress user from the tenant’s e-mail address, links it and e-mails a link to set a password plus the portal address. “Portal preview” shows you the portal exactly as that tenant sees it."
+msgstr "Portalzugang mit einem Klick: „Zum Portal einladen“ auf der Übersichtskarte (oder das Brief-Symbol in der Mietverhältnis-Liste) legt den WordPress-Benutzer aus der E-Mail-Adresse des Mieters an, verknüpft ihn und schickt per E-Mail einen Link zum Setzen des Passworts samt Portaladresse. „Portal-Vorschau“ zeigt Ihnen das Portal genau so, wie dieser Mieter es sieht."
+
 msgid "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
 msgstr "Mietverwaltung für private Vermieter: Stammdaten, Zahlungen, Belege, Betriebskostenabrechnung, Steuer (Anlage V), Mietvertrag und Mieterportal in einem Plugin. Auf jeder Seite finden Sie oben rechts unter „Hilfe“ eine Kurzbeschreibung."
 
@@ -2775,6 +2820,9 @@ msgstr "Betriebskostenabrechnung %1$d für %2$s noch nicht fertiggestellt – Fr
 msgid "Fixed-rate period %1$s ends on %2$s (%3$d days) – check follow-up financing"
 msgstr "Zinsbindung %1$s endet am %2$s (%3$d Tage) – Anschlussfinanzierung prüfen"
 
+msgid "Interest %1$d for loan %2$s provisionally calculated from the instalments (%3$s) – enter the bank’s interest certificate or take over the calculated figures"
+msgstr "Zinsen %1$d für Darlehen %2$s vorläufig aus den Raten berechnet (%3$s) – Zinsbescheinigung der Bank eintragen oder berechnete Werte übernehmen"
+
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Zinsbescheinigung %1$d für Darlehen %2$s noch nicht erfasst"
 
@@ -2804,6 +2852,16 @@ msgstr "Zu Mietfux"
 
 msgid "Notices from Mietfux (%s):"
 msgstr "Hinweise aus Mietfux (%s):"
+
+msgid "%d tenant has no portal access yet – send the invitation from the overview"
+msgid_plural "%d tenants have no portal access yet – send the invitations from the overview"
+msgstr[0] "%d Mieter hat noch keinen Portalzugang – Einladung aus der Übersicht senden"
+msgstr[1] "%d Mieter haben noch keinen Portalzugang – Einladungen aus der Übersicht senden"
+
+msgid "%d open report from the tenant portal"
+msgid_plural "%d open reports from the tenant portal"
+msgstr[0] "%d offene Meldung aus dem Mieterportal"
+msgstr[1] "%d offene Meldungen aus dem Mieterportal"
 
 msgid "Payment by tenant"
 msgstr "Einzahlung Mieter"
@@ -3696,9 +3754,6 @@ msgstr "Filtern"
 msgid "Export CSV"
 msgstr "CSV exportieren"
 
-msgid "%d entries"
-msgstr "%d Einträge"
-
 msgid "Time"
 msgstr "Zeit"
 
@@ -3738,6 +3793,11 @@ msgstr "Bei Änderungen werden nur die tatsächlich geänderten Felder mit altem
 msgid "Entries are deleted automatically after the retention period (default 365 days). Use the CSV export to archive the log before it is cleaned up, for example at year end."
 msgstr "Einträge werden nach Ablauf der Aufbewahrungsfrist (Standard 365 Tage) automatisch gelöscht. Mit dem CSV-Export lässt sich das Protokoll vorher archivieren, z. B. zum Jahresende."
 
+msgid "%d field"
+msgid_plural "%d fields"
+msgstr[0] "%d Feld"
+msgstr[1] "%d Felder"
+
 msgid "File not found."
 msgstr "Datei nicht gefunden."
 
@@ -3764,6 +3824,9 @@ msgstr "Sicherungen liegen im Uploads-Ordner (mietfux-backups, gegen direkten Zu
 
 msgid "AfA"
 msgstr "AfA"
+
+msgid "Loan (calculated, provisional)"
+msgstr "Darlehen (berechnet, vorläufig)"
 
 msgid "Tax year:"
 msgstr "Steuerjahr:"
@@ -3870,6 +3933,12 @@ msgstr "Finanzierung"
 msgid "Nominal interest rate"
 msgstr "Sollzins"
 
+msgid "calculated, provisional"
+msgstr "berechnet, vorläufig"
+
+msgid "Take over as certificate"
+msgstr "Als Bescheinigung übernehmen"
+
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr "Keine Zinsbescheinigung für %1$d erfasst. Jahreswerte unter %2$s eintragen."
 
@@ -3971,6 +4040,11 @@ msgstr "Absender und Antwortadresse sind die Vermieter-E-Mail aus den Einstellun
 
 msgid "Each dispatch is logged with time, recipients, status and the filed PDF. Failed deliveries are shown with the mail server’s error message. Note: letters that legally require written form (e.g. a rent increase under § 558 BGB) must additionally be sent by post."
 msgstr "Jeder Versand wird mit Zeit, Empfängern, Status und der abgelegten PDF-Datei protokolliert. Fehlgeschlagene Sendungen erscheinen mit der Fehlermeldung des Mailservers. Hinweis: Schreiben, für die das Gesetz die Schriftform verlangt (z. B. ein Mieterhöhungsverlangen nach § 558 BGB), müssen zusätzlich per Post zugehen."
+
+msgid "%d e-mail could not be sent in the last 30 days."
+msgid_plural "%d e-mails could not be sent in the last 30 days."
+msgstr[0] "%d E-Mail konnte in den letzten 30 Tagen nicht gesendet werden."
+msgstr[1] "%d E-Mails konnten in den letzten 30 Tagen nicht gesendet werden."
 
 msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
 msgstr "Destatis verlangt für den Webservice ein kostenloses GENESIS-Online-Konto (Gastzugang wird nicht mehr akzeptiert). Bei genesis.destatis.de registrieren, Benutzername und Passwort (oder einen API-Token als Benutzername) unter Einstellungen → Verbraucherpreisindex eintragen – oder die CSV-Datei manuell importieren."

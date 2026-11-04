@@ -586,7 +586,7 @@ msgid "Reference"
 msgstr "Concepto"
 
 msgid "Source"
-msgstr "Origen"
+msgstr "Fuente"
 
 msgid "manual"
 msgstr "manual"
@@ -1452,6 +1452,21 @@ msgstr "Contabilizar %s como pagado"
 msgid "No rent conditions entered"
 msgstr "No hay condiciones de renta registradas"
 
+msgid "%d entry"
+msgid_plural "%d entries"
+msgstr[0] "%d entrada"
+msgstr[1] "%d entradas"
+
+msgid "%d active tenancy"
+msgid_plural "%d active tenancies"
+msgstr[0] "%d arrendamiento activo"
+msgstr[1] "%d arrendamientos activos"
+
+msgid "%d urgent"
+msgid_plural "%d urgent"
+msgstr[0] "%d urgente(s)"
+msgstr[1] "%d urgente(s)"
+
 msgid "from useful life of %d years"
 msgstr "según vida útil de %d años"
 
@@ -2048,6 +2063,33 @@ msgstr "Aportación al fondo de reserva (no deducible)"
 
 msgid "Demo data created"
 msgstr "Datos de demostración creados"
+
+msgid "Portal invitation sent. The tenant received a link to set a password."
+msgstr "Invitación al portal enviada. El inquilino ha recibido un enlace para establecer una contraseña."
+
+msgid "No valid e-mail address is stored for this tenant."
+msgstr "No hay una dirección de correo válida guardada para este inquilino."
+
+msgid "No published page with the [mietfux_portal] shortcode found."
+msgstr "No se encontró ninguna página publicada con el shortcode [mietfux_portal]."
+
+msgid "The WordPress user could not be created."
+msgstr "No se pudo crear el usuario de WordPress."
+
+msgid "The invitation e-mail could not be sent (check the mail configuration of your site)."
+msgstr "No se pudo enviar el correo de invitación (compruebe la configuración de correo del sitio)."
+
+msgid "Resend portal invitation"
+msgstr "Reenviar invitación al portal"
+
+msgid "Invite to portal"
+msgstr "Invitar al portal"
+
+msgid "Send the portal invitation again?"
+msgstr "¿Reenviar la invitación al portal?"
+
+msgid "Create a WordPress user for this tenant and send the invitation e-mail?"
+msgstr "¿Crear un usuario de WordPress para este inquilino y enviar el correo de invitación?"
 
 msgid "Backup restored"
 msgstr "Copia de seguridad restaurada"
@@ -2736,6 +2778,9 @@ msgstr "Datos del arrendador, cuenta bancaria, identificador de acreedor, númer
 msgid "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
 msgstr "Inserte el shortcode [mietfux_portal] en una página. Los inquilinos con sesión iniciada (usuario de WordPress vinculado) ven las liquidaciones y los documentos publicados, y comunican desperfectos y lecturas del contador."
 
+msgid "Portal access in one click: “Invite to portal” on the overview card (or the envelope icon in the tenancy list) creates the WordPress user from the tenant’s e-mail address, links it and e-mails a link to set a password plus the portal address. “Portal preview” shows you the portal exactly as that tenant sees it."
+msgstr "Acceso al portal con un clic: «Invitar al portal» en la tarjeta del resumen (o el icono de sobre en la lista de arrendamientos) crea el usuario de WordPress a partir del correo del inquilino, lo vincula y envía por correo un enlace para establecer la contraseña junto con la dirección del portal. «Vista previa del portal» le muestra el portal exactamente como lo ve ese inquilino."
+
 msgid "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
 msgstr "Gestión de alquileres para arrendadores particulares: datos maestros, pagos, justificantes, liquidaciones de gastos repercutibles, impuestos (Anlage V), contrato de arrendamiento y portal del inquilino en un solo plugin. En cada página encontrará una breve descripción en «Ayuda», arriba a la derecha."
 
@@ -2775,6 +2820,9 @@ msgstr "Liquidación de gastos repercutibles %1$d de %2$s aún no finalizada; pl
 msgid "Fixed-rate period %1$s ends on %2$s (%3$d days) – check follow-up financing"
 msgstr "El periodo de tipo fijo %1$s termina el %2$s (%3$d días); compruebe la financiación de continuación"
 
+msgid "Interest %1$d for loan %2$s provisionally calculated from the instalments (%3$s) – enter the bank’s interest certificate or take over the calculated figures"
+msgstr "Intereses %1$d del préstamo %2$s calculados provisionalmente a partir de las cuotas (%3$s): introduzca el certificado de intereses del banco o adopte los valores calculados"
+
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Certificado de intereses %1$d del préstamo %2$s aún no introducido"
 
@@ -2804,6 +2852,16 @@ msgstr "Ir a Mietfux"
 
 msgid "Notices from Mietfux (%s):"
 msgstr "Avisos de Mietfux (%s):"
+
+msgid "%d tenant has no portal access yet – send the invitation from the overview"
+msgid_plural "%d tenants have no portal access yet – send the invitations from the overview"
+msgstr[0] "%d inquilino aún no tiene acceso al portal: envíe la invitación desde el resumen"
+msgstr[1] "%d inquilinos aún no tienen acceso al portal: envíe las invitaciones desde el resumen"
+
+msgid "%d open report from the tenant portal"
+msgid_plural "%d open reports from the tenant portal"
+msgstr[0] "%d aviso abierto del portal del inquilino"
+msgstr[1] "%d avisos abiertos del portal del inquilino"
 
 msgid "Payment by tenant"
 msgstr "Pago del inquilino"
@@ -3696,9 +3754,6 @@ msgstr "Filtrar"
 msgid "Export CSV"
 msgstr "Exportar CSV"
 
-msgid "%d entries"
-msgstr "%d entradas"
-
 msgid "Time"
 msgstr "Hora"
 
@@ -3738,6 +3793,11 @@ msgstr "En las modificaciones solo se guardan los campos que realmente cambiaron
 msgid "Entries are deleted automatically after the retention period (default 365 days). Use the CSV export to archive the log before it is cleaned up, for example at year end."
 msgstr "Las entradas se eliminan automáticamente al vencer el plazo de conservación (365 días por defecto). Use la exportación CSV para archivar el registro antes de la limpieza, por ejemplo a fin de año."
 
+msgid "%d field"
+msgid_plural "%d fields"
+msgstr[0] "%d campo"
+msgstr[1] "%d campos"
+
 msgid "File not found."
 msgstr "Archivo no encontrado."
 
@@ -3764,6 +3824,9 @@ msgstr "Las copias se guardan en la carpeta uploads (mietfux-backups, bloqueada 
 
 msgid "AfA"
 msgstr "AfA"
+
+msgid "Loan (calculated, provisional)"
+msgstr "Préstamo (calculado, provisional)"
 
 msgid "Tax year:"
 msgstr "Ejercicio fiscal:"
@@ -3870,6 +3933,12 @@ msgstr "Financiación"
 msgid "Nominal interest rate"
 msgstr "Tipo de interés nominal"
 
+msgid "calculated, provisional"
+msgstr "calculado, provisional"
+
+msgid "Take over as certificate"
+msgstr "Adoptar como certificado"
+
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr "No se ha registrado certificado de intereses para %1$d. Introduzca los valores anuales en %2$s."
 
@@ -3971,6 +4040,11 @@ msgstr "El remitente y la dirección de respuesta son el correo del arrendador d
 
 msgid "Each dispatch is logged with time, recipients, status and the filed PDF. Failed deliveries are shown with the mail server’s error message. Note: letters that legally require written form (e.g. a rent increase under § 558 BGB) must additionally be sent by post."
 msgstr "Cada envío se registra con hora, destinatarios, estado y el PDF archivado. Los envíos fallidos se muestran con el mensaje de error del servidor de correo. Nota: las cartas que por ley requieren forma escrita (p. ej. una subida de alquiler según § 558 BGB) deben enviarse además por correo postal."
+
+msgid "%d e-mail could not be sent in the last 30 days."
+msgid_plural "%d e-mails could not be sent in the last 30 days."
+msgstr[0] "%d correo no se pudo enviar en los últimos 30 días."
+msgstr[1] "%d correos no se pudieron enviar en los últimos 30 días."
 
 msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
 msgstr "Destatis exige una cuenta gratuita de GENESIS-Online para el servicio web (el acceso de invitado ya no se acepta). Regístrese en genesis.destatis.de, introduzca usuario y contraseña (o un token API como usuario) en Ajustes → Índice de precios al consumo – o importe el archivo CSV manualmente."

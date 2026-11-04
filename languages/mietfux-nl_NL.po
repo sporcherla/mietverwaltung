@@ -1063,7 +1063,7 @@ msgid "Settings"
 msgstr "Instellingen"
 
 msgid "Interest certificate"
-msgstr "Rentecertificaat"
+msgstr "Jaaropgave rente"
 
 msgid "Bank rules"
 msgstr "Bankregels"
@@ -1451,6 +1451,21 @@ msgstr "%s als betaald boeken"
 
 msgid "No rent conditions entered"
 msgstr "Geen huurvoorwaarden ingevoerd"
+
+msgid "%d entry"
+msgid_plural "%d entries"
+msgstr[0] "%d item"
+msgstr[1] "%d vermeldingen"
+
+msgid "%d active tenancy"
+msgid_plural "%d active tenancies"
+msgstr[0] "%d actieve huurovereenkomst"
+msgstr[1] "%d actieve huurovereenkomsten"
+
+msgid "%d urgent"
+msgid_plural "%d urgent"
+msgstr[0] "%d dringend"
+msgstr[1] "%d dringend"
 
 msgid "from useful life of %d years"
 msgstr "uit gebruiksduur van %d jaar"
@@ -2048,6 +2063,33 @@ msgstr "Bijdrage reservefonds (niet aftrekbaar)"
 
 msgid "Demo data created"
 msgstr "Demogegevens aangemaakt"
+
+msgid "Portal invitation sent. The tenant received a link to set a password."
+msgstr "Portaaluitnodiging verzonden. De huurder heeft een link ontvangen om een wachtwoord in te stellen."
+
+msgid "No valid e-mail address is stored for this tenant."
+msgstr "Voor deze huurder is geen geldig e-mailadres opgeslagen."
+
+msgid "No published page with the [mietfux_portal] shortcode found."
+msgstr "Geen gepubliceerde pagina met de shortcode [mietfux_portal] gevonden."
+
+msgid "The WordPress user could not be created."
+msgstr "De WordPress-gebruiker kon niet worden aangemaakt."
+
+msgid "The invitation e-mail could not be sent (check the mail configuration of your site)."
+msgstr "De uitnodigingsmail kon niet worden verzonden (controleer de mailconfiguratie van de site)."
+
+msgid "Resend portal invitation"
+msgstr "Portaaluitnodiging opnieuw sturen"
+
+msgid "Invite to portal"
+msgstr "Uitnodigen voor portaal"
+
+msgid "Send the portal invitation again?"
+msgstr "Portaaluitnodiging opnieuw sturen?"
+
+msgid "Create a WordPress user for this tenant and send the invitation e-mail?"
+msgstr "WordPress-gebruiker voor deze huurder aanmaken en uitnodigingsmail sturen?"
 
 msgid "Backup restored"
 msgstr "Back-up hersteld"
@@ -2736,6 +2778,9 @@ msgstr "Verhuurdergegevens, bankrekening, incassant-ID, fiscaal nummer, aanmanin
 msgid "Insert the shortcode [mietfux_portal] on a page. Logged-in tenants (linked WordPress user) see statements and released documents, and report damage and meter readings."
 msgstr "Voeg de shortcode [mietfux_portal] in op een pagina. Ingelogde huurders (gekoppelde WordPress-gebruiker) zien afrekeningen en vrijgegeven documenten en melden schade en meterstanden."
 
+msgid "Portal access in one click: “Invite to portal” on the overview card (or the envelope icon in the tenancy list) creates the WordPress user from the tenant’s e-mail address, links it and e-mails a link to set a password plus the portal address. “Portal preview” shows you the portal exactly as that tenant sees it."
+msgstr "Portaaltoegang met één klik: „Uitnodigen voor portaal“ op de overzichtskaart (of het envelop-icoon in de huurlijst) maakt de WordPress-gebruiker aan op basis van het e-mailadres van de huurder, koppelt die en mailt een link om het wachtwoord in te stellen plus het portaaladres. „Portaalvoorbeeld“ toont u het portaal precies zoals deze huurder het ziet."
+
 msgid "Rental management for private landlords: master data, payments, receipts, service charge statements, tax (Anlage V), tenancy agreement and tenant portal in one plugin. On every page you will find a short description under “Help” at the top right."
 msgstr "Huurbeheer voor particuliere verhuurders: stamgegevens, betalingen, bewijsstukken, servicekostenafrekeningen, belasting (Anlage V), huurovereenkomst en huurdersportaal in één plugin. Op elke pagina vindt u rechtsboven onder “Help” een korte beschrijving."
 
@@ -2775,6 +2820,9 @@ msgstr "Servicekostenafrekening %1$d voor %2$s nog niet definitief – termijn 3
 msgid "Fixed-rate period %1$s ends on %2$s (%3$d days) – check follow-up financing"
 msgstr "Rentevaste periode %1$s eindigt op %2$s (%3$d dagen) – vervolgfinanciering controleren"
 
+msgid "Interest %1$d for loan %2$s provisionally calculated from the instalments (%3$s) – enter the bank’s interest certificate or take over the calculated figures"
+msgstr "Rente %1$d voor lening %2$s voorlopig berekend uit de termijnen (%3$s) – jaaropgave van de bank invoeren of berekende waarden overnemen"
+
 msgid "Interest certificate %1$d for loan %2$s not yet entered"
 msgstr "Rentecertificaat %1$d voor lening %2$s nog niet ingevoerd"
 
@@ -2804,6 +2852,16 @@ msgstr "Naar Mietfux"
 
 msgid "Notices from Mietfux (%s):"
 msgstr "Meldingen van Mietfux (%s):"
+
+msgid "%d tenant has no portal access yet – send the invitation from the overview"
+msgid_plural "%d tenants have no portal access yet – send the invitations from the overview"
+msgstr[0] "%d huurder heeft nog geen portaaltoegang – uitnodiging vanuit het overzicht sturen"
+msgstr[1] "%d huurders hebben nog geen portaaltoegang – uitnodigingen vanuit het overzicht sturen"
+
+msgid "%d open report from the tenant portal"
+msgid_plural "%d open reports from the tenant portal"
+msgstr[0] "%d open melding uit het huurdersportaal"
+msgstr[1] "%d open meldingen uit het huurdersportaal"
 
 msgid "Payment by tenant"
 msgstr "Betaling door huurder"
@@ -3696,9 +3754,6 @@ msgstr "Filteren"
 msgid "Export CSV"
 msgstr "CSV exporteren"
 
-msgid "%d entries"
-msgstr "%d vermeldingen"
-
 msgid "Time"
 msgstr "Tijd"
 
@@ -3738,6 +3793,11 @@ msgstr "Bij wijzigingen worden alleen de daadwerkelijk gewijzigde velden opgesla
 msgid "Entries are deleted automatically after the retention period (default 365 days). Use the CSV export to archive the log before it is cleaned up, for example at year end."
 msgstr "Vermeldingen worden na de bewaartermijn (standaard 365 dagen) automatisch verwijderd. Gebruik de CSV-export om het logboek vooraf te archiveren, bijvoorbeeld aan het einde van het jaar."
 
+msgid "%d field"
+msgid_plural "%d fields"
+msgstr[0] "%d veld"
+msgstr[1] "%d velden"
+
 msgid "File not found."
 msgstr "Bestand niet gevonden."
 
@@ -3764,6 +3824,9 @@ msgstr "Back-ups staan in de uploadmap (mietfux-backups, afgeschermd tegen direc
 
 msgid "AfA"
 msgstr "AfA"
+
+msgid "Loan (calculated, provisional)"
+msgstr "Lening (berekend, voorlopig)"
 
 msgid "Tax year:"
 msgstr "Belastingjaar:"
@@ -3870,6 +3933,12 @@ msgstr "Financiering"
 msgid "Nominal interest rate"
 msgstr "Nominale rente"
 
+msgid "calculated, provisional"
+msgstr "berekend, voorlopig"
+
+msgid "Take over as certificate"
+msgstr "Overnemen als jaaropgave"
+
 msgid "No interest certificate entered for %1$d. Enter annual values under %2$s."
 msgstr "Geen rentecertificaat ingevoerd voor %1$d. Voer de jaarwaarden in onder %2$s."
 
@@ -3971,6 +4040,11 @@ msgstr "Afzender en antwoordadres zijn het verhuurder-e-mailadres uit de instell
 
 msgid "Each dispatch is logged with time, recipients, status and the filed PDF. Failed deliveries are shown with the mail server’s error message. Note: letters that legally require written form (e.g. a rent increase under § 558 BGB) must additionally be sent by post."
 msgstr "Elke verzending wordt gelogd met tijd, ontvangers, status en de opgeslagen PDF. Mislukte verzendingen worden getoond met de foutmelding van de mailserver. Let op: brieven waarvoor de wet de schriftelijke vorm vereist (bijv. een huurverhoging volgens § 558 BGB) moeten daarnaast per post worden verstuurd."
+
+msgid "%d e-mail could not be sent in the last 30 days."
+msgid_plural "%d e-mails could not be sent in the last 30 days."
+msgstr[0] "%d e-mail kon de afgelopen 30 dagen niet worden verzonden."
+msgstr[1] "%d e-mails konden de afgelopen 30 dagen niet worden verzonden."
 
 msgid "Destatis requires a free GENESIS-Online account for the web service (guest access is no longer accepted). Register at genesis.destatis.de, enter user name and password (or an API token as user name) under Settings → Consumer price index – or import the CSV file manually."
 msgstr "Destatis vereist een gratis GENESIS-Online-account voor de webservice (gasttoegang wordt niet meer geaccepteerd). Registreer bij genesis.destatis.de, voer gebruikersnaam en wachtwoord (of een API-token als gebruikersnaam) in onder Instellingen → Consumentenprijsindex – of importeer het CSV-bestand handmatig."

@@ -106,6 +106,18 @@ class Mietv_Hinweise {
 			}
 		}
 
+		// Mieter ohne Portalzugang (aktive Mietverhältnisse mit E-Mail, aber ohne WP-Benutzer)
+		if ( class_exists( 'Mietv_Einladung' ) ) {
+			$ohne = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_mietverhaeltnisse mv JOIN ' . $wpdb->prefix . "mv_mieter m ON m.id = mv.mieter_id WHERE (mv.ende IS NULL OR mv.ende = '' OR mv.ende >= '" . esc_sql( $heute ) . "') AND (m.wp_user_id IS NULL OR m.wp_user_id = 0) AND m.email <> ''" );
+			if ( $ohne ) {
+				$h[] = [
+					'typ'  => 'info',
+					'text' => sprintf( /* translators: %d: Anzahl */ _n( '%d tenant has no portal access yet – send the invitation from the overview', '%d tenants have no portal access yet – send the invitations from the overview', $ohne, 'mietfux' ), $ohne ),
+					'url'  => admin_url( 'admin.php?page=mietv_uebersicht' ),
+				];
+			}
+		}
+
 		// Dauerbelege: fällige, nicht gebuchte Termine
 		if ( class_exists( 'Mietv_Dauerbelege' ) ) {
 			$h = array_merge( $h, Mietv_Dauerbelege::hinweise() );
