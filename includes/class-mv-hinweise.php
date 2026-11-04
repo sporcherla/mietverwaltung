@@ -129,6 +129,9 @@ class Mietv_Hinweise {
 		}
 
 		// Indexmieten
+		if ( class_exists( 'Mietv_Jahresabschluss' ) ) {
+			$h = array_merge( $h, Mietv_Jahresabschluss::hinweise() );
+		}
 		if ( class_exists( 'Mietv_Vpi' ) ) {
 			$h = array_merge( $h, Mietv_Vpi::hinweise() );
 		}

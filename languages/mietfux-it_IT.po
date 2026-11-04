@@ -31,10 +31,10 @@ msgid "Check: heating receipts in the period total %1$s, the reading-service sha
 msgstr "Verifica: le fatture di riscaldamento del periodo ammontano a %1$s, le quote inserite del servizio di lettura a %2$s."
 
 msgid "Permission denied."
-msgstr "Autorizzazione negata."
+msgstr "Permesso negato."
 
 msgid "Service charge statement"
-msgstr "Conteggio delle spese accessorie"
+msgstr "Rendiconto spese"
 
 msgid "New statement"
 msgstr "Nuovo conteggio"
@@ -709,7 +709,7 @@ msgid "Landlord"
 msgstr "Locatore"
 
 msgid "Meter readings"
-msgstr "Letture del contatore"
+msgstr "Letture contatori"
 
 msgid "Meter reading"
 msgstr "Lettura del contatore"
@@ -1030,7 +1030,7 @@ msgid "In progress"
 msgstr "In lavorazione"
 
 msgid "Done"
-msgstr "Completata"
+msgstr "Fatto"
 
 msgid "recoverable"
 msgstr "ripartibile"
@@ -1063,7 +1063,7 @@ msgid "Settings"
 msgstr "Impostazioni"
 
 msgid "Interest certificate"
-msgstr "Attestazione interessi"
+msgstr "Certificazione interessi"
 
 msgid "Bank rules"
 msgstr "Regole bancarie"
@@ -1094,6 +1094,9 @@ msgstr "Spese ricorrenti"
 
 msgid "Loan account"
 msgstr "Conto mutuo"
+
+msgid "Year-end"
+msgstr "Chiusura annuale"
 
 msgid "Data protection"
 msgstr "Protezione dei dati"
@@ -1291,7 +1294,7 @@ msgid "Income"
 msgstr "Entrate"
 
 msgid "Expenses"
-msgstr "Spese"
+msgstr "Spese deducibili"
 
 msgid "vs. previous year (same period)"
 msgstr "rispetto all’anno precedente (stesso periodo)"
@@ -2863,6 +2866,219 @@ msgid_plural "%d open reports from the tenant portal"
 msgstr[0] "%d segnalazione aperta dal portale inquilini"
 msgstr[1] "%d segnalazioni aperte dal portale inquilini"
 
+msgid "No active recurring expenses."
+msgstr "Nessuna spesa ricorrente attiva."
+
+msgid "Due dates of the year that have not been booked yet. Booking creates one receipt per due date with the due date as payment date and the standard amount."
+msgstr "Scadenze dell’anno non ancora registrate. La registrazione crea una ricevuta per scadenza con la data di scadenza come data di pagamento e l’importo standard."
+
+msgid "All due dates of the year are booked."
+msgstr "Tutte le scadenze dell’anno sono registrate."
+
+msgid "Book all due dates of the year"
+msgstr "Registra tutte le scadenze dell’anno"
+
+msgid "Book %d due date(s) with the standard amount?"
+msgstr "Registrare %d scadenza/e con l’importo standard?"
+
+msgid "No budget plan entered – only relevant for condominiums."
+msgstr "Nessun preventivo inserito – rilevante solo per appartamenti in condominio."
+
+msgid "annual statement %d not booked"
+msgstr "rendiconto annuale %d non registrato"
+
+msgid "annual statement %d booked"
+msgstr "rendiconto annuale %d registrato"
+
+msgid "Monthly fee payments of the year that have not been booked yet. Booking creates the receipts per cost type from the budget plan."
+msgstr "Mesi di spese condominiali dell’anno non ancora registrati. La registrazione crea le ricevute per tipo di costo dal preventivo."
+
+msgid "All monthly payments are booked. Book the owners’ association annual statement as soon as it arrives – it corrects the advance payments."
+msgstr "Tutti i pagamenti mensili sono registrati. Registri il rendiconto annuale del condominio appena arriva – corregge gli acconti."
+
+msgid "All monthly payments and the annual statement are booked."
+msgstr "Tutti i pagamenti mensili e il rendiconto annuale sono registrati."
+
+msgid "Book open months"
+msgstr "Registra mesi aperti"
+
+msgid "Book %d month(s) with the 1st as payment date?"
+msgstr "Registrare %d mese/i con il giorno 1 come data di pagamento?"
+
+msgid "Payments & arrears"
+msgstr "Pagamenti e arretrati"
+
+msgid "Open rent as of 31 December – check payments, assign bank transactions or send a dunning letter. Arrears reduce the income of the year, not the expenses."
+msgstr "Canoni non pagati al 31 dicembre – verificare i pagamenti, assegnare i movimenti bancari o inviare un sollecito. Gli arretrati riducono le entrate dell’anno, non le spese."
+
+msgid "No arrears as of 31 December – all rent of the year is paid."
+msgstr "Nessun arretrato al 31 dicembre – tutti i canoni dell’anno sono pagati."
+
+msgid "Arrears %s"
+msgstr "Arretrati %s"
+
+msgid "%s: heating is read by a reading service – wait for its statement."
+msgstr "%s: il riscaldamento viene letto da un servizio di lettura – attendere il suo conteggio."
+
+msgid "No meters to read for current tenancies."
+msgstr "Nessun contatore da leggere per le locazioni in corso."
+
+msgid "Year-end readings (1 December to 31 January) are missing for meters read by the tenant or landlord. Without them, consumption-based allocation is estimated."
+msgstr "Mancano letture di fine anno (dal 1° dicembre al 31 gennaio) per contatori letti dall’inquilino o dal locatore. Senza di esse la ripartizione in base al consumo viene stimata."
+
+msgid "Year-end readings are recorded for all meters read by tenant or landlord."
+msgstr "Le letture di fine anno sono registrate per tutti i contatori letti dall’inquilino o dal locatore."
+
+msgid "%1$d of %2$d meters without reading"
+msgstr "%1$d di %2$d contatori senza lettura"
+
+msgid "No tenancies in this year."
+msgstr "Nessuna locazione in quest’anno."
+
+msgid "no statement"
+msgstr "nessun rendiconto"
+
+msgid "Create statement for %s"
+msgstr "Crea rendiconto per %s"
+
+msgid "Create and calculate the service charge statement %2$d for %1$s?"
+msgstr "Creare e calcolare il rendiconto spese %2$d per %1$s?"
+
+msgid "sent"
+msgstr "inviato"
+
+msgid "finalised"
+msgstr "completato"
+
+msgid "draft"
+msgstr "bozza"
+
+msgid "One statement per property for the calendar year. Deadline: it must reach the tenants by %s (§ 556 (3) BGB) – afterwards additional claims are lost."
+msgstr "Un rendiconto per immobile per l’anno solare. Termine: deve pervenire agli inquilini entro il %s (§ 556 (3) BGB) – dopo, i conguagli a debito sono persi."
+
+msgid "%1$d of %2$d properties finalised"
+msgstr "%1$d di %2$d immobili completati"
+
+msgid "No active loans."
+msgstr "Nessun mutuo attivo."
+
+msgid "interest %s"
+msgstr "interessi %s"
+
+msgid "calculated %s – no certificate yet"
+msgstr "calcolato %s – ancora nessuna certificazione"
+
+msgid "Apply calculated values (provisional): %s"
+msgstr "Applica valori calcolati (provvisorio): %s"
+
+msgid "Apply the values calculated from the booked instalments as a provisional certificate? Replace them with the bank’s certificate when it arrives."
+msgstr "Applicare i valori calcolati dalle rate registrate come certificazione provvisoria? Sostituirli con la certificazione della banca al suo arrivo."
+
+msgid "no certificate"
+msgstr "nessuna certificazione"
+
+msgid "Interest, repayment and remaining debt are entered for all loans."
+msgstr "Interessi, quota capitale e debito residuo sono inseriti per tutti i mutui."
+
+msgid "Enter interest, repayment and remaining debt from the bank’s annual certificate – the interest is deducted in Anlage V. Values applied from the loan account are provisional: replace them with the bank certificate."
+msgstr "Inserire interessi, quota capitale e debito residuo dalla certificazione annuale della banca – gli interessi sono dedotti nell’Anlage V. I valori applicati dal conto mutuo sono provvisori: sostituirli con la certificazione bancaria."
+
+msgid "%1$d of %2$d loans certified"
+msgstr "%1$d di %2$d mutui certificati"
+
+msgid "Figures are provisional until the previous steps are completed."
+msgstr "Le cifre sono provvisorie finché i passaggi precedenti non sono completati."
+
+msgid "All previous steps are completed – the figures are ready for the tax return."
+msgstr "Tutti i passaggi precedenti sono completati – le cifre sono pronte per la dichiarazione dei redditi."
+
+msgid "A backup created after the end of the year exists."
+msgstr "Esiste un backup creato dopo la fine dell’anno."
+
+msgid "Create a backup of all data after closing the year and keep it with the tax documents (retention period 10 years)."
+msgstr "Crei un backup di tutti i dati dopo la chiusura dell’anno e lo conservi con i documenti fiscali (periodo di conservazione: 10 anni)."
+
+msgid "Last backup: %s"
+msgstr "Ultimo backup: %s"
+
+msgid "No backup yet"
+msgstr "Nessun backup ancora"
+
+msgid "Create backup now"
+msgstr "Crea backup adesso"
+
+msgid "Checklist for closing a year: book open recurring expenses and owners’ fee months, check arrears and year-end meter readings, create the service charge statements, enter the interest certificates, check Anlage V and create a backup. Each step shows its status and can be executed directly or opens the relevant page."
+msgstr "Checklist per la chiusura dell’anno: registrare spese ricorrenti e mesi di spese condominiali aperti, verificare arretrati e letture di fine anno, creare i rendiconti delle spese, inserire le certificazioni degli interessi, controllare l’Anlage V e creare un backup. Ogni passaggio mostra il suo stato e può essere eseguito direttamente o apre la pagina corrispondente."
+
+msgid "The year selector defaults to the previous year. From January to June, the overview shows a notice while steps of the previous year are still open."
+msgstr "Il selettore dell’anno è impostato di default sull’anno precedente. Da gennaio a giugno la panoramica mostra un avviso finché ci sono passaggi dell’anno precedente in sospeso."
+
+msgid "Service charge statement created and calculated (draft)."
+msgstr "Rendiconto spese creato e calcolato (bozza)."
+
+msgid "Provisional interest certificate saved – replace it with the bank’s certificate."
+msgstr "Certificazione interessi provvisoria salvata – sostituirla con la certificazione della banca."
+
+msgid "Backup could not be written."
+msgstr "Impossibile scrivere il backup."
+
+msgid "Nothing to do – the step is already completed."
+msgstr "Niente da fare – il passaggio è già completato."
+
+msgid "Open statement"
+msgstr "Apri rendiconto"
+
+msgid "Year-end %d"
+msgstr "Chiusura annuale %d"
+
+msgid "Work through the steps from top to bottom. Steps with a button can be executed directly; the others open the relevant page. Not applicable steps count as completed."
+msgstr "Seguire i passaggi dall’alto verso il basso. I passaggi con pulsante possono essere eseguiti direttamente; gli altri aprono la pagina corrispondente. I passaggi non applicabili contano come completati."
+
+msgid "%1$d of %2$d steps completed"
+msgstr "%1$d di %2$d passaggi completati"
+
+msgid "All done"
+msgstr "Tutto fatto"
+
+msgid "Still open"
+msgstr "In sospeso"
+
+msgid "Not applicable"
+msgstr "Non applicabile"
+
+msgid "… and %d more"
+msgstr "… e altri %d"
+
+msgid "%d open due date"
+msgid_plural "%d open due dates"
+msgstr[0] "%d scadenza aperta"
+msgstr[1] "%d scadenze aperte"
+
+msgid "%d open month"
+msgid_plural "%d open months"
+msgstr[0] "%d mese aperto"
+msgstr[1] "%d mesi aperti"
+
+msgid "Year-end %1$d: %2$d step open"
+msgid_plural "Year-end %1$d: %2$d steps open"
+msgstr[0] "Chiusura annuale %1$d: %2$d passaggio in sospeso"
+msgstr[1] "Chiusura annuale %1$d: %2$d passaggi in sospeso"
+
+msgid "%d recurring expense due date booked."
+msgid_plural "%d recurring expense due dates booked."
+msgstr[0] "%d scadenza di spesa ricorrente registrata."
+msgstr[1] "%d scadenze di spese ricorrenti registrate."
+
+msgid "%d owners’ fee month booked."
+msgid_plural "%d owners’ fee months booked."
+msgstr[0] "%d mese di spese condominiali registrato."
+msgstr[1] "%d mesi di spese condominiali registrati."
+
+msgid "%d open"
+msgid_plural "%d open"
+msgstr[0] "%d in sospeso"
+msgstr[1] "%d in sospeso"
+
 msgid "Payment by tenant"
 msgstr "Versamento dell'inquilino"
 
@@ -3807,9 +4023,6 @@ msgstr "Ultimo backup automatico: %s"
 msgid "No automatic backup yet."
 msgstr "Nessun backup automatico ancora."
 
-msgid "Create backup now"
-msgstr "Crea backup ora"
-
 msgid "Size"
 msgstr "Dimensione"
 
@@ -4022,9 +4235,6 @@ msgstr "Errore"
 
 msgid "No e-mails sent yet. Use “Send by e-mail” on a statement, rent increase, deposit settlement or dunning letter."
 msgstr "Nessuna e-mail inviata finora. Usi «Invia via e-mail» su un rendiconto, un aumento del canone, un conteggio della cauzione o una lettera di sollecito."
-
-msgid "sent"
-msgstr "inviata"
 
 msgid "failed"
 msgstr "non riuscita"

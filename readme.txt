@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,8 +81,15 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 8. Owners’ association fee (budget plan, monthly bookings, annual statement)
 9. Recurring expenses
 10. Activity log
+11. Year-end assistant – checklist with progress and one-click actions
 
 == Changelog ==
+
+= 1.5.0 =
+* Year-end assistant (menu "Year-end"): checklist for a year with progress bar – recurring expenses, owners' fee incl. WEG annual statement, arrears as of 31 Dec, year-end meter readings, service charge statement per property (deadline § 556 (3) BGB), interest certificates, Anlage V figures, backup. Steps with a button run directly (book due recurring expenses / owners' fee months, create statement, take over calculated interest, create backup).
+* Interest certificates: notice shows the interest provisionally calculated from the booked instalments and opens the certificate form pre-filled; Anlage V marks each interest item as "Interest certificate" or "calculated, provisional" with a one-click take-over.
+* Portal invitation: "Invite to portal" on the overview card (envelope icon in the tenancy list) creates the WordPress user from the tenant's e-mail, links it and e-mails a password link plus the portal address; notice lists tenants without portal access.
+* Translations: plural forms (e.g. "1 entry / 5 entries") are now translated in all languages.
 
 = 1.4.1 =
 * Landlord preview of the tenant portal: "Portal preview" button on the overview card and eye icon in the tenancy list opens the portal exactly as that tenant sees it (banner, forms disabled, nothing saved).

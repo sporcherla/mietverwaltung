@@ -1095,6 +1095,9 @@ msgstr "Dauerbelege"
 msgid "Loan account"
 msgstr "Darlehenskonto"
 
+msgid "Year-end"
+msgstr "Jahresabschluss"
+
 msgid "Data protection"
 msgstr "Datenschutz"
 
@@ -1108,7 +1111,7 @@ msgid "Dispatch log"
 msgstr "Versandprotokoll"
 
 msgid "Settings & backup"
-msgstr "Einstellungen & Backup"
+msgstr "Einstellungen & Sicherung"
 
 msgid "Help"
 msgstr "Hilfe"
@@ -2290,7 +2293,7 @@ msgid "Save"
 msgstr "Speichern"
 
 msgid "Backup"
-msgstr "Backup"
+msgstr "Sicherung"
 
 msgid "Export all data as JSON"
 msgstr "Alle Daten als JSON exportieren"
@@ -2862,6 +2865,219 @@ msgid "%d open report from the tenant portal"
 msgid_plural "%d open reports from the tenant portal"
 msgstr[0] "%d offene Meldung aus dem Mieterportal"
 msgstr[1] "%d offene Meldungen aus dem Mieterportal"
+
+msgid "No active recurring expenses."
+msgstr "Keine aktiven Dauerbelege."
+
+msgid "Due dates of the year that have not been booked yet. Booking creates one receipt per due date with the due date as payment date and the standard amount."
+msgstr "Noch nicht gebuchte Fälligkeiten des Jahres. Das Buchen erzeugt je Fälligkeit einen Beleg mit dem Fälligkeitsdatum als Zahlungsdatum und dem Standardbetrag."
+
+msgid "All due dates of the year are booked."
+msgstr "Alle Fälligkeiten des Jahres sind gebucht."
+
+msgid "Book all due dates of the year"
+msgstr "Alle fälligen Dauerbelege des Jahres buchen"
+
+msgid "Book %d due date(s) with the standard amount?"
+msgstr "%d Fälligkeit(en) mit dem Standardbetrag buchen?"
+
+msgid "No budget plan entered – only relevant for condominiums."
+msgstr "Kein Wirtschaftsplan erfasst – nur für Eigentumswohnungen relevant."
+
+msgid "annual statement %d not booked"
+msgstr "Jahresabrechnung %d nicht gebucht"
+
+msgid "annual statement %d booked"
+msgstr "Jahresabrechnung %d gebucht"
+
+msgid "Monthly fee payments of the year that have not been booked yet. Booking creates the receipts per cost type from the budget plan."
+msgstr "Noch nicht gebuchte Hausgeld-Monate des Jahres. Das Buchen erzeugt die Belege je Kostenart aus dem Wirtschaftsplan."
+
+msgid "All monthly payments are booked. Book the owners’ association annual statement as soon as it arrives – it corrects the advance payments."
+msgstr "Alle Monatszahlungen sind gebucht. Buchen Sie die WEG-Jahresabrechnung, sobald sie vorliegt – sie korrigiert die Vorauszahlungen."
+
+msgid "All monthly payments and the annual statement are booked."
+msgstr "Alle Monatszahlungen und die Jahresabrechnung sind gebucht."
+
+msgid "Book open months"
+msgstr "Offene Monate buchen"
+
+msgid "Book %d month(s) with the 1st as payment date?"
+msgstr "%d Monat(e) mit dem 1. als Zahlungsdatum buchen?"
+
+msgid "Payments & arrears"
+msgstr "Zahlungen & Rückstände"
+
+msgid "Open rent as of 31 December – check payments, assign bank transactions or send a dunning letter. Arrears reduce the income of the year, not the expenses."
+msgstr "Offene Miete zum 31. Dezember – Zahlungen prüfen, Bankumsätze zuordnen oder mahnen. Rückstände mindern die Einnahmen des Jahres, nicht die Werbungskosten."
+
+msgid "No arrears as of 31 December – all rent of the year is paid."
+msgstr "Keine Rückstände zum 31. Dezember – alle Mieten des Jahres sind bezahlt."
+
+msgid "Arrears %s"
+msgstr "Rückstand %s"
+
+msgid "%s: heating is read by a reading service – wait for its statement."
+msgstr "%s: Heizung wird vom Ablesedienst abgelesen – Ablesedienst-Abrechnung abwarten."
+
+msgid "No meters to read for current tenancies."
+msgstr "Keine abzulesenden Zähler für bestehende Mietverhältnisse."
+
+msgid "Year-end readings (1 December to 31 January) are missing for meters read by the tenant or landlord. Without them, consumption-based allocation is estimated."
+msgstr "Für vom Mieter oder Vermieter abgelesene Zähler fehlen Jahresend-Stände (1. Dezember bis 31. Januar). Ohne sie wird die verbrauchsabhängige Verteilung geschätzt."
+
+msgid "Year-end readings are recorded for all meters read by tenant or landlord."
+msgstr "Für alle vom Mieter oder Vermieter abgelesenen Zähler liegen Jahresend-Stände vor."
+
+msgid "%1$d of %2$d meters without reading"
+msgstr "%1$d von %2$d Zählern ohne Stand"
+
+msgid "No tenancies in this year."
+msgstr "Keine Mietverhältnisse in diesem Jahr."
+
+msgid "no statement"
+msgstr "keine Abrechnung"
+
+msgid "Create statement for %s"
+msgstr "Abrechnung für %s erstellen"
+
+msgid "Create and calculate the service charge statement %2$d for %1$s?"
+msgstr "Betriebskostenabrechnung %2$d für %1$s anlegen und berechnen?"
+
+msgid "sent"
+msgstr "gesendet"
+
+msgid "finalised"
+msgstr "fertiggestellt"
+
+msgid "draft"
+msgstr "Entwurf"
+
+msgid "One statement per property for the calendar year. Deadline: it must reach the tenants by %s (§ 556 (3) BGB) – afterwards additional claims are lost."
+msgstr "Eine Abrechnung je Objekt für das Kalenderjahr. Frist: Sie muss den Mietern bis %s zugehen (§ 556 Abs. 3 BGB) – danach sind Nachforderungen ausgeschlossen."
+
+msgid "%1$d of %2$d properties finalised"
+msgstr "%1$d von %2$d Objekten fertiggestellt"
+
+msgid "No active loans."
+msgstr "Keine aktiven Darlehen."
+
+msgid "interest %s"
+msgstr "Zinsen %s"
+
+msgid "calculated %s – no certificate yet"
+msgstr "berechnet %s – noch keine Bescheinigung"
+
+msgid "Apply calculated values (provisional): %s"
+msgstr "Berechnete Werte übernehmen (vorläufig): %s"
+
+msgid "Apply the values calculated from the booked instalments as a provisional certificate? Replace them with the bank’s certificate when it arrives."
+msgstr "Die aus den gebuchten Raten berechneten Werte als vorläufige Bescheinigung übernehmen? Ersetzen Sie sie durch die Bankbescheinigung, sobald sie vorliegt."
+
+msgid "no certificate"
+msgstr "keine Bescheinigung"
+
+msgid "Interest, repayment and remaining debt are entered for all loans."
+msgstr "Zinsen, Tilgung und Restschuld sind für alle Darlehen erfasst."
+
+msgid "Enter interest, repayment and remaining debt from the bank’s annual certificate – the interest is deducted in Anlage V. Values applied from the loan account are provisional: replace them with the bank certificate."
+msgstr "Zinsen, Tilgung und Restschuld aus der Jahresbescheinigung der Bank erfassen – die Zinsen werden in der Anlage V abgezogen. Aus dem Darlehenskonto übernommene Werte sind vorläufig: durch die Bankbescheinigung ersetzen."
+
+msgid "%1$d of %2$d loans certified"
+msgstr "%1$d von %2$d Darlehen bescheinigt"
+
+msgid "Figures are provisional until the previous steps are completed."
+msgstr "Die Zahlen sind vorläufig, bis die vorherigen Schritte erledigt sind."
+
+msgid "All previous steps are completed – the figures are ready for the tax return."
+msgstr "Alle vorherigen Schritte sind erledigt – die Zahlen sind bereit für die Steuererklärung."
+
+msgid "A backup created after the end of the year exists."
+msgstr "Eine Sicherung nach Jahresende liegt vor."
+
+msgid "Create a backup of all data after closing the year and keep it with the tax documents (retention period 10 years)."
+msgstr "Erstellen Sie nach dem Jahresabschluss eine Sicherung aller Daten und bewahren Sie sie bei den Steuerunterlagen auf (Aufbewahrungsfrist 10 Jahre)."
+
+msgid "Last backup: %s"
+msgstr "Letzte Sicherung: %s"
+
+msgid "No backup yet"
+msgstr "Noch keine Sicherung"
+
+msgid "Create backup now"
+msgstr "Sicherung jetzt erstellen"
+
+msgid "Checklist for closing a year: book open recurring expenses and owners’ fee months, check arrears and year-end meter readings, create the service charge statements, enter the interest certificates, check Anlage V and create a backup. Each step shows its status and can be executed directly or opens the relevant page."
+msgstr "Checkliste für den Jahresabschluss: offene Dauerbelege und Hausgeld-Monate buchen, Rückstände und Jahresend-Zählerstände prüfen, Betriebskostenabrechnungen erstellen, Zinsbescheinigungen erfassen, Anlage V prüfen und eine Sicherung erstellen. Jeder Schritt zeigt seinen Status und kann direkt ausgeführt werden oder öffnet die zugehörige Seite."
+
+msgid "The year selector defaults to the previous year. From January to June, the overview shows a notice while steps of the previous year are still open."
+msgstr "Die Jahresauswahl steht standardmäßig auf dem Vorjahr. Von Januar bis Juni zeigt die Übersicht einen Hinweis, solange Schritte des Vorjahres offen sind."
+
+msgid "Service charge statement created and calculated (draft)."
+msgstr "Betriebskostenabrechnung angelegt und berechnet (Entwurf)."
+
+msgid "Provisional interest certificate saved – replace it with the bank’s certificate."
+msgstr "Vorläufige Zinsbescheinigung gespeichert – durch die Bankbescheinigung ersetzen."
+
+msgid "Backup could not be written."
+msgstr "Sicherung konnte nicht geschrieben werden."
+
+msgid "Nothing to do – the step is already completed."
+msgstr "Nichts zu tun – der Schritt ist bereits erledigt."
+
+msgid "Open statement"
+msgstr "Abrechnung öffnen"
+
+msgid "Year-end %d"
+msgstr "Jahresabschluss %d"
+
+msgid "Work through the steps from top to bottom. Steps with a button can be executed directly; the others open the relevant page. Not applicable steps count as completed."
+msgstr "Arbeiten Sie die Schritte von oben nach unten ab. Schritte mit Knopf lassen sich direkt ausführen, die anderen öffnen die zugehörige Seite. Nicht zutreffende Schritte gelten als erledigt."
+
+msgid "%1$d of %2$d steps completed"
+msgstr "%1$d von %2$d Schritten erledigt"
+
+msgid "All done"
+msgstr "Alles erledigt"
+
+msgid "Still open"
+msgstr "Offen"
+
+msgid "Not applicable"
+msgstr "Nicht zutreffend"
+
+msgid "… and %d more"
+msgstr "… und %d weitere"
+
+msgid "%d open due date"
+msgid_plural "%d open due dates"
+msgstr[0] "%d offene Fälligkeit"
+msgstr[1] "%d offene Fälligkeiten"
+
+msgid "%d open month"
+msgid_plural "%d open months"
+msgstr[0] "%d offener Monat"
+msgstr[1] "%d offene Monate"
+
+msgid "Year-end %1$d: %2$d step open"
+msgid_plural "Year-end %1$d: %2$d steps open"
+msgstr[0] "Jahresabschluss %1$d: %2$d Schritt offen"
+msgstr[1] "Jahresabschluss %1$d: %2$d Schritte offen"
+
+msgid "%d recurring expense due date booked."
+msgid_plural "%d recurring expense due dates booked."
+msgstr[0] "%d Dauerbeleg-Fälligkeit gebucht."
+msgstr[1] "%d Dauerbeleg-Fälligkeiten gebucht."
+
+msgid "%d owners’ fee month booked."
+msgid_plural "%d owners’ fee months booked."
+msgstr[0] "%d Hausgeld-Monat gebucht."
+msgstr[1] "%d Hausgeld-Monate gebucht."
+
+msgid "%d open"
+msgid_plural "%d open"
+msgstr[0] "%d offen"
+msgstr[1] "%d offen"
 
 msgid "Payment by tenant"
 msgstr "Einzahlung Mieter"
@@ -3807,9 +4023,6 @@ msgstr "Letzte automatische Sicherung: %s"
 msgid "No automatic backup yet."
 msgstr "Noch keine automatische Sicherung."
 
-msgid "Create backup now"
-msgstr "Sicherung jetzt erstellen"
-
 msgid "Size"
 msgstr "Größe"
 
@@ -4022,9 +4235,6 @@ msgstr "Fehler"
 
 msgid "No e-mails sent yet. Use “Send by e-mail” on a statement, rent increase, deposit settlement or dunning letter."
 msgstr "Noch keine E-Mails gesendet. Nutzen Sie „Per E-Mail senden“ bei einer Abrechnung, Mieterhöhung, Kautionsabrechnung oder Mahnung."
-
-msgid "sent"
-msgstr "gesendet"
 
 msgid "failed"
 msgstr "fehlgeschlagen"

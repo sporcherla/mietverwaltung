@@ -952,7 +952,7 @@ msgid "File (PDF)"
 msgstr "Bestand (PDF)"
 
 msgid "Interest certificates"
-msgstr "Rentecertificaten"
+msgstr "Renteopgaven"
 
 msgid "Annual loan figures"
 msgstr "Jaarcijfers lening"
@@ -1030,7 +1030,7 @@ msgid "In progress"
 msgstr "In behandeling"
 
 msgid "Done"
-msgstr "Afgehandeld"
+msgstr "Klaar"
 
 msgid "recoverable"
 msgstr "doorbelastbaar"
@@ -1063,7 +1063,7 @@ msgid "Settings"
 msgstr "Instellingen"
 
 msgid "Interest certificate"
-msgstr "Jaaropgave rente"
+msgstr "Renteopgave"
 
 msgid "Bank rules"
 msgstr "Bankregels"
@@ -1090,10 +1090,13 @@ msgid "Owners’ association fee"
 msgstr "VvE-bijdrage"
 
 msgid "Recurring expenses"
-msgstr "Terugkerende uitgaven"
+msgstr "Terugkerende kosten"
 
 msgid "Loan account"
 msgstr "Leningrekening"
+
+msgid "Year-end"
+msgstr "Jaarafsluiting"
 
 msgid "Data protection"
 msgstr "Gegevensbescherming"
@@ -1291,7 +1294,7 @@ msgid "Income"
 msgstr "Inkomsten"
 
 msgid "Expenses"
-msgstr "Uitgaven"
+msgstr "Aftrekbare kosten"
 
 msgid "vs. previous year (same period)"
 msgstr "t.o.v. vorig jaar (zelfde periode)"
@@ -2098,7 +2101,7 @@ msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
 
 msgid "Backup created."
-msgstr "Back-up aangemaakt."
+msgstr "Back-up gemaakt."
 
 msgid "Backup could not be written (uploads folder not writable)."
 msgstr "Back-up kon niet worden weggeschreven (uploadmap niet beschrijfbaar)."
@@ -2862,6 +2865,219 @@ msgid "%d open report from the tenant portal"
 msgid_plural "%d open reports from the tenant portal"
 msgstr[0] "%d open melding uit het huurdersportaal"
 msgstr[1] "%d open meldingen uit het huurdersportaal"
+
+msgid "No active recurring expenses."
+msgstr "Geen actieve terugkerende kosten."
+
+msgid "Due dates of the year that have not been booked yet. Booking creates one receipt per due date with the due date as payment date and the standard amount."
+msgstr "Nog niet geboekte vervaldata van het jaar. Boeken maakt per vervaldatum één bon aan met de vervaldatum als betaaldatum en het standaardbedrag."
+
+msgid "All due dates of the year are booked."
+msgstr "Alle vervaldata van het jaar zijn geboekt."
+
+msgid "Book all due dates of the year"
+msgstr "Alle vervaldata van het jaar boeken"
+
+msgid "Book %d due date(s) with the standard amount?"
+msgstr "%d vervaldatum/-data met het standaardbedrag boeken?"
+
+msgid "No budget plan entered – only relevant for condominiums."
+msgstr "Geen begroting ingevoerd – alleen relevant voor appartementen in een VvE."
+
+msgid "annual statement %d not booked"
+msgstr "jaarafrekening %d niet geboekt"
+
+msgid "annual statement %d booked"
+msgstr "jaarafrekening %d geboekt"
+
+msgid "Monthly fee payments of the year that have not been booked yet. Booking creates the receipts per cost type from the budget plan."
+msgstr "Nog niet geboekte VvE-maanden van het jaar. Boeken maakt de bonnen per kostensoort aan op basis van de begroting."
+
+msgid "All monthly payments are booked. Book the owners’ association annual statement as soon as it arrives – it corrects the advance payments."
+msgstr "Alle maandbetalingen zijn geboekt. Boek de VvE-jaarafrekening zodra deze binnenkomt – die corrigeert de voorschotten."
+
+msgid "All monthly payments and the annual statement are booked."
+msgstr "Alle maandbetalingen en de jaarafrekening zijn geboekt."
+
+msgid "Book open months"
+msgstr "Openstaande maanden boeken"
+
+msgid "Book %d month(s) with the 1st as payment date?"
+msgstr "%d maand(en) boeken met de 1e als betaaldatum?"
+
+msgid "Payments & arrears"
+msgstr "Betalingen & achterstanden"
+
+msgid "Open rent as of 31 December – check payments, assign bank transactions or send a dunning letter. Arrears reduce the income of the year, not the expenses."
+msgstr "Openstaande huur per 31 december – controleer betalingen, koppel banktransacties of stuur een aanmaning. Achterstanden verlagen de inkomsten van het jaar, niet de kosten."
+
+msgid "No arrears as of 31 December – all rent of the year is paid."
+msgstr "Geen achterstand per 31 december – alle huur van het jaar is betaald."
+
+msgid "Arrears %s"
+msgstr "Achterstand %s"
+
+msgid "%s: heating is read by a reading service – wait for its statement."
+msgstr "%s: verwarming wordt door een meetdienst opgenomen – wacht op de afrekening van de meetdienst."
+
+msgid "No meters to read for current tenancies."
+msgstr "Geen op te nemen meters voor lopende huurovereenkomsten."
+
+msgid "Year-end readings (1 December to 31 January) are missing for meters read by the tenant or landlord. Without them, consumption-based allocation is estimated."
+msgstr "Meterstanden per jaareinde (1 december t/m 31 januari) ontbreken voor meters die door huurder of verhuurder worden opgenomen. Zonder die standen wordt de verdeling op basis van verbruik geschat."
+
+msgid "Year-end readings are recorded for all meters read by tenant or landlord."
+msgstr "Meterstanden per jaareinde zijn vastgelegd voor alle meters die door huurder of verhuurder worden opgenomen."
+
+msgid "%1$d of %2$d meters without reading"
+msgstr "%1$d van %2$d meters zonder stand"
+
+msgid "No tenancies in this year."
+msgstr "Geen huurovereenkomsten in dit jaar."
+
+msgid "no statement"
+msgstr "geen afrekening"
+
+msgid "Create statement for %s"
+msgstr "Afrekening aanmaken voor %s"
+
+msgid "Create and calculate the service charge statement %2$d for %1$s?"
+msgstr "Servicekostenafrekening %2$d voor %1$s aanmaken en berekenen?"
+
+msgid "sent"
+msgstr "verzonden"
+
+msgid "finalised"
+msgstr "afgerond"
+
+msgid "draft"
+msgstr "concept"
+
+msgid "One statement per property for the calendar year. Deadline: it must reach the tenants by %s (§ 556 (3) BGB) – afterwards additional claims are lost."
+msgstr "Eén afrekening per pand voor het kalenderjaar. Termijn: de afrekening moet de huurders uiterlijk %s bereiken (§ 556 lid 3 BGB) – daarna vervallen naheffingen."
+
+msgid "%1$d of %2$d properties finalised"
+msgstr "%1$d van %2$d panden afgerond"
+
+msgid "No active loans."
+msgstr "Geen actieve leningen."
+
+msgid "interest %s"
+msgstr "rente %s"
+
+msgid "calculated %s – no certificate yet"
+msgstr "berekend %s – nog geen opgave"
+
+msgid "Apply calculated values (provisional): %s"
+msgstr "Berekende waarden overnemen (voorlopig): %s"
+
+msgid "Apply the values calculated from the booked instalments as a provisional certificate? Replace them with the bank’s certificate when it arrives."
+msgstr "De uit de geboekte termijnen berekende waarden als voorlopige opgave overnemen? Vervang ze door de bankopgave zodra die binnenkomt."
+
+msgid "no certificate"
+msgstr "geen opgave"
+
+msgid "Interest, repayment and remaining debt are entered for all loans."
+msgstr "Rente, aflossing en restschuld zijn voor alle leningen ingevoerd."
+
+msgid "Enter interest, repayment and remaining debt from the bank’s annual certificate – the interest is deducted in Anlage V. Values applied from the loan account are provisional: replace them with the bank certificate."
+msgstr "Voer rente, aflossing en restschuld uit de jaaropgave van de bank in – de rente wordt in Anlage V afgetrokken. Uit de leningrekening overgenomen waarden zijn voorlopig: vervang ze door de bankopgave."
+
+msgid "%1$d of %2$d loans certified"
+msgstr "%1$d van %2$d leningen gecertificeerd"
+
+msgid "Figures are provisional until the previous steps are completed."
+msgstr "De cijfers zijn voorlopig totdat de vorige stappen zijn voltooid."
+
+msgid "All previous steps are completed – the figures are ready for the tax return."
+msgstr "Alle vorige stappen zijn voltooid – de cijfers zijn klaar voor de belastingaangifte."
+
+msgid "A backup created after the end of the year exists."
+msgstr "Er bestaat een back-up van na het jaareinde."
+
+msgid "Create a backup of all data after closing the year and keep it with the tax documents (retention period 10 years)."
+msgstr "Maak na de jaarafsluiting een back-up van alle gegevens en bewaar die bij de belastingstukken (bewaartermijn 10 jaar)."
+
+msgid "Last backup: %s"
+msgstr "Laatste back-up: %s"
+
+msgid "No backup yet"
+msgstr "Nog geen back-up"
+
+msgid "Create backup now"
+msgstr "Nu back-up maken"
+
+msgid "Checklist for closing a year: book open recurring expenses and owners’ fee months, check arrears and year-end meter readings, create the service charge statements, enter the interest certificates, check Anlage V and create a backup. Each step shows its status and can be executed directly or opens the relevant page."
+msgstr "Checklist voor de jaarafsluiting: openstaande terugkerende kosten en VvE-maanden boeken, achterstanden en meterstanden per jaareinde controleren, servicekostenafrekeningen aanmaken, renteopgaven invoeren, Anlage V controleren en een back-up maken. Elke stap toont de status en kan direct worden uitgevoerd of opent de bijbehorende pagina."
+
+msgid "The year selector defaults to the previous year. From January to June, the overview shows a notice while steps of the previous year are still open."
+msgstr "De jaarkeuze staat standaard op het vorige jaar. Van januari tot en met juni toont het overzicht een melding zolang er stappen van het vorige jaar openstaan."
+
+msgid "Service charge statement created and calculated (draft)."
+msgstr "Servicekostenafrekening aangemaakt en berekend (concept)."
+
+msgid "Provisional interest certificate saved – replace it with the bank’s certificate."
+msgstr "Voorlopige renteopgave opgeslagen – vervang deze door de opgave van de bank."
+
+msgid "Backup could not be written."
+msgstr "Back-up kon niet worden weggeschreven."
+
+msgid "Nothing to do – the step is already completed."
+msgstr "Niets te doen – de stap is al voltooid."
+
+msgid "Open statement"
+msgstr "Afrekening openen"
+
+msgid "Year-end %d"
+msgstr "Jaarafsluiting %d"
+
+msgid "Work through the steps from top to bottom. Steps with a button can be executed directly; the others open the relevant page. Not applicable steps count as completed."
+msgstr "Werk de stappen van boven naar beneden af. Stappen met een knop kunnen direct worden uitgevoerd; de andere openen de bijbehorende pagina. Niet van toepassing zijnde stappen tellen als voltooid."
+
+msgid "%1$d of %2$d steps completed"
+msgstr "%1$d van %2$d stappen voltooid"
+
+msgid "All done"
+msgstr "Alles klaar"
+
+msgid "Still open"
+msgstr "Nog open"
+
+msgid "Not applicable"
+msgstr "Niet van toepassing"
+
+msgid "… and %d more"
+msgstr "… en nog %d"
+
+msgid "%d open due date"
+msgid_plural "%d open due dates"
+msgstr[0] "%d openstaande vervaldatum"
+msgstr[1] "%d openstaande vervaldata"
+
+msgid "%d open month"
+msgid_plural "%d open months"
+msgstr[0] "%d openstaande maand"
+msgstr[1] "%d openstaande maanden"
+
+msgid "Year-end %1$d: %2$d step open"
+msgid_plural "Year-end %1$d: %2$d steps open"
+msgstr[0] "Jaarafsluiting %1$d: %2$d stap open"
+msgstr[1] "Jaarafsluiting %1$d: %2$d stappen open"
+
+msgid "%d recurring expense due date booked."
+msgid_plural "%d recurring expense due dates booked."
+msgstr[0] "%d vervaldatum van terugkerende kosten geboekt."
+msgstr[1] "%d vervaldata van terugkerende kosten geboekt."
+
+msgid "%d owners’ fee month booked."
+msgid_plural "%d owners’ fee months booked."
+msgstr[0] "%d maand VvE-bijdrage geboekt."
+msgstr[1] "%d maanden VvE-bijdrage geboekt."
+
+msgid "%d open"
+msgid_plural "%d open"
+msgstr[0] "%d open"
+msgstr[1] "%d open"
 
 msgid "Payment by tenant"
 msgstr "Betaling door huurder"
@@ -3807,9 +4023,6 @@ msgstr "Laatste automatische back-up: %s"
 msgid "No automatic backup yet."
 msgstr "Nog geen automatische back-up."
 
-msgid "Create backup now"
-msgstr "Back-up nu aanmaken"
-
 msgid "Size"
 msgstr "Grootte"
 
@@ -4022,9 +4235,6 @@ msgstr "Fout"
 
 msgid "No e-mails sent yet. Use “Send by e-mail” on a statement, rent increase, deposit settlement or dunning letter."
 msgstr "Nog geen e-mails verzonden. Gebruik ‘Per e-mail verzenden’ bij een afrekening, huurverhoging, borgafrekening of aanmaning."
-
-msgid "sent"
-msgstr "verzonden"
 
 msgid "failed"
 msgstr "mislukt"

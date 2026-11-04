@@ -27,7 +27,7 @@ class Mietv_Hilfe {
 	/** Kurzhilfe je Seite (Slug ohne „mietv_“ => [Titel, Absätze]). */
 	public static function themen(): array {
 		$extra = [];
-		foreach ( [ 'Mietv_Dauerbelege', 'Mietv_Protokoll', 'Mietv_Versand', 'Mietv_Vpi' ] as $klasse ) {
+		foreach ( [ 'Mietv_Dauerbelege', 'Mietv_Protokoll', 'Mietv_Versand', 'Mietv_Vpi', 'Mietv_Jahresabschluss' ] as $klasse ) {
 			if ( class_exists( $klasse ) && method_exists( $klasse, 'hilfe' ) ) {
 				$extra += $klasse::hilfe();
 			}

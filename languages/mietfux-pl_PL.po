@@ -34,7 +34,7 @@ msgid "Permission denied."
 msgstr "Brak uprawnień."
 
 msgid "Service charge statement"
-msgstr "Rozliczenie opłat eksploatacyjnych"
+msgstr "Rozliczenie kosztów eksploatacyjnych"
 
 msgid "New statement"
 msgstr "Nowe rozliczenie"
@@ -1030,7 +1030,7 @@ msgid "In progress"
 msgstr "W trakcie"
 
 msgid "Done"
-msgstr "Zakończone"
+msgstr "Gotowe"
 
 msgid "recoverable"
 msgstr "rozliczalne"
@@ -1087,13 +1087,16 @@ msgid "Deposit"
 msgstr "Kaucja"
 
 msgid "Owners’ association fee"
-msgstr "Opłata na wspólnotę mieszkaniową"
+msgstr "Opłata wspólnoty"
 
 msgid "Recurring expenses"
 msgstr "Wydatki cykliczne"
 
 msgid "Loan account"
 msgstr "Rachunek kredytowy"
+
+msgid "Year-end"
+msgstr "Zamknięcie roku"
 
 msgid "Data protection"
 msgstr "Ochrona danych"
@@ -1291,7 +1294,7 @@ msgid "Income"
 msgstr "Przychody"
 
 msgid "Expenses"
-msgstr "Wydatki"
+msgstr "Koszty uzyskania"
 
 msgid "vs. previous year (same period)"
 msgstr "wobec poprzedniego roku (ten sam okres)"
@@ -2101,7 +2104,7 @@ msgid "Settings saved."
 msgstr "Ustawienia zapisano."
 
 msgid "Backup created."
-msgstr "Kopia zapasowa utworzona."
+msgstr "Utworzono kopię zapasową."
 
 msgid "Backup could not be written (uploads folder not writable)."
 msgstr "Nie udało się zapisać kopii zapasowej (brak uprawnień do zapisu w folderze uploads)."
@@ -2867,6 +2870,225 @@ msgid_plural "%d open reports from the tenant portal"
 msgstr[0] "%d otwarte zgłoszenie z portalu najemcy"
 msgstr[1] "%d otwarte zgłoszenia z portalu najemcy"
 msgstr[2] "%d otwarte zgłoszenia z portalu najemcy"
+
+msgid "No active recurring expenses."
+msgstr "Brak aktywnych wydatków cyklicznych."
+
+msgid "Due dates of the year that have not been booked yet. Booking creates one receipt per due date with the due date as payment date and the standard amount."
+msgstr "Jeszcze niezaksięgowane terminy płatności w roku. Księgowanie tworzy jeden dowód na termin z datą płatności równą terminowi i standardową kwotą."
+
+msgid "All due dates of the year are booked."
+msgstr "Wszystkie terminy płatności w tym roku są zaksięgowane."
+
+msgid "Book all due dates of the year"
+msgstr "Zaksięguj wszystkie terminy płatności w roku"
+
+msgid "Book %d due date(s) with the standard amount?"
+msgstr "Zaksięgować %d termin(y) ze standardową kwotą?"
+
+msgid "No budget plan entered – only relevant for condominiums."
+msgstr "Nie wprowadzono planu gospodarczego – dotyczy tylko mieszkań własnościowych."
+
+msgid "annual statement %d not booked"
+msgstr "rozliczenie roczne %d niezaksięgowane"
+
+msgid "annual statement %d booked"
+msgstr "rozliczenie roczne %d zaksięgowane"
+
+msgid "Monthly fee payments of the year that have not been booked yet. Booking creates the receipts per cost type from the budget plan."
+msgstr "Jeszcze niezaksięgowane miesiące opłat wspólnoty w roku. Księgowanie tworzy dowody według rodzaju kosztu na podstawie planu gospodarczego."
+
+msgid "All monthly payments are booked. Book the owners’ association annual statement as soon as it arrives – it corrects the advance payments."
+msgstr "Wszystkie płatności miesięczne są zaksięgowane. Zaksięguj rozliczenie roczne wspólnoty, gdy tylko nadejdzie – koryguje ono zaliczki."
+
+msgid "All monthly payments and the annual statement are booked."
+msgstr "Wszystkie płatności miesięczne i rozliczenie roczne są zaksięgowane."
+
+msgid "Book open months"
+msgstr "Zaksięguj otwarte miesiące"
+
+msgid "Book %d month(s) with the 1st as payment date?"
+msgstr "Zaksięgować %d miesiąc(e) z 1. dniem jako datą płatności?"
+
+msgid "Payments & arrears"
+msgstr "Płatności i zaległości"
+
+msgid "Open rent as of 31 December – check payments, assign bank transactions or send a dunning letter. Arrears reduce the income of the year, not the expenses."
+msgstr "Niezapłacony czynsz na 31 grudnia – sprawdź płatności, przypisz transakcje bankowe lub wyślij wezwanie do zapłaty. Zaległości zmniejszają przychody roku, a nie koszty."
+
+msgid "No arrears as of 31 December – all rent of the year is paid."
+msgstr "Brak zaległości na 31 grudnia – cały czynsz za rok jest zapłacony."
+
+msgid "Arrears %s"
+msgstr "Zaległości %s"
+
+msgid "%s: heating is read by a reading service – wait for its statement."
+msgstr "%s: ogrzewanie odczytuje firma rozliczeniowa – poczekaj na jej rozliczenie."
+
+msgid "No meters to read for current tenancies."
+msgstr "Brak liczników do odczytu dla bieżących najmów."
+
+msgid "Year-end readings (1 December to 31 January) are missing for meters read by the tenant or landlord. Without them, consumption-based allocation is estimated."
+msgstr "Brakuje odczytów na koniec roku (1 grudnia – 31 stycznia) dla liczników odczytywanych przez najemcę lub wynajmującego. Bez nich podział według zużycia jest szacowany."
+
+msgid "Year-end readings are recorded for all meters read by tenant or landlord."
+msgstr "Odczyty na koniec roku są zapisane dla wszystkich liczników odczytywanych przez najemcę lub wynajmującego."
+
+msgid "%1$d of %2$d meters without reading"
+msgstr "%1$d z %2$d liczników bez odczytu"
+
+msgid "No tenancies in this year."
+msgstr "Brak najmów w tym roku."
+
+msgid "no statement"
+msgstr "brak rozliczenia"
+
+msgid "Create statement for %s"
+msgstr "Utwórz rozliczenie dla %s"
+
+msgid "Create and calculate the service charge statement %2$d for %1$s?"
+msgstr "Utworzyć i obliczyć rozliczenie kosztów %2$d dla %1$s?"
+
+msgid "sent"
+msgstr "wysłane"
+
+msgid "finalised"
+msgstr "zakończone"
+
+msgid "draft"
+msgstr "wersja robocza"
+
+msgid "One statement per property for the calendar year. Deadline: it must reach the tenants by %s (§ 556 (3) BGB) – afterwards additional claims are lost."
+msgstr "Jedno rozliczenie na nieruchomość za rok kalendarzowy. Termin: musi dotrzeć do najemców do %s (§ 556 ust. 3 BGB) – później roszczenia o dopłatę przepadają."
+
+msgid "%1$d of %2$d properties finalised"
+msgstr "%1$d z %2$d nieruchomości zakończonych"
+
+msgid "No active loans."
+msgstr "Brak aktywnych kredytów."
+
+msgid "interest %s"
+msgstr "odsetki %s"
+
+msgid "calculated %s – no certificate yet"
+msgstr "obliczono %s – brak zaświadczenia"
+
+msgid "Apply calculated values (provisional): %s"
+msgstr "Przejmij obliczone wartości (tymczasowo): %s"
+
+msgid "Apply the values calculated from the booked instalments as a provisional certificate? Replace them with the bank’s certificate when it arrives."
+msgstr "Przejąć wartości obliczone z zaksięgowanych rat jako tymczasowe zaświadczenie? Zastąp je zaświadczeniem banku, gdy nadejdzie."
+
+msgid "no certificate"
+msgstr "brak zaświadczenia"
+
+msgid "Interest, repayment and remaining debt are entered for all loans."
+msgstr "Odsetki, spłata kapitału i pozostałe zadłużenie są wprowadzone dla wszystkich kredytów."
+
+msgid "Enter interest, repayment and remaining debt from the bank’s annual certificate – the interest is deducted in Anlage V. Values applied from the loan account are provisional: replace them with the bank certificate."
+msgstr "Wprowadź odsetki, spłatę kapitału i pozostałe zadłużenie z rocznego zaświadczenia banku – odsetki są odliczane w Anlage V. Wartości przejęte z konta kredytu są tymczasowe: zastąp je zaświadczeniem banku."
+
+msgid "%1$d of %2$d loans certified"
+msgstr "%1$d z %2$d kredytów z zaświadczeniem"
+
+msgid "Figures are provisional until the previous steps are completed."
+msgstr "Dane są tymczasowe, dopóki poprzednie kroki nie zostaną ukończone."
+
+msgid "All previous steps are completed – the figures are ready for the tax return."
+msgstr "Wszystkie poprzednie kroki są ukończone – dane są gotowe do zeznania podatkowego."
+
+msgid "A backup created after the end of the year exists."
+msgstr "Istnieje kopia zapasowa utworzona po zakończeniu roku."
+
+msgid "Create a backup of all data after closing the year and keep it with the tax documents (retention period 10 years)."
+msgstr "Po zamknięciu roku utwórz kopię zapasową wszystkich danych i przechowuj ją razem z dokumentami podatkowymi (okres przechowywania 10 lat)."
+
+msgid "Last backup: %s"
+msgstr "Ostatnia kopia zapasowa: %s"
+
+msgid "No backup yet"
+msgstr "Brak kopii zapasowej"
+
+msgid "Create backup now"
+msgstr "Utwórz kopię zapasową teraz"
+
+msgid "Checklist for closing a year: book open recurring expenses and owners’ fee months, check arrears and year-end meter readings, create the service charge statements, enter the interest certificates, check Anlage V and create a backup. Each step shows its status and can be executed directly or opens the relevant page."
+msgstr "Lista kontrolna zamknięcia roku: zaksięguj otwarte wydatki cykliczne i miesiące opłat wspólnoty, sprawdź zaległości i odczyty liczników na koniec roku, utwórz rozliczenia kosztów eksploatacyjnych, wprowadź zaświadczenia o odsetkach, sprawdź Anlage V i utwórz kopię zapasową. Każdy krok pokazuje swój status i można go wykonać bezpośrednio lub otworzyć odpowiednią stronę."
+
+msgid "The year selector defaults to the previous year. From January to June, the overview shows a notice while steps of the previous year are still open."
+msgstr "Wybór roku domyślnie wskazuje poprzedni rok. Od stycznia do czerwca przegląd pokazuje powiadomienie, dopóki kroki poprzedniego roku są otwarte."
+
+msgid "Service charge statement created and calculated (draft)."
+msgstr "Rozliczenie kosztów utworzone i obliczone (wersja robocza)."
+
+msgid "Provisional interest certificate saved – replace it with the bank’s certificate."
+msgstr "Zapisano tymczasowe zaświadczenie o odsetkach – zastąp je zaświadczeniem banku."
+
+msgid "Backup could not be written."
+msgstr "Nie udało się zapisać kopii zapasowej."
+
+msgid "Nothing to do – the step is already completed."
+msgstr "Nic do zrobienia – krok jest już ukończony."
+
+msgid "Open statement"
+msgstr "Otwórz rozliczenie"
+
+msgid "Year-end %d"
+msgstr "Zamknięcie roku %d"
+
+msgid "Work through the steps from top to bottom. Steps with a button can be executed directly; the others open the relevant page. Not applicable steps count as completed."
+msgstr "Wykonuj kroki od góry do dołu. Kroki z przyciskiem można wykonać bezpośrednio; pozostałe otwierają odpowiednią stronę. Kroki „nie dotyczy” liczą się jako ukończone."
+
+msgid "%1$d of %2$d steps completed"
+msgstr "%1$d z %2$d kroków ukończonych"
+
+msgid "All done"
+msgstr "Wszystko gotowe"
+
+msgid "Still open"
+msgstr "Otwarte"
+
+msgid "Not applicable"
+msgstr "Nie dotyczy"
+
+msgid "… and %d more"
+msgstr "… i jeszcze %d"
+
+msgid "%d open due date"
+msgid_plural "%d open due dates"
+msgstr[0] "%d otwarty termin płatności"
+msgstr[1] "%d otwartych terminów płatności"
+msgstr[2] "%d otwartych terminów płatności"
+
+msgid "%d open month"
+msgid_plural "%d open months"
+msgstr[0] "%d otwarty miesiąc"
+msgstr[1] "%d otwartych miesięcy"
+msgstr[2] "%d otwartych miesięcy"
+
+msgid "Year-end %1$d: %2$d step open"
+msgid_plural "Year-end %1$d: %2$d steps open"
+msgstr[0] "Zamknięcie roku %1$d: %2$d otwarty krok"
+msgstr[1] "Zamknięcie roku %1$d: otwarte kroki: %2$d"
+msgstr[2] "Zamknięcie roku %1$d: otwarte kroki: %2$d"
+
+msgid "%d recurring expense due date booked."
+msgid_plural "%d recurring expense due dates booked."
+msgstr[0] "Zaksięgowano %d termin wydatku cyklicznego."
+msgstr[1] "Zaksięgowano %d terminów wydatków cyklicznych."
+msgstr[2] "Zaksięgowano %d terminów wydatków cyklicznych."
+
+msgid "%d owners’ fee month booked."
+msgid_plural "%d owners’ fee months booked."
+msgstr[0] "Zaksięgowano %d miesiąc opłat wspólnoty."
+msgstr[1] "Zaksięgowano %d miesięcy opłat wspólnoty."
+msgstr[2] "Zaksięgowano %d miesięcy opłat wspólnoty."
+
+msgid "%d open"
+msgid_plural "%d open"
+msgstr[0] "%d otwarte"
+msgstr[1] "%d otwarte"
+msgstr[2] "%d otwarte"
 
 msgid "Payment by tenant"
 msgstr "Wpłata najemcy"
@@ -3813,9 +4035,6 @@ msgstr "Ostatnia automatyczna kopia zapasowa: %s"
 msgid "No automatic backup yet."
 msgstr "Brak automatycznej kopii zapasowej."
 
-msgid "Create backup now"
-msgstr "Utwórz kopię zapasową teraz"
-
 msgid "Size"
 msgstr "Rozmiar"
 
@@ -4028,9 +4247,6 @@ msgstr "Błąd"
 
 msgid "No e-mails sent yet. Use “Send by e-mail” on a statement, rent increase, deposit settlement or dunning letter."
 msgstr "Nie wysłano jeszcze żadnych e-maili. Użyj „Wyślij e-mailem” przy rozliczeniu, podwyżce czynszu, rozliczeniu kaucji lub wezwaniu do zapłaty."
-
-msgid "sent"
-msgstr "wysłano"
 
 msgid "failed"
 msgstr "niepowodzenie"

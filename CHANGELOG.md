@@ -2,6 +2,13 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.5.0 – Jahresabschluss-Assistent, Zinsbescheinigung-Vorbelegung, Portal-Einladung
+
+- **Jahresabschluss-Assistent** (Menü „Jahresabschluss“, `includes/class-mv-jahresabschluss.php`): Checkliste je Jahr mit Fortschrittsbalken – 1 Dauerbelege (fällige buchen), 2 Hausgeld (Monate buchen, WEG-Jahresabrechnung gebucht?), 3 Zahlungen & Rückstände zum 31.12., 4 Zählerstände zum Jahresende (Ablesedienst-Objekte als Hinweis), 5 Betriebskostenabrechnung je Objekt mit Status und Frist § 556 Abs. 3 BGB (Anlegen per Knopf), 6 Zinsbescheinigungen (berechnete Werte vorläufig übernehmen), 7 Anlage V mit Einnahmen/Werbungskosten/Ergebnis, 8 Sicherung. Hinweis Januar–Juni, wenn im Vorjahr Schritte offen sind.
+- **Zinsbescheinigung**: Hinweis nennt die vorläufig aus den Raten berechneten Zinsen und öffnet das Bescheinigungsformular vorbelegt (Darlehen, Jahr, Zinsen, Tilgung, Restschuld); Anlage V kennzeichnet jeden Zinsposten mit Quelle „Zinsbescheinigung“ bzw. „berechnet, vorläufig“ samt Link „Als Bescheinigung übernehmen“. Formulare lassen sich allgemein per `mv_pre[feld]=wert` vorbelegen.
+- **Portal-Einladung** (`includes/class-mv-einladung.php`): „Zum Portal einladen“ auf der Übersichtskarte, Brief-Symbol in der Mietverhältnis-Liste (erneut senden). Legt den WordPress-Benutzer aus der E-Mail-Adresse an (Rolle Abonnent), verknüpft ihn mit dem Mieter, schickt eine deutsche E-Mail mit Benutzername, Passwort-Link (24 h) und Portaladresse; Protokolleintrag; Hinweis „N Mieter haben noch keinen Portalzugang“.
+- i18n: Pluralformen (`_n()`) werden jetzt in POT/PO/MO geführt und in allen 7 Sprachen übersetzt (1515 Strings).
+
 ## 1.4.1 – Portal-Vorschau für Vermieter
 
 - Übersicht (Mietverhältnis-Karte) und Mietverhältnis-Liste (Augen-Symbol): „Portal-Vorschau“ öffnet das Mieterportal genau so, wie es dieser Mieter sieht (`?mietv_vorschau=<id>`, nur mit Vermieter-Recht). Gelber Hinweisbalken mit „Zurück zu Mietfux“; Zählerstand- und Meldungsformulare sind im Vorschau-Modus gesperrt (nichts wird gespeichert). Voraussetzung: eine veröffentlichte Seite mit `[mietfux_portal]`.

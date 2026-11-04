@@ -34,7 +34,7 @@ msgid "Permission denied."
 msgstr "Permiso denegado."
 
 msgid "Service charge statement"
-msgstr "Liquidación de gastos repercutibles"
+msgstr "Liquidación de gastos"
 
 msgid "New statement"
 msgstr "Nueva liquidación"
@@ -709,7 +709,7 @@ msgid "Landlord"
 msgstr "Arrendador"
 
 msgid "Meter readings"
-msgstr "Lecturas del contador"
+msgstr "Lecturas de contadores"
 
 msgid "Meter reading"
 msgstr "Lectura del contador"
@@ -1030,7 +1030,7 @@ msgid "In progress"
 msgstr "En curso"
 
 msgid "Done"
-msgstr "Resuelto"
+msgstr "Hecho"
 
 msgid "recoverable"
 msgstr "repercutible"
@@ -1094,6 +1094,9 @@ msgstr "Gastos recurrentes"
 
 msgid "Loan account"
 msgstr "Cuenta del préstamo"
+
+msgid "Year-end"
+msgstr "Cierre anual"
 
 msgid "Data protection"
 msgstr "Protección de datos"
@@ -1291,7 +1294,7 @@ msgid "Income"
 msgstr "Ingresos"
 
 msgid "Expenses"
-msgstr "Gastos"
+msgstr "Gastos deducibles"
 
 msgid "vs. previous year (same period)"
 msgstr "vs. año anterior (mismo periodo)"
@@ -2863,6 +2866,219 @@ msgid_plural "%d open reports from the tenant portal"
 msgstr[0] "%d aviso abierto del portal del inquilino"
 msgstr[1] "%d avisos abiertos del portal del inquilino"
 
+msgid "No active recurring expenses."
+msgstr "No hay gastos recurrentes activos."
+
+msgid "Due dates of the year that have not been booked yet. Booking creates one receipt per due date with the due date as payment date and the standard amount."
+msgstr "Vencimientos del año aún no contabilizados. Al contabilizar se crea un justificante por vencimiento con la fecha de vencimiento como fecha de pago y el importe estándar."
+
+msgid "All due dates of the year are booked."
+msgstr "Todos los vencimientos del año están contabilizados."
+
+msgid "Book all due dates of the year"
+msgstr "Contabilizar todos los vencimientos del año"
+
+msgid "Book %d due date(s) with the standard amount?"
+msgstr "¿Contabilizar %d vencimiento(s) con el importe estándar?"
+
+msgid "No budget plan entered – only relevant for condominiums."
+msgstr "No se ha introducido presupuesto – solo relevante para pisos en propiedad horizontal."
+
+msgid "annual statement %d not booked"
+msgstr "liquidación anual %d no contabilizada"
+
+msgid "annual statement %d booked"
+msgstr "liquidación anual %d contabilizada"
+
+msgid "Monthly fee payments of the year that have not been booked yet. Booking creates the receipts per cost type from the budget plan."
+msgstr "Meses de cuota de comunidad del año aún no contabilizados. Al contabilizar se crean los justificantes por tipo de coste según el presupuesto."
+
+msgid "All monthly payments are booked. Book the owners’ association annual statement as soon as it arrives – it corrects the advance payments."
+msgstr "Todos los pagos mensuales están contabilizados. Contabilice la liquidación anual de la comunidad en cuanto llegue – corrige los anticipos."
+
+msgid "All monthly payments and the annual statement are booked."
+msgstr "Todos los pagos mensuales y la liquidación anual están contabilizados."
+
+msgid "Book open months"
+msgstr "Contabilizar meses pendientes"
+
+msgid "Book %d month(s) with the 1st as payment date?"
+msgstr "¿Contabilizar %d mes(es) con el día 1 como fecha de pago?"
+
+msgid "Payments & arrears"
+msgstr "Pagos y atrasos"
+
+msgid "Open rent as of 31 December – check payments, assign bank transactions or send a dunning letter. Arrears reduce the income of the year, not the expenses."
+msgstr "Alquiler pendiente a 31 de diciembre – compruebe los pagos, asigne los movimientos bancarios o envíe un requerimiento. Los atrasos reducen los ingresos del año, no los gastos."
+
+msgid "No arrears as of 31 December – all rent of the year is paid."
+msgstr "Sin atrasos a 31 de diciembre – todos los alquileres del año están pagados."
+
+msgid "Arrears %s"
+msgstr "Atrasos %s"
+
+msgid "%s: heating is read by a reading service – wait for its statement."
+msgstr "%s: la calefacción la lee un servicio de lectura – espere su liquidación."
+
+msgid "No meters to read for current tenancies."
+msgstr "No hay contadores que leer para los arrendamientos vigentes."
+
+msgid "Year-end readings (1 December to 31 January) are missing for meters read by the tenant or landlord. Without them, consumption-based allocation is estimated."
+msgstr "Faltan lecturas de fin de año (1 de diciembre a 31 de enero) de contadores leídos por el inquilino o el arrendador. Sin ellas, el reparto por consumo se estima."
+
+msgid "Year-end readings are recorded for all meters read by tenant or landlord."
+msgstr "Hay lecturas de fin de año para todos los contadores leídos por el inquilino o el arrendador."
+
+msgid "%1$d of %2$d meters without reading"
+msgstr "%1$d de %2$d contadores sin lectura"
+
+msgid "No tenancies in this year."
+msgstr "No hay arrendamientos en este año."
+
+msgid "no statement"
+msgstr "sin liquidación"
+
+msgid "Create statement for %s"
+msgstr "Crear liquidación para %s"
+
+msgid "Create and calculate the service charge statement %2$d for %1$s?"
+msgstr "¿Crear y calcular la liquidación de gastos %2$d para %1$s?"
+
+msgid "sent"
+msgstr "enviada"
+
+msgid "finalised"
+msgstr "finalizada"
+
+msgid "draft"
+msgstr "borrador"
+
+msgid "One statement per property for the calendar year. Deadline: it must reach the tenants by %s (§ 556 (3) BGB) – afterwards additional claims are lost."
+msgstr "Una liquidación por inmueble para el año natural. Plazo: debe llegar a los inquilinos antes del %s (§ 556 (3) BGB) – después se pierden las reclamaciones adicionales."
+
+msgid "%1$d of %2$d properties finalised"
+msgstr "%1$d de %2$d inmuebles finalizados"
+
+msgid "No active loans."
+msgstr "No hay préstamos activos."
+
+msgid "interest %s"
+msgstr "intereses %s"
+
+msgid "calculated %s – no certificate yet"
+msgstr "calculado %s – aún sin certificado"
+
+msgid "Apply calculated values (provisional): %s"
+msgstr "Aplicar valores calculados (provisional): %s"
+
+msgid "Apply the values calculated from the booked instalments as a provisional certificate? Replace them with the bank’s certificate when it arrives."
+msgstr "¿Aplicar los valores calculados a partir de las cuotas contabilizadas como certificado provisional? Sustitúyalos por el certificado del banco cuando llegue."
+
+msgid "no certificate"
+msgstr "sin certificado"
+
+msgid "Interest, repayment and remaining debt are entered for all loans."
+msgstr "Intereses, amortización y deuda pendiente están registrados para todos los préstamos."
+
+msgid "Enter interest, repayment and remaining debt from the bank’s annual certificate – the interest is deducted in Anlage V. Values applied from the loan account are provisional: replace them with the bank certificate."
+msgstr "Introduzca intereses, amortización y deuda pendiente del certificado anual del banco – los intereses se deducen en el Anlage V. Los valores aplicados desde la cuenta del préstamo son provisionales: sustitúyalos por el certificado bancario."
+
+msgid "%1$d of %2$d loans certified"
+msgstr "%1$d de %2$d préstamos certificados"
+
+msgid "Figures are provisional until the previous steps are completed."
+msgstr "Las cifras son provisionales hasta completar los pasos anteriores."
+
+msgid "All previous steps are completed – the figures are ready for the tax return."
+msgstr "Todos los pasos anteriores están completados – las cifras están listas para la declaración."
+
+msgid "A backup created after the end of the year exists."
+msgstr "Existe una copia de seguridad creada después del cierre del año."
+
+msgid "Create a backup of all data after closing the year and keep it with the tax documents (retention period 10 years)."
+msgstr "Cree una copia de seguridad de todos los datos tras el cierre del año y guárdela con los documentos fiscales (plazo de conservación: 10 años)."
+
+msgid "Last backup: %s"
+msgstr "Última copia de seguridad: %s"
+
+msgid "No backup yet"
+msgstr "Aún no hay copia de seguridad"
+
+msgid "Create backup now"
+msgstr "Crear copia de seguridad ahora"
+
+msgid "Checklist for closing a year: book open recurring expenses and owners’ fee months, check arrears and year-end meter readings, create the service charge statements, enter the interest certificates, check Anlage V and create a backup. Each step shows its status and can be executed directly or opens the relevant page."
+msgstr "Lista de comprobación para cerrar un año: contabilizar gastos recurrentes y meses de cuota de comunidad pendientes, comprobar atrasos y lecturas de fin de año, crear las liquidaciones de gastos, introducir los certificados de intereses, revisar el Anlage V y crear una copia de seguridad. Cada paso muestra su estado y puede ejecutarse directamente o abre la página correspondiente."
+
+msgid "The year selector defaults to the previous year. From January to June, the overview shows a notice while steps of the previous year are still open."
+msgstr "El selector de año muestra por defecto el año anterior. De enero a junio, el resumen muestra un aviso mientras haya pasos del año anterior pendientes."
+
+msgid "Service charge statement created and calculated (draft)."
+msgstr "Liquidación de gastos creada y calculada (borrador)."
+
+msgid "Provisional interest certificate saved – replace it with the bank’s certificate."
+msgstr "Certificado de intereses provisional guardado – sustitúyalo por el certificado del banco."
+
+msgid "Backup could not be written."
+msgstr "No se pudo escribir la copia de seguridad."
+
+msgid "Nothing to do – the step is already completed."
+msgstr "Nada que hacer – el paso ya está completado."
+
+msgid "Open statement"
+msgstr "Abrir liquidación"
+
+msgid "Year-end %d"
+msgstr "Cierre anual %d"
+
+msgid "Work through the steps from top to bottom. Steps with a button can be executed directly; the others open the relevant page. Not applicable steps count as completed."
+msgstr "Recorra los pasos de arriba abajo. Los pasos con botón pueden ejecutarse directamente; los demás abren la página correspondiente. Los pasos no aplicables cuentan como completados."
+
+msgid "%1$d of %2$d steps completed"
+msgstr "%1$d de %2$d pasos completados"
+
+msgid "All done"
+msgstr "Todo listo"
+
+msgid "Still open"
+msgstr "Pendiente"
+
+msgid "Not applicable"
+msgstr "No aplicable"
+
+msgid "… and %d more"
+msgstr "… y %d más"
+
+msgid "%d open due date"
+msgid_plural "%d open due dates"
+msgstr[0] "%d vencimiento pendiente"
+msgstr[1] "%d vencimientos pendientes"
+
+msgid "%d open month"
+msgid_plural "%d open months"
+msgstr[0] "%d mes pendiente"
+msgstr[1] "%d meses pendientes"
+
+msgid "Year-end %1$d: %2$d step open"
+msgid_plural "Year-end %1$d: %2$d steps open"
+msgstr[0] "Cierre anual %1$d: %2$d paso pendiente"
+msgstr[1] "Cierre anual %1$d: %2$d pasos pendientes"
+
+msgid "%d recurring expense due date booked."
+msgid_plural "%d recurring expense due dates booked."
+msgstr[0] "%d vencimiento de gasto recurrente contabilizado."
+msgstr[1] "%d vencimientos de gastos recurrentes contabilizados."
+
+msgid "%d owners’ fee month booked."
+msgid_plural "%d owners’ fee months booked."
+msgstr[0] "%d mes de cuota de comunidad contabilizado."
+msgstr[1] "%d meses de cuota de comunidad contabilizados."
+
+msgid "%d open"
+msgid_plural "%d open"
+msgstr[0] "%d pendiente(s)"
+msgstr[1] "%d pendiente(s)"
+
 msgid "Payment by tenant"
 msgstr "Pago del inquilino"
 
@@ -3807,9 +4023,6 @@ msgstr "Última copia automática: %s"
 msgid "No automatic backup yet."
 msgstr "Aún no hay copia automática."
 
-msgid "Create backup now"
-msgstr "Crear copia ahora"
-
 msgid "Size"
 msgstr "Tamaño"
 
@@ -4022,9 +4235,6 @@ msgstr "Error"
 
 msgid "No e-mails sent yet. Use “Send by e-mail” on a statement, rent increase, deposit settlement or dunning letter."
 msgstr "Aún no se ha enviado ningún correo. Use «Enviar por correo» en una liquidación, subida de alquiler, liquidación de fianza o carta de reclamación."
-
-msgid "sent"
-msgstr "enviado"
 
 msgid "failed"
 msgstr "fallido"
