@@ -2154,13 +2154,21 @@ class Mietv_Admin {
 			if ( $lesen ) {
 				echo '<td class="mv-actions"></td>';
 			} else {
+				$extra = '';
+				if ( $key === 'mietverhaeltnisse' && class_exists( 'Mietv_Portal' ) ) {
+					$pv = Mietv_Portal::seiten_url( (int) $r->id );
+					if ( $pv ) {
+						$extra = '<a href="' . esc_url( $pv ) . '" class="mv-icon-btn" target="_blank" rel="noopener" title="' . esc_attr__( 'Portal preview', 'mietfux' ) . '"><span class="dashicons dashicons-visibility"></span><span class="screen-reader-text">' . esc_html__( 'Portal preview', 'mietfux' ) . '</span></a>';
+					}
+				}
 				printf(
-					'<td class="mv-actions"><a href="%1$s" class="mv-icon-btn" title="%2$s"><span class="dashicons dashicons-edit"></span><span class="screen-reader-text">%2$s</span></a><a href="%3$s" class="mv-icon-btn mv-delete" title="%4$s" data-confirm="%5$s"><span class="dashicons dashicons-trash"></span><span class="screen-reader-text">%4$s</span></a></td>',
+					'<td class="mv-actions"><a href="%1$s" class="mv-icon-btn" title="%2$s"><span class="dashicons dashicons-edit"></span><span class="screen-reader-text">%2$s</span></a>%6$s<a href="%3$s" class="mv-icon-btn mv-delete" title="%4$s" data-confirm="%5$s"><span class="dashicons dashicons-trash"></span><span class="screen-reader-text">%4$s</span></a></td>',
 					esc_url( $edit ),
 					esc_attr__( 'Edit', 'mietfux' ),
 					esc_url( $del ),
 					esc_attr__( 'Delete', 'mietfux' ),
-					esc_attr__( 'Really delete?', 'mietfux' )
+					esc_attr__( 'Really delete?', 'mietfux' ),
+					wp_kses( $extra, mietv_kses_html_tags() )
 				);
 			}
 			echo '</tr>';
@@ -2317,6 +2325,12 @@ class Mietv_Admin {
 			$cursor->modify( '+1 month' );
 		}
 		return $out;
+	}
+
+	/** Link „Portal-Vorschau“ (Vermieter sieht das Mieterportal dieses Mietverhältnisses), '' ohne Portalseite. */
+	public static function portal_vorschau_link( int $mv_id ): string {
+		$url = class_exists( 'Mietv_Portal' ) ? Mietv_Portal::seiten_url( $mv_id ) : '';
+		return $url ? '<a href="' . esc_url( $url ) . '" class="button" target="_blank" rel="noopener">' . esc_html__( 'Portal preview', 'mietfux' ) . '</a> ' : '';
 	}
 
 	/** Summen je Monat (Y-m) aus einer Tabelle mit datum/betrag im Zeitraum. */
@@ -2732,7 +2746,7 @@ class Mietv_Admin {
 			$meta = sprintf( /* translators: %1$s: Objekt / Einheit, %2$s: Datum, %3$s: Betrag */ __( '%1$s · since %2$s · Deposit %3$s', 'mietfux' ), $mv->objekt . ' / ' . $mv->einheit . ( ! empty( $mv->zusatz ) ? ' + ' . str_replace( ',', ', ', $mv->zusatz ) : '' ), mietv_date( $mv->beginn ), mietv_eur( $mv->kaution ) );
 			$name = trim( $mv->nachname . ', ' . $mv->vorname, ', ' ) . ( ! empty( $mv->p_nachname ) ? ' & ' . trim( $mv->p_vorname . ' ' . $mv->p_nachname, " \t\n\r\0\x0B" ) : '' );
 			printf(
-				'<section class="mv-card mv-mvcard"><header class="mv-card-head"><div><h2>%s</h2><p class="mv-muted">%s</p></div><div class="mv-card-tools"><span class="mv-pill mv-pill-%s">' . esc_html__( 'Balance', 'mietfux' ) . ' %s</span> <a href="%s" class="button">' . esc_html__( 'Record payment', 'mietfux' ) . '</a> %s<a href="%s" class="button">' . esc_html__( 'Tenancy agreement', 'mietfux' ) . '</a> <a href="%s" class="button mv-icon-btn" title="' . esc_attr__( 'Open tenancy', 'mietfux' ) . '"><span class="dashicons dashicons-external"></span><span class="screen-reader-text">' . esc_html__( 'Open tenancy', 'mietfux' ) . '</span></a></div></header>',
+				'<section class="mv-card mv-mvcard"><header class="mv-card-head"><div><h2>%s</h2><p class="mv-muted">%s</p></div><div class="mv-card-tools"><span class="mv-pill mv-pill-%s">' . esc_html__( 'Balance', 'mietfux' ) . ' %s</span> <a href="%s" class="button">' . esc_html__( 'Record payment', 'mietfux' ) . '</a> %s<a href="%s" class="button">' . esc_html__( 'Tenancy agreement', 'mietfux' ) . '</a> %s<a href="%s" class="button mv-icon-btn" title="' . esc_attr__( 'Open tenancy', 'mietfux' ) . '"><span class="dashicons dashicons-external"></span><span class="screen-reader-text">' . esc_html__( 'Open tenancy', 'mietfux' ) . '</span></a></div></header>',
 				esc_html( $name ),
 				esc_html( $meta ),
 				esc_attr( $saldo_class ),
@@ -2740,6 +2754,7 @@ class Mietv_Admin {
 				esc_url( self::url( 'zahlungen', [ 'action' => 'new' ] ) ),
 				$op['saldo'] < -0.005 ? '<a href="' . esc_url( admin_url( 'admin.php?page=mietv_mahnung&mv_id=' . (int) $mv->id ) ) . '" class="button mv-btn-warn">' . esc_html__( 'Dunning', 'mietfux' ) . '</a> ' : '',
 				esc_url( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . (int) $mv->id ) ),
+				wp_kses( self::portal_vorschau_link( (int) $mv->id ), mietv_kses_html_tags() ),
 				esc_url(
 					self::url(
 						'mietverhaeltnisse',

@@ -71,6 +71,7 @@ function mietv_kses_html_tags(): array {
 		'style'       => true,
 		'href'        => true,
 		'target'      => true,
+		'rel'         => true,
 		'for'         => true,
 		'required'    => true,
 		'checked'     => true,

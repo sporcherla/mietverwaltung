@@ -2,6 +2,10 @@
 
 Alle nennenswerten Änderungen am Plugin „Mietfux“ (bis 1.0.0 „Mietverwaltung“).
 
+## 1.4.1 – Portal-Vorschau für Vermieter
+
+- Übersicht (Mietverhältnis-Karte) und Mietverhältnis-Liste (Augen-Symbol): „Portal-Vorschau“ öffnet das Mieterportal genau so, wie es dieser Mieter sieht (`?mietv_vorschau=<id>`, nur mit Vermieter-Recht). Gelber Hinweisbalken mit „Zurück zu Mietfux“; Zählerstand- und Meldungsformulare sind im Vorschau-Modus gesperrt (nichts wird gespeichert). Voraussetzung: eine veröffentlichte Seite mit `[mietfux_portal]`.
+
 ## 1.4.0 – Neues Portal- und Backend-Layout, Zählerablesung je Objekt
 
 - **Mieterportal neu**: eigene Vollbild-Seitenvorlage ohne Theme-Kopf/-Fuß (Einstellung „Portal-Layout“, abschaltbar), Status-Banner „Offen: X €“ mit IBAN und „IBAN kopieren“ bzw. „Alles bezahlt“, Kacheln (Miete aktuell, Mietverhältnis, Kaution, nächste Fälligkeit), Mietkonto der letzten 12 Monate mit Balken und Status-Pills, aufklappbare Formulare für Zählerstand und Schaden/Anliegen, freigegebene Dokumente mit Icon je Typ, eigene Meldungen mit Status, Kontaktkarte des Vermieters; mobil-first, Dark Mode, ohne externe Ressourcen (neue Dateien `assets/portal.css`, `assets/portal.js`, `includes/class-mv-portal-template.php`).

@@ -1227,6 +1227,9 @@ msgstr "Apri giustificativo"
 msgid "Ended"
 msgstr "Terminata"
 
+msgid "Portal preview"
+msgstr "Anteprima del portale"
+
 msgid "Edit"
 msgstr "Modifica"
 
@@ -3477,6 +3480,12 @@ msgstr "Elettricità"
 msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr "Nessuna locazione è ancora assegnata al Suo account utente. Contatti il Suo locatore."
 
+msgid "Landlord preview: this is what %s sees in the tenant portal. Forms are disabled."
+msgstr "Anteprima locatore: ecco come %s vede il portale inquilini. I moduli sono disattivati."
+
+msgid "Back to Mietfux"
+msgstr "Torna a Mietfux"
+
 msgid "Sign in"
 msgstr "Accedi"
 
@@ -3521,6 +3530,9 @@ msgstr "La Sua segnalazione è stata inviata. Grazie."
 
 msgid "The report could not be saved. Please enter a subject."
 msgstr "Impossibile salvare la segnalazione. Inserisca un oggetto."
+
+msgid "Preview mode: nothing is saved."
+msgstr "Modalità anteprima: non viene salvato nulla."
 
 msgid "Rent %1$s %2$s"
 msgstr "Affitto %1$s %2$s"

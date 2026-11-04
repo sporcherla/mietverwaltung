@@ -1227,6 +1227,9 @@ msgstr "Abrir justificante"
 msgid "Ended"
 msgstr "Finalizado"
 
+msgid "Portal preview"
+msgstr "Vista previa del portal"
+
 msgid "Edit"
 msgstr "Editar"
 
@@ -3477,6 +3480,12 @@ msgstr "Electricidad"
 msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr "Su cuenta de usuario aún no tiene ningún arrendamiento asignado. Póngase en contacto con su arrendador."
 
+msgid "Landlord preview: this is what %s sees in the tenant portal. Forms are disabled."
+msgstr "Vista previa del arrendador: así ve %s el portal del inquilino. Los formularios están desactivados."
+
+msgid "Back to Mietfux"
+msgstr "Volver a Mietfux"
+
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
@@ -3521,6 +3530,9 @@ msgstr "Su aviso se ha enviado. Gracias."
 
 msgid "The report could not be saved. Please enter a subject."
 msgstr "No se ha podido guardar el aviso. Introduzca un asunto."
+
+msgid "Preview mode: nothing is saved."
+msgstr "Modo vista previa: no se guarda nada."
 
 msgid "Rent %1$s %2$s"
 msgstr "Alquiler %1$s %2$s"

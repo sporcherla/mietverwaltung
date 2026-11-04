@@ -36,6 +36,31 @@ class Mietv_Portal {
 		return $show;
 	}
 
+	/** Vorschau-Modus: Vermieter sieht das Portal eines Mietverhältnisses (?mietv_vorschau=<mv_id>), Formulare gesperrt. */
+	public static function vorschau_mv_id(): int {
+		if ( ! isset( $_GET['mietv_vorschau'] ) || ! current_user_can( Mietv_Admin::CAP ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nur Lesen, Capability geprüft.
+			return 0;
+		}
+		return (int) $_GET['mietv_vorschau']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	}
+
+	/** URL der Portalseite (erste Seite mit dem Shortcode), '' wenn keine. */
+	public static function seiten_url( int $vorschau_mv = 0 ): string {
+		$id = (int) get_transient( 'mietv_portal_seite' );
+		if ( ! $id || get_post_status( $id ) !== 'publish' ) {
+			global $wpdb;
+			$like = '%' . $wpdb->esc_like( 'mietfux_portal' ) . '%';
+			$alt  = '%' . $wpdb->esc_like( 'mietverwaltung_portal' ) . '%';
+			$id   = (int) $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type IN ('page','post') AND (post_content LIKE %s OR post_content LIKE %s) ORDER BY ID LIMIT 1", $like, $alt ) );
+			set_transient( 'mietv_portal_seite', $id, HOUR_IN_SECONDS );
+		}
+		if ( ! $id ) {
+			return '';
+		}
+		$url = get_permalink( $id );
+		return $vorschau_mv ? add_query_arg( 'mietv_vorschau', $vorschau_mv, $url ) : $url;
+	}
+
 	/** Enthält die aktuelle Seite den Portal-Shortcode? */
 	public static function ist_portalseite(): bool {
 		if ( ! is_singular() ) {
@@ -91,6 +116,11 @@ class Mietv_Portal {
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_zaehler_nonce'] ) ), 'mietv_zaehler' ) ) {
 			wp_die( esc_html__( 'Invalid request.', 'mietfux' ) );
+		}
+		if ( self::vorschau_mv_id() ) {
+			mietv_flash_set( 'vorschau' );
+			wp_safe_redirect( self::seiten_url( self::vorschau_mv_id() ) ?: home_url() );
+			exit;
 		}
 		if ( ! is_user_logged_in() ) {
 			wp_die( esc_html__( 'No access.', 'mietfux' ) );
@@ -159,6 +189,11 @@ class Mietv_Portal {
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mietv_meldung_nonce'] ) ), 'mietv_meldung' ) ) {
 			wp_die( esc_html__( 'Invalid request.', 'mietfux' ) );
 		}
+		if ( self::vorschau_mv_id() ) {
+			mietv_flash_set( 'vorschau' );
+			wp_safe_redirect( self::seiten_url( self::vorschau_mv_id() ) ?: home_url() );
+			exit;
+		}
 		if ( ! is_user_logged_in() ) {
 			wp_die( esc_html__( 'No access.', 'mietfux' ) );
 		}
@@ -208,6 +243,10 @@ class Mietv_Portal {
 	private static function eigene_mv(): array {
 		if ( ! is_user_logged_in() ) {
 			return [];
+		}
+		$vorschau = self::vorschau_mv_id();
+		if ( $vorschau ) {
+			return array_values( array_filter( Mietv_Soll::alle_mv(), fn( $mv ) => (int) $mv->id === $vorschau ) );
 		}
 		$uid = get_current_user_id();
 		return array_values( array_filter( Mietv_Soll::alle_mv(), fn( $mv ) => (int) $mv->wp_user_id === $uid ) );
@@ -309,6 +348,14 @@ class Mietv_Portal {
 			} else {
 				self::kopf( $mvs[0] );
 				echo '<main class="mv-main">';
+				if ( self::vorschau_mv_id() ) {
+					printf(
+						'<p class="mv-notice mv-vorschau" role="status">%s <a href="%s">%s</a></p>',
+						esc_html( sprintf( /* translators: %s: Name */ __( 'Landlord preview: this is what %s sees in the tenant portal. Forms are disabled.', 'mietfux' ), trim( $mvs[0]->vorname . ' ' . $mvs[0]->nachname, ' ' ) ) ),
+						esc_url( admin_url( 'admin.php?page=mietv_mietverhaeltnisse&action=edit&id=' . (int) $mvs[0]->id ) ),
+						esc_html__( 'Back to Mietfux', 'mietfux' )
+					);
+				}
 				self::flash();
 				foreach ( $mvs as $i => $mv ) {
 					self::mietverhaeltnis( $mv, count( $mvs ) > 1, $i === 0 );
@@ -375,6 +422,7 @@ class Mietv_Portal {
 			'zaehler_fehler'  => [ 'err', __( 'Meter reading could not be saved.', 'mietfux' ) ],
 			'meldung_ok'      => [ 'ok', __( 'Your report has been submitted. Thank you.', 'mietfux' ) ],
 			'meldung_fehler'  => [ 'err', __( 'The report could not be saved. Please enter a subject.', 'mietfux' ) ],
+			'vorschau'        => [ 'err', __( 'Preview mode: nothing is saved.', 'mietfux' ) ],
 		];
 		if ( isset( $texte[ $code ] ) ) {
 			echo '<p class="mv-notice mv-' . esc_attr( $texte[ $code ][0] ) . '" role="status">' . esc_html( $texte[ $code ][1] ) . '</p>';

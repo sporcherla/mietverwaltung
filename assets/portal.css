@@ -188,3 +188,8 @@ body.mv-portal-body .mv-portal-seite{margin:0;padding:0;max-width:none}
 	.mv-banner-offen b{color:var(--mv-acc)}
 	.mv-form input[type=text],.mv-form input[type=date],.mv-form select,.mv-form textarea,.mv-login input[type=text],.mv-login input[type=password]{color-scheme:dark}
 }
+
+/* Vermieter-Vorschau */
+.mv-notice.mv-vorschau{background:#fff3cd;color:#664d03;border:1px solid #ffe69c}
+.mv-notice.mv-vorschau a{color:inherit;font-weight:600;margin-left:.5em}
+@media (prefers-color-scheme: dark){.mv-notice.mv-vorschau{background:#3d3200;color:#ffe69c;border-color:#5c4b00}}

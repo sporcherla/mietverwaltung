@@ -1227,6 +1227,9 @@ msgstr "Bewijsstuk openen"
 msgid "Ended"
 msgstr "Beëindigd"
 
+msgid "Portal preview"
+msgstr "Portaalvoorbeeld"
+
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -3477,6 +3480,12 @@ msgstr "Elektriciteit"
 msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr "Aan uw gebruikersaccount is nog geen huurovereenkomst toegewezen. Neem contact op met uw verhuurder."
 
+msgid "Landlord preview: this is what %s sees in the tenant portal. Forms are disabled."
+msgstr "Verhuurdersvoorbeeld: zo ziet %s het huurdersportaal. Formulieren zijn uitgeschakeld."
+
+msgid "Back to Mietfux"
+msgstr "Terug naar Mietfux"
+
 msgid "Sign in"
 msgstr "Inloggen"
 
@@ -3521,6 +3530,9 @@ msgstr "Uw melding is verzonden. Dank u."
 
 msgid "The report could not be saved. Please enter a subject."
 msgstr "De melding kon niet worden opgeslagen. Voer een onderwerp in."
+
+msgid "Preview mode: nothing is saved."
+msgstr "Voorbeeldmodus: er wordt niets opgeslagen."
 
 msgid "Rent %1$s %2$s"
 msgstr "Huur %1$s %2$s"

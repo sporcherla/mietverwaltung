@@ -1227,6 +1227,9 @@ msgstr "Otwórz dowód"
 msgid "Ended"
 msgstr "Zakończona"
 
+msgid "Portal preview"
+msgstr "Podgląd portalu"
+
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -3477,6 +3480,12 @@ msgstr "Prąd"
 msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr "Do Pana/Pani konta użytkownika nie przypisano jeszcze umowy najmu. Proszę skontaktować się z wynajmującym."
 
+msgid "Landlord preview: this is what %s sees in the tenant portal. Forms are disabled."
+msgstr "Podgląd wynajmującego: tak %s widzi portal najemcy. Formularze są wyłączone."
+
+msgid "Back to Mietfux"
+msgstr "Powrót do Mietfux"
+
 msgid "Sign in"
 msgstr "Zaloguj się"
 
@@ -3521,6 +3530,9 @@ msgstr "Zgłoszenie zostało przekazane. Dziękujemy."
 
 msgid "The report could not be saved. Please enter a subject."
 msgstr "Nie udało się zapisać zgłoszenia. Proszę podać temat."
+
+msgid "Preview mode: nothing is saved."
+msgstr "Tryb podglądu: nic nie jest zapisywane."
 
 msgid "Rent %1$s %2$s"
 msgstr "Czynsz %1$s %2$s"

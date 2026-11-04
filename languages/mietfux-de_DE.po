@@ -1227,6 +1227,9 @@ msgstr "Beleg öffnen"
 msgid "Ended"
 msgstr "Beendet"
 
+msgid "Portal preview"
+msgstr "Portal-Vorschau"
+
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -3477,6 +3480,12 @@ msgstr "Strom"
 msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr "Ihrem Benutzerkonto ist noch kein Mietverhältnis zugeordnet. Bitte wenden Sie sich an Ihren Vermieter."
 
+msgid "Landlord preview: this is what %s sees in the tenant portal. Forms are disabled."
+msgstr "Vermieter-Vorschau: So sieht %s das Mieterportal. Formulare sind gesperrt."
+
+msgid "Back to Mietfux"
+msgstr "Zurück zu Mietfux"
+
 msgid "Sign in"
 msgstr "Anmelden"
 
@@ -3521,6 +3530,9 @@ msgstr "Ihre Meldung wurde übermittelt. Vielen Dank."
 
 msgid "The report could not be saved. Please enter a subject."
 msgstr "Die Meldung konnte nicht gespeichert werden. Bitte Betreff angeben."
+
+msgid "Preview mode: nothing is saved."
+msgstr "Vorschau-Modus: Es wird nichts gespeichert."
 
 msgid "Rent %1$s %2$s"
 msgstr "Miete %1$s %2$s"

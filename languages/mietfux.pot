@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Mietfux\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "X-Domain: mietfux\n"
-"POT-Creation-Date: 2026-11-03\n"
+"POT-Creation-Date: 2026-11-04\n"
 
 #: includes/class-mv-abrechnung.php:102
 msgid "Statement not found."
@@ -57,7 +57,7 @@ msgstr ""
 msgid "to"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:574 includes/class-mv-admin.php:2353
+#: includes/class-mv-abrechnung.php:574 includes/class-mv-admin.php:2370
 msgid "Calculate"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:581 includes/class-mv-admin.php:2371 includes/class-mv-dauerbelege.php:466
+#: includes/class-mv-abrechnung.php:581 includes/class-mv-admin.php:2388 includes/class-mv-dauerbelege.php:466
 msgid "Open"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Delete statement?"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:581 includes/class-mv-admin.php:2162 includes/class-mv-dauerbelege.php:589
+#: includes/class-mv-abrechnung.php:581 includes/class-mv-admin.php:2169 includes/class-mv-dauerbelege.php:589
 msgid "Delete"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgstr ""
 msgid "Allocation key"
 msgstr ""
 
-#: includes/class-mv-abrechnung.php:739 includes/class-mv-admin.php:2783 includes/class-mv-dauerbelege.php:529
+#: includes/class-mv-abrechnung.php:739 includes/class-mv-admin.php:2801 includes/class-mv-dauerbelege.php:529
 msgid "Total"
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 msgid "Year built"
 msgstr ""
 
-#: includes/class-mv-admin.php:338 includes/class-mv-assistent.php:350 includes/class-mv-portal.php:260
+#: includes/class-mv-admin.php:338 includes/class-mv-assistent.php:350 includes/class-mv-portal.php:299
 msgid "Heating"
 msgstr ""
 
@@ -681,7 +681,7 @@ msgstr ""
 msgid "Create the user under “Users”; the “Subscriber” role is sufficient."
 msgstr ""
 
-#: includes/class-mv-admin.php:525 includes/class-mv-admin.php:2700 includes/class-mv-hilfe.php:97
+#: includes/class-mv-admin.php:525 includes/class-mv-admin.php:2717 includes/class-mv-hilfe.php:97
 msgid "Tenancies"
 msgstr ""
 
@@ -781,7 +781,7 @@ msgstr ""
 msgid "manual"
 msgstr ""
 
-#: includes/class-mv-admin.php:661 includes/class-mv-admin.php:1469 includes/class-mv-admin.php:2474
+#: includes/class-mv-admin.php:661 includes/class-mv-admin.php:1469 includes/class-mv-admin.php:2491
 msgid "Bank import"
 msgstr ""
 
@@ -941,11 +941,11 @@ msgstr ""
 msgid "Meter readings"
 msgstr ""
 
-#: includes/class-mv-admin.php:819 includes/class-mv-admin.php:838 includes/class-mv-admin.php:2475
+#: includes/class-mv-admin.php:819 includes/class-mv-admin.php:838 includes/class-mv-admin.php:2492
 msgid "Meter reading"
 msgstr ""
 
-#: includes/class-mv-admin.php:831 includes/class-mv-portal.php:545
+#: includes/class-mv-admin.php:831 includes/class-mv-portal.php:593
 msgid "Reading date"
 msgstr ""
 
@@ -1193,7 +1193,7 @@ msgstr ""
 msgid "Loan agreement (PDF)"
 msgstr ""
 
-#: includes/class-mv-admin.php:1101 includes/class-mv-hilfe.php:73 includes/class-mv-portal.php:570
+#: includes/class-mv-admin.php:1101 includes/class-mv-hilfe.php:73 includes/class-mv-portal.php:618
 msgid "Documents"
 msgstr ""
 
@@ -1217,7 +1217,7 @@ msgstr ""
 msgid "Declaration of division / HOA"
 msgstr ""
 
-#: includes/class-mv-admin.php:1129 includes/class-mv-admin.php:1459 includes/class-mv-admin.php:2477
+#: includes/class-mv-admin.php:1129 includes/class-mv-admin.php:1459 includes/class-mv-admin.php:2494
 msgid "Tenancy agreement"
 msgstr ""
 
@@ -1353,19 +1353,19 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-#: includes/class-mv-admin.php:1286 includes/class-mv-portal.php:554 includes/class-mv-versand.php:420
+#: includes/class-mv-admin.php:1286 includes/class-mv-portal.php:602 includes/class-mv-versand.php:420
 msgid "Subject"
 msgstr ""
 
-#: includes/class-mv-admin.php:1300 includes/class-mv-admin.php:2761 includes/class-mv-mahnung.php:149
+#: includes/class-mv-admin.php:1300 includes/class-mv-admin.php:2779 includes/class-mv-mahnung.php:149
 msgid "Outstanding"
 msgstr ""
 
-#: includes/class-mv-admin.php:1301 includes/class-mv-portal.php:506
+#: includes/class-mv-admin.php:1301 includes/class-mv-portal.php:554
 msgid "In progress"
 msgstr ""
 
-#: includes/class-mv-admin.php:1302 includes/class-mv-portal.php:507
+#: includes/class-mv-admin.php:1302 includes/class-mv-portal.php:555
 msgid "Done"
 msgstr ""
 
@@ -1401,7 +1401,7 @@ msgstr ""
 msgid "Wizard"
 msgstr ""
 
-#: includes/class-mv-admin.php:1457 includes/class-mv-admin.php:2476
+#: includes/class-mv-admin.php:1457 includes/class-mv-admin.php:2493
 msgid "Statement"
 msgstr ""
 
@@ -1429,7 +1429,7 @@ msgstr ""
 msgid "Agreement & handover"
 msgstr ""
 
-#: includes/class-mv-admin.php:1470 includes/class-mv-admin.php:2738 includes/class-mv-hilfe.php:135
+#: includes/class-mv-admin.php:1470 includes/class-mv-admin.php:2755 includes/class-mv-hilfe.php:135
 msgid "Dunning"
 msgstr ""
 
@@ -1437,7 +1437,7 @@ msgstr ""
 msgid "Rent increase"
 msgstr ""
 
-#: includes/class-mv-admin.php:1472 includes/class-mv-hilfe.php:116 includes/class-mv-portal.php:429
+#: includes/class-mv-admin.php:1472 includes/class-mv-hilfe.php:116 includes/class-mv-portal.php:477
 msgid "Deposit"
 msgstr ""
 
@@ -1629,299 +1629,303 @@ msgstr ""
 msgid "Ended"
 msgstr ""
 
-#: includes/class-mv-admin.php:2160
+#: includes/class-mv-admin.php:2161 includes/class-mv-admin.php:2161 includes/class-mv-admin.php:2333
+msgid "Portal preview"
+msgstr ""
+
+#: includes/class-mv-admin.php:2167
 msgid "Edit"
 msgstr ""
 
-#: includes/class-mv-admin.php:2163
+#: includes/class-mv-admin.php:2170
 msgid "Really delete?"
 msgstr ""
 
-#: includes/class-mv-admin.php:2198
+#: includes/class-mv-admin.php:2206
 msgid "Edit:"
 msgstr ""
 
-#: includes/class-mv-admin.php:2198
+#: includes/class-mv-admin.php:2206
 msgid "New:"
 msgstr ""
 
-#: includes/class-mv-admin.php:2220
+#: includes/class-mv-admin.php:2228
 msgid "No units created yet."
 msgstr ""
 
-#: includes/class-mv-admin.php:2233
+#: includes/class-mv-admin.php:2241
 msgid "Rent share"
 msgstr ""
 
-#: includes/class-mv-admin.php:2243
+#: includes/class-mv-admin.php:2251
 msgid "Open current file"
 msgstr ""
 
-#: includes/class-mv-admin.php:2243
+#: includes/class-mv-admin.php:2251
 msgid "– choose a new file to replace it."
 msgstr ""
 
-#: includes/class-mv-admin.php:2248
+#: includes/class-mv-admin.php:2256
 msgid "📷 Take photo"
 msgstr ""
 
-#: includes/class-mv-admin.php:2261
+#: includes/class-mv-admin.php:2269
 msgid "– please select –"
 msgstr ""
 
-#: includes/class-mv-admin.php:2296
+#: includes/class-mv-admin.php:2304
 msgid "Cancel"
 msgstr ""
 
-#: includes/class-mv-admin.php:2352
+#: includes/class-mv-admin.php:2369
 msgid "Dun"
 msgstr ""
 
-#: includes/class-mv-admin.php:2354 includes/class-mv-admin.php:2355 includes/class-mv-admin.php:2365
+#: includes/class-mv-admin.php:2371 includes/class-mv-admin.php:2372 includes/class-mv-admin.php:2382
 msgid "Book"
 msgstr ""
 
-#: includes/class-mv-admin.php:2356
+#: includes/class-mv-admin.php:2373
 msgid "Assign"
 msgstr ""
 
-#: includes/class-mv-admin.php:2357 includes/class-mv-admin.php:2358
+#: includes/class-mv-admin.php:2374 includes/class-mv-admin.php:2375
 msgid "Enter"
 msgstr ""
 
-#: includes/class-mv-admin.php:2359 includes/class-mv-admin.php:2360 includes/class-mv-admin.php:2363
+#: includes/class-mv-admin.php:2376 includes/class-mv-admin.php:2377 includes/class-mv-admin.php:2380
 msgid "Check"
 msgstr ""
 
-#: includes/class-mv-admin.php:2361 includes/class-mv-admin.php:2362
+#: includes/class-mv-admin.php:2378 includes/class-mv-admin.php:2379
 msgid "View"
 msgstr ""
 
-#: includes/class-mv-admin.php:2364 includes/class-mv-datenschutz.php:166
+#: includes/class-mv-admin.php:2381 includes/class-mv-datenschutz.php:166
 msgid "Anonymise"
 msgstr ""
 
-#: includes/class-mv-admin.php:2388
+#: includes/class-mv-admin.php:2405
 msgid "Income and expenses per month"
 msgstr ""
 
-#: includes/class-mv-admin.php:2403 includes/class-mv-steuer.php:362
+#: includes/class-mv-admin.php:2420 includes/class-mv-steuer.php:362
 msgid "Income"
 msgstr ""
 
-#: includes/class-mv-admin.php:2404 includes/class-mv-steuer.php:373
+#: includes/class-mv-admin.php:2421 includes/class-mv-steuer.php:373
 msgid "Expenses"
 msgstr ""
 
-#: includes/class-mv-admin.php:2446
+#: includes/class-mv-admin.php:2463
 msgid "vs. previous year (same period)"
 msgstr ""
 
-#: includes/class-mv-admin.php:2448
+#: includes/class-mv-admin.php:2465
 msgid "No comparison with the previous year yet"
 msgstr ""
 
-#: includes/class-mv-admin.php:2451
+#: includes/class-mv-admin.php:2468
 msgid "Properties / units"
 msgstr ""
 
-#: includes/class-mv-admin.php:2452
+#: includes/class-mv-admin.php:2469
 msgid "Rental income %d"
 msgstr ""
 
-#: includes/class-mv-admin.php:2453
+#: includes/class-mv-admin.php:2470
 msgid "Open rent claims"
 msgstr ""
 
-#: includes/class-mv-admin.php:2453
+#: includes/class-mv-admin.php:2470
 msgid "Arrears – tick below or send a reminder"
 msgstr ""
 
-#: includes/class-mv-admin.php:2453
+#: includes/class-mv-admin.php:2470
 msgid "All rent accounts balanced"
 msgstr ""
 
-#: includes/class-mv-admin.php:2454
+#: includes/class-mv-admin.php:2471
 msgid "Result %d (preliminary)"
 msgstr ""
 
-#: includes/class-mv-admin.php:2454
+#: includes/class-mv-admin.php:2471
 msgid "Expenses %s"
 msgstr ""
 
-#: includes/class-mv-admin.php:2472 includes/class-mv-admin.php:2732
+#: includes/class-mv-admin.php:2489 includes/class-mv-admin.php:2749
 msgid "Record payment"
 msgstr ""
 
-#: includes/class-mv-admin.php:2473
+#: includes/class-mv-admin.php:2490
 msgid "Record receipt"
 msgstr ""
 
-#: includes/class-mv-admin.php:2487
+#: includes/class-mv-admin.php:2504
 msgid "Income & expenses"
 msgstr ""
 
-#: includes/class-mv-admin.php:2489
+#: includes/class-mv-admin.php:2506
 msgid "12 months"
 msgstr ""
 
-#: includes/class-mv-admin.php:2498
+#: includes/class-mv-admin.php:2515
 msgid "No payments or receipts in this period yet."
 msgstr ""
 
-#: includes/class-mv-admin.php:2502
+#: includes/class-mv-admin.php:2519
 msgid "Rental income"
 msgstr ""
 
-#: includes/class-mv-admin.php:2502
+#: includes/class-mv-admin.php:2519
 msgid "Expenses (receipts)"
 msgstr ""
 
-#: includes/class-mv-admin.php:2505
+#: includes/class-mv-admin.php:2522
 msgid "Notices"
 msgstr ""
 
-#: includes/class-mv-admin.php:2511
+#: includes/class-mv-admin.php:2528
 msgid "All clear – no open notices."
 msgstr ""
 
-#: includes/class-mv-admin.php:2514
+#: includes/class-mv-admin.php:2531
 msgid "Urgent"
 msgstr ""
 
-#: includes/class-mv-admin.php:2515
+#: includes/class-mv-admin.php:2532
 msgid "Warning"
 msgstr ""
 
-#: includes/class-mv-admin.php:2516
+#: includes/class-mv-admin.php:2533
 msgid "Info"
 msgstr ""
 
-#: includes/class-mv-admin.php:2538
+#: includes/class-mv-admin.php:2555
 msgid "… and %d more – see the WordPress dashboard widget."
 msgstr ""
 
-#: includes/class-mv-admin.php:2595
+#: includes/class-mv-admin.php:2612
 msgid "Search results for “%s”"
 msgstr ""
 
-#: includes/class-mv-admin.php:2647
+#: includes/class-mv-admin.php:2664
 msgid "from %1$s to %2$s"
 msgstr ""
 
-#: includes/class-mv-admin.php:2659
+#: includes/class-mv-admin.php:2676
 msgid "Nothing found for “%s”."
 msgstr ""
 
-#: includes/class-mv-admin.php:2659
+#: includes/class-mv-admin.php:2676
 msgid "Back to overview"
 msgstr ""
 
-#: includes/class-mv-admin.php:2684
+#: includes/class-mv-admin.php:2701
 msgid "Show WordPress menu"
 msgstr ""
 
-#: includes/class-mv-admin.php:2684
+#: includes/class-mv-admin.php:2701
 msgid "Hide WordPress menu"
 msgstr ""
 
-#: includes/class-mv-admin.php:2703
+#: includes/class-mv-admin.php:2720
 msgid "Active (%d)"
 msgstr ""
 
-#: includes/class-mv-admin.php:2706
+#: includes/class-mv-admin.php:2723
 msgid "Ended (%d)"
 msgstr ""
 
-#: includes/class-mv-admin.php:2711 includes/class-mv-datenschutz.php:170
+#: includes/class-mv-admin.php:2728 includes/class-mv-datenschutz.php:170
 msgid "No ended tenancies."
 msgstr ""
 
-#: includes/class-mv-admin.php:2713
+#: includes/class-mv-admin.php:2730
 msgid "No active tenancy yet. Order to get started: Property → Unit → Tenant → Tenancy → Rent conditions."
 msgstr ""
 
-#: includes/class-mv-admin.php:2713 includes/class-mv-hilfe.php:235
+#: includes/class-mv-admin.php:2730 includes/class-mv-hilfe.php:235
 msgid "Start setup wizard"
 msgstr ""
 
-#: includes/class-mv-admin.php:2722
+#: includes/class-mv-admin.php:2739
 msgid "Tick open months and book them as paid with one click – the open amount is booked with payment date 1st of the month (source “ticked”, editable later under Payments)."
 msgstr ""
 
-#: includes/class-mv-admin.php:2722 includes/class-mv-hausgeld.php:492
+#: includes/class-mv-admin.php:2739 includes/class-mv-hausgeld.php:492
 msgid "Please tick at least one month."
 msgstr ""
 
-#: includes/class-mv-admin.php:2722 includes/class-mv-admin.php:2792
+#: includes/class-mv-admin.php:2739 includes/class-mv-admin.php:2810
 msgid "Book selected as paid"
 msgstr ""
 
-#: includes/class-mv-admin.php:2729
+#: includes/class-mv-admin.php:2746
 msgid "%1$s · since %2$s · Deposit %3$s"
 msgstr ""
 
-#: includes/class-mv-admin.php:2732 includes/class-mv-mahnung.php:30
+#: includes/class-mv-admin.php:2749 includes/class-mv-mahnung.php:30
 msgid "Balance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2732 includes/class-mv-admin.php:2732
+#: includes/class-mv-admin.php:2749 includes/class-mv-admin.php:2749
 msgid "Open tenancy"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751
+#: includes/class-mv-admin.php:2769
 msgid "all open months of this tenancy"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751 includes/class-mv-darlehen.php:275 includes/class-mv-hausgeld.php:447
+#: includes/class-mv-admin.php:2769 includes/class-mv-darlehen.php:275 includes/class-mv-hausgeld.php:447
 msgid "Month"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751 includes/class-mv-vpi.php:521
+#: includes/class-mv-admin.php:2769 includes/class-mv-vpi.php:521
 msgid "Base rent"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751
+#: includes/class-mv-admin.php:2769
 msgid "SC advance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751
+#: includes/class-mv-admin.php:2769
 msgid "Heating advance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751 includes/class-mv-mahnung.php:149 includes/class-mv-portal.php:470
+#: includes/class-mv-admin.php:2769 includes/class-mv-mahnung.php:149 includes/class-mv-portal.php:518
 msgid "Due"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751
+#: includes/class-mv-admin.php:2769
 msgid "Actual"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751
+#: includes/class-mv-admin.php:2769
 msgid "Difference"
 msgstr ""
 
-#: includes/class-mv-admin.php:2751
+#: includes/class-mv-admin.php:2769
 msgid "Cumulative balance"
 msgstr ""
 
-#: includes/class-mv-admin.php:2759
+#: includes/class-mv-admin.php:2777
 msgid "No conditions"
 msgstr ""
 
-#: includes/class-mv-admin.php:2761
+#: includes/class-mv-admin.php:2779
 msgid "Partial"
 msgstr ""
 
-#: includes/class-mv-admin.php:2763 includes/class-mv-mahnung.php:149 includes/class-mv-portal.php:470
+#: includes/class-mv-admin.php:2781 includes/class-mv-mahnung.php:149 includes/class-mv-portal.php:518
 msgid "Paid"
 msgstr ""
 
-#: includes/class-mv-admin.php:2767
+#: includes/class-mv-admin.php:2785
 msgid "Book %s as paid"
 msgstr ""
 
-#: includes/class-mv-admin.php:2769
+#: includes/class-mv-admin.php:2787
 msgid "No rent conditions entered"
 msgstr ""
 
@@ -2557,7 +2561,7 @@ msgstr ""
 msgid "Interval"
 msgstr ""
 
-#: includes/class-mv-dauerbelege.php:445 includes/class-mv-portal.php:432
+#: includes/class-mv-dauerbelege.php:445 includes/class-mv-portal.php:480
 msgid "Next due date"
 msgstr ""
 
@@ -2865,7 +2869,7 @@ msgstr ""
 msgid "10 years for tax-relevant records (§ 147 AO), counted from the end of the calendar year."
 msgstr ""
 
-#: includes/class-mv-einstellungen.php:163 includes/class-mv-hilfe.php:222 includes/class-mv-portal.php:351
+#: includes/class-mv-einstellungen.php:163 includes/class-mv-hilfe.php:222 includes/class-mv-portal.php:398
 msgid "Tenant portal"
 msgstr ""
 
@@ -4601,247 +4605,259 @@ msgstr ""
 msgid "The parties confirm the accuracy of the details. Defects not noted are deemed not to have existed at handover insofar as they were discernible on inspection."
 msgstr ""
 
-#: includes/class-mv-portal.php:96 includes/class-mv-portal.php:143 includes/class-mv-portal.php:150
+#: includes/class-mv-portal.php:126 includes/class-mv-portal.php:173 includes/class-mv-portal.php:180
 msgid "No access."
 msgstr ""
 
-#: includes/class-mv-portal.php:123
+#: includes/class-mv-portal.php:153
 msgid "[Mietfux] Meter reading submitted"
 msgstr ""
 
-#: includes/class-mv-portal.php:196
+#: includes/class-mv-portal.php:231
 msgid "[Mietfux] New report: "
 msgstr ""
 
-#: includes/class-mv-portal.php:258
+#: includes/class-mv-portal.php:297
 msgid "Cold water"
 msgstr ""
 
-#: includes/class-mv-portal.php:259
+#: includes/class-mv-portal.php:298
 msgid "Hot water"
 msgstr ""
 
-#: includes/class-mv-portal.php:261
+#: includes/class-mv-portal.php:300
 msgid "Electricity"
 msgstr ""
 
-#: includes/class-mv-portal.php:308
+#: includes/class-mv-portal.php:347
 msgid "No tenancy is assigned to your user account yet. Please contact your landlord."
 msgstr ""
 
-#: includes/class-mv-portal.php:327 includes/class-mv-portal.php:338
+#: includes/class-mv-portal.php:354
+msgid "Landlord preview: this is what %s sees in the tenant portal. Forms are disabled."
+msgstr ""
+
+#: includes/class-mv-portal.php:356
+msgid "Back to Mietfux"
+msgstr ""
+
+#: includes/class-mv-portal.php:374 includes/class-mv-portal.php:385
 msgid "Sign in"
 msgstr ""
 
-#: includes/class-mv-portal.php:328
+#: includes/class-mv-portal.php:375
 msgid "Please log in to see your tenant portal."
 msgstr ""
 
-#: includes/class-mv-portal.php:335
+#: includes/class-mv-portal.php:382
 msgid "Username or e-mail"
 msgstr ""
 
-#: includes/class-mv-portal.php:336
+#: includes/class-mv-portal.php:383
 msgid "Password"
 msgstr ""
 
-#: includes/class-mv-portal.php:337
+#: includes/class-mv-portal.php:384
 msgid "Stay signed in"
 msgstr ""
 
-#: includes/class-mv-portal.php:343
+#: includes/class-mv-portal.php:390
 msgid "Forgotten your password?"
 msgstr ""
 
-#: includes/class-mv-portal.php:354
+#: includes/class-mv-portal.php:401
 msgid "Log out"
 msgstr ""
 
-#: includes/class-mv-portal.php:359
+#: includes/class-mv-portal.php:406
 msgid "Hello %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:360 includes/class-mv-portal.php:425
+#: includes/class-mv-portal.php:407 includes/class-mv-portal.php:473
 msgid "since %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:364
+#: includes/class-mv-portal.php:411
 msgid "Rent account, documents, meter readings and reports – all in one place."
 msgstr ""
 
-#: includes/class-mv-portal.php:373
+#: includes/class-mv-portal.php:420
 msgid "Meter reading saved. Thank you."
 msgstr ""
 
-#: includes/class-mv-portal.php:374
+#: includes/class-mv-portal.php:421
 msgid "The reading is lower than the last one recorded – please check."
 msgstr ""
 
-#: includes/class-mv-portal.php:375
+#: includes/class-mv-portal.php:422
 msgid "Meter reading could not be saved."
 msgstr ""
 
-#: includes/class-mv-portal.php:376
+#: includes/class-mv-portal.php:423
 msgid "Your report has been submitted. Thank you."
 msgstr ""
 
-#: includes/class-mv-portal.php:377
+#: includes/class-mv-portal.php:424
 msgid "The report could not be saved. Please enter a subject."
 msgstr ""
 
-#: includes/class-mv-portal.php:401
+#: includes/class-mv-portal.php:425
+msgid "Preview mode: nothing is saved."
+msgstr ""
+
+#: includes/class-mv-portal.php:449
 msgid "Rent %1$s %2$s"
 msgstr ""
 
-#: includes/class-mv-portal.php:402
+#: includes/class-mv-portal.php:450
 msgid "Open: %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:404
+#: includes/class-mv-portal.php:452
 msgid "Reference “%s”"
 msgstr ""
 
-#: includes/class-mv-portal.php:408
+#: includes/class-mv-portal.php:456
 msgid "Copied"
 msgstr ""
 
-#: includes/class-mv-portal.php:408
+#: includes/class-mv-portal.php:456
 msgid "Copy IBAN"
 msgstr ""
 
-#: includes/class-mv-portal.php:412
+#: includes/class-mv-portal.php:460
 msgid "Everything paid"
 msgstr ""
 
-#: includes/class-mv-portal.php:414
+#: includes/class-mv-portal.php:462
 msgid "Credit: %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:416
+#: includes/class-mv-portal.php:464
 msgid "Your rent account is balanced."
 msgstr ""
 
-#: includes/class-mv-portal.php:423
+#: includes/class-mv-portal.php:471
 msgid "Current rent / month"
 msgstr ""
 
-#: includes/class-mv-portal.php:423
+#: includes/class-mv-portal.php:471
 msgid "%1$s base + %2$s SC + %3$s heating"
 msgstr ""
 
-#: includes/class-mv-portal.php:423
+#: includes/class-mv-portal.php:471
 msgid "No rent conditions recorded"
 msgstr ""
 
-#: includes/class-mv-portal.php:429
+#: includes/class-mv-portal.php:477
 msgid "paid in full"
 msgstr ""
 
-#: includes/class-mv-portal.php:429
+#: includes/class-mv-portal.php:477
 msgid "of %s agreed"
 msgstr ""
 
-#: includes/class-mv-portal.php:432
+#: includes/class-mv-portal.php:480
 msgid "rent %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:432
+#: includes/class-mv-portal.php:480
 msgid "tenancy ended"
 msgstr ""
 
-#: includes/class-mv-portal.php:455
+#: includes/class-mv-portal.php:503
 msgid "Rent account – last 12 months"
 msgstr ""
 
-#: includes/class-mv-portal.php:455
+#: includes/class-mv-portal.php:503
 msgid "show fewer"
 msgstr ""
 
-#: includes/class-mv-portal.php:455
+#: includes/class-mv-portal.php:503
 msgid "show all"
 msgstr ""
 
-#: includes/class-mv-portal.php:457
+#: includes/class-mv-portal.php:505
 msgid "No months recorded yet."
 msgstr ""
 
-#: includes/class-mv-portal.php:477
+#: includes/class-mv-portal.php:525
 msgid "Partly paid"
 msgstr ""
 
-#: includes/class-mv-portal.php:509
+#: includes/class-mv-portal.php:557
 msgid "My reports"
 msgstr ""
 
-#: includes/class-mv-portal.php:509
+#: includes/class-mv-portal.php:557
 msgid "new report"
 msgstr ""
 
-#: includes/class-mv-portal.php:511
+#: includes/class-mv-portal.php:559
 msgid "No reports yet."
 msgstr ""
 
-#: includes/class-mv-portal.php:515
+#: includes/class-mv-portal.php:563
 msgid "reported %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:528
+#: includes/class-mv-portal.php:576
 msgid "Submit meter reading"
 msgstr ""
 
-#: includes/class-mv-portal.php:529 includes/class-mv-portal.php:538
+#: includes/class-mv-portal.php:577 includes/class-mv-portal.php:586
 msgid "Meter"
 msgstr ""
 
-#: includes/class-mv-portal.php:529
+#: includes/class-mv-portal.php:577
 msgid "Last reading"
 msgstr ""
 
-#: includes/class-mv-portal.php:544
+#: includes/class-mv-portal.php:592
 msgid "New reading"
 msgstr ""
 
-#: includes/class-mv-portal.php:546
+#: includes/class-mv-portal.php:594
 msgid "Send meter reading"
 msgstr ""
 
-#: includes/class-mv-portal.php:550
+#: includes/class-mv-portal.php:598
 msgid "Report damage or request"
 msgstr ""
 
-#: includes/class-mv-portal.php:555
+#: includes/class-mv-portal.php:603
 msgid "Details"
 msgstr ""
 
-#: includes/class-mv-portal.php:556
+#: includes/class-mv-portal.php:604
 msgid "Submit report"
 msgstr ""
 
-#: includes/class-mv-portal.php:561
+#: includes/class-mv-portal.php:609
 msgid "The meters are read by the meter reading service or the landlord."
 msgstr ""
 
-#: includes/class-mv-portal.php:572
+#: includes/class-mv-portal.php:620
 msgid "No documents released yet."
 msgstr ""
 
-#: includes/class-mv-portal.php:575
+#: includes/class-mv-portal.php:623
 msgid "Service charge statement %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:576
+#: includes/class-mv-portal.php:624
 msgid "Amount due %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:576
+#: includes/class-mv-portal.php:624
 msgid "Credit %s"
 msgstr ""
 
-#: includes/class-mv-portal.php:608
+#: includes/class-mv-portal.php:656
 msgid "Your landlord"
 msgstr ""
 
-#: includes/class-mv-portal.php:628
+#: includes/class-mv-portal.php:676
 msgid "Privacy policy"
 msgstr ""
 

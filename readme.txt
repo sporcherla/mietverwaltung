@@ -4,7 +4,7 @@ Tags: rental, landlord, property management, tenant, germany
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,9 @@ Data is kept by default. You can enable "Delete all tables and settings" in the 
 10. Activity log
 
 == Changelog ==
+
+= 1.4.1 =
+* Landlord preview of the tenant portal: "Portal preview" button on the overview card and eye icon in the tenancy list opens the portal exactly as that tenant sees it (banner, forms disabled, nothing saved).
 
 = 1.4.0 =
 * New tenant portal layout: own full-page template (switchable in Settings), status banner with amount due and copy-IBAN button, tiles for rent, tenancy, deposit and next due date, 12-month rent account with bars and status pills, collapsible forms for meter readings and reports, released documents, reports with status, landlord contact; mobile-first, dark mode.
