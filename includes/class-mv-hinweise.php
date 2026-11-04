@@ -93,8 +93,12 @@ class Mietv_Hinweise {
 			}
 			$besch = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'mv_darlehen_jahre WHERE darlehen_id = %d AND jahr = %d', $d->id, $vorjahr ) );
 			$raten = class_exists( 'Mietv_Darlehen' ) ? Mietv_Darlehen::jahreswerte( (int) $d->id, $vorjahr ) : null;
-			if ( ! $besch && ! $raten && (int) current_time( 'n' ) >= 2 ) {
-				$h[] = [
+			if ( ! $besch && (int) current_time( 'n' ) >= 2 ) {
+				$h[] = $raten ? [
+					'typ'  => 'info',
+					'text' => sprintf( /* translators: %1$d: Jahr, %2$s: Bank, %3$s: Betrag */ __( 'Interest %1$d for loan %2$s provisionally calculated from the instalments (%3$s) – enter the bank’s interest certificate or take over the calculated figures', 'mietfux' ), $vorjahr, $d->bank, mietv_eur( $raten['zinsen'] ) ),
+					'url'  => Mietv_Admin::zins_uebernahme_url( (int) $d->id, $vorjahr, $raten ),
+				] : [
 					'typ'  => 'info',
 					'text' => sprintf( /* translators: %1$d: Wert, %2$s: Wert */ __( 'Interest certificate %1$d for loan %2$s not yet entered', 'mietfux' ), $vorjahr, $d->bank ),
 					'url'  => admin_url( 'admin.php?page=mietv_darlehen_jahre' ),

@@ -38,6 +38,7 @@ require_once MIETV_PATH . 'includes/class-mv-darlehen.php';
 require_once MIETV_PATH . 'includes/class-mv-hausgeld.php';
 require_once MIETV_PATH . 'includes/class-mv-sicherung.php';
 require_once MIETV_PATH . 'includes/class-mv-zfa.php';
+require_once MIETV_PATH . 'includes/class-mv-einladung.php';
 require_once MIETV_PATH . 'includes/class-mv-dauerbelege.php';
 require_once MIETV_PATH . 'includes/class-mv-protokoll.php';
 require_once MIETV_PATH . 'includes/class-mv-vpi.php';
@@ -87,6 +88,7 @@ add_action(
 		Mietv_Hausgeld::init();
 		Mietv_Sicherung::init();
 		Mietv_Zfa::init();
+		Mietv_Einladung::init();
 		Mietv_Dauerbelege::init();
 		Mietv_Protokoll::init();
 		Mietv_Vpi::init();

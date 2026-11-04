@@ -1987,6 +1987,9 @@ class Mietv_Admin {
 			'haschildren' => [ 'error', esc_html__( 'Cannot delete: dependent records still exist.', 'mietfux' ) ],
 			'gebucht'     => [ 'success', sprintf( /* translators: %d: Anzahl */ __( '%d rent payment(s) booked.', 'mietfux' ), (int) ( $flash['n'] ?? 0 ) ) ],
 		];
+		if ( class_exists( 'Mietv_Einladung' ) ) {
+			$map = array_merge( $map, Mietv_Einladung::flash_texte() );
+		}
 		if ( isset( $map[ $msg ] ) ) {
 			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $map[ $msg ][0] ), esc_html( $map[ $msg ][1] ) );
 		}
@@ -2160,6 +2163,16 @@ class Mietv_Admin {
 					if ( $pv ) {
 						$extra = '<a href="' . esc_url( $pv ) . '" class="mv-icon-btn" target="_blank" rel="noopener" title="' . esc_attr__( 'Portal preview', 'mietfux' ) . '"><span class="dashicons dashicons-visibility"></span><span class="screen-reader-text">' . esc_html__( 'Portal preview', 'mietfux' ) . '</span></a>';
 					}
+					if ( class_exists( 'Mietv_Einladung' ) && ! empty( $r->mieter_id ) ) {
+						$wp_uid = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT wp_user_id FROM ' . $wpdb->prefix . 'mv_mieter WHERE id = %d', (int) $r->mieter_id ) );
+						$extra .= Mietv_Einladung::button(
+							(object) [
+								'mieter_id'  => (int) $r->mieter_id,
+								'wp_user_id' => $wp_uid,
+							],
+							true
+						);
+					}
 				}
 				printf(
 					'<td class="mv-actions"><a href="%1$s" class="mv-icon-btn" title="%2$s"><span class="dashicons dashicons-edit"></span><span class="screen-reader-text">%2$s</span></a>%6$s<a href="%3$s" class="mv-icon-btn mv-delete" title="%4$s" data-confirm="%5$s"><span class="dashicons dashicons-trash"></span><span class="screen-reader-text">%4$s</span></a></td>',
@@ -2201,6 +2214,10 @@ class Mietv_Admin {
 		if ( is_array( $formdata ) ) {
 			delete_transient( 'mietv_formdata_' . get_current_user_id() );
 			$row = (object) array_merge( $row ? (array) $row : [], $formdata );
+		}
+		if ( ! $id && ! $row && isset( $_GET['mv_pre'] ) && is_array( $_GET['mv_pre'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Vorbelegung eines neuen Formulars, keine Datenänderung.
+			$pre = array_intersect_key( map_deep( wp_unslash( $_GET['mv_pre'] ), 'sanitize_text_field' ), $ent['fields'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$row = (object) $pre;
 		}
 
 		printf( '<h1>%s %s</h1>', $id ? esc_html__( 'Edit:', 'mietfux' ) : esc_html__( 'New:', 'mietfux' ), esc_html( $ent['singular'] ) );
@@ -2325,6 +2342,22 @@ class Mietv_Admin {
 			$cursor->modify( '+1 month' );
 		}
 		return $out;
+	}
+
+	/** Link zum Formular „Zinsbescheinigung“, vorbelegt mit berechneten Jahreswerten. */
+	public static function zins_uebernahme_url( int $darlehen_id, int $jahr, array $jw ): string {
+		return add_query_arg(
+			[
+				'mv_pre' => [
+					'darlehen_id' => $darlehen_id,
+					'jahr'        => $jahr,
+					'zinsen'      => number_format( (float) $jw['zinsen'], 2, '.', '' ),
+					'tilgung'     => number_format( (float) $jw['tilgung'], 2, '.', '' ),
+					'restschuld'  => number_format( (float) $jw['restschuld'], 2, '.', '' ),
+				],
+			],
+			self::url( 'darlehen_jahre', [ 'action' => 'new' ] )
+		);
 	}
 
 	/** Link „Portal-Vorschau“ (Vermieter sieht das Mieterportal dieses Mietverhältnisses), '' ohne Portalseite. */
@@ -2754,7 +2787,7 @@ class Mietv_Admin {
 				esc_url( self::url( 'zahlungen', [ 'action' => 'new' ] ) ),
 				$op['saldo'] < -0.005 ? '<a href="' . esc_url( admin_url( 'admin.php?page=mietv_mahnung&mv_id=' . (int) $mv->id ) ) . '" class="button mv-btn-warn">' . esc_html__( 'Dunning', 'mietfux' ) . '</a> ' : '',
 				esc_url( admin_url( 'admin.php?page=mietv_mietvertrag&mv_id=' . (int) $mv->id ) ),
-				wp_kses( self::portal_vorschau_link( (int) $mv->id ), mietv_kses_html_tags() ),
+				wp_kses( self::portal_vorschau_link( (int) $mv->id ) . ( class_exists( 'Mietv_Einladung' ) ? Mietv_Einladung::button( $mv ) : '' ), mietv_kses_html_tags() ),
 				esc_url(
 					self::url(
 						'mietverhaeltnisse',

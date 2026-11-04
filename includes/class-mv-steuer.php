@@ -224,7 +224,7 @@ class Mietv_Steuer {
 				'anzahl'       => 1,
 				'summe'        => (float) $d->zinsen,
 				'umlagefaehig' => 0,
-				'quelle'       => 'Darlehen',
+				'quelle'       => $d->quelle === 'berechnet' ? __( 'Loan (calculated, provisional)', 'mietfux' ) : __( 'Interest certificate', 'mietfux' ),
 			];
 		}
 
@@ -455,9 +455,24 @@ class Mietv_Steuer {
 		$dj = self::darlehen_jahr( $jahr );
 		echo '<h2>' . esc_html__( 'Financing', 'mietfux' ) . '</h2>';
 		if ( $dj ) {
-			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Loans', 'mietfux' ) . '</th><th>' . esc_html__( 'Nominal interest rate', 'mietfux' ) . '</th><th>' . esc_html__( 'Fixed-rate period until', 'mietfux' ) . '</th><th>Zinsen ' . (int) $jahr . ' (Werbungskosten)</th><th>Tilgung</th><th>Restschuld 31.12.</th><th>Bescheinigung</th></tr></thead><tbody>';
+			echo '<table class="wp-list-table widefat fixed striped mv-op"><thead><tr><th>' . esc_html__( 'Loans', 'mietfux' ) . '</th><th>' . esc_html__( 'Nominal interest rate', 'mietfux' ) . '</th><th>' . esc_html__( 'Fixed-rate period until', 'mietfux' ) . '</th><th>Zinsen ' . (int) $jahr . ' (Werbungskosten)</th><th>Tilgung</th><th>Restschuld 31.12.</th><th>' . esc_html__( 'Source', 'mietfux' ) . '</th></tr></thead><tbody>';
 			foreach ( $dj as $d ) {
 				$url = $d->attachment_id ? wp_get_attachment_url( (int) $d->attachment_id ) : '';
+				if ( $d->quelle === 'berechnet' ) {
+					$quelle = '<span class="mv-pill mv-pill-warn">' . esc_html__( 'calculated, provisional', 'mietfux' ) . '</span> <a href="' . esc_url(
+						Mietv_Admin::zins_uebernahme_url(
+							(int) $d->darlehen_id,
+							(int) $jahr,
+							[
+								'zinsen'     => $d->zinsen,
+								'tilgung'    => $d->tilgung,
+								'restschuld' => $d->restschuld,
+							]
+						)
+					) . '">' . esc_html__( 'Take over as certificate', 'mietfux' ) . '</a>';
+				} else {
+					$quelle = '<span class="mv-pill mv-pill-ok">' . esc_html__( 'Interest certificate', 'mietfux' ) . '</span>' . ( $url ? ' <a href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'open', 'mietfux' ) . '</a>' : '' );
+				}
 				printf(
 					'<tr><td>%s</td><td>%s %%</td><td>%s</td><td><strong>%s</strong></td><td>%s</td><td>%s</td><td>%s</td></tr>',
 					esc_html( $d->bank . ( $d->bezeichnung ? ' – ' . $d->bezeichnung : '' ) ),
@@ -466,7 +481,7 @@ class Mietv_Steuer {
 					esc_html( mietv_eur( $d->zinsen ) ),
 					esc_html( mietv_eur( $d->tilgung ) ),
 					esc_html( mietv_eur( $d->restschuld ) ),
-					$url ? '<a href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'open', 'mietfux' ) . '</a>' : '–'
+					wp_kses( $quelle, mietv_kses_html_tags() )
 				);
 			}
 			echo '</tbody></table>';
